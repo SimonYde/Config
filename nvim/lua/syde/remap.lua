@@ -34,7 +34,7 @@ nmap("N", "Nzzzv")
 
 -- paste without loosing yank buffer
 xmap("<leader>p", "\"_dP")
-
+ 
 -- yank to system clipboard
 nmap("<leader>y", "\"+y")
 vmap("<leader>y", "\"+y")
