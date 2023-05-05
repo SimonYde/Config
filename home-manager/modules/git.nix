@@ -16,6 +16,7 @@
       "*.sync-conflict*"
       ".stignore"
       ".stfolder"
+      ".vscode"
     ];
   };
 }

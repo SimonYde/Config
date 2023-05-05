@@ -2,9 +2,12 @@
 
 {    
   nixpkgs = {
-    overlays = [ (self: super: { unstable = import <unstable> {
+    overlays = [ 
+      (self: super: { unstable = import <unstable> {
       config = pkgs.config;
-    }; }) ];
+      }; }) 
+      (self: super: { grawlix = pkgs.callPackage ./packages/grawlix.nix {}; })
+    ];
     config.packageOverrides = pkgs: {
       nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
         inherit pkgs;
@@ -15,10 +18,10 @@
   services.syncthing.enable = true;
 
 
-  home.file = {
+  #home.file = {
     # "${config.xdg.configHome}/audiobook-dl/audiobook-dl.toml".source = ../audiobook-dl/audiobook-dl.toml;
     # "${config.xdg.configHome}/nvim/".source = ../nvim;
-  };
+  #};
 
   imports = [
     # Programming

@@ -7,8 +7,10 @@
       ls = "exa";
       sudo = "doas";
     };
-    shellInit = ''
+    loginShellInit = ''
       any-nix-shell fish --info-right | source
     '';
+    # shellInit = ''
+    # '';
   };
 }

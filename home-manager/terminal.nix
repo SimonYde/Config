@@ -26,6 +26,7 @@
     entr
     any-nix-shell
     nur.repos.jo1gi.audiobook-dl-git
+    # grawlix
   ];
 
   imports = [
