@@ -60,7 +60,7 @@ buildPythonApplication rec {
 
   ];
   patchPhase = ''
-    sed 's/"httpx",//' pyproject.toml > pyproject.toml
+    sed 's/"https",//' pyproject.toml > pyproject.toml
   '';
 
   doCheck = false;
