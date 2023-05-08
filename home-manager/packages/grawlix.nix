@@ -1,17 +1,16 @@
 { pkgs, lib, fetchFromGitHub }:
 
-with import <nixpkgs> {};
 with pkgs.python3Packages;
 
 buildPythonApplication rec {
   pname = "grawlix";
-  version = "7d63f17";
+  version = "4c32ac8";
 
   src = fetchFromGitHub {
     owner = "jo1gi";
     repo = pname;
     rev = version;
-    sha256 = "sha256-Vw7+tZo6zn2qEQih2FhgVHwL2fkt49jZgj9OWn1zRpo=";
+    sha256 = "sha256-qO5ZadgfasB77w38yHRHeNe5WIMUkxk+wdaPLWPzzCw=";
   };
 
   propagatedBuildInputs = with pkgs; [
@@ -22,26 +21,11 @@ buildPythonApplication rec {
     pycryptodome
     rich
     tomli
-
-    # Test
-    pytest
-    mypy
-    types-requests
-    types-setuptools
-
-    # Build
-    build
-    setuptools
-    twine
+    httpx
     
-    (python3Packages.buildPythonPackage rec {
-      pname = "httpx";
-      version = "0.24.0";
-      src = python3Packages.fetchPypi {
-        inherit pname version;
-        sha256 = "sha256-UH1nb8PiYRDUHffTXr2LO4WFBSRQ9Al0Acm+Wdkoxj4=";
-      };
-    })
+    # Build
+    setuptools
+    
     (python3Packages.buildPythonPackage rec {
       pname = "EbookLib";
       version = "0.18";
@@ -73,7 +57,11 @@ buildPythonApplication rec {
 
       doCheck = false;
     })
+
   ];
+  patchPhase = ''
+    sed 's/"https",//' pyproject.toml > pyproject.toml
+  '';
 
   doCheck = false;
 

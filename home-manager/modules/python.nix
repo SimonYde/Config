@@ -15,7 +15,7 @@
       pylsp-mypy
       autopep8
       # Stuff from venv for obsidian
-      contourpy
+      # contourpy
       cycler        
       fonttools       
       kiwisolver      

@@ -3,10 +3,13 @@
 {    
   nixpkgs = {
     overlays = [ 
-      (self: super: { unstable = import <unstable> {
-      config = pkgs.config;
-      }; }) 
-      (self: super: { grawlix = pkgs.callPackage ./packages/grawlix.nix {}; })
+      (self: super: { 
+        unstable = import <unstable> {
+          config = pkgs.config;
+        };
+        grawlix = pkgs.callPackage ./packages/grawlix.nix {};
+        
+      }) 
     ];
     config.packageOverrides = pkgs: {
       nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {

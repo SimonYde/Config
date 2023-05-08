@@ -3,6 +3,7 @@
 {
   config = {
     programs.neovim = {
+      package = pkgs.unstable.neovim-unwrapped;
       vimAlias = true;
       extraConfig = ''
         set runtimepath^=${config.home.homeDirectory}/.config/nvim
@@ -32,7 +33,6 @@
         lualine-nvim
         indent-blankline-nvim
         vim-nix
-        gruvbox-nvim
         (pkgs.vimUtils.buildVimPlugin {
           name = "monokai-pro.nvim";
           src = pkgs.fetchFromGitHub {
