@@ -16,12 +16,13 @@
   };
 
   home.sessionVariables = {
-    EDITOR = "hx";
+    EDITOR = "vim";
   };
 
   home.packages = with pkgs; [
     # CLI Tools
     speedtest-cli
+    rclone 
     ripgrep
     entr
     any-nix-shell
@@ -30,6 +31,7 @@
   ];
 
   imports = [
+    ./modules/alacritty.nix
     ./modules/starship.nix
     ./modules/zellij.nix
     ./modules/zoxide.nix

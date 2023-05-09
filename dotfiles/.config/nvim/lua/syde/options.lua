@@ -25,7 +25,8 @@ else
       "toggleterm",
       "telescope",
       "which-key",
-      "renamer"
+      "renamer",
+      "neo-tree"
     },-- "float_win", "toggleterm", "telescope", "which-key", "renamer", "neo-tree"
     plugins = {
       bufferline = {

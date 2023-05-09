@@ -10,6 +10,7 @@
         lua require('syde')
       '';
       plugins = with pkgs.vimPlugins; [
+        
         # LSP
         nvim-lspconfig
         nvim-cmp
@@ -26,10 +27,10 @@
         vim-fugitive
 
         # Fuzzy Finder
-        telescope-nvim
-        plenary-nvim
-        (nvim-treesitter.withPlugins(_: pkgs.tree-sitter.allGrammars))        
-        nvim-treesitter-textobjects
+        pkgs.unstable.vimPlugins.telescope-nvim
+        pkgs.unstable.vimPlugins.plenary-nvim
+        (pkgs.unstable.vimPlugins.nvim-treesitter.withPlugins(_: pkgs.tree-sitter.allGrammars))        
+        pkgs.unstable.vimPlugins.nvim-treesitter-textobjects
         lualine-nvim
         indent-blankline-nvim
         vim-nix
