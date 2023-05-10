@@ -4,16 +4,16 @@ with pkgs.python3Packages;
 
 buildPythonApplication rec {
   pname = "grawlix";
-  version = "4c32ac8";
+  version = "84dce7c";
 
   src = fetchFromGitHub {
     owner = "jo1gi";
     repo = pname;
     rev = version;
-    sha256 = "sha256-qO5ZadgfasB77w38yHRHeNe5WIMUkxk+wdaPLWPzzCw=";
+    sha256 = "sha256-PMdaIzWsydJVOySuOvjucrqppTJRo/2CMS0JT4GfoKY=";
   };
 
-  propagatedBuildInputs = with pkgs; [
+  propagatedBuildInputs = [
     appdirs
     beautifulsoup4
     importlib-resources
@@ -22,32 +22,33 @@ buildPythonApplication rec {
     rich
     tomli
     httpx
-    
+
     # Build
     setuptools
-    
-    (python3Packages.buildPythonPackage rec {
+
+    (buildPythonPackage rec {
       pname = "EbookLib";
       version = "0.18";
-      src = python3Packages.fetchPypi {
+      src = fetchPypi {
         inherit pname version;
         sha256 = "sha256-OFYmQ6e8lNm/VumTC0kn5Ok7XR0JF/aXpkVNtaHBpTM=";
       };
-      propagatedBuildInputs = with python3Packages; [
+      propagatedBuildInputs = [
         six
         lxml
       ];
     })
-    (python3Packages.buildPythonPackage rec {
+
+    (buildPythonPackage rec {
       pname = "blackboxprotobuf";
       version = "1.0.1";
 
-      src = pkgs.python3Packages.fetchPypi {
+      src = fetchPypi {
         inherit pname version;
         sha256 = "sha256-IztxTmwkzp0cILhxRioiCvkXfk/sAcG3l6xauGoeHOo=";
       };
 
-      propagatedBuildInputs = with python3Packages; [
+      propagatedBuildInputs = [
         protobuf
       ];
 
@@ -59,10 +60,6 @@ buildPythonApplication rec {
     })
 
   ];
-  patchPhase = ''
-    sed 's/"httpx",//' pyproject.toml > pyproject.toml
-  '';
-
   doCheck = false;
 
   meta = with lib; {
