@@ -1,5 +1,5 @@
 { config, pkgs, ...}:
-
+let unstablePlugins = pkgs.unstable.vimPlugins; in
 {
   config = {
     programs.neovim = {
@@ -21,17 +21,17 @@
         cmp-nvim-lua
         nvim-snippy
 
-        pkgs.unstable.vimPlugins.vim-be-good
+        unstablePlugins.vim-be-good
         harpoon        
         lexima-vim
         undotree
         vim-fugitive
 
         # Fuzzy Finder
-        pkgs.unstable.vimPlugins.telescope-nvim
-        pkgs.unstable.vimPlugins.plenary-nvim
-        (pkgs.unstable.vimPlugins.nvim-treesitter.withPlugins(_: pkgs.tree-sitter.allGrammars))        
-        pkgs.unstable.vimPlugins.nvim-treesitter-textobjects
+        unstablePlugins.telescope-nvim
+        unstablePlugins.plenary-nvim
+        (unstablePlugins.nvim-treesitter.withPlugins(_: pkgs.tree-sitter.allGrammars))        
+        unstablePlugins.nvim-treesitter-textobjects
         lualine-nvim
         indent-blankline-nvim
         vim-nix

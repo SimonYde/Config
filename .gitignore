@@ -1,5 +1,5 @@
 home.nix
 .stignore
 .stfolder
-nvim/init.lua
-nvim/undodir
+dotfiles/.config/nvim/init.lua
+dotfiles/.config/nvim/undodir
