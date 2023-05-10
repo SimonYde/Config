@@ -24,6 +24,11 @@ local function xmap(keys, cmd)
   map("x", keys, cmd)
 end
 
+nmap("gh","_")
+vmap("gh","_")
+nmap("gl","$")
+vmap("gl","$")
+
 nmap("<leader>pv", "<cmd>Ex<CR>")
 
 nmap("J","mzJ`z")

@@ -30,11 +30,11 @@ let unstablePlugins = pkgs.unstable.vimPlugins; in
         # Fuzzy Finder
         unstablePlugins.telescope-nvim
         unstablePlugins.plenary-nvim
-        (unstablePlugins.nvim-treesitter.withPlugins(_: pkgs.tree-sitter.allGrammars))        
+        (unstablePlugins.nvim-treesitter.withPlugins(_: pkgs.unstable.tree-sitter.allGrammars)) 
         unstablePlugins.nvim-treesitter-textobjects
         lualine-nvim
         indent-blankline-nvim
-        vim-nix
+        #vim-nix
         (pkgs.vimUtils.buildVimPlugin {
           name = "monokai-pro.nvim";
           src = pkgs.fetchFromGitHub {
