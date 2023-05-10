@@ -21,6 +21,7 @@
         cmp-nvim-lua
         nvim-snippy
 
+        pkgs.unstable.vimPlugins.vim-be-good
         harpoon        
         lexima-vim
         undotree
