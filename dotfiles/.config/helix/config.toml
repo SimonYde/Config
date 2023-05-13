@@ -1,0 +1,24 @@
+theme = "monokai_pro_spectrum"
+
+[editor]
+true-color = true
+bufferline = "multiple"
+color-modes = true
+line-number = "relative"
+scrolloff = 8
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+character = "▏"
+render = true
+
+[editor.lsp]
+display-messages = true
+
+
+[keys.normal]
+X = "extend_line_above"

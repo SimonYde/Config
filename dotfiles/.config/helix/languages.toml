@@ -1,0 +1,26 @@
+[[language]]
+auto-format = true
+name = "rust"
+
+[language.config.checkOnSave]
+command = "clippy"
+
+[[language]]
+name = "latex"
+
+[language.config.texlab]
+[language.config.texlab.build]
+args = ["%f", "--synctex"]
+executable = "tectonic"
+forwardSearchAfter = true
+onSave = true
+
+[language.config.texlab.chktex]
+onEdit = true
+
+[language.config.texlab.forwardSearch]
+executable = "zathura"
+
+[language.soft-wrap]
+enable = true
+

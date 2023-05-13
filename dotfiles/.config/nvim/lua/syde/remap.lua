@@ -59,7 +59,7 @@ nmap("<leader>j", "<cmd>lprev<CR>zz")
 nmap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-map("t", "<Esc>","<C-\\><C-n>")
+map("t", "<leader><Esc>","<C-\\><C-n>")
 
 -- telescope
 local builtin = require('telescope.builtin')
