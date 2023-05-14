@@ -19,6 +19,23 @@ render = true
 [editor.lsp]
 display-messages = true
 
+[editor.statusline]
+left = [ 
+  "mode",
+  "spinner",
+  "spacer",
+  "version-control",
+  "spacer",
+  "file-name",
+  "file-modification-indicator"
+  ]
+center = []
+right = ["diagnostics", "selections", "position-percentage","position"]
+
 
 [keys.normal]
 X = "extend_line_above"
+A-r = ":reflow"
+# C-u = ["half_page_up",   "align_view_center"]
+C-d = ["half_page_down", "align_view_center"]
+

@@ -16,7 +16,7 @@
   };
 
   home.sessionVariables = {
-    EDITOR = "vim";
+    EDITOR = "hx";
   };
 
   home.packages = with pkgs; [
@@ -38,5 +38,6 @@
     ./modules/zsh.nix
     ./modules/git.nix
     ./modules/fish.nix
+    ./modules/nushell.nix
   ];
 }

@@ -38,18 +38,18 @@ nmap("n", "nzzzv")
 nmap("N", "Nzzzv")
 
 -- paste without loosing yank buffer
-xmap("<leader>p", "\"_dP")
+xmap("<leader>p", [["_dP]])
  
 -- yank to system clipboard
-nmap("<leader>y", "\"+y")
-vmap("<leader>y", "\"+y")
-nmap("<leader>Y", "\"+Y")
+nmap("<leader>y", [["+y]])
+vmap("<leader>y", [["+y]])
+nmap("<leader>Y", [["+Y]])
 
 
-nmap("<leader>d", "\"_d") 
-vmap("<leader>d", "\"_d") 
+nmap("<leader>d", [["_d]]) 
+vmap("<leader>d", [["_d]]) 
 
-nmap("<leader>f", function() vim.lsp.buf.format() end)
+nmap("<leader>f",vim.lsp.buf.format)
 
 nmap("<C-k>", "<cmd>cnext<CR>zz")
 nmap("<C-j>", "<cmd>cprev<CR>zz")
@@ -68,9 +68,9 @@ nmap("<leader>fg", builtin.live_grep)
 nmap("<leader>fb", builtin.buffers)
 nmap("<leader>fh", builtin.help_tags)
 nmap("<C-p>", builtin.git_files)
-nmap("<leader>ps", function()
-  builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end)
+--nmap("<leader>ps", function()
+--  builtin.grep_string({ search = vim.fn.input("Grep > ") })
+--end)
 
 -- undotree
 nmap("<leader>u", vim.cmd.UndotreeToggle)

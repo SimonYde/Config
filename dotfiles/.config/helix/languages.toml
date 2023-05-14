@@ -10,17 +10,27 @@ name = "latex"
 
 [language.config.texlab]
 [language.config.texlab.build]
-args = ["%f", "--synctex"]
-executable = "tectonic"
 forwardSearchAfter = true
 onSave = true
+
+executable = "tectonic"
+args = [
+  "-X",
+  "compile",
+  "%f", 
+  "--synctex",
+  "--keep-logs",
+  "--keep-intermediates"
+  ]
 
 [language.config.texlab.chktex]
 onEdit = true
 
 [language.config.texlab.forwardSearch]
 executable = "zathura"
+# args = [ "--synctex-forward", "%l:%c:%f", "%p" ]
 
 [language.soft-wrap]
 enable = true
+wrap-at-text-width = true
 
