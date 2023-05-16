@@ -15,6 +15,11 @@ require("monokai-pro").setup({
     annotation = { italic = true },
     tag_attribute = { italic = true }, -- attribute of tag in reactjs
   },
+  day_night = {
+    enable = false, -- turn off by default
+    day_filter = "pro", -- classic | octagon | pro | machine | ristretto | spectrum
+    night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
+  },
   filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
   -- Enable this will disable filter option
   inc_search = "background", -- underline | background
@@ -40,7 +45,8 @@ require("monokai-pro").setup({
   override = function(c) end,
 })
 vim.cmd([[colorscheme monokai-pro]])
-vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50,n-v:blinkwait700-blinkoff400-blinkon250]])
+-- vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50,n-v:blinkwait700-blinkoff400-blinkon250]])
+vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
 --        \,a:blinkwait700-blinkoff400-blink250-Cursor/lCursor
 --        \,sm:block-blinkwait175-blinkoff150-blinkon175]])
 local opt = vim.opt

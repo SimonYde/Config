@@ -22,7 +22,6 @@
   home.packages = with pkgs; [
     # CLI Tools
     speedtest-cli
-    rclone 
     ripgrep
     entr
     any-nix-shell

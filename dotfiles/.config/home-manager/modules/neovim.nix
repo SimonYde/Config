@@ -1,5 +1,7 @@
 { config, pkgs, ...}:
-let unstablePlugins = pkgs.unstable.vimPlugins; in
+let 
+  unstablePlugins = pkgs.unstable.vimPlugins; 
+in
 {
   config = {
     programs.neovim = {
@@ -10,7 +12,7 @@ let unstablePlugins = pkgs.unstable.vimPlugins; in
         lua require('syde')
       '';
       plugins = with pkgs.vimPlugins; [
-        
+        vim-commentary
         # LSP
         nvim-lspconfig
         nvim-cmp
@@ -19,24 +21,35 @@ let unstablePlugins = pkgs.unstable.vimPlugins; in
         cmp-path
         cmp-snippy
         cmp-nvim-lua
+        lspsaga-nvim
         nvim-snippy
-        vim-gitgutter
-        unstablePlugins.vim-be-good
+
+
         harpoon        
         lexima-vim
         undotree
         vim-fugitive
+        gitsigns-nvim
+
         which-key-nvim
+        unstablePlugins.vim-be-good
 
         # Fuzzy Finder
         unstablePlugins.telescope-nvim
         unstablePlugins.plenary-nvim
-        (unstablePlugins.nvim-treesitter.withPlugins(_: unstablePlugins.nvim-treesitter.allGrammars))
+
+        # Language plugins
+        # (unstablePlugins.nvim-treesitter.withPlugins(_: unstablePlugins.nvim-treesitter.allGrammars))
+        unstablePlugins.nvim-treesitter.withAllGrammars
         unstablePlugins.nvim-treesitter-textobjects
+        vim-nix
+
+        # UI
         lualine-nvim
         indent-blankline-nvim
-        vim-nix
-        unstablePlugins.neo-tree-nvim
+        nvim-web-devicons
+        neo-tree-nvim
+        nui-nvim
         (pkgs.vimUtils.buildVimPlugin {
           name = "monokai-pro.nvim";
           src = pkgs.fetchFromGitHub {

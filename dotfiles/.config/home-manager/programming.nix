@@ -13,6 +13,7 @@
     texlab
     tectonic
     pandoc
+    ltex-ls
                 
     metals
     nil

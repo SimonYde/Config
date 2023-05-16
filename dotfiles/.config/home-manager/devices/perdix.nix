@@ -16,6 +16,7 @@
     wine
     discord
     texlive.combined.scheme-full
+    rclone
   ];
 
   services.redshift = {
