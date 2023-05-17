@@ -26,7 +26,7 @@ in
 
 
         harpoon        
-        lexima-vim
+        nvim-autopairs
         undotree
         vim-fugitive
         gitsigns-nvim

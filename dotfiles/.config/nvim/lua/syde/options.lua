@@ -67,7 +67,7 @@ opt.wrap = true
 opt.swapfile = false
 opt.backup = false
 
-opt.undodir = os.getenv("HOME") .. "/.config/nvim/undodir"
+opt.undodir = os.getenv("HOME") .. "/.undodir"
 opt.undofile = true
 
 opt.hlsearch = false

@@ -9,9 +9,9 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- Language setup
 servers = {"texlab", "pylsp", "nil_ls", "rust_analyzer", "metals", "ltex"}
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-        capabilities = capabilities,
-    }
+  nvim_lsp[lsp].setup {
+    capabilities = capabilities,
+  }
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -23,3 +23,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 
 local lspsaga = require('lspsaga')
+
+
+nvim_lsp.ltex.setup{
+  settings = {
+    ltex = {
+      language = "da-DK",
+    },
+  }
+}
+
+nvim_lsp.texlab.setup{
+  settings = {
+    texlab = {
+      build = {
+        executable = 'tectonic',
+        args = {
+          "-X",
+          "compile",
+          "%f",
+          "--synctex",
+          "--keep-logs",
+          "--keep-intermediates",
+        },
+        onSave = true,
+        forwardSearchAfter = true,
+      },
+    },
+  }
+}
