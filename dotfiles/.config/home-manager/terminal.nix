@@ -13,6 +13,8 @@
     exa.enable = true;
     git.enable = true;
     bat.enable = true;
+    lf.enable = true;
+    lazygit.enable = true;
   };
 
   home.sessionVariables = {

@@ -8,6 +8,10 @@ command = "clippy"
 [[language]]
 name = "latex"
 
+[language.soft-wrap]
+enable = true
+wrap-at-text-width = true
+
 [language.config.texlab]
 [language.config.texlab.build]
 forwardSearchAfter = true
@@ -29,8 +33,4 @@ onEdit = true
 [language.config.texlab.forwardSearch]
 executable = "zathura"
 # args = [ "--synctex-forward", "%l:%c:%f", "%p" ]
-
-[language.soft-wrap]
-enable = true
-wrap-at-text-width = true
 

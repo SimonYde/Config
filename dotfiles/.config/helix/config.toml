@@ -2,7 +2,7 @@ theme = "monokai_pro_spectrum"
 
 [editor]
 true-color = true
-bufferline = "multiple"
+bufferline = "always"
 color-modes = true
 line-number = "relative"
 scrolloff = 8

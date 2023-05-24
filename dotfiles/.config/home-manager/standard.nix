@@ -8,7 +8,6 @@
           config = pkgs.config;
         };
         grawlix = pkgs.callPackage ./packages/grawlix.nix {};
-        
       }) 
     ];
     config.packageOverrides = pkgs: {

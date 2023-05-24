@@ -27,10 +27,9 @@ local function tmap(keys, cmd, desc)
   map("t", keys, cmd, desc)
 end
 
-nmap("gh","^", "Goto beginning of line")
-vmap("gh","^", "Goto beginning of line")
-nmap("gl","$","Goto end of line")
-vmap("gl","$","Goto end of line")
+map({"n","v"}, "gs","^", "Goto first non-blank in line")
+map({"n","v"}, "gh","0", "Goto line start")
+map({"n","v"}, "gl","$", "Goto line end")
 nmap("U","<C-r>", "redo")
 
 nmap("<leader>pv", "<cmd>Ex<CR>", "Open NetRW")
@@ -43,19 +42,20 @@ nmap("<C-u>", "<C-u>zz", "Move up half page")
 nmap("n", "nzzzv", "Move to next search match")
 nmap("N", "Nzzzv", "Move to previous search match")
 
- 
+nmap("<A-r>","gwip")
+
+
 -- yank to system clipboard
-nmap("<leader>y", [["+y]],"yank to system clipboard")
-vmap("<leader>y", [["+y]],"yank to system clipboard")
+map({"n","v"}, "<leader>y", [["+y]], "yank to system clipboard")
 nmap("<leader>Y", [["+Y]],"yank to system clipboard")
 
 
 xmap("<leader>p", [["_dP]], "Paste without yanking")
-nmap("<leader>d", [["_d]], "Delete without yanking") 
-vmap("<leader>d", [["_d]], "Delete without yanking") 
+nmap("<leader>d", [["_d]], "Delete without yanking")
+vmap("<leader>d", [["_d]], "Delete without yanking")
 
 -- LSP commands
-nmap("<leader>f",vim.lsp.buf.format, "Format with LSP")
+nmap("<leader>f", vim.lsp.buf.format, "Format with LSP")
 
 local whichkey = require('which-key')
 whichkey.setup{}
@@ -63,26 +63,29 @@ whichkey.setup{}
 local telescope = require('telescope.builtin')
 whichkey.register(
   {
-  ["<leader>"] = {
-    f = {
-      name = "Find (telescope)",
-      f = { function() telescope.find_files() end, "Fuzzy finder" },
-      s = { function() telescope.live_grep() end, "Search with grep"},
-      b = { function() telescope.buffers() end, "Buffers" },
-      h = { function() telescope.help_tags() end, "Help tags" },
-      g = { function() telescope.git_files() end, "Git files"}
+    ["<leader>"] = {
+      f = {
+        name = "Find (telescope)",
+        f = { function() telescope.find_files() end, "Fuzzy finder" },
+        s = { function() telescope.live_grep() end, "Search with grep"},
+        b = { function() telescope.buffers() end, "Buffers" },
+        h = { function() telescope.help_tags() end, "Help tags" },
+        g = { function() telescope.git_files() end, "Git files"}
+      },
+      u = { function() vim.cmd.UndotreeToggle() end, "Undotree" },
+      k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
+      -- a = { function() telescop end, "code actions"}
+      a = { "<cmd>Lspsaga code_action<cr>", "code actions"},
     },
-    u = { function() vim.cmd.UndotreeToggle() end, "Undotree" },
-    k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
-    a = { "<cmd>Lspsaga code_action<cr>", "code actions"},
-  },
-  ["g"] = { 
-    d = { function() vim.lsp.buf.definition() end, "Goto Definition" },
-    D = { function() vim.lsp.buf.declaration() end, "Goto Declaration"},
-    r = { function() vim.lsp.buf.references() end, "Goto References"},
-    i = { function() vim.lsp.buf.implementation() end, "Goto Implementation"},
-  },
-})
+    ["g"] = { 
+      d = { function() vim.lsp.buf.definition() end, "Goto Definition" },
+      D = { function() vim.lsp.buf.declaration() end, "Goto Declaration"},
+      r = { function() vim.lsp.buf.references() end, "Goto References"},
+      i = { function() vim.lsp.buf.implementation() end, "Goto Implementation"},
+    },
+  })
+local presets = require("which-key.plugins.presets")
+presets.operators["v"] = nil
 
 -- nmap("<C-k>", "<cmd>cnext<CR>zz")
 -- nmap("<C-j>", "<cmd>cprev<CR>zz")
