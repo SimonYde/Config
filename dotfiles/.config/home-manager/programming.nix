@@ -2,7 +2,7 @@
 {
   programs = {
     # Editors
-    helix.enable = true;
+    helix.enable = false;
     neovim.enable = true;
     
   };
@@ -20,11 +20,11 @@
     # nixfmt
 
     # Rust
-    cargo
-    rustc
-    rust-analyzer
-    rustfmt
-    clippy
+    unstable.cargo
+    unstable.rustc
+    unstable.rust-analyzer
+    unstable.rustfmt
+    unstable.clippy
   ];
 
   imports = [

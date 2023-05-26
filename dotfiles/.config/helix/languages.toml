@@ -2,18 +2,20 @@
 auto-format = true
 name = "rust"
 
-[language.config.checkOnSave]
+[language-server.rust-analyzer.checkOnSave]
 command = "clippy"
 
 [[language]]
 name = "latex"
+language-servers = ["texlab", "ltex" ]
+# language-servers = ["texlab"]
 
 [language.soft-wrap]
 enable = true
 wrap-at-text-width = true
 
-[language.config.texlab]
-[language.config.texlab.build]
+
+[language-server.texlab.build]
 forwardSearchAfter = true
 onSave = true
 
@@ -27,10 +29,13 @@ args = [
   "--keep-intermediates"
   ]
 
-[language.config.texlab.chktex]
+[language-server.texlab.chktex]
 onEdit = true
 
-[language.config.texlab.forwardSearch]
+[language-server.texlab.forwardSearch]
 executable = "zathura"
 # args = [ "--synctex-forward", "%l:%c:%f", "%p" ]
 
+[language-server.ltex]
+command = "ltex-ls"
+config = { ltex = {language = "da-DK" }}

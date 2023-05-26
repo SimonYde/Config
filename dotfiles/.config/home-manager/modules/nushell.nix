@@ -2,6 +2,6 @@
 
 {
   programs.nushell = {
-    package = pkgs.unstable.nushell;
+    package = pkgs.nushell;
   };
 }

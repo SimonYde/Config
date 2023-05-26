@@ -3,7 +3,7 @@
 {
   programs = {
     # Shells
-    zsh.enable = false;
+    zsh.enable = true;
     nushell.enable = true;
     fish.enable = true;
 
@@ -14,6 +14,7 @@
     git.enable = true;
     bat.enable = true;
     lf.enable = true;
+    fzf.enable = true;
     lazygit.enable = true;
   };
 
@@ -40,5 +41,7 @@
     ./modules/git.nix
     ./modules/fish.nix
     ./modules/nushell.nix
+    ./modules/fzf.nix
+    ./modules/exa.nix
   ];
 }
