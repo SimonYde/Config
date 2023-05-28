@@ -3,7 +3,9 @@
 {
   programs.starship = {
     enableNushellIntegration = true;
-    enableFishIntegration = true;
+    enableFishIntegration    = true;
+    enableZshIntegration     = true;
+    enableBashIntegration    = true;
     settings = {
       add_newline = false;
       format = "$directory$nix_shell$git_branch〉";

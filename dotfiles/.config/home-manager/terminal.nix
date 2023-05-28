@@ -3,19 +3,19 @@
 {
   programs = {
     # Shells
-    zsh.enable = true;
-    nushell.enable = true;
-    fish.enable = true;
+    zsh.enable      = true;
+    nushell.enable  = true;
+    fish.enable     = true;
 
     # CLI tools
     starship.enable = true;
-    zoxide.enable = true;
-    exa.enable = true;
-    git.enable = true;
-    bat.enable = true;
-    lf.enable = true;
-    fzf.enable = true;
-    lazygit.enable = true;
+    zoxide.enable   = true;
+    exa.enable      = true;
+    git.enable      = true;
+    bat.enable      = true;
+    lf.enable       = true;
+    skim.enable     = true;
+    lazygit.enable  = true;
   };
 
   home.sessionVariables = {

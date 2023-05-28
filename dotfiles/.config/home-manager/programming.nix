@@ -2,19 +2,20 @@
 {
   programs = {
     # Editors
-    helix.enable = false;
+    helix.enable  = true;
     neovim.enable = true;
     
   };
 
   home.packages = with pkgs; [    
+    # Latex
     zathura
-    # LSPs
     texlab
     tectonic
     pandoc
     ltex-ls
                 
+    # Other LSPs
     metals
     nil
     # nixfmt

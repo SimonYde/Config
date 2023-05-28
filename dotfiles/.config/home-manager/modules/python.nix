@@ -2,7 +2,7 @@
 
 {
   config.home.packages = with pkgs; [
-    (python3.withPackages(ps: with ps; [
+    (python311.withPackages(ps: with ps; [
       ipykernel
       pip
       numpy

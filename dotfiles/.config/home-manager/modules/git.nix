@@ -6,7 +6,7 @@
     userEmail = "git@simonyde.com";
     extraConfig = {
       init = {
-        defaultBranch = "master";
+        defaultBranch = "main";
       };
       pull = {
         rebase = false;
@@ -17,6 +17,8 @@
       ".stignore"
       ".stfolder"
       ".vscode"
+      "**/target"
+      "**/node_modules"
     ];
   };
 }
