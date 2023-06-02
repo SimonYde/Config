@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  programs.alacritty = {
-  }; 
+  config = {
+    programs.alacritty = {
+      settings = {
+        
+      };
+    };
+  };
 }

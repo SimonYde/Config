@@ -8,7 +8,10 @@
     zellij.enable = true;
   };
 
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
+    nerdfonts
     unstable.obsidian
     nix
     synergy
@@ -22,11 +25,11 @@
   services.redshift = {
     enable = true;
     temperature = {
-      day = 5500;
-      night = 1800;
+      day = 6500;
+      night = 1600;
     };
-    provider = "manual";
-    latitude = 56.8;
+    provider  = "manual";
+    latitude  = 56.8;
     longitude = 9.0;
   };
   imports = [

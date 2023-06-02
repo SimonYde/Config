@@ -121,6 +121,7 @@ bindsym $mod+Escape exec "i3lock -e -c 000000"
 bindsym XF86MonBrightnessUp exec light -A 8
 bindsym XF86MonBrightnessDown exec light -U 8
 exec "xset dpms 180"
+exec "setxkbmap eu"
 
 exec redshift
 

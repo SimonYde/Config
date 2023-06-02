@@ -195,11 +195,20 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
-#colors:
+colors:
   # Default colors
-  #primary:
-  #  background: '#1d1f21'
-  #  foreground: '#c5c8c6'
+  primary:
+    background: '0x222222'
+    foreground: '0xfff1f3'
+
+  normal:
+    black:   '0x131313'
+    red:     '0xfc618d'
+    yellow:  '0xfce566'
+    green:   '0x7bd88f'
+    blue:    '0x5ad4e6'
+    magenta: '0x948ae3'
+    white:   '0xf7f1ff'
 
     # Bright and dim foreground colors
     #

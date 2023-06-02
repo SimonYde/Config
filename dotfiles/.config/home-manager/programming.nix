@@ -4,7 +4,6 @@
     # Editors
     helix.enable  = true;
     neovim.enable = true;
-    
   };
 
   home.packages = with pkgs; [    
@@ -15,6 +14,7 @@
     pandoc
     ltex-ls
                 
+    lldb
     # Other LSPs
     metals
     nil

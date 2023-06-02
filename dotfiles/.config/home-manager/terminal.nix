@@ -1,22 +1,26 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   programs = {
     # Shells
-    zsh.enable      = true;
-    nushell.enable  = true;
-    fish.enable     = true;
+    fish.enable    = true;
+    nushell.enable = false;
+    zsh.enable     = false;
 
     # CLI tools
-    starship.enable = true;
-    zoxide.enable   = true;
+    bat.enable      = true;
     exa.enable      = true;
     git.enable      = true;
-    bat.enable      = true;
+    lazygit.enable  = true;
     lf.enable       = true;
     skim.enable     = true;
-    lazygit.enable  = true;
+    starship.enable = true;
+    zoxide.enable   = true;
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   home.sessionVariables = {
     EDITOR = "hx";
@@ -24,24 +28,24 @@
 
   home.packages = with pkgs; [
     # CLI Tools
-    speedtest-cli
-    ripgrep
-    entr
     any-nix-shell
-    nur.repos.jo1gi.audiobook-dl-git
+    entr
     grawlix
+    nur.repos.jo1gi.audiobook-dl-git
+    ripgrep
+    speedtest-cli
   ];
 
   imports = [
     ./modules/alacritty.nix
+    ./modules/exa.nix
+    ./modules/fish.nix
+    ./modules/git.nix
+    ./modules/nushell.nix
+    ./modules/skim.nix
     ./modules/starship.nix
     ./modules/zellij.nix
     ./modules/zoxide.nix
     ./modules/zsh.nix
-    ./modules/git.nix
-    ./modules/fish.nix
-    ./modules/nushell.nix
-    ./modules/fzf.nix
-    ./modules/exa.nix
   ];
 }

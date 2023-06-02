@@ -15,6 +15,7 @@
       }
       {
         name = "zsh-completions";
+        file = "zsh-completions.plugin.zsh";
         src = pkgs.zsh-completions;
       }
     ];
