@@ -15,13 +15,13 @@ in
         vim-commentary
         # LSP
         nvim-lspconfig
+        lspsaga-nvim
         nvim-cmp
         cmp-nvim-lsp
         # cmp-buffer
         cmp-path
         cmp-snippy
         cmp-nvim-lua
-        lspsaga-nvim
         nvim-snippy
 
         unstablePlugins.ltex_extra-nvim

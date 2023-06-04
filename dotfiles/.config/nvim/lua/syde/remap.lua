@@ -7,32 +7,18 @@ local function map(mode, keys, cmd, desc)
 	vim.keymap.set(mode, keys, cmd, {desc = desc})
 end
 
-local function nmap(keys, cmd, desc)
-  map("n", keys, cmd, desc)
-end
+local function nmap(keys, cmd, desc) map("n", keys, cmd, desc) end
+local function imap(keys, cmd, desc) map("i", keys, cmd, desc) end
+local function vmap(keys, cmd, desc) map("v", keys, cmd, desc) end
+local function xmap(keys, cmd, desc) map("x", keys, cmd, desc) end
+local function tmap(keys, cmd, desc) map("t", keys, cmd, desc) end
 
-local function imap(keys, cmd, desc)
-  map("i", keys, cmd, desc)
-end
-
-local function vmap(keys, cmd, desc)
-	map("v", keys, cmd, desc)
-end
-
-local function xmap(keys, cmd, desc)
-  map("x", keys, cmd, desc)
-end
-
-local function tmap(keys, cmd, desc)
-  map("t", keys, cmd, desc)
-end
 
 map({"n","v"}, "gs","^", "Goto first non-blank in line")
 map({"n","v"}, "gh","0", "Goto line start")
 map({"n","v"}, "gl","$", "Goto line end")
 nmap("U","<C-r>", "redo")
 
-nmap("<leader>pv", "<cmd>Ex<CR>", "Open NetRW")
 vmap("K", ":m'<-2<CR>gv=gv", "Move selection up")
 vmap("J", ":m'>+1<CR>gv=gv", "Move selection down")
 
@@ -61,6 +47,8 @@ local whichkey = require('which-key')
 whichkey.setup{}
 
 local telescope = require('telescope.builtin')
+nmap("<leader>?", function() telescope.keymaps() end, "Look up keymaps")
+-- map({"n","v"}, "<A-f>", )
 whichkey.register(
   {
     ["<leader>"] = {
@@ -74,7 +62,6 @@ whichkey.register(
       },
       u = { function() vim.cmd.UndotreeToggle() end, "Undotree" },
       k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
-      -- a = { function() telescop end, "code actions"}
       a = { "<cmd>Lspsaga code_action<cr>", "code actions"},
     },
     ["g"] = { 

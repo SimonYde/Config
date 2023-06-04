@@ -7,6 +7,8 @@ color-modes = true
 line-number = "relative"
 scrolloff = 8
 
+
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
