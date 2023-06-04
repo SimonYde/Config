@@ -49,6 +49,7 @@ in
         nvim-web-devicons
         nvim-tree-lua
         nui-nvim
+        catppuccin-nvim
         (pkgs.vimUtils.buildVimPlugin {
           name = "monokai-pro.nvim";
           src = pkgs.fetchFromGitHub {

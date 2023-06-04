@@ -1,21 +1,15 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }: 
 {
-  config.gtk = {
+  gtk = {
     enable = true;
-    gtk3 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = true;
-      };
-    };
-    gtk4 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = true;
-      };
-    };
-
     theme = {
-      name = "Adwaita-dark";
+      name = "Catppuccin-Mocha-Compact-Lavender-Dark";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "lavender" ];
+        size = "compact";
+        tweaks = [ "rimless" ];
+        variant = "mocha";
+      };
     };
   };
 }

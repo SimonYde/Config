@@ -8,8 +8,8 @@
 #
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
-#import:
-#  - /path/to/alacritty.yml
+import:
+ - ~/Config/dotfiles/.config/alacritty/catppuccin-mocha.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -159,21 +159,21 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night)
-colors:
+# Colors (Monokai Pro Spectrum)
+# colors:
   # Default colors
-  primary:
-    background: '0x222222'
-    foreground: '0xfff1f3'
+  # primary:
+    # background: '0x222222'
+    # foreground: '0xfff1f3'
 
-  normal:
-    black:   '0x131313'
-    red:     '0xfc618d'
-    yellow:  '0xfce566'
-    green:   '0x7bd88f'
-    blue:    '0x5ad4e6'
-    magenta: '0x948ae3'
-    white:   '0xf7f1ff'
+  # normal:
+    # black:   '0x131313'
+    # red:     '0xfc618d'
+    # yellow:  '0xfce566'
+    # green:   '0x7bd88f'
+    # blue:    '0x5ad4e6'
+    # magenta: '0x948ae3'
+    # white:   '0xf7f1ff'
 
     # Bright and dim foreground colors
     #
