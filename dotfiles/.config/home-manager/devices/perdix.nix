@@ -2,10 +2,10 @@
 
 {
   programs = {
-    brave.enable = true;
+    brave.enable   = true;
     firefox.enable = true;
-    vscode.enable = true;
-    zellij.enable = true;
+    vscode.enable  = true;
+    zellij.enable  = true;
   };
 
   fonts.fontconfig.enable = true;
@@ -25,12 +25,12 @@
   services.redshift = {
     enable = true;
     temperature = {
-      day = 6500;
+      day   = 6500;
       night = 1600;
     };
     provider  = "manual";
-    latitude  = 56.8;
-    longitude = 9.0;
+    latitude  = 56.3;
+    longitude = 9.5;
   };
   imports = [
     ../modules/gtk.nix

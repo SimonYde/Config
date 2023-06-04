@@ -47,7 +47,7 @@ in
         lualine-nvim
         indent-blankline-nvim
         nvim-web-devicons
-        neo-tree-nvim
+        nvim-tree-lua
         nui-nvim
         (pkgs.vimUtils.buildVimPlugin {
           name = "monokai-pro.nvim";

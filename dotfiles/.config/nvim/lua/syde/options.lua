@@ -51,6 +51,8 @@ vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
 --        \,sm:block-blinkwait175-blinkoff150-blinkon175]])
 local opt = vim.opt
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 opt.nu = true
 opt.relativenumber = true

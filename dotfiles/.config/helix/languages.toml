@@ -37,4 +37,4 @@ executable = "zathura"
 
 [language-server.ltex]
 command = "ltex-ls"
-config = { ltex = {language = "da-DK" }}
+config = { ltex = { language = "da-DK" }}

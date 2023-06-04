@@ -37,7 +37,7 @@ right = [
   "spacer",
   "position-percentage",
   "position"
-  ]
+]
 
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
@@ -46,16 +46,16 @@ A-r = ":reflow"
 # C-d = ["half_page_down", "align_view_center"]
 # C-u = ["half_page_up",   "align_view_center"]
 A-f = [
-    ":new", 
-    ":insert-output lf-pick", 
-    # ":theme default", 
-    "select_all", 
-    "split_selection_on_newline", 
-    "goto_file", 
-    "goto_last_modified_file", 
-    ":bc!",
-    # ":theme monokai_pro_spectrum" 
-  ]
+  ":new", 
+  ":insert-output lf-pick", 
+  # ":theme default", 
+  "select_all", 
+  "split_selection_on_newline", 
+  "goto_file", 
+  "goto_last_modified_file", 
+  ":bc!",
+  # ":theme monokai_pro_spectrum" 
+]
 
 [keys.normal."space"]
 C = ":config-open" # Open helix config

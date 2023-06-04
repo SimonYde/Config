@@ -96,7 +96,7 @@ nmap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>","Search
 tmap("<leader><Esc>","<C-\\><C-n>","Exit terminal mode")
 
 -- neo-tree
-nmap("<A-f>", "<cmd>NeoTreeFloatToggle<cr>","Toggle Neo-tree")
+-- nmap("<A-f>", "<cmd>NeoTreeFloatToggle<cr>","Toggle Neo-tree")
 nmap("<C-c>","<cmd>Commentary<cr>", "Toggle comment current line")
 
 

@@ -2,8 +2,8 @@
 
 {
 	programs.zoxide = {
-		enableFishIntegration = true;
+		enableFishIntegration    = true;
 		enableNushellIntegration = true;
-		enableZshIntegration = true;
+		enableZshIntegration     = true;
 	};
 }
