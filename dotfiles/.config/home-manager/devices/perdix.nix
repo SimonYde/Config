@@ -5,7 +5,9 @@
     brave.enable   = true;
     firefox.enable = true;
     vscode.enable  = true;
-    zellij.enable  = true;
+  	zellij.settings = {
+      mouse_mode = false;
+		};
   };
 
   fonts.fontconfig.enable = true;

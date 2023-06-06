@@ -1,40 +1,49 @@
 { lib, pkgs, ... }:
 
 {
-  programs = {
-    # Shells
-    fish.enable    = true;
-    nushell.enable = false;
-    zsh.enable     = false;
+  config = {  
+    programs = {
+      # Shells
+      fish.enable    = true;
+      nushell.enable = false;
+      zsh.enable     = false;
 
-    # CLI tools
-    bat.enable      = true;
-    exa.enable      = true;
-    git.enable      = true;
-    lazygit.enable  = true;
-    lf.enable       = true;
-    skim.enable     = true;
-    starship.enable = true;
-    zoxide.enable   = true;
+      # CLI tools
+      bat.enable      = true;
+      exa.enable      = true;
+      git.enable      = true;
+      lazygit.enable  = true;
+      lf.enable       = true;
+      skim.enable     = true;
+      starship.enable = true;
+      zellij.enable   = true;
+      zoxide.enable   = true;
+    };
+
+    home.sessionPath = [
+      "$HOME/.local/bin"
+    ];
+
+    home.sessionVariables = {
+      EDITOR = "hx";
+    };
+
+    home.packages = with pkgs; [
+      # CLI Tools
+      any-nix-shell
+      entr
+      grawlix
+      nur.repos.jo1gi.audiobook-dl-git
+      ripgrep
+      speedtest-cli
+    ];
+
+    syde.terminal.aliases = {
+      sudo = "doas";
+      cat  = "bat";
+      c    = "clear";
+    };
   };
-
-  home.sessionPath = [
-    "$HOME/.local/bin"
-  ];
-
-  home.sessionVariables = {
-    EDITOR = "hx";
-  };
-
-  home.packages = with pkgs; [
-    # CLI Tools
-    any-nix-shell
-    entr
-    grawlix
-    nur.repos.jo1gi.audiobook-dl-git
-    ripgrep
-    speedtest-cli
-  ];
 
   imports = [
     ./modules/alacritty.nix
@@ -48,4 +57,10 @@
     ./modules/zoxide.nix
     ./modules/zsh.nix
   ];
+
+  options.syde.terminal = with lib; {
+    aliases = mkOption {
+      type = types.attrsOf types.str;
+    };
+  };
 }

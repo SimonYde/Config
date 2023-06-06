@@ -36,9 +36,9 @@
 			};
 			default_layout = "compact";
 			on_force_close = "quit";
-			mouse_mode 		 = false;
 			simplified_ui = false;
 			pane_frames   = false;	
+			copy_command = "xclip -selection clipboard";
 		};
 	};
 }

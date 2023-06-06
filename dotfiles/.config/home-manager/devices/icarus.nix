@@ -1,9 +1,10 @@
 { pkgs, ... }:
 {
-  programs = {
-    zellij.enable = true;
-  };
-  
+	programs.zellij = {
+    settings = {
+      mouse_mode = true;
+		};
+	};
   home.packages = with pkgs; [
     speedtest-cli    
   ];

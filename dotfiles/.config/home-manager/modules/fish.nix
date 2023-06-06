@@ -1,11 +1,8 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.fish = {
-    shellAliases = {
-      cat  = "bat";
-      sudo = "doas";
-    };
+    shellAliases = config.syde.terminal.aliases;
     shellInit = ''
       any-nix-shell fish --info-right | source
     '';
