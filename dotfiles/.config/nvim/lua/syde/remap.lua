@@ -41,24 +41,25 @@ nmap("<leader>d", [["_d]], "Delete without yanking")
 vmap("<leader>d", [["_d]], "Delete without yanking")
 
 -- LSP commands
-nmap("<leader>f", vim.lsp.buf.format, "Format with LSP")
+nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
 
 local whichkey = require('which-key')
 whichkey.setup{}
 
 local telescope = require('telescope.builtin')
 nmap("<leader>?", function() telescope.keymaps() end, "Look up keymaps")
--- map({"n","v"}, "<A-f>", )
+nmap("<leader>fb", function() telescope.buffers() end, "Buffers" )
+nmap("<leader>fc", function() telescope.current_buffer_fuzzy_find() end, "Current buffer search")
+nmap("<leader>ff", function() telescope.find_files() end, "Files" )
+nmap("<leader>fg", function() telescope.git_files() end, "Git files")
+nmap("<leader>fh", function() telescope.help_tags() end, "Help tags")
+nmap("<leader>fs", function() telescope.live_grep() end, "Search with grep")
+nmap("<A-f>", "<cmd>NvimTreeToggle<cr>", "Toggle file tree")
 whichkey.register(
   {
     ["<leader>"] = {
       f = {
         name = "Find (telescope)",
-        f = { function() telescope.find_files() end, "Fuzzy finder" },
-        s = { function() telescope.live_grep() end, "Search with grep"},
-        b = { function() telescope.buffers() end, "Buffers" },
-        h = { function() telescope.help_tags() end, "Help tags" },
-        g = { function() telescope.git_files() end, "Git files"}
       },
       u = { function() vim.cmd.UndotreeToggle() end, "Undotree" },
       k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
@@ -82,9 +83,8 @@ presets.operators["v"] = nil
 nmap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>","Search and replace in buffer")
 tmap("<leader><Esc>","<C-\\><C-n>","Exit terminal mode")
 
--- neo-tree
--- nmap("<A-f>", "<cmd>NeoTreeFloatToggle<cr>","Toggle Neo-tree")
-nmap("<C-c>","<cmd>Commentary<cr>", "Toggle comment current line")
+
+require('Comment').setup()
 
 
 -- fugitive

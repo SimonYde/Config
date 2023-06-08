@@ -13,13 +13,13 @@
     tectonic
     pandoc
     ltex-ls
-                
+     
     lldb
     # Other LSPs
     metals
     nil
     # nixfmt
-
+     
     # Rust
     unstable.cargo
     unstable.rustc

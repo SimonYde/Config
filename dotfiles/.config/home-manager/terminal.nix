@@ -51,6 +51,7 @@
     ./modules/fish.nix
     ./modules/git.nix
     ./modules/nushell.nix
+    ./modules/bat.nix
     ./modules/skim.nix
     ./modules/starship.nix
     ./modules/zellij.nix

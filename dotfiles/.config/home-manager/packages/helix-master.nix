@@ -7,10 +7,10 @@ let
     owner = "helix-editor";
     repo = "helix";
     rev = "${version}";
-    hash = "sha256-fryIaVSDYZAZWxlBQwldxGjINJnHh27DQRabOIx/oYI=";
+    hash = "sha256-B2K7YkOHxX2pUp36vkJ9fTf7ahzPVU8P/HfynyskutQ";
   };
 
-  grammars = callPackage ./helix-build-files/grammars.nix { };
+  grammars = callPackage ( src + "/grammars.nix" ) { };
 in 
 rustPlatform.buildRustPackage {
   inherit src version;
@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage {
   pname = "helix";
   # This release tarball includes source code for the tree-sitter grammars,
   # which is not ordinarily part of the repository.
-  cargoSha256 = "sha256-JPtWzgK2yiMaWdSMNknbrZyS5S0StoEw1UTKTb52JVU=";
+  cargoSha256 = "sha256-xjUp3GL91heFhpVdjpn1Sk3GBl9TipvctYKjs+uqQXU=";
 
   nativeBuildInputs = [ installShellFiles makeWrapper ];
 
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage {
   # disable fetching and building of tree-sitter grammars in favor of the custom build process in ./grammars.nix
   env.HELIX_DISABLE_AUTO_GRAMMAR_BUILD = "1";
 
-  passthru.updateScript = ./helix-build-files/update.py;
+  # passthru.updateScript = ./helix-build-files/update.py;
 
   meta = with lib; {
     description = "A post-modern modal text editor";
