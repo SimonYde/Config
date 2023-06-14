@@ -50,13 +50,11 @@ A-r = ":reflow"
 A-f = [
   ":new", 
   ":insert-output lf-pick", 
-  # ":theme default", 
   "select_all", 
   "split_selection_on_newline", 
   "goto_file", 
   "goto_last_modified_file", 
   ":bc!",
-  # ":theme monokai_pro_spectrum" 
 ]
 
 [keys.normal."space"]

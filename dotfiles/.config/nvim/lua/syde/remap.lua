@@ -43,8 +43,6 @@ vmap("<leader>d", [["_d]], "Delete without yanking")
 -- LSP commands
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
 
-local whichkey = require('which-key')
-whichkey.setup{}
 
 local telescope = require('telescope.builtin')
 nmap("<leader>?", function() telescope.keymaps() end, "Look up keymaps")
@@ -55,6 +53,9 @@ nmap("<leader>fg", function() telescope.git_files() end, "Git files")
 nmap("<leader>fh", function() telescope.help_tags() end, "Help tags")
 nmap("<leader>fs", function() telescope.live_grep() end, "Search with grep")
 nmap("<A-f>", "<cmd>NvimTreeToggle<cr>", "Toggle file tree")
+
+local whichkey = require('which-key')
+whichkey.setup{}
 whichkey.register(
   {
     ["<leader>"] = {

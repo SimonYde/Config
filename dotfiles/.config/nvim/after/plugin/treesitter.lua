@@ -1,5 +1,5 @@
 require('nvim-treesitter.configs').setup {
-    parser_install_dir = "~/.local/share/nvim/tree-sitter/",
+    -- parser_install_dir = "~/.local/share/nvim/tree-sitter/",
     -- Plugins
     
     highlight = {

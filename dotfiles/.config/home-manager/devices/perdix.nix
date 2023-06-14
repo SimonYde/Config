@@ -8,6 +8,7 @@
   	zellij.settings = {
       mouse_mode = false;
 		};
+    i3status-rust.enable = true;
   };
 
   fonts.fontconfig.enable = true;
