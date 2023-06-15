@@ -24,6 +24,7 @@ in
         cmp-snippy
         cmp-nvim-lua
         nvim-snippy
+        fidget-nvim
 
         unstablePlugins.ltex_extra-nvim
         harpoon        
@@ -43,7 +44,7 @@ in
         # Language plugins
         unstablePlugins.nvim-treesitter.withAllGrammars
         unstablePlugins.nvim-treesitter-textobjects
-        vim-nix
+        # vim-nix
 
         # UI
         lualine-nvim

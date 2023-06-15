@@ -2,12 +2,10 @@ theme = "catppuccin_mocha"
 
 [editor]
 true-color = true
-bufferline = "always"
 color-modes = true
+bufferline = "always"
 line-number = "relative"
 scrolloff = 8
-
-
 
 [editor.cursor-shape]
 insert = "bar"
@@ -30,7 +28,7 @@ left = [
   "spacer",
   "file-name",
   "file-modification-indicator"
-  ]
+]
 center = []
 right = [
   "diagnostics", 

@@ -13,8 +13,11 @@
 
   fonts.fontconfig.enable = true;
 
+  # xsession.windowManager.i3.enable = true;
+
   home.packages = with pkgs; [
     nerdfonts
+    font-awesome
     unstable.obsidian
     nix
     synergy
@@ -37,5 +40,6 @@
   };
   imports = [
     ../modules/gtk.nix
+    ../modules/i3.nix
   ];
 }

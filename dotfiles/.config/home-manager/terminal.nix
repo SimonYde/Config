@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  config = {  
+  config = {
     programs = {
       # Shells
       fish.enable    = true;
@@ -20,12 +20,12 @@
       zoxide.enable   = true;
     };
 
-    home.sessionPath = [
-      "$HOME/.local/bin"
+    home.sessionPath = [ 
+      "$HOME/.local/bin" 
     ];
 
-    home.sessionVariables = {
-      EDITOR = "hx";
+    home.sessionVariables = { 
+      EDITOR = "hx"; 
     };
 
     home.packages = with pkgs; [
@@ -60,8 +60,6 @@
   ];
 
   options.syde.terminal = with lib; {
-    aliases = mkOption {
-      type = types.attrsOf types.str;
-    };
+    aliases = mkOption { type = types.attrsOf types.str; };
   };
 }

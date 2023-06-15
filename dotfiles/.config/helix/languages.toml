@@ -3,38 +3,34 @@ auto-format = false
 name = "rust"
 
 [language-server.rust-analyzer.config]
-checkOnSave = {command = "clippy"}
+checkOnSave.command = "clippy"
 
 [[language]]
 name = "latex"
-language-servers = ["texlab", "ltex" ]
+language-servers = [ "texlab", "ltex" ]
 
 [language.soft-wrap]
 enable = true
 wrap-at-text-width = true
 
 
-[language-server.texlab.config.texlab.build]
-forwardSearchAfter = true
-onSave = true
-
-executable = "tectonic"
-args = [
+[language-server.texlab.config.texlab]
+build.forwardSearchAfter = true
+build.onSave = true
+build.executable = "tectonic"
+build.args = [
   "-X",
   "compile",
   "%f", 
   "--synctex",
   "--keep-logs",
   "--keep-intermediates"
-  ]
+]
 
-[language-server.texlab.config.texlab.chktex]
-onEdit = true
-
-[language-server.texlab.config.texlab.forwardSearch]
-executable = "zathura"
-# args = [ "--synctex-forward", "%l:%c:%f", "%p" ]
+chktex.onEdit = true
+forwardSearch.executable = "zathura"
+# forwardSearch.args = [ "--synctex-forward", "%l:%c:%f", "%p" ]
 
 [language-server.ltex]
 command = "ltex-ls"
-config = { ltex = { language = "da-DK" }}
+config.ltex.language = "da-DK"

@@ -7,4 +7,7 @@
       any-nix-shell fish --info-right | source
     '';
   };
+  home.file = {
+    "${config.xdg.configHome}/fish/themes/Catppuccin-Mocha.theme".source = ../../fish/Catppuccin-Mocha.theme;
+  }; 
 }

@@ -14,6 +14,7 @@ opt.softtabstop = 2
 opt.expandtab = true
 
 opt.smartindent = true
+opt.showmode = false 
 
 opt.wrap = true
 
