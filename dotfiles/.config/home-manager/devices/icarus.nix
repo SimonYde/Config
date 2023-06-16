@@ -6,6 +6,6 @@
 		};
 	};
   home.packages = with pkgs; [
-    speedtest-cli    
+		speedtest-cli
   ];
 }

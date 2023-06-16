@@ -55,6 +55,31 @@ A-f = [
   ":bc!",
 ]
 
+A-j = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "paste_after",
+]
+A-k = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+]
+
 [keys.normal."space"]
 C = ":config-open" # Open helix config
 L = ":open ~/.config/helix/languages.toml" # Open languages.toml
+
+[keys.select]
+A-j = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "paste_after",
+]
+A-k = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+]

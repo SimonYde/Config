@@ -18,11 +18,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     client.server_capabilities.semanticTokensProvider = nil
     require('fidget').setup{}
+    require('lspsaga').setup({})
   end,
 });
-
-
-local lspsaga = require('lspsaga')
 
 
 nvim_lsp.ltex.setup{
@@ -60,12 +58,12 @@ nvim_lsp.texlab.setup{
         forwardSearchAfter = true,
       },
       -- forwardSearch = {
-        -- executable = "zathura",
-        -- args = {
-        --   "--synctex-forward", 
-        --   "%l:%c:%f",
-        --   "%p",
-        -- },
+      -- executable = "zathura",
+      -- args = {
+      --   "--synctex-forward", 
+      --   "%l:%c:%f",
+      --   "%p",
+      -- },
       -- },
     },
   }

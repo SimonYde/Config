@@ -35,7 +35,6 @@
       grawlix
       nur.repos.jo1gi.audiobook-dl-git
       ripgrep
-      speedtest-cli
     ];
 
     syde.terminal.aliases = {

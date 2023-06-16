@@ -35,6 +35,7 @@ nmap("<A-r>","gwip")
 map({"n","v"}, "<leader>y", [["+y]], "yank to system clipboard")
 nmap("<leader>Y", [["+Y]],"yank to system clipboard")
 
+nmap("<leader>w", "<C-w>", "Window")
 
 xmap("<leader>p", [["_dP]], "Paste without yanking")
 nmap("<leader>d", [["_d]], "Delete without yanking")
@@ -57,22 +58,22 @@ nmap("<A-f>", "<cmd>NvimTreeToggle<cr>", "Toggle file tree")
 local whichkey = require('which-key')
 whichkey.setup{}
 whichkey.register(
-  {
-    ["<leader>"] = {
-      f = {
-        name = "Find (telescope)",
-      },
-      u = { function() vim.cmd.UndotreeToggle() end, "Undotree" },
-      k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
-      a = { "<cmd>Lspsaga code_action<cr>", "code actions"},
-    },
-    ["g"] = { 
-      d = { function() vim.lsp.buf.definition() end, "Goto Definition" },
-      D = { function() vim.lsp.buf.declaration() end, "Goto Declaration"},
-      r = { function() vim.lsp.buf.references() end, "Goto References"},
-      i = { function() vim.lsp.buf.implementation() end, "Goto Implementation"},
-    },
-  })
+    {
+        ["<leader>"] = {
+            f = {
+                name = "Find (telescope)",
+            },
+            u = { function() vim.cmd.UndotreeToggle() end, "Undotree" },
+            k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
+            a = { "<cmd>Lspsaga code_action<cr>", "code actions"},
+        },
+        ["g"] = { 
+            d = { function() vim.lsp.buf.definition() end, "Goto Definition" },
+            D = { function() vim.lsp.buf.declaration() end, "Goto Declaration"},
+            r = { function() vim.lsp.buf.references() end, "Goto References"},
+            i = { function() vim.lsp.buf.implementation() end, "Goto Implementation"},
+        },
+    })
 local presets = require("which-key.plugins.presets")
 presets.operators["v"] = nil
 

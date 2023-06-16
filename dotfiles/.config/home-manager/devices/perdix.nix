@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   programs = {
@@ -14,6 +14,9 @@
   fonts.fontconfig.enable = true;
 
   # xsession.windowManager.i3.enable = true;
+  home.file = {
+    "${config.xdg.configHome}/i3/config".source = ../../i3/config;
+  };
 
   home.packages = with pkgs; [
     nerdfonts

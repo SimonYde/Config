@@ -15,6 +15,7 @@ opt.expandtab = true
 
 opt.smartindent = true
 opt.showmode = false 
+opt.laststatus = 3 -- global statusline
 
 opt.wrap = true
 

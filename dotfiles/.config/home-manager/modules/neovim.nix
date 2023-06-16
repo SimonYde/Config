@@ -26,7 +26,6 @@ in
         nvim-snippy
         fidget-nvim
 
-        unstablePlugins.ltex_extra-nvim
         harpoon        
         nvim-autopairs
         undotree
@@ -44,7 +43,7 @@ in
         # Language plugins
         unstablePlugins.nvim-treesitter.withAllGrammars
         unstablePlugins.nvim-treesitter-textobjects
-        # vim-nix
+        unstablePlugins.ltex_extra-nvim
 
         # UI
         lualine-nvim

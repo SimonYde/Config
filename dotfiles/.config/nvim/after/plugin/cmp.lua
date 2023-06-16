@@ -15,7 +15,8 @@ cmp.setup {
     { name = "nvim_lsp" },
     { name = "snippy" },
     { name = "path" },
-    { name = "nvim_lua"},
+    { name = "nvim_lua" },
+    { name = "buffer", option = {keyword_length = 5}, },
   },
   mapping = {
     ['<C-n>'] = cmp.mapping.select_next_item(),
