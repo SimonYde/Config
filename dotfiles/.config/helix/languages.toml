@@ -34,3 +34,6 @@ forwardSearch.executable = "zathura"
 [language-server.ltex]
 command = "ltex-ls"
 config.ltex.language = "da-DK"
+
+[language-server.vscode-css-language-server]
+command = "css-languageserver"

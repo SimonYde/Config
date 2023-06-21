@@ -13,7 +13,6 @@ in
         lua require('syde')
       '';
       plugins = with pkgs.vimPlugins; [
-        comment-nvim
         # LSP
         nvim-lspconfig
         lspsaga-nvim
@@ -26,12 +25,13 @@ in
         nvim-snippy
         fidget-nvim
 
-        harpoon        
+        harpoon
         nvim-autopairs
         undotree
         vim-fugitive
         gitsigns-nvim
         nvim-surround
+        comment-nvim
 
         which-key-nvim
         unstablePlugins.vim-be-good
@@ -43,7 +43,8 @@ in
         # Language plugins
         unstablePlugins.nvim-treesitter.withAllGrammars
         unstablePlugins.nvim-treesitter-textobjects
-        unstablePlugins.ltex_extra-nvim
+        nvim-ts-rainbow2
+        ltex_extra-nvim
 
         # UI
         lualine-nvim

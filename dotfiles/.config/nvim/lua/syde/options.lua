@@ -12,10 +12,11 @@ opt.shiftwidth = 2
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.expandtab = true
+opt.smartcase = true
 
 opt.smartindent = true
 opt.showmode = false 
-opt.laststatus = 3 -- global statusline
+opt.laststatus = 2 -- global statusline
 
 opt.wrap = true
 

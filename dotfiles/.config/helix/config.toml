@@ -16,6 +16,10 @@ select = "underline"
 character = "▏"
 render = true
 
+[editor.file-picker]
+git-ignore = false
+hidden = false
+
 [editor.lsp]
 display-messages = true
 

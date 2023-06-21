@@ -8,6 +8,7 @@
           config = pkgs.config;
         };
         grawlix = pkgs.callPackage ./packages/grawlix.nix {};
+        qt6Packages = pkgs.unstable.qt6Packages; # I don't know what needs this to build, but it isn't on stable branch...
       }) 
     ];
     config.packageOverrides = pkgs: {

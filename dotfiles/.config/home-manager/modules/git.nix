@@ -19,6 +19,7 @@
       ".vscode"
       "**/target"
       "**/node_modules"
+      "**/elm-stuff"
     ];
   };
 }
