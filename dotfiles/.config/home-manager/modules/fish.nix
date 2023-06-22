@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
   programs.fish = {
@@ -8,6 +8,12 @@
     '';
   };
   home.file = {
-    "${config.xdg.configHome}/fish/themes/Catppuccin-Mocha.theme".source = ../../fish/Catppuccin-Mocha.theme;
+    "${config.xdg.configHome}/fish/themes/Catppuccin-Mocha.theme".source = 
+          (pkgs.fetchFromGitHub {
+            owner = "Catppuccin";
+            repo = "fish";
+            rev = "91e6d67";
+            sha256 = "sha256-l9V7YMfJWhKDL65dNbxaddhaM6GJ0CFZ6z+4R6MJwBA=";
+          } + "/themes/Catppuccin Mocha.theme");
   }; 
 }

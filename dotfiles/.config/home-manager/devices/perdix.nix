@@ -5,18 +5,13 @@
     brave.enable   = true;
     firefox.enable = true;
     vscode.enable  = true;
-  	zellij.settings = {
-      mouse_mode = false;
-		};
+  	zellij.settings.mouse_mode = false;
     i3status-rust.enable = true;
   };
 
   fonts.fontconfig.enable = true;
 
   # xsession.windowManager.i3.enable = true;
-  home.file = {
-    "${config.xdg.configHome}/i3/config".source = ../../i3/config;
-  };
 
   home.packages = with pkgs; [
     nerdfonts
@@ -24,7 +19,7 @@
     unstable.obsidian
     nix
     synergy
-    #gaming
+    # gaming
     wine
     discord
     texlive.combined.scheme-full

@@ -16,9 +16,10 @@ opt.smartcase = true
 
 opt.smartindent = true
 opt.showmode = false 
-opt.laststatus = 2 -- global statusline
+opt.laststatus = 2
+-- opt.laststatus = 3 -- global statusline
 
-opt.wrap = true
+opt.wrap = false
 
 opt.swapfile = false
 opt.backup = false
@@ -38,14 +39,3 @@ opt.isfname:append("@-@")
 
 opt.updatetime = 50
 opt.colorcolumn = "80"
-
-
-
-
-
-
-
-
-
-
-

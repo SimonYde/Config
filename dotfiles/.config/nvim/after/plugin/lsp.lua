@@ -22,6 +22,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 });
 
+  nvim_lsp.elmls.setup{
+    capabilities = capabilities,
+  }
+
 
 nvim_lsp.ltex.setup{
   capabilities = capabilities,
