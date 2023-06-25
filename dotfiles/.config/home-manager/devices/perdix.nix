@@ -11,7 +11,8 @@
 
   fonts.fontconfig.enable = true;
 
-  # xsession.windowManager.i3.enable = true;
+  xsession.windowManager.i3.enable = true;
+  wayland.windowManager.sway.enable = true;
 
   home.packages = with pkgs; [
     nerdfonts

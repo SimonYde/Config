@@ -6,7 +6,14 @@ require('telescope').setup {
       "undodir",
 		},
     prompt_prefix = " ",
-    layout_config = {prompt_position = 'top'}, 
+    layout_config = {
+      prompt_position = 'top',
+      
+      horizontal = {
+        height = 0.9,
+        width = 0.9, 
+      },
+    }, 
     sorting_strategy = 'ascending',
 	}
 }

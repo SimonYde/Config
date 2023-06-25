@@ -7,7 +7,7 @@ let
     owner = "helix-editor";
     repo = "helix";
     rev = "${version}";
-    hash = "sha256-kaLH9Olz44SwVvHPEHp75zgHspNN0JDEWLykcveDNuI=";
+    hash = "sha256-geejJwBLMD4MFoyTuYrXLlRo2nkjLixi07TrCffpScE=";
   };
 
   grammars = callPackage ( src + "/grammars.nix" ) { };
@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage {
   pname = "helix";
   # This release tarball includes source code for the tree-sitter grammars,
   # which is not ordinarily part of the repository.
-  cargoSha256 = "sha256-VdxVqbtyNVokAC5z7NVAHYS9adLZj/qhhY83NcSxAfk=";
+  cargoSha256 = "sha256-VdxVqbtyNVokAC5z7NVAHYS9adLZj/qhhY83NcSxAfk="; 
 
   nativeBuildInputs = [ installShellFiles makeWrapper ];
 
