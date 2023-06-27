@@ -1,8 +1,6 @@
-{ ... }:
+{...}:
 
 {
-  programs.home-manager.enable = true;
-
   home = {
     username = "syde";
     homeDirectory = "/home/syde";
@@ -11,4 +9,5 @@
   imports = [
     ./standard.nix
   ];
+  programs.home-manager.enable = true;
 }
