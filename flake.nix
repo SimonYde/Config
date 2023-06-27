@@ -29,11 +29,15 @@
     }; */
 
     homeConfigurations = {
-      /* icarus = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.pkgs;
+      icarus = home-manager.lib.homeManagerConfiguration {
+        # pkgs = nixpkgs.defaultPackages.x86_64-linux;
+        pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = { allowUnfree = true; };
+          };
         extraSpecialArgs = { inherit inputs; };
         modules = [ ./dotfiles/.config/home-manager/devices/icarus.nix ];
-      }; */
+      };
       perdix = home-manager.lib.homeManagerConfiguration {
         # pkgs = nixpkgs.defaultPackages.x86_64-linux;
         pkgs = import nixpkgs {

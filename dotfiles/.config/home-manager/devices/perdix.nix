@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 let obsidian = 
     pkgs.writeShellScriptBin "obsidian" '' 
       #!/bin/sh
@@ -24,6 +24,7 @@ in
     nerdfonts
     font-awesome
     obsidian
+    libqalculate
     synergy
     # gaming
     wine
