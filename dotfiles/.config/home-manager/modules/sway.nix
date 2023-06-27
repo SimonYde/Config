@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   catppuccin = {
@@ -21,18 +21,24 @@ let
         flamingo  = "#f2cdcd";
       };
     };
-  terminal = "kitty";
+  sway-package = pkgs.writeShellScriptBin "sway" ''
+    #!/bin/bash -l
+    ${pkgs.nixGL.nixGLIntel}/bin/nixGLIntel ${pkgs.sway}/bin/sway "$@"'';
+  terminal = "alacritty";
   browser = "firefox";
-  menu = "dmenu_path | dmenu | xargs swaymsg exec --";
+  menu = "${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu |
+  ${pkgs.findutils}/bin/xargs ${pkgs.sway}/bin/swaymsg exec --";
   volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
 in
 {
   config.wayland.windowManager.sway = {
+    package = sway-package;
     config = {
       modifier = mod;
       terminal = terminal;
+      menu = menu;
 
       keybindings = {
 # Launch applications
@@ -60,7 +66,7 @@ in
 # Window
         "${mod}+q" = "kill";
         "${mod}+f" = "fullscreen";
-        "${mod}+Space" = "floating toggle";
+        "${mod}+Mod1+f" = "floating toggle";
         "${mod}+s" = "sticky toggle";
 
 # Scratchpad
@@ -133,7 +139,7 @@ in
 # Return to default mode
           "Return" = "mode \"default\"";
           "Escape" = "mode \"default\"";
-          "${mod}+r" = "mode \"default\"";
+          # "${mod}+r" = "mode \"default\"";
         };
       };
 
@@ -159,10 +165,10 @@ in
         position = "top";
         fonts = {
           names = [ "JetBrains Mono Nerd Font Mono" "FontAwesome" ];
-          style = "normal";
-          size = 9.0;
+          style = "pango";
+          size = 8.0;
         };
-        statusCommand = "~/.nix-profile/bin/i3status-rs config-top";
+        statusCommand = "i3status-rs config-top";
         colors = with catppuccin; {
           background = mantle;
           statusline = text;
@@ -187,7 +193,8 @@ in
       floating = {
         criteria = [ { window_role = "pop-up"; } ];
       };
-      fonts =      {
+
+      fonts = {
         names = [ "JetBrains Mono Nerd Font Mono" ];
         style = "pango";
         size = 11.0;
@@ -214,6 +221,7 @@ in
         titlebar = false;
         border = 3;
       }; 
+
       startup = [
       { command = "redshift"; } 
       { command = "nm-applet"; }

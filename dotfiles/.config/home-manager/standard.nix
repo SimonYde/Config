@@ -9,6 +9,10 @@
         };
         grawlix = pkgs.callPackage ./packages/grawlix.nix {};
         qt6Packages = pkgs.unstable.qt6Packages; # I don't know what needs this to build, but it isn't on stable branch...
+        nixGL = pkgs.callPackage "${builtins.fetchTarball {
+          url = "https://github.com/guibou/nixGL/archive/main.tar.gz";
+          sha256 = "03kwsz8mf0p1v1clz42zx8cmy6hxka0cqfbfasimbj858lyd930k";
+        }}/nixGL.nix" {};
       }) 
     ];
     config.packageOverrides = pkgs: {
@@ -18,6 +22,9 @@
     };
     config.allowUnfree = true;
   };
+  nix.extraOptions = ''
+   experimental-features = flakes nix-command  
+  '';
   services.syncthing.enable = true;
 
 

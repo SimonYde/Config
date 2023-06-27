@@ -160,9 +160,9 @@ in
         bars = [{
           position = "top";
           fonts = {
-            names = [ "JetBrains Mono Nerd Font Mono, FontAwesome" ];
+            names = [ "JetBrains Mono Nerd Font Mono" "FontAwesome" ];
             style = "pango";
-            size = 9.0;
+            size = 8.0;
           };
           statusCommand = "~/.nix-profile/bin/i3status-rs config-top";
           colors = with catppuccin.mocha; {
@@ -197,8 +197,8 @@ in
         };
 
         assigns = {
-        "1" = [{ title = "^Obsidian$"; }];
-        "2" = [{ class = "^Firefox$"; }];
+        "1" = [{ class = "obsidian"; }];
+        "2" = [{ class = "firefox"; }];
         };
 
         startup = [
@@ -208,7 +208,7 @@ in
         { command = "setxkbmap eu"; }
         { command = "feh --bg-fill ~/Pictures/Backgrounds/battlefield-catppuccin.png"; }
         { command = "redshift"; } 
-        { command = "nixGLIntel obsidian"; } 
+        { command = "obsidian"; } 
         ];
       };
     };
@@ -238,7 +238,7 @@ in
           {
             block = "time";
             interval = 60;
-            format = " $timestamp.datetime(f:'%a %y-%m-%d %R') ";
+            format = " $timestamp.datetime(f:'%a %Y-%m-%d %R') ";
           }
           ];
           settings = {

@@ -7,7 +7,7 @@ let
     owner = "helix-editor";
     repo = "helix";
     rev = "${version}";
-    hash = "sha256-geejJwBLMD4MFoyTuYrXLlRo2nkjLixi07TrCffpScE=";
+    hash = "sha256-pwn2val0OJMfVaQq6UxCEMcivhu1iUEtu72zWHoY62g=";
   };
 
   grammars = callPackage ( src + "/grammars.nix" ) { };

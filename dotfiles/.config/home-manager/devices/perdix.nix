@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
-
+let obsidian = 
+    pkgs.writeShellScriptBin "obsidian" '' 
+      #!/bin/sh
+      ${pkgs.nixGL.nixGLIntel}/bin/nixGLIntel ${pkgs.unstable.obsidian}/bin/obsidian "$@"
+    '';
+in
 {
   programs = {
     brave.enable   = true;
@@ -7,17 +12,18 @@
     vscode.enable  = true;
   	zellij.settings.mouse_mode = false;
     i3status-rust.enable = true;
+    alacritty.enable = true;
   };
 
   fonts.fontconfig.enable = true;
 
   xsession.windowManager.i3.enable = true;
-  wayland.windowManager.sway.enable = true;
+  wayland.windowManager.sway.enable = false;
 
   home.packages = with pkgs; [
     nerdfonts
     font-awesome
-    unstable.obsidian
+    obsidian
     nix
     synergy
     # gaming

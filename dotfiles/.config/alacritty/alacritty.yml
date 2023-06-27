@@ -105,7 +105,7 @@ font:
     family: JetBrains Mono Nerd Font Mono
     style: Bold Italic
 
-  size: 9.0
+  size: 9
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -311,16 +311,16 @@ cursor:
 
 live_config_reload: true # Live config reload (changes require restart)
 
-# shell:
-#   program: /home/syde/.nix-profile/bin/fish
-#   args:
-#     - --login
+shell:
+  program: /home/syde/.nix-profile/bin/fish
+  args:
+    - --login
 
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
 # directory of the parent process will be used.
-#working_directory: None
+working_directory: None
 
 # Offer IPC using `alacritty msg` (unix only)
 #ipc_socket: true
