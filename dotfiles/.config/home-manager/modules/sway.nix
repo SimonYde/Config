@@ -34,7 +34,7 @@ let
 in
 {
   config.wayland.windowManager.sway = {
-    package = sway-package;
+    package = pkgs.hello;
     config = {
       modifier = mod;
       terminal = terminal;

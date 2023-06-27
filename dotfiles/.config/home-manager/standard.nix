@@ -22,9 +22,9 @@
     };
     config.allowUnfree = true;
   };
-  nix.extraOptions = ''
+  /* nix.extraOptions = ''
    experimental-features = flakes nix-command  
-  '';
+  ''; */
   services.syncthing.enable = true;
 
 

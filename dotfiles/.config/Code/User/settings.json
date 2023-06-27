@@ -1,0 +1,87 @@
+{
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.iconTheme": "catppuccin-mocha",
+    "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    "workbench.preferredLightColorTheme": "Catppuccin Latte",
+    "catppuccin.accentColor": "lavender",
+    "catppuccin.boldKeywords": false,
+    "editor.lineNumbers": "relative",
+    "editor.cursorBlinking": "solid",
+    "editor.renderLineHighlight": "none",
+    "keyboard.dispatch": "keyCode",
+    "editor.fontSize": 18,
+    "editor.fontFamily": "'JetbrainsMono NFM'",
+    "editor.fontLigatures": false,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "python.autoComplete.extraPaths": [
+        "~/.nix-profile/bin/python3"
+    ],
+    "python.analysis.extraPaths": [
+        "~/.nix-profile/bin/python3"
+    ],
+    "jupyter.themeMatplotlibPlots": false,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 800,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "editor.inlineSuggest.enabled": true,
+    "todo-tree.regex.regex": "(//|#|%|<!--|;|/\\*|^|^[ \\t]*(-|\\d+.))\\s*($TAGS)",
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "check",
+            "iconColour": "yellow",
+            "background": "yellow",
+            "foreground": "black",
+            "gutterIcon": false
+        },
+        "FIXME": {
+            "icon": "flame",
+            "iconColour": "hotpink",
+            "background": "hotpink",
+            "foreground": "black",
+            "gutterIcon": false
+        },
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "latex": false
+    },
+    "vim.leader": "space",
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-u>": true,
+        "<C-s>": false,
+        "<C-z>": false
+    },
+    "vim.argumentObjectClosingDelimiters": [ ")", "]", "}" ],
+    "vim.argumentObjectOpeningDelimiters": [ "(", "[", "{" ],
+    "vim.visualModeKeyBindings": [
+        { "before": [">"], "commands": ["editor.action.indentLines"] },  
+        { "before": ["<"], "commands": ["editor.action.outdentLines"] },  
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        { "before": ["U"], "after": ["<C-r>"] },  
+        { "before": [ "g", "h" ], "after": ["0"] },  
+        { "before": [ "g", "s" ], "after": ["^"] },  
+        { "before": [ "g", "l" ], "after": ["$"] },  
+    ],
+    "vim.normalModeKeyBindings": [
+        { "before": ["C"], "commands": ["editor.action.insertCursorBelow"] },  
+        { "before": ["<leader>", "k"], "commands": ["editor.action.showHover"] },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        { "before": ["U"], "after": ["<C-r>"] },  
+        { "before": [ "g", "h" ], "after": ["0"] },  
+        { "before": [ "g", "s" ], "after": ["^"] },  
+        { "before": [ "g", "l" ], "after": ["$"] },  
+    ],
+    "texlab.build.onSave": true,
+    "texlab.chktex.onEdit": true,
+    "latex-workshop.latex.recipes": [ { "name": "tectonic", "tools": [ "tectonic" ] }, ],
+}

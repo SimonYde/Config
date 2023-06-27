@@ -38,6 +38,7 @@ in
         keybindings = {
 # Launch applications
           "${mod}+t" = "exec ${terminal}";
+          "${mod}+r" = "mode \"resize\"";
           "ctrl+${mod}+f" = "exec ${browser}";
           "${mod}+d" = "exec ${menu}";
           "${mod}+Escape" = "exec loginctl lock-session";
@@ -69,8 +70,6 @@ in
           "${mod}+Shift+minus" = "move scratchpad";
           "${mod}+minus" = "scratchpad show";
 
-# Disable laptop screen
-          "${mod}+mod1+l" = "output eDP-1 toggle";
 
 # Focus
           "${mod}+h" = "focus left";
