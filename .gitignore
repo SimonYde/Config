@@ -1,4 +1,3 @@
-home.nix
 .stignore
 .stfolder
 **/nvim/init.lua

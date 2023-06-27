@@ -83,5 +83,14 @@
     ],
     "texlab.build.onSave": true,
     "texlab.chktex.onEdit": true,
-    "latex-workshop.latex.recipes": [ { "name": "tectonic", "tools": [ "tectonic" ] }, ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "tectonic",
+            "tools": [
+                "tectonic"
+            ]
+        },
+    ],
+    "terminal.external.linuxExec": "alacritty",
+    "terminal.integrated.cursorStyle": "line",
 }

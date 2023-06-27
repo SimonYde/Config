@@ -25,7 +25,7 @@
     ];
 
     home.sessionVariables = { 
-      EDITOR = "hx"; 
+      EDITOR = "nvim"; 
     };
 
     home.packages = with pkgs; [
@@ -37,7 +37,7 @@
       ripgrep
     ];
 
-    syde.terminal.aliases = {
+    home.shellAliases = {
       sudo = "doas";
       cat  = "bat";
       c    = "clear";
@@ -57,8 +57,4 @@
     ./modules/zoxide.nix
     ./modules/zsh.nix
   ];
-
-  options.syde.terminal = with lib; {
-    aliases = mkOption { type = types.attrsOf types.str; };
-  };
 }

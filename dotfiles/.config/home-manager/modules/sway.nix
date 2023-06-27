@@ -23,7 +23,7 @@ let
     };
   sway-package = pkgs.writeShellScriptBin "sway" ''
     #!/bin/bash -l
-    ${pkgs.nixGL.nixGLIntel}/bin/nixGLIntel ${pkgs.sway}/bin/sway "$@"'';
+    ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.sway}/bin/sway "$@"'';
   terminal = "alacritty";
   browser = "firefox";
   menu = "${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu |

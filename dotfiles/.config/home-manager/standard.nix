@@ -1,31 +1,27 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {    
   nixpkgs = {
     overlays = [ 
+      inputs.nur.overlay
+      inputs.nixgl.overlay
       (self: super: { 
-        unstable = import <unstable> {
+        unstable = import inputs.unstable {
           config = pkgs.config;
+          system = pkgs.system;
         };
         grawlix = pkgs.callPackage ./packages/grawlix.nix {};
         qt6Packages = pkgs.unstable.qt6Packages; # I don't know what needs this to build, but it isn't on stable branch...
-        nixGL = pkgs.callPackage "${builtins.fetchTarball {
-          url = "https://github.com/guibou/nixGL/archive/main.tar.gz";
-          sha256 = "03kwsz8mf0p1v1clz42zx8cmy6hxka0cqfbfasimbj858lyd930k";
-        }}/nixGL.nix" {};
       }) 
     ];
-    config.packageOverrides = pkgs: {
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;
-      };
-    };
     config.allowUnfree = true;
   };
-  /* nix.extraOptions = ''
-   experimental-features = flakes nix-command  
-  ''; */
   services.syncthing.enable = true;
+
+  nix = {
+    package = pkgs.nix;
+    extraOptions = "experimental-features = flakes nix-command";
+  };
 
 
   /* home.file = {

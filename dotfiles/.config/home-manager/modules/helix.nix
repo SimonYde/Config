@@ -5,7 +5,7 @@ let helix-master =
 in 
 {
   programs.helix = {
-    # package = pkgs.unstable.helix;
+    # package = unstable.helix;
     package = helix-master;
   };
 }

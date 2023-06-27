@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let obsidian = 
     pkgs.writeShellScriptBin "obsidian" '' 
       #!/bin/sh
-      ${pkgs.nixGL.nixGLIntel}/bin/nixGLIntel ${pkgs.unstable.obsidian}/bin/obsidian "$@"
+      ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.unstable.obsidian}/bin/obsidian "$@"
     '';
 in
 {
@@ -24,7 +24,6 @@ in
     nerdfonts
     font-awesome
     obsidian
-    nix
     synergy
     # gaming
     wine
@@ -32,6 +31,7 @@ in
     texlive.combined.scheme-full
     rclone
   ];
+
 
   services.redshift = {
     enable = true;
@@ -44,6 +44,7 @@ in
     longitude = 9.5;
   };
   imports = [
+    ../home.nix
     ../modules/gtk.nix
     ../modules/i3.nix
   ];

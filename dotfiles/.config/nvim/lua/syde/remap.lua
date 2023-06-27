@@ -43,6 +43,7 @@ vmap("<leader>d", [["_d]], "Delete without yanking")
 
 -- LSP commands
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
+nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 
 
 local telescope = require('telescope.builtin')
