@@ -21,6 +21,7 @@ in
   wayland.windowManager.sway.enable = false;
 
   home.packages = with pkgs; [
+    flameshot
     nerdfonts
     font-awesome
     obsidian
