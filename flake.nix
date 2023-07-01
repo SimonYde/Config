@@ -17,35 +17,29 @@
 
   outputs = { self, nixpkgs, nixgl, unstable, home-manager, ... }@inputs:
   {
-    /* nixosConfigurations = {
-      /* icarus.nix = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./nixos/devices/icarus.nix ];
-      };
+    nixosConfigurations = {
       perdix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./nixos/devices/perdix.nix ];
+        modules = [ /home/syde/Config/nixos/devices/perdix.nix ];
       };
-    }; */
+    };
 
     homeConfigurations = {
       icarus = home-manager.lib.homeManagerConfiguration {
-        # pkgs = nixpkgs.defaultPackages.x86_64-linux;
         pkgs = import nixpkgs {
             system = "x86_64-linux";
             config = { allowUnfree = true; };
           };
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./dotfiles/.config/home-manager/devices/icarus.nix ];
+        modules = [ /home/syde/Config/home-manager/devices/icarus.nix ];
       };
       perdix = home-manager.lib.homeManagerConfiguration {
-        # pkgs = nixpkgs.defaultPackages.x86_64-linux;
         pkgs = import nixpkgs {
             system = "x86_64-linux";
             config = { allowUnfree = true; };
           };
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./dotfiles/.config/home-manager/devices/perdix.nix ];
+        modules = [ /home/syde/Config/home-manager/devices/perdix.nix ];
       };
     };
   };

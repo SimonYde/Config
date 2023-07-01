@@ -19,7 +19,6 @@ opt.showmode = false
 opt.laststatus = 2
 -- opt.laststatus = 3 -- global statusline
 
-opt.wrap = false
 
 opt.swapfile = false
 opt.backup = false
@@ -38,5 +37,7 @@ opt.isfname:append("@-@")
 
 
 opt.updatetime = 50
-opt.textwidth = 80
+opt.textwidth = 0
+opt.wrapmargin = 0
+opt.wrap = false
 opt.colorcolumn = ""
