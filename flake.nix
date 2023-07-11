@@ -2,6 +2,10 @@
   description = "NixOS configuration";
 
   inputs = {
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur = {
@@ -20,7 +24,14 @@
     nixosConfigurations = {
       perdix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ /home/syde/Config/nixos/devices/perdix.nix ];
+        modules = [ 
+          ./nixos/devices/perdix.nix
+          ({config, ... }: {
+            config.nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
+          })
+
+
+        ];
       };
     };
 
@@ -31,7 +42,7 @@
             config = { allowUnfree = true; };
           };
         extraSpecialArgs = { inherit inputs; };
-        modules = [ /home/syde/Config/home-manager/devices/icarus.nix ];
+        modules = [ ./home-manager/devices/icarus.nix ];
       };
       perdix = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
@@ -39,7 +50,7 @@
             config = { allowUnfree = true; };
           };
         extraSpecialArgs = { inherit inputs; };
-        modules = [ /home/syde/Config/home-manager/devices/perdix.nix ];
+        modules = [ ./home-manager/devices/perdix.nix ];
       };
     };
   };

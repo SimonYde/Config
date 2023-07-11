@@ -1,7 +1,0 @@
-{...}:
-
-{
-  programs.exa = {
-    enableAliases = true;
-  };
-}
