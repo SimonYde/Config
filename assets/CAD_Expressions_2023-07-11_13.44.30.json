@@ -1,0 +1,248 @@
+{
+  "default": [
+    {
+      "expression": "*.kagi.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "_kagi_search_",
+        "kagi_session"
+      ],
+      "id": "_UPh6X0-R"
+    },
+    {
+      "expression": "*.lastpass.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "oiZvgS4w2"
+    },
+    {
+      "expression": "*.pathbuilder2e.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB"
+      ],
+      "cookieNames": [],
+      "id": "yu6H9qVKl-"
+    },
+    {
+      "expression": "*.proton.me",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "enq_Up2-l"
+    },
+    {
+      "expression": "duckduckgo.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanAllCookies": true,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "LocalStorage",
+        "PluginData",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "ae"
+      ],
+      "id": "cXM2Qpz3S"
+    }
+  ],
+  "firefox-container-9": [
+    {
+      "expression": "*.element.io",
+      "listType": "WHITE",
+      "storeId": "firefox-container-9",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "pXFN50ZI3v"
+    },
+    {
+      "expression": "*.proton.me",
+      "listType": "WHITE",
+      "storeId": "firefox-container-9",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "tQLtQxzsYd"
+    }
+  ],
+  "firefox-container-2": [
+    {
+      "expression": "*au.dk",
+      "listType": "WHITE",
+      "storeId": "firefox-container-2",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "Y0LcXERWW"
+    },
+    {
+      "expression": "login.microsoftonline.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-2",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "PaUemHSGq"
+    }
+  ],
+  "firefox-container-3": [
+    {
+      "expression": "*.landbobanken.dk",
+      "listType": "WHITE",
+      "storeId": "firefox-container-3",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "XJCH5AIcK"
+    },
+    {
+      "expression": "*.nordjyskebank.dk",
+      "listType": "WHITE",
+      "storeId": "firefox-container-3",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "LocalStorage",
+        "PluginData",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "KOTTIDVZD"
+    }
+  ],
+  "firefox-container-11": [
+    {
+      "expression": "*.twitch.tv",
+      "listType": "WHITE",
+      "storeId": "firefox-container-11",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "2Tn2slbXU"
+    }
+  ],
+  "firefox-container-6": [
+    {
+      "expression": "accounts.google.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-6",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "Y3qoLWyYxE"
+    }
+  ],
+  "firefox-container-12": [
+    {
+      "expression": "login.live.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-12",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "1m6VK3c9dO"
+    }
+  ],
+  "firefox-container-7": [
+    {
+      "expression": "*.facebook.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-7",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "C6Ze3Rt_X2"
+    },
+    {
+      "expression": "*.messenger.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-7",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "JmI6myrYi"
+    }
+  ]
+}
