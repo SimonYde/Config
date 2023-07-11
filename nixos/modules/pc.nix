@@ -35,7 +35,7 @@
   users.users.syde = {
     isNormalUser = true;
     description = "Simon Yde";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "video" "networkmanager" "wheel" ];
   };
   
   fonts.fonts = with pkgs; [

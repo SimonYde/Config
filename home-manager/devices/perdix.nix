@@ -16,13 +16,12 @@ in
   };
 
   fonts.fontconfig.enable = true;
-  # xsession.windowManager.i3.enable = false;
-  wayland.windowManager.sway.enable = true;
+  xsession.windowManager.i3.enable = true;
+  wayland.windowManager.sway.enable = false;
 
   home.packages = with pkgs; [
     nerdfonts
     font-awesome
-    flameshot
     unstable.obsidian
     libqalculate
     synergy

@@ -4,7 +4,9 @@
   programs.fish = {
     shellInit = ''
       any-nix-shell fish --info-right | source
+      set fish_greeting ""
     '';
+      # fish_config theme save Catppuccin-Mocha
   };
   home.file = {
     "${config.xdg.configHome}/fish/themes/Catppuccin-Mocha.theme".source = 

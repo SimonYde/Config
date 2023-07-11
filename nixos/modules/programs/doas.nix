@@ -5,7 +5,7 @@
     doas = {
       enable = true;
       extraRules = [
-        { groups = [ "wheels" ]; keepEnv = true; cmd = "nvim"; }
+        { persist = true; groups = [ "wheels" ]; keepEnv = true; cmd = "nvim"; }
       ];
     };
   };   

@@ -33,7 +33,7 @@
             family = "JetBrains Mono Nerd Font Mono";
             style = "Bold Italic";
           };
-          size = 14;
+          size = 9;
         };
         cursor = {
           style = {
