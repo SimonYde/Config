@@ -10,6 +10,13 @@
       greeters = {
         gtk = {
           enable = true;
+          theme.name = "Catppuccin-Mocha-Compact-Lavender-Dark";
+          theme.package = pkgs.catppuccin-gtk.override {
+            accents = [ "lavender" ];
+            size = "compact";
+            tweaks = [ "rimless" ];
+            variant = "mocha";
+          };
         };
       };
     };

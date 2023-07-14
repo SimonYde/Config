@@ -1,10 +1,10 @@
 { pkgs, ... }:
-let obsidian = 
+/* let obsidian = 
     pkgs.writeShellScriptBin "obsidian" '' 
       #!/bin/sh
       ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.unstable.obsidian}/bin/obsidian "$@"
     '';
-in
+in */
 {
   programs = {
     brave.enable   = true;
@@ -17,7 +17,7 @@ in
 
   fonts.fontconfig.enable = true;
   xsession.windowManager.i3.enable = true;
-  wayland.windowManager.sway.enable = false;
+  wayland.windowManager.sway.enable = true;
 
   home.packages = with pkgs; [
     nerdfonts
@@ -28,7 +28,7 @@ in
     # gaming
     wine
     discord
-    texlive.combined.scheme-full
+    # texlive.combined.scheme-full
     rclone
   ];
 

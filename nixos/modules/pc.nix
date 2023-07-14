@@ -20,6 +20,7 @@
 
   services.xserver = {
     layout = "eu";
+    # xkbVariant = "eurkey-cmk-dh-ansi";
     xkbOptions = "caps:escape";
   };  
 
@@ -48,6 +49,8 @@
   environment.systemPackages = with pkgs; [
     git alacritty 
   ];
+
+  programs.command-not-found.enable = true;
   
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod"];
   boot.supportedFilesystems = [ "ntfs" ];

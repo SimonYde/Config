@@ -44,8 +44,8 @@ in
           "${mod}+Escape" = "exec loginctl lock-session";
 
 # Sound
-          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i --allow-boost ${toString volumeChange}";
-          "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d --allow-boost ${toString volumeChange}";
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer --allow-boost -i ${toString volumeChange}";
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer --allow-boost -d ${toString volumeChange}";
           "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
           # "XF86AudioMicMute" = "exec --no-startup-id ${pkgs.pactl}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
@@ -186,7 +186,6 @@ in
 
         fonts = {
           names = [ "JetBrains Mono Nerd Font Mono" ];
-          style = "pango";
           size = 9.0;
         };
 

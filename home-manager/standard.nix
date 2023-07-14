@@ -3,6 +3,7 @@
 {    
   nixpkgs = {
     overlays = [ 
+      # inputs.helix.overlay
       inputs.nur.overlay
       inputs.nixgl.overlay
       (self: super: { 
