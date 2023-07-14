@@ -13,6 +13,8 @@
     };
   };
 
+  programs.nm-applet.enable = true;
+
   users.users.syde.packages = with pkgs; [
     bemenu
   ];

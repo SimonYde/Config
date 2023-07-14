@@ -46,10 +46,11 @@
         "browser.laterrun.enabled" = true;
         "datareporting.healthreport.uploadEnabled" = false;
         
+        # Networking and DNS
         "network.dns.disablePrefetch" = true;
         "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
         "network.trr.uri" = "https://dns.quad9.net/dns-query";
-        "network.trr.mode" = 2;
+        "network.trr.mode" = 3;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
 

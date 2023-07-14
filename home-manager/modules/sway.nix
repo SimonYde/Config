@@ -37,39 +37,40 @@ in
       menu = menu;
       keybindings = {
         "${mod}+t" = "exec ${terminal}";
+        "${mod}+r" = "mode \"resize\"";
         "ctrl+${mod}+f" = "exec ${browser}";
         "${mod}+d" = "exec ${menu}";
 
-# Sound
-        "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +${toString volumeChange}%";
-        "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -${toString volumeChange}%";
-        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+        # Sound
+        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i --allow-boost ${toString volumeChange}";
+        "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d --allow-boost ${toString volumeChange}";
+        "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
+        # "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
-# Brightness
+        # Brightness
         "XF86MonBrightnessUp" = "exec light -A ${toString brightnessChange}";
         "XF86MonBrightnessDown" = "exec light -U ${toString brightnessChange}";
 
-# Layout
+        # Layout
         "${mod}+b" = "splith";
         "${mod}+v" = "splitv";
         "${mod}+w" = "layout tabbed";
         "${mod}+e" = "layout toggle split";
 
-# Window
+        # Window
         "${mod}+q" = "kill";
         "${mod}+f" = "fullscreen";
         "${mod}+Mod1+f" = "floating toggle";
         "${mod}+s" = "sticky toggle";
 
-# Scratchpad
+        # Scratchpad
         "${mod}+Shift+minus" = "move scratchpad";
         "${mod}+minus" = "scratchpad show";
 
-# Disable laptop screen
+        # Disable laptop screen
         "${mod}+mod1+l" = "output eDP-1 toggle";
 
-# Focus
+        # Focus
         "${mod}+h" = "focus left";
         "${mod}+j" = "focus down";
         "${mod}+k" = "focus up";
@@ -79,7 +80,7 @@ in
         "${mod}+Up" = "focus up";
         "${mod}+Right" = "focus right";
 
-# Move Window
+        # Move Window
         "${mod}+Shift+h" = "move left";
         "${mod}+Shift+j" = "move down";
         "${mod}+Shift+k" = "move up";
@@ -89,7 +90,7 @@ in
         "${mod}+Shift+Up" = "move up";
         "${mod}+Shift+Right" = "move right";
 
-# Switch workspace
+        # Switch workspace
         "${mod}+1" = "workspace number 1";
         "${mod}+2" = "workspace number 2";
         "${mod}+3" = "workspace number 3";
@@ -101,7 +102,7 @@ in
         "${mod}+9" = "workspace number 9";
         "${mod}+0" = "workspace number 10";
 
-# Move container to workspace
+        # Move container to workspace
         "${mod}+Shift+1" = "move container to workspace number 1";
         "${mod}+Shift+2" = "move container to workspace number 2";
         "${mod}+Shift+3" = "move container to workspace number 3";
@@ -113,7 +114,7 @@ in
         "${mod}+Shift+9" = "move container to workspace number 9";
         "${mod}+Shift+0" = "move container to workspace number 10";
 
-# Sway specific
+        # Sway specific
         "${mod}+Shift+r" = "reload";
         "${mod}+Shift+e" = "swaynag -t warning -m 'Exit Sway' -B 'Yes' 'swaymsg exit'";
       };
@@ -129,7 +130,7 @@ in
           "Up" = "resize shrink height 10px";
           "Right" = "resize grow width 10px";
 
-# Return to default mode
+          # Return to default mode
           "Return" = "mode \"default\"";
           "Escape" = "mode \"default\"";
           "${mod}+r" = "mode \"default\"";
@@ -191,6 +192,11 @@ in
         size = 11.0;
       };
 
+      window = {
+        titlebar = false;
+        border = 3;
+      }; 
+
       input = {
         "type:keyboard" = {
           xkb_layout = "eu";
@@ -204,14 +210,10 @@ in
         };
       };
 
-      /* output = {
-        "*" = { bg = "~/Pictures/Backgrounds/battlefield-catppuccin.png fill"; };
-      }; */
+      output = {
+        "*" = { bg = "~/Config/assets/backgrounds/battlefield-catppuccin.png fill"; };
+      };
 
-      window = {
-        titlebar = false;
-        border = 3;
-      }; 
 
       startup = [
       { command = "redshift"; } 

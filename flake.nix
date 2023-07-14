@@ -17,6 +17,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixgl.url = "github:guibou/nixGL";
+    helix.url = "github:helix-editor/helix";
   };
 
   outputs = { self, nixpkgs, nixgl, unstable, home-manager, ... }@inputs:
@@ -24,13 +25,9 @@
     nixosConfigurations = {
       perdix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ 
+        modules = [
+          ({config, ... }: { config.nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
           ./nixos/devices/perdix.nix
-          ({config, ... }: {
-            config.nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
-          })
-
-
         ];
       };
     };
