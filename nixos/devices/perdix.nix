@@ -1,4 +1,4 @@
-{ config, lib, ...}:
+{ pkgs, config, lib, ...}:
 
 {
   imports = [
@@ -11,4 +11,7 @@
   ];
   networking.hostName = "perdix";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  environment.systemPackages = with pkgs; [
+    gparted
+  ];
 }
