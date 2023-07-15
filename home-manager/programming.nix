@@ -8,7 +8,6 @@
 
   home.packages = with pkgs; [    
     # Latex
-    zathura
     texlab
     tectonic
     pandoc
@@ -29,6 +28,7 @@
   ];
 
   imports = [
+    ./modules/zathura.nix
     ./modules/python.nix
     ./modules/helix.nix
     ./modules/neovim.nix

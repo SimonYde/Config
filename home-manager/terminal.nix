@@ -38,7 +38,7 @@
     ];
 
     home.shellAliases = {
-      sudo = "doas";
+      # sudo = "doas";
       cat  = "bat";
       c    = "clear";
     };
