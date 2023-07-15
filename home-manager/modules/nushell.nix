@@ -2,6 +2,5 @@
 
 {
   programs.nushell = {
-    shellAliases = config.syde.terminal.aliases;
   };
 }

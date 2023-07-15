@@ -43,6 +43,7 @@ in
         # Language plugins
         unstablePlugins.nvim-treesitter.withAllGrammars
         unstablePlugins.nvim-treesitter-textobjects
+        unstablePlugins.nvim-treesitter-context
         nvim-ts-rainbow2
         ltex_extra-nvim
 
