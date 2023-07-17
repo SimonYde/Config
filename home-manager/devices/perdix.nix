@@ -13,6 +13,7 @@ in */
   	zellij.settings.mouse_mode = false;
     i3status-rust.enable = true;
     alacritty.enable = true;
+    zathura.enable = true;
   };
 
   fonts.fontconfig.enable = true;

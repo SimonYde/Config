@@ -74,10 +74,14 @@
         cookie-autodelete
         darkreader
         enhancer-for-youtube
-        #dualsub
-        lastpass-password-manager
+        sponsorblock
         multi-account-containers
         sidebery
+        lastpass-password-manager
+        proton-pass
+        vimium
+        stylus
+        firefox-translations
         #bypass-paywalls-clean
         # i-still-dont-care-about-cookies
       ];

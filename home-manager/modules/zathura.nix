@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   programs.zathura = {
-    enable = true;
     extraConfig = ''
       include ${pkgs.fetchFromGitHub {
             owner = "catppuccin";
