@@ -16,6 +16,13 @@
     };
     programs.light.enable = true;
     hardware.bluetooth.enable = true;
-    hardware.bluetooth.powerOnBoot = false;
+    systemd.services."bluetooth".serviceConfig = {
+      StateDirectory = "";
+    };
+    fileSystems."/var/lib/bluetooth" = {
+      device = "/persist/var/lib/bluetooth";
+      options = [ "bind" "noauto" "x-systemd.automount" ];
+      noCheck = true;
+    };
   };
 }

@@ -1,6 +1,6 @@
 {
-    "workbench.colorTheme": "Catppuccin Latte",
-    "workbench.iconTheme": "catppuccin-latte",
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.iconTheme": "catppuccin-mocha",
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.preferredLightColorTheme": "Catppuccin Latte",
     "catppuccin.accentColor": "lavender",
@@ -42,7 +42,7 @@
             "background": "hotpink",
             "foreground": "black",
             "gutterIcon": false
-        },
+        }
     },
     "github.copilot.enable": {
         "*": false,
@@ -62,30 +62,30 @@
     "vim.argumentObjectOpeningDelimiters": [ "(", "[", "{" ],
     "vim.visualModeKeyBindings": [
         { "before": [">"], "commands": ["editor.action.indentLines"] },  
-        { "before": ["<"], "commands": ["editor.action.outdentLines"] },  
+        { "before": ["<"], "commands": ["editor.action.outdentLines"] }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         { "before": ["U"], "after": ["<C-r>"] },  
         { "before": [ "g", "h" ], "after": ["0"] },  
         { "before": [ "g", "s" ], "after": ["^"] },  
-        { "before": [ "g", "l" ], "after": ["$"] },  
+        { "before": [ "g", "l" ], "after": ["$"] }
     ],
     "vim.normalModeKeyBindings": [
         { "before": ["C"], "commands": ["editor.action.insertCursorBelow"] },  
         { "before": ["<leader>", "k"], "commands": ["editor.action.showHover"] },
         { "before": ["<leader>", "r"], "commands": ["editor.action.rename"] },
         { "before": ["<leader>", "s"], "commands": ["editor.action.gotoSymbol"] },
-        { "before": ["<leader>", "S"], "commands": ["editor.action.showAllSymbols"] },
+        { "before": ["<leader>", "S"], "commands": ["editor.action.showAllSymbols"] }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         { "before": ["U"], "after": ["<C-r>"] },  
         { "before": [ "g", "h" ], "after": ["0"] },  
         { "before": [ "g", "s" ], "after": ["^"] },  
-        { "before": [ "g", "l" ], "after": ["$"] },  
+        { "before": [ "g", "l" ], "after": ["$"] }
     ],
     "keyboard.dispatch": "keyCode",
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
-    },
+    }
 }
