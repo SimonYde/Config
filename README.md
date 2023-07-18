@@ -1,3 +1,3 @@
 # Config
-dotfiles and nix [home-manager](https://github.com/nix-community/home-manager) config
+dotfiles and [NixOS](https://nixos.org), Nix [home-manager](https://github.com/nix-community/home-manager) configs
 
