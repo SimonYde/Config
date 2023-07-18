@@ -23,6 +23,8 @@ let
     };
   terminal = "alacritty";
   browser = "firefox";
+  fname = "JetBrains Mono Nerd Font Mono";
+  # menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}' --nb '#1e1e2e' --sf '#1e1e2e' --sb '#b4befe'  --nf '#b4befe'";
   menu = "--no-startup-id dmenu_run -nb '#1e1e2e' -sf '#1e1e2e' -sb '#b4befe' -nf '#b4befe'";
   volumeChange = 10;
   brightnessChange = 5;
@@ -159,7 +161,7 @@ in
         bars = [{
           position = "top";
           fonts = {
-            names = [ "JetBrains Mono Nerd Font Mono" "FontAwesome" ];
+            names = [ fname "FontAwesome" ];
             style = "pango";
             size = 8.0;
           };
@@ -185,7 +187,7 @@ in
         };
 
         fonts = {
-          names = [ "JetBrains Mono Nerd Font Mono" ];
+          names = [ fname ];
           size = 9.0;
         };
 
