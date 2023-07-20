@@ -82,12 +82,24 @@
         vimium
         stylus
         firefox-translations
-        #bypass-paywalls-clean
+        # readwise-highlighter
+        # bypass-paywalls-clean
         # i-still-dont-care-about-cookies
       ];
+      userChrome = ''
+        #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+          opacity: 0;
+          pointer-events: none;
+        }
+        #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+          visibility: collapse !important;
+        }
 
-      
-      userChrome = builtins.readFile ./userChrome.css;
+        /* Fix for main menu calling by Alt button */
+        #titlebar > #toolbar-menubar {
+          margin-top: 0px;
+        }
+      '';
     };
   };
 }

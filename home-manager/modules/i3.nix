@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   catppuccin = {
@@ -25,7 +25,7 @@ let
   browser = "firefox";
   fname = "JetBrains Mono Nerd Font Mono";
   # menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}' --nb '#1e1e2e' --sf '#1e1e2e' --sb '#b4befe'  --nf '#b4befe'";
-  menu = "--no-startup-id dmenu_run -nb '#1e1e2e' -sf '#1e1e2e' -sb '#b4befe' -nf '#b4befe'";
+  menu = "--no-startup-id dmenu_run -nb '${catppuccin.mocha.base}' -sf '${catppuccin.mocha.base}' -sb '${catppuccin.mocha.lavender}' -nf '${catppuccin.mocha.lavender}'";
   volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
@@ -156,13 +156,19 @@ in
             indicator = surface1;
             childBorder = base;
           };
+          urgent = {
+            border = red;
+            background = base;
+            text = surface0;
+            indicator = red;
+            childBorder = red;
+          };
         };
 
         bars = [{
           position = "top";
           fonts = {
             names = [ fname "FontAwesome" ];
-            style = "pango";
             size = 8.0;
           };
           statusCommand = "i3status-rs config-top";
@@ -178,6 +184,11 @@ in
               background = surface0;
               border = surface0;
               text = surface2;
+            };
+            urgentWorkspace = {
+              background = red;
+              border = red;
+              text = surface0;
             };
           };
         }];
@@ -214,6 +225,7 @@ in
     };
 
     programs.i3status-rust = {
+      enable = config.xsession.windowManager.i3.enable || config.wayland.windowManager.sway.enable;
       bars = {
         top = {
           blocks = [

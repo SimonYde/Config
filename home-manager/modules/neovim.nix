@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ...}:
+{ config, pkgs, ... }:
 let 
   unstablePlugins = pkgs.unstable.vimPlugins; 
 in
@@ -15,14 +15,15 @@ in
       plugins = with pkgs.vimPlugins; [
         # LSP
         nvim-lspconfig
+        lspkind-nvim
         lspsaga-nvim
         nvim-cmp
         cmp-nvim-lsp
         cmp-buffer
         cmp-path
-        cmp-snippy
+        cmp_luasnip
         cmp-nvim-lua
-        nvim-snippy
+        luasnip
         fidget-nvim
 
         harpoon

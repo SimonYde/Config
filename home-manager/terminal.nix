@@ -6,7 +6,7 @@
       # Shells
       fish.enable    = true;
       nushell.enable = false;
-      zsh.enable     = false;
+      zsh.enable     = true;
 
       # CLI tools
       bat.enable      = true;
