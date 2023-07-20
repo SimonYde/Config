@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 /* let obsidian = 
     pkgs.writeShellScriptBin "obsidian" '' 
       #!/bin/sh
@@ -11,14 +11,17 @@ in */
     firefox.enable = true;
     vscode.enable  = true;
   	zellij.settings.mouse_mode = false;
-    i3status-rust.enable = true;
     alacritty.enable = true;
     zathura.enable = true;
   };
 
+  services = {
+    redshift.enable = true;
+  };
+
   fonts.fontconfig.enable = true;
   xsession.windowManager.i3.enable = true;
-  wayland.windowManager.sway.enable = true;
+  wayland.windowManager.sway.enable = false;
 
   home.packages = with pkgs; [
     nerdfonts
@@ -31,21 +34,20 @@ in */
     discord
     # texlive.combined.scheme-full
     rclone
+    gnome.nautilus
   ];
 
-
-  services.redshift = {
-    enable = true;
-    temperature = {
-      day   = 6500;
-      night = 1400;
-    };
-    provider  = "manual";
-    latitude  = 56.3;
-    longitude = 9.5;
+  home.pointerCursor = {
+    name = "Catppuccin-Mocha-Dark-Cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
+    size = 24;
+    gtk.enable = true;
   };
+
   imports = [
     ../home.nix
+    ../standard.nix
+    ../modules/services/redshift.nix
     ../modules/gtk.nix
     ../modules/sway.nix
     ../modules/i3.nix

@@ -1,5 +1,6 @@
 local cmp = require('cmp')
-local snippy = require('snippy')
+local lspkind = require('lspkind')
+lspkind.init()
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -8,14 +9,13 @@ local has_words_before = function()
 end
 
 
-
 cmp.setup {
   enabled = true,
   sources = {
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
-    { name = "snippy" },
     { name = "path" },
+    { name = "snippy" },
     { name = "buffer", keyword_length = 5 },
   },
   mapping = {
@@ -24,8 +24,6 @@ cmp.setup {
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif snippy.can_expand_or_advance() then
-        snippy.expand_or_advance()
       elseif has_words_before() then
         cmp.complete()
       else
@@ -36,8 +34,6 @@ cmp.setup {
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif snippy.can_jump(-1) then
-        snippy.previous()
       else
         fallback()
       end
@@ -56,8 +52,20 @@ cmp.setup {
   },
   snippet = {
     expand = function(args)
-      require 'snippy'.complete_done()
+      require('luasnip').lsp_expand(args.body)
     end
+  },
+  formatting = {
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        buffer = "[buf]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        path = "[path]",
+        luasnip = "[snip]",
+      },
+    },
   },
 }
 

@@ -8,7 +8,4 @@
     homeDirectory = "/home/syde";
     stateVersion = "23.05";
   };
-  imports = [
-    ./standard.nix
-  ];
 }

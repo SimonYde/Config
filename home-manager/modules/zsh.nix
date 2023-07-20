@@ -1,4 +1,4 @@
-{ config, pkgs,  ... }:
+{ pkgs,  ... }:
 
 {
   programs.zsh = {
@@ -7,6 +7,9 @@
     enableCompletion = true;
     autocd = true;
     dotDir = ".config/zsh";
+    history = {
+      ignorePatterns = [ "pkill *" "kill *" "rm *" "rmdir *" "mkdir *" "touch *" ];
+    };
     plugins = [
       {
         name = "zsh-nix-shell";
@@ -22,7 +25,7 @@
     initExtra = "
       # Edit current command in editor
       autoload -U edit-command-line; zle -N edit-command-line
-      bindkey '^e' edit-command-line
+      bindkey '^[e' edit-command-line
       # Case insensitive
       zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
     ";

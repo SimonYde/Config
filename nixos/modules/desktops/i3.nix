@@ -19,7 +19,7 @@
     bemenu
   ];
 
-
+  programs.dconf.enable = true;
 
   imports = [
     ../services/lightdm.nix

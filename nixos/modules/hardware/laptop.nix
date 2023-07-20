@@ -9,6 +9,7 @@
     services.xserver.libinput = {
       enable = true;
       touchpad = {
+        disableWhileTyping = true;
         naturalScrolling = true;
         middleEmulation = true;
         tapping = true;

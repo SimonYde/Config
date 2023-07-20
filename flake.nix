@@ -35,17 +35,17 @@
     homeConfigurations = {
       icarus = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config = { allowUnfree = true; };
-          };
+          system = "x86_64-linux";
+          config = { allowUnfree = true; };
+        };
         extraSpecialArgs = { inherit inputs; };
         modules = [ ./home-manager/devices/icarus.nix ];
       };
       perdix = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config = { allowUnfree = true; };
-          };
+          system = "x86_64-linux";
+          config = { allowUnfree = true; };
+        };
         extraSpecialArgs = { inherit inputs; };
         modules = [ ./home-manager/devices/perdix.nix ];
       };
