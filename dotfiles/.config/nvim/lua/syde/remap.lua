@@ -48,7 +48,7 @@ nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 
 local telescope = require('telescope.builtin')
 nmap("<leader>?", function() telescope.keymaps() end, "Look up keymaps")
-nmap("<leader>fb", function() telescope.buffers() end, "Buffers" )
+nmap("<leader>b", function() telescope.buffers() end, "Buffers" )
 nmap("<leader>fc", function() telescope.current_buffer_fuzzy_find() end, "Current buffer search")
 nmap("<leader>ff", function() telescope.find_files() end, "Files" )
 nmap("<leader>fg", function() telescope.git_files() end, "Git files")

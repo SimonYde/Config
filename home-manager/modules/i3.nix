@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   catppuccin = {
@@ -25,7 +25,7 @@ let
   browser = "firefox";
   fname = "JetBrains Mono Nerd Font Mono";
   # menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}' --nb '#1e1e2e' --sf '#1e1e2e' --sb '#b4befe'  --nf '#b4befe'";
-  menu = "--no-startup-id dmenu_run -nb '${catppuccin.mocha.base}' -sf '${catppuccin.mocha.base}' -sb '${catppuccin.mocha.lavender}' -nf '${catppuccin.mocha.lavender}'";
+  menu = "--no-startup-id dmenu_run -nb '${catppuccin.mocha.mantle}' -sf '${catppuccin.mocha.base}' -sb '${catppuccin.mocha.lavender}' -nf '${catppuccin.mocha.lavender}'";
   volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
@@ -65,7 +65,7 @@ in
 # Window
           "${mod}+q" = "kill";
           "${mod}+f" = "fullscreen";
-          "${mod}+Space" = "floating toggle";
+          "${mod}+mod1+Space" = "floating toggle";
           "${mod}+s" = "sticky toggle";
 
 # Scratchpad
@@ -124,14 +124,14 @@ in
 
         modes = {
           resize = {
-            "h" = "resize shrink width 10px";
-            "j" = "resize grow height 10px";
-            "k" = "resize shrink height 10px";
-            "l" = "resize grow width 10px";
-            "Left" = "resize shrink width 10px";
-            "Down" = "resize grow height 10px";
-            "Up" = "resize shrink height 10px";
-            "Right" = "resize grow width 10px";
+            "h" = "resize shrink width 20px";
+            "j" = "resize grow height 20px";
+            "k" = "resize shrink height 20px";
+            "l" = "resize grow width 20px";
+            "Left" = "resize shrink width 20px";
+            "Down" = "resize grow height 20px";
+            "Up" = "resize shrink height 20px";
+            "Right" = "resize grow width 20px";
 
             # Return to default mode
             "Return" = "mode \"default\"";
@@ -210,6 +210,8 @@ in
         assigns = {
         "1" = [{ class = "obsidian"; }];
         "2" = [{ class = "firefox"; }];
+        "4" = [{ class = "Brave-browser"; }];
+        "5" = [{ class = "VSCodium"; }];
         };
 
         startup = [

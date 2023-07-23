@@ -10,6 +10,7 @@
       vscodevim.vim
       gruntfuggly.todo-tree
       ms-python.python
+      ms-python.vscode-pylance
       ms-toolsai.jupyter
       ms-toolsai.vscode-jupyter-cell-tags
       ms-toolsai.jupyter-renderers
