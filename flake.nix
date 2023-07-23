@@ -17,7 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixgl.url = "github:guibou/nixGL";
-    helix.url = "github:helix-editor/helix";
   };
 
   outputs = { self, nixpkgs, nixgl, unstable, home-manager, ... }@inputs:

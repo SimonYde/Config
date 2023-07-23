@@ -1,10 +1,4 @@
 { lib, pkgs, ... }:
-/* let obsidian = 
-    pkgs.writeShellScriptBin "obsidian" '' 
-      #!/bin/sh
-      ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.unstable.obsidian}/bin/obsidian "$@"
-    '';
-in */
 {
   programs = {
     brave.enable   = true;
@@ -12,6 +6,7 @@ in */
     vscode.enable  = true;
   	zellij.settings.mouse_mode = false;
     alacritty.enable = true;
+    thunderbird.enable = true;
     zathura.enable = true;
   };
 
@@ -21,6 +16,7 @@ in */
 
   fonts.fontconfig.enable = true;
   xsession.windowManager.i3.enable = true;
+  xsession.enable = true;
   wayland.windowManager.sway.enable = false;
 
   home.packages = with pkgs; [
@@ -51,5 +47,6 @@ in */
     ../modules/gtk.nix
     ../modules/sway.nix
     ../modules/i3.nix
+    ../modules/email.nix
   ];
 }
