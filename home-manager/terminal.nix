@@ -52,6 +52,7 @@
     ./modules/nushell.nix
     ./modules/bat.nix
     ./modules/skim.nix
+    ./modules/lazygit.nix
     ./modules/starship.nix
     ./modules/zellij.nix
     ./modules/zoxide.nix
