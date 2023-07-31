@@ -11,7 +11,8 @@
       aliases = [
         "@simonyde.com"
       ];
-      passwordCommand = "alias cat=cat; cat ../../../.secrets/mailpassword";
+      # passwordCommand = "alias cat=cat; cat ../../../.secrets/mailpassword";
+      # passwordCommand = "cat ../../../.secrets/mailpassword";
       imap = {
         host = "127.0.0.1";
         port = 1143;

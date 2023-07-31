@@ -1,13 +1,13 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs = {
     brave.enable   = true;
     firefox.enable = true;
     vscode.enable  = true;
-  	zellij.settings.mouse_mode = false;
     alacritty.enable = true;
     thunderbird.enable = true;
     zathura.enable = true;
+    zellij.settings.mouse_mode = false;
   };
 
   services = {
