@@ -1,4 +1,4 @@
-{config, pkgs, ... }:
+{ ... }:
 
 {
   programs.starship = {
@@ -16,6 +16,6 @@
       git_branch = {
         style = "bold yellow";
       };
-    };    
+    };
   };
 }
