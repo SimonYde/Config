@@ -1,7 +1,7 @@
-{ config, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 {
-  accounts.email = {
+  accounts.email = lib.mkIf config.programs.thunderbird.enable {
     maildirBasePath = "~/Mail";
     accounts.simonyde = {
       primary = true;
@@ -28,9 +28,13 @@
   };
   programs.thunderbird = {
     profiles.simonyde.isDefault = true;
+    package = pkgs.unstable.thunderbird;
+    settings = { 
+      "privacy.donottrackheader.enabled" = true;
+    };
   };
 
-  home.packages = with pkgs; [
-    protonmail-bridge
+  home.packages = lib.mkIf config.programs.thunderbird.enable [
+    pkgs.protonmail-bridge
   ];
 }

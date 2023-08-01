@@ -1,10 +1,23 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, config, ... }:
 {
   programs = {
     # Editors
     helix.enable  = true;
     neovim.enable = true;
   };
+
+  # home.file = {
+  #   "${config.xdg.configHome}/nvim" = {
+  #     source = ../dotfiles/.config/nvim;
+  #     enable = config.programs.neovim.enable;
+  #     recursive = true;
+  #   };
+  #   "${config.xdg.configHome}/helix" = {
+  #     source = ../dotfiles/.config/helix;
+  #     enable = config.programs.helix.enable;
+  #     recursive = true;
+  #   };
+  # }; 
 
   home.packages = with pkgs; [    
     # Latex
@@ -16,8 +29,8 @@
     lldb
     # Other LSPs
     metals
-    nil
-    # nixfmt
+    inputs.nil.packages.x86_64-linux.nil
+    nixpkgs-fmt
      
     # Rust
     unstable.cargo

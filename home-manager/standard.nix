@@ -6,6 +6,7 @@
       # inputs.helix.overlay
       inputs.nur.overlay
       inputs.nixgl.overlay
+      inputs.helix.overlays.default
       (self: super: { 
         unstable = import inputs.unstable {
           config = pkgs.config;
@@ -23,12 +24,6 @@
     package = pkgs.nix;
     extraOptions = "experimental-features = flakes nix-command";
   };
-
-
-  /* home.file = {
-    "${config.xdg.configHome}/audiobook-dl/audiobook-dl.toml".source = ../audiobook-dl/audiobook-dl.toml;
-    "${config.xdg.configHome}/nvim/".source = ../nvim;
-  }; */
 
   imports = [
     # Programming

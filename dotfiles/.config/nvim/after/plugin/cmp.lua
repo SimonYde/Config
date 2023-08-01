@@ -15,7 +15,7 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
     { name = "path" },
-    { name = "snippy" },
+    { name = "luasnip" },
     { name = "buffer", keyword_length = 5 },
   },
   mapping = {

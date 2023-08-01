@@ -4,8 +4,7 @@ let helix-master =
 in 
 {
   programs.helix = {
-    package = helix-master;
-    # package = pkgs.helix;
+    # package = helix-master;
   };
 }
 
