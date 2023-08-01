@@ -21,8 +21,8 @@ in
         cmp-nvim-lsp
         cmp-buffer
         cmp-path
-        cmp_luasnip
         cmp-nvim-lua
+        cmp_luasnip
         luasnip
         fidget-nvim
 

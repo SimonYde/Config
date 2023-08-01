@@ -18,13 +18,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     client.server_capabilities.semanticTokensProvider = nil
     require('fidget').setup{}
-    require('lspsaga').setup({})
+    require('lspsaga').init_lsp_saga {}
   end,
 });
 
-  nvim_lsp.elmls.setup{
-    capabilities = capabilities,
-  }
+nvim_lsp.elmls.setup{
+  capabilities = capabilities,
+}
 
 
 nvim_lsp.ltex.setup{
@@ -69,6 +69,18 @@ nvim_lsp.texlab.setup{
       --   "%p",
       -- },
       -- },
+    },
+  }
+}
+
+nvim_lsp.nil_ls.setup{
+  capabilities = capabilities,
+  settings = {
+    ['nil'] = {
+      testSetting = 42,
+      formatting = {
+        command = { "nixpkgs-fmt" },
+      },
     },
   }
 }

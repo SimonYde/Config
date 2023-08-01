@@ -87,5 +87,7 @@
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
-    }
+    },
+    "extensions.autoCheckUpdates": false,
+    "update.mode": "none"
 }

@@ -25,6 +25,7 @@
     unstable.obsidian
     libqalculate
     synergy
+    xclip
     # gaming
     wine
     discord
