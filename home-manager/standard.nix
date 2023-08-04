@@ -7,6 +7,7 @@
       inputs.nur.overlay
       inputs.nixgl.overlay
       inputs.helix.overlays.default
+      # inputs.nixpkgs-wayland.overlay
       (self: super: { 
         unstable = import inputs.unstable {
           config = pkgs.config;

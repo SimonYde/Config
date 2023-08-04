@@ -13,9 +13,10 @@ opt.tabstop = 2
 opt.softtabstop = 2
 opt.expandtab = true
 opt.smartcase = true
+opt.ignorecase = true
 
 opt.smartindent = true
-opt.showmode = false 
+opt.showmode = false
 opt.laststatus = 2
 -- opt.laststatus = 3 -- global statusline
 

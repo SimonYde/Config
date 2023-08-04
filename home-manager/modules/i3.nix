@@ -204,7 +204,7 @@ in
 
         window = {
           titlebar = false;
-          border = 3;
+          border = 2;
         };
 
         assigns = {
