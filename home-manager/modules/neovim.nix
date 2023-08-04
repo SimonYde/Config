@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
-let 
-  unstablePlugins = pkgs.unstable.vimPlugins; 
+let
+  unstablePlugins = pkgs.unstable.vimPlugins;
 in
 {
   config = {
@@ -18,6 +18,7 @@ in
         lspkind-nvim
         lspsaga-nvim
         nvim-cmp
+        cmp-cmdline
         cmp-nvim-lsp
         cmp-buffer
         cmp-path
@@ -25,6 +26,7 @@ in
         cmp_luasnip
         luasnip
         fidget-nvim
+        copilot-lua
 
         harpoon
         nvim-autopairs
@@ -35,7 +37,7 @@ in
         comment-nvim
 
         which-key-nvim
-        unstablePlugins.vim-be-good
+        vim-be-good
 
         # Fuzzy Finder
         unstablePlugins.telescope-nvim

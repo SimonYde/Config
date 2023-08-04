@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: 
+{ config, pkgs, lib, ... }: 
 {
   gtk = {
     enable = true;
@@ -14,5 +14,9 @@
         variant = "mocha";
       };
     };
+  };
+
+  home.sessionVariables = lib.mkIf config.gtk.enable {
+    GTK_THEME = "Catppuccin-Mocha-Compact-Lavender-Dark";
   };
 }

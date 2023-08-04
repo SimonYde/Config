@@ -6,7 +6,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Language setup
-servers = {"texlab", "pylsp", "nil_ls", "rust_analyzer", "metals", "ltex" }
+local servers = {"elmls", "pylsp", "rust_analyzer", "metals", "ocamllsp", "gopls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,
@@ -18,14 +18,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     client.server_capabilities.semanticTokensProvider = nil
     require('fidget').setup{}
-    require('lspsaga').init_lsp_saga {}
+    require('lspsaga').setup{
+      code_action_prompt = {
+        enable = false,
+      },
+    }
   end,
 });
 
-nvim_lsp.elmls.setup{
-  capabilities = capabilities,
+nvim_lsp.lua_ls.setup{
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {
+          "vim"
+        }
+      },
+    }
+  }
 }
-
 
 nvim_lsp.ltex.setup{
   capabilities = capabilities,
@@ -85,5 +96,7 @@ nvim_lsp.nil_ls.setup{
   }
 }
 
-
+if vim.fn.executable('node') == 1 then
+  require('copilot').setup{}
+end
 

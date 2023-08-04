@@ -38,6 +38,7 @@
     unstable.rust-analyzer
     unstable.rustfmt
     unstable.clippy
+    nodejs_20
   ];
 
   imports = [
