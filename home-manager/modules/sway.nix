@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 let
   catppuccin = {
@@ -31,6 +31,7 @@ let
 in
 {
   config.wayland.windowManager.sway = {
+    package = null;
     config = {
       modifier = mod;
       terminal = terminal;

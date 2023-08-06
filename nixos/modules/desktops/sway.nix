@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, nixpkgs, ... }:
 
 {
   config = {
@@ -7,6 +7,7 @@
       wlr.enable = true;
     };
     programs.sway = {
+      package = inputs.nixpkgs-wayland.packages."${nixpkgs.system}".sway-unwrapped;
       enable = true;
       /* extraSessionCommands = ''
         export WLR_NO_HARDWARE_CURSORS=1
