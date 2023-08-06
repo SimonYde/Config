@@ -46,6 +46,7 @@ in
       unstablePlugins.nvim-treesitter.withAllGrammars
       unstablePlugins.nvim-treesitter-textobjects
       unstablePlugins.nvim-treesitter-context
+      unstablePlugins.telescope-fzf-native-nvim
       nvim-ts-rainbow2
       ltex_extra-nvim
 
