@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
 	programs.vscode = {
@@ -16,6 +16,19 @@
       github.copilot
       ms-python.python
       ms-python.vscode-pylance
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "catppuccin-vsc-icons";
+          publisher = "catppuccin";
+          version = "0.23.0";
+          sha256 = "sha256-zETZksec51Tq6mdXdJ110sn6NYIwN1roY3MBae1bWUU=";
+        };
+        meta = {
+          description = "Soothing pastel icon theme for VSCode";
+          license = lib.licenses.mit;
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc-icons";
+        };
+      })
     ];
     # userSettings = builtins.fromJSON (builtins.readFile ../../dotfiles/.config/Code/User/settings.json);
 	};

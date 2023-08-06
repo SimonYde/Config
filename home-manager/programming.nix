@@ -26,11 +26,11 @@
     pandoc
     ltex-ls
      
-    lldb
     # Other LSPs
     metals
     inputs.nil.packages.x86_64-linux.nil
     nixpkgs-fmt
+    nodejs_20
      
     # Rust
     unstable.cargo
@@ -38,7 +38,7 @@
     unstable.rust-analyzer
     unstable.rustfmt
     unstable.clippy
-    nodejs_20
+    # lldb
   ];
 
   imports = [

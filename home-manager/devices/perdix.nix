@@ -3,9 +3,9 @@
   programs = {
     brave.enable   = true;
     firefox.enable = true;
-    vscode.enable  = true;
+    vscode.enable  = false;
     alacritty.enable = true;
-    thunderbird.enable = true;
+    thunderbird.enable = false;
     zathura.enable = true;
     zellij.settings.mouse_mode = false;
   };
