@@ -1,8 +1,9 @@
 { pkgs, nixos-wsl, modulesPath, ... }:
 
+let nixos-wsl = import ../modules/nixos-wsl; in
 {
   imports = [
-    # "${modulesPath}/profiles/minimal.nix"
+    "${modulesPath}/profiles/minimal.nix"
     nixos-wsl.nixosModules.wsl
     ../modules/programs/nix.nix
     ../modules/hardware/graphics/nvidia.nix  
