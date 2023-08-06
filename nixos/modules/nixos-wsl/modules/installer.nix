@@ -21,7 +21,7 @@ with builtins; with lib; {
         ${pkgs.pv}/bin/pv ${rootfs} | tar xz
 
         echo "Activating nix configuration..."
-        /nix/var/nix/profiles/system/activate
+        LANG="C.UTF-8" /nix/var/nix/profiles/system/activate
         PATH=$BASEPATH:/run/current-system/sw/bin # Use packages from target system
 
         echo "Cleaning up installer files..."
@@ -48,9 +48,7 @@ with builtins; with lib; {
         compressionExtension = ".gz";
         extraArgs = "--hard-dereference";
 
-        storeContents = with pkgs; pkgs2storeContents [
-          installer
-        ];
+        storeContents = pkgs2storeContents [ installer ];
 
         contents = [
           { source = config.environment.etc."wsl.conf".source; target = "/etc/wsl.conf"; }
@@ -58,6 +56,7 @@ with builtins; with lib; {
           { source = passwd; target = "/etc/passwd"; }
           { source = "${pkgs.busybox}/bin/busybox"; target = "/bin/sh"; }
           { source = "${pkgs.busybox}/bin/busybox"; target = "/bin/mount"; }
+          { source = "${installer}"; target = "/nix/nixos-wsl/entrypoint"; }
         ];
 
         extraCommands = pkgs.writeShellScript "prepare" ''
