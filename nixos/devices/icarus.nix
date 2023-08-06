@@ -6,7 +6,6 @@ let nixos-wsl = import ../modules/nixos-wsl; in
     "${modulesPath}/profiles/minimal.nix"
     nixos-wsl.nixosModules.wsl
     ../modules/programs/nix.nix
-    ../modules/hardware/graphics/nvidia.nix  
   ];
 
   networking.hostName = "icarus";
