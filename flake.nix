@@ -22,10 +22,13 @@
       inputs.nixpkgs.follows = "unstable";
     };
     helix.url = "github:helix-editor/helix";
-    nixos-wsl.url = "github:nix-community/nixos-wsl";
+    nixos-wsl = {
+      url = "github:nix-community/nixos-wsl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixgl, unstable, nixos-wsl, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, unstable, nixos-wsl, home-manager, ... }@inputs:
   {
     nixosConfigurations = {
       icarus = nixpkgs.lib.nixosSystem {
