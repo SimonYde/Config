@@ -28,16 +28,25 @@
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-ld-rs = {
+      url = "github:nix-community/nix-ld-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, unstable, nixos-wsl, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
     nixosConfigurations = {
       icarus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./nixos/devices/icarus.nix ];
+        specialArgs = { inherit inputs; };
+        modules = [ 
+          ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
+          ./nixos/devices/icarus.nix 
+        ];
       };
       perdix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
         modules = [
           # ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
           ./nixos/devices/perdix.nix

@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, lib, ... }:
+{ nixpkgs-wayland, pkgs, config, lib, ... }:
 
 {
   imports = [
@@ -10,7 +10,6 @@
     ../modules/hardware/graphics/amd.nix
   ];
   
-  nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ];
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {

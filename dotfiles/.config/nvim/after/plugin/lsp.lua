@@ -88,10 +88,10 @@ nvim_lsp.nil_ls.setup{
   capabilities = capabilities,
   settings = {
     ['nil'] = {
-      testSetting = 42,
       formatting = {
         command = { "nixpkgs-fmt" },
       },
+      autoArchive = true,
     },
   }
 }

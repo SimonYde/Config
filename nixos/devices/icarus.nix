@@ -1,15 +1,15 @@
-{ pkgs, nixos-wsl, modulesPath, ... }:
+{ inputs, pkgs, ... }:
 
-# let nixos-wsl = import ../modules/nixos-wsl; in
 {
   imports = [
-    # "${modulesPath}/profiles/minimal.nix"
-    nixos-wsl.nixosModules.wsl
+    inputs.nixos-wsl.nixosModules.wsl
     ../modules/programs/nix.nix
+    ../modules/programs/doas.nix
   ];
 
   networking.hostName = "icarus";
   system.stateVersion = "23.05";
+  time.timeZone = "Europe/Copenhagen";
   wsl = {
     enable = true;
     wslConf.automount.root = "/mnt";
@@ -31,8 +31,11 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git wget
+    git
+    wget
   ];
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.package = pkgs.nix-ld-rs;
   programs.command-not-found.enable = true;
 }
