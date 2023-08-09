@@ -48,7 +48,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          # ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
+          # ({ ... }: { nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
           ./nixos/devices/perdix.nix
         ];
       };

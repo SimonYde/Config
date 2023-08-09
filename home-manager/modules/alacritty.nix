@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   config = {
@@ -33,7 +33,7 @@
             family = "JetBrains Mono Nerd Font Mono";
             style = "Bold Italic";
           };
-          size = 9;
+          size = if config.wayland.windowManager.sway.enable then 14 else 9;
         };
         cursor = {
           style = {

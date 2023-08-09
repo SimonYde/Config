@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   catppuccin = {
@@ -21,7 +21,7 @@ let
         flamingo  = "#f2cdcd";
       };
     };
-  menu = "${pkgs.bemenu}/bin/bemenu-run -b -p » --fn 'pango:${fname} ${builtins.toString 8}'";
+  menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}'";
   terminal = "alacritty";
   browser = "firefox";
   volumeChange = 10;
@@ -30,7 +30,7 @@ let
   fname = "JetBrains Mono Nerd Font Mono";
 in
 {
-  config.wayland.windowManager.sway = {
+  wayland.windowManager.sway = {
     package = null;
     config = {
       modifier = mod;
@@ -41,11 +41,12 @@ in
         "${mod}+r" = "mode \"resize\"";
         "ctrl+${mod}+f" = "exec ${browser}";
         "${mod}+d" = "exec ${menu}";
+        "${mod}+Escape" = "exec swaylock";
 
         # Sound
-        "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -i --allow-boost ${toString volumeChange}";
-        "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -d --allow-boost ${toString volumeChange}";
-        "XF86AudioMute" = "exec --no-startup-id ${pkgs.pamixer}/bin/pamixer -t";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -i ${toString volumeChange}";
+        "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -d ${toString volumeChange}";
+        "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
         # "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
         # Brightness
@@ -61,7 +62,7 @@ in
         # Window
         "${mod}+q" = "kill";
         "${mod}+f" = "fullscreen";
-        "${mod}+Mod1+f" = "floating toggle";
+        "${mod}+mod1+f" = "floating toggle";
         "${mod}+s" = "sticky toggle";
 
         # Scratchpad
@@ -117,7 +118,7 @@ in
 
         # Sway specific
         "${mod}+Shift+r" = "reload";
-        "${mod}+Shift+e" = "swaynag -t warning -m 'Exit Sway' -B 'Yes' 'swaymsg exit'";
+        "${mod}+Shift+e" = ''exec "swaynag -t warning -m 'Exit Sway' -B 'Yes' 'swaymsg exit'"'';
       };
 
       modes = {
@@ -154,6 +155,13 @@ in
           indicator = surface1;
           childBorder = base;
         };
+        urgent = {
+          border = red;
+          background = base;
+          text = surface0;
+          indicator = red;
+          childBorder = red;
+        };
       };
 
       bars = [{
@@ -176,6 +184,11 @@ in
             border = surface0;
             text = surface2;
           };
+          urgentWorkspace = {
+            background = red;
+            border = red;
+            text = surface0;
+          };
         };
       }];
 
@@ -195,12 +208,15 @@ in
 
       window = {
         titlebar = false;
-        border = 3;
+        border = 2;
       }; 
 
       input = {
         "type:keyboard" = {
-          xkb_layout = "eu";
+          # xkb_layout = "eu";
+          xkb_layout = "us";
+          xkb_variant = "colemak_dh";
+
           xkb_options = "caps:escape";
         };
         "type:touchpad" = {
@@ -215,11 +231,36 @@ in
         "*" = { bg = "~/Config/assets/backgrounds/battlefield-catppuccin.png fill"; };
       };
 
+      assigns = {
+      "1" = [{ class = "obsidian"; }];
+      "2" = [{ class = "firefox"; }];
+      "4" = [{ class = "Brave-browser"; }];
+      "5" = [{ class = "VSCodium"; }];
+      };
+
 
       startup = [
+      { command = "obsidian"; }
       { command = "redshift"; } 
-      { command = "nm-applet"; }
+      # { command = "nm-applet"; } # nm-applet doesn't work in wayland, TODO: look at alternatives
       ];
+    };
+  };
+
+
+  home.sessionVariables = lib.mkIf (config.wayland.windowManager.sway.config.input."type:keyboard".xkb_layout == "us")  {
+    COLEMAK = "1";
+  };
+
+  programs.swaylock = {
+    enable = config.wayland.windowManager.sway.enable;
+    settings = {
+      color = "181825";
+      font-size = 24;
+      indicator-idle-visible = false;
+      ignore-empty-password = true;
+      indicator-radius = 100;
+      show-failed-attempts = true;
     };
   };
 }
