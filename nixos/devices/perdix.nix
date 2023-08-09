@@ -1,9 +1,9 @@
-{ nixpkgs-wayland, pkgs, config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   imports = [
-    # ../modules/desktops/sway.nix
-    ../modules/desktops/i3.nix
+    ../modules/desktops/sway.nix
+    # ../modules/desktops/i3.nix
     ../modules/pc.nix
     ../modules/hardware/laptop.nix
     ../modules/hardware/graphics/nvidia.nix

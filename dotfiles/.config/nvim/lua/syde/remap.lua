@@ -99,3 +99,15 @@ require('Comment').setup()
 
 -- fugitive
 nmap("<leader>gs", vim.cmd.Git, "Git fugitive")
+
+
+if os.getenv("COLEMAK") then
+  vim.keymap.set({ "n", "v" }, "m", "h")
+  vim.keymap.set({ "n", "v" }, "n", "j")
+  vim.keymap.set({ "n", "v" }, "e", "k")
+  vim.keymap.set({ "n", "v" }, "i", "l")
+ vim.keymap.set({ "n" }, "h", "m" )
+ vim.keymap.set({ "n" }, "j", "e")
+ vim.keymap.set({ "n" }, "k", "n")
+ vim.keymap.set({ "n" }, "l", "i")
+end

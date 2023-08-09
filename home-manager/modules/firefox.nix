@@ -141,7 +141,10 @@
         # bypass-paywalls-clean
         # i-still-dont-care-about-cookies
       ];
-      userChrome = ''
+      userChrome = if config.wayland.windowManager.sway.enable then 
+        builtins.readFile ../../assets/userChrome.css
+      else
+      ''
         #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
           opacity: 0;
           pointer-events: none;

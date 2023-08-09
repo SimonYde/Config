@@ -15,9 +15,9 @@
   };
 
   fonts.fontconfig.enable = true;
-  xsession.windowManager.i3.enable = true;
-  xsession.enable = true;
-  wayland.windowManager.sway.enable = false;
+  xsession.windowManager.i3.enable = false;
+  xsession.enable = false;
+  wayland.windowManager.sway.enable = true;
 
   home.packages = with pkgs; [
     nerdfonts
