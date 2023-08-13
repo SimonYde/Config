@@ -23,6 +23,8 @@ if os.getenv("COLEMAK") then
   -- vim.opt.langremap = true
 end
 
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
 map({ "n", "v" }, "gs", "^", "Goto first non-blank in line")
 map({ "n", "v" }, "gh", "0", "Goto line start")
 map({ "n", "v" }, "gl", "$", "Goto line end")
@@ -55,13 +57,13 @@ nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 
 
 local telescope = require('telescope.builtin')
-nmap("<leader>?", function() telescope.keymaps() end, "Look up keymaps")
-nmap("<leader>b", function() telescope.buffers() end, "Buffers")
-nmap("<leader>fc", function() telescope.current_buffer_fuzzy_find() end, "Current buffer search")
-nmap("<leader>ff", function() telescope.find_files() end, "Files")
-nmap("<leader>F", function() telescope.git_files() end, "Git files")
-nmap("<leader>fh", function() telescope.help_tags() end, "Help tags")
-nmap("<leader>fs", function() telescope.live_grep() end, "Search with grep")
+nmap("<leader>?", telescope.keymaps, "Look up keymaps")
+nmap("<leader>b", telescope.buffers, "Buffers")
+nmap("<leader>fc", telescope.current_buffer_fuzzy_find, "Current buffer search")
+nmap("<leader>ff", telescope.find_files, "Files")
+nmap("<leader>F", telescope.git_files, "Git files")
+nmap("<leader>fh", telescope.help_tags, "Help tags")
+nmap("<leader>fs", telescope.live_grep, "Search with grep")
 nmap("<A-f>", "<cmd>NvimTreeToggle<cr>", "Toggle file tree")
 
 local whichkey = require('which-key')
@@ -71,7 +73,7 @@ whichkey.register({
     f = {
       name = "Find (telescope)",
     },
-    u = { function() vim.cmd.UndotreeToggle() end, "Undotree" },
+    u = { vim.cmd.UndotreeToggle, "Undotree" },
     -- k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
     k = { function() vim.lsp.buf.hover() end, "code actions" },
     a = { "<cmd>Lspsaga code_action<cr>", "code actions" },

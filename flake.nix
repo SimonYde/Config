@@ -32,16 +32,17 @@
       url = "github:nix-community/nix-ld-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, ... }: {
     nixosConfigurations = {
       icarus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
-        modules = [ 
+        modules = [
           ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
-          ./nixos/devices/icarus.nix 
+          ./nixos/devices/icarus.nix
         ];
       };
       perdix = nixpkgs.lib.nixosSystem {
