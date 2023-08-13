@@ -11,7 +11,6 @@
 
   home.file."${config.xdg.configHome}/fish/themes/Catppuccin-Mocha.theme" = { 
     enable = config.programs.fish.enable;
-    onChange = "${pkgs.fish}/bin/";
     source = (pkgs.fetchFromGitHub {
       owner = "Catppuccin";
       repo = "fish";
