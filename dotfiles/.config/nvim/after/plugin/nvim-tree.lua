@@ -1,4 +1,5 @@
 require("nvim-tree").setup({
+  -- disable_netrw = true,
   sort_by = "case_sensitive",
   view = {
     width = 30,
@@ -11,5 +12,10 @@ require("nvim-tree").setup({
   },
   git = {
     ignore = false,
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    },
   },
 })
