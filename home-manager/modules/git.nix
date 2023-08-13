@@ -6,7 +6,7 @@
     userEmail = "git@simonyde.com";
     extraConfig = {
       init = {
-        defaultBranch = "main";
+        defaultBranch = "master";
       };
       pull = {
         rebase = false;
@@ -14,6 +14,7 @@
     };
     ignores = [
       "*.sync-conflict*"
+      ".direnv"
       ".stignore"
       ".stfolder"
       ".vscode"
