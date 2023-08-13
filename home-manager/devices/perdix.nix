@@ -11,7 +11,8 @@
   };
 
   services = {
-    redshift.enable = true;
+    redshift.enable = false;
+    gammastep.enable = true;
   };
 
   fonts.fontconfig.enable = true;
@@ -45,6 +46,7 @@
     ../home.nix
     ../standard.nix
     ../modules/services/redshift.nix
+    ../modules/services/gammastep.nix
     ../modules/gtk.nix
     ../modules/sway.nix
     ../modules/i3.nix

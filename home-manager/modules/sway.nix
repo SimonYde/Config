@@ -2,26 +2,31 @@
 
 let
   catppuccin = {
-      mocha = {
-        base      = "#1e1e2e";
-        mantle    = "#181825";
-        surface0  = "#313244";
-        surface1  = "#45475a";
-        surface2  = "#585b70";
-        text      = "#cdd6f4";
-        rosewater = "#f5e0dc";
-        lavender  = "#b4befe";
-        red       = "#f38ba8";
-        peach     = "#fab387";
-        yellow    = "#f9e2af";
-        green     = "#a6e3a1";
-        teal      = "#94e2d5";
-        blue      = "#89b4fa";
-        mauve     = "#cba6f7";
-        flamingo  = "#f2cdcd";
-      };
+    mocha = {
+      base      = "#1e1e2e";
+      mantle    = "#181825";
+      surface0  = "#313244";
+      surface1  = "#45475a";
+      surface2  = "#585b70";
+      text      = "#cdd6f4";
+      rosewater = "#f5e0dc";
+      lavender  = "#b4befe";
+      red       = "#f38ba8";
+      peach     = "#fab387";
+      yellow    = "#f9e2af";
+      green     = "#a6e3a1";
+      teal      = "#94e2d5";
+      blue      = "#89b4fa";
+      mauve     = "#cba6f7";
+      flamingo  = "#f2cdcd";
     };
-  menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}'";
+  };
+  # menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}'";
+  menu = " dmenu_run -nb '${catppuccin.mocha.mantle}' -sf '${catppuccin.mocha.base}' -sb '${catppuccin.mocha.lavender}' -nf '${catppuccin.mocha.lavender}'";
+  left = "m";
+  down = "n";
+  up = "e";
+  right = "i";
   terminal = "alacritty";
   browser = "firefox";
   volumeChange = 10;
@@ -57,13 +62,13 @@ in
         "${mod}+b" = "splith";
         "${mod}+v" = "splitv";
         "${mod}+w" = "layout tabbed";
-        "${mod}+e" = "layout toggle split";
+        "${mod}+s" = "layout toggle split";
 
         # Window
         "${mod}+q" = "kill";
         "${mod}+f" = "fullscreen";
         "${mod}+mod1+f" = "floating toggle";
-        "${mod}+s" = "sticky toggle";
+        "${mod}+mod1+s" = "sticky toggle";
 
         # Scratchpad
         "${mod}+Shift+minus" = "move scratchpad";
@@ -73,20 +78,20 @@ in
         "${mod}+mod1+l" = "output eDP-1 toggle";
 
         # Focus
-        "${mod}+h" = "focus left";
-        "${mod}+j" = "focus down";
-        "${mod}+k" = "focus up";
-        "${mod}+l" = "focus right";
+        "${mod}+${left}"  = "focus left";
+        "${mod}+${down}"  = "focus down";
+        "${mod}+${up}"    = "focus up";
+        "${mod}+${right}" = "focus right";
         "${mod}+Left" = "focus left";
         "${mod}+Down" = "focus down";
         "${mod}+Up" = "focus up";
         "${mod}+Right" = "focus right";
 
         # Move Window
-        "${mod}+Shift+h" = "move left";
-        "${mod}+Shift+j" = "move down";
-        "${mod}+Shift+k" = "move up";
-        "${mod}+Shift+l" = "move right";
+        "${mod}+Shift+${left}"  = "move left";
+        "${mod}+Shift+${down}"  = "move down";
+        "${mod}+Shift+${up}"    = "move up";
+        "${mod}+Shift+${right}" = "move right";
         "${mod}+Shift+Left" = "move left";
         "${mod}+Shift+Down" = "move down";
         "${mod}+Shift+Up" = "move up";
@@ -118,15 +123,15 @@ in
 
         # Sway specific
         "${mod}+Shift+r" = "reload";
-        "${mod}+Shift+e" = ''exec "swaynag -t warning -m 'Exit Sway' -B 'Yes' 'swaymsg exit'"'';
+        "${mod}+Shift+Escape" = ''exec "swaynag -t warning -m 'Exit Sway' -B 'Yes' 'swaymsg exit'"'';
       };
 
       modes = {
         resize = {
-          "h" = "resize shrink width 10px";
-          "j" = "resize grow height 10px";
-          "k" = "resize shrink height 10px";
-          "l" = "resize grow width 10px";
+          "${left}"  = "resize shrink width 10px";
+          "${down}"  = "resize grow height 10px";
+          "${up}"    = "resize shrink height 10px";
+          "${right}" = "resize grow width 10px";
           "Left" = "resize shrink width 10px";
           "Down" = "resize grow height 10px";
           "Up" = "resize shrink height 10px";

@@ -12,6 +12,16 @@ local function vmap(keys, cmd, desc) map("v", keys, cmd, desc) end
 local function xmap(keys, cmd, desc) map("x", keys, cmd, desc) end
 local function tmap(keys, cmd, desc) map("t", keys, cmd, desc) end
 
+if os.getenv("COLEMAK") then
+  vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
+  vim.opt.langremap = false
+  nmap("<C-w>m", "<C-w>h", "Go to the left window")
+  nmap("<C-w>n", "<C-w>j", "Go to the down window")
+  nmap("<C-w>e", "<C-w>k", "Go to the up window")
+  nmap("<C-w>i", "<C-w>l", "Go to the right window")
+  -- vim.opt.langmap = "jh,hj"
+  -- vim.opt.langremap = true
+end
 
 map({ "n", "v" }, "gs", "^", "Goto first non-blank in line")
 map({ "n", "v" }, "gh", "0", "Goto line start")
@@ -27,10 +37,9 @@ nmap("<C-u>", "<C-u>zz", "Move up half page")
 nmap("n", "nzzzv", "Move to next search match")
 nmap("N", "Nzzzv", "Move to previous search match")
 
-nmap("<A-r>", "gwip")
 
 
--- yank to system clipboard
+
 map({ "n", "v" }, "<leader>y", [["+y]], "yank to system clipboard")
 nmap("<leader>Y", [["+Y]], "yank to system clipboard")
 
@@ -101,13 +110,3 @@ require('Comment').setup()
 nmap("<leader>gs", vim.cmd.Git, "Git fugitive")
 
 
-if os.getenv("COLEMAK") then
-  vim.keymap.set({ "n", "v" }, "m", "h")
-  vim.keymap.set({ "n", "v" }, "n", "j")
-  vim.keymap.set({ "n", "v" }, "e", "k")
-  vim.keymap.set({ "n", "v" }, "i", "l")
- vim.keymap.set({ "n" }, "h", "m" )
- vim.keymap.set({ "n" }, "j", "e")
- vim.keymap.set({ "n" }, "k", "n")
- vim.keymap.set({ "n" }, "l", "i")
-end

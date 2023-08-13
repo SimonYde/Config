@@ -15,6 +15,7 @@
                 { name = "search"; value = "{searchTerms}"; }
               ];
             }];
+            iconUpdateURL = "https://wiki.archlinux.org/favicon.ico";
             definedAliases = [ "!aw" ];
           };
           "Brave Search" = {
@@ -24,8 +25,18 @@
                 { name = "q"; value = "{searchTerms}"; }
               ];
             }];
-            iconUpdateURL = "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/apple-touch-icon.5a2b672b.png";
+            iconUpdateURL = "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-16x16.341beadf.png";
             definedAliases = [ "!b" ];
+          };
+          "Kagi" = {
+            urls = [{
+              template = "https://kagi.com/search";
+              params = [
+                { name = "q"; value = "{searchTerms}"; }
+              ];
+            }];
+            iconUpdateURL = "https://assets.kagi.com/v1/favicon-16x16.png";
+            definedAliases = [ "!k" ];
           };
           "Nix Packages" = {
             urls = [{
@@ -54,17 +65,8 @@
             iconUpdateURL = "https://www.youtube.com/s/desktop/fa273944/img/favicon_144x144.png";
             definedAliases = [ "!yt" ];
           };
-          "Kagi" = {
-            urls = [{
-              template = "https://kagi.com/search";
-              params = [
-                { name = "q"; value = "{searchTerms}"; }
-              ];
-            }];
-            iconUpdateURL = "https://assets.kagi.com/v1/favicon-16x16.png";
-            definedAliases = [ "!k" ];
-          };
           "Bing".metaData.hidden = true;
+          "Wikipedia (en)".metaData.hidden = true;
           "Amazon.com".metaData.hidden = true;
         };
         order = [

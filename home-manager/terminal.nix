@@ -10,6 +10,7 @@
 
       # CLI tools
       bat.enable      = true;
+      direnv.enable   = true;
       exa.enable      = true;
       git.enable      = true;
       lazygit.enable  = true;
@@ -47,6 +48,7 @@
   imports = [
     ./modules/alacritty.nix
     ./modules/exa.nix
+    ./modules/direnv.nix
     ./modules/fish.nix
     ./modules/git.nix
     ./modules/nushell.nix

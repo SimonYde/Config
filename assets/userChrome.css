@@ -6,11 +6,6 @@
   visibility: collapse !important;
 }
 
-/* Adding empty space for buttons */
-#nav-bar {
-  margin-right:70px;
-}
-
 /* 15px for dragging whole window by mouse*/
 #titlebar {
   appearance: none !important;
@@ -22,10 +17,19 @@
   margin-top: 0px;
 }
 
+.titlebar-buttonbox-container {
+  display: none;
+}
+
+/* Adding empty space for buttons */
+/* #nav-bar {
+  margin-right:70px;
+} */
+
 /* Move minimize/restore/close buttons to empty space */
-#TabsToolbar > .titlebar-buttonbox-container {
+/* #TabsToolbar > .titlebar-buttonbox-container {
   display: block;
   position: absolute;
   top: 0px;
   right: 8px;
-}
+} */

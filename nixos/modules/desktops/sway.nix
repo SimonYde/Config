@@ -21,16 +21,15 @@
     enable = true;
     displayManager = {
       defaultSession = "sway";
-      lightdm.enable = true;
+      # lightdm.enable = true;
+      gdm.enable = true;
     };
   };
-  # environment.systemPackages = with pkgs; [
-  #   qt6.qtwayland
-  # ];
   # programs.nm-applet.enable = true;
 
   
   imports = [
-    ../services/lightdm.nix
+    # ../services/lightdm.nix
+    ../services/gdm.nix
   ];
 }
