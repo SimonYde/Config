@@ -39,7 +39,7 @@
 			on_force_close = "quit";
 			simplified_ui = false;
 			pane_frames   = false;	
-			copy_command = "xclip -selection clipboard";
+			# copy_command = "xclip -selection clipboard";
 		};
 	};
 }
