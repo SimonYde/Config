@@ -14,6 +14,7 @@
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {
     wg0 = {
+      autostart = true;
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
       privateKeyFile = "/home/syde/.secrets/wireguard.key";

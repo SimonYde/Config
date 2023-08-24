@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {    
   nixpkgs = {
@@ -6,6 +6,7 @@
       # inputs.helix.overlay
       inputs.nur.overlay
       inputs.helix.overlays.default
+      inputs.neovim-nightly.overlays.default
       # inputs.nixpkgs-wayland.overlay
       (self: super: { 
         unstable = import inputs.unstable {
@@ -23,8 +24,11 @@
 
   nix = {
     package = pkgs.nix;
+    registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = "experimental-features = flakes nix-command";
   };
+
+  home.sessionVariables.NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
 
   imports = [
     # Programming

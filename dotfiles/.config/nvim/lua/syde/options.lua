@@ -1,4 +1,29 @@
-vim.cmd.colorscheme "catppuccin-mocha"
+require("catppuccin").setup({
+  flavour = "mocha",   -- latte, frappe, macchiato, mocha
+  integrations = {
+    indent_blankline = {
+      enabled = true,
+      colored_indent_levels = false,
+    },
+    cmp = true,
+    gitsigns = true,
+    nvimtree = true,
+    treesitter = true,
+    treesitter_context = true,
+    notify = false,
+    mini = false,
+    fidget = true,
+    harpoon = true,
+    lsp_saga = true,
+    telescope = {
+      enabled = true,
+      style = "nvchad",
+    },
+    which_key = false,
+  },
+})
+-- setup must be called before loading
+vim.cmd.colorscheme "catppuccin"
 vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
 
 vim.g.loaded_netrw = 1

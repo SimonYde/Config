@@ -24,6 +24,10 @@
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "unstable";
     };
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "unstable";
+    };
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,57 +39,52 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, ... }: {
+    nixosConfigurations = {
+      icarus = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
+          ./nixos/devices/icarus.nix
+        ];
+      };
+      perdix = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          # ({ ... }: { nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
+          ./nixos/devices/perdix.nix
+        ];
+      };
+    };
 
+    homeConfigurations = {
+      icarus = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config = { allowUnfree = true; };
+        };
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ ./home-manager/devices/icarus.nix ];
+      };
+      perdix = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config = { allowUnfree = true; };
+        };
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ ./home-manager/devices/perdix.nix ];
+      };
+    };
+  } //
+  flake-utils.lib.eachDefaultSystem (system:
+    let pkgs = nixpkgs.legacyPackages.${system}; in
     {
-      nixosConfigurations = {
-        icarus = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
-            ./nixos/devices/icarus.nix
-          ];
-        };
-        perdix = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            # ({ ... }: { nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
-            ./nixos/devices/perdix.nix
-          ];
-        };
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [
+          lua-language-server
+        ];
       };
-
-      homeConfigurations = {
-        icarus = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config = { allowUnfree = true; };
-          };
-          extraSpecialArgs = { inherit inputs; };
-          modules = [ ./home-manager/devices/icarus.nix ];
-        };
-        perdix = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config = { allowUnfree = true; };
-          };
-          extraSpecialArgs = { inherit inputs; };
-          modules = [ ./home-manager/devices/perdix.nix ];
-        };
-      };
-
-    } //
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            lua-language-server
-          ];
-        };
-      });
+    });
 }
