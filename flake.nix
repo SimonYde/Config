@@ -47,6 +47,7 @@
         modules = [
           ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
           ./nixos/devices/icarus.nix
+          { nix.registry.nixpkgs.flake = nixpkgs; }
         ];
       };
       perdix = nixpkgs.lib.nixosSystem {
@@ -55,6 +56,7 @@
         modules = [
           # ({ ... }: { nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
           ./nixos/devices/perdix.nix
+          { nix.registry.nixpkgs.flake = nixpkgs; }
         ];
       };
     };
@@ -66,7 +68,10 @@
           config = { allowUnfree = true; };
         };
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/devices/icarus.nix ];
+        modules = [
+          ./home-manager/devices/icarus.nix
+          { nix.registry.nixpkgs.flake = nixpkgs; }
+        ];
       };
       perdix = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
@@ -74,7 +79,10 @@
           config = { allowUnfree = true; };
         };
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/devices/perdix.nix ];
+        modules = [
+          ./home-manager/devices/perdix.nix
+          { nix.registry.nixpkgs.flake = nixpkgs; }
+        ];
       };
     };
   } //

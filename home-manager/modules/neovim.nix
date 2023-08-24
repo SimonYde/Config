@@ -36,7 +36,6 @@ in
       nvim-surround
       comment-nvim
 
-      which-key-nvim
       vim-be-good
 
       # Fuzzy Finder
@@ -52,6 +51,9 @@ in
       ltex_extra-nvim
 
       # UI
+      which-key-nvim
+      diffview-nvim
+      neogit
       lualine-nvim
       indent-blankline-nvim
       nvim-web-devicons

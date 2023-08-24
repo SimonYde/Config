@@ -24,11 +24,11 @@
 
   nix = {
     package = pkgs.nix;
-    registry.nixpkgs.flake = inputs.nixpkgs;
+    # registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = "experimental-features = flakes nix-command";
   };
 
-  home.sessionVariables.NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
+  # home.sessionVariables.NIX_PATH = "nixpkgs=flake:nixpkgs$\{NIX_PATH:+:$NIX_PATH}";
 
   imports = [
     # Programming
