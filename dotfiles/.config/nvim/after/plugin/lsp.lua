@@ -23,6 +23,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
       },
     }
     require('lspsaga').setup {
+      symbol_in_winbar = {
+        enable = false,
+      },
       code_action_prompt = {
         enable = false,
       },
@@ -104,5 +107,9 @@ nvim_lsp.nil_ls.setup {
 }
 
 if vim.fn.executable('node') == 1 then
-  require('copilot').setup {}
+  require('copilot').setup {
+    suggestion = {
+      auto_trigger = true,
+    },
+  }
 end
