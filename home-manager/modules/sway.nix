@@ -39,8 +39,12 @@ in
     package = null;
     config = {
       modifier = mod;
-      terminal = terminal;
-      menu = menu;
+      inherit terminal;
+      inherit menu;
+      inherit left;
+      inherit down;
+      inherit up;
+      inherit right;
       keybindings = {
         "${mod}+t" = "exec ${terminal}";
         "${mod}+r" = "mode \"resize\"";
@@ -144,6 +148,7 @@ in
         };
       };
 
+      defaultWorkspace = "workspace number 1";
       colors = with catppuccin.mocha; {
         background = base;
         focused = {
@@ -252,10 +257,6 @@ in
     };
   };
 
-
-  home.sessionVariables = lib.mkIf (config.wayland.windowManager.sway.config.input."type:keyboard".xkb_layout == "us")  {
-    COLEMAK = "1";
-  };
 
   programs.swaylock = {
     enable = config.wayland.windowManager.sway.enable;

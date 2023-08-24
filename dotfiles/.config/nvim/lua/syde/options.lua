@@ -10,20 +10,18 @@ require("catppuccin").setup({
     nvimtree = true,
     treesitter = true,
     treesitter_context = true,
-    notify = false,
-    mini = false,
-    fidget = true,
+    -- fidget = true, -- is ugly
     harpoon = true,
     lsp_saga = true,
     telescope = {
       enabled = true,
-      style = "nvchad",
+      -- style = "nvchad",
     },
-    which_key = false,
+    which_key = true,
   },
 })
--- setup must be called before loading
 vim.cmd.colorscheme "catppuccin"
+
 vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
 
 vim.g.loaded_netrw = 1
