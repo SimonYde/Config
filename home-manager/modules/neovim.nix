@@ -28,6 +28,7 @@ in
       fidget-nvim
       copilot-lua
 
+      # Workflow
       harpoon
       nvim-autopairs
       undotree
