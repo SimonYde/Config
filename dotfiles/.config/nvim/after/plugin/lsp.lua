@@ -6,7 +6,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Language setup
-local servers = {"elmls", "pylsp", "rust_analyzer", "metals", "ocamllsp", "gopls" }
+local servers = { "elmls", "pylsp", "rust_analyzer", "metals", "ocamllsp", "gopls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,
@@ -17,16 +17,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     client.server_capabilities.semanticTokensProvider = nil
-    require('fidget').setup{}
-    require('lspsaga').setup{
+    require('fidget').setup {
+      window = {
+        blend = 0,
+      },
+    }
+    require('lspsaga').setup {
       code_action_prompt = {
         enable = false,
+      },
+      ui = {
+        kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
       },
     }
   end,
 });
 
-nvim_lsp.lua_ls.setup{
+nvim_lsp.lua_ls.setup {
   settings = {
     Lua = {
       diagnostics = {
@@ -38,10 +45,10 @@ nvim_lsp.lua_ls.setup{
   }
 }
 
-nvim_lsp.ltex.setup{
+nvim_lsp.ltex.setup {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
-    require("ltex_extra").setup{
+    require("ltex_extra").setup {
       load_langs = { "en-US", "en-GB", "da-DK" },
       init_check = true,
       path = vim.fn.expand("~") .. "/.local/share/ltex",
@@ -55,7 +62,7 @@ nvim_lsp.ltex.setup{
   }
 }
 
-nvim_lsp.texlab.setup{
+nvim_lsp.texlab.setup {
   capabilities = capabilities,
   settings = {
     texlab = {
@@ -75,7 +82,7 @@ nvim_lsp.texlab.setup{
       -- forwardSearch = {
       -- executable = "zathura",
       -- args = {
-      --   "--synctex-forward", 
+      --   "--synctex-forward",
       --   "%l:%c:%f",
       --   "%p",
       -- },
@@ -84,7 +91,7 @@ nvim_lsp.texlab.setup{
   }
 }
 
-nvim_lsp.nil_ls.setup{
+nvim_lsp.nil_ls.setup {
   capabilities = capabilities,
   settings = {
     ['nil'] = {
@@ -97,6 +104,5 @@ nvim_lsp.nil_ls.setup{
 }
 
 if vim.fn.executable('node') == 1 then
-  require('copilot').setup{}
+  require('copilot').setup {}
 end
-

@@ -4,7 +4,8 @@ let
 in
 {
   programs.neovim = {
-    package = pkgs.unstable.neovim-unwrapped;
+    # package = pkgs.unstable.neovim-unwrapped;
+    package = pkgs.neovim-nightly;
     vimAlias = true;
     viAlias = true;
     extraConfig = ''
@@ -15,7 +16,7 @@ in
       # LSP
       nvim-lspconfig
       lspkind-nvim
-      lspsaga-nvim
+      lspsaga-nvim-original
       nvim-cmp
       cmp-cmdline
       cmp-nvim-lsp
@@ -40,13 +41,13 @@ in
 
       # Fuzzy Finder
       unstablePlugins.telescope-nvim
+      unstablePlugins.telescope-fzf-native-nvim
       unstablePlugins.plenary-nvim
 
       # Language plugins
       unstablePlugins.nvim-treesitter.withAllGrammars
       unstablePlugins.nvim-treesitter-textobjects
       unstablePlugins.nvim-treesitter-context
-      unstablePlugins.telescope-fzf-native-nvim
       nvim-ts-rainbow2
       ltex_extra-nvim
 

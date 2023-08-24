@@ -19,10 +19,6 @@
     } + "/server-env-setup");
   };
 
-  home.sessionVariables = {
-    COLEMAK = "1";
-  };
-
   imports = [
     ../home.nix
     ../standard.nix

@@ -248,6 +248,7 @@ in
           }
           { block = "battery"; }
           { block = "sound"; }
+          { block = "net"; }
           {
             block = "time";
             interval = 60;

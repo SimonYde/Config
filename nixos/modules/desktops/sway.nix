@@ -14,6 +14,7 @@
 
     extraSessionCommands = ''
       export WLR_NO_HARDWARE_CURSORS=1
+      export MOZ_ENABLE_WAYLAND=1
     '';
     extraOptions = [ "--unsupported-gpu" ];
   };
@@ -26,7 +27,7 @@
     };
   };
   # programs.nm-applet.enable = true;
-
+  
   
   imports = [
     # ../services/lightdm.nix
