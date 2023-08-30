@@ -3,6 +3,7 @@
   programs = {
     zellij.settings.mouse_mode = true;
     zathura.enable = true;
+    nix-index.enable = true;
   };
 
   home.packages = with pkgs; [

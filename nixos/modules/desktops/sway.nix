@@ -9,8 +9,8 @@
   programs.sway = {
     # package = inputs.nixpkgs-wayland.packages."x86_64-linux".sway-unwrapped;
     enable = true;
-    # wrapperFeatures.gtk = true;
-    # wrapperFeatures.base = true;
+    wrapperFeatures.gtk = true;
+    wrapperFeatures.base = true;
 
     extraSessionCommands = ''
       export WLR_NO_HARDWARE_CURSORS=1
@@ -22,15 +22,15 @@
     enable = true;
     displayManager = {
       defaultSession = "sway";
-      # lightdm.enable = true;
-      gdm.enable = true;
+      lightdm.enable = true;
+      # gdm.enable = true;
     };
   };
   # programs.nm-applet.enable = true;
   
   
   imports = [
-    # ../services/lightdm.nix
-    ../services/gdm.nix
+    ../services/lightdm.nix
+    # ../services/gdm.nix
   ];
 }

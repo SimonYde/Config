@@ -50,7 +50,7 @@
     git alacritty 
   ];
 
-  programs.command-not-found.enable = true;
+  programs.command-not-found.enable = false;
   
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod"];
   boot.supportedFilesystems = [ "ntfs" ];

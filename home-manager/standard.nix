@@ -3,10 +3,10 @@
 {    
   nixpkgs = {
     overlays = [ 
-      # inputs.helix.overlay
       inputs.nur.overlay
       inputs.helix.overlays.default
       inputs.neovim-nightly.overlays.default
+      inputs.nil.overlays.default
       # inputs.nixpkgs-wayland.overlay
       (self: super: { 
         unstable = import inputs.unstable {
