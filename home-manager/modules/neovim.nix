@@ -48,7 +48,8 @@ in
       unstablePlugins.nvim-treesitter.withAllGrammars
       unstablePlugins.nvim-treesitter-textobjects
       unstablePlugins.nvim-treesitter-context
-      nvim-ts-rainbow2
+      unstablePlugins.rainbow-delimiters-nvim
+      # nvim-ts-rainbow2
       ltex_extra-nvim
 
       # UI
@@ -60,7 +61,7 @@ in
       nvim-web-devicons
       nvim-tree-lua
       nui-nvim
-      catppuccin-nvim
+      unstablePlugins.catppuccin-nvim
     ];
   };
 }
