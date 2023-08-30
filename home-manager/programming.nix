@@ -27,10 +27,10 @@
     ltex-ls
      
     # Other LSPs
-    metals
+    # metals
     inputs.nil.packages.x86_64-linux.nil
     nixpkgs-fmt
-    nodejs_20
+    nodejs_20 # for copilot.lua
      
     # Rust
     unstable.cargo
@@ -38,12 +38,16 @@
     unstable.rust-analyzer
     unstable.rustfmt
     unstable.clippy
-    # lldb
   ];
+
+  home.sessionVariables = {
+    GOPATH = "${config.xdg.dataHome}/go";
+    CARGO_HOME = "${config.xdg.configHome}/cargo";
+  };
 
   imports = [
     ./modules/zathura.nix
-    ./modules/python.nix
+    # ./modules/python.nix
     ./modules/helix.nix
     ./modules/neovim.nix
     ./modules/vscode.nix

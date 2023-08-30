@@ -50,6 +50,7 @@ in
         "${mod}+r" = "mode \"resize\"";
         "ctrl+${mod}+f" = "exec ${browser}";
         "${mod}+d" = "exec ${menu}";
+        "${mod}+Shift+s" = "exec ${pkgs.shotman}/bin/shotman -c region -C";
         "${mod}+Escape" = "exec swaylock";
 
         # Sound

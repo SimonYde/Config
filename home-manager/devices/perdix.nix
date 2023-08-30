@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   programs = {
+    nix-index.enable = true;
     brave.enable   = true;
     firefox.enable = true;
     vscode.enable  = false;
@@ -19,14 +20,15 @@
   xsession.windowManager.i3.enable = false;
   xsession.enable = false;
   wayland.windowManager.sway.enable = true;
+  xdg.enable = true;
 
   home.packages = with pkgs; [
     nerdfonts
     font-awesome
     unstable.obsidian
     libqalculate
-    synergy
-    xclip
+    wl-clipboard
+    # synergy
     # gaming
     wine
     discord
