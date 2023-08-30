@@ -9,7 +9,8 @@ require("catppuccin").setup({
     gitsigns = true,
     nvimtree = true,
     treesitter = true,
-    treesitter_context = true,
+    -- treesitter_context = true,
+    rainbow_delimiters = true,
     -- fidget = true, -- is ugly
     harpoon = true,
     lsp_saga = true,
