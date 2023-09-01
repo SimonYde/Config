@@ -3,15 +3,17 @@
 {
   boot.initrd.luks.devices."luks-8c2b7981-b3e3-470e-aae7-2834b1352fa5".device = "/dev/disk/by-uuid/8c2b7981-b3e3-470e-aae7-2834b1352fa5";
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/1EED-B458";
+    device = "/dev/disk/by-label/SYSTEM_DRV";
     fsType = "vfat";
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/3224958c-f486-4eb8-a1bc-83dfb4a9932e";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
   };
 
 
-  swapDevices = [];
+  swapDevices = [{
+    device = "/dev/disk/by-label/swap";
+  }];
 }
