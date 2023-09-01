@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  config.programs.git = {
+  programs.git = {
     userName = "Simon Yde";
     userEmail = "git@simonyde.com";
     extraConfig = {
@@ -23,4 +23,8 @@
       "**/elm-stuff"
     ];
   };
+
+  home.packages = with pkgs; [
+    git-crypt
+  ];
 }

@@ -34,7 +34,7 @@
 		    black   = "#181825"; # Mantle
 		    white   = "#cdd6f4";
 			};
-			default_layout = "compact";
+			# default_layout = "compact";
 			default_shell = "fish";
 			on_force_close = "quit";
 			simplified_ui = false;
