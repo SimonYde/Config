@@ -12,11 +12,6 @@
   #     enable = config.programs.neovim.enable;
   #     recursive = true;
   #   };
-  #   "${config.xdg.configHome}/helix" = {
-  #     source = ../dotfiles/.config/helix;
-  #     enable = config.programs.helix.enable;
-  #     recursive = true;
-  #   };
   # }; 
 
   home.packages = with pkgs; [    

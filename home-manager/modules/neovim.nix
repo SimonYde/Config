@@ -13,7 +13,7 @@ in
       lua require('syde')
     '';
     plugins = with pkgs.vimPlugins; [
-      # LSP
+      # -----LSP-----
       nvim-lspconfig
       lspkind-nvim
       lspsaga-nvim-original
@@ -28,23 +28,25 @@ in
       fidget-nvim
       copilot-lua
 
-      # Workflow
+      # -----Workflow-----
       harpoon
       nvim-autopairs
       undotree
-      vim-fugitive
+      # vim-fugitive
       gitsigns-nvim
+      neogit
+      git-worktree-nvim
       nvim-surround
       comment-nvim
 
       vim-be-good
 
-      # Fuzzy Finder
+      # -----Fuzzy Finder-----
       unstablePlugins.telescope-nvim
       unstablePlugins.telescope-fzf-native-nvim
       unstablePlugins.plenary-nvim
 
-      # Language plugins
+      # -----Language plugins-----
       unstablePlugins.nvim-treesitter.withAllGrammars
       unstablePlugins.nvim-treesitter-textobjects
       unstablePlugins.nvim-treesitter-context
@@ -52,10 +54,9 @@ in
       # nvim-ts-rainbow2
       ltex_extra-nvim
 
-      # UI
+      # -----UI-----
       which-key-nvim
       diffview-nvim
-      neogit
       lualine-nvim
       indent-blankline-nvim
       nvim-web-devicons
