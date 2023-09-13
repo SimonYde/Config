@@ -46,6 +46,7 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
+require("telescope").load_extension("git_worktree")
 
 local colors = require("catppuccin.palettes").get_palette()
 local TelescopeColor = {

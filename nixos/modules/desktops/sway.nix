@@ -28,6 +28,9 @@
   };
   # programs.nm-applet.enable = true;
   
+  users.users.syde.packages = with pkgs; [
+    networkmanagerapplet
+  ];
   
   imports = [
     ../services/lightdm.nix

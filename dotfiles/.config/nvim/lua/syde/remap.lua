@@ -68,9 +68,10 @@ whichkey.register({
     f = {
       name = "Find (telescope)",
     },
+    d = { vim.diagnostic.open_float, "Open diagnostics" },
     u = { vim.cmd.UndotreeToggle, "Undotree" },
-    -- k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
-    k = { vim.lsp.buf.hover, "hover documentation" },
+    k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
+    -- k = { vim.lsp.buf.hover, "hover documentation" },
     a = { "<cmd>Lspsaga code_action<cr>", "code actions" },
   },
   ["g"] = {
@@ -82,10 +83,10 @@ whichkey.register({
     i = { telescope.lsp_implementations, "Goto Implementations" },
   },
   ["["] = {
-    d = { vim.diagnostic.goto_prev, "Goto previous diagnostic" },
+    d = { vim.diagnostic.goto_prev, "Previous diagnostic" },
   },
   ["]"] = {
-    d = { vim.diagnostic.goto_next, "Goto next diagnostic" },
+    d = { vim.diagnostic.goto_next, "Next diagnostic" },
   },
 })
 local presets = require("which-key.plugins.presets")
@@ -102,6 +103,4 @@ tmap("<leader><Esc>", "<C-\\><C-n>", "Exit terminal mode")
 
 require('Comment').setup()
 
-
--- fugitive
-nmap("<leader>gs", vim.cmd.Git, "Git fugitive")
+nmap("<leader>g", vim.cmd.Neogit, "Neo[g]it")

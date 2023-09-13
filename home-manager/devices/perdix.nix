@@ -2,10 +2,11 @@
 {
   programs = {
     nix-index.enable = true;
-    brave.enable   = true;
+    brave.enable = true;
     firefox.enable = true;
-    vscode.enable  = false;
+    vscode.enable = false;
     alacritty.enable = true;
+    wezterm.enable = false;
     thunderbird.enable = false;
     zathura.enable = true;
     zellij.settings.mouse_mode = false;
@@ -23,7 +24,8 @@
   xdg.enable = true;
 
   home.packages = with pkgs; [
-    nerdfonts
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    # nerdfonts
     font-awesome
     unstable.obsidian
     libqalculate

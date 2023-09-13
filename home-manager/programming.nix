@@ -25,7 +25,7 @@
     # metals
     inputs.nil.packages.x86_64-linux.nil
     nixpkgs-fmt
-    nodejs_20 # for copilot.lua
+    nodejs-slim_20 # for copilot.lua
      
     # Rust
     unstable.cargo
