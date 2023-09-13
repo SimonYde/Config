@@ -43,15 +43,23 @@ right = [
   "position"
 ]
 
+[keys.normal."h"]
+h = "match_brackets"
+s = "surround_add"
+r = "surround_replace"
+d = "surround_delete"
+a = "select_textobject_around"
+i = "select_textobject_inner"
+
 [keys.normal]
 m = "move_char_left"
 n = "move_visual_line_down"
 e = "move_visual_line_up"
 i = "move_char_right"
-# h = "m"
 j = "move_next_word_end"
 k = "search_next"
 l = "insert_mode"
+
 
 
 esc = ["collapse_selection", "keep_primary_selection"]

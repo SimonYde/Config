@@ -33,9 +33,15 @@
       # CLI Tools
       any-nix-shell
       entr
+      ripgrep
+      fd
+      sd
+      du-dust
+      xh
+      dogdns
+
       grawlix
       nur.repos.jo1gi.audiobook-dl-git
-      ripgrep
     ];
 
     home.shellAliases = {
@@ -47,6 +53,7 @@
 
   imports = [
     ./modules/alacritty.nix
+    ./modules/wezterm.nix
     ./modules/exa.nix
     ./modules/direnv.nix
     ./modules/fish.nix
