@@ -1,22 +1,22 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
-{    
+{
   nixpkgs = {
-    overlays = [ 
+    overlays = [
       inputs.nur.overlay
       inputs.helix.overlays.default
       inputs.neovim-nightly.overlays.default
       inputs.nil.overlays.default
       # inputs.nixpkgs-wayland.overlay
-      (self: super: { 
+      (self: super: {
         unstable = import inputs.unstable {
           config = pkgs.config;
           system = pkgs.system;
         };
         xkeyboard-config = pkgs.unstable.xkeyboard-config;
-        grawlix = pkgs.callPackage ./packages/grawlix.nix {};
+        grawlix = pkgs.callPackage ./packages/grawlix.nix { };
         qt6Packages = pkgs.unstable.qt6Packages; # I don't know what needs this to build, but it isn't on stable branch...
-      }) 
+      })
     ];
     config.allowUnfree = true;
   };

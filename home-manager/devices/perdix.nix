@@ -9,7 +9,7 @@
     wezterm.enable = false;
     thunderbird.enable = false;
     zathura.enable = true;
-    zellij.settings.mouse_mode = false;
+    zellij.settings.mouse_mode = true;
   };
 
   services = {
