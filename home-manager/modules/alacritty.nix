@@ -33,7 +33,7 @@
             family = "JetBrains Mono Nerd Font Mono";
             style = "Bold Italic";
           };
-          size = if config.wayland.windowManager.sway.enable then 14 else 9;
+          size = if config.wayland.windowManager.sway.enable then 15 else 9;
         };
         cursor = {
           style = {

@@ -18,6 +18,7 @@
       ".stignore"
       ".stfolder"
       ".vscode"
+      "**/_build"
       "**/target"
       "**/node_modules"
       "**/elm-stuff"

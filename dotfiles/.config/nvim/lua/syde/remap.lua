@@ -11,14 +11,29 @@ local function tmap(keys, cmd, desc) map("t", keys, cmd, desc) end
 
 -- COLEMAK Remaps
 vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
+-- vim.opt.langmap = "jh,hk,kj"
 vim.opt.langremap = false
 nmap("<C-w>m", "<C-w>h", "Go to the left window")
 nmap("<C-w>n", "<C-w>j", "Go to the down window")
 nmap("<C-w>e", "<C-w>k", "Go to the up window")
 nmap("<C-w>i", "<C-w>l", "Go to the right window")
--- vim.opt.langmap = "jh,hj"
--- vim.opt.langremap = true
 
+COLEMAK = true
+local function toggle()
+  if not COLEMAK then
+    vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
+    -- vim.opt.langmap = "jh,hk,kj"
+    vim.opt.langremap = false
+    COLEMAK = true
+    print("COLEMAK", COLEMAK)
+  else
+    vim.opt.langmap = ""
+    COLEMAK = false
+    print("COLEMAK", COLEMAK)
+  end
+end
+
+nmap("<leader><leader>q", toggle, "Toggle")
 
 map({ "n", "v" }, "gs", "^", "Goto first non-blank in line")
 map({ "n", "v" }, "gh", "0", "Goto line start")
@@ -48,7 +63,7 @@ vmap("<leader>d", [["_d]], "Delete without yanking")
 
 -- LSP commands
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
-nmap("<leader>r",  "<cmd>Lspsaga rename<cr>", "Rename")
+nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "Rename")
 
 
 local telescope = require('telescope.builtin')
@@ -97,10 +112,11 @@ presets.operators["v"] = nil
 -- nmap("<leader>k", "<cmd>lnext<CR>zz")
 -- nmap("<leader>j", "<cmd>lprev<CR>zz")
 
-nmap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Search and replace in buffer")
+nmap("<leader>q", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Search and replace in buffer")
 tmap("<leader><Esc>", "<C-\\><C-n>", "Exit terminal mode")
 
 
 require('Comment').setup()
 
 nmap("<leader>g", vim.cmd.Neogit, "Neo[g]it")
+nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "[g]it [w]orktrees")

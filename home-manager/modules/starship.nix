@@ -21,7 +21,8 @@
         style = "bold yellow";
       };
       nix_shell = {
-        heuristic = true;
+        unknown_msg = "nix shell";
+        heuristic = false;
       };
     };
   };

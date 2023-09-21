@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 
 let
   catppuccin = {
@@ -39,12 +39,7 @@ in
     package = null;
     config = {
       modifier = mod;
-      inherit terminal;
-      inherit menu;
-      inherit left;
-      inherit down;
-      inherit up;
-      inherit right;
+      inherit terminal menu left down up right;
       keybindings = {
         "${mod}+t" = "exec ${terminal}";
         "${mod}+r" = "mode \"resize\"";
@@ -81,6 +76,7 @@ in
 
         # Disable laptop screen
         "${mod}+mod1+l" = "output eDP-1 toggle";
+        "${mod}+mod1+Space" = "swagmsg input type:keyboard xkb_switch_layout";
 
         # Focus
         "${mod}+${left}"  = "focus left";
@@ -225,10 +221,8 @@ in
       input = {
         "type:keyboard" = {
           # xkb_layout = "eu";
-          xkb_layout = "us";
-          xkb_variant = "colemak_dh";
-
-          xkb_options = "caps:escape";
+          xkb_layout = "us(colemak_dh),dk";
+          xkb_options = "caps:escape,grp:rctrl_toggle";
         };
         "type:touchpad" = {
           dwt              = "enabled";
@@ -252,7 +246,7 @@ in
 
       startup = [
       { command = "obsidian"; }
-      { command = "redshift"; } 
+      # { command = "redshift"; } # This is X-org only, gammastep service instead
       # { command = "nm-applet"; } # nm-applet doesn't work in wayland, TODO: look at alternatives
       ];
     };
@@ -262,7 +256,7 @@ in
   programs.swaylock = {
     enable = config.wayland.windowManager.sway.enable;
     settings = {
-      color = "181825";
+      color = catppuccin.mocha.mantle;
       font-size = 24;
       indicator-idle-visible = false;
       ignore-empty-password = true;

@@ -16,7 +16,7 @@ require("catppuccin").setup({
     lsp_saga = true,
     telescope = {
       enabled = true,
-      -- style = "nvchad",
+      style = "nvchad",
     },
     which_key = true,
   },
@@ -32,9 +32,10 @@ local opt = vim.opt
 opt.nu = true
 opt.relativenumber = true
 
-opt.shiftwidth = 2
-opt.tabstop = 2
-opt.softtabstop = 2
+local tabwidth = 2
+opt.shiftwidth = tabwidth
+opt.tabstop = tabwidth
+opt.softtabstop = tabwidth
 opt.expandtab = true
 opt.smartcase = true
 opt.ignorecase = true

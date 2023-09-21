@@ -1,9 +1,10 @@
-{ pkgs, lib, inputs, config, ... }:
+{ pkgs, inputs, config, ... }:
 {
   programs = {
     # Editors
-    helix.enable  = true;
+    helix.enable = false;
     neovim.enable = true;
+    opam.enable = true;
   };
 
   # home.file = {
@@ -14,19 +15,19 @@
   #   };
   # }; 
 
-  home.packages = with pkgs; [    
+  home.packages = with pkgs; [
     # Latex
     texlab
     tectonic
     pandoc
     ltex-ls
-     
+
     # Other LSPs
     # metals
     inputs.nil.packages.x86_64-linux.nil
     nixpkgs-fmt
     nodejs-slim_20 # for copilot.lua
-     
+
     # Rust
     unstable.cargo
     unstable.rustc
