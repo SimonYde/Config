@@ -200,8 +200,8 @@ in
       }];
 
       gaps = {
-        inner = 0;
-        outer = 0;
+        inner = 7;
+        outer = 5;
       };
 
       floating = {
