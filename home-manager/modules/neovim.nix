@@ -46,12 +46,13 @@ in
       unstablePlugins.telescope-fzf-native-nvim
       unstablePlugins.plenary-nvim
 
-      # -----Language plugins-----
+      # -----Highlighting-----
       unstablePlugins.nvim-treesitter.withAllGrammars
       unstablePlugins.nvim-treesitter-textobjects
       unstablePlugins.nvim-treesitter-context
       unstablePlugins.rainbow-delimiters-nvim
-      # nvim-ts-rainbow2
+
+      # -----Language extras-----
       ltex_extra-nvim
 
       # -----UI-----
@@ -65,5 +66,32 @@ in
       nui-nvim
       unstablePlugins.catppuccin-nvim
     ];
+    extraLuaConfig = ''
+      require("catppuccin").setup({
+        flavour = "${config.themes.flavour}",
+        integrations = {
+          indent_blankline = {
+            enabled = true,
+            colored_indent_levels = false,
+          },
+          cmp = true,
+          gitsigns = true,
+          nvimtree = true,
+          treesitter = true,
+          -- treesitter_context = true,
+          rainbow_delimiters = true,
+          -- fidget = true, -- is ugly
+          harpoon = true,
+          lsp_saga = true,
+          telescope = {
+            enabled = true,
+            style = "nvchad",
+          },
+          which_key = true,
+        },
+      })
+      vim.cmd.colorscheme "catppuccin"
+    '';
+
   };
 }

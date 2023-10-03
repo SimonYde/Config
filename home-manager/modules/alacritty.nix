@@ -1,16 +1,20 @@
 { pkgs, config, ... }:
 
+let
+  theme = config.themes.flavour;
+in
 {
   config = {
     programs.alacritty = {
       settings = {
         import = [
-          (pkgs.fetchFromGitHub {
-           owner = "Catppuccin";
-           repo = "alacritty";
-           rev = "3c808cb";
-           sha256 = "sha256-w9XVtEe7TqzxxGUCDUR9BFkzLZjG8XrplXJ3lX6f+x0=";
-           } + "/catppuccin-mocha.yml")
+          (pkgs.fetchFromGitHub
+            {
+              owner = "Catppuccin";
+              repo = "alacritty";
+              rev = "3c808cb";
+              sha256 = "sha256-w9XVtEe7TqzxxGUCDUR9BFkzLZjG8XrplXJ3lX6f+x0=";
+            } + "/catppuccin-${theme}.yml")
         ];
         window = {
           opacity = 1.0;
@@ -33,7 +37,7 @@
             family = "JetBrains Mono Nerd Font Mono";
             style = "Bold Italic";
           };
-          size = if config.wayland.windowManager.sway.enable then 15 else 9;
+          size = if config.wayland.windowManager.sway.enable then 11.5 else 7;
         };
         cursor = {
           style = {
@@ -52,6 +56,12 @@
             action = "SpawnNewInstance";
           }
         ];
+        colors = {
+          cursor = {
+            text = "CellBackground";
+            cursor = "CellForeground";
+          };
+        };
       };
       /* package = pkgs.writeShellScriptBin "alacritty" ''
         #!/bin/sh

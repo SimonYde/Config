@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs = {
     nix-index.enable = true;
@@ -52,7 +52,9 @@
     ../modules/services/redshift.nix
     ../modules/services/gammastep.nix
     ../modules/gtk.nix
+    ../modules/qt.nix
     ../modules/sway.nix
+    ../modules/themes.nix
     ../modules/i3.nix
     ../modules/email.nix
   ];

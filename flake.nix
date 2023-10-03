@@ -45,7 +45,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ({ config, ... }: { config.nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
+          ({ ... }: { nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
           ./nixos/devices/icarus.nix
           { nix.registry.nixpkgs.flake = nixpkgs; }
         ];
@@ -61,30 +61,29 @@
       };
     };
 
-    homeConfigurations = {
-      icarus = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations =
+      let
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
         };
-        extraSpecialArgs = { inherit inputs; };
-        modules = [
-          ./home-manager/devices/icarus.nix
-          { nix.registry.nixpkgs.flake = nixpkgs; }
-        ];
-      };
-      perdix = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
+      in
+      {
+        icarus = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home-manager/devices/icarus.nix
+          ];
         };
-        extraSpecialArgs = { inherit inputs; };
-        modules = [
-          ./home-manager/devices/perdix.nix
-          { nix.registry.nixpkgs.flake = nixpkgs; }
-        ];
+        perdix = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home-manager/devices/perdix.nix
+          ];
+        };
       };
-    };
   } //
   flake-utils.lib.eachDefaultSystem (system:
     let pkgs = nixpkgs.legacyPackages.${system}; in
