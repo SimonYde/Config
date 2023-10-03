@@ -17,6 +17,6 @@
   };
 
   home.sessionVariables = lib.mkIf config.gtk.enable {
-    GTK_THEME = "Catppuccin-Mocha-Compact-Lavender-Dark";
+    GTK_THEME = config.gtk.theme.name;
   };
 }

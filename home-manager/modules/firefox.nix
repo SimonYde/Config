@@ -106,7 +106,7 @@
         "network.dns.disablePrefetch" = true;
         "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
         "network.trr.uri" = "https://dns.quad9.net/dns-query";
-        "network.trr.mode" = 3;
+        "network.trr.mode" = 2;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
 
@@ -133,7 +133,7 @@
         enhancer-for-youtube
         sponsorblock
         multi-account-containers
-        sidebery
+        # sidebery
         lastpass-password-manager
         proton-pass
         vimium
@@ -143,23 +143,7 @@
         # bypass-paywalls-clean
         # i-still-dont-care-about-cookies
       ];
-      userChrome = if config.wayland.windowManager.sway.enable then 
-        builtins.readFile ../../assets/userChrome.css
-      else
-      ''
-        #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
-          opacity: 0;
-          pointer-events: none;
-        }
-        #main-window:not([tabsintitlebar="true"]) #TabsToolbar {
-          visibility: collapse !important;
-        }
-
-        /* Fix for main menu calling by Alt button */
-        #titlebar > #toolbar-menubar {
-          margin-top: 0px;
-        }
-      '';
+      userChrome = builtins.readFile ../../assets/userChrome.css;
     };
   };
 }

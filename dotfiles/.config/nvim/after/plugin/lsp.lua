@@ -12,30 +12,6 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
-    require('fidget').setup {
-      window = {
-        blend = 0,
-      },
-    }
-    require('lspsaga').setup {
-      symbol_in_winbar = {
-        enable = false,
-      },
-      code_action_prompt = {
-        enable = false,
-      },
-      ui = {
-        kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
-      },
-    }
-  end,
-});
-
 nvim_lsp.lua_ls.setup {
   settings = {
     Lua = {
@@ -113,3 +89,26 @@ if vim.fn.executable('node') == 1 then
     },
   }
 end
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
+    require('fidget').setup {
+      window = {
+        blend = 0,
+      },
+    }
+    require('lspsaga').setup {
+      symbol_in_winbar = {
+        enable = false,
+      },
+      code_action_prompt = {
+        enable = false,
+      },
+      ui = {
+        kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+      },
+    }
+  end,
+});

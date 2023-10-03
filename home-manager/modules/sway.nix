@@ -1,28 +1,47 @@
 { pkgs, config, ... }:
 
 let
+  theme = config.themes.flavour;
   catppuccin = {
     mocha = {
-      base      = "#1e1e2e";
-      mantle    = "#181825";
-      surface0  = "#313244";
-      surface1  = "#45475a";
-      surface2  = "#585b70";
-      text      = "#cdd6f4";
+      base = "#1e1e2e";
+      mantle = "#181825";
+      surface0 = "#313244";
+      surface1 = "#45475a";
+      surface2 = "#585b70";
+      text = "#cdd6f4";
       rosewater = "#f5e0dc";
-      lavender  = "#b4befe";
-      red       = "#f38ba8";
-      peach     = "#fab387";
-      yellow    = "#f9e2af";
-      green     = "#a6e3a1";
-      teal      = "#94e2d5";
-      blue      = "#89b4fa";
-      mauve     = "#cba6f7";
-      flamingo  = "#f2cdcd";
+      lavender = "#b4befe";
+      red = "#f38ba8";
+      peach = "#fab387";
+      yellow = "#f9e2af";
+      green = "#a6e3a1";
+      teal = "#94e2d5";
+      blue = "#89b4fa";
+      mauve = "#cba6f7";
+      flamingo = "#f2cdcd";
+    };
+    latte = {
+      base = "#eff1f5";
+      mantle = "#e6e9ef";
+      surface0 = "#ccd0da";
+      surface1 = "#bcc0cc";
+      surface2 = "#acb0be";
+      text = "#4c4f69";
+      rosewater = "#dc8a78";
+      lavender = "#7287fd";
+      red = "#d20f39";
+      peach = "#fe640b";
+      yellow = "#df8e1d";
+      green = "#40a02b";
+      teal = "#179299";
+      blue = "#1e66f5";
+      mauve = "#8839ef";
+      flamingo = "#dd7878";
     };
   };
   # menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}'";
-  menu = " dmenu_run -nb '${catppuccin.mocha.mantle}' -sf '${catppuccin.mocha.base}' -sb '${catppuccin.mocha.lavender}' -nf '${catppuccin.mocha.lavender}'";
+  menu = " dmenu_run -nb '${catppuccin.${theme}.mantle}' -sf '${catppuccin.${theme}.base}' -sb '${catppuccin.${theme}.lavender}' -nf '${catppuccin.${theme}.lavender}'";
   left = "m";
   down = "n";
   up = "e";
@@ -76,12 +95,11 @@ in
 
         # Disable laptop screen
         "${mod}+mod1+l" = "output eDP-1 toggle";
-        "${mod}+mod1+Space" = "swagmsg input type:keyboard xkb_switch_layout";
 
         # Focus
-        "${mod}+${left}"  = "focus left";
-        "${mod}+${down}"  = "focus down";
-        "${mod}+${up}"    = "focus up";
+        "${mod}+${left}" = "focus left";
+        "${mod}+${down}" = "focus down";
+        "${mod}+${up}" = "focus up";
         "${mod}+${right}" = "focus right";
         "${mod}+Left" = "focus left";
         "${mod}+Down" = "focus down";
@@ -89,9 +107,9 @@ in
         "${mod}+Right" = "focus right";
 
         # Move Window
-        "${mod}+Shift+${left}"  = "move left";
-        "${mod}+Shift+${down}"  = "move down";
-        "${mod}+Shift+${up}"    = "move up";
+        "${mod}+Shift+${left}" = "move left";
+        "${mod}+Shift+${down}" = "move down";
+        "${mod}+Shift+${up}" = "move up";
         "${mod}+Shift+${right}" = "move right";
         "${mod}+Shift+Left" = "move left";
         "${mod}+Shift+Down" = "move down";
@@ -129,14 +147,14 @@ in
 
       modes = {
         resize = {
-          "${left}"  = "resize shrink width 10px";
-          "${down}"  = "resize grow height 10px";
-          "${up}"    = "resize shrink height 10px";
-          "${right}" = "resize grow width 10px";
-          "Left" = "resize shrink width 10px";
-          "Down" = "resize grow height 10px";
-          "Up" = "resize shrink height 10px";
-          "Right" = "resize grow width 10px";
+          "${left}" = "resize shrink width 30px";
+          "${down}" = "resize grow height 30px";
+          "${up}" = "resize shrink height 30px";
+          "${right}" = "resize grow width 30px";
+          "Left" = "resize shrink width 30px";
+          "Down" = "resize grow height 30px";
+          "Up" = "resize shrink height 30px";
+          "Right" = "resize grow width 30px";
 
           # Return to default mode
           "Return" = "mode \"default\"";
@@ -146,7 +164,7 @@ in
       };
 
       defaultWorkspace = "workspace number 1";
-      colors = with catppuccin.mocha; {
+      colors = with catppuccin.${theme}; {
         background = base;
         focused = {
           border = lavender;
@@ -178,7 +196,7 @@ in
           size = 8.0;
         };
         statusCommand = "i3status-rs config-top";
-        colors = with catppuccin.mocha; {
+        colors = with catppuccin.${theme}; {
           background = mantle;
           statusline = text;
           focusedWorkspace = {
@@ -205,18 +223,18 @@ in
       };
 
       floating = {
-        criteria = [ { window_role = "pop-up"; } ];
+        criteria = [{ window_role = "pop-up"; }];
       };
 
       fonts = {
-        names = [ "JetBrains Mono Nerd Font Mono" ];
+        names = [ fname ];
         size = 11.0;
       };
 
       window = {
         titlebar = false;
         border = 2;
-      }; 
+      };
 
       input = {
         "type:keyboard" = {
@@ -225,9 +243,9 @@ in
           xkb_options = "caps:escape,grp:rctrl_toggle";
         };
         "type:touchpad" = {
-          dwt              = "enabled";
-          tap              = "enabled";
-          natural_scroll   = "enabled";
+          dwt = "enabled";
+          tap = "enabled";
+          natural_scroll = "enabled";
           middle_emulation = "enabled";
         };
       };
@@ -237,17 +255,17 @@ in
       };
 
       assigns = {
-      "1" = [{ class = "obsidian"; }];
-      "2" = [{ class = "firefox"; }];
-      "4" = [{ class = "Brave-browser"; }];
-      "5" = [{ class = "VSCodium"; }];
+        "1" = [{ class = "obsidian"; }];
+        "2" = [{ class = "firefox"; }];
+        "4" = [{ class = "Brave-browser"; }];
+        "5" = [{ class = "VSCodium"; }];
       };
 
 
       startup = [
-      { command = "obsidian"; }
-      # { command = "redshift"; } # This is X-org only, gammastep service instead
-      # { command = "nm-applet"; } # nm-applet doesn't work in wayland, TODO: look at alternatives
+        { command = "obsidian"; }
+        # { command = "redshift"; } # This is X-org only, gammastep service instead
+        # { command = "nm-applet"; } # nm-applet doesn't work in wayland, TODO: look at alternatives
       ];
     };
   };
@@ -264,4 +282,58 @@ in
       show-failed-attempts = true;
     };
   };
+
+  programs.i3status-rust =
+    {
+      enable = config.xsession.windowManager.i3.enable || config.wayland.windowManager.sway.enable;
+      bars = {
+        top = {
+          blocks = [
+            {
+              block = "disk_space";
+              path = "/";
+              info_type = "available";
+              interval = 60;
+              warning = 20.0;
+              alert = 10.0;
+            }
+            {
+              block = "memory";
+              format = " $icon $mem_used_percents ";
+            }
+            {
+              block = "cpu";
+              interval = 1;
+            }
+            { block = "battery"; }
+            { block = "sound"; }
+            { block = "net"; }
+            {
+              block = "time";
+              interval = 60;
+              format = " $timestamp.datetime(f:'%a %Y-%m-%d %R') ";
+            }
+          ];
+          settings = {
+            theme = {
+              theme = "solarized-dark";
+              overrides = with catppuccin.${theme}; {
+                idle_bg = base;
+                idle_fg = text;
+                info_bg = blue;
+                info_fg = base;
+                good_bg = lavender;
+                good_fg = base;
+                warning_bg = flamingo;
+                warning_fg = base;
+                critical_bg = red;
+                critical_fg = base;
+              };
+            };
+          };
+          icons = "material-nf";
+          theme = "solarized-dark";
+        };
+      };
+    };
 }

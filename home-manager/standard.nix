@@ -18,7 +18,8 @@
         qt6Packages = pkgs.unstable.qt6Packages; # I don't know what needs this to build, but it isn't on stable branch...
       })
     ];
-    config.allowUnfree = true;
+    # config.allowUnfree = true; # Doesn't currently work
+    config.allowUnfreePredicate = _: true;
   };
   services.syncthing.enable = true;
 

@@ -75,6 +75,8 @@ nmap("<leader>F", telescope.git_files, "Git files")
 nmap("<leader>fh", telescope.help_tags, "Help tags")
 nmap("<leader>fs", telescope.live_grep, "Search with grep")
 nmap("<A-f>", "<cmd>NvimTreeToggle<cr>", "Toggle file tree")
+nmap("<A-F>", "<cmd>NvimTreeFindFileToggle<cr>", "Toggle file tree")
+
 
 local whichkey = require('which-key')
 whichkey.setup {}

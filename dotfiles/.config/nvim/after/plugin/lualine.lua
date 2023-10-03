@@ -8,13 +8,19 @@ require('lualine').setup {
     -- section_separators = { left = '', right = ''},
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff'},
-    lualine_c = {'filename', 'diagnostics'},
-    lualine_x = {--[[ 'fileformat', ]] 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff' },
+    lualine_c = {
+      {
+        'filename',
+        path = 1,
+        shorting_target = 80,
+
+      },
+
+      'diagnostics' },
+    lualine_x = { --[[ 'fileformat', ]] 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
   },
 }
-
-
