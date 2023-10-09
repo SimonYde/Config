@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
+
 {
   programs = {
     nix-index.enable = true;
@@ -7,6 +8,7 @@
     vscode.enable = false;
     alacritty.enable = true;
     wezterm.enable = false;
+    kitty.enable = false;
     thunderbird.enable = false;
     zathura.enable = true;
     zellij.settings.mouse_mode = true;
@@ -24,8 +26,7 @@
   xdg.enable = true;
 
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    # nerdfonts
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
     font-awesome
     unstable.obsidian
     libqalculate

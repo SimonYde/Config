@@ -1,5 +1,8 @@
-{ ... }:
+{ config, ... }:
 
+let
+  font = config.syde.terminal.font;
+in
 {
   programs.wezterm = {
     extraConfig = ''
@@ -21,8 +24,8 @@
         color_scheme = "Catppuccin Mocha",
         enable_tab_bar = false,
         default_cursor_style = "SteadyBar",
-        font = wezterm.font("JetBrains Mono Nerd Font Mono"),
-        font_size = 14.0,
+        font = wezterm.font("${font}"),
+        font_size = 11.5,
         default_prog = {"/home/syde/.nix-profile/bin/fish", "-l"},
       }
     '';

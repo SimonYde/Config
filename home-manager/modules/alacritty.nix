@@ -2,6 +2,7 @@
 
 let
   theme = config.themes.flavour;
+  font = config.syde.terminal.font;
 in
 {
   config = {
@@ -22,22 +23,22 @@ in
         };
         font = {
           normal = {
-            family = "JetBrains Mono Nerd Font Mono";
+            family = font;
             style = "Regular";
           };
           bold = {
-            family = "JetBrains Mono Nerd Font Mono";
+            family = font;
             style = "Bold";
           };
           italic = {
-            family = "JetBrains Mono Nerd Font Mono";
+            family = font;
             style = "Italic";
           };
           bold_italic = {
-            family = "JetBrains Mono Nerd Font Mono";
+            family = font;
             style = "Bold Italic";
           };
-          size = if config.wayland.windowManager.sway.enable then 11.5 else 7;
+          size = if config.wayland.windowManager.sway.enable then 11.5 else 8.5;
         };
         cursor = {
           style = {

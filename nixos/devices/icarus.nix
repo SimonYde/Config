@@ -2,7 +2,7 @@
 
 {
   imports = [
-    inputs.nixos-wsl.nixosModules.wsl
+    inputs.nixos-wsl.nixosModules.default
     ../modules/programs/nix.nix
     ../modules/programs/doas.nix
   ];
@@ -16,25 +16,24 @@
     # automountPath = "/mnt";
     defaultUser = "syde";
     startMenuLaunchers = true;
-
-    # Enable native Docker support
-    # docker-native.enable = true;
-
-    # Enable integration with Docker Desktop (needs to be installed)
-    # docker-desktop.enable = true;
+    nativeSystemd = true;
   };
 
   users.users.syde = {
     isNormalUser = true;
     description = "Simon Yde";
+    shell = pkgs.fish;
+    uid = 1000;
     extraGroups = [ "video" "networkmanager" "wheel" ];
   };
+
 
   environment.systemPackages = with pkgs; [
     git
     wget
   ];
 
+  programs.fish.enable = true;
   programs.nix-ld.enable = true;
   programs.nix-ld.package = pkgs.nix-ld-rs;
   # programs.command-not-found.enable = true;

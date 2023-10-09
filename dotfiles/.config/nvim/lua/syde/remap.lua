@@ -19,7 +19,7 @@ nmap("<C-w>e", "<C-w>k", "Go to the up window")
 nmap("<C-w>i", "<C-w>l", "Go to the right window")
 
 COLEMAK = true
-local function toggle()
+local function colemak_toggle()
   if not COLEMAK then
     vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
     -- vim.opt.langmap = "jh,hk,kj"
@@ -33,7 +33,7 @@ local function toggle()
   end
 end
 
-nmap("<leader><leader>q", toggle, "Toggle")
+nmap("<leader><leader>q", colemak_toggle, "Toggle")
 
 map({ "n", "v" }, "gs", "^", "Goto first non-blank in line")
 map({ "n", "v" }, "gh", "0", "Goto line start")
@@ -64,7 +64,7 @@ vmap("<leader>d", [["_d]], "Delete without yanking")
 -- LSP commands
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
 nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "Rename")
-
+-- nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 
 local telescope = require('telescope.builtin')
 nmap("<leader>?", telescope.keymaps, "Look up keymaps")
@@ -74,8 +74,9 @@ nmap("<leader>ff", telescope.find_files, "Files")
 nmap("<leader>F", telescope.git_files, "Git files")
 nmap("<leader>fh", telescope.help_tags, "Help tags")
 nmap("<leader>fs", telescope.live_grep, "Search with grep")
-nmap("<A-f>", "<cmd>NvimTreeToggle<cr>", "Toggle file tree")
-nmap("<A-F>", "<cmd>NvimTreeFindFileToggle<cr>", "Toggle file tree")
+
+nmap("<A-f>", vim.cmd.NvimTreeToggle, "Toggle file tree")
+nmap("<A-F>", vim.cmd.NvimTreeFindFileToggle, "Toggle file tree")
 
 
 local whichkey = require('which-key')
@@ -88,8 +89,9 @@ whichkey.register({
     d = { vim.diagnostic.open_float, "Open diagnostics" },
     u = { vim.cmd.UndotreeToggle, "Undotree" },
     k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
-    -- k = { vim.lsp.buf.hover, "hover documentation" },
     a = { "<cmd>Lspsaga code_action<cr>", "code actions" },
+    -- k = { vim.lsp.buf.hover, "hover documentation" },
+    -- a = { vim.lsp.buf.code_action, "code actions" },
   },
   ["g"] = {
     d = { vim.lsp.buf.definition, "Goto Definition" },
