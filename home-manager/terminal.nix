@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   config = {
@@ -54,6 +54,7 @@
   imports = [
     ./modules/alacritty.nix
     ./modules/wezterm.nix
+    ./modules/kitty.nix
     ./modules/exa.nix
     ./modules/direnv.nix
     ./modules/fish.nix
@@ -67,4 +68,12 @@
     ./modules/zoxide.nix
     ./modules/zsh.nix
   ];
+
+  options.syde.terminal = with lib; {
+    font = mkOption {
+      type = types.str;
+      # default = "FiraCode Nerd Font Mono";
+      default = "JetBrains Mono Nerd Font Mono";
+    };
+  };
 }

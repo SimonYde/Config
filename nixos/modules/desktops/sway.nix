@@ -29,6 +29,7 @@
   # programs.nm-applet.enable = true;
   
   users.users.syde.packages = with pkgs; [
+    rofi-wayland
     networkmanagerapplet
   ];
   

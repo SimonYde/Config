@@ -24,22 +24,22 @@ nvim_lsp.lua_ls.setup {
   }
 }
 
-nvim_lsp.ltex.setup {
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    require("ltex_extra").setup {
-      load_langs = { "en-US", "en-GB", "da-DK" },
-      init_check = true,
-      path = vim.fn.expand("~") .. "/.local/share/ltex",
-      log_level = "none",
-    }
-  end,
-  settings = {
-    ltex = {
-      language = "da-DK",
-    },
-  }
-}
+-- nvim_lsp.ltex.setup {
+--   capabilities = capabilities,
+--   on_attach = function(client, bufnr)
+--     require("ltex_extra").setup {
+--       load_langs = { "en-US", "en-GB", "da-DK" },
+--       init_check = true,
+--       path = vim.fn.expand("~") .. "/.local/share/ltex",
+--       log_level = "none",
+--     }
+--   end,
+--   settings = {
+--     ltex = {
+--       language = "da-DK",
+--     },
+--   }
+-- }
 
 nvim_lsp.texlab.setup {
   capabilities = capabilities,

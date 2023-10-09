@@ -1,47 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   theme = config.themes.flavour;
-  catppuccin = {
-    mocha = {
-      base = "#1e1e2e";
-      mantle = "#181825";
-      surface0 = "#313244";
-      surface1 = "#45475a";
-      surface2 = "#585b70";
-      text = "#cdd6f4";
-      rosewater = "#f5e0dc";
-      lavender = "#b4befe";
-      red = "#f38ba8";
-      peach = "#fab387";
-      yellow = "#f9e2af";
-      green = "#a6e3a1";
-      teal = "#94e2d5";
-      blue = "#89b4fa";
-      mauve = "#cba6f7";
-      flamingo = "#f2cdcd";
-    };
-    latte = {
-      base = "#eff1f5";
-      mantle = "#e6e9ef";
-      surface0 = "#ccd0da";
-      surface1 = "#bcc0cc";
-      surface2 = "#acb0be";
-      text = "#4c4f69";
-      rosewater = "#dc8a78";
-      lavender = "#7287fd";
-      red = "#d20f39";
-      peach = "#fe640b";
-      yellow = "#df8e1d";
-      green = "#40a02b";
-      teal = "#179299";
-      blue = "#1e66f5";
-      mauve = "#8839ef";
-      flamingo = "#dd7878";
-    };
-  };
-  # menu = "${pkgs.bemenu}/bin/bemenu-run -p » --fn 'pango:${fname} ${builtins.toString 10}'";
-  menu = " dmenu_run -nb '${catppuccin.${theme}.mantle}' -sf '${catppuccin.${theme}.base}' -sb '${catppuccin.${theme}.lavender}' -nf '${catppuccin.${theme}.lavender}'";
+  catppuccin = config.themes.catppuccin;
+  # menu = " dmenu_run -nb '${catppuccin.${theme}.mantle}' -sf '${catppuccin.${theme}.base}' -sb '${catppuccin.${theme}.lavender}' -nf '${catppuccin.${theme}.lavender}'";
+  menu = "${pkgs.rofi}/bin/rofi -show drun -show-icons";
   left = "m";
   down = "n";
   up = "e";
@@ -51,7 +14,7 @@ let
   volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
-  fname = "JetBrains Mono Nerd Font Mono";
+  font = config.syde.terminal.font;
 in
 {
   wayland.windowManager.sway = {
@@ -66,12 +29,12 @@ in
         "${mod}+d" = "exec ${menu}";
         "${mod}+Shift+s" = "exec ${pkgs.shotman}/bin/shotman -c region -C";
         "${mod}+Escape" = "exec swaylock";
+        "mod1+Space" = "exec ${menu}";
 
         # Sound
         "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -i ${toString volumeChange}";
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -d ${toString volumeChange}";
         "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-        # "XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
         # Brightness
         "XF86MonBrightnessUp" = "exec light -A ${toString brightnessChange}";
@@ -192,7 +155,7 @@ in
       bars = [{
         position = "top";
         fonts = {
-          names = [ "${fname}" "FontAwesome" ];
+          names = [ "${font}" "FontAwesome" ];
           size = 8.0;
         };
         statusCommand = "i3status-rs config-top";
@@ -227,7 +190,7 @@ in
       };
 
       fonts = {
-        names = [ fname ];
+        names = [ font ];
         size = 11.0;
       };
 
@@ -238,7 +201,6 @@ in
 
       input = {
         "type:keyboard" = {
-          # xkb_layout = "eu";
           xkb_layout = "us(colemak_dh),dk";
           xkb_options = "caps:escape,grp:rctrl_toggle";
         };
@@ -261,11 +223,8 @@ in
         "5" = [{ class = "VSCodium"; }];
       };
 
-
       startup = [
         { command = "obsidian"; }
-        # { command = "redshift"; } # This is X-org only, gammastep service instead
-        # { command = "nm-applet"; } # nm-applet doesn't work in wayland, TODO: look at alternatives
       ];
     };
   };
@@ -274,7 +233,7 @@ in
   programs.swaylock = {
     enable = config.wayland.windowManager.sway.enable;
     settings = {
-      color = catppuccin.mocha.mantle;
+      color = catppuccin.${theme}.mantle;
       font-size = 24;
       indicator-idle-visible = false;
       ignore-empty-password = true;
@@ -283,57 +242,86 @@ in
     };
   };
 
-  programs.i3status-rust =
-    {
-      enable = config.xsession.windowManager.i3.enable || config.wayland.windowManager.sway.enable;
-      bars = {
-        top = {
-          blocks = [
-            {
-              block = "disk_space";
-              path = "/";
-              info_type = "available";
-              interval = 60;
-              warning = 20.0;
-              alert = 10.0;
-            }
-            {
-              block = "memory";
-              format = " $icon $mem_used_percents ";
-            }
-            {
-              block = "cpu";
-              interval = 1;
-            }
-            { block = "battery"; }
-            { block = "sound"; }
-            { block = "net"; }
-            {
-              block = "time";
-              interval = 60;
-              format = " $timestamp.datetime(f:'%a %Y-%m-%d %R') ";
-            }
-          ];
-          settings = {
-            theme = {
-              theme = "solarized-dark";
-              overrides = with catppuccin.${theme}; {
-                idle_bg = base;
-                idle_fg = text;
-                info_bg = blue;
-                info_fg = base;
-                good_bg = lavender;
-                good_fg = base;
-                warning_bg = flamingo;
-                warning_fg = base;
-                critical_bg = red;
-                critical_fg = base;
-              };
+  programs.i3status-rust = {
+    enable = config.xsession.windowManager.i3.enable || config.wayland.windowManager.sway.enable;
+    bars = {
+      top = {
+        blocks = [
+          {
+            block = "disk_space";
+            path = "/";
+            info_type = "available";
+            interval = 60;
+            warning = 20.0;
+            alert = 10.0;
+          }
+          {
+            block = "memory";
+            format = " $icon $mem_used_percents ";
+          }
+          {
+            block = "cpu";
+            interval = 1;
+          }
+          { block = "battery"; }
+          { block = "sound"; }
+          { block = "net"; }
+          {
+            block = "time";
+            interval = 60;
+            format = " $timestamp.datetime(f:'%a %Y-%m-%d %R') ";
+          }
+        ];
+        settings = {
+          theme = {
+            theme = "solarized-dark";
+            overrides = with catppuccin.${theme}; {
+              idle_bg = base;
+              idle_fg = text;
+              info_bg = blue;
+              info_fg = base;
+              good_bg = lavender;
+              good_fg = base;
+              warning_bg = flamingo;
+              warning_fg = base;
+              critical_bg = red;
+              critical_fg = base;
             };
           };
-          icons = "material-nf";
-          theme = "solarized-dark";
         };
+        icons = "material-nf";
+        theme = "solarized-dark";
       };
     };
+  };
+
+  home.file = lib.mkIf config.wayland.windowManager.sway.enable {
+    "${config.xdg.configHome}/rofi/config.rasi".text = ''
+      configuration{
+        modi: "run,drun,window";
+        icon-theme: "Oranchelo";
+        show-icons: true;
+        terminal: "alacritty";
+        drun-display-format: "{icon} {name}";
+        location: 0;
+        disable-history: false;
+        hide-scrollbar: true;
+        display-drun: "   Apps ";
+        display-run: "   Run ";
+        display-window: " 﩯  Window";
+        display-Network: " 󰤨  Network"; 
+        sidebar-mode: true;
+      }
+      @theme "catppuccin-${theme}"
+    '';
+
+    "${config.xdg.configHome}/rofi/catppuccin-${theme}.rasi" = {
+      source = (pkgs.fetchFromGitHub {
+        owner = "Catppuccin";
+        repo = "rofi";
+        rev = "5350da4";
+        sha256 = "sha256-DNorfyl3C4RBclF2KDgwvQQwixpTwSRu7fIvihPN8JY=";
+      }) + "/basic/.local/share/rofi/themes/catppuccin-${theme}.rasi";
+    };
+  };
 }

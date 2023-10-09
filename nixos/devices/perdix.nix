@@ -8,8 +8,9 @@
     ../modules/hardware/laptop.nix
     ../modules/hardware/graphics/nvidia.nix
     ../modules/hardware/graphics/amd.nix
+    ../../home-manager/modules/themes.nix
   ];
-  
+
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {
@@ -27,6 +28,11 @@
         }
       ];
     };
+  };
+
+  environment.sessionVariables = {
+    GTK_THEME = if config.themes.flavour == "mocha" then "Catppuccin-Mocha-Compact-Lavender-Dark" else "Catppuccin-Latte-Compact-Lavender-Light";
+    TERMINAL = "alacritty";
   };
 
   # services.geoclue2.enable = true;

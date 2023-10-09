@@ -8,15 +8,12 @@ in
     package = pkgs.neovim-nightly;
     vimAlias = true;
     viAlias = true;
-    extraConfig = ''
-      set runtimepath^=${config.home.homeDirectory}/.config/nvim
-      lua require('syde')
-    '';
     plugins = with pkgs.vimPlugins; [
       # -----LSP-----
       nvim-lspconfig
       lspkind-nvim
-      lspsaga-nvim-original
+      unstablePlugins.lspsaga-nvim
+      fidget-nvim
       nvim-cmp
       cmp-cmdline
       cmp-nvim-lsp
@@ -25,14 +22,12 @@ in
       cmp-nvim-lua
       cmp_luasnip
       luasnip
-      fidget-nvim
       copilot-lua
 
       # -----Workflow-----
       harpoon
       nvim-autopairs
       undotree
-      # vim-fugitive
       gitsigns-nvim
       neogit
       git-worktree-nvim
@@ -53,7 +48,18 @@ in
       unstablePlugins.rainbow-delimiters-nvim
 
       # -----Language extras-----
-      ltex_extra-nvim
+      # ltex_extra-nvim
+      (pkgs.vimUtils.buildVimPlugin {
+        pname = "typst-vim";
+        version = "1";
+        src = pkgs.fetchFromGitHub {
+          owner = "kaarmu";
+          repo = "typst.vim";
+          rev = "65f9e78c11829a643d1539f3481c0ff875c83603";
+          sha256 = "sha256-G5+LX3rg5N9tBBt3i+2phbgfJd97bcxQveVzRegZu+A=";
+        };
+      })
+
 
       # -----UI-----
       which-key-nvim
@@ -91,6 +97,7 @@ in
         },
       })
       vim.cmd.colorscheme "catppuccin"
+      require('syde')
     '';
 
   };

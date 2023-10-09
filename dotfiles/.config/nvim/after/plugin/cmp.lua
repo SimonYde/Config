@@ -75,6 +75,7 @@ cmp.setup {
     },
   },
 }
+
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   completion = { autocomplete = false },

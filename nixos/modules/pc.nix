@@ -40,8 +40,7 @@
   };
   
   fonts.fonts = with pkgs; [
-    # nerdfonts
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
     font-awesome
     gentium 
     libertinus

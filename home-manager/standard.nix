@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 
 {
   nixpkgs = {
@@ -19,7 +19,16 @@
       })
     ];
     # config.allowUnfree = true; # Doesn't currently work
-    config.allowUnfreePredicate = _: true;
+    # config.allowUnfreePredicate = _: true;
+    config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "discord"
+      "obsidian"
+
+      # Firefox extensions
+      "enhancer-for-youtube"
+      "lastpass-password-manager"
+    ];
+
   };
   services.syncthing.enable = true;
 
@@ -34,6 +43,7 @@
   imports = [
     # Programming
     ./terminal.nix
+    ./modules/themes.nix
     ./programming.nix
     ./modules/brave.nix
     ./modules/firefox.nix

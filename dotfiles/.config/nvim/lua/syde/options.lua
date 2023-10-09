@@ -1,28 +1,3 @@
--- require("catppuccin").setup({
---   flavour = "mocha",   -- latte, frappe, macchiato, mocha
---   integrations = {
---     indent_blankline = {
---       enabled = true,
---       colored_indent_levels = false,
---     },
---     cmp = true,
---     gitsigns = true,
---     nvimtree = true,
---     treesitter = true,
---     -- treesitter_context = true,
---     rainbow_delimiters = true,
---     -- fidget = true, -- is ugly
---     harpoon = true,
---     lsp_saga = true,
---     telescope = {
---       enabled = true,
---       style = "nvchad",
---     },
---     which_key = true,
---   },
--- })
--- vim.cmd.colorscheme "catppuccin"
-
 vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
 
 -- Disable netrw for nvimtree
@@ -34,6 +9,9 @@ vim.filetype.add({
   extension = {
     ll = "llvm",
     tex = "tex",
+  },
+  filename = {
+   ['flake.lock'] = "json",
   },
 })
 
@@ -51,7 +29,6 @@ opt.ignorecase = true
 
 opt.smartindent = true
 opt.showmode = false
-opt.laststatus = 2
 opt.laststatus = 3 -- global statusline
 
 opt.swapfile = false
