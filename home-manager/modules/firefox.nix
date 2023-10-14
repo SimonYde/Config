@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  syde.unfreePredicates = [
     "enhancer-for-youtube"
     "lastpass-password-manager"
   ];

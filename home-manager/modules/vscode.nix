@@ -34,7 +34,7 @@
 
     # userSettings = builtins.fromJSON (builtins.readFile ../../dotfiles/.config/Code/User/settings.json);
   };
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+  syde.unfreePredicates = [
     "vscode-extension-github-copilot"
     "vscode-extension-MS-python-vscode-pylance"
   ];
