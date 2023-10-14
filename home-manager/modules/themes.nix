@@ -4,7 +4,11 @@
   options.themes = with lib; {
     flavour = mkOption {
       type = types.str;
-      default = "latte";
+      default = "mocha";
+    };
+    prefer-dark = mkOption {
+      type = types.bool;
+      default = true;
     };
     catppuccin = {
       mocha = {

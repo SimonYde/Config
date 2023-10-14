@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  theme = config.themes.flavour;
+  flavour = config.themes.flavour;
   catppuccin = config.themes.catppuccin;
   # menu = " dmenu_run -nb '${catppuccin.${theme}.mantle}' -sf '${catppuccin.${theme}.base}' -sb '${catppuccin.${theme}.lavender}' -nf '${catppuccin.${theme}.lavender}'";
   menu = "${pkgs.rofi}/bin/rofi -show drun -show-icons";
@@ -18,6 +18,8 @@ let
 in
 {
   wayland.windowManager.sway = {
+    wrapperFeatures.gtk = true;
+    wrapperFeatures.base = true;
     package = null;
     config = {
       modifier = mod;
@@ -127,7 +129,7 @@ in
       };
 
       defaultWorkspace = "workspace number 1";
-      colors = with catppuccin.${theme}; {
+      colors = with catppuccin.${flavour}; {
         background = base;
         focused = {
           border = lavender;
@@ -155,11 +157,11 @@ in
       bars = [{
         position = "top";
         fonts = {
-          names = [ "${font}" "FontAwesome" ];
+          names = [ font ];
           size = 8.0;
         };
         statusCommand = "i3status-rs config-top";
-        colors = with catppuccin.${theme}; {
+        colors = with catppuccin.${flavour}; {
           background = mantle;
           statusline = text;
           focusedWorkspace = {
@@ -233,7 +235,7 @@ in
   programs.swaylock = {
     enable = config.wayland.windowManager.sway.enable;
     settings = {
-      color = catppuccin.${theme}.mantle;
+      color = catppuccin.${flavour}.mantle;
       font-size = 24;
       indicator-idle-visible = false;
       ignore-empty-password = true;
@@ -274,23 +276,23 @@ in
         ];
         settings = {
           theme = {
-            theme = "solarized-dark";
-            overrides = with catppuccin.${theme}; {
+            theme = "ctp-${flavour}";
+            # theme = "solarized-dark";
+            overrides = with catppuccin.${flavour}; {
               idle_bg = base;
               idle_fg = text;
-              info_bg = blue;
-              info_fg = base;
-              good_bg = lavender;
-              good_fg = base;
-              warning_bg = flamingo;
-              warning_fg = base;
-              critical_bg = red;
-              critical_fg = base;
+              # info_bg = blue;
+              # info_fg = base;
+              # good_bg = lavender;
+              # good_fg = base;
+              # warning_bg = flamingo;
+              # warning_fg = base;
+              # critical_bg = red;
+              # critical_fg = base;
             };
           };
         };
         icons = "material-nf";
-        theme = "solarized-dark";
       };
     };
   };
@@ -308,20 +310,20 @@ in
         hide-scrollbar: true;
         display-drun: "   Apps ";
         display-run: "   Run ";
-        display-window: " 﩯  Window";
+        display-window: "  Window";
         display-Network: " 󰤨  Network"; 
         sidebar-mode: true;
       }
-      @theme "catppuccin-${theme}"
+      @theme "catppuccin-${flavour}"
     '';
 
-    "${config.xdg.configHome}/rofi/catppuccin-${theme}.rasi" = {
+    "${config.xdg.configHome}/rofi/catppuccin-${flavour}.rasi" = {
       source = (pkgs.fetchFromGitHub {
         owner = "Catppuccin";
         repo = "rofi";
         rev = "5350da4";
         sha256 = "sha256-DNorfyl3C4RBclF2KDgwvQQwixpTwSRu7fIvihPN8JY=";
-      }) + "/basic/.local/share/rofi/themes/catppuccin-${theme}.rasi";
+      }) + "/basic/.local/share/rofi/themes/catppuccin-${flavour}.rasi";
     };
   };
 }

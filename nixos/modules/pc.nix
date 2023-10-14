@@ -41,7 +41,6 @@
   
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
-    font-awesome
     gentium 
     libertinus
   ];
@@ -49,6 +48,8 @@
   environment.systemPackages = with pkgs; [
     git alacritty 
   ];
+
+	services.udisks2.enable = true;
 
   programs.command-not-found.enable = false;
   

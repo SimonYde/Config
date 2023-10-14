@@ -1,12 +1,15 @@
-{...}:
+{ config, ... }:
+
+let gammastep = config.services.gammastep;
+in
 {
   services.redshift = {
     temperature = {
-      day   = 6500;
-      night = 1400;
+      day = gammastep.temperature.day;
+      night = gammastep.temperature.night;
     };
-    provider  = "manual";
-    latitude  = 56.3;
-    longitude = 9.5;
+    provider = "manual";
+    latitude = gammastep.latitude;
+    longitude = gammastep.longitude;
   };
 }

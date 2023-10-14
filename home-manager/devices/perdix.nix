@@ -2,16 +2,20 @@
 
 {
   programs = {
-    nix-index.enable = true;
+    # Browsers
     brave.enable = true;
     firefox.enable = true;
-    vscode.enable = false;
+
+    # Terminals
     alacritty.enable = true;
     wezterm.enable = false;
     kitty.enable = false;
+
     thunderbird.enable = false;
     zathura.enable = true;
     zellij.settings.mouse_mode = true;
+    nix-index.enable = true;
+    vscode.enable = true;
   };
 
   services = {
@@ -27,7 +31,6 @@
 
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
-    font-awesome
     unstable.obsidian
     libqalculate
     wl-clipboard
@@ -38,6 +41,7 @@
     # texlive.combined.scheme-full
     rclone
     gnome.nautilus
+    libsForQt5.dolphin
   ];
 
   home.pointerCursor = {
