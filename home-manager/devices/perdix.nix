@@ -15,7 +15,7 @@
     zathura.enable = true;
     zellij.settings.mouse_mode = true;
     nix-index.enable = true;
-    vscode.enable = true;
+    vscode.enable = false;
   };
 
   services = {
@@ -44,6 +44,11 @@
     libsForQt5.dolphin
   ];
 
+  syde.unfreePredicates = [
+    "discord"
+    "obsidian"
+  ];
+
   home.pointerCursor = {
     name = "Catppuccin-Mocha-Dark-Cursors";
     package = pkgs.catppuccin-cursors.mochaDark;
@@ -52,7 +57,6 @@
   };
 
   imports = [
-    ../home.nix
     ../standard.nix
     ../modules/services/redshift.nix
     ../modules/services/gammastep.nix

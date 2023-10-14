@@ -92,5 +92,8 @@
     "update.mode": "none",
     "editor.minimap.enabled": false,
     "window.menuBarVisibility": "toggle",
-    "workbench.activityBar.visible": false
+    "workbench.activityBar.visible": false,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    }
 }

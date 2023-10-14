@@ -23,7 +23,6 @@
   };
 
   imports = [
-    ../home.nix
     ../standard.nix
   ];
 }
