@@ -1,6 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, ... }:
 
 {
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "enhancer-for-youtube"
+    "lastpass-password-manager"
+  ];
   programs.firefox = {
     profiles.syde = {
       name = "syde";
@@ -50,7 +54,12 @@
             definedAliases = [ "!np" ];
           };
           "NixOS Wiki" = {
-            urls = [{ template = "https://nixos.wiki/index.php?search={searchTerms}"; }];
+            urls = [{
+              template = "https://nixos.wiki/index.php";
+              params = [
+                { name = "search"; value = "{searchTerms}"; }
+              ];
+            }];
             iconUpdateURL = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000; # every day
             definedAliases = [ "!nw" ];

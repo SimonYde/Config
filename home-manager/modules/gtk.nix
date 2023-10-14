@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }:
-let flavour = config.themes.flavour;
+let
+  flavour = config.themes.flavour;
 in
 {
   gtk = {
@@ -10,11 +11,11 @@ in
     iconTheme = {
       name = "Papirus";
       package = pkgs.papirus-icon-theme;
-      # pkgs.papirus-icon-theme.override {
-        # papirus-folders = pkgs.catppuccin-papirus-folders.override {
-        #   accent = "lavender";
-        #   flavor = flavour;
-        # };
+      # package = pkgs.papirus-icon-theme.override {
+      #   papirus-folders = pkgs.catppuccin-papirus-folders.override {
+      #     accent = "lavender";
+      #     flavor = flavour;
+      #   };
       # };
     };
     theme = {

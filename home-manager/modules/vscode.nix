@@ -1,11 +1,11 @@
 { lib, pkgs, ... }:
 
 {
-	programs.vscode = {
-		package = pkgs.unstable.vscodium;
-    extensions = with pkgs.vscode-extensions; [
+  programs.vscode = {
+    package = pkgs.unstable.vscodium;
+    extensions = with pkgs.unstable.vscode-extensions; [
       catppuccin.catppuccin-vsc
-      vscodevim.vim
+      asvetliakov.vscode-neovim
       gruntfuggly.todo-tree
       ms-toolsai.jupyter
       ms-toolsai.vscode-jupyter-cell-tags
@@ -30,6 +30,12 @@
         };
       })
     ];
+
+
     # userSettings = builtins.fromJSON (builtins.readFile ../../dotfiles/.config/Code/User/settings.json);
-	};
+  };
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "vscode-extension-github-copilot"
+    "vscode-extension-MS-python-vscode-pylance"
+  ];
 }

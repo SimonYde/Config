@@ -30,6 +30,8 @@ opt.ignorecase = true
 opt.smartindent = true
 opt.showmode = false
 opt.laststatus = 3 -- global statusline
+opt.splitright = true
+opt.splitbelow = true
 
 opt.swapfile = false
 opt.backup = false

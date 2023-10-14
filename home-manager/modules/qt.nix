@@ -1,9 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   qt = {
     enable = true;
-    platformTheme = "gtk";
-    style.name = "gtk2";
+    style.package = pkgs.adwaita-qt;
+    style.name = "adwaita-dark";
   };
 }
