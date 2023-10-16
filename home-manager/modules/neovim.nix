@@ -64,7 +64,7 @@ in
       # -----UI-----
       which-key-nvim
       diffview-nvim
-      trouble-nvim
+      # trouble-nvim
       lualine-nvim
       indent-blankline-nvim
       nvim-web-devicons
@@ -73,6 +73,7 @@ in
       unstablePlugins.catppuccin-nvim
     ];
     extraLuaConfig = ''
+      vim.loader.enable()
       require("catppuccin").setup({
         flavour = "${config.themes.flavour}",
         integrations = {
