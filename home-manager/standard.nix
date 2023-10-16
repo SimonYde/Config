@@ -20,8 +20,6 @@
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
     };
 
-    services.syncthing.enable = true;
-
     nix = {
       package = pkgs.nix;
       # registry.nixpkgs.flake = inputs.nixpkgs;
