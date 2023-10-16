@@ -6,6 +6,7 @@
     wlr.enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
+
   programs.sway = {
     # package = inputs.nixpkgs-wayland.packages."x86_64-linux".sway-unwrapped;
     enable = true;
@@ -18,6 +19,7 @@
     '';
     extraOptions = [ "--unsupported-gpu" ];
   };
+
   services.xserver = {
     enable = true;
     displayManager = {
@@ -26,13 +28,11 @@
       # gdm.enable = true;
     };
   };
-  # programs.nm-applet.enable = true;
-  
+
   users.users.syde.packages = with pkgs; [
-    rofi-wayland
     networkmanagerapplet
   ];
-  
+
   imports = [
     ../services/lightdm.nix
     # ../services/gdm.nix

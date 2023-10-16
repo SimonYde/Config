@@ -2,7 +2,6 @@
 
 let
   sway = config.wayland.windowManager.sway.config;
-  menu = "${pkgs.rofi}/bin/rofi -show drun -show-icons";
 in
 {
   xsession.windowManager.i3.config = {
@@ -12,7 +11,7 @@ in
     floating = sway.floating;
     fonts = sway.fonts;
     gaps = sway.gaps;
-    menu = menu;
+    menu = sway.menu;
     modes = sway.modes;
     modifier = sway.modifier;
     terminal = sway.terminal;
@@ -30,7 +29,7 @@ in
     startup = [
       { command = "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- i3lock -e -c 181825 --nofork"; notification = false; }
       # { command = "dex --autostart --environment i3"; notification = false; }
-      { command = "nm-applet"; notification = false; }
+      # { command = "nm-applet"; notification = false; }
       { command = "setxkbmap -layout us -variant colemak_dh"; }
       { command = "${pkgs.feh}/bin/feh --bg-fill ~/Config/assets/backgrounds/battlefield-catppuccin.png"; }
       { command = "obsidian"; }

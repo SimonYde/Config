@@ -1,10 +1,12 @@
 { pkgs, config, lib, ... }:
 
 let
+  sway = config.wayland.windowManager.sway;
+  i3 = config.xsession.windowManager.i3;
   flavour = config.themes.flavour;
   catppuccin = config.themes.catppuccin;
-  # menu = " dmenu_run -nb '${catppuccin.${theme}.mantle}' -sf '${catppuccin.${theme}.base}' -sb '${catppuccin.${theme}.lavender}' -nf '${catppuccin.${theme}.lavender}'";
-  menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
+  font = config.syde.terminal.font;
+  menu = "rofi -show drun";
   left = "m";
   down = "n";
   up = "e";
@@ -14,15 +16,16 @@ let
   volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
-  font = config.syde.terminal.font;
 in
 {
   wayland.windowManager.sway = {
     wrapperFeatures.gtk = true;
     wrapperFeatures.base = true;
-    package = null;
+    package = null; # Let nixos module decide which package to use
+
     config = {
       modifier = mod;
+      defaultWorkspace = "workspace number 1";
       inherit terminal menu left down up right;
       keybindings = {
         "${mod}+t" = "exec ${terminal}";
@@ -128,7 +131,6 @@ in
         };
       };
 
-      defaultWorkspace = "workspace number 1";
       colors = with catppuccin.${flavour}; {
         background = base;
         focused = {
@@ -188,7 +190,10 @@ in
       };
 
       floating = {
-        criteria = [{ window_role = "pop-up"; }];
+        criteria = [
+          { app_id = "firefox"; title = "Picture-in-Picture"; }
+          { window_role = "pop-up"; }
+        ];
       };
 
       fonts = {
@@ -220,7 +225,7 @@ in
 
       assigns = {
         "1" = [{ class = "obsidian"; }];
-        "2" = [{ class = "firefox"; }];
+        "2" = [{ class = "firefox"; } { app_id = "firefox"; }];
         "4" = [{ class = "Brave-browser"; }];
         "5" = [{ class = "VSCodium"; }];
       };
@@ -233,7 +238,7 @@ in
 
 
   programs.swaylock = {
-    enable = config.wayland.windowManager.sway.enable;
+    enable = sway.enable;
     settings = {
       color = catppuccin.${flavour}.mantle;
       font-size = 24;
@@ -245,7 +250,7 @@ in
   };
 
   programs.i3status-rust = {
-    enable = config.xsession.windowManager.i3.enable || config.wayland.windowManager.sway.enable;
+    enable = i3.enable || sway.enable;
     bars = {
       top = {
         blocks = [
@@ -254,7 +259,7 @@ in
             path = "/";
             info_type = "available";
             interval = 60;
-            warning = 20.0;
+            warning = 30.0;
             alert = 10.0;
           }
           {
@@ -277,18 +282,10 @@ in
         settings = {
           theme = {
             theme = "ctp-${flavour}";
-            # theme = "solarized-dark";
             overrides = with catppuccin.${flavour}; {
               idle_bg = base;
               idle_fg = text;
-              # info_bg = blue;
-              # info_fg = base;
-              # good_bg = lavender;
-              # good_fg = base;
-              # warning_bg = flamingo;
-              # warning_fg = base;
-              # critical_bg = red;
-              # critical_fg = base;
+              good_bg = lavender;
             };
           };
         };
@@ -297,26 +294,26 @@ in
     };
   };
 
-  home.file = lib.mkIf (config.wayland.windowManager.sway.enable || config.xsession.windowManager.i3.enable) {
-    "${config.xdg.configHome}/rofi/config.rasi".text = ''
-      configuration{
-        modi: "run,drun";
-        icon-theme: "Oranchelo";
-        show-icons: true;
-        terminal: "alacritty";
-        drun-display-format: "{icon} {name}";
-        location: 0;
-        disable-history: false;
-        hide-scrollbar: true;
-        display-drun: "   Apps ";
-        display-run: "   Run ";
-        display-window: "  Window";
-        display-Network: " 󰤨  Network"; 
-        sidebar-mode: true;
-      }
-      @theme "catppuccin-${flavour}"
-    '';
+  programs.rofi = {
+    enable = sway.enable || i3.enable;
+    package = if i3.enable then pkgs.rofi else pkgs.rofi-wayland;
+    font = font;
+    terminal = "${terminal}";
+    theme = "catppuccin-${flavour}";
+    extraConfig = {
+      modi = "run,drun";
+      icon-theme = "Oranchelo";
+      show-icons = true;
+      drun-display-format = "{icon} {name}";
+      disable-history = false;
+      hide-scrollbar = true;
+      sidebar-mode = true;
+      display-drun = "   Apps ";
+      display-run = "   Run ";
+    };
+  };
 
+  home.file = lib.mkIf config.programs.rofi.enable {
     "${config.xdg.configHome}/rofi/catppuccin-${flavour}.rasi" = {
       source = (pkgs.fetchFromGitHub {
         owner = "Catppuccin";
