@@ -122,5 +122,7 @@ tmap("<leader><Esc>", "<C-\\><C-n>", "Exit terminal mode")
 
 require('Comment').setup()
 
-nmap("<leader>g", vim.cmd.Neogit, "Neo[g]it")
+-- nmap("<leader>g", vim.cmd.Neogit, "Neo[g]it")
+nmap("<leader>g", function() require('neogit').open({ kind = "tab" }) end, "neo[g]it")
+nmap("<leader>gd", vim.cmd.DiffviewOpen, "[g]it [d]iffview")
 nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "[g]it [w]orktrees")

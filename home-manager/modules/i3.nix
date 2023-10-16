@@ -2,6 +2,7 @@
 
 let
   sway = config.wayland.windowManager.sway.config;
+  menu = "${pkgs.rofi}/bin/rofi -show drun -show-icons";
 in
 {
   xsession.windowManager.i3.config = {
@@ -11,7 +12,7 @@ in
     floating = sway.floating;
     fonts = sway.fonts;
     gaps = sway.gaps;
-    menu = sway.menu;
+    menu = menu;
     modes = sway.modes;
     modifier = sway.modifier;
     terminal = sway.terminal;

@@ -29,6 +29,19 @@
           downloadPage = "https://marketplace.visualstudio.com/items?itemName=Catppuccin.catppuccin-vsc-icons";
         };
       })
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "whichkey";
+          publisher = "VSpaceCode";
+          version = "0.11.3";
+          sha256 = "sha256-PnaOwOIcSo1Eff1wOtQPhoHYvrHDGTcsRy9mQfdBPX4=";
+        };
+        meta = {
+          description = "This extension is aimed to provide the standalone which-key function in VScode for both users and extension to bundle.";
+          license = lib.licenses.mit;
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=VSpaceCode.whichkey";
+        };
+      })
     ];
 
 

@@ -4,7 +4,7 @@ let
   flavour = config.themes.flavour;
   catppuccin = config.themes.catppuccin;
   # menu = " dmenu_run -nb '${catppuccin.${theme}.mantle}' -sf '${catppuccin.${theme}.base}' -sb '${catppuccin.${theme}.lavender}' -nf '${catppuccin.${theme}.lavender}'";
-  menu = "${pkgs.rofi}/bin/rofi -show drun -show-icons";
+  menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
   left = "m";
   down = "n";
   up = "e";
@@ -297,10 +297,10 @@ in
     };
   };
 
-  home.file = lib.mkIf config.wayland.windowManager.sway.enable {
+  home.file = lib.mkIf (config.wayland.windowManager.sway.enable || config.xsession.windowManager.i3.enable) {
     "${config.xdg.configHome}/rofi/config.rasi".text = ''
       configuration{
-        modi: "run,drun,window";
+        modi: "run,drun";
         icon-theme: "Oranchelo";
         show-icons: true;
         terminal: "alacritty";
