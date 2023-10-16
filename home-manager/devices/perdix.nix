@@ -15,7 +15,7 @@
     zathura.enable = true;
     zellij.settings.mouse_mode = true;
     nix-index.enable = true;
-    vscode.enable = true;
+    vscode.enable = false;
   };
 
   services = {

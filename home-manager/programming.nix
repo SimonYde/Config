@@ -1,19 +1,20 @@
 { pkgs, inputs, config, ... }:
+
+let cfg = config.syde.programming; in
 {
   programs = {
-    # Editors
+    # Terminal Editors
     helix.enable = false;
     neovim.enable = true;
+
+    # Other
     opam.enable = true;
   };
 
-  # home.file = {
-  #   "${config.xdg.configHome}/nvim" = {
-  #     source = ../dotfiles/.config/nvim;
-  #     enable = config.programs.neovim.enable;
-  #     recursive = true;
-  #   };
-  # }; 
+  syde.programming = {
+    python.enable = true;
+    rust.enable = true;
+  };
 
   home.packages = with pkgs; [
     # Latex
@@ -24,16 +25,10 @@
 
     # Other LSPs
     # metals
+    # jdt-language-server
     inputs.nil.packages.x86_64-linux.nil
     nixpkgs-fmt
     nodejs-slim_20 # for copilot.lua
-
-    # Rust
-    unstable.cargo
-    unstable.rustc
-    unstable.rust-analyzer
-    unstable.rustfmt
-    unstable.clippy
   ];
 
   home.sessionVariables = {
@@ -53,15 +48,18 @@
     {
       "${config.home.homeDirectory}/.local/bin/kattis" = {
         source = kattis-cli + "/kattis";
+        enable = cfg.python.enable;
       };
       "${config.home.homeDirectory}/.local/bin/submit.py" = {
         source = kattis-cli + "/submit.py";
+        enable = cfg.python.enable;
       };
     };
 
   imports = [
     ./modules/zathura.nix
     ./modules/python.nix
+    ./modules/rust.nix
     ./modules/helix.nix
     ./modules/neovim.nix
     ./modules/vscode.nix
