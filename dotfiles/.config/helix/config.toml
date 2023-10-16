@@ -3,7 +3,7 @@ theme = "catppuccin_mocha"
 [editor]
 true-color = true
 color-modes = true
-bufferline = "always"
+bufferline = "multiple"
 line-number = "relative"
 scrolloff = 8
 
@@ -67,15 +67,15 @@ X   = "extend_line_above"
 A-r = ":reflow"
 C-d = ["half_page_down", "goto_window_center"]
 C-u = ["half_page_up",   "goto_window_center"]
-A-f = [
-  ":new", 
-  ":insert-output lf-pick", 
-  "select_all", 
-  "split_selection_on_newline", 
-  "goto_file", 
-  "goto_last_modified_file", 
-  ":bc!",
-]
+# A-f = [
+#   ":new", 
+#   ":insert-output lf-pick", 
+#   "select_all", 
+#   "split_selection_on_newline", 
+#   "goto_file", 
+#   "goto_last_modified_file", 
+#   ":bc!",
+# ]
 
 A-j = [
   "extend_to_line_bounds",

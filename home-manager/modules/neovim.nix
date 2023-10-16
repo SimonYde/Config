@@ -64,7 +64,7 @@ in
       # -----UI-----
       which-key-nvim
       diffview-nvim
-      # trouble-nvim
+      trouble-nvim
       lualine-nvim
       indent-blankline-nvim
       nvim-web-devicons
