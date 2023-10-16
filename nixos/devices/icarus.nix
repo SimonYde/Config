@@ -4,6 +4,7 @@
   imports = [
     inputs.nixos-wsl.nixosModules.default
     ../modules/programs/nix.nix
+    ../modules/services/syncthing.nix
     ../modules/programs/doas.nix
   ];
 

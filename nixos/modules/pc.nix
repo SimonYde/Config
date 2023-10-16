@@ -66,6 +66,7 @@
     ../modules/programs/nix.nix
     ../modules/programs/doas.nix
     ../modules/services/systemd-boot.nix
+    ../modules/services/syncthing.nix
     ../modules/services/sound.nix
   ];
 }
