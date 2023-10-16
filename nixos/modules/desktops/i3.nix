@@ -14,11 +14,6 @@
   };
 
   programs.nm-applet.enable = true;
-
-  users.users.syde.packages = with pkgs; [
-    bemenu
-  ];
-
   programs.dconf.enable = true;
 
   imports = [

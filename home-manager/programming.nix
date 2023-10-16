@@ -12,18 +12,15 @@ let cfg = config.syde.programming; in
   };
 
   syde.programming = {
+    latex.enable = false;
     python.enable = true;
     rust.enable = true;
   };
 
   home.packages = with pkgs; [
-    # Latex
-    texlab
-    tectonic
     pandoc
-    ltex-ls
 
-    # Other LSPs
+    # ---Other LSPs---
     # metals
     # jdt-language-server
     inputs.nil.packages.x86_64-linux.nil
@@ -32,8 +29,8 @@ let cfg = config.syde.programming; in
   ];
 
   home.sessionVariables = {
-    GOPATH = "${config.xdg.dataHome}/go";
     CARGO_HOME = "${config.xdg.configHome}/cargo";
+    GOPATH = "${config.xdg.dataHome}/go";
   };
 
   home.file =
@@ -57,9 +54,13 @@ let cfg = config.syde.programming; in
     };
 
   imports = [
-    ./modules/zathura.nix
+    # ---Languages---
     ./modules/python.nix
     ./modules/rust.nix
+    ./modules/latex.nix
+
+    # ---Programs---
+    ./modules/zathura.nix
     ./modules/helix.nix
     ./modules/neovim.nix
     ./modules/vscode.nix
