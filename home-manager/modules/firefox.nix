@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   syde.unfreePredicates = [
@@ -115,7 +115,7 @@
         "network.dns.disablePrefetch" = true;
         "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
         "network.trr.uri" = "https://dns.quad9.net/dns-query";
-        "network.trr.mode" = 2;
+        "network.trr.mode" = 3;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
 
@@ -138,19 +138,23 @@
         export-cookies-txt
         ublock-origin
         cookie-autodelete
+        istilldontcareaboutcookies
         darkreader
         enhancer-for-youtube
         sponsorblock
         multi-account-containers
-        # sidebery
+        news-feed-eradicator
+        sidebery
         lastpass-password-manager
         proton-pass
         vimium
         stylus
         firefox-translations
-        # readwise-highlighter
-        # bypass-paywalls-clean
-        # i-still-dont-care-about-cookies
+
+        # bypass-paywalls-clean # broken
+
+        # readwise-highlighter # doesn't exist yet
+
       ];
       userChrome = builtins.readFile ../../assets/userChrome.css;
     };
