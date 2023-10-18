@@ -35,7 +35,7 @@ opt.splitbelow = true
 opt.swapfile = false
 opt.backup = false
 
-opt.undodir = os.getenv("HOME") .. "/.undodir"
+opt.undodir = os.getenv("HOME") .. "/.local/state/undodir"
 opt.undofile = true
 
 opt.hlsearch = false
