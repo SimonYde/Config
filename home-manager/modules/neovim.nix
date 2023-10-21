@@ -26,15 +26,15 @@ in
 
       # -----Workflow-----
       harpoon
-      nvim-autopairs
       undotree
       gitsigns-nvim
       neogit
+      diffview-nvim
       git-worktree-nvim
-      nvim-surround
-      comment-nvim
 
+      mini-nvim
       vim-be-good
+      vim-startuptime
 
       # -----Fuzzy Finder-----
       unstablePlugins.telescope-nvim
@@ -63,7 +63,6 @@ in
 
       # -----UI-----
       which-key-nvim
-      diffview-nvim
       trouble-nvim
       lualine-nvim
       indent-blankline-nvim
@@ -74,6 +73,7 @@ in
     ];
     extraLuaConfig = ''
       vim.loader.enable()
+      require('syde')
       require("catppuccin").setup({
         flavour = "${config.themes.flavour}",
         integrations = {
@@ -91,15 +91,16 @@ in
           harpoon = true,
           lsp_saga = true,
           telescope = {
-            enabled = true,
-            style = "nvchad",
+             enabled = true,
+             style = "nvchad",
           },
           which_key = true,
         },
       })
       vim.cmd.colorscheme "catppuccin"
-      require('syde')
     '';
 
   };
+  # home.file."${config.xdg.configHome}/nvim/after/plugin/colorscheme.lua".text = ''
+  # '';
 }
