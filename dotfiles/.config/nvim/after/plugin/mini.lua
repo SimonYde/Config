@@ -1,0 +1,6 @@
+require('mini.surround').setup()
+require('mini.comment').setup()
+require('mini.align').setup()
+require('mini.pairs').setup()
+-- require('mini.files').setup()
+require('mini.starter').setup()
