@@ -1,18 +1,10 @@
-vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
+-- vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
 
 -- Disable netrw for nvimtree
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
-vim.filetype.add({
-  extension = {
-    ll = "llvm",
-    tex = "tex",
-  },
-  filename = {
-   ['flake.lock'] = "json",
-  },
-})
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
 
 local opt = vim.opt
 opt.nu = true
@@ -28,7 +20,7 @@ opt.ignorecase = true
 
 opt.smartindent = true
 opt.showmode = false
-opt.laststatus = 3 -- global statusline
+-- opt.laststatus = 3 -- global statusline
 opt.splitright = true
 opt.splitbelow = true
 

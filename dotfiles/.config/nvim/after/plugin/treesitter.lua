@@ -1,3 +1,7 @@
+if not pcall(require, 'nvim-treesitter') then
+  return
+end
+
 require('nvim-treesitter.configs').setup {
   -- parser_install_dir = "~/.local/share/nvim/tree-sitter/",
   -- Plugins

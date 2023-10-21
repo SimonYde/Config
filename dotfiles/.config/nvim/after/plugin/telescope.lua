@@ -47,3 +47,16 @@ require('telescope').setup {
 
 require('telescope').load_extension('fzf')
 require("telescope").load_extension("git_worktree")
+
+
+local function map(mode, keys, cmd, desc) vim.keymap.set(mode, keys, cmd, { desc = desc }) end
+local function nmap(keys, cmd, desc) map("n", keys, cmd, desc) end
+local telescope = require('telescope.builtin')
+nmap("<leader>?", telescope.keymaps, "Look up keymaps")
+nmap("<leader>b", telescope.buffers, "Buffers")
+nmap("<leader>fc", telescope.current_buffer_fuzzy_find, "Current buffer search")
+nmap("<leader>ff", telescope.find_files, "Files")
+nmap("<leader>F", telescope.git_files, "Git files")
+nmap("<leader>fh", telescope.help_tags, "Help tags")
+nmap("<leader>fs", telescope.live_grep, "Search with grep")
+nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "[g]it [w]orktrees")

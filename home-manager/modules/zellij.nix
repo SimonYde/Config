@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  theme = config.themes.flavour;
+  flavour = config.themes.flavour;
   catppuccin = config.themes.catppuccin;
 in
 {
@@ -11,7 +11,7 @@ in
 
     settings = {
       theme = "catppuccin";
-      themes.catppuccin = with catppuccin.${theme}; {
+      themes.catppuccin = with catppuccin.${flavour}; {
         bg = surface2;
         fg = text;
         red = red;

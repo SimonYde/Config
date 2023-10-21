@@ -4,7 +4,7 @@
   qt = {
     enable = true;
     platformTheme = "gtk";
-    style.package = pkgs.adwaita-qt;
-    style.name = "adwaita-dark";
+    # style.package = pkgs.adwaita-qt;
+    # style.name = "bb10dark";
   };
 }

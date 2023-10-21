@@ -77,6 +77,7 @@
           "Bing".metaData.hidden = true;
           "Wikipedia (en)".metaData.hidden = true;
           "Amazon.com".metaData.hidden = true;
+          "Twitter.com".metaData.hidden = true;
         };
         order = [
           "DuckDuckGo"
