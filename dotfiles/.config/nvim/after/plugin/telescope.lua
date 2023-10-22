@@ -1,7 +1,7 @@
 local telescopeConfig = require("telescope.config")
 
 -- Clone the default Telescope configuration
-local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+local vimgrep_arguments = telescopeConfig.values.vimgrep_arguments
 
 -- I want to search in hidden/dot files.
 table.insert(vimgrep_arguments, "--hidden")
@@ -47,6 +47,7 @@ require('telescope').setup {
 
 require('telescope').load_extension('fzf')
 require("telescope").load_extension("git_worktree")
+require("telescope").load_extension("undo")
 
 
 local function map(mode, keys, cmd, desc) vim.keymap.set(mode, keys, cmd, { desc = desc }) end
@@ -59,4 +60,6 @@ nmap("<leader>ff", telescope.find_files, "Files")
 nmap("<leader>F", telescope.git_files, "Git files")
 nmap("<leader>fh", telescope.help_tags, "Help tags")
 nmap("<leader>fs", telescope.live_grep, "Search with grep")
+
 nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "[g]it [w]orktrees")
+nmap("<leader>u", "<cmd>Telescope undo<CR>", "[u]ndos")

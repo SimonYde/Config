@@ -6,7 +6,6 @@ whichkey.register({
       name = "Find (telescope)",
     },
     d = { vim.diagnostic.open_float, "Open diagnostics" },
-    u = { vim.cmd.UndotreeToggle, "Undotree" },
     k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
     a = { "<cmd>Lspsaga code_action<cr>", "code actions" },
     -- k = { vim.lsp.buf.hover, "hover documentation" },
