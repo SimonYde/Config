@@ -26,20 +26,18 @@ in
 
       # -----Workflow-----
       harpoon
-      undotree
       gitsigns-nvim
       neogit
       diffview-nvim
-      git-worktree-nvim
-
       mini-nvim
       vim-be-good
-      vim-startuptime
 
       # -----Fuzzy Finder-----
       unstablePlugins.telescope-nvim
-      unstablePlugins.telescope-fzf-native-nvim
       unstablePlugins.plenary-nvim
+      telescope-fzf-native-nvim
+      git-worktree-nvim
+      telescope-undo-nvim
 
       # -----Highlighting-----
       unstablePlugins.nvim-treesitter.withAllGrammars
