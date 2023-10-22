@@ -3,31 +3,31 @@
 {
   programs = {
     # Browsers
-    brave.enable = true;
+    brave.enable   = true;
     firefox.enable = true;
 
     # Terminals
     alacritty.enable = true;
-    wezterm.enable = false;
-    kitty.enable = false;
+    wezterm.enable   = false;
+    kitty.enable     = false;
 
     thunderbird.enable = false;
-    zathura.enable = true;
-    zellij.settings.mouse_mode = true;
-    nix-index.enable = true;
-    vscode.enable = false;
+    zathura.enable     = true;
+    nix-index.enable   = true;
+    vscode.enable      = false;
   };
 
   services = {
-    redshift.enable = false;
+    redshift.enable  = false;
     gammastep.enable = true;
   };
 
   fonts.fontconfig.enable = true;
-  xsession.windowManager.i3.enable = false;
-  xsession.enable = false;
-  wayland.windowManager.sway.enable = true;
   xdg.enable = true;
+
+  xsession.enable = false;
+  xsession.windowManager.i3.enable  = false;
+  wayland.windowManager.sway.enable = true;
 
   home.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
