@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.git = {
@@ -23,6 +23,16 @@
       "**/node_modules"
       "**/elm-stuff"
     ];
+    delta = {
+      enable = true;
+      options = {
+        features = builtins.concatStringsSep " " [
+          "line-numbers"
+          "side-by-side"
+          "Catppuccin"
+        ];
+      };
+    };
   };
 
   home.packages = with pkgs; [

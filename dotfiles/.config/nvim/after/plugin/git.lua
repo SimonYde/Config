@@ -1,8 +1,7 @@
-local function map(mode, keys, cmd, desc) vim.keymap.set(mode, keys, cmd, { desc = desc }) end
-local function nmap(keys, cmd, desc) map("n", keys, cmd, desc) end
+local nmap = require("syde.keymap").nmap
 
-local diffview = vim.F.npcall(require, 'diffview')
-if diffview then
+local has_diffview, diffview = pcall(require, 'diffview')
+if has_diffview then
   diffview.setup {}
   nmap("<leader>gd", vim.cmd.DiffviewOpen, "[g]it [d]iffview")
 end
@@ -11,7 +10,7 @@ local neogit = vim.F.npcall(require, 'neogit')
 if neogit then
   neogit.setup {
     integrations = {
-      diffview = true,
+      diffview = has_diffview,
     },
   }
   nmap("<leader>gs", neogit.open, "Neo[g]it [s]tatus")

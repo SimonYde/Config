@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
     -- end
 
 
-    -- if vim.fn.executable('ltex-ls') == 1 then
+    if vim.fn.executable('ltex-ls') == 1 then
       nvim_lsp.ltex.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
@@ -103,7 +103,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
           },
         }
       }
-    -- end
+    end
 
     -- if vim.fn.executable('texlab') == 1 then
       nvim_lsp.texlab.setup {

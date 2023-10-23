@@ -4,21 +4,21 @@
   config = {
     programs = {
       # Shells
-      fish.enable = true;
+      fish.enable    = true;
       nushell.enable = false;
-      zsh.enable = false;
+      zsh.enable     = false;
 
       # CLI tools
-      bat.enable = true;
-      direnv.enable = true;
-      exa.enable = true;
-      git.enable = true;
-      lazygit.enable = false;
-      lf.enable = true;
-      skim.enable = true;
+      bat.enable      = true;
+      direnv.enable   = true;
+      exa.enable      = true;
+      git.enable      = true;
+      lazygit.enable  = false;
+      lf.enable       = true;
+      skim.enable     = true;
       starship.enable = true;
-      zellij.enable = true;
-      zoxide.enable = true;
+      zellij.enable   = true;
+      zoxide.enable   = true;
     };
 
     home.sessionPath = [

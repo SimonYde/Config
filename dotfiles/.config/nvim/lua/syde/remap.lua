@@ -2,38 +2,37 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-
-local function map(mode, keys, cmd, desc) vim.keymap.set(mode, keys, cmd, { desc = desc }) end
-local function nmap(keys, cmd, desc) map("n", keys, cmd, desc) end
-local function imap(keys, cmd, desc) map("i", keys, cmd, desc) end
-local function vmap(keys, cmd, desc) map("v", keys, cmd, desc) end
-local function xmap(keys, cmd, desc) map("x", keys, cmd, desc) end
-local function tmap(keys, cmd, desc) map("t", keys, cmd, desc) end
+local map = require("syde.keymap").map
+local nmap = require("syde.keymap").nmap
+local vmap = require("syde.keymap").vmap
+local xmap = require("syde.keymap").xmap
+local tmap = require("syde.keymap").tmap
 
 
 -- COLEMAK Remaps
-vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
+-- vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
 -- vim.opt.langmap = "jh,hk,kj"
-vim.opt.langremap = false
+-- vim.opt.langremap = false
 nmap("<C-w>m", "<C-w>h", "Go to the left window")
 nmap("<C-w>n", "<C-w>j", "Go to the down window")
 nmap("<C-w>e", "<C-w>k", "Go to the up window")
 nmap("<C-w>i", "<C-w>l", "Go to the right window")
 
-local COLEMAK = true
+local COLEMAK = false
 local function colemak_toggle()
   if not COLEMAK then
     vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
     -- vim.opt.langmap = "jh,hk,kj"
     vim.opt.langremap = false
     COLEMAK = true
-    print("COLEMAK", COLEMAK)
+    -- print("COLEMAK", COLEMAK)
   else
-    vim.opt.langmap = ""
+    -- vim.opt.langmap = ""
     COLEMAK = false
     print("COLEMAK", COLEMAK)
   end
 end
+colemak_toggle()
 
 nmap("<leader><leader>q", colemak_toggle, "Toggle")
 

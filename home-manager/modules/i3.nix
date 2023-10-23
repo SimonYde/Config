@@ -5,17 +5,17 @@ let
 in
 {
   xsession.windowManager.i3.config = {
-    assigns = sway.assigns;
-    colors = sway.colors;
+    assigns          = sway.assigns;
+    colors           = sway.colors;
     defaultWorkspace = sway.defaultWorkspace;
-    floating = sway.floating;
-    fonts = sway.fonts;
-    gaps = sway.gaps;
-    menu = sway.menu;
-    modes = sway.modes;
-    modifier = sway.modifier;
-    terminal = sway.terminal;
-    window = sway.window;
+    floating         = sway.floating;
+    fonts            = sway.fonts;
+    gaps             = sway.gaps;
+    menu             = sway.menu;
+    modes            = sway.modes;
+    modifier         = sway.modifier;
+    terminal         = sway.terminal;
+    window           = sway.window;
     bars = [
       (builtins.head sway.bars // { command = "${pkgs.i3}/bin/i3bar"; })
     ];
