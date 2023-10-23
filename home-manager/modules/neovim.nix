@@ -29,7 +29,7 @@ in
       gitsigns-nvim
       neogit
       diffview-nvim
-      mini-nvim
+      unstablePlugins.mini-nvim
       vim-be-good
 
       # -----Fuzzy Finder-----
@@ -63,9 +63,9 @@ in
       which-key-nvim
       trouble-nvim
       lualine-nvim
-      indent-blankline-nvim
+      unstablePlugins.indent-blankline-nvim
       nvim-web-devicons
-      nvim-tree-lua
+      # nvim-tree-lua
       nui-nvim
       unstablePlugins.catppuccin-nvim
     ];
@@ -82,23 +82,21 @@ in
           cmp = true,
           gitsigns = true,
           nvimtree = true,
+          mini = true,
           treesitter = true,
-          -- treesitter_context = true,
+          treesitter_context = false, -- is ugly
           rainbow_delimiters = true,
-          -- fidget = true, -- is ugly
+          fidget = false, -- is ugly
           harpoon = true,
           lsp_saga = true,
           telescope = {
              enabled = true,
              style = "nvchad",
           },
-          which_key = true,
+          which_key = false,
         },
       })
       vim.cmd.colorscheme "catppuccin"
     '';
-
   };
-  # home.file."${config.xdg.configHome}/nvim/after/plugin/colorscheme.lua".text = ''
-  # '';
 }

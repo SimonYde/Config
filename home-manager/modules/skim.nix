@@ -3,6 +3,6 @@
 {
   programs.skim = {
     enableFishIntegration = true;
-    enableZshIntegration = true;
+    enableZshIntegration  = true;
   };
 }
