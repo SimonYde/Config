@@ -23,6 +23,7 @@ let cfg = config.syde.programming; in
     # ---Other LSPs---
     # metals
     # jdt-language-server
+    unstable.typst-lsp
     inputs.nil.packages.x86_64-linux.nil
     nixpkgs-fmt
     nodejs-slim_20 # for copilot.lua

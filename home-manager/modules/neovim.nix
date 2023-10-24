@@ -10,11 +10,22 @@ in
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
       # -----LSP-----
-      nvim-lspconfig
+      unstablePlugins.nvim-lspconfig
       lspkind-nvim
       unstablePlugins.lspsaga-nvim
       fidget-nvim
-      nvim-cmp
+
+      # nvim-cmp # Temporarily disabled due to upstream bug
+      (pkgs.neovimUtils.buildNeovimPluginFrom2Nix {
+        pname = "nvim-cmp";
+        version = "1";
+        src = pkgs.fetchFromGitHub {
+          owner = "MariaSolOs";
+          repo = "nvim-cmp";
+          rev = "a6c9e71e958f8466f5dcbaaff3b50c5f84aaa726";
+          sha256 = "sha256-f+ZpSOhBNHW5SgPFQ1ciJnv5Ntm5tX3CErlvMvREtkA=";
+        };
+      })
       cmp-cmdline
       cmp-nvim-lsp
       cmp-buffer
@@ -72,7 +83,7 @@ in
     extraLuaConfig = ''
       vim.loader.enable()
       require('syde')
-      require("catppuccin").setup({
+      require("catppuccin").setup {
         flavour = "${config.themes.flavour}",
         integrations = {
           indent_blankline = {
@@ -95,7 +106,7 @@ in
           },
           which_key = false,
         },
-      })
+      }
       vim.cmd.colorscheme "catppuccin"
     '';
   };

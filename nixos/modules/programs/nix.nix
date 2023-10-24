@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   # nixpkgs.config.allowUnFree = true;
@@ -11,7 +11,7 @@
       automatic = true;
     };
 
-    # registry.nixpkgs.flake = inputs.nixpkgs;
+    registry.nixpkgs.flake = inputs.nixpkgs;
     nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
     gc = {

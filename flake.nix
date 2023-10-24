@@ -38,24 +38,20 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, flake-utils, ... }: {
+  outputs = { self, nixpkgs, home-manager, flake-utils, ... }@inputs: {
     nixosConfigurations = {
       icarus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ({ ... }: { nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ]; })
           ./nixos/devices/icarus.nix
-          { nix.registry.nixpkgs.flake = nixpkgs; }
         ];
       };
       perdix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          # ({ ... }: { nixpkgs.overlays = [ inputs.nixpkgs-wayland.overlay ]; })
           ./nixos/devices/perdix.nix
-          { nix.registry.nixpkgs.flake = nixpkgs; }
         ];
       };
     };
