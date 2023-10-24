@@ -1,4 +1,8 @@
-local cmp = require('cmp')
+local cmp = vim.F.npcall(require, "cmp")
+if not cmp then
+  return
+end
+
 local luasnip = require("luasnip")
 local lspkind = require('lspkind')
 lspkind.init()

@@ -49,7 +49,7 @@ in
       }
     }
     // default_layout "compact"
-    default_shell "fish"
+    default_shell "${pkgs.fish}/bin/fish"
     simplified_ui false
     pane_frames false
     mouse_mode true

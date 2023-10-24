@@ -14,16 +14,6 @@ lualine.setup {
     -- component_separators = {left = '', right = ''},
     -- section_separators = { left = '', right = ''},
   },
-  disabled_filetypes = {
-    statusline = {
-      "NvimTree",
-      "Undotree",
-    },
-  },
-  ignore_focus = {
-    "NvimTree",
-    "Undotree",
-  },
   sections = {
     lualine_a = { 'mode' },
     lualine_b = { 'branch', 'diff' },
@@ -39,7 +29,8 @@ lualine.setup {
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },
-  -- extensions = {
-  --   'nvim-tree',
-  -- },
+  extensions = {
+    'nvim-tree',
+    'trouble',
+  },
 }
