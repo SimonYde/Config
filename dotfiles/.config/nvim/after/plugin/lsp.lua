@@ -1,5 +1,5 @@
-local nvim_lsp = vim.F.npcall(require, 'lspconfig')
-if not nvim_lsp then
+local lspconfig = vim.F.npcall(require, 'lspconfig')
+if not lspconfig then
   return
 end
 
@@ -19,83 +19,72 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- end
 
 
+-- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function(_)
+    lspconfig.elmls.setup {
+      capabilities = capabilities,
+    }
 
+    lspconfig.pylsp.setup {
+      capabilities = capabilities,
+    }
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function(args)
-    -- if vim.fn.executable('elm-language-server') == 1 then
-      nvim_lsp.elmls.setup {
-        capabilities = capabilities,
-      }
-    -- end
-
-    -- if vim.fn.executable('pylsp') == 1 then
-      nvim_lsp.pylsp.setup {
-        capabilities = capabilities,
-      }
-    -- end
-
-    -- if vim.fn.executable('rust-analyzer') == 1 then
-      nvim_lsp.rust_analyzer.setup {
-        capabilities = capabilities,
-        settings = {
-          ["rust-analyzer"] = {
-            checkOnSave = {
-              command = "clippy",
-            },
-            -- cargo = {
-            --   loadOutDirsFromCheck = true,
-            -- },
-            -- procMacro = {
-            --   enable = true,
-            -- },
-            -- diagnostics = {
-            --   disabled = { "unresolved-proc-macro" },
-            -- },
+    lspconfig.rust_analyzer.setup {
+      capabilities = capabilities,
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy",
           },
+          -- cargo = {
+          --   loadOutDirsFromCheck = true,
+          -- },
+          -- procMacro = {
+          --   enable = true,
+          -- },
+          -- diagnostics = {
+          --   disabled = { "unresolved-proc-macro" },
+          -- },
         },
-      }
-    -- end
-    -- if vim.fn.executable('gopls') == 1 then
-      nvim_lsp.gopls.setup {
-        capabilities = capabilities,
-      }
-    -- end
+      },
+    }
 
+    lspconfig.gopls.setup {
+      capabilities = capabilities,
+    }
 
-    -- if vim.fn.executable('ocamllsp') == 1 then
-      nvim_lsp.ocamllsp.setup {
-        capabilities = capabilities,
-      }
-    -- end
+    lspconfig.ocamllsp.setup {
+      capabilities = capabilities,
+    }
 
-
-    -- if vim.fn.executable('lua-language-server') == 1 then
-      nvim_lsp.lua_ls.setup {
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = {
-                "vim"
-              }
-            },
-          }
+    lspconfig.lua_ls.setup {
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = {
+              "vim"
+            }
+          },
         }
       }
-    -- end
+    }
 
 
     if vim.fn.executable('ltex-ls') == 1 then
-      nvim_lsp.ltex.setup {
+      lspconfig.ltex.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
-          require("ltex_extra").setup {
-            load_langs = { "en-US", "en-GB", "da-DK" },
-            init_check = true,
-            path = vim.fn.expand("~") .. "/.local/share/ltex",
-            log_level = "none",
-          }
+          local ltex_extra = vim.F.npcall(require, 'ltex_extra')
+          if ltex_extra then
+            ltex_extra.setup {
+              load_langs = { "en-US", "en-GB", "da-DK" },
+              init_check = true,
+              path = vim.fn.expand("~") .. "/.local/share/ltex",
+              log_level = "none",
+            }
+          end
         end,
         settings = {
           ltex = {
@@ -105,57 +94,56 @@ vim.api.nvim_create_autocmd('VimEnter', {
       }
     end
 
-    -- if vim.fn.executable('texlab') == 1 then
-      nvim_lsp.texlab.setup {
-        capabilities = capabilities,
-        settings = {
-          texlab = {
-            build = {
-              executable = 'tectonic',
-              args = {
-                "-X",
-                "compile",
-                "%f",
-                "--synctex",
-                "--keep-logs",
-                "--keep-intermediates",
-              },
-              onSave = true,
-              forwardSearchAfter = true,
+    lspconfig.texlab.setup {
+      capabilities = capabilities,
+      settings = {
+        texlab = {
+          build = {
+            executable = 'tectonic',
+            args = {
+              "-X",
+              "compile",
+              "%f",
+              "--synctex",
+              "--keep-logs",
+              "--keep-intermediates",
             },
-            -- forwardSearch = {
-            -- executable = "zathura",
-            -- args = {
-            --   "--synctex-forward",
-            --   "%l:%c:%f",
-            --   "%p",
-            -- },
-            -- },
+            onSave = true,
+            forwardSearchAfter = true,
           },
-        }
-      }
-    -- end
-
-    -- if vim.fn.executable('nil') == 1 then
-      nvim_lsp.nil_ls.setup {
-        capabilities = capabilities,
-        settings = {
-          ['nil'] = {
-            formatting = {
-              command = { "nixpkgs-fmt" },
-            },
-            autoArchive = true,
-          },
-        }
-      }
-    -- end
-
-    if vim.fn.executable('node') == 1 then
-      require('copilot').setup {
-        suggestion = {
-          auto_trigger = true,
+          -- forwardSearch = {
+          -- executable = "zathura",
+          -- args = {
+          --   "--synctex-forward",
+          --   "%l:%c:%f",
+          --   "%p",
+          -- },
+          -- },
         },
       }
+    }
+
+    lspconfig.nil_ls.setup {
+      capabilities = capabilities,
+      settings = {
+        ['nil'] = {
+          formatting = {
+            command = { "nixpkgs-fmt" },
+          },
+          autoArchive = true,
+        },
+      }
+    }
+
+    if vim.fn.executable('node') == 1 then
+      local copilot = vim.F.npcall(require, 'copilot')
+      if copilot then
+        copilot.setup {
+          suggestion = {
+            auto_trigger = true,
+          },
+        }
+      end
     end
   end,
 })
@@ -164,21 +152,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     client.server_capabilities.semanticTokensProvider = nil
-    require('fidget').setup {
-      window = {
-        blend = 0,
-      },
-    }
-    require('lspsaga').setup {
-      symbol_in_winbar = {
-        enable = false,
-      },
-      code_action_prompt = {
-        enable = false,
-      },
-      ui = {
-        kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
-      },
-    }
+    local fidget = vim.F.npcall(require, 'fidget')
+    if fidget then
+      fidget.setup {
+        window = {
+          blend = 0,
+        },
+      }
+    end
+    local lspsaga = vim.F.npcall(require, 'lspsaga')
+    if lspsaga then
+      lspsaga.setup {
+        symbol_in_winbar = {
+          enable = false,
+        },
+        code_action_prompt = {
+          enable = false,
+        },
+        ui = {
+          kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+        },
+      }
+    end
   end,
 })

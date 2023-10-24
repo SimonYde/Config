@@ -64,8 +64,6 @@ nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
 nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "Rename")
 -- nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 
-nmap("<A-f>", vim.cmd.NvimTreeToggle, "Toggle file tree")
-nmap("<A-F>", vim.cmd.NvimTreeFindFileToggle, "Toggle file tree")
 
 -- nmap("<C-k>", "<cmd>cnext<CR>zz")
 -- nmap("<C-j>", "<cmd>cprev<CR>zz")

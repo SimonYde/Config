@@ -3,11 +3,15 @@ require('mini.align').setup()
 require('mini.bracketed').setup()
 require('mini.comment').setup()
 
-
-
-require('mini.files').setup()
 local nmap = require('syde.keymap').nmap
-nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Mini [f]iles")
+
+
+local has_nvimtree, _ = pcall(require, 'nvim-tree')
+if not has_nvimtree then
+  require('mini.files').setup()
+  nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Show [f]ile-explorer")
+  nmap('<M-F>', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', "Show current [F]ile in file-explorer")
+end
 
 -- local indentscope = require('mini.indentscope')
 -- indentscope.setup({
@@ -21,6 +25,7 @@ nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Mini [f]iles")
 require('mini.pairs').setup()
 require('mini.starter').setup()
 require('mini.surround').setup()
+require('mini.jump').setup()
 
 
 

@@ -65,7 +65,7 @@ in
       lualine-nvim
       unstablePlugins.indent-blankline-nvim
       nvim-web-devicons
-      # nvim-tree-lua
+      nvim-tree-lua
       nui-nvim
       unstablePlugins.catppuccin-nvim
     ];
