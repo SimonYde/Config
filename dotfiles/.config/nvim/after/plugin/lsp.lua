@@ -26,6 +26,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
       capabilities = capabilities,
     }
 
+    lspconfig.typst_lsp.setup {
+      capabilities = capabilities,
+    }
+
     lspconfig.pylsp.setup {
       capabilities = capabilities,
     }

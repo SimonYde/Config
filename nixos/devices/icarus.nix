@@ -1,6 +1,9 @@
 { inputs, pkgs, ... }:
 
 {
+  nixpkgs.overlays = [
+    inputs.nix-ld-rs.overlays.default
+  ];
   imports = [
     inputs.nixos-wsl.nixosModules.default
     ../modules/programs/nix.nix

@@ -2,11 +2,12 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-local map = require("syde.keymap").map
-local nmap = require("syde.keymap").nmap
-local vmap = require("syde.keymap").vmap
-local xmap = require("syde.keymap").xmap
-local tmap = require("syde.keymap").tmap
+local keymap = require("syde.keymap")
+local map  = keymap.map
+local nmap = keymap.nmap
+local vmap = keymap.vmap
+local xmap = keymap.xmap
+local tmap = keymap.tmap
 
 
 -- COLEMAK Remaps

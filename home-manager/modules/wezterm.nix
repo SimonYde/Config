@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   font = config.syde.terminal.font;
@@ -24,9 +24,13 @@ in
         color_scheme = "Catppuccin Mocha",
         enable_tab_bar = false,
         default_cursor_style = "SteadyBar",
-        font = wezterm.font("${font}"),
+        font = wezterm.font {
+          family = '${font}',
+          weight = 'Light',
+          italic = false,
+        },
         font_size = 11.5,
-        default_prog = {"/home/syde/.nix-profile/bin/fish", "-l"},
+        default_prog = {"${pkgs.fish}/bin/fish", "-l"},
       }
     '';
   };

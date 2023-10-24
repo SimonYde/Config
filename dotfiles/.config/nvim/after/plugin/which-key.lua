@@ -6,11 +6,11 @@ whichkey.setup {}
 whichkey.register({
   ["<leader>"] = {
     f = {
-      name = "Find (telescope)",
+      name = "[f]ind (telescope)",
     },
     d = { vim.diagnostic.open_float, "hover [d]iagnostics" },
     k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
-    a = { "<cmd>Lspsaga code_action<cr>", "code actions" },
+    a = { "<cmd>Lspsaga code_action<cr>", "code [a]ctions" },
     -- k = { vim.lsp.buf.hover, "hover documentation" },
     -- a = { vim.lsp.buf.code_action, "code actions" },
   },
