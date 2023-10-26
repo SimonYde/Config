@@ -3,13 +3,17 @@
 {
   imports = [
     ../modules/desktops/sway.nix
-    # ../modules/desktops/i3.nix
+    ../modules/desktops/i3.nix
     ../modules/pc.nix
     ../modules/hardware/laptop.nix
     ../modules/hardware/graphics/nvidia.nix
     ../modules/hardware/graphics/amd.nix
     ../../home-manager/modules/themes.nix
   ];
+
+  syde.laptop.enable = true;
+  programs.sway.enable = true;
+  services.xserver.windowManager.i3.enable = false;
 
   networking.hostName = "perdix";
   networking.wireguard.enable = true;

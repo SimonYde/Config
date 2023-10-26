@@ -4,7 +4,7 @@ let
   sway = config.wayland.windowManager.sway.config;
 in
 {
-  xsession.windowManager.i3.config = {
+  xsession.windowManager.i3.config =  {
     assigns  = sway.assigns;
     colors   = sway.colors;
     floating = sway.floating;
