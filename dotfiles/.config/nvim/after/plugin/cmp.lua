@@ -4,8 +4,6 @@ if not cmp then
 end
 
 local luasnip = require("luasnip")
-local lspkind = require('lspkind')
-lspkind.init()
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -17,6 +15,7 @@ end
 cmp.setup {
   enabled = true,
   sources = {
+    -- { name = 'nvim_lsp_signature_help' },
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
     { name = "path" },
@@ -24,13 +23,17 @@ cmp.setup {
     { name = "buffer",  keyword_length = 5 },
   },
   mapping = {
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-Space>'] = cmp.mapping.complete(),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
-      -- they way you will only jump inside the snippet region
+        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+        -- they way you will only jump inside the snippet region
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
@@ -66,21 +69,30 @@ cmp.setup {
       luasnip.lsp_expand(args.body)
     end
   },
-  formatting = {
-    format = lspkind.cmp_format {
-      with_text = true,
-      menu = {
-        buffer = "[buf]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        path = "[path]",
-        luasnip = "[snip]",
-      },
-    },
-  },
 }
 
-cmp.setup.cmdline('/', {
+
+local lspkind = vim.F.npcall(require, "lspkind")
+if lspkind then
+  lspkind.init()
+  cmp.setup {
+    formatting = {
+      format = lspkind.cmp_format {
+        with_text = true,
+        menu = {
+          buffer = "[buf]",
+          nvim_lsp = "[LSP]",
+          nvim_lua = "[api]",
+          path = "[path]",
+          luasnip = "[snip]",
+        },
+      },
+    },
+  }
+end
+
+
+cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
   completion = { autocomplete = false },
   sources = {
