@@ -1,4 +1,4 @@
--- vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
+vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
 
 -- Disable netrw for nvimtree
 vim.g.loaded_netrw = 1
@@ -20,7 +20,6 @@ opt.ignorecase = true
 
 opt.smartindent = true
 opt.showmode = false
-opt.laststatus = 3 -- global statusline
 opt.splitright = true
 opt.splitbelow = true
 
