@@ -5,7 +5,7 @@
     programs = {
       # Shells
       fish.enable    = true;
-      nushell.enable = false;
+      nushell.enable = true;
       zsh.enable     = false;
 
       # CLI tools
