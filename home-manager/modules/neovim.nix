@@ -18,11 +18,11 @@ in
       # nvim-cmp # Temporarily disabled due to upstream bug
       (pkgs.neovimUtils.buildNeovimPluginFrom2Nix {
         pname = "nvim-cmp";
-        version = "1";
+        version = "2023-10-25";
         src = pkgs.fetchFromGitHub {
-          owner = "MariaSolOs";
+          owner = "hrsh7th";
           repo = "nvim-cmp";
-          rev = "a6c9e71e958f8466f5dcbaaff3b50c5f84aaa726";
+          rev = "51260c02a8ffded8e16162dcf41a23ec90cfba62";
           sha256 = "sha256-f+ZpSOhBNHW5SgPFQ1ciJnv5Ntm5tX3CErlvMvREtkA=";
         };
       })
@@ -31,12 +31,13 @@ in
       cmp-buffer
       cmp-path
       cmp-nvim-lua
+      # cmp-nvim-lsp-signature-help
       cmp_luasnip
       luasnip
       copilot-lua
 
       # -----Workflow-----
-      harpoon
+      unstablePlugins.harpoon # Stable version is broken for Neovim Nightly
       gitsigns-nvim
       neogit
       diffview-nvim
@@ -74,9 +75,19 @@ in
       which-key-nvim
       trouble-nvim
       lualine-nvim
+      # (pkgs.vimUtils.buildVimPlugin {
+      #   pname = "lualine-so-fancy-nvim";
+      #   version = "1";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "meuter";
+      #     repo = "lualine-so-fancy.nvim";
+      #     rev = "21284504fed2776668fdea8743a528774de5d2e1";
+      #     sha256 = "sha256-JMz3Dv3poGoYQU+iq/jtgyHECZLx+6mLCvqUex/a0SY=";
+      #   };
+      # })
       unstablePlugins.indent-blankline-nvim
-      nvim-web-devicons
-      nvim-tree-lua
+      unstablePlugins.nvim-web-devicons
+      # nvim-tree-lua
       nui-nvim
       unstablePlugins.catppuccin-nvim
     ];
