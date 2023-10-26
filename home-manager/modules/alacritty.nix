@@ -56,6 +56,53 @@ in
             mods = "Super|Shift";
             action = "SpawnNewInstance";
           }
+          {
+            key = "M";
+            mode = "Vi|~Search";
+            action = "Left";
+          }
+          {
+            key = "E";
+            mode = "Vi|~Search";
+            action = "Up";
+          }
+          {
+            key = "N";
+            mode = "Vi|~Search";
+            action = "Down";
+          }
+          {
+            key = "I";
+            mode = "Vi|~Search";
+            action = "Right";
+          }
+          {
+            key = "K";
+            mode = "Vi|~Search";
+            action = "SearchNext";
+          }
+          {
+            key = "K";
+            mods = "Shift";
+            mode = "Vi|~Search";
+            action = "SearchPrevious";
+          }
+          {
+            key = "J";
+            mode = "Vi|~Search";
+            action = "WordRightEnd";
+          }
+          {
+            key = "J";
+            mods = "Shift";
+            mode = "Vi|~Search";
+            action = "WordLeftEnd";
+          }
+          {
+            key = "L";
+            mode = "Vi|~Search";
+            action = "ToggleViMode";
+          }
         ];
         colors = {
           cursor = {
@@ -64,10 +111,6 @@ in
           };
         };
       };
-      /* package = pkgs.writeShellScriptBin "alacritty" ''
-        #!/bin/sh
-        ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel ${pkgs.alacritty}/bin/alacritty "$@"
-        ''; */
     };
   };
 }
