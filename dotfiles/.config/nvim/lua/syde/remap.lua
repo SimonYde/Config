@@ -26,7 +26,6 @@ local function colemak_toggle()
     -- vim.opt.langmap = "jh,hk,kj"
     vim.opt.langremap = false
     COLEMAK = true
-    -- print("COLEMAK", COLEMAK)
   else
     -- vim.opt.langmap = ""
     COLEMAK = false
