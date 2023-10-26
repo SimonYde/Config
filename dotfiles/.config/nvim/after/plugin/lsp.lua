@@ -28,6 +28,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     lspconfig.typst_lsp.setup {
       capabilities = capabilities,
+      settings = {
+        exportPdf = "onSave" -- Choose onType, onSave or never.
+        -- serverPath = "" -- Normally, there is no need to uncomment it.
+      },
     }
 
     lspconfig.pylsp.setup {
@@ -41,15 +45,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
           checkOnSave = {
             command = "clippy",
           },
-          -- cargo = {
-          --   loadOutDirsFromCheck = true,
-          -- },
-          -- procMacro = {
-          --   enable = true,
-          -- },
-          -- diagnostics = {
-          --   disabled = { "unresolved-proc-macro" },
-          -- },
         },
       },
     }
