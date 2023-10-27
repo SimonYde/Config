@@ -54,21 +54,21 @@
   };
 
   imports = [
-    ./modules/alacritty.nix
-    ./modules/bat.nix
-    ./modules/direnv.nix
-    ./modules/exa.nix
-    ./modules/fish.nix
-    ./modules/git.nix
-    ./modules/kitty.nix
-    ./modules/lazygit.nix
-    ./modules/nushell.nix
-    ./modules/skim.nix
-    ./modules/starship.nix
-    ./modules/wezterm.nix
-    ./modules/zellij.nix
-    ./modules/zoxide.nix
-    ./modules/zsh.nix
+    ./modules/programs/alacritty.nix
+    ./modules/programs/bat.nix
+    ./modules/programs/direnv.nix
+    ./modules/programs/exa.nix
+    ./modules/programs/fish.nix
+    ./modules/programs/git.nix
+    ./modules/programs/kitty.nix
+    ./modules/programs/lazygit.nix
+    ./modules/programs/nushell.nix
+    ./modules/programs/skim.nix
+    ./modules/programs/starship.nix
+    ./modules/programs/wezterm.nix
+    ./modules/programs/zellij.nix
+    ./modules/programs/zoxide.nix
+    ./modules/programs/zsh.nix
   ];
 
   options.syde.terminal = with lib; {

@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
+
+let theme = config.themes; in
 
 {
   config.services.xserver.displayManager= lib.mkIf config.services.xserver.displayManager.lightdm.enable {
@@ -11,17 +13,12 @@
           gtk = {
             enable = true;
             theme = {
-              name = "Catppuccin-Mocha-Compact-Lavender-Dark";
-              package = pkgs.catppuccin-gtk.override {
-                accents = [ "lavender" ];
-                size = "compact";
-                tweaks = [ "rimless" ];
-                variant = "mocha";
-              };
+              name = if theme.prefer-dark then theme.gtk.darkTheme else theme.gtk.lightTheme;
+              package = theme.gtk.package;
             };
             cursorTheme = {
-              name = "Catppuccin-Mocha-Dark-Cursors";
-              package = pkgs.catppuccin-cursors.mochaDark;
+              name = theme.cursorTheme.name;
+              package = theme.cursorTheme.package;
             };
           };
         };

@@ -64,9 +64,9 @@ let cfg = config.syde.programming; in
     ./modules/java.nix
 
     # ---Programs---
-    ./modules/zathura.nix
-    ./modules/helix.nix
-    ./modules/neovim.nix
-    ./modules/vscode.nix
+    ./modules/programs/zathura.nix
+    ./modules/programs/helix.nix
+    ./modules/programs/neovim.nix
+    ./modules/programs/vscode.nix
   ];
 }

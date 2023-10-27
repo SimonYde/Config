@@ -1,9 +1,10 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let
   mkColor = hex: lib.mkOption {
     type = lib.types.str;
     default = "${hex}";
   };
+  cfg = config.themes;
 in
 {
   options.themes = {
@@ -53,6 +54,34 @@ in
         flamingo = mkColor "#dd7878";
       };
     };
+    gtk = {
+      darkTheme = lib.mkOption {
+        type = lib.types.str;
+        default = "Catppuccin-Mocha-Compact-Lavender-Dark";
+      };
+      lightTheme = lib.mkOption {
+        type = lib.types.str;
+        default = "Catppuccin-Latte-Compact-Lavender-Light";
+      };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.catppuccin-gtk.override {
+          accents = [ "lavender" ];
+          size = "compact";
+          tweaks = [ "rimless" ];
+          variant = cfg.flavour;
+        };
+      };
+    };
+    cursorTheme = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        default = "Catppuccin-Mocha-Dark-Cursors";
+      };
+      package = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.catppuccin-cursors.mochaDark;
+      };
+    };
   };
-
 }

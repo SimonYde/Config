@@ -35,17 +35,17 @@
 
   imports = [
     ./home.nix
+    ./programming.nix
     ./terminal.nix
     ./modules/gtk.nix
     ./modules/qt.nix
     ./modules/themes.nix
-    ./programming.nix
-    ./modules/brave.nix
-    ./modules/firefox.nix
-    ./modules/sway.nix
-    ./modules/i3.nix
+    ./modules/email.nix
+    ./modules/programs/brave.nix
+    ./modules/programs/firefox.nix
+    ./modules/desktops/sway.nix
+    ./modules/desktops/i3.nix
     ./modules/services/redshift.nix
     ./modules/services/gammastep.nix
-    ./modules/email.nix
   ];
 }

@@ -1,4 +1,4 @@
-{ pkgs,  ... }:
+{ pkgs, ... }:
 
 {
   programs.zsh = {
@@ -8,7 +8,15 @@
     autocd = true;
     dotDir = ".config/zsh";
     history = {
-      ignorePatterns = [ "pkill *" "kill *" "rm *" "rmdir *" "mkdir *" "touch *" ];
+      ignorePatterns = [
+        "fg *"
+        "pkill *"
+        "kill *"
+        "rm *"
+        "rmdir *"
+        "mkdir *"
+        "touch *"
+      ];
     };
     plugins = [
       {
