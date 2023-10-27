@@ -109,7 +109,7 @@ cmp.setup.cmdline(':', {
     {
       name = 'cmdline',
       option = {
-        ignore_cmds = { 'Man', '!', 'w', 'q' }
+        ignore_cmds = { '!', 'w', 'q' }
       },
       keyword_length = 5,
     }

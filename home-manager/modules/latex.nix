@@ -7,10 +7,13 @@
       tectonic
       ltex-ls
     ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [
+      ltex_extra-nvim
+    ];
   };
+
   options.syde.programming.latex = with lib; {
-    enable = mkOption {
-      type = types.bool;
+    enable = mkEnableOption "Latex" // {
       default = false;
     };
   };
