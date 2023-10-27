@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   unstablePlugins = pkgs.unstable.vimPlugins;
+  cfg = config.programs.neovim;
 in
 {
   programs.neovim = {
@@ -31,7 +32,6 @@ in
       cmp-buffer
       cmp-path
       cmp-nvim-lua
-      # cmp-nvim-lsp-signature-help
       cmp_luasnip
       luasnip
       copilot-lua
@@ -45,11 +45,11 @@ in
       vim-be-good
 
       # -----Fuzzy Finder-----
-      unstablePlugins.telescope-nvim
+      # unstablePlugins.telescope-nvim
       unstablePlugins.plenary-nvim
-      telescope-fzf-native-nvim
-      git-worktree-nvim
-      telescope-undo-nvim
+      # telescope-fzf-native-nvim
+      # git-worktree-nvim
+      # telescope-undo-nvim
 
       # -----Highlighting-----
       unstablePlugins.nvim-treesitter.withAllGrammars
@@ -57,24 +57,10 @@ in
       unstablePlugins.nvim-treesitter-context
       unstablePlugins.rainbow-delimiters-nvim
 
-      # -----Language extras-----
-      # ltex_extra-nvim
-      (pkgs.vimUtils.buildVimPlugin {
-        pname = "typst-vim";
-        version = "1";
-        src = pkgs.fetchFromGitHub {
-          owner = "kaarmu";
-          repo = "typst.vim";
-          rev = "65f9e78c11829a643d1539f3481c0ff875c83603";
-          sha256 = "sha256-G5+LX3rg5N9tBBt3i+2phbgfJd97bcxQveVzRegZu+A=";
-        };
-      })
-
-
       # -----UI-----
-      which-key-nvim
+      # which-key-nvim
       trouble-nvim
-      lualine-nvim
+      # lualine-nvim
       # (pkgs.vimUtils.buildVimPlugin {
       #   pname = "lualine-so-fancy-nvim";
       #   version = "1";
@@ -121,4 +107,8 @@ in
       vim.cmd.colorscheme "catppuccin"
     '';
   };
+
+  home.packages = with pkgs; lib.mkIf cfg.enable [
+    nodejs-slim_20 # for copilot.lua
+  ];
 }

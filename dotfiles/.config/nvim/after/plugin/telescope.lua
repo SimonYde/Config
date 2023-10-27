@@ -66,6 +66,8 @@ nmap("<leader>F", builtin.git_files, "Git [F]iles")
 nmap("<leader>fh", builtin.help_tags, "[f]uzzy search [h]elp tags")
 nmap("<leader>fs", builtin.live_grep, "[f]ile [s]earch with grep")
 nmap("<leader>/", builtin.live_grep, "Global search with grep")
+nmap("gr", builtin.lsp_references, "Goto References")
+nmap("gi", builtin.lsp_implementations, "Goto References")
 
 nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "[g]it [w]orktrees")
 nmap("<leader>u", "<cmd>Telescope undo<CR>", "[u]ndos")

@@ -50,7 +50,7 @@ in
     }
     // default_layout "compact"
     default_shell "${pkgs.fish}/bin/fish"
-    simplified_ui false
+    simplified_ui true
     pane_frames false
     mouse_mode true
 

@@ -11,9 +11,8 @@
   };
 
   options.syde.programming.python = with lib; {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
+    enable = mkEnableOption "Python" // {
+      default = false; 
     };
   };
 }

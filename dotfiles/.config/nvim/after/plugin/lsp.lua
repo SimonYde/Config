@@ -3,136 +3,114 @@ if not lspconfig then
   return
 end
 
-
 -- Cmp Setup
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Language setup
--- local servers = {
---   -- "metals",
--- }
--- for _, lsp in ipairs(servers) do
---   nvim_lsp[lsp].setup {
---     capabilities = capabilities,
---   }
--- end
+local function setup_lsp(lsp_name, executable, settings, on_attach)
+  if vim.fn.executable(executable) == 1 then
+    if not settings then
+      settings = {}
+    end
+    lspconfig[lsp_name].setup {
+      capabilities = capabilities,
+      settings = settings,
+    }
+    if on_attach then
+      lspconfig[lsp_name].setup {
+        on_attach = on_attach,
+      }
+    end
+  end
+end
 
 
 -- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function(_)
-    lspconfig.elmls.setup {
-      capabilities = capabilities,
-    }
+    setup_lsp("elmls", "elm-language-server")
 
-    lspconfig.typst_lsp.setup {
-      capabilities = capabilities,
-      settings = {
-        exportPdf = "onSave" -- Choose onType, onSave or never.
-        -- serverPath = "" -- Normally, there is no need to uncomment it.
+    setup_lsp("pylsp", "pylsp")
+
+    setup_lsp("gopls", "gopls")
+
+    setup_lsp("ocamllsp", "ocamllsp")
+    setup_lsp("metals", "metals")
+
+    setup_lsp("rust_analyzer", "rust-analyzer", {
+      ["rust-analyzer"] = {
+        checkOnSave = {
+          command = "clippy",
+        },
+      }
+    })
+
+    setup_lsp("lua_ls", "lua-language-server", {
+      Lua = {
+        diagnostics = {
+          globals = {
+            "vim"
+          }
+        },
+      }
+    })
+
+    setup_lsp("texlab", "texlab", {
+      texlab = {
+        build = {
+          executable = 'tectonic',
+          args = {
+            "-X",
+            "compile",
+            "%f",
+            "--synctex",
+            "--keep-logs",
+            "--keep-intermediates",
+          },
+          onSave = true,
+          forwardSearchAfter = true,
+        },
+        -- forwardSearch = {
+        -- executable = "zathura",
+        -- args = {
+        --   "--synctex-forward",
+        --   "%l:%c:%f",
+        --   "%p",
+        -- },
+        -- },
       },
-    }
+    })
 
-    lspconfig.pylsp.setup {
-      capabilities = capabilities,
-    }
+    setup_lsp("nil_ls", "nil", {
+      ['nil'] = {
+        formatting = {
+          command = { "nixpkgs-fmt" },
+        },
+        autoArchive = true,
+      },
+    })
 
-    lspconfig.rust_analyzer.setup {
-      capabilities = capabilities,
-      settings = {
-        ["rust-analyzer"] = {
-          checkOnSave = {
-            command = "clippy",
-          },
+    setup_lsp("typst_lsp", "typst-lsp", {
+      exportPdf = "onSave", -- Choose onType, onSave or never.
+      -- serverPath = "" -- Normally, there is no need to uncomment it.
+    })
+
+    setup_lsp("ltex", "ltex-ls", {
+        ltex = {
+          language = "da-DK",
         },
       },
-    }
-
-    lspconfig.gopls.setup {
-      capabilities = capabilities,
-    }
-
-    lspconfig.ocamllsp.setup {
-      capabilities = capabilities,
-    }
-
-    lspconfig.lua_ls.setup {
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = {
-              "vim"
-            }
-          },
-        }
-      }
-    }
-
-
-    if vim.fn.executable('ltex-ls') == 1 then
-      lspconfig.ltex.setup {
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          local ltex_extra = vim.F.npcall(require, 'ltex_extra')
-          if ltex_extra then
-            ltex_extra.setup {
-              load_langs = { "en-US", "en-GB", "da-DK" },
-              init_check = true,
-              path = vim.fn.expand("~") .. "/.local/share/ltex",
-              log_level = "none",
-            }
-          end
-        end,
-        settings = {
-          ltex = {
-            language = "da-DK",
-          },
-        }
-      }
-    end
-
-    lspconfig.texlab.setup {
-      capabilities = capabilities,
-      settings = {
-        texlab = {
-          build = {
-            executable = 'tectonic',
-            args = {
-              "-X",
-              "compile",
-              "%f",
-              "--synctex",
-              "--keep-logs",
-              "--keep-intermediates",
-            },
-            onSave = true,
-            forwardSearchAfter = true,
-          },
-          -- forwardSearch = {
-          -- executable = "zathura",
-          -- args = {
-          --   "--synctex-forward",
-          --   "%l:%c:%f",
-          --   "%p",
-          -- },
-          -- },
-        },
-      }
-    }
-
-    lspconfig.nil_ls.setup {
-      capabilities = capabilities,
-      settings = {
-        ['nil'] = {
-          formatting = {
-            command = { "nixpkgs-fmt" },
-          },
-          autoArchive = true,
-        },
-      }
-    }
+      function(_)
+        local ltex_extra = vim.F.npcall(require, 'ltex_extra')
+        if ltex_extra then
+          ltex_extra.setup {
+            load_langs = { "en-US", "en-GB", "da-DK" },
+            init_check = true,
+            path = vim.fn.expand("~") .. "/.local/share/ltex",
+            log_level = "none",
+          }
+        end
+      end)
 
     if vim.fn.executable('node') == 1 then
       local copilot = vim.F.npcall(require, 'copilot')

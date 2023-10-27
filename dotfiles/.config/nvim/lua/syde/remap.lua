@@ -65,14 +65,15 @@ nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "Rename")
 -- nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 
 
--- nmap("<C-k>", "<cmd>cnext<CR>zz")
--- nmap("<C-j>", "<cmd>cprev<CR>zz")
+nmap("<C-k>", "<cmd>cnext<CR>zz")
+nmap("<C-j>", "<cmd>cprev<CR>zz")
 -- nmap("<leader>k", "<cmd>lnext<CR>zz")
 -- nmap("<leader>j", "<cmd>lprev<CR>zz")
 
-nmap("<leader>q", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", "Search and replace in buffer")
+nmap("<leader>q", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Search and replace in buffer")
 tmap("<leader><Esc>", "<C-\\><C-n>", "Exit terminal mode")
 
+nmap("<leader><leader>h", "<cmd>noh<CR>", "Clear highlights")
 
 -- require('Comment').setup()
 

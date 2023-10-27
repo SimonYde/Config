@@ -32,13 +32,15 @@
     home.packages = with pkgs; [
       # CLI Tools
       any-nix-shell
-      entr
-      ripgrep
-      fd
-      sd
-      du-dust
-      xh
       dogdns
+      du-dust
+      entr
+      fd
+      ripgrep
+      sd
+      xh
+
+      pandoc
 
       grawlix
       nur.repos.jo1gi.audiobook-dl-git
@@ -47,23 +49,23 @@
     home.shellAliases = {
       # sudo = "doas";
       cat = "bat";
-      c = "clear";
+      c   = "clear";
     };
   };
 
   imports = [
     ./modules/alacritty.nix
-    ./modules/wezterm.nix
-    ./modules/kitty.nix
-    ./modules/exa.nix
+    ./modules/bat.nix
     ./modules/direnv.nix
+    ./modules/exa.nix
     ./modules/fish.nix
     ./modules/git.nix
-    ./modules/nushell.nix
-    ./modules/bat.nix
-    ./modules/skim.nix
+    ./modules/kitty.nix
     ./modules/lazygit.nix
+    ./modules/nushell.nix
+    ./modules/skim.nix
     ./modules/starship.nix
+    ./modules/wezterm.nix
     ./modules/zellij.nix
     ./modules/zoxide.nix
     ./modules/zsh.nix

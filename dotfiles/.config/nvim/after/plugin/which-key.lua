@@ -17,10 +17,8 @@ whichkey.register({
   ["g"] = {
     d = { vim.lsp.buf.definition, "Goto Definition" },
     D = { vim.lsp.buf.declaration, "Goto Declaration" },
-    -- r = { vim.lsp.buf.references, "Goto References"},
-    -- i = { vim.lsp.buf.implementation, "Goto Implementation" },
-    r = { "<cmd>Telescope lsp_references<cr>", "Goto References" },
-    i = { "<cmd>Telescope lsp_implementations<cr>", "Goto References" },
+    r = { vim.lsp.buf.references, "Goto References" },
+    i = { vim.lsp.buf.implementation, "Goto Implementation" },
   },
   -- ["["] = {
   --   d = { vim.diagnostic.goto_prev, "Previous diagnostic" },
