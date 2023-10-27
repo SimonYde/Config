@@ -34,8 +34,8 @@
     };
   };
 
-  environment.sessionVariables = {
-    GTK_THEME = if config.themes.flavour == "mocha" then "Catppuccin-Mocha-Compact-Lavender-Dark" else "Catppuccin-Latte-Compact-Lavender-Light";
+  environment.sessionVariables = with config.themes; {
+    GTK_THEME = if prefer-dark then gtk.darkTheme else gtk.lightTheme;
     TERMINAL = "alacritty";
   };
 

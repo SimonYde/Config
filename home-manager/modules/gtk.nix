@@ -23,14 +23,8 @@ in
       };
       theme = {
         name =
-          if prefer-dark then "Catppuccin-Mocha-Compact-Lavender-Dark"
-          else "Catppuccin-Latte-Compact-Lavender-Light";
-        package = pkgs.catppuccin-gtk.override {
-          accents = [ "lavender" ];
-          size = "compact";
-          tweaks = [ "rimless" ];
-          variant = flavour;
-        };
+          if prefer-dark then themes.gtk.darkTheme else themes.gtk.lightTheme;
+        package = themes.gtk.package;
       };
       gtk3 = {
         extraConfig = {

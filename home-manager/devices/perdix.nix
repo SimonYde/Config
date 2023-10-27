@@ -53,8 +53,8 @@
     ];
 
     home.pointerCursor = {
-      name    = "Catppuccin-Mocha-Dark-Cursors";
-      package = pkgs.catppuccin-cursors.mochaDark;
+      name    = config.themes.cursorTheme.name;
+      package = config.themes.cursorTheme.package;
       size    = 24;
       gtk.enable = config.gtk.enable;
     };
