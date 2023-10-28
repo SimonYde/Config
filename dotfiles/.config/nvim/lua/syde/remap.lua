@@ -2,12 +2,12 @@ vim.g.mapleader      = " "
 vim.g.maplocalleader = " "
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-local keymap         = require("syde.keymap")
-local map            = keymap.map
-local nmap           = keymap.nmap
-local vmap           = keymap.vmap
-local xmap           = keymap.xmap
-local tmap           = keymap.tmap
+local keymap = require("syde.keymap")
+local map    = keymap.map
+local nmap   = keymap.nmap
+local vmap   = keymap.vmap
+local xmap   = keymap.xmap
+local tmap   = keymap.tmap
 
 
 -- COLEMAK Remaps
@@ -71,12 +71,11 @@ nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
 nmap("gr", vim.lsp.buf.references, "Goto References")
 
 
-nmap("<C-k>", "<cmd>cnext<CR>zz")
-nmap("<C-j>", "<cmd>cprev<CR>zz")
--- nmap("<leader>k", "<cmd>lnext<CR>zz")
--- nmap("<leader>j", "<cmd>lprev<CR>zz")
+nmap("<leader>x", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Search and replace in buffer")
+tmap("<leader><Esc>", [[<C-\><C-n>]], "Exit terminal mode")
 
-nmap("<leader>q", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Search and replace in buffer")
-tmap("<leader><Esc>", "<C-\\><C-n>", "Exit terminal mode")
+nmap("<leader><leader>h", vim.cmd.nohlsearch, "Clear [h]ighlights")
 
-nmap("<leader><leader>h", "<cmd>noh<CR>", "Clear highlights")
+-- Close quickfix list
+
+nmap("<leader>q", vim.cmd.cclose, "Close [q]uickfix list")

@@ -118,7 +118,7 @@ else
         local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
         local git           = MiniStatusline.section_git({ trunc_width = 75 })
         local errors        = diagnostic_level('ERROR', ' ') -- alternative symbol "⬤ "
-        local warnings      = diagnostic_level('WARN', ' ')
+        local warnings      = diagnostic_level('WARN', ' ') -- alternative symbol ""
         local hints         = diagnostic_level('HINT', ' ')
         local macro         = section_macro_recording()
         local filename      = MiniStatusline.section_filename({ trunc_width = 140 })

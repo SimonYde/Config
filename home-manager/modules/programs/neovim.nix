@@ -12,7 +12,6 @@ in
     plugins = with pkgs.vimPlugins; [
       # -----LSP-----
       unstablePlugins.nvim-lspconfig
-      lspkind-nvim
       unstablePlugins.lspsaga-nvim
       fidget-nvim
 
@@ -28,6 +27,7 @@ in
         };
       })
       cmp-cmdline
+      lspkind-nvim
       cmp-nvim-lsp
       cmp-buffer
       cmp-path
