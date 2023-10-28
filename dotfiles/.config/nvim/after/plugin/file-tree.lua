@@ -27,9 +27,7 @@ if has_nvimtree then
   nmap("<M-F>", vim.cmd.NvimTreeFindFileToggle, "Toggle file tree")
 else
   local MiniFiles = vim.F.npcall(require, 'mini.files')
-  if not MiniFiles then
-    return
-  end
+  if not MiniFiles then return end
 
   MiniFiles.setup {
     mappings = {
