@@ -11,9 +11,7 @@
   };
 
   options.syde.programming.python = with lib; {
-    enable = mkEnableOption "Python" // {
-      default = false; 
-    };
+    enable = mkEnableOption "Python language support";
   };
 }
 

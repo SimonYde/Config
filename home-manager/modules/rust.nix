@@ -12,10 +12,7 @@
   };
 
   options.syde.programming.rust = with lib; {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    enable = mkEnableOption "Rust programming language support";
   };
 }
 

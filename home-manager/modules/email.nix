@@ -42,8 +42,6 @@ let cfg = config.syde.email; in
   };
 
   options.syde.email = with lib; {
-    enable = mkEnableOption "Enable email" // {
-      default = false;
-    };
+    enable = mkEnableOption "email configuration";
   };
 }

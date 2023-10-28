@@ -27,17 +27,12 @@ in
 
   options.syde.programming = {
     java = with lib; {
-      enable = mkEnableOption "Java" // {
-        default = false;
-      };
+      enable = mkEnableOption "java";
+      enableMaven = mkEnableOption "maven for java";
 
       jdk = mkOption {
         type = types.package;
         default = pkgs.jdk;
-      };
-
-      enableMaven = mkEnableOption "Java with Maven" // {
-        default = false;
       };
     };
   };

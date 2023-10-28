@@ -13,8 +13,6 @@
   };
 
   options.syde.programming.latex = with lib; {
-    enable = mkEnableOption "Latex" // {
-      default = false;
-    };
+    enable = mkEnableOption "Latex";
   };
 }

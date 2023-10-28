@@ -21,9 +21,7 @@
   };
 
   options.syde.programming.typst = with lib; {
-    enable = mkEnableOption "Typst" // {
-      default = false; 
-    };
+    enable = mkEnableOption "Typst language support";
   };
 }
 

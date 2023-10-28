@@ -24,10 +24,6 @@
   };
 
   options.syde.laptop =  {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable laptop specific configuration";
-    };
+    enable = lib.mkEnableOption "Laptop configuration"; 
   };
 }
