@@ -40,7 +40,6 @@
   };
 
   # services.geoclue2.enable = true;
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   environment.systemPackages = with pkgs; [
     gparted
