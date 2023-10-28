@@ -17,12 +17,9 @@ end
 
 local function setup_lsp(lsp_name, executable, settings, on_attach)
   if vim.fn.executable(executable) == 1 then
-    if not settings then
-      settings = {}
-    end
     lspconfig[lsp_name].setup {
       capabilities = capabilities,
-      settings = settings,
+      settings = settings or {},
     }
     if on_attach then
       lspconfig[lsp_name].setup {

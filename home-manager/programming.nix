@@ -53,13 +53,7 @@ let cfg = config.syde.programming; in
   };
 
   imports = [
-    # ---Languages---
-    ./modules/python.nix
-    ./modules/rust.nix
-    ./modules/latex.nix
-    ./modules/typst.nix
-    ./modules/nix.nix
-    ./modules/java.nix
+    ./modules/languages
 
     # ---Programs---
     ./modules/programs/zathura.nix
