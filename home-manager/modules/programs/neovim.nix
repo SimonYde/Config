@@ -35,6 +35,7 @@ in
       cmp_luasnip
       luasnip
       copilot-lua
+      unstablePlugins.neodev-nvim
 
       # -----Workflow-----
       unstablePlugins.harpoon # Stable version is broken for Neovim Nightly
@@ -60,17 +61,6 @@ in
       # -----UI-----
       # which-key-nvim
       trouble-nvim
-      # lualine-nvim
-      # (pkgs.vimUtils.buildVimPlugin {
-      #   pname = "lualine-so-fancy-nvim";
-      #   version = "1";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "meuter";
-      #     repo = "lualine-so-fancy.nvim";
-      #     rev = "21284504fed2776668fdea8743a528774de5d2e1";
-      #     sha256 = "sha256-JMz3Dv3poGoYQU+iq/jtgyHECZLx+6mLCvqUex/a0SY=";
-      #   };
-      # })
       unstablePlugins.indent-blankline-nvim
       unstablePlugins.nvim-web-devicons
       # nvim-tree-lua

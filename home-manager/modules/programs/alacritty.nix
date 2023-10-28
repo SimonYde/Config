@@ -104,12 +104,12 @@ in
             action = "ToggleViMode";
           }
         ];
-        colors = {
-          cursor = {
-            text = "CellBackground";
-            cursor = "CellForeground";
-          };
-        };
+        # colors = {
+        #   cursor = {
+        #     text = "CellBackground";
+        #     cursor = "CellForeground";
+        #   };
+        # };
       };
     };
   };

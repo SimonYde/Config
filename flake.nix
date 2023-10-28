@@ -32,6 +32,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     nix-ld-rs = {
       url = "github:nix-community/nix-ld-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,7 +41,7 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, flake-utils, nixos-hardware, ... }@inputs: {
     nixosConfigurations = {
       icarus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -53,6 +54,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          nixos-hardware.nixosModules.lenovo-ideapad-15arh05
           ./nixos/devices/perdix.nix
         ];
       };
