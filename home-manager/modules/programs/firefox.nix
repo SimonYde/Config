@@ -157,7 +157,7 @@
         # readwise-highlighter # doesn't exist yet
 
       ];
-      userChrome = builtins.readFile ../../assets/userChrome.css;
+      userChrome = builtins.readFile ./userChrome.css;
     };
   };
 }
