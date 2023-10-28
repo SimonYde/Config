@@ -48,9 +48,7 @@ let cfg = config.syde.programming; in
 
   options.syde.programming = {
     kattis = {
-      enable = lib.mkEnableOption "kattis" // {
-        default = false;
-      };
+      enable = lib.mkEnableOption "kattis";
     };
   };
 

@@ -8,9 +8,7 @@
   };
   options.syde.programming = {
     nix = {
-      enable = lib.mkEnableOption "Nix" // {
-        default = false;
-      };
+      enable = lib.mkEnableOption "Nix language tools"; 
     };
   };
 
