@@ -1,0 +1,27 @@
+@-moz-document domain(brightspace.au.dk) {
+    /* Content width */
+    #root-wrapper {
+        max-width: none !important;
+    }
+
+    /* Navigation bar */
+    div.d2l-navigation-s-main-wrapper {
+        height: 2em !important;
+    }
+
+    /* Sidebar */
+    #app #root-wrapper .unit-box.selected, #app #root-wrapper .lesson-box.selected, #app #root-wrapper .unit-box:focus .outline, #app #root-wrapper .unit-box.selected .outline, #app #root-wrapper .lesson-box:focus .outline, #app #root-wrapper .lesson-box.selected .outline, #app #root-wrapper .topic-box:focus .outline,  #app #root-wrapper .topic-box.selected .outline, div.accent, div.accent-outline, div.outline {
+        border: none !important;
+        border-radius: 0 !important;
+    }
+
+    #app #root-wrapper .unit-box.selected, #app #root-wrapper .lesson-box.selected {
+        box-shadow: none !important;
+    }
+
+    .lesson-box, .topic-box, .co-content, .unit-box{
+        height: fit-content !important;
+    }
+
+}
+

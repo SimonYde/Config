@@ -152,12 +152,11 @@
         stylus
         firefox-translations
 
-        # bypass-paywalls-clean # broken
-
+        bypass-paywalls-clean
         # readwise-highlighter # doesn't exist yet
-
       ];
       userChrome = builtins.readFile ./userChrome.css;
+      userContent = builtins.readFile ./userContent.css;
     };
   };
 }
