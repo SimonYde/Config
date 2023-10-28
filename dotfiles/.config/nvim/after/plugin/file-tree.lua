@@ -2,8 +2,8 @@ local has_nvimtree, nvim_tree = pcall(require, "nvim-tree")
 local nmap = require("syde.keymap").nmap
 
 if has_nvimtree then
-  nvim_tree.setup({
-    -- disable_netrw = true,
+  nvim_tree.setup {
+    disable_netrw = true,
     sort_by = "case_sensitive",
     view = {
       width = 30,
@@ -22,8 +22,7 @@ if has_nvimtree then
         quit_on_open = true,
       },
     },
-  })
-
+  }
   nmap("<M-f>", vim.cmd.NvimTreeToggle, "Toggle file tree")
   nmap("<M-F>", vim.cmd.NvimTreeFindFileToggle, "Toggle file tree")
 else
@@ -37,6 +36,6 @@ else
       -- reveal_cwd  = '~', -- ?
     },
   }
-  nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Show [f]ile-explorer")
-  nmap('<M-F>', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', "Show current [F]ile in file-explorer")
+  nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Show [f]ile-tree")
+  nmap('<M-F>', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', "Show current [F]ile in file-tree")
 end
