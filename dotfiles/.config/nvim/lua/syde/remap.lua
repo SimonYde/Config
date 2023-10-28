@@ -15,8 +15,8 @@ local tmap = keymap.tmap
 -- vim.opt.langmap = "jh,hk,kj"
 -- vim.opt.langremap = false
 nmap("<C-w>m", "<C-w>h", "Go to the left window")
-nmap("<C-w>n", "<C-w>j", "Go to the down window")
-nmap("<C-w>e", "<C-w>k", "Go to the up window")
+nmap("<C-w>n", "<C-w>k", "Go to the down window")
+nmap("<C-w>e", "<C-w>j", "Go to the up window")
 nmap("<C-w>i", "<C-w>l", "Go to the right window")
 
 local COLEMAK = false
@@ -26,15 +26,16 @@ local function colemak_toggle()
     -- vim.opt.langmap = "jh,hk,kj"
     vim.opt.langremap = false
     COLEMAK = true
+    -- print("COLEMAK", COLEMAK)
   else
     -- vim.opt.langmap = ""
     COLEMAK = false
-    print("COLEMAK", COLEMAK)
+    -- print("COLEMAK", COLEMAK)
   end
 end
 colemak_toggle()
 
-nmap("<leader><leader>q", colemak_toggle, "Toggle")
+nmap("<leader><leader>q", colemak_toggle, "Toggle COLEMAK")
 
 map({ "n", "v" }, "gs", "^", "Goto first non-blank in line")
 map({ "n", "v" }, "gh", "0", "Goto line start")
@@ -61,8 +62,8 @@ vmap("<leader>d", [["_d]], "Delete without yanking")
 
 -- LSP commands
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
+nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "Rename")
--- nmap("<leader>r", vim.lsp.buf.rename, "Rename")
 
 
 nmap("<C-k>", "<cmd>cnext<CR>zz")

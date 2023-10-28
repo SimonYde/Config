@@ -22,6 +22,7 @@ local has_nvimtree, _ = pcall(require, 'nvim-tree')
 if not has_nvimtree then
   require('mini.files').setup {
     mappings = {
+      -- reveal_cwd  = '~', -- ?
     },
   }
   nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Show [f]ile-explorer")
@@ -42,11 +43,9 @@ if not has_lualine then
     if recording_register == "" then
       return ""
     else
-      return "rec @" .. recording_register .. " "
+      return ("rec @%s"):format(recording_register)
     end
   end
-
-
 
 
   local diagnostic_level = function(level, prefix)
@@ -54,6 +53,10 @@ if not has_lualine then
     local n = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[level] })
     return (n == 0) and '' or ('%s%s'):format(prefix, n)
   end
+
+  -- vim.cmd [[ highlight DiagnosticWarnStatusLine  cterm=italic gui=italic guifg=#f9e2af guibg=#181825 ]]
+  -- vim.cmd [[ highlight DiagnosticErrorStatusLine cterm=italic gui=italic guifg=#f38ba8 guibg=#181825 ]]
+  -- vim.cmd [[ highlight DiagnosticHintStatusLine  cterm=italic gui=italic guifg=#94e2d5 guibg=#181825 ]]
 
 
   MiniStatusline.section_fileinfo = function(args)
@@ -78,10 +81,10 @@ if not has_lualine then
     end
     local filetype = vim.bo.filetype
 
-    -- Don't show anything if can't detect file type or not inside a "normal
-    -- buffer"
+    -- Don't show anything if can't detect file type or not inside a "normal buffer"
     if (filetype == '') or vim.bo.buftype ~= '' then return '' end
     if MiniStatusline.is_truncated(args.trunc_width) then return filetype end
+
     -- Add filetype icon
 
     local icon = get_filetype_icon()
@@ -90,7 +93,7 @@ if not has_lualine then
     -- Construct output string if truncated
 
     -- Construct output string with extra file info
-    local encoding = vim.bo.fileencoding or vim.bo.encoding
+    -- local encoding = vim.bo.fileencoding or vim.bo.encoding
     local format = vim.bo.fileformat
     local format_icon = ''
     if format == 'unix' then
@@ -98,32 +101,35 @@ if not has_lualine then
     elseif format == 'dos' then
       format_icon = ''
     end
+
     local size = get_filesize()
 
-    return string.format('%s %s[%s] %s', filetype, encoding, format_icon, size)
+    -- return string.format('%s %s[%s] %s', filetype, encoding, format_icon, size)
+    return string.format('%s %s %s', filetype, format_icon, size)
   end
+
+
   MiniStatusline.setup {
     content = {
       active = function()
         local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
         local git           = MiniStatusline.section_git({ trunc_width = 75 })
-        local errors        = diagnostic_level('ERROR', ' ')
-        local warns         = diagnostic_level('WARN', ' ')
-        local hints         = diagnostic_level('HINT', ' ')
+        local errors        = diagnostic_level('ERROR', ' ') -- alternative symbol "⬤ "
+        local warnings      = diagnostic_level('WARN', ' ')
+        local hints         = diagnostic_level('HINT', ' ')
         local macro         = section_macro_recording()
         local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
         local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
         local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-        -- local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
         local location      = MiniStatusline.section_location({ trunc_width = 75 })
 
         return MiniStatusline.combine_groups({
-          { hl = mode_hl,                 strings = { mode } },
-          { hl = 'MiniStatuslineDevinfo', strings = { git } },
+          { hl = mode_hl,                  strings = { mode } },
+          { hl = 'MiniStatuslineDevinfo',  strings = { git } },
           '%<', -- Mark general truncate point
           { hl = 'MiniStatuslineFilename', strings = { filename } },
           { hl = 'DiagnosticError',        strings = { errors } },
-          { hl = 'DiagnosticWarn',         strings = { warns } },
+          { hl = 'DiagnosticWarn',         strings = { warnings } },
           { hl = 'DiagnosticHint',         strings = { hints } },
           '%=', -- End left alignment
 
@@ -157,18 +163,39 @@ if not has_telescope then
   MiniPick.setup {
 
   }
-  nmap("<leader>ff", MiniPick.builtin.files, "Mini [f]iles")
-  nmap("<leader>fg", MiniPick.builtin.grep_live, "Mini [g]rep")
+  MiniPick.registry.buffer_lines = function(local_opts)
+    -- Parse options
+    local_opts = vim.tbl_deep_extend('force', { buf_id = nil, prompt = '' }, local_opts or {})
+    local buf_id, prompt = local_opts.buf_id, local_opts.prompt
+    local_opts.buf_id, local_opts.prompt = nil, nil
+
+    -- Construct items
+    if buf_id == nil or buf_id == 0 then buf_id = vim.api.nvim_get_current_buf() end
+    local lines = vim.api.nvim_buf_get_lines(buf_id, 0, -1, false)
+    local items = {}
+    for i, l in ipairs(lines) do
+      items[i] = { text = string.format('%d:%s', i, l), bufnr = buf_id, lnum = i }
+    end
+
+    -- Start picker while scheduling setting the query
+    vim.schedule(function() MiniPick.set_picker_query(vim.split(prompt, '')) end)
+    MiniPick.start({ source = { items = items, name = 'Buffer lines' } })
+  end
+
+
+  nmap("<leader>ff", MiniPick.builtin.files, "Pick [f]iles")
+  nmap("<leader>c", MiniPick.registry.buffer_lines, "Pick [c]urrent buffer lines")
+  nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick [g]rep")
   nmap("<leader>/", MiniPick.builtin.grep_live, "Global search with grep")
-  nmap("<leader>fh", MiniPick.builtin.help, "Mini [h]elp")
-  nmap("<leader>b", MiniPick.builtin.buffers, "Mini [b]uffers")
+  nmap("<leader>fh", MiniPick.builtin.help, "Pick [h]elp")
+  nmap("<leader>b", MiniPick.builtin.buffers, "Pick [b]uffers")
 end
 
 
 local has_whichkey, _ = pcall(require, 'which-key')
 if not has_whichkey then
   nmap("<leader>d", vim.diagnostic.open_float, "hover [d]iagnostics")
-  nmap("<leader>k", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
+  nmap("<leader>n", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
   nmap("<leader>a", "<cmd>Lspsaga code_action<cr>", "code [a]ctions")
   nmap("gd", vim.lsp.buf.definition, "Goto Definition")
   nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
@@ -177,12 +204,17 @@ if not has_whichkey then
 
   local clue = require('mini.clue')
   clue.setup {
+    window = {
+      delay = 500,
+    },
     triggers = {
       -- Leader triggers
       { mode = 'n', keys = '<Leader>' },
       { mode = 'x', keys = '<Leader>' },
-      -- { mode = 'n', keys = '[' },
-      -- { mode = 'n', keys = ']' },
+      { mode = 'n', keys = '[' },
+      { mode = 'n', keys = ']' },
+      { mode = 'v', keys = '[' },
+      { mode = 'v', keys = ']' },
 
       -- Built-in completion
       { mode = 'i', keys = '<C-x>' },
@@ -205,6 +237,7 @@ if not has_whichkey then
 
       -- Window commands
       { mode = 'n', keys = '<C-w>' },
+      { mode = 'n', keys = '<leader>w' },
 
       -- `z` key
       { mode = 'n', keys = 'z' },
@@ -226,7 +259,5 @@ end
 local has_cmp, _ = pcall(require, 'cmp')
 if not has_cmp then
   local MiniCompletion = require('mini.completion')
-  MiniCompletion.setup { }
+  MiniCompletion.setup {}
 end
-
-

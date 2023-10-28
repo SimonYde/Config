@@ -4,6 +4,8 @@ if not cmp then
 end
 
 local luasnip = require("luasnip")
+require('luasnip.loaders.from_vscode').lazy_load()
+luasnip.config.setup {}
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -13,28 +15,35 @@ end
 
 
 cmp.setup {
-  enabled = true,
   sources = {
-    -- { name = 'nvim_lsp_signature_help' },
     { name = "nvim_lua" },
     { name = "nvim_lsp" },
+    -- { name = 'nvim_lsp_signature_help' },
     { name = "path" },
     { name = "luasnip" },
     { name = "buffer",  keyword_length = 5 },
   },
-  mapping = {
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-Space>'] = cmp.mapping.complete {},
+    ["<CR>"] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-        -- they way you will only jump inside the snippet region
-      elseif luasnip.expand_or_jumpable() then
+      elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
@@ -52,22 +61,6 @@ cmp.setup {
         fallback()
       end
     end, { "i", "s" }),
-    ["<CR>"] = cmp.mapping({
-      i = function(fallback)
-        if cmp.visible() and cmp.get_active_entry() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-        else
-          fallback()
-        end
-      end,
-      s = cmp.mapping.confirm({ select = true }),
-      c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-    }),
-  },
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end
   },
 }
 
@@ -99,6 +92,7 @@ cmp.setup.cmdline({ '/', '?' }, {
     { name = 'buffer' }
   }
 })
+
 
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),

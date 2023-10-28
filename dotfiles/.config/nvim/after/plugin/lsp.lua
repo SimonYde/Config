@@ -3,9 +3,17 @@ if not lspconfig then
   return
 end
 
+local neodev = vim.F.npcall(require, 'neodev')
+if neodev then
+  neodev.setup()
+end
+
 -- Cmp Setup
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local cmp_nvim_lsp = vim.F.npcall(require, 'cmp_nvim_lsp')
+if cmp_nvim_lsp then
+  capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+end
 
 local function setup_lsp(lsp_name, executable, settings, on_attach)
   if vim.fn.executable(executable) == 1 then
@@ -47,11 +55,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     setup_lsp("lua_ls", "lua-language-server", {
       Lua = {
-        diagnostics = {
-          globals = {
-            "vim"
-          }
-        },
+        workspace = { checkThirdParty = false },
+        telemetry = { enable = false },
+        -- diagnostics = {
+        --   globals = {
+        --     "vim"
+        --   }
+        -- },
       }
     })
 
@@ -128,12 +138,21 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
+    if client then
+      client.server_capabilities.semanticTokensProvider = nil
+    end
     local fidget = vim.F.npcall(require, 'fidget')
     if fidget then
       fidget.setup {
+        text = {
+          spinner = "moon",
+          -- done = "",
+        },
+        align = {
+          bottom = true,
+        },
         window = {
-          blend = 0,
+          relative = "editor",
         },
       }
     end
