@@ -158,6 +158,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
     local lspsaga = vim.F.npcall(require, 'lspsaga')
     if lspsaga then
+      local nmap = require('syde.keymap').nmap
       lspsaga.setup {
         symbol_in_winbar = {
           enable = false,
@@ -169,6 +170,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
           kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
         },
       }
+      nmap("<leader>n", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
+      nmap("<leader>a", "<cmd>Lspsaga code_action<cr>", "code [a]ctions")
+      nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "LSP [r]ename")
     end
   end,
 })

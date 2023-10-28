@@ -1,31 +1,68 @@
 local whichkey = vim.F.npcall(require, "which-key")
-if not whichkey then
-  return
-end
-whichkey.setup {}
-whichkey.register({
-  ["<leader>"] = {
-    f = {
-      name = "[f]ind (telescope)",
+if whichkey then
+  whichkey.setup {}
+  whichkey.register {
+    ["<leader>"] = {
+      f = { name = "[f]ind" },
     },
-    d = { vim.diagnostic.open_float, "hover [d]iagnostics" },
-    k = { "<cmd>Lspsaga hover_doc<cr>", "hover documentation" },
-    a = { "<cmd>Lspsaga code_action<cr>", "code [a]ctions" },
-    -- k = { vim.lsp.buf.hover, "hover documentation" },
-    -- a = { vim.lsp.buf.code_action, "code actions" },
-  },
-  ["g"] = {
-    d = { vim.lsp.buf.definition, "Goto Definition" },
-    D = { vim.lsp.buf.declaration, "Goto Declaration" },
-    r = { vim.lsp.buf.references, "Goto References" },
-    i = { vim.lsp.buf.implementation, "Goto Implementation" },
-  },
-  -- ["["] = {
-  --   d = { vim.diagnostic.goto_prev, "Previous diagnostic" },
-  -- },
-  -- ["]"] = {
-  --   d = { vim.diagnostic.goto_next, "Next diagnostic" },
-  -- },
-})
-local presets = require("which-key.plugins.presets")
-presets.operators["v"] = nil
+  }
+  local presets = require("which-key.plugins.presets")
+  presets.operators["v"] = nil
+else
+  local MiniClue = vim.F.npcall(require, 'mini.clue')
+  if MiniClue then
+    MiniClue.setup {
+      window = {
+        delay = 500,
+      },
+      triggers = {
+        -- Leader triggers
+        { mode = 'n', keys = '<Leader>' },
+        { mode = 'x', keys = '<Leader>' },
+        { mode = 'n', keys = '[' },
+        { mode = 'n', keys = ']' },
+        { mode = 'v', keys = '[' },
+        { mode = 'v', keys = ']' },
+
+        -- Built-in completion
+        { mode = 'i', keys = '<C-x>' },
+
+        -- `g` key
+        { mode = 'n', keys = 'g' },
+        { mode = 'x', keys = 'g' },
+
+        -- Marks
+        { mode = 'n', keys = "'" },
+        { mode = 'n', keys = '`' },
+        { mode = 'x', keys = "'" },
+        { mode = 'x', keys = '`' },
+
+        -- Registers
+        { mode = 'n', keys = '"' },
+        { mode = 'x', keys = '"' },
+        { mode = 'i', keys = '<C-r>' },
+        { mode = 'c', keys = '<C-r>' },
+
+        -- Window commands
+        { mode = 'n', keys = '<C-w>' },
+        { mode = 'n', keys = '<leader>w' },
+
+        -- `z` key
+        { mode = 'n', keys = 'z' },
+        { mode = 'x', keys = 'z' },
+      },
+
+      clues = {
+        -- Enhance this by adding descriptions for <Leader> mapping groups
+        { mode = 'n', keys = '<leader>f', desc = '[f]ind' },
+        { mode = 'n', keys = '<leader>g', desc = '[g]it' },
+        MiniClue.gen_clues.builtin_completion(),
+        MiniClue.gen_clues.g(),
+        MiniClue.gen_clues.marks(),
+        MiniClue.gen_clues.registers(),
+        MiniClue.gen_clues.windows(),
+        MiniClue.gen_clues.z(),
+      },
+    }
+  end
+end

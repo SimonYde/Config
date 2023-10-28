@@ -1,19 +1,20 @@
--- require('indent_blankline').setup {
---   char = '▏',
---   show_trailing_blankline_indent = false,
--- }
-
 local ibl = vim.F.npcall(require, 'ibl')
-if not ibl then
-  return
+if ibl then
+  ibl.setup {
+    indent = {
+      char = '▏',
+    },
+    scope = {
+      enabled = false,
+    },
+  }
+else
+  local indentscope = require('mini.indentscope')
+  indentscope.setup {
+    symbol = '▏',
+    draw = {
+      delay = 0,
+      animation = indentscope.gen_animation.none(),
+    },
+  }
 end
-
-
-ibl.setup {
-  indent = {
-    char = '▏',
-  },
-  scope = {
-    enabled = false,
-  },
-}
