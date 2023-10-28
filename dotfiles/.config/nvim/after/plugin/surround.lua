@@ -1,6 +1,6 @@
 local surround = vim.F.npcall(require, 'nvim-surround')
-if not surround then
-  return
+if surround then
+  surround.setup {}
+else
+  require('mini.surround').setup {}
 end
-
-surround.setup()
