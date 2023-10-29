@@ -96,10 +96,11 @@ else
 
 
     nmap("<leader>ff", MiniPick.builtin.files, "Pick [f]iles")
-    nmap("<leader>c", MiniPick.registry.buffer_lines, "Pick [c]urrent buffer lines")
+    nmap("<leader>c",  MiniPick.registry.buffer_lines, "Pick [c]urrent buffer lines")
+    nmap("<leader>fc", MiniPick.registry.buffer_lines, "Pick [c]urrent buffer lines")
     nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick [g]rep")
-    nmap("<leader>/", MiniPick.builtin.grep_live, "Global search with grep")
+    nmap("<leader>/",  MiniPick.builtin.grep_live, "Global search with grep")
     nmap("<leader>fh", MiniPick.builtin.help, "Pick [h]elp")
-    nmap("<leader>b", MiniPick.builtin.buffers, "Pick [b]uffers")
+    nmap("<leader>b",  MiniPick.builtin.buffers, "Pick [b]uffers")
   end
 end

@@ -5,7 +5,7 @@ let cfg = config.syde.programming; in
   config = {
     programs = {
       # Terminal Editors
-      helix.enable = false;
+      helix.enable  = false;
       neovim.enable = true;
 
       # Other
@@ -13,26 +13,26 @@ let cfg = config.syde.programming; in
     };
 
     syde.programming = {
-      latex.enable = false;
+      latex.enable  = false;
       python.enable = cfg.kattis.enable;
-      rust.enable = true;
+      rust.enable   = true;
       kattis.enable = true;
-      typst.enable = true;
-      nix.enable = true;
-      java.enable = false;
+      typst.enable  = true;
+      nix.enable    = true;
+      java.enable   = false;
     };
 
     home.sessionVariables = {
       CARGO_HOME = "${config.xdg.configHome}/cargo";
-      GOPATH = "${config.xdg.dataHome}/go";
+      GOPATH     = "${config.xdg.dataHome}/go";
     };
 
     home.file =
       let
         kattis-cli = (pkgs.fetchFromGitHub {
-          owner = "kattis";
-          repo = "kattis-cli";
-          rev = "be7fee7";
+          owner  = "kattis";
+          repo   = "kattis-cli";
+          rev    = "be7fee7";
           sha256 = "sha256-R9wuxsVhNGkSVgTze6mR1mXYKXo5rj8LVVU3lTm2jTg=";
         });
       in
@@ -54,11 +54,5 @@ let cfg = config.syde.programming; in
 
   imports = [
     ./modules/languages
-
-    # ---Programs---
-    ./modules/programs/zathura.nix
-    ./modules/programs/helix.nix
-    ./modules/programs/neovim.nix
-    ./modules/programs/vscode.nix
   ];
 }
