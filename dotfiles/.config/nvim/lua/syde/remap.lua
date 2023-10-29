@@ -1,6 +1,5 @@
 vim.g.mapleader      = " "
 vim.g.maplocalleader = " "
--- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 local keymap = require("syde.keymap")
 local map    = keymap.map
@@ -9,6 +8,7 @@ local vmap   = keymap.vmap
 local xmap   = keymap.xmap
 local tmap   = keymap.tmap
 
+vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
 
 -- COLEMAK Remaps
 nmap("<C-w>m", "<C-w>h", "Go to the left window")
