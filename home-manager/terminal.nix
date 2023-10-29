@@ -53,24 +53,6 @@
     };
   };
 
-  imports = [
-    ./modules/programs/alacritty.nix
-    ./modules/programs/bat.nix
-    ./modules/programs/direnv.nix
-    ./modules/programs/exa.nix
-    ./modules/programs/fish.nix
-    ./modules/programs/git.nix
-    ./modules/programs/kitty.nix
-    ./modules/programs/lazygit.nix
-    ./modules/programs/nushell.nix
-    ./modules/programs/skim.nix
-    ./modules/programs/starship.nix
-    ./modules/programs/wezterm.nix
-    ./modules/programs/zellij.nix
-    ./modules/programs/zoxide.nix
-    ./modules/programs/zsh.nix
-  ];
-
   options.syde.terminal = with lib; {
     font = mkOption {
       type = types.str;

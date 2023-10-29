@@ -41,11 +41,8 @@
     ./modules/qt.nix
     ./modules/themes.nix
     ./modules/email.nix
-    ./modules/programs/brave.nix
-    ./modules/programs/firefox
-    ./modules/desktops/sway.nix
-    ./modules/desktops/i3.nix
-    ./modules/services/redshift.nix
-    ./modules/services/gammastep.nix
+    ./modules/programs
+    ./modules/desktops
+    ./modules/services
   ];
 }

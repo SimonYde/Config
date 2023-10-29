@@ -1,7 +1,6 @@
 { inputs, ... }:
 
 {
-  # nixpkgs.config.allowUnFree = true;
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
