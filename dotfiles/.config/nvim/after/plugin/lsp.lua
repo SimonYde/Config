@@ -15,15 +15,15 @@ if cmp_nvim_lsp then
   capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 end
 
-local function setup_lsp(lsp_name, executable, settings, on_attach)
-  if vim.fn.executable(executable) == 1 then
-    lspconfig[lsp_name].setup {
+local function setup_lsp(LSP)
+  if vim.fn.executable(LSP.executable or LSP.name) == 1 then
+    lspconfig[LSP.name].setup {
       capabilities = capabilities,
-      settings = settings or {},
+      settings = LSP.settings or {},
     }
-    if on_attach then
-      lspconfig[lsp_name].setup {
-        on_attach = on_attach,
+    if LSP.on_attach then
+      lspconfig[LSP.name].setup {
+        on_attach = LSP.on_attach,
       }
     end
   end
@@ -33,81 +33,109 @@ end
 -- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function(_)
-    setup_lsp("elmls", "elm-language-server")
+    setup_lsp {
+      name = "elmls",
+      executable = "elm-language-server",
+    }
 
-    setup_lsp("pylsp", "pylsp")
+    setup_lsp {
+      name = "pylsp",
+    }
 
-    setup_lsp("gopls", "gopls")
+    setup_lsp {
+      name = "gopls",
+    }
 
-    setup_lsp("ocamllsp", "ocamllsp")
-    setup_lsp("metals", "metals")
+    setup_lsp {
+      name = "ocamllsp",
+    }
 
-    setup_lsp("rust_analyzer", "rust-analyzer", {
-      ["rust-analyzer"] = {
-        checkOnSave = {
-          command = "clippy",
-        },
-      }
-    })
+    setup_lsp {
+      name = "metals",
+    }
 
-    setup_lsp("lua_ls", "lua-language-server", {
-      Lua = {
-        workspace = { checkThirdParty = false },
-        telemetry = { enable = false },
-        -- diagnostics = {
-        --   globals = {
-        --     "vim"
-        --   }
-        -- },
-      }
-    })
-
-    setup_lsp("texlab", "texlab", {
-      texlab = {
-        build = {
-          executable = 'tectonic',
-          args = {
-            "-X",
-            "compile",
-            "%f",
-            "--synctex",
-            "--keep-logs",
-            "--keep-intermediates",
+    setup_lsp {
+      name = "rust-analyzer",
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy",
           },
-          onSave = true,
-          forwardSearchAfter = true,
         },
-        -- forwardSearch = {
-        -- executable = "zathura",
-        -- args = {
-        --   "--synctex-forward",
-        --   "%l:%c:%f",
-        --   "%p",
-        -- },
-        -- },
-      },
-    })
+      }
+    }
 
-    setup_lsp("nil_ls", "nil", {
-      ['nil'] = {
-        formatting = {
-          command = { "nixpkgs-fmt" },
+    setup_lsp {
+      name = "lua_ls",
+      executable = "lua-language-server",
+      settings = {
+        Lua = {
+          workspace = { checkThirdParty = false },
+          telemetry = { enable = false },
+        }
+      }
+    }
+
+
+    setup_lsp {
+      name = "texlab",
+      settings = {
+        texlab = {
+          build = {
+            executable = 'tectonic',
+            args = {
+              "-X",
+              "compile",
+              "%f",
+              "--synctex",
+              "--keep-logs",
+              "--keep-intermediates",
+            },
+            onSave = true,
+            forwardSearchAfter = true,
+          },
+          -- forwardSearch = {
+          -- executable = "zathura",
+          -- args = {
+          --   "--synctex-forward",
+          --   "%l:%c:%f",
+          --   "%p",
+          -- },
+          -- },
         },
-        autoArchive = true,
-      },
-    })
+      }
+    }
 
-    setup_lsp("typst_lsp", "typst-lsp", {
-      exportPdf = "onSave", -- Choose onType, onSave or never.
-      -- serverPath = "" -- Normally, there is no need to uncomment it.
-    })
+    setup_lsp {
+      name = "nil_ls",
+      executable = "nil",
+      settings = {
+        ['nil'] = {
+          formatting = {
+            command = { "nixpkgs-fmt" },
+          },
+          autoArchive = true,
+        },
+      }
+    }
 
-    setup_lsp("ltex", "ltex-ls", {
+    setup_lsp {
+      name = "typst_lsp",
+      executable = "typst-lsp",
+      settings = {
+        exportPdf = "onSave", -- Choose onType, onSave or never.
+      }
+    }
+
+    setup_lsp({
+      name = "ltex",
+      executable = "ltex-ls",
+      settings = {
         ltex = {
           language = "da-DK",
         },
       },
-      function(_)
+      on_attach = function(_)
         local ltex_extra = vim.F.npcall(require, 'ltex_extra')
         if ltex_extra then
           ltex_extra.setup {
@@ -117,11 +145,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
             log_level = "none",
           }
         end
-      end)
+      end
+    })
 
-    if vim.fn.executable('node') == 1 then
-      local copilot = vim.F.npcall(require, 'copilot')
-      if copilot then
+    local copilot = vim.F.npcall(require, 'copilot')
+    if copilot then
+      if vim.fn.executable('node') == 1 then
         copilot.setup {
           suggestion = {
             auto_trigger = true,
