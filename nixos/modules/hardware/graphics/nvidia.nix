@@ -1,13 +1,22 @@
-{ ... }:
+{ config, ... }:
 
 {
-  services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.nvidia = {
-  #   powerManagement.enable = false;
-  #   modesetting.enable = true;
-  # };
-  
-  services.xserver.deviceSection = ''Option "TearFree" "true"'';
+  boot.initrd.kernelModules = [ "nvidia" ];
+  boot.blacklistedKernelModules = [ "nouveau" ];
+
+  hardware.nvidia = {
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    modesetting.enable = true;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    deviceSection = ''Option "TearFree" "true"'';
+  };
   nixpkgs.config.allowUnfree = true;
   hardware.opengl.enable = true;
 }

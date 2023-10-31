@@ -211,9 +211,15 @@ in
           xkb_layout  = "us(colemak_dh),dk";
           xkb_options = "caps:escape,grp:rctrl_toggle";
         };
+        "type:pointer" = {
+          accel_profile = "flat";
+          pointer_accel = "0.1";
+          natural_scroll = "disabled";
+        };
         "type:touchpad" = {
           dwt = "enabled";
           tap = "enabled";
+          scroll_factor = "0.8";
           natural_scroll   = "enabled";
           middle_emulation = "enabled";
         };

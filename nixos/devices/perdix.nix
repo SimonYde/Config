@@ -1,9 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 
 {
   imports = [
+    inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../modules/desktops/sway.nix
     ../modules/desktops/i3.nix
+    ../modules/gaming.nix
     ../modules/pc.nix
     ../modules/hardware/laptop.nix
     ../modules/hardware/graphics/nvidia.nix
@@ -11,7 +13,11 @@
     ../../home-manager/modules/themes.nix
   ];
 
-  syde.laptop.enable = true;
+  syde = {
+    laptop.enable = true;
+    gaming.enable = true;
+  };
+
   programs.sway.enable = true;
   services.xserver.windowManager.i3.enable = false;
 
