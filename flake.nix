@@ -41,45 +41,32 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, nixos-hardware, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, flake-utils, ... }@inputs: {
     nixosConfigurations = {
       icarus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
-        modules = [
-          ./nixos/devices/icarus.nix
-        ];
+        modules = [ ./nixos/devices/icarus.nix ];
       };
       perdix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
-        modules = [
-          nixos-hardware.nixosModules.lenovo-ideapad-15arh05
-          ./nixos/devices/perdix.nix
-        ];
+        modules = [ ./nixos/devices/perdix.nix ];
       };
     };
 
-    homeConfigurations =
-      let
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      in
-      {
-        icarus = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home-manager/devices/icarus.nix
-          ];
-        };
-        perdix = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home-manager/devices/perdix.nix
-          ];
-        };
+    homeConfigurations = let pkgs = nixpkgs.legacyPackages.x86_64-linux; in {
+      icarus = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ ./home-manager/devices/icarus.nix ];
       };
+      perdix = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ ./home-manager/devices/perdix.nix ];
+      };
+    };
   } //
   flake-utils.lib.eachDefaultSystem (system:
     let pkgs = nixpkgs.legacyPackages.${system}; in

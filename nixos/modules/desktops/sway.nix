@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, config, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   config = lib.mkIf config.programs.sway.enable {
@@ -9,7 +9,6 @@
     };
 
     programs.sway = {
-      # package = inputs.nixpkgs-wayland.packages."x86_64-linux".sway-unwrapped;
       wrapperFeatures.gtk = true;
       wrapperFeatures.base = true;
 
