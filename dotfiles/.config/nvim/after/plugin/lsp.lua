@@ -55,7 +55,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     }
 
     setup_lsp {
-      name = "rust-analyzer",
+      name = "rust_analyzer",
+      executable = "rust-analyzer",
       settings = {
         ["rust-analyzer"] = {
           checkOnSave = {
