@@ -48,14 +48,14 @@
 
     home.shellAliases = {
       # sudo = "doas";
-      cat = "bat";
+      # cat = "bat";
       c   = "clear";
     };
   };
 
-  options.syde.terminal = with lib; {
-    font = mkOption {
-      type = types.str;
+  options.syde.terminal = {
+    font = lib.mkOption {
+      type = lib.types.str;
       # default = "FiraCode Nerd Font Mono";
       default = "JetBrains Mono Nerd Font Mono";
     };
