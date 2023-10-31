@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
 
 {
   nixpkgs.overlays = [
@@ -9,6 +9,7 @@
     ../modules/programs/nix.nix
     ../modules/services/syncthing.nix
     ../modules/programs/doas.nix
+    ../../home-manager/modules/themes.nix
   ];
 
   networking.hostName = "icarus";
@@ -17,7 +18,6 @@
   wsl = {
     enable = true;
     wslConf.automount.root = "/mnt";
-    # automountPath = "/mnt";
     defaultUser = "syde";
     startMenuLaunchers = true;
     nativeSystemd = true;
@@ -29,6 +29,10 @@
     shell = pkgs.fish;
     uid = 1000;
     extraGroups = [ "video" "networkmanager" "wheel" ];
+  };
+
+  environment.sessionVariables = with config.themes; {
+    GTK_THEME = if prefer-dark then gtk.darkTheme else gtk.lightTheme;
   };
 
 

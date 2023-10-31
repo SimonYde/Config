@@ -1,7 +1,7 @@
 local cmp = vim.F.npcall(require, "cmp")
 if cmp then
   local luasnip = require("luasnip")
-  -- require('luasnip.loaders.from_vscode').lazy_load()
+  require('luasnip.loaders.from_vscode').lazy_load() -- load friendly-snippets into luasnip
   luasnip.config.setup {}
 
   local has_words_before = function()

@@ -34,6 +34,7 @@ in
       cmp-nvim-lua
       cmp_luasnip
       luasnip
+      unstablePlugins.friendly-snippets
       copilot-lua
       unstablePlugins.neodev-nvim
 
