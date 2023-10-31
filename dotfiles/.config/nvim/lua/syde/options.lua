@@ -1,4 +1,6 @@
-vim.cmd([[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]])
+vim.cmd [[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]]
+
+vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.cmd [[set guicursor=a:ver25]] end })
 
 -- Disable some built-in plugins I don't use
 vim.g.loaded_gzip = 1
@@ -24,40 +26,57 @@ vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
 local opt = vim.opt
-opt.number = true
-opt.relativenumber = true
+local o = vim.o
+o.number = true
+o.relativenumber = true
 
 local tabwidth = 2
-opt.shiftwidth = tabwidth
-opt.tabstop = tabwidth
-opt.softtabstop = tabwidth
-opt.expandtab = true
-opt.smartcase = true
-opt.ignorecase = true
+o.shiftwidth = tabwidth
+o.tabstop = tabwidth
+o.softtabstop = tabwidth
+o.expandtab = true
 
-opt.smartindent = true
-opt.showmode = false
-opt.splitright = true
-opt.splitbelow = true
+o.smartcase = true
+o.ignorecase = true
 
-opt.swapfile = false
-opt.backup = false
+o.smartindent = true
+o.breakindent = true
+o.showmode = false
+o.splitright = true
+o.splitbelow = true
 
-opt.undodir = os.getenv("HOME") .. "/.local/state/undodir"
-opt.undofile = true
+o.swapfile = false
+o.backup = false
 
-opt.hlsearch = false
-opt.incsearch = true
+o.undodir = os.getenv("HOME") .. "/.local/state/undodir"
+o.undofile = true
 
-opt.termguicolors = true
+o.hlsearch = false
+o.incsearch = true
 
-opt.scrolloff = 8
-opt.signcolumn = "yes"
+o.termguicolors = true
+
+o.scrolloff = 8
+o.signcolumn = "yes"
 opt.isfname:append("@-@")
 
 
-opt.updatetime = 50
-opt.textwidth = 0
-opt.wrapmargin = 0
-opt.wrap = false
-opt.colorcolumn = ""
+o.updatetime = 50
+o.timeoutlen = 300
+o.textwidth = 0
+o.wrapmargin = 0
+o.wrap = false
+o.colorcolumn = ""
+
+o.completeopt = 'menuone,noselect'
+
+
+-- Highlight yanked text
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})

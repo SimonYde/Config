@@ -9,6 +9,7 @@ local xmap   = keymap.xmap
 local tmap   = keymap.tmap
 
 vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- COLEMAK Remaps
 nmap("<C-w>m", "<C-w>h", "Go to the left window")
@@ -38,7 +39,10 @@ local function colemak_toggle()
 end
 colemak_toggle()
 
-nmap("<leader><leader>q", colemak_toggle, "Toggle COLEMAK")
+nmap("<leader><leader>q", function()
+  colemak_toggle()
+  print("COLEMAK", COLEMAK)
+end, "Toggle COLEMAK")
 
 nmap("U", "<C-r>", "redo")
 
