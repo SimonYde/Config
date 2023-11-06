@@ -29,11 +29,7 @@ else
   local MiniFiles = vim.F.npcall(require, 'mini.files')
   if not MiniFiles then return end
 
-  MiniFiles.setup {
-    mappings = {
-      -- reveal_cwd  = '~', -- ?
-    },
-  }
+  MiniFiles.setup {}
   nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Show [f]ile-tree")
   nmap('<M-F>', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', "Show current [F]ile in file-tree")
 end

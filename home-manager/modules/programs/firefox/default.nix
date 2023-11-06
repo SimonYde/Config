@@ -93,6 +93,7 @@
         # Privacy
         "browser.contentblocking.category" = "strict";
         "privacy.resistFingerprinting" = true;
+        "privacy.fingerprintingProtection" = true;
         "privacy.trackingprotection.enabled" = true;
         "privacy.trackingprotection.socialtracking.enabled" = true;
         "app.shield.optoutstudies.enabled" = false;
@@ -116,7 +117,7 @@
         "network.dns.disablePrefetch" = true;
         "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
         "network.trr.uri" = "https://dns.quad9.net/dns-query";
-        "network.trr.mode" = 3;
+        "network.trr.mode" = 2;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
 
@@ -150,7 +151,7 @@
         proton-pass
         vimium
         stylus
-        firefox-translations
+        firefox-color
 
         bypass-paywalls-clean
         # readwise-highlighter # doesn't exist yet

@@ -41,6 +41,7 @@
     ./modules/qt.nix
     ./modules/themes.nix
     ./modules/email.nix
+    ./modules/ssh.nix
     ./modules/programs
     ./modules/desktops
     ./modules/services

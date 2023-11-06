@@ -30,7 +30,7 @@ local o = vim.o
 o.number = true
 o.relativenumber = true
 
-local tabwidth = 2
+local tabwidth = 4
 o.shiftwidth = tabwidth
 o.tabstop = tabwidth
 o.softtabstop = tabwidth
@@ -75,7 +75,10 @@ o.completeopt = 'menuone,noselect'
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank {
+      timeout = 100,
+      on_visual = false,
+    }
   end,
   group = highlight_group,
   pattern = '*',

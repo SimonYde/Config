@@ -26,6 +26,11 @@ local function setup_lsp(LSP)
         on_attach = LSP.on_attach,
       }
     end
+    -- if LSP.filetypes then
+    --   lspconfig[LSP.name].setup {
+    --     filetypes = LSP.filetypes,
+    --   }
+    -- end
   end
 end
 
@@ -40,6 +45,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     setup_lsp {
       name = "pylsp",
+      settings = {
+        pylsp = {
+          plugins = {
+            black = { enabled = true },
+            pylint = { enabled = false },
+            ruff = { enabled = true },
+          },
+        },
+      },
     }
 
     setup_lsp {

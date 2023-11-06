@@ -193,6 +193,7 @@ in
         criteria = [
           { app_id = "firefox"; title = "Picture-in-Picture"; }
           { window_role = "pop-up"; }
+          { class = "Matplotlib"; }
         ];
       };
 
