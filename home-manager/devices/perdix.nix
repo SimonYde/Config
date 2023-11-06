@@ -28,7 +28,10 @@
     gtk.enable = true;
     qt.enable  = true;
 
-    syde.email.enable = false;
+    syde = {
+      email.enable = false;
+      ssh.enable   = true;
+    };
 
     xsession.enable = false;
     xsession.windowManager.i3.enable  = false;
@@ -40,10 +43,11 @@
       libqalculate
       wl-clipboard
       # synergy
+      libreoffice
       discord
       rclone
       gnome.nautilus
-      libsForQt5.dolphin
+      keepassxc
     ];
 
 
