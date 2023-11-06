@@ -11,6 +11,12 @@
       pull = {
         rebase = false;
       };
+      merge = {
+        conflictStyle = "diff3";
+      };
+      diff = {
+        colorMoved = "default";
+      };
     };
     ignores = [
       "*.sync-conflict*"
@@ -26,6 +32,8 @@
     delta = {
       enable = true;
       options = {
+        navigate = true;
+        light = false;
         features = builtins.concatStringsSep " " [
           "line-numbers"
           "side-by-side"

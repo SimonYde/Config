@@ -31,10 +31,11 @@ if lualine then
       'trouble',
     },
   }
-else
-  local MiniStatusline = vim.F.npcall(require, 'mini.statusline')
-  if not MiniStatusline then return end
+  return
+end
 
+local MiniStatusline = vim.F.npcall(require, 'mini.statusline')
+if MiniStatusline then
   vim.opt.laststatus = 3 -- global statusline
   vim.opt.cmdheight = 0
   vim.opt.hlsearch = true
@@ -60,6 +61,7 @@ else
   -- vim.cmd [[ highlight DiagnosticWarnStatusLine  cterm=italic gui=italic guifg=#f9e2af guibg=#181825 ]]
   -- vim.cmd [[ highlight DiagnosticErrorStatusLine cterm=italic gui=italic guifg=#f38ba8 guibg=#181825 ]]
   -- vim.cmd [[ highlight DiagnosticHintStatusLine  cterm=italic gui=italic guifg=#94e2d5 guibg=#181825 ]]
+  vim.cmd [[ highlight MiniStatuslineModeNormal  cterm=bold gui=bold guifg=#181825 guibg=#b4befe ]]
 
 
   MiniStatusline.section_fileinfo = function(args)
@@ -144,4 +146,5 @@ else
     },
     set_vim_settings = false,
   }
+  return
 end

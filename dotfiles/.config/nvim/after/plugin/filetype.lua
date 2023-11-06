@@ -1,5 +1,7 @@
 vim.filetype.add({
   extension = {
+    mll = "ocamllex",
+    mly = "menhir",
     ll = "llvm",
     tex = "tex",
   },

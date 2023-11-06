@@ -8,9 +8,11 @@ end
 
 local neogit = vim.F.npcall(require, 'neogit')
 if neogit then
+  local has_telescope, _ = pcall(require, 'telescope')
   neogit.setup {
     integrations = {
       diffview = has_diffview,
+      telescope = has_telescope,
     },
   }
   nmap("<leader>gs", neogit.open, "Neogit [s]tatus")

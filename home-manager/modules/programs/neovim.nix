@@ -40,6 +40,7 @@ in
 
       # -----Workflow-----
       unstablePlugins.harpoon # Stable version is broken for Neovim Nightly
+      unstablePlugins.nvim-autopairs
       gitsigns-nvim
       neogit
       diffview-nvim
@@ -47,17 +48,27 @@ in
       vim-be-good
 
       # -----Fuzzy Finder-----
-      # unstablePlugins.telescope-nvim
       unstablePlugins.plenary-nvim
-      # telescope-fzf-native-nvim
-      # git-worktree-nvim
-      # telescope-undo-nvim
+      unstablePlugins.telescope-nvim
+      telescope-fzf-native-nvim
+      git-worktree-nvim
+      telescope-undo-nvim
 
       # -----Highlighting-----
       unstablePlugins.nvim-treesitter.withAllGrammars
       unstablePlugins.nvim-treesitter-textobjects
       unstablePlugins.nvim-treesitter-context
       unstablePlugins.rainbow-delimiters-nvim
+
+      (pkgs.vimUtils.buildVimPlugin {
+        pname = "dolphin-vim";
+        version = "2021-11-01";
+        src = pkgs.fetchgit {
+          url = "https://gitlab.com/jo1gi/dolphin-vim";
+          rev = "1bddf3c798cbb425f0a288c1a3640e06bea2fccc";
+          sha256 = "sha256-28fPWSYOHyBLiwVkGyYoslpWnqrBFozaSnhFNQ8NG9o=";
+        };
+      })
 
       # -----UI-----
       # which-key-nvim

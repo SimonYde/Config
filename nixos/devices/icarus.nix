@@ -41,8 +41,10 @@
     wget
   ];
 
-  programs.fish.enable = true;
-  programs.nix-ld.enable = true;
-  programs.nix-ld.package = pkgs.nix-ld-rs;
-  # programs.command-not-found.enable = true;
+  programs = {
+    dconf.enable = true;
+    fish.enable = true;
+    nix-ld.enable = true;
+    nix-ld.package = pkgs.nix-ld-rs;
+  };
 }

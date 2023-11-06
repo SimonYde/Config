@@ -12,9 +12,9 @@ let cfg = config.syde.gaming; in
       rocm-opencl-runtime
       rocm-opencl-icd
     ];
-    # hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
-    #   libva
-    # ];
+    hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [
+      libva
+    ];
     environment.systemPackages = with pkgs; [
       # Applications
       (lutris.override {
@@ -32,10 +32,10 @@ let cfg = config.syde.gaming; in
       mesa_drivers
 
       # 32 bit
-      # pkgsi686Linux.vulkan-tools
-      # pkgsi686Linux.vulkan-loader
-      # pkgsi686Linux.mesa
-      # pkgsi686Linux.mesa_drivers
+      pkgsi686Linux.vulkan-tools
+      pkgsi686Linux.vulkan-loader
+      pkgsi686Linux.mesa
+      pkgsi686Linux.mesa_drivers
     ];
   };
 
