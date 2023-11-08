@@ -4,6 +4,7 @@
   config = {
     programs = {
       # Shells
+      bash.enable    = true;
       fish.enable    = true;
       nushell.enable = true;
       zsh.enable     = false;
@@ -37,6 +38,7 @@
       entr
       fd
       ripgrep
+      trashy
       sd
       xh
 
@@ -50,6 +52,7 @@
       # sudo = "doas";
       # cat = "bat";
       c   = "clear";
+      rt  = "trash put";
     };
   };
 

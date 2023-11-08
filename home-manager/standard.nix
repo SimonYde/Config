@@ -26,9 +26,9 @@
     };
   };
 
-  options.syde = with lib; {
-    unfreePredicates = mkOption {
-      type = types.listOf types.str;
+  options.syde = {
+    unfreePredicates = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = [ ];
     };
   };

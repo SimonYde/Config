@@ -4,65 +4,68 @@ if whichkey then
   whichkey.register {
     ["<leader>"] = {
       f = { name = "[f]ind" },
+      g = { name = "[g]it" },
     },
   }
   local presets = require("which-key.plugins.presets")
   presets.operators["v"] = nil
-else
-  local MiniClue = vim.F.npcall(require, 'mini.clue')
-  if MiniClue then
-    MiniClue.setup {
-      window = {
-        delay = 500,
-      },
-      triggers = {
-        -- Leader triggers
-        { mode = 'n', keys = '<Leader>' },
-        { mode = 'x', keys = '<Leader>' },
-        { mode = 'n', keys = '[' },
-        { mode = 'n', keys = ']' },
-        { mode = 'v', keys = '[' },
-        { mode = 'v', keys = ']' },
+  return
+end
 
-        -- Built-in completion
-        { mode = 'i', keys = '<C-x>' },
+local MiniClue = vim.F.npcall(require, 'mini.clue')
+if MiniClue then
+  MiniClue.setup {
+    window = {
+      delay = 300,
+    },
+    triggers = {
+      -- Leader triggers
+      { mode = 'n', keys = '<Leader>' },
+      { mode = 'x', keys = '<Leader>' },
+      { mode = 'n', keys = '[' },
+      { mode = 'n', keys = ']' },
+      { mode = 'v', keys = '[' },
+      { mode = 'v', keys = ']' },
 
-        -- `g` key
-        { mode = 'n', keys = 'g' },
-        { mode = 'x', keys = 'g' },
+      -- Built-in completion
+      { mode = 'i', keys = '<C-x>' },
 
-        -- Marks
-        { mode = 'n', keys = "'" },
-        { mode = 'n', keys = '`' },
-        { mode = 'x', keys = "'" },
-        { mode = 'x', keys = '`' },
+      -- `g` key
+      { mode = 'n', keys = 'g' },
+      { mode = 'x', keys = 'g' },
 
-        -- Registers
-        { mode = 'n', keys = '"' },
-        { mode = 'x', keys = '"' },
-        { mode = 'i', keys = '<C-r>' },
-        { mode = 'c', keys = '<C-r>' },
+      -- Marks
+      { mode = 'n', keys = "'" },
+      { mode = 'n', keys = '`' },
+      { mode = 'x', keys = "'" },
+      { mode = 'x', keys = '`' },
 
-        -- Window commands
-        { mode = 'n', keys = '<C-w>' },
-        { mode = 'n', keys = '<leader>w' },
+      -- Registers
+      { mode = 'n', keys = '"' },
+      { mode = 'x', keys = '"' },
+      { mode = 'i', keys = '<C-r>' },
+      { mode = 'c', keys = '<C-r>' },
 
-        -- `z` key
-        { mode = 'n', keys = 'z' },
-        { mode = 'x', keys = 'z' },
-      },
+      -- Window commands
+      { mode = 'n', keys = '<C-w>' },
+      { mode = 'n', keys = '<leader>w' },
 
-      clues = {
-        -- Enhance this by adding descriptions for <Leader> mapping groups
-        { mode = 'n', keys = '<leader>f', desc = '[f]ind' },
-        { mode = 'n', keys = '<leader>g', desc = '[g]it' },
-        MiniClue.gen_clues.builtin_completion(),
-        MiniClue.gen_clues.g(),
-        MiniClue.gen_clues.marks(),
-        MiniClue.gen_clues.registers(),
-        MiniClue.gen_clues.windows(),
-        MiniClue.gen_clues.z(),
-      },
-    }
-  end
+      -- `z` key
+      { mode = 'n', keys = 'z' },
+      { mode = 'x', keys = 'z' },
+    },
+
+    clues = {
+      -- Enhance this by adding descriptions for <Leader> mapping groups
+      { mode = 'n', keys = '<leader>f', desc = '[f]ind' },
+      { mode = 'n', keys = '<leader>g', desc = '[g]it' },
+      MiniClue.gen_clues.builtin_completion(),
+      MiniClue.gen_clues.g(),
+      MiniClue.gen_clues.marks(),
+      MiniClue.gen_clues.registers(),
+      MiniClue.gen_clues.windows(),
+      MiniClue.gen_clues.z(),
+    },
+  }
+  return
 end

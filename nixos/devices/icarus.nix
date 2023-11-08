@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, ... }:
+{ inputs, pkgs, ... }:
 
 {
   nixpkgs.overlays = [
@@ -6,10 +6,10 @@
   ];
   imports = [
     inputs.nixos-wsl.nixosModules.default
+    inputs.vscode-server.nixosModules.default
     ../modules/programs/nix.nix
     ../modules/services/syncthing.nix
     ../modules/programs/doas.nix
-    ../../home-manager/modules/themes.nix
   ];
 
   networking.hostName = "icarus";
@@ -31,15 +31,12 @@
     extraGroups = [ "video" "networkmanager" "wheel" ];
   };
 
-  environment.sessionVariables = with config.themes; {
-    GTK_THEME = if prefer-dark then gtk.darkTheme else gtk.lightTheme;
-  };
-
-
   environment.systemPackages = with pkgs; [
     git
     wget
   ];
+
+  services.vscode-server.enable = true;
 
   programs = {
     dconf.enable = true;

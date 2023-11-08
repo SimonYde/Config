@@ -71,7 +71,7 @@ in
       })
 
       # -----UI-----
-      # which-key-nvim
+      which-key-nvim
       trouble-nvim
       unstablePlugins.indent-blankline-nvim
       unstablePlugins.nvim-web-devicons
@@ -84,6 +84,7 @@ in
       require('syde')
       require("catppuccin").setup {
         flavour = "${config.themes.flavour}",
+        transparent_background = true,
         integrations = {
           indent_blankline = {
             enabled = true,
@@ -94,7 +95,7 @@ in
           nvimtree = true,
           mini = true,
           treesitter = true,
-          treesitter_context = false, -- is ugly
+          treesitter_context = true, -- is ugly
           rainbow_delimiters = true,
           fidget = false, -- is ugly
           harpoon = true,
@@ -103,7 +104,7 @@ in
              enabled = true,
              style = "nvchad",
           },
-          which_key = false,
+          which_key = true,
         },
       }
       vim.cmd.colorscheme "catppuccin"

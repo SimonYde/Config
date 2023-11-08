@@ -30,7 +30,7 @@ local o = vim.o
 o.number = true
 o.relativenumber = true
 
-local tabwidth = 4
+local tabwidth = 2
 o.shiftwidth = tabwidth
 o.tabstop = tabwidth
 o.softtabstop = tabwidth

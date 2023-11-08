@@ -17,6 +17,7 @@
     nil = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "unstable";
+      inputs.flake-utils.follows = "flake-utils";
     };
     helix = {
       url = "github:helix-editor/helix";
@@ -29,6 +30,11 @@
     };
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -73,7 +79,7 @@
     {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
-          inputs.nil.packages.x86_64-linux.nil
+          inputs.nil.packages.${system}.nil
           nixpkgs-fmt
           lua-language-server
         ];

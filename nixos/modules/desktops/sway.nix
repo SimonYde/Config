@@ -35,6 +35,6 @@
   };
   imports = [
     ../services/lightdm.nix
-    # ../services/gdm.nix
+    ../services/gdm.nix
   ];
 }
