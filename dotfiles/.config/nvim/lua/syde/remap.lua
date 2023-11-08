@@ -13,20 +13,20 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- COLEMAK Remaps
 nmap("<C-w>m", "<C-w>h", "Go to the left window")
-nmap("<C-w>n", "<C-w>k", "Go to the down window")
-nmap("<C-w>e", "<C-w>j", "Go to the up window")
+nmap("<C-w>n", "<C-w>j", "Go to the down window")
+nmap("<C-w>e", "<C-w>k", "Go to the up window")
 nmap("<C-w>i", "<C-w>l", "Go to the right window")
 
-COLEMAK = false
+local COLEMAK = false
 local function colemak_toggle()
   if not COLEMAK then
     vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
     -- vim.opt.langmap = "jh,hk,kj"
     vim.opt.langremap = false
-    map({ "n", "v" }, "gs", "^", "Goto first non-blank in line")
-    map({ "n", "v" }, "gm", "0", "Goto line start")
-    map({ "n", "v" }, "gi", "$", "Goto line end")
-    nmap("gl", vim.lsp.buf.implementation, "Goto Implementation")
+    map({ "n", "v" }, "gm", "^", "Goto first non-blank in line")
+    map({ "n", "v" }, "gs", "0", "Goto line start")
+    map({ "n", "v" }, "gl", "$", "Goto line end")
+    nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
     COLEMAK = true
   else
     vim.opt.langmap = ""

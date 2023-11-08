@@ -15,7 +15,7 @@
     ./lf.nix
     ./skim.nix
     ./starship.nix
-    ./zellij.nix
+    ./zellij
     ./zoxide.nix
 
     # ---Terminals---

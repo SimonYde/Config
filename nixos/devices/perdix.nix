@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -10,7 +10,6 @@
     ../modules/hardware/laptop.nix
     ../modules/hardware/graphics/nvidia.nix
     ../modules/hardware/graphics/amd.nix
-    ../../home-manager/modules/themes.nix
   ];
 
   syde = {
@@ -40,8 +39,7 @@
     };
   };
 
-  environment.sessionVariables = with config.themes; {
-    GTK_THEME = if prefer-dark then gtk.darkTheme else gtk.lightTheme;
+  environment.sessionVariables = {
     TERMINAL = "alacritty";
   };
 

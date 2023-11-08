@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
       name = "typst_lsp",
       executable = "typst-lsp",
       settings = {
-        exportPdf = "onSave", -- Choose onType, onSave or never.
+        exportPdf = "onSave",         -- Choose onType, onSave or never.
       }
     }
 
@@ -193,6 +193,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
           bottom = true,
         },
         window = {
+          blend = 0,
           relative = "editor",
         },
       }
@@ -211,6 +212,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
           kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
         },
       }
+      nmap("<leader>k", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
       nmap("<leader>n", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
       nmap("<leader>a", "<cmd>Lspsaga code_action<cr>", "code [a]ctions")
       nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "LSP [r]ename")

@@ -18,7 +18,7 @@ in
             } + "/catppuccin-${theme}.yml")
         ];
         window = {
-          opacity = 1.0;
+          opacity = 0.85;
           dynamic_title = true;
         };
         font = {
