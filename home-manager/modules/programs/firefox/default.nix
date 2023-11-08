@@ -74,6 +74,7 @@
             iconUpdateURL = "https://www.youtube.com/s/desktop/fa273944/img/favicon_144x144.png";
             definedAliases = [ "!yt" ];
           };
+          "Google".metaData.alias = "!g";
           "Bing".metaData.hidden = true;
           "Wikipedia (en)".metaData.hidden = true;
           "Amazon.com".metaData.hidden = true;

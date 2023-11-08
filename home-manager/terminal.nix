@@ -39,6 +39,7 @@
       fd
       ripgrep
       trashy
+      jq
       sd
       xh
 
@@ -53,6 +54,8 @@
       # cat = "bat";
       c   = "clear";
       rt  = "trash put";
+      zs  = "zellij --session";
+      za  = "zellij attach";
     };
   };
 

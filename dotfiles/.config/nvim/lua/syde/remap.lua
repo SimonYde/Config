@@ -30,8 +30,8 @@ local function colemak_toggle()
     COLEMAK = true
   else
     vim.opt.langmap = ""
-    map({ "n", "v" }, "gs", "^", "Goto first non-blank in line")
-    map({ "n", "v" }, "gh", "0", "Goto line start")
+    map({ "n", "v" }, "gh", "^", "Goto first non-blank in line")
+    map({ "n", "v" }, "gs", "0", "Goto line start")
     map({ "n", "v" }, "gl", "$", "Goto line end")
     nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
     COLEMAK = false
