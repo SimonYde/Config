@@ -40,7 +40,7 @@ let cfg = config.syde.programming; in
         "${config.home.homeDirectory}/.local/bin/kattis" = {
           source = kattis-cli + "/kattis";
         };
-        "${config.home.homeDirectory}/.local/bin/submit.py" = {
+        "${config.home.homeDirectory}/.local/bin/kattis-submit" = {
           source = kattis-cli + "/submit.py";
         };
       };

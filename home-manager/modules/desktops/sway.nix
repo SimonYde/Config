@@ -238,6 +238,7 @@ in
       };
 
       startup = [
+        { command = "${pkgs.autotiling-rs}/bin/autotiling-rs"; }
         { command = "obsidian"; }
       ];
     };
