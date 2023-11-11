@@ -45,6 +45,21 @@ in
       neogit
       diffview-nvim
       unstablePlugins.mini-nvim
+
+
+      # (pkgs.vimUtils.buildVimPlugin {
+      #   pname = "mini.nvim";
+      #   version = "2023-11-10";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "echasnovski";
+      #     repo = "mini.nvim";
+      #     rev = "508c73e5c03af3e49e19c5daad5596c09edf7f20";
+      #     sha256 = "sha256-iV0/R0CYrGGRNZLNhkEaDJ3NqdnsfZjLk3HmhK9+fzA=";
+      #   };
+      #   meta.homepage = "https://github.com/echasnovski/mini.nvim/";
+      # })
+
+
       vim-be-good
 
       # -----Fuzzy Finder-----
@@ -111,7 +126,9 @@ in
     '';
   };
 
-  home.packages = with pkgs; lib.mkIf cfg.enable [
-    nodejs-slim_20 # for copilot.lua
-  ];
+  home.packages = with pkgs; lib.mkIf
+    cfg.enable
+    [
+      nodejs-slim_20 # for copilot.lua
+    ];
 }

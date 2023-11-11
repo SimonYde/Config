@@ -5,7 +5,7 @@ let
 in
 {
   programs.zellij = {
-    package = pkgs.unstable.zellij;
+    package = pkgs.zellij;
     enableBashIntegration = false;
     enableZshIntegration = false;
     enableFishIntegration = false;

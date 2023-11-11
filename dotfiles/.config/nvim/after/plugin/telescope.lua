@@ -97,6 +97,7 @@ end
 
 local MiniPick = vim.F.npcall(require, 'mini.pick')
 if MiniPick then
+  MiniExtra = require('mini.extra')
   MiniPick.setup {
 
   }

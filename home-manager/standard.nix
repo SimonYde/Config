@@ -15,6 +15,7 @@
           i3status-rust    = pkgs.unstable.i3status-rust;
           xkeyboard-config = pkgs.unstable.xkeyboard-config;
           grawlix          = pkgs.callPackage ./packages/grawlix.nix { };
+          zellij           = pkgs.callPackage ./packages/zellij.nix { };
         })
       ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
@@ -37,13 +38,6 @@
     ./home.nix
     ./programming.nix
     ./terminal.nix
-    ./modules/gtk.nix
-    ./modules/qt.nix
-    ./modules/themes.nix
-    ./modules/email.nix
-    ./modules/ssh.nix
-    ./modules/programs
-    ./modules/desktops
-    ./modules/services
+    ./modules
   ];
 }
