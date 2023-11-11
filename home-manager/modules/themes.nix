@@ -1,12 +1,19 @@
-{ lib, config, pkgs, ... }:
+{ inputs, lib, config, pkgs, ... }:
 let
   mkColor = hex: lib.mkOption {
     type    = lib.types.str;
     default = "${hex}";
   };
+  nix-colors = inputs.nix-colors;
   cfg = config.themes;
 in
 {
+  imports = [
+    nix-colors.homeManagerModules.default
+  ];
+
+  config.colorScheme = nix-colors.colorSchemes."catppuccin-${cfg.flavour}";
+
   options.themes = {
     flavour = lib.mkOption {
       type    = lib.types.str;

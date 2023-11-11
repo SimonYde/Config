@@ -305,9 +305,8 @@ in
   programs.rofi = {
     enable = sway.enable || i3.enable;
     package = if i3.enable then pkgs.rofi else pkgs.rofi-wayland;
-    font     = font;
-    terminal = "${terminal}";
-    theme    = "catppuccin-${flavour}";
+    inherit font terminal;
+    theme = "catppuccin-${flavour}";
     extraConfig = {
       modi       = "run,drun";
       icon-theme = "Oranchelo";

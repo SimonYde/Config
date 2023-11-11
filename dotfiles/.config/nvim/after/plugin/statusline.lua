@@ -78,8 +78,8 @@ if MiniStatusline then
 
     local get_filetype_icon = function()
       if not MiniStatusline.config.use_icons then return '' end
-      local has_devicons, devicons = pcall(require, 'nvim-web-devicons')
-      if not has_devicons then return '' end
+      local devicons = vim.F.npcall(require, 'nvim-web-devicons')
+      if not devicons then return '' end
 
       local file_name, file_ext = vim.fn.expand('%:t'), vim.fn.expand('%:e')
       return devicons.get_icon(file_name, file_ext, { default = true })
@@ -122,6 +122,7 @@ if MiniStatusline then
         local errors        = diagnostic_level('ERROR', ' ') -- alternative symbol "⬤ "
         local warnings      = diagnostic_level('WARN', ' ') -- alternative symbol ""
         local hints         = diagnostic_level('HINT', ' ')
+        local info          = diagnostic_level('INFO', ' ')
         local macro         = section_macro_recording()
         local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
         local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
@@ -136,6 +137,7 @@ if MiniStatusline then
           { hl = 'DiagnosticError',        strings = { errors } },
           { hl = 'DiagnosticWarn',         strings = { warnings } },
           { hl = 'DiagnosticHint',         strings = { hints } },
+          { hl = 'DiagnosticInfo',         strings = { info } },
           '%=', -- End left alignment
 
           { hl = 'MiniStatuslineFilename', strings = { macro, searchcount } },
