@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 let
-  flavour = config.themes.flavour;
-  catppuccin = config.themes.catppuccin;
+  colorScheme = config.colorScheme;
 in
 {
   programs.zellij = {
@@ -9,44 +8,23 @@ in
     enableBashIntegration = false;
     enableZshIntegration = false;
     enableFishIntegration = false;
-
-    # settings = {
-    #   theme = "catppuccin";
-    #   themes.catppuccin = with catppuccin.${flavour}; {
-    #     bg = surface2;
-    #     fg = text;
-    #     red = red;
-    #     green = green;
-    #     blue = blue;
-    #     yellow = yellow;
-    #     magenta = mauve;
-    #     orange = peach;
-    #     cyan = teal;
-    #     black = mantle;
-    #     white = text;
-    #   };
-    #   default_layout = "compact";
-    #   default_shell = "fish";
-    #   simplified_ui = false;
-    #   pane_frames = false;
-    # };
   };
   home.file = let zellij_path = "${config.xdg.configHome}/zellij"; in {
-    "${zellij_path}/config.kdl".text = with catppuccin.${flavour}; ''
-      theme "catppuccin"
+    "${zellij_path}/config.kdl".text = with colorScheme.colors; ''
+      theme "base16-custom"
       themes {
-        catppuccin {
-          bg "${surface2}"
-          fg "${text}"
-          red "${red}"
-          green "${lavender}"
-          blue "${blue}"
-          yellow "${yellow}"
-          magenta "${mauve}"
-          orange "${peach}"
-          cyan "${teal}"
-          black "${mantle}"
-          white "${text}"
+        base16-custom {
+          bg "#${base02}"
+          fg "#${base05}"
+          red "#${base08}"
+          green "#${base07}"
+          blue "#${base0D}"
+          yellow "#${base0A}"
+          magenta "#${base0E}"
+          orange "#${base09}"
+          cyan "#${base0C}"
+          black "#${base01}"
+          white "#${base05}"
         }
       }
       layout_dir "${zellij_path}/layouts"
@@ -57,6 +35,7 @@ in
       pane_frames false
       mouse_mode true
     '' + builtins.readFile ./keybinds.kdl;
+
     "${zellij_path}/layouts/custom_compact.kdl".text = ''
       layout {
         pane size=1 borderless=true {

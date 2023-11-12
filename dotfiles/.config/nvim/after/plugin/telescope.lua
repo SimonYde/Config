@@ -32,7 +32,7 @@ if telescope then
         "node_modules",
         "undodir",
       },
-      prompt_prefix = " ",
+      prompt_prefix = "  ",
       layout_config = {
         prompt_position = 'top',
         horizontal = {
@@ -61,12 +61,12 @@ if telescope then
           },
         },
         mappings = {
-        i = {
-          ["<cr>"] = require("telescope-undo.actions").yank_additions,
-          ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-          ["<C-cr>"] = require("telescope-undo.actions").restore,
+          i = {
+            ["<cr>"] = require("telescope-undo.actions").yank_additions,
+            ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+            ["<C-cr>"] = require("telescope-undo.actions").restore,
+          },
         },
-      },
       },
     }
   }
@@ -79,6 +79,7 @@ if telescope then
   local builtin = require('telescope.builtin')
   nmap("<leader>?", builtin.keymaps, "Search keymaps")
   nmap("<leader>b", builtin.buffers, "[b]uffers")
+  nmap("<leader>c", builtin.current_buffer_fuzzy_find, "fuzzy [c]urrent buffer search")
   nmap("<leader>fc", builtin.current_buffer_fuzzy_find, "fuzzy [c]urrent buffer search")
   nmap("<leader>ff", builtin.find_files, "find [f]iles")
   nmap("<leader>F", builtin.git_files, "Git [F]iles")
@@ -98,32 +99,14 @@ end
 local MiniPick = vim.F.npcall(require, 'mini.pick')
 if MiniPick then
   MiniExtra = require('mini.extra')
-  MiniPick.setup {
+  MiniExtra.setup {}
+  MiniPick.setup {}
 
-  }
-  MiniPick.registry.buffer_lines = function(local_opts)
-    -- Parse options
-    local_opts = vim.tbl_deep_extend('force', { buf_id = nil, prompt = '' }, local_opts or {})
-    local buf_id, prompt = local_opts.buf_id, local_opts.prompt
-    local_opts.buf_id, local_opts.prompt = nil, nil
-
-    -- Construct items
-    if buf_id == nil or buf_id == 0 then buf_id = vim.api.nvim_get_current_buf() end
-    local lines = vim.api.nvim_buf_get_lines(buf_id, 0, -1, false)
-    local items = {}
-    for i, l in ipairs(lines) do
-      items[i] = { text = string.format('%d:%s', i, l), bufnr = buf_id, lnum = i }
-    end
-
-    -- Start picker while scheduling setting the query
-    vim.schedule(function() MiniPick.set_picker_query(vim.split(prompt, '')) end)
-    MiniPick.start({ source = { items = items, name = 'Buffer lines' } })
-  end
-
-
+  nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
   nmap("<leader>ff", MiniPick.builtin.files, "Pick [f]iles")
-  nmap("<leader>c", MiniPick.registry.buffer_lines, "Pick [c]urrent buffer lines")
-  nmap("<leader>fc", MiniPick.registry.buffer_lines, "Pick [c]urrent buffer lines")
+  nmap("<leader>F", MiniExtra.pickers.git_files, "Pick git [F]iles")
+  nmap("<leader>c", function() MiniExtra.pickers.buf_lines { scope = "current" } end, "Pick [c]urrent buffer lines")
+  nmap("<leader>fl", MiniExtra.pickers.buf_lines, "Pick [c]urrent buffer lines")
   nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick [g]rep")
   nmap("<leader>/", MiniPick.builtin.grep_live, "Global search with grep")
   nmap("<leader>fh", MiniPick.builtin.help, "Pick [h]elp")

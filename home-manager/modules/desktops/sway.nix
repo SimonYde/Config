@@ -2,18 +2,18 @@
 
 let
   sway = config.wayland.windowManager.sway;
-  i3   = config.xsession.windowManager.i3;
-  flavour    = config.themes.flavour;
-  catppuccin = config.themes.catppuccin;
-  font  = config.syde.terminal.font;
-  menu  = "rofi -show drun";
-  left  = "m";
-  down  = "n";
-  up    = "e";
+  i3 = config.xsession.windowManager.i3;
+  flavour = config.themes.flavour;
+  colors = config.colorScheme.colors;
+  font = config.syde.terminal.font;
+  menu = "rofi -show drun";
+  left = "m";
+  down = "n";
+  up = "e";
   right = "i";
   terminal = "alacritty";
-  browser  = "firefox";
-  volumeChange     = 10;
+  browser = "firefox";
+  volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
 in
@@ -28,21 +28,21 @@ in
       defaultWorkspace = "workspace number 1";
       inherit terminal menu left down up right;
       keybindings = {
-        "${mod}+t"       = "exec ${terminal}";
-        "${mod}+r"       = "mode \"resize\"";
-        "ctrl+${mod}+f"  = "exec ${browser}";
-        "${mod}+d"       = "exec ${menu}";
+        "${mod}+t" = "exec ${terminal}";
+        "${mod}+r" = "mode \"resize\"";
+        "ctrl+${mod}+f" = "exec ${browser}";
+        "${mod}+d" = "exec ${menu}";
         "${mod}+Shift+s" = "exec ${pkgs.shotman}/bin/shotman -c region -C";
-        "${mod}+Escape"  = "exec swaylock";
-        "mod1+Space"     = "exec ${menu}";
+        "${mod}+Escape" = "exec swaylock";
+        "mod1+Space" = "exec ${menu}";
 
         # Sound
         "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -i ${toString volumeChange}";
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -d ${toString volumeChange}";
-        "XF86AudioMute"        = "exec ${pkgs.pamixer}/bin/pamixer -t";
+        "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
 
         # Brightness
-        "XF86MonBrightnessUp"   = "exec light -A ${toString brightnessChange}";
+        "XF86MonBrightnessUp" = "exec light -A ${toString brightnessChange}";
         "XF86MonBrightnessDown" = "exec light -U ${toString brightnessChange}";
 
         # Layout
@@ -52,37 +52,37 @@ in
         "${mod}+s" = "layout toggle split";
 
         # Window
-        "${mod}+q"      = "kill";
-        "${mod}+f"      = "fullscreen";
+        "${mod}+q" = "kill";
+        "${mod}+f" = "fullscreen";
         "${mod}+mod1+f" = "floating toggle";
         "${mod}+mod1+s" = "sticky toggle";
 
         # Scratchpad
         "${mod}+Shift+minus" = "move scratchpad";
-        "${mod}+minus"       = "scratchpad show";
+        "${mod}+minus" = "scratchpad show";
 
         # Disable laptop screen
         "${mod}+mod1+l" = "output eDP-1 toggle";
 
         # Focus
-        "${mod}+${left}"  = "focus left";
-        "${mod}+${down}"  = "focus down";
-        "${mod}+${up}"    = "focus up";
+        "${mod}+${left}" = "focus left";
+        "${mod}+${down}" = "focus down";
+        "${mod}+${up}" = "focus up";
         "${mod}+${right}" = "focus right";
-        "${mod}+Left"     = "focus left";
-        "${mod}+Down"     = "focus down";
-        "${mod}+Up"       = "focus up";
-        "${mod}+Right"    = "focus right";
+        "${mod}+Left" = "focus left";
+        "${mod}+Down" = "focus down";
+        "${mod}+Up" = "focus up";
+        "${mod}+Right" = "focus right";
 
         # Move Window
-        "${mod}+Shift+${left}"  = "move left";
-        "${mod}+Shift+${down}"  = "move down";
-        "${mod}+Shift+${up}"    = "move up";
+        "${mod}+Shift+${left}" = "move left";
+        "${mod}+Shift+${down}" = "move down";
+        "${mod}+Shift+${up}" = "move up";
         "${mod}+Shift+${right}" = "move right";
-        "${mod}+Shift+Left"     = "move left";
-        "${mod}+Shift+Down"     = "move down";
-        "${mod}+Shift+Up"       = "move up";
-        "${mod}+Shift+Right"    = "move right";
+        "${mod}+Shift+Left" = "move left";
+        "${mod}+Shift+Down" = "move down";
+        "${mod}+Shift+Up" = "move up";
+        "${mod}+Shift+Right" = "move right";
 
         # Switch workspace
         "${mod}+1" = "workspace number 1";
@@ -115,44 +115,44 @@ in
 
       modes = {
         resize = {
-          "${left}"  = "resize shrink width 30px";
-          "${down}"  = "resize grow height 30px";
-          "${up}"    = "resize shrink height 30px";
+          "${left}" = "resize shrink width 30px";
+          "${down}" = "resize grow height 30px";
+          "${up}" = "resize shrink height 30px";
           "${right}" = "resize grow width 30px";
-          "Left"     = "resize shrink width 30px";
-          "Down"     = "resize grow height 30px";
-          "Up"       = "resize shrink height 30px";
-          "Right"    = "resize grow width 30px";
+          "Left" = "resize shrink width 30px";
+          "Down" = "resize grow height 30px";
+          "Up" = "resize shrink height 30px";
+          "Right" = "resize grow width 30px";
 
           # Return to default mode
-          "Return"   = "mode \"default\"";
-          "Escape"   = "mode \"default\"";
+          "Return" = "mode \"default\"";
+          "Escape" = "mode \"default\"";
           "${mod}+r" = "mode \"default\"";
         };
       };
 
-      colors = with catppuccin.${flavour}; {
-        background = base;
+      colors = with colors; {
+        background = base00;
         focused = {
-          border      = lavender;
-          background  = base;
-          text        = text;
-          indicator   = rosewater;
-          childBorder = lavender;
+          border = base07;
+          background = base00;
+          text = base05;
+          indicator = base06;
+          childBorder = base07;
         };
         unfocused = {
-          border      = base;
-          background  = base;
-          text        = text;
-          indicator   = surface1;
-          childBorder = base;
+          border = base00;
+          background = base00;
+          text = base05;
+          indicator = base03;
+          childBorder = base00;
         };
         urgent = {
-          border      = red;
-          background  = base;
-          text        = surface0;
-          indicator   = red;
-          childBorder = red;
+          border = base08;
+          background = base00;
+          text = base02;
+          indicator = base08;
+          childBorder = base08;
         };
       };
 
@@ -160,26 +160,26 @@ in
         position = "top";
         fonts = {
           names = [ font ];
-          size  = 8.0;
+          size = 8.0;
         };
         statusCommand = "i3status-rs config-top";
-        colors = with catppuccin.${flavour}; {
-          background = mantle;
-          statusline = text;
+        colors = with colors; {
+          background = base01;
+          statusline = base05;
           focusedWorkspace = {
-            background = lavender;
-            border     = lavender;
-            text       = base;
+            background = base07;
+            border = base07;
+            text = base00;
           };
           inactiveWorkspace = {
-            background = surface0;
-            border     = surface0;
-            text       = surface2;
+            background = base02;
+            border = base02;
+            text = base04;
           };
           urgentWorkspace = {
-            background = red;
-            border     = red;
-            text       = surface0;
+            background = base08;
+            border = base08;
+            text = base02;
           };
         };
       }];
@@ -199,17 +199,17 @@ in
 
       fonts = {
         names = [ font ];
-        size  = 11.0;
+        size = 11.0;
       };
 
       window = {
         titlebar = false;
-        border   = 1;
+        border = 1;
       };
 
       input = {
         "type:keyboard" = {
-          xkb_layout  = "us(colemak_dh),dk";
+          xkb_layout = "us(colemak_dh),dk";
           xkb_options = "caps:escape,grp:rctrl_toggle";
         };
         "type:pointer" = {
@@ -221,7 +221,7 @@ in
           dwt = "enabled";
           tap = "enabled";
           scroll_factor = "0.8";
-          natural_scroll   = "enabled";
+          natural_scroll = "enabled";
           middle_emulation = "enabled";
         };
       };
@@ -248,12 +248,12 @@ in
   programs.swaylock = {
     enable = sway.enable;
     settings = {
-      color     = catppuccin.${flavour}.mantle;
+      color = colors.base00;
       font-size = 24;
       indicator-idle-visible = false;
-      ignore-empty-password  = true;
-      indicator-radius       = 100;
-      show-failed-attempts   = true;
+      ignore-empty-password = true;
+      indicator-radius = 100;
+      show-failed-attempts = true;
     };
   };
 
@@ -263,37 +263,37 @@ in
       top = {
         blocks = [
           {
-            block     = "disk_space";
-            path      = "/";
+            block = "disk_space";
+            path = "/";
             info_type = "available";
-            interval  = 60;
-            warning   = 30.0;
-            alert     = 10.0;
+            interval = 60;
+            warning = 30.0;
+            alert = 10.0;
           }
           {
-            block  = "memory";
+            block = "memory";
             format = " $icon $mem_used_percents ";
           }
           {
-            block    = "cpu";
+            block = "cpu";
             interval = 1;
           }
           { block = "battery"; }
           { block = "sound"; }
           { block = "net"; }
           {
-            block    = "time";
+            block = "time";
             interval = 60;
-            format   = " $timestamp.datetime(f:'%a %Y-%m-%d %R') ";
+            format = " $timestamp.datetime(f:'%a %Y-%m-%d %R') ";
           }
         ];
         settings = {
           theme = {
             theme = "ctp-${flavour}";
-            overrides = with catppuccin.${flavour}; {
-              idle_bg = base;
-              idle_fg = text;
-              good_bg = lavender;
+            overrides = with colors; {
+              idle_bg = "#${base00}";
+              idle_fg = "#${base05}";
+              good_bg = "#${base07}";
             };
           };
         };
@@ -306,28 +306,35 @@ in
     enable = sway.enable || i3.enable;
     package = if i3.enable then pkgs.rofi else pkgs.rofi-wayland;
     inherit font terminal;
-    theme = "catppuccin-${flavour}";
+    theme = "custom_base16";
     extraConfig = {
-      modi       = "run,drun";
+      modi = "run,drun";
       icon-theme = "Oranchelo";
       show-icons = true;
       drun-display-format = "{icon} {name}";
-      disable-history     = false;
-      hide-scrollbar      = true;
+      disable-history = false;
+      hide-scrollbar = true;
       sidebar-mode = true;
       display-drun = "   Apps ";
-      display-run  = "   Run ";
+      display-run = "   Run ";
     };
   };
 
   home.file = lib.mkIf config.programs.rofi.enable {
-    "${config.xdg.configHome}/rofi/catppuccin-${flavour}.rasi" = {
-      source = (pkgs.fetchFromGitHub {
-        owner  = "Catppuccin";
-        repo   = "rofi";
-        rev    = "5350da4";
-        sha256 = "sha256-DNorfyl3C4RBclF2KDgwvQQwixpTwSRu7fIvihPN8JY=";
-      }) + "/basic/.local/share/rofi/themes/catppuccin-${flavour}.rasi";
-    };
+    "${config.xdg.configHome}/rofi/custom_base16.rasi".text = with colors; ''
+      * {
+          bg-col:  #${base00};
+          bg-col-light: #${base00};
+          border-col: #${base00};
+          selected-col: #${base00};
+          blue: #${base07};
+          fg-col: #${base05};
+          fg-col2: #${base08};
+          grey: #${base04};
+
+          width: 600;
+          font: "${font} 14";
+      }
+    '' + builtins.readFile ./rofi-theme.rasi;
   };
 }

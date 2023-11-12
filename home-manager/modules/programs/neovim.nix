@@ -1,7 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   unstablePlugins = pkgs.unstable.vimPlugins;
-  cfg = config.programs.neovim;
 in
 {
   programs.neovim = {
@@ -44,20 +43,19 @@ in
       gitsigns-nvim
       neogit
       diffview-nvim
-      unstablePlugins.mini-nvim
-
-
-      # (pkgs.vimUtils.buildVimPlugin {
-      #   pname = "mini.nvim";
-      #   version = "2023-11-10";
-      #   src = pkgs.fetchFromGitHub {
-      #     owner = "echasnovski";
-      #     repo = "mini.nvim";
-      #     rev = "508c73e5c03af3e49e19c5daad5596c09edf7f20";
-      #     sha256 = "sha256-iV0/R0CYrGGRNZLNhkEaDJ3NqdnsfZjLk3HmhK9+fzA=";
-      #   };
-      #   meta.homepage = "https://github.com/echasnovski/mini.nvim/";
-      # })
+      # undotree
+      # unstablePlugins.mini-nvim
+      (pkgs.vimUtils.buildVimPluginFrom2Nix {
+        pname = "mini.nvim";
+        version = "2023-11-11";
+        src = pkgs.fetchFromGitHub {
+          owner = "echasnovski";
+          repo = "mini.nvim";
+          rev = "f2b89efbbad1943657e43f474fe308fceb63597e";
+          sha256 = "sha256-ZEKMoeG4wxO950UHvYbT/ozH6pDGyMhavK7+Su9Y2Ps=";
+        };
+        meta.homepage = "https://github.com/echasnovski/mini.nvim/";
+      })
 
 
       vim-be-good
@@ -124,11 +122,8 @@ in
       }
       vim.cmd.colorscheme "catppuccin"
     '';
-  };
-
-  home.packages = with pkgs; lib.mkIf
-    cfg.enable
-    [
-      nodejs-slim_20 # for copilot.lua
+    extraPackages = with pkgs; [
+      nodejs-slim_20 # For github copilot
     ];
+  };
 }

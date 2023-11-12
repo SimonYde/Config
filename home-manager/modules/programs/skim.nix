@@ -1,32 +1,28 @@
 { config, ... }:
 
-let
-  flavour = config.themes.flavour;
-  catppuccin = config.themes.catppuccin;
-in
 {
   programs.skim = {
     enableFishIntegration = true;
     enableZshIntegration = true;
     changeDirWidgetCommand = "fd --type d";
     fileWidgetCommand = "fd --type f";
-    defaultOptions = with catppuccin.${flavour}; [
+    defaultOptions = with config.colorScheme.colors; [
       "--color=${
         builtins.concatStringsSep "," [
-          "fg:${text}"
-          "matched:${surface0}"
-          "matched_bg:${flamingo}"
-          "current:${text}"
-          "current_bg:${surface1}"
-          "current_match:${base}"
-          "current_match_bg:${rosewater}"
-          "spinner:${green}"
-          "info:${mauve}"
-          "prompt:${blue}"
-          "cursor:${red}"
-          "selected:${lavender}"
-          "header:${teal}"
-          "border:${surface2}"
+          "fg:${base05}"
+          "matched:${base02}"
+          "matched_bg:${base0F}"
+          "current:${base05}"
+          "current_bg:${base03}"
+          "current_match:${base00}"
+          "current_match_bg:${base06}"
+          "spinner:${base0B}"
+          "info:${base0E}"
+          "prompt:${base0D}"
+          "cursor:${base08}"
+          "selected:${base07}"
+          "header:${base0C}"
+          "border:${base04}"
       ]}"
     ];
   };
