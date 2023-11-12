@@ -14,7 +14,7 @@
       direnv.enable   = true;
       exa.enable      = true;
       git.enable      = true;
-      lazygit.enable  = false;
+      lazygit.enable  = true;
       lf.enable       = true;
       skim.enable     = true;
       starship.enable = true;

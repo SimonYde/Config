@@ -1,24 +1,23 @@
 { config, ... }:
 
 let
-  theme = config.themes;
-  flavour = theme.flavour;
+  colorScheme = config.colorScheme;
 in
 {
   programs.lazygit = {
     settings = {
       gui = {
         # use the mocha catppuccin theme
-        theme = with theme.catppuccin.${flavour}; {
-          lightTheme = theme.prefer-dark;
-          activeBorderColor         = [ green ]; # Green
-          inactiveBorderColor       = [ text ]; # Text
-          optionsTextColor          = [ blue ]; # Blue
-          selectedLineBgColor       = [ surface0 ]; # Surface0
-          selectedRangeBgColor      = [ surface0 ]; # Surface0
-          cherryPickedCommitBgColor = [ teal ]; # Teal
-          cherryPickedCommitFgColor = [ blue ]; # Blue
-          unstagedChangesColor      = [ red ]; # Red
+        theme = with colorScheme.colors; {
+          lightTheme = colorScheme.kind == "light";
+          activeBorderColor         = [ base0B ]; # Green
+          inactiveBorderColor       = [ base05 ]; # Text
+          optionsTextColor          = [ base0D ]; # Blue
+          selectedLineBgColor       = [ base02 ]; # Surface0
+          selectedRangeBgColor      = [ base02 ]; # Surface0
+          cherryPickedCommitBgColor = [ base0C ]; # Teal
+          cherryPickedCommitFgColor = [ base0D ]; # Blue
+          unstagedChangesColor      = [ base08 ]; # Red
         };
       };
     };
