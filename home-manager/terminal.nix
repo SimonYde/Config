@@ -16,6 +16,7 @@
       git.enable      = true;
       lazygit.enable  = true;
       lf.enable       = true;
+      ripgrep.enable  = true;
       skim.enable     = true;
       starship.enable = true;
       zellij.enable   = true;
@@ -36,7 +37,6 @@
       du-dust
       entr
       fd
-      ripgrep
       trashy
       jq
       sd
