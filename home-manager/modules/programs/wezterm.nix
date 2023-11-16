@@ -2,6 +2,7 @@
 
 let
   font = config.syde.terminal.font;
+  fontSize = config.syde.terminal.fontSize;
 in
 {
   programs.wezterm = {
@@ -29,7 +30,7 @@ in
           weight = 'Light',
           italic = false,
         },
-        font_size = 11.5,
+        font_size = ${fontSize},
         default_prog = {"${pkgs.fish}/bin/fish", "-l"},
       }
     '';

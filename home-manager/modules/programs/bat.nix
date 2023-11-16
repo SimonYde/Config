@@ -6,15 +6,18 @@ in
 {
   programs.bat = {
     config = {
-      theme = "Catppuccin";
+      theme = "catppuccin";
     };
     themes = {
-      Catppuccin = builtins.readFile (pkgs.fetchFromGitHub {
+      catppuccin = {
+        src = pkgs.fetchFromGitHub {
           owner = "catppuccin";
           repo = "bat";
           rev = "ba4d168";
           sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-        } + "/Catppuccin-${theme}.tmTheme");
+        };
+        file = "Catppuccin-${theme}.tmTheme";
+      };
     };
   };
 }

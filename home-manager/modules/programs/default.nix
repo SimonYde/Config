@@ -9,10 +9,11 @@
     # ---CLI Tools---
     ./bat.nix
     ./direnv.nix
-    ./exa.nix
+    ./eza.nix
     ./git.nix
     ./lazygit.nix
     ./lf.nix
+    ./ripgrep.nix
     ./skim.nix
     ./starship.nix
     ./zellij

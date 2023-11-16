@@ -7,7 +7,7 @@ in
 {
   programs.fish = {
     shellInit = ''
-      any-nix-shell fish --info-right | source
+      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
       set fish_greeting ""
       fish_config theme choose ${flavour}
     '';
@@ -23,13 +23,12 @@ in
       };
       fish_config = "${config.xdg.configHome}/fish";
     in
-    lib.mkIf cfg.enable
-      {
-        "${fish_config}/themes/mocha.theme" = {
-          source = catppuccin + "/themes/Catppuccin Mocha.theme";
-        };
-        "${fish_config}/themes/latte.theme" = {
-          source = catppuccin + "/themes/Catppuccin Latte.theme";
-        };
+    lib.mkIf cfg.enable {
+      "${fish_config}/themes/mocha.theme" = {
+        source = catppuccin + "/themes/Catppuccin Mocha.theme";
       };
+      "${fish_config}/themes/latte.theme" = {
+        source = catppuccin + "/themes/Catppuccin Latte.theme";
+      };
+    };
 }

@@ -18,9 +18,11 @@
         fish_style_pwd_dir_length = 1;
       };
       git_branch = {
+        symbol = " ";
         style = "bold yellow";
       };
       nix_shell = {
+        symbol = " ";
         unknown_msg = "nix shell";
         heuristic = false;
       };

@@ -26,4 +26,6 @@ in
       };
     };
   };
+
+  imports = [ ../../../home-manager/modules/themes.nix ];
 }
