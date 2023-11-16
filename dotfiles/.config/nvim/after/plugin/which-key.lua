@@ -17,7 +17,8 @@ local MiniClue = vim.F.npcall(require, 'mini.clue')
 if MiniClue then
   MiniClue.setup {
     window = {
-      delay = 300,
+      config = { anchor = 'SE', row = 'auto', col = 'auto', width = 'auto' },
+      delay = vim.o.timeoutlen,
     },
     triggers = {
       -- Leader triggers

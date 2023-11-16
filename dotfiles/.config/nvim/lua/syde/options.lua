@@ -30,6 +30,8 @@ local o = vim.o
 o.number = true
 o.relativenumber = true
 
+o.timeoutlen = 300
+
 local tabwidth = 2
 o.shiftwidth = tabwidth
 o.tabstop = tabwidth
