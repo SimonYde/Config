@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
-let
-  colorScheme = config.colorScheme;
-in
+
 {
   programs.zellij = {
     package = pkgs.zellij;
@@ -10,7 +8,7 @@ in
     enableFishIntegration = false;
   };
   home.file = let zellij_path = "${config.xdg.configHome}/zellij"; in {
-    "${zellij_path}/config.kdl".text = with colorScheme.colors; ''
+    "${zellij_path}/config.kdl".text = with config.colorScheme.colors; ''
       theme "base16-custom"
       themes {
         base16-custom {

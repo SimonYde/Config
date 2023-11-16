@@ -1,7 +1,7 @@
 {...}:
 
 {
-  programs.exa = {
+  programs.eza = {
     enableAliases = true;
     icons = true;
   };

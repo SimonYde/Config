@@ -3,7 +3,9 @@
 {
   programs.zsh = {
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting = {
+      enable = true;
+    };
     enableCompletion = true;
     autocd = true;
     dotDir = ".config/zsh";

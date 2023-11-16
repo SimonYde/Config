@@ -15,7 +15,6 @@
           i3status-rust    = pkgs.unstable.i3status-rust;
           xkeyboard-config = pkgs.unstable.xkeyboard-config;
           grawlix          = pkgs.callPackage ./packages/grawlix.nix { };
-          zellij           = pkgs.callPackage ./packages/zellij.nix { };
         })
       ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;

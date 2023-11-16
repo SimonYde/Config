@@ -15,7 +15,7 @@ in
       fidget-nvim
 
       # nvim-cmp # Temporarily disabled due to upstream bug
-      (pkgs.neovimUtils.buildNeovimPluginFrom2Nix {
+      (pkgs.neovimUtils.buildNeovimPlugin {
         pname = "nvim-cmp";
         version = "2023-10-25";
         src = pkgs.fetchFromGitHub {
@@ -45,7 +45,7 @@ in
       diffview-nvim
       # undotree
       # unstablePlugins.mini-nvim
-      (pkgs.vimUtils.buildVimPluginFrom2Nix {
+      (pkgs.vimUtils.buildVimPlugin {
         pname = "mini.nvim";
         version = "2023-11-11";
         src = pkgs.fetchFromGitHub {
@@ -97,7 +97,7 @@ in
       require('syde')
       require("catppuccin").setup {
         flavour = "${config.themes.flavour}",
-        transparent_background = true,
+        transparent_background = false,
         integrations = {
           indent_blankline = {
             enabled = true,
@@ -108,7 +108,7 @@ in
           nvimtree = true,
           mini = true,
           treesitter = true,
-          treesitter_context = true, -- is ugly
+          treesitter_context = false, -- is ugly
           rainbow_delimiters = true,
           fidget = false, -- is ugly
           harpoon = true,
@@ -119,6 +119,12 @@ in
           },
           which_key = true,
         },
+        custom_highlights = function(colors)
+          return {
+            MiniJump = { fg = colors.subtext1, bg = colors.surface2 },
+            MiniStatuslineModeNormal = { fg = colors.mantle, bg = colors.lavender, style = {"bold" } },
+          }
+        end,
       }
       vim.cmd.colorscheme "catppuccin"
     '';

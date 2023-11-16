@@ -3,6 +3,7 @@
 let
   theme = config.themes.flavour;
   font = config.syde.terminal.font;
+  fontSize = config.syde.terminal.fontSize;
 in
 {
   config = {
@@ -18,7 +19,7 @@ in
             } + "/catppuccin-${theme}.yml")
         ];
         window = {
-          opacity = 0.85;
+          # opacity = 0.85;
           dynamic_title = true;
         };
         font = {
@@ -38,7 +39,7 @@ in
             family = font;
             style = "Bold Italic";
           };
-          size = if config.wayland.windowManager.sway.enable then 11.5 else 8.5;
+          size = fontSize;
         };
         cursor = {
           style = {

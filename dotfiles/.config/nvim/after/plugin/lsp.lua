@@ -49,7 +49,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
         pylsp = {
           plugins = {
             black  = { enabled = true  },
-            pylint = { enabled = false },
             mypy   = { enabled = true  },
             ruff   = { enabled = true  },
           },

@@ -12,7 +12,7 @@
       # CLI tools
       bat.enable      = true;
       direnv.enable   = true;
-      exa.enable      = true;
+      eza.enable      = true;
       git.enable      = true;
       lazygit.enable  = true;
       lf.enable       = true;
@@ -32,7 +32,6 @@
 
     home.packages = with pkgs; [
       # CLI Tools
-      any-nix-shell
       dogdns
       du-dust
       entr
@@ -64,6 +63,10 @@
       type = lib.types.str;
       # default = "FiraCode Nerd Font Mono";
       default = "JetBrains Mono Nerd Font Mono";
+    };
+    fontSize = lib.mkOption {
+      type = lib.types.float;
+      default = 11.5;
     };
   };
 }

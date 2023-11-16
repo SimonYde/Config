@@ -117,11 +117,13 @@ keybinds clear-defaults=true {
   renametab {
     bind "Ctrl c" { SwitchToMode "Normal"; }
     bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
+    bind "Enter" { SwitchToMode "Locked"; }
   }
 
   renamepane {
     bind "Ctrl c" { SwitchToMode "Normal"; }
     bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+    bind "Enter" { SwitchToMode "Locked"; }
   }
 
   session {
