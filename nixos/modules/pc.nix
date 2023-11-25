@@ -3,9 +3,8 @@
 {
   system.stateVersion = "23.05";
   time.timeZone = "Europe/Copenhagen";
-  
-  i18n.defaultLocale = "en_GB.UTF-8";
 
+  i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS        = "da_DK.UTF-8";
     LC_IDENTIFICATION = "da_DK.UTF-8";
@@ -19,10 +18,10 @@
   };
 
   services.xserver = {
-    layout = "eu";
-    # xkbVariant = "eurkey-cmk-dh-ansi";
+    layout = "us";
+    xkbVariant = "colemak_dh";
     xkbOptions = "caps:escape";
-  };  
+  };
 
   networking = {
     firewall.enable = false;
@@ -36,24 +35,26 @@
   users.users.syde = {
     isNormalUser = true;
     description = "Simon Yde";
+    shell = pkgs.fish;
     extraGroups = [ "video" "networkmanager" "wheel" ];
   };
-  
-  fonts.fonts = with pkgs; [
+
+  programs.fish.enable = true;
+
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
-    gentium 
+    gentium
     libertinus
   ];
-  
+
   environment.systemPackages = with pkgs; [
-    git alacritty 
+    git
+    alacritty
   ];
 
 	services.udisks2.enable = true;
 
-  programs.command-not-found.enable = false;
-  
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod"];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.supportedFilesystems = [ "ntfs" ];
 
   hardware = {
@@ -62,11 +63,11 @@
   };
 
   imports = [
-    ../modules/hardware/filesystems.nix
     ../modules/programs/nix.nix
     ../modules/programs/doas.nix
     ../modules/services/systemd-boot.nix
     ../modules/services/syncthing.nix
-    ../modules/services/sound.nix
+    ../modules/hardware/sound.nix
+    ../modules/hardware/filesystems.nix
   ];
 }

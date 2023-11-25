@@ -30,6 +30,8 @@
 
     users.users.syde.packages = with pkgs; [
       networkmanagerapplet
+      grim
+      slurp
     ];
 
   };
