@@ -1,7 +1,7 @@
 { pkgs, lib, ...}:
 
 {
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
   time.timeZone = "Europe/Copenhagen";
 
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -36,7 +36,7 @@
     isNormalUser = true;
     description = "Simon Yde";
     shell = pkgs.fish;
-    extraGroups = [ "video" "networkmanager" "wheel" ];
+    extraGroups = [ "syncthing" "video" "networkmanager" "wheel" ];
   };
 
   programs.fish.enable = true;
@@ -64,6 +64,7 @@
 
   imports = [
     ../modules/programs/nix.nix
+    ../modules/programs/cachix.nix
     ../modules/programs/doas.nix
     ../modules/services/systemd-boot.nix
     ../modules/services/syncthing.nix

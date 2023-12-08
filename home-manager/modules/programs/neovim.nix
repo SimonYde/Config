@@ -1,30 +1,17 @@
 { config, pkgs, ... }:
-let
-  unstablePlugins = pkgs.unstable.vimPlugins;
-in
+
 {
   programs.neovim = {
-    # package = pkgs.unstable.neovim-unwrapped;
     package = pkgs.neovim-nightly;
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
       # -----LSP-----
-      unstablePlugins.nvim-lspconfig
-      unstablePlugins.lspsaga-nvim
+      nvim-lspconfig
+      lspsaga-nvim
       fidget-nvim
 
-      # nvim-cmp # Temporarily disabled due to upstream bug
-      (pkgs.neovimUtils.buildNeovimPlugin {
-        pname = "nvim-cmp";
-        version = "2023-10-25";
-        src = pkgs.fetchFromGitHub {
-          owner = "hrsh7th";
-          repo = "nvim-cmp";
-          rev = "51260c02a8ffded8e16162dcf41a23ec90cfba62";
-          sha256 = "sha256-f+ZpSOhBNHW5SgPFQ1ciJnv5Ntm5tX3CErlvMvREtkA=";
-        };
-      })
+      nvim-cmp
       cmp-cmdline
       lspkind-nvim
       cmp-nvim-lsp
@@ -33,45 +20,44 @@ in
       cmp-nvim-lua
       cmp_luasnip
       luasnip
-      unstablePlugins.friendly-snippets
+      friendly-snippets
       copilot-lua
-      unstablePlugins.neodev-nvim
+      neodev-nvim
 
       # -----Workflow-----
-      unstablePlugins.harpoon # Stable version is broken for Neovim Nightly
-      unstablePlugins.nvim-autopairs
+      harpoon # to have breaking changes
+      nvim-autopairs
       gitsigns-nvim
       neogit
       diffview-nvim
       # undotree
-      # unstablePlugins.mini-nvim
-      (pkgs.vimUtils.buildVimPlugin {
-        pname = "mini.nvim";
-        version = "2023-11-11";
-        src = pkgs.fetchFromGitHub {
-          owner = "echasnovski";
-          repo = "mini.nvim";
-          rev = "f2b89efbbad1943657e43f474fe308fceb63597e";
-          sha256 = "sha256-ZEKMoeG4wxO950UHvYbT/ozH6pDGyMhavK7+Su9Y2Ps=";
-        };
-        meta.homepage = "https://github.com/echasnovski/mini.nvim/";
-      })
-
-
+      mini-nvim
       vim-be-good
 
+
+      (pkgs.vimUtils.buildVimPlugin {
+        pname = "gen-nvim";
+        version = "unstable-2023-11-25";
+        src = pkgs.fetchFromGitHub {
+          owner = "David-Kunz";
+          repo = "gen.nvim";
+          rev = "049ec32f337fac6573221cde4f1dd88fa0b31390";
+          hash = "sha256-ewKmR0KxaRvk6WqGTGC0ewrdFcHdJeVsdpwi6ga9viQ=";
+        };
+      })
+
       # -----Fuzzy Finder-----
-      unstablePlugins.plenary-nvim
-      unstablePlugins.telescope-nvim
+      plenary-nvim
+      telescope-nvim
       telescope-fzf-native-nvim
       git-worktree-nvim
       telescope-undo-nvim
 
       # -----Highlighting-----
-      unstablePlugins.nvim-treesitter.withAllGrammars
-      unstablePlugins.nvim-treesitter-textobjects
-      unstablePlugins.nvim-treesitter-context
-      unstablePlugins.rainbow-delimiters-nvim
+      nvim-treesitter.withAllGrammars
+      nvim-treesitter-textobjects
+      nvim-treesitter-context
+      rainbow-delimiters-nvim
 
       (pkgs.vimUtils.buildVimPlugin {
         pname = "dolphin-vim";
@@ -86,11 +72,11 @@ in
       # -----UI-----
       which-key-nvim
       trouble-nvim
-      unstablePlugins.indent-blankline-nvim
-      unstablePlugins.nvim-web-devicons
+      indent-blankline-nvim
+      nvim-web-devicons
       # nvim-tree-lua
       nui-nvim
-      unstablePlugins.catppuccin-nvim
+      catppuccin-nvim
     ];
     extraLuaConfig = ''
       vim.loader.enable()
@@ -108,9 +94,8 @@ in
           nvimtree = true,
           mini = true,
           treesitter = true,
-          treesitter_context = false, -- is ugly
+          treesitter_context = false, -- is ugly unless transparent_background = true
           rainbow_delimiters = true,
-          fidget = false, -- is ugly
           harpoon = true,
           lsp_saga = true,
           telescope = {

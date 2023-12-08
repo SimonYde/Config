@@ -17,6 +17,8 @@
     gaming.enable = true;
   };
 
+  powerManagement.cpuFreqGovernor = "ondemand";
+
   programs.sway.enable = true;
   services.xserver.windowManager.i3.enable = false;
 

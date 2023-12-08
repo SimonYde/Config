@@ -10,12 +10,12 @@
       # Terminals
       alacritty.enable = true;
       wezterm.enable   = false;
-      kitty.enable     = false;
+      kitty.enable     = true;
 
       thunderbird.enable = false;
       zathura.enable     = true;
       nix-index.enable   = true;
-      vscode.enable      = false;
+      vscode.enable      = true;
     };
 
     services = {

@@ -2,24 +2,15 @@
   description = "NixOS configuration";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     unstable.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
-    nur = {
-      url = "github:nix-community/NUR";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-compat.url = "github:edolstra/flake-compat";
+
+    nur.url = "github:nix-community/NUR";
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "unstable";
-      inputs.flake-utils.follows = "flake-utils";
     };
     helix = {
       url = "github:helix-editor/helix";
@@ -29,11 +20,13 @@
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "unstable";
+      inputs.flake-compat.follows = "flake-compat";
     };
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
@@ -45,6 +38,7 @@
       url = "github:nix-community/nix-ld-rs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
     nix-colors.url = "github:misterio77/nix-colors";
   };
@@ -81,7 +75,7 @@
     {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
-          inputs.nil.packages.${system}.nil
+          nil
           nixpkgs-fmt
           lua-language-server
         ];

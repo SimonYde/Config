@@ -4,7 +4,7 @@
   config = lib.mkIf config.syde.laptop.enable {
     powerManagement = {
       cpuFreqGovernor = lib.mkDefault "powersave";
-      powertop.enable = true;
+      powertop.enable = false;
     };
 
     services.xserver.libinput = {

@@ -29,10 +29,11 @@ local opt = vim.opt
 local o = vim.o
 o.number = true
 o.relativenumber = true
+o.cursorline = false
 
 o.timeoutlen = 300
 
-local tabwidth = 2
+local tabwidth = 4
 o.shiftwidth = tabwidth
 o.tabstop = tabwidth
 o.softtabstop = tabwidth
@@ -49,6 +50,7 @@ o.splitbelow = true
 
 o.swapfile = false
 o.backup = false
+o.writebackup = false
 
 o.undodir = os.getenv("HOME") .. "/.local/state/undodir"
 o.undofile = true
@@ -73,12 +75,15 @@ o.colorcolumn = ""
 o.completeopt = 'menuone,noselect'
 
 
+-- o.listchars = 'tab:▸ ,trail:·,nbsp:␣,extends:❯,precedes:❮'
+-- o.list = true
+
 -- Highlight yanked text
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank {
-      timeout = 100,
+      timeout = 200,
       on_visual = false,
     }
   end,
@@ -86,7 +91,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.o.cursorline = false
 
 local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do

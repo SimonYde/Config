@@ -16,6 +16,7 @@
     ./ripgrep.nix
     ./skim.nix
     ./starship.nix
+    ./yazi.nix
     ./zellij
     ./zoxide.nix
 

@@ -1,7 +1,8 @@
 { pkgs, lib, config, ... }:
 
+let cfg = config.programs.sway; in
 {
-  config = lib.mkIf config.programs.sway.enable {
+  config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
       wlr.enable = true;
@@ -33,8 +34,8 @@
       grim
       slurp
     ];
-
   };
+
   imports = [
     ../services/lightdm.nix
     ../services/gdm.nix

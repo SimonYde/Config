@@ -8,12 +8,13 @@
     inputs.nixos-wsl.nixosModules.default
     inputs.vscode-server.nixosModules.default
     ../modules/programs/nix.nix
+    ../modules/programs/cachix.nix
     ../modules/services/syncthing.nix
     ../modules/programs/doas.nix
   ];
 
   networking.hostName = "icarus";
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
   time.timeZone = "Europe/Copenhagen";
   wsl = {
     enable = true;
@@ -27,7 +28,6 @@
     isNormalUser = true;
     description = "Simon Yde";
     shell = pkgs.fish;
-    uid = 1000;
     extraGroups = [ "video" "networkmanager" "wheel" ];
   };
 

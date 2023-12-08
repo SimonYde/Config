@@ -15,10 +15,11 @@
       eza.enable      = true;
       git.enable      = true;
       lazygit.enable  = true;
-      lf.enable       = true;
+      lf.enable       = false;
       ripgrep.enable  = true;
       skim.enable     = true;
       starship.enable = true;
+      yazi.enable     = true;
       zellij.enable   = true;
       zoxide.enable   = true;
     };
@@ -45,6 +46,8 @@
       pandoc
 
       grawlix
+      pix2tex
+      kattis-cli
       nur.repos.jo1gi.audiobook-dl-git
     ];
 

@@ -12,9 +12,10 @@
             config = pkgs.config;
             system = pkgs.system;
           };
-          i3status-rust    = pkgs.unstable.i3status-rust;
-          xkeyboard-config = pkgs.unstable.xkeyboard-config;
-          grawlix          = pkgs.callPackage ./packages/grawlix.nix { };
+          grawlix = pkgs.callPackage ./packages/grawlix.nix { };
+          pix2tex = pkgs.callPackage ./packages/pix2tex { };
+          kattis-cli = pkgs.callPackage ./packages/kattis-cli.nix { };
+          kattis-test = pkgs.callPackage ./packages/kattis-test.nix { };
         })
       ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
@@ -23,6 +24,8 @@
     nix = {
       package = pkgs.nix;
       extraOptions = "experimental-features = flakes nix-command";
+      settings = {
+      };
     };
   };
 

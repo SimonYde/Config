@@ -19,5 +19,11 @@ in
         file = "Catppuccin-${theme}.tmTheme";
       };
     };
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+      batgrep
+      batwatch
+    ];
   };
 }

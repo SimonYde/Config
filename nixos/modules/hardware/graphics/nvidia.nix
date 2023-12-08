@@ -15,7 +15,7 @@
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    deviceSection = ''Option "TearFree" "true"'';
+    # deviceSection = ''Option "TearFree" "true"'';
   };
   nixpkgs.config.allowUnfree = true;
   hardware.opengl.enable = true;

@@ -2,8 +2,8 @@
 
 {
   programs.vscode = {
-    package = pkgs.unstable.vscodium;
-    extensions = with pkgs.unstable.vscode-extensions; [
+    package = pkgs.vscodium;
+    extensions = with pkgs.vscode-extensions; [
       catppuccin.catppuccin-vsc
       asvetliakov.vscode-neovim
       gruntfuggly.todo-tree
