@@ -36,142 +36,149 @@ end
 
 
 -- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function(_)
-    setup_lsp {
-      name = "elmls",
-      executable = "elm-language-server",
-    }
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function(_)
+setup_lsp {
+  name = "elmls",
+  executable = "elm-language-server",
+}
 
-    setup_lsp {
-      name = "pylsp",
-      settings = {
-        pylsp = {
-          plugins = {
-            black  = { enabled = true  },
-            mypy   = { enabled = true  },
-            ruff   = { enabled = true  },
-          },
-        },
+setup_lsp {
+  name = "pylsp",
+  settings = {
+    pylsp = {
+      plugins = {
+        black = { enabled = true },
+        mypy  = { enabled = true },
+        ruff  = { enabled = true },
       },
-    }
+    },
+  },
+}
 
-    setup_lsp {
-      name = "gopls",
-    }
+setup_lsp {
+  name = "ruby_ls",
+  executable = "ruby-lsp",
+}
 
-    setup_lsp {
-      name = "ocamllsp",
-    }
+setup_lsp {
+  name = "gopls",
+}
 
-    setup_lsp {
-      name = "metals",
-    }
+setup_lsp {
+  name = "ocamllsp",
+}
 
-    setup_lsp {
-      name = "rust_analyzer",
-      executable = "rust-analyzer",
-      settings = {
-        ["rust-analyzer"] = {
-          checkOnSave = {
-            command = "clippy",
-          },
-        },
-      }
-    }
+setup_lsp {
+  name = "metals",
+}
 
-    setup_lsp {
-      name = "lua_ls",
-      executable = "lua-language-server",
-      settings = {
-        Lua = {
-          workspace = { checkThirdParty = false },
-          telemetry = { enable = false },
-        }
-      }
-    }
-
-
-    setup_lsp {
-      name = "texlab",
-      settings = {
-        texlab = {
-          build = {
-            executable = 'tectonic',
-            args = {
-              "-X",
-              "compile",
-              "%f",
-              "--synctex",
-              "--keep-logs",
-              "--keep-intermediates",
-            },
-            onSave = true,
-            forwardSearchAfter = true,
-          },
-          -- forwardSearch = {
-          -- executable = "zathura",
-          -- args = {
-          --   "--synctex-forward",
-          --   "%l:%c:%f",
-          --   "%p",
-          -- },
-          -- },
-        },
-      }
-    }
-
-    setup_lsp {
-      name = "nil_ls",
-      executable = "nil",
-      settings = {
-        ['nil'] = {
-          formatting = {
-            command = { "nixpkgs-fmt" },
-          },
-          autoArchive = true,
-        },
-      }
-    }
-
-    setup_lsp {
-      name = "typst_lsp",
-      executable = "typst-lsp",
-      settings = {
-        exportPdf = "onSave",         -- Choose onType, onSave or never.
-      }
-    }
-
-    setup_lsp({
-      name = "ltex",
-      executable = "ltex-ls",
-      settings = {
-        ltex = {
-          language = "da-DK",
-        },
+setup_lsp {
+  name = "rust_analyzer",
+  executable = "rust-analyzer",
+  settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = {
+        command = "clippy",
       },
-      on_attach = function(_)
-        local ltex_extra = vim.F.npcall(require, 'ltex_extra')
-        if ltex_extra then
-          ltex_extra.setup {
-            load_langs = { "en-US", "en-GB", "da-DK" },
-            init_check = true,
-            path = vim.fn.expand("~") .. "/.local/share/ltex",
-            log_level = "none",
-          }
-        end
-      end
-    })
+    },
+  }
+}
 
+setup_lsp {
+  name = "lua_ls",
+  executable = "lua-language-server",
+  settings = {
+    Lua = {
+      workspace = { checkThirdParty = false },
+      telemetry = { enable = false },
+    }
+  }
+}
+
+
+setup_lsp {
+  name = "texlab",
+  settings = {
+    texlab = {
+      build = {
+        executable = 'tectonic',
+        args = {
+          "-X",
+          "compile",
+          "%f",
+          "--synctex",
+          "--keep-logs",
+          "--keep-intermediates",
+        },
+        onSave = true,
+        forwardSearchAfter = true,
+      },
+      -- forwardSearch = {
+      -- executable = "zathura",
+      -- args = {
+      --   "--synctex-forward",
+      --   "%l:%c:%f",
+      --   "%p",
+      -- },
+      -- },
+    },
+  }
+}
+
+setup_lsp {
+  name = "nil_ls",
+  executable = "nil",
+  settings = {
+    ['nil'] = {
+      formatting = {
+        command = { "nixpkgs-fmt" },
+      },
+      autoArchive = true,
+    },
+  }
+}
+
+setup_lsp {
+  name = "typst_lsp",
+  executable = "typst-lsp",
+  settings = {
+    exportPdf = "onSave", -- Choose onType, onSave or never.
+  }
+}
+
+setup_lsp({
+  name = "ltex",
+  executable = "ltex-ls",
+  settings = {
+    ltex = {
+      language = "da-DK",
+    },
+  },
+  on_attach = function(_)
+    local ltex_extra = vim.F.npcall(require, 'ltex_extra')
+    if ltex_extra then
+      ltex_extra.setup {
+        load_langs = { "en-US", "en-GB", "da-DK" },
+        init_check = true,
+        path = vim.fn.expand("~") .. "/.local/share/ltex",
+        log_level = "none",
+      }
+    end
+  end
+})
+--   end,
+-- })
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+  callback = function()
     local copilot = vim.F.npcall(require, 'copilot')
     if copilot then
-      if vim.fn.executable('node') == 1 then
-        copilot.setup {
-          suggestion = {
-            auto_trigger = true,
-          },
-        }
-      end
+      copilot.setup {
+        suggestion = {
+          auto_trigger = true,
+        },
+      }
     end
   end,
 })
@@ -185,17 +192,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
     local fidget = vim.F.npcall(require, 'fidget')
     if fidget then
       fidget.setup {
-        text = {
-          spinner = "moon",
-          -- done = "",
+        progress = {
+          display = {
+            progress_icon = {
+              pattern = "moon", period = 1,
+            },
+          },
         },
-        align = {
-          bottom = true,
-        },
-        window = {
-          blend = 0,
-          relative = "editor",
-        },
+        notification = {
+          window = {
+            winblend = 0,
+            relative = "editor",
+            -- align = "bottom",
+          },
+        }
       }
     end
     local lspsaga = vim.F.npcall(require, 'lspsaga')
@@ -203,7 +213,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local nmap = require('syde.keymap').nmap
       lspsaga.setup {
         symbol_in_winbar = {
-          enable = false,
+          enable = true,
         },
         code_action_prompt = {
           enable = false,

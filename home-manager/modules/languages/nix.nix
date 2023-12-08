@@ -2,7 +2,8 @@
 {
   config = lib.mkIf config.syde.programming.nix.enable {
     home.packages = with pkgs; [
-      inputs.nil.packages.x86_64-linux.nil
+      # inputs.nil.packages.x86_64-linux.nil
+      nil
       nixpkgs-fmt
     ];
   };

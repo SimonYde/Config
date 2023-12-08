@@ -9,6 +9,7 @@
     settings = {
       add_newline = false;
       format = "$directory$nix_shell$git_branch$line_break$character";
+      right_format = "$cmd_duration$rust$elm";
       character = {
         success_symbol = "[⟩](normal white)";
         error_symbol = "[⟩](bold red)";

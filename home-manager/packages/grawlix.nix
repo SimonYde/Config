@@ -4,13 +4,13 @@ with pkgs.python3Packages;
 
 buildPythonApplication rec {
   pname = "grawlix";
-  version = "84dce7c";
+  version = "8016a29e7e54b9e7546d13444ebecb17bf1d387c";
 
   src = fetchFromGitHub {
     owner = "jo1gi";
     repo = pname;
     rev = version;
-    sha256 = "sha256-PMdaIzWsydJVOySuOvjucrqppTJRo/2CMS0JT4GfoKY=";
+    sha256 = "sha256-X/WkO3Zsxrfb2+zBB1UeOq6KUsc8Fxa9fSVVTox6VEw=";
   };
 
   propagatedBuildInputs = [

@@ -20,7 +20,7 @@
 
     services.xserver = {
       videoDrivers = [ "amdgpu" ];
-      deviceSection = ''Option "TearFree" "true"'';
+      # deviceSection = ''Option "TearFree" "true"'';
     };
   };
 }

@@ -46,8 +46,8 @@ end, "Toggle COLEMAK")
 
 nmap("U", "<C-r>", "redo")
 
-vmap("K", ":m'<-2<CR>gv=gv", "Move selection up")
-vmap("J", ":m'>+1<CR>gv=gv", "Move selection down")
+-- vmap("K", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
+-- vmap("J", ":m'>+1<CR>gv=gv", "Move selection down")
 
 nmap("J", "mzJ`z", "Join following line with current")
 nmap("<C-d>", "<C-d>zz", "Move down half page")
@@ -73,13 +73,13 @@ nmap("<leader>d", vim.diagnostic.open_float, "hover [d]iagnostics")
 nmap("gd", vim.lsp.buf.definition, "Goto Definition")
 nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
 nmap("gr", vim.lsp.buf.references, "Goto References")
+nmap("gF", "<cmd>:e <cfile><CR>", "Goto [F]ile (even if doesn't exist)")
 
 
 nmap("<leader>x", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Search and replace in buffer")
 tmap("<leader><Esc>", [[<C-\><C-n>]], "Exit terminal mode")
 
-nmap("<leader><leader>h", vim.cmd.nohlsearch, "Clear [h]ighlights")
+-- nmap("<leader><leader>h", vim.cmd.nohlsearch, "Clear [h]ighlights")
 
--- Close quickfix list
-
+-- Toggle Quickfix
 nmap("<leader>q", vim.cmd.cclose, "Close [q]uickfix list")

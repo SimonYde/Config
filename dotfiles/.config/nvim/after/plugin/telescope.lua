@@ -85,6 +85,8 @@ if telescope then
   nmap("<leader>F", builtin.git_files, "Git [F]iles")
   nmap("<leader>fh", builtin.help_tags, "fuzzy search [h]elp tags")
   nmap("<leader>fg", builtin.live_grep, "file search with [g]rep")
+  nmap("<leader>fs", builtin.lsp_document_symbols, "LSP document [s]ymbols")
+  nmap("<leader>fw", builtin.lsp_dynamic_workspace_symbols, "LSP workspace [s]ymbols")
   nmap("<leader>/", builtin.live_grep, "Global search with grep")
   -- nmap("gr", builtin.lsp_references, "Goto References")
   -- nmap("gi", builtin.lsp_implementations, "Goto [i]mplementations")
