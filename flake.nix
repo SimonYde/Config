@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "unstable";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "unstable";
@@ -41,6 +46,10 @@
       inputs.flake-compat.follows = "flake-compat";
     };
     nix-colors.url = "github:misterio77/nix-colors";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, flake-utils, ... }@inputs: {
@@ -75,7 +84,9 @@
     {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
-          nil
+          inputs.nil.packages.${system}.default
+          # nixd
+          # nil
           nixpkgs-fmt
           lua-language-server
         ];

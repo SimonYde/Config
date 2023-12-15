@@ -9,7 +9,7 @@ let cfg = config.syde.programming; in
       neovim.enable = true;
 
       # Other
-      opam.enable = true;
+      opam.enable = false;
     };
 
     syde.programming = {

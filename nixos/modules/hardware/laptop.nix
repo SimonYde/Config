@@ -24,6 +24,6 @@
   };
 
   options.syde.laptop =  {
-    enable = lib.mkEnableOption "Laptop configuration"; 
+    enable = lib.mkEnableOption "laptop hardware configuration.";
   };
 }

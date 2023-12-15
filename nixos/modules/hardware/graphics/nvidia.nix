@@ -1,22 +1,36 @@
-{ config, ... }:
+{ config, lib, ... }:
 
+let cfg = config.syde.hardware.nvidia; in
 {
-  boot.initrd.kernelModules = [ "nvidia" ];
-  boot.blacklistedKernelModules = [ "nouveau" ];
+  config = lib.mkIf cfg.enable {
+    boot.initrd.kernelModules = [ "nvidia" ];
+    boot.blacklistedKernelModules = [ "nouveau" ];
 
-  hardware.nvidia = {
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    modesetting.enable = true;
-    open = true;
-    nvidiaSettings = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    hardware.nvidia = {
+      powerManagement.enable = true;
+      powerManagement.finegrained = true;
+      modesetting.enable = true;
+      open = false;
+      nvidiaSettings = false;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+
+    services.xserver = {
+      videoDrivers = [ "nvidia" ];
+      # deviceSection = ''Option "TearFree" "true"'';
+    };
+    nixpkgs.config.allowUnfree = true;
+    hardware.opengl.enable = true;
+
+    environment.sessionVariables = {
+      # LIBVA_DRIVER_NAME = "nvidia";
+      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      # __GL_VRR_ALLOWED = "1";
+      # WLR_DRM_NO_ATOMIC = "1";
+    };
   };
 
-  services.xserver = {
-    videoDrivers = [ "nvidia" ];
-    # deviceSection = ''Option "TearFree" "true"'';
+  options.syde.hardware.nvidia = {
+    enable = lib.mkEnableOption "Enable Nvidia drivers";
   };
-  nixpkgs.config.allowUnfree = true;
-  hardware.opengl.enable = true;
 }

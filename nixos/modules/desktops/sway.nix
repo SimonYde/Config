@@ -20,12 +20,14 @@ let cfg = config.programs.sway; in
       extraOptions = [ "--unsupported-gpu" ];
     };
 
+    services.dbus.enable = true;
+
     services.xserver = {
       enable = true;
       displayManager = {
         defaultSession = "sway";
-        lightdm.enable = true;
-        # gdm.enable = true;
+        lightdm.enable = false; # Just to autostart sway
+        gdm.enable = false;
       };
     };
 

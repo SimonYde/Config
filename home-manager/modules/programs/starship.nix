@@ -9,7 +9,7 @@
     settings = {
       add_newline = false;
       format = "$directory$nix_shell$git_branch$line_break$character";
-      right_format = "$cmd_duration$rust$elm";
+      right_format = "$cmd_duration$rust$elm$golang$ocaml";
       character = {
         success_symbol = "[⟩](normal white)";
         error_symbol = "[⟩](bold red)";
@@ -26,6 +26,14 @@
         symbol = " ";
         unknown_msg = "nix shell";
         heuristic = false;
+      };
+      golang = {
+        symbol = " ";
+        style = "bold cyan";
+      };
+      elm = {
+        symbol = " ";
+        style = "bold cyan";
       };
     };
   };

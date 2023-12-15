@@ -25,10 +25,11 @@ let cfg = config.syde.email; in
           port = 1025;
           tls.useStartTls = true;
         };
-        thunderbird.enable = config.programs.thunderbird.enable;
+        thunderbird.enable = true;
       };
     };
     programs.thunderbird = {
+      enable = true;
       profiles.simonyde.isDefault = true;
       package = pkgs.unstable.thunderbird;
       settings = {

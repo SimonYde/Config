@@ -5,6 +5,7 @@
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../modules/desktops/sway.nix
     ../modules/desktops/i3.nix
+    ../modules/desktops/hyprland.nix
     ../modules/gaming.nix
     ../modules/pc.nix
     ../modules/hardware/laptop.nix
@@ -15,18 +16,24 @@
   syde = {
     laptop.enable = true;
     gaming.enable = true;
+    hardware = {
+      nvidia.enable = true;
+    };
   };
 
   powerManagement.cpuFreqGovernor = "ondemand";
 
-  programs.sway.enable = true;
+  programs.sway.enable     = false;
+  programs.hyprland.enable = true;
   services.xserver.windowManager.i3.enable = false;
+
+  console.useXkbConfig = true;
 
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {
     wg0 = {
-      autostart = false;
+      autostart = true;
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
       privateKeyFile = "/home/syde/.secrets/wireguard.key";

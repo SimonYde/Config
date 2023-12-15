@@ -140,6 +140,10 @@ setup_lsp {
 }
 
 setup_lsp {
+    name = "nixd",
+}
+
+setup_lsp {
   name = "typst_lsp",
   executable = "typst-lsp",
   settings = {

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
-sudo sleep 0.1
-echo disk | sudo tee /sys/power/state
+swaylock && systemctl suspend
 
+# #!/usr/bin/env bash
+# sudo sleep 0.1
+# echo disk | sudo tee /sys/power/state
