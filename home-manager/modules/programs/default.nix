@@ -28,12 +28,17 @@
     # ---GUI programs---
     ./brave.nix
     ./firefox
+    ./i3status-rust.nix
+    ./rofi
+    ./swaylock.nix
     ./vscode.nix
+    ./waybar.nix
     ./zathura.nix
 
     # ---Shells---
     ./fish.nix
     ./nushell.nix
     ./zsh.nix
+
   ];
 }

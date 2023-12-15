@@ -142,6 +142,7 @@
         ublock-origin
         cookie-autodelete
         istilldontcareaboutcookies
+        user-agent-string-switcher
         darkreader
         enhancer-for-youtube
         sponsorblock

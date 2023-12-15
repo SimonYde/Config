@@ -3,4 +3,4 @@ local tabwidth = 4
 bo.shiftwidth = tabwidth
 bo.tabstop = tabwidth
 bo.softtabstop = tabwidth
-bo.expandtab = false
+bo.expandtab = true

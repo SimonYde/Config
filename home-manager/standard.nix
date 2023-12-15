@@ -12,9 +12,9 @@
             config = pkgs.config;
             system = pkgs.system;
           };
-          grawlix = pkgs.callPackage ./packages/grawlix.nix { };
-          pix2tex = pkgs.callPackage ./packages/pix2tex { };
-          kattis-cli = pkgs.callPackage ./packages/kattis-cli.nix { };
+          grawlix     = pkgs.callPackage ./packages/grawlix.nix { };
+          pix2tex     = pkgs.callPackage ./packages/pix2tex { };
+          kattis-cli  = pkgs.callPackage ./packages/kattis-cli.nix { };
           kattis-test = pkgs.callPackage ./packages/kattis-test.nix { };
         })
       ];
@@ -24,8 +24,6 @@
     nix = {
       package = pkgs.nix;
       extraOptions = "experimental-features = flakes nix-command";
-      settings = {
-      };
     };
   };
 
@@ -33,6 +31,10 @@
     unfreePredicates = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
+    };
+    browser = lib.mkOption {
+      type = lib.types.enum [ "firefox" "brave" ];
+      default = "firefox";
     };
   };
 

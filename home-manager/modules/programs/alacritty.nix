@@ -2,8 +2,9 @@
 
 let
   theme = config.themes.flavour;
-  font = config.syde.terminal.font;
-  fontSize = config.syde.terminal.fontSize;
+  terminal = config.syde.terminal;
+  font = terminal.font;
+  fontSize = terminal.fontSize;
 in
 {
   config = {
@@ -19,7 +20,7 @@ in
             } + "/catppuccin-${theme}.yml")
         ];
         window = {
-          # opacity = 0.85;
+          opacity = terminal.opacity;
           dynamic_title = true;
         };
         font = {
@@ -43,7 +44,7 @@ in
         };
         cursor = {
           style = {
-            shape = "Beam";
+            shape = terminal.cursor;
             blinking = "Off";
           };
         };

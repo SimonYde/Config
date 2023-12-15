@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 
+let emulator = config.syde.terminal.emulator; in
 {
   config = {
     programs = {
@@ -8,19 +9,18 @@
       firefox.enable = true;
 
       # Terminals
-      alacritty.enable = true;
-      wezterm.enable   = false;
-      kitty.enable     = true;
+      alacritty.enable = emulator == "alacritty";
+      wezterm.enable   = emulator == "wezterm";
+      kitty.enable     = emulator == "kitty";
 
-      thunderbird.enable = false;
-      zathura.enable     = true;
-      nix-index.enable   = true;
-      vscode.enable      = true;
+      nix-index.enable = true;
+      vscode.enable    = true;
+      zathura.enable   = true;
     };
 
     services = {
-      redshift.enable  = false;
       gammastep.enable = true;
+      redshift.enable  = false;
     };
 
     fonts.fontconfig.enable = true;
@@ -35,10 +35,12 @@
 
     xsession.enable = false;
     xsession.windowManager.i3.enable  = false;
-    wayland.windowManager.sway.enable = true;
+    wayland.windowManager.sway.enable = false;
+    wayland.windowManager.hyprland.enable = true;
 
     home.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
+      font-awesome
       unstable.obsidian
       libqalculate
       wl-clipboard
@@ -46,7 +48,8 @@
       libreoffice
       discord
       rclone
-      gnome.nautilus
+      # gnome.nautilus
+      xfce.thunar
       keepassxc
     ];
 

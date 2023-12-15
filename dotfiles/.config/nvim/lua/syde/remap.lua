@@ -19,29 +19,32 @@ nmap("<C-w>i", "<C-w>l", "Go to the right window")
 
 local COLEMAK = false
 local function colemak_toggle()
-  if not COLEMAK then
-    vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
-    -- vim.opt.langmap = "jh,hk,kj"
-    vim.opt.langremap = false
-    map({ "n", "v" }, "gm", "^", "Goto first non-blank in line")
-    map({ "n", "v" }, "gs", "0", "Goto line start")
-    map({ "n", "v" }, "gl", "$", "Goto line end")
-    nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
-    COLEMAK = true
-  else
-    vim.opt.langmap = ""
-    map({ "n", "v" }, "gh", "^", "Goto first non-blank in line")
-    map({ "n", "v" }, "gs", "0", "Goto line start")
-    map({ "n", "v" }, "gl", "$", "Goto line end")
-    nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
-    COLEMAK = false
-  end
+    if not COLEMAK then
+        vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
+        -- vim.opt.langmap = "jh,hk,kj"
+        vim.opt.langremap = false
+        map({ "n", "v" }, "gm", "^", "Goto first non-blank in line")
+        map({ "n", "v" }, "gs", "0", "Goto line start")
+        map({ "n", "v" }, "gl", "$", "Goto line end")
+
+        map({ "n", "v" }, "x", "xhl", "Delete character under cursor") -- x messes up with langmap
+        map({ "n", "v" }, "X", "Xhl", "Delete character before cursor") -- X messes up with langmap
+        -- nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
+        COLEMAK = true
+    else
+        vim.opt.langmap = ""
+        map({ "n", "v" }, "gh", "^", "Goto first non-blank in line")
+        map({ "n", "v" }, "gs", "0", "Goto line start")
+        map({ "n", "v" }, "gl", "$", "Goto line end")
+        -- nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
+        COLEMAK = false
+    end
 end
 colemak_toggle()
 
 nmap("<leader><leader>q", function()
-  colemak_toggle()
-  print("COLEMAK", COLEMAK)
+    colemak_toggle()
+    print("COLEMAK", COLEMAK)
 end, "Toggle COLEMAK")
 
 nmap("U", "<C-r>", "redo")
