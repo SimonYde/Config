@@ -102,7 +102,12 @@ local MiniPick = vim.F.npcall(require, 'mini.pick')
 if MiniPick then
     MiniExtra = require('mini.extra')
     MiniExtra.setup {}
-    MiniPick.setup {}
+    MiniPick.setup {
+        mappings = {
+            refine = "<C-q>",
+            refine_marked = "<M-q>",
+        }
+    }
 
     nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
     nmap("<leader>b", MiniPick.builtin.buffers, "Pick [b]uffers")
