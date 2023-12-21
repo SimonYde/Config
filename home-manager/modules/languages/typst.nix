@@ -3,7 +3,7 @@
 {
   config = lib.mkIf config.syde.programming.typst.enable {
     home.packages = with pkgs; [
-      unstable.typst-lsp
+      stable.typst-lsp
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [

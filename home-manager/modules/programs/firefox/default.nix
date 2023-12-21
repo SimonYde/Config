@@ -53,6 +53,16 @@
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "!np" ];
           };
+          "NixOS Options" = {
+            urls = [{
+              template = "https://search.nixos.org/options";
+              params = [
+                { name = "query"; value = "{searchTerms}"; }
+              ];
+            }];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "!no" ];
+          };
           "NixOS Wiki" = {
             urls = [{
               template = "https://nixos.wiki/index.php";
@@ -155,7 +165,7 @@
         stylus
         firefox-color
 
-        bypass-paywalls-clean
+        # bypass-paywalls-clean
         # readwise-highlighter # doesn't exist yet
       ];
       userChrome = builtins.readFile ./userChrome.css;
