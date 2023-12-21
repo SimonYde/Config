@@ -27,8 +27,8 @@ local function colemak_toggle()
         map({ "n", "v" }, "gs", "0", "Goto line start")
         map({ "n", "v" }, "gl", "$", "Goto line end")
 
-        map({ "n", "v" }, "x", "xhl", "Delete character under cursor") -- x messes up with langmap
-        map({ "n", "v" }, "X", "Xhl", "Delete character before cursor") -- X messes up with langmap
+        map({ "n", "v" }, "x", "x<Esc>", "Delete character under cursor") -- x messes up with langmap
+        map({ "n", "v" }, "X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
         -- nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
         COLEMAK = true
     else

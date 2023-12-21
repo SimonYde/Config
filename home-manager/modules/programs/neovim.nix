@@ -25,7 +25,7 @@
       neodev-nvim
 
       # -----Workflow-----
-      harpoon # to have breaking changes
+      harpoon2
       nvim-autopairs
       gitsigns-nvim
       neogit
@@ -33,17 +33,6 @@
       # undotree
       mini-nvim
       vim-be-good
-
-      (pkgs.vimUtils.buildVimPlugin {
-        pname = "gen-nvim";
-        version = "unstable-2023-11-25";
-        src = pkgs.fetchFromGitHub {
-          owner = "David-Kunz";
-          repo = "gen.nvim";
-          rev = "049ec32f337fac6573221cde4f1dd88fa0b31390";
-          hash = "sha256-ewKmR0KxaRvk6WqGTGC0ewrdFcHdJeVsdpwi6ga9viQ=";
-        };
-      })
 
       # -----Fuzzy Finder-----
       plenary-nvim
@@ -81,7 +70,7 @@
       vim.loader.enable()
       require('syde')
       require("catppuccin").setup {
-        flavour = "${config.themes.flavour}",
+        flavour = "${config.syde.theming.flavour}",
         transparent_background = true,
         integrations = {
           indent_blankline = {
