@@ -14,7 +14,7 @@ let emulator = config.syde.terminal.emulator; in
       kitty.enable     = emulator == "kitty";
 
       nix-index.enable = true;
-      vscode.enable    = true;
+      vscode.enable    = false;
       zathura.enable   = true;
     };
 
@@ -46,10 +46,15 @@ let emulator = config.syde.terminal.emulator; in
       wl-clipboard
       # synergy
       libreoffice
+
       discord
+      betterdiscordctl
+
       rclone
-      # gnome.nautilus
+      gnome.nautilus
       xfce.thunar
+
+      floorp
       keepassxc
     ];
 
@@ -59,9 +64,9 @@ let emulator = config.syde.terminal.emulator; in
       "obsidian"
     ];
 
-    home.pointerCursor = {
-      name    = config.themes.cursorTheme.name;
-      package = config.themes.cursorTheme.package;
+    home.pointerCursor = let cursorTheme = config.syde.theming.cursorTheme; in {
+      name    = cursorTheme.name;
+      package = cursorTheme.package;
       size    = 24;
       gtk.enable = config.gtk.enable;
     };

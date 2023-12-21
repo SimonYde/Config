@@ -12,6 +12,10 @@
             config = pkgs.config;
             system = pkgs.system;
           };
+          stable = import inputs.stable {
+            config = pkgs.config;
+            system = pkgs.system;
+          };
           grawlix     = pkgs.callPackage ./packages/grawlix.nix { };
           pix2tex     = pkgs.callPackage ./packages/pix2tex { };
           kattis-cli  = pkgs.callPackage ./packages/kattis-cli.nix { };
@@ -19,6 +23,9 @@
         })
       ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
+      config.permittedInsecurePackages = [
+        "electron-25.9.0"
+      ];
     };
 
     nix = {
@@ -33,8 +40,8 @@
       default = [ ];
     };
     browser = lib.mkOption {
-      type = lib.types.enum [ "firefox" "brave" ];
-      default = "firefox";
+      type = lib.types.enum [ "firefox" "brave" "floorp" ];
+      default = "floorp";
     };
   };
 
