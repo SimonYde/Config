@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  theme = config.themes.flavour;
+  theme = config.syde.theming.flavour;
 in
 {
   programs.bat = {

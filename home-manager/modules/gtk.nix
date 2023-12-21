@@ -1,8 +1,7 @@
 { config, pkgs, lib, ... }:
 let
-  themes = config.themes;
-  flavour = themes.flavour;
-  prefer-dark = themes.prefer-dark;
+  theming = config.syde.theming;
+  prefer-dark = theming.prefer-dark;
   cfg = config.gtk;
 in
 {
@@ -12,19 +11,15 @@ in
         configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
       };
       iconTheme = {
-        name = "Papirus";
+        name = if prefer-dark then "Papirus-Dark" else "Papirus";
         package = pkgs.papirus-icon-theme;
-        # package = pkgs.papirus-icon-theme.override {
-        #   papirus-folders = pkgs.catppuccin-papirus-folders.override {
-        #     accent = "lavender";
-        #     flavor = flavour;
-        #   };
-        # };
       };
       theme = {
         name =
-          if prefer-dark then themes.gtk.darkTheme else themes.gtk.lightTheme;
-        package = themes.gtk.package;
+          if prefer-dark
+          then theming.gtk.darkTheme
+          else theming.gtk.lightTheme;
+        package = theming.gtk.package;
       };
       gtk3 = {
         extraConfig = {

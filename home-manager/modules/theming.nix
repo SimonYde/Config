@@ -1,7 +1,7 @@
 { inputs, lib, config, pkgs, ... }:
 let
   nix-colors = inputs.nix-colors;
-  cfg = config.themes;
+  cfg = config.syde.theming;
 in
 {
   imports = [
@@ -10,10 +10,10 @@ in
 
   config.colorScheme = nix-colors.colorSchemes."catppuccin-${cfg.flavour}";
 
-  options.themes = {
+  options.syde.theming = {
     flavour = lib.mkOption {
       type    = lib.types.str;
-      default = if config.themes.prefer-dark then "mocha" else "latte";
+      default = if cfg.prefer-dark then "mocha" else "latte";
     };
     prefer-dark = lib.mkOption {
       type    = lib.types.bool;

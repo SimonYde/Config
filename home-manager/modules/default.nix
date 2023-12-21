@@ -6,7 +6,7 @@
     ./gtk.nix
     ./qt.nix
     ./ssh.nix
-    ./themes.nix
+    ./theming.nix
 
     ./programs
     ./desktops

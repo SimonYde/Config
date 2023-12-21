@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  theme = config.themes;
+  theming = config.syde.theming;
   cfg = config.services.xserver.displayManager.lightdm;
 in
 {
@@ -15,12 +15,12 @@ in
         gtk = {
           enable = true;
           theme = {
-            name = if theme.prefer-dark then theme.gtk.darkTheme else theme.gtk.lightTheme;
-            package = theme.gtk.package;
+            name = if theming.prefer-dark then theming.gtk.darkTheme else theming.gtk.lightTheme;
+            package = theming.gtk.package;
           };
           cursorTheme = {
-            name = theme.cursorTheme.name;
-            package = theme.cursorTheme.package;
+            name = theming.cursorTheme.name;
+            package = theming.cursorTheme.package;
           };
         };
       };

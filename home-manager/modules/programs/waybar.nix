@@ -36,67 +36,67 @@ in
           "clock"
         ];
         disk = {
-          "format" = "{free} ";
-          "path" = "/";
+          format = "{free} ";
+          path = "/";
         };
         memory = {
-          "format" = "{}% 󰍛";
+          format = "{}% 󰍛";
         };
         cpu = {
-          "format" = "{usage}% ";
-          "tooltip" = false;
+          format = "{usage}% ";
+          tooltip = false;
         };
         tray = {
           # icon-size = 20;
           spacing = 10;
         };
         "sway/mode" = {
-          "format" = "<span style=\"italic\">{}</span>";
+          format = "<span style=\"italic\">{}</span>";
         };
         "hyprland/submap" = {
-          "format" = "<span style=\"italic\">{}</span>";
+          format = "<span style=\"italic\">{}</span>";
         };
         network = {
           # "interface" = "wlp2*"; # (Optional) To force the use of this interface
-          "format-wifi" = "{essid} ({signalStrength}%) ";
-          "format-ethernet" = "{ipaddr}/{cidr} 󰈀";
-          "tooltip-format" = "{ifname} via {gwaddr} 󰈀";
-          "format-linked" = "{ifname} (No IP) 󰈀";
-          "format-disconnected" = "Disconnected ⚠";
-          "format-alt" = "{ifname}: {ipaddr}/{cidr}";
+          format-wifi = "{essid} ({signalStrength}%) ";
+          format-ethernet = "{ipaddr}/{cidr} 󰈀";
+          tooltip-format = "{ifname} via {gwaddr} 󰈀";
+          format-linked = "{ifname} (No IP) 󰈀";
+          format-disconnected = "Disconnected ⚠";
+          format-alt = "{ifname}: {ipaddr}/{cidr}";
         };
         battery = {
-          "states" = {
-            "good" = 80;
-            "warning" = 30;
-            "critical" = 15;
+          states = {
+            good = 80;
+            warning = 30;
+            critical = 15;
           };
 
-          "format" = "{capacity}% {icon}";
-          "format-charging" = "{capacity}% ";
-          "format-plugged" = "{capacity}% ";
-          "format-alt" = "{time} {icon}";
-          "format-icons" = [ "" "" "" "" "" ];
+          format = "{capacity}% {icon}";
+          format-charging = "{capacity}% ";
+          format-plugged = "{capacity}% ";
+          format-alt = "{time} {icon}";
+          format-icons = [ "" "" "" "" "" ];
         };
         pulseaudio = {
-          "scroll-step" = 10; # %, can be a float
-          "format" = "{volume}% {icon} {format_source}";
-          "format-muted" = "󰝟 {format_source}";
-          "format-bluetooth" = "{volume}% {icon} {format_source}";
-          "format-bluetooth-muted" = "󰝟 {icon} {format_source}";
-          "format-source" = "{volume}% ";
-          "format-source-muted" = "";
+          scroll-step = 10; # %, can be a float
+          format = "{volume}% {icon} {format_source}";
+          format-muted = "󰝟 {format_source}";
+          format-bluetooth = "{volume}% {icon} {format_source}";
+          format-bluetooth-muted = "󰝟 {icon} {format_source}";
+          format-source = "{volume}% ";
+          format-source-muted = "";
 
-          "format-icons" = {
-            "headphone" = "";
-            "hands-free" = "";
-            "headset" = "";
-            "phone" = "";
-            "portable" = "";
-            "car" = "";
-            "default" = [ "" "" "" ];
+          format-icons = {
+            headphone = "";
+            hands-free = "";
+            headset = "";
+            phone = "";
+            portable = "";
+            car = "";
+            default = [ "" "" "" ];
           };
-          "on-click" = "pavucontrol";
+          on-click = "pavucontrol";
         };
       };
     };
