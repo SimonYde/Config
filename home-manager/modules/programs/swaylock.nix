@@ -30,7 +30,7 @@ in
       inside-color         = "${colors.base00}";
       inside-ver-color     = "${colors.base00}";
       inside-wrong-color   = "${colors.base00}";
-      key-hl-color         = "${colors.base0D}";
+      key-hl-color         = "${colors.base06}";
       line-clear-color     = "${colors.base00}";
       line-color           = "${colors.base00}";
       line-ver-color       = "${colors.base0D}";

@@ -21,6 +21,7 @@
     layout = "us";
     xkbVariant = "colemak_dh";
     xkbOptions = "caps:escape";
+    excludePackages = [ pkgs.xterm ];
   };
 
   networking = {
