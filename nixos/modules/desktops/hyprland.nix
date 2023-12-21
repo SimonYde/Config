@@ -30,6 +30,10 @@ let cfg = config.programs.hyprland; in
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     };
+
+    environment.systemPackages = with pkgs; [
+      qt6.qtwayland
+    ];
   };
 
   imports = [
