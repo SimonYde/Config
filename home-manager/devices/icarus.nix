@@ -2,7 +2,6 @@
 {
   programs = {
     zathura.enable = true;
-    nix-index.enable = true;
   };
 
   syde.ssh.enable = true;
@@ -14,6 +13,7 @@
     libqalculate
     rclone
     keepassxc
+    xfce.thunar
     wl-clipboard
   ];
 

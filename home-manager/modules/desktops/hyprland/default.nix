@@ -21,7 +21,11 @@ in
       };
     };
 
-    services.dunst.enable = true;
+    services = {
+      dunst.enable = true;
+      # network-manager-applet.enable = true;
+      # blueman-applet.enable = true;
+    };
 
     wayland.windowManager.hyprland = {
       settings = {
@@ -33,12 +37,24 @@ in
           "col.inactive_border" = "transparent"; # "rgba(${base00}d9)";
           layout = "dwindle";
           resize_on_border = true;
+          allow_tearing = true; # For gaming. Set windowrule `immediate` for games to enable.
         };
-        input = {
+
+        "device:msft0001:00-06cb:ce2d-touchpad" = {
+          accel_profile = "adaptive";
+        };
+
+        "device:zsa-technology-labs-moonlander-mark-i" = {
           kb_layout = "us";
-          kb_variant = "colemak_dh";
+        };
+        # "device:zsa-technology-labs-moonlander-mark-i-keyboard" = {
+        #   kb_layout = "us";
+        # };
+        input = {
+          kb_layout = "us(colemak_dh),dk";
           kb_options = "caps:escape,grp:rctrl_toggle";
           follow_mouse = 2;
+          accel_profile = "flat";
           touchpad = {
             natural_scroll = true;
           };
@@ -77,7 +93,11 @@ in
           ];
         };
 
-        monitor = "eDP-1, 1920x1080, auto, 1";
+        monitor = [
+          "eDP-1, 1920x1080, 0x0, 1"
+          "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x1080, 1"
+        ];
+
         "$browser" = browser;
         "$menu" = menu;
         "$terminal" = terminal.emulator;
@@ -96,15 +116,19 @@ in
     };
 
     home.packages = with pkgs; [
-      swww
-      playerctl
+      swww # wallpaper manager
+      playerctl # media keys
+      pamixer # volume keys
       networkmanagerapplet
-      pamixer
 
-      pavucontrol
-      xfce.thunar
+      pavucontrol # audio control
 
-      grimblast
+      xfce.thunar # file manager
+      grimblast # screenshot tool
+      wl-clipboard # clipboard manager
+      hyprpicker # color picker
+      imv # image viewer
+      mpv # Video player
     ];
   };
 

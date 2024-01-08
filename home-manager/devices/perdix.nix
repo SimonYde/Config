@@ -9,11 +9,8 @@ let emulator = config.syde.terminal.emulator; in
       firefox.enable = true;
 
       # Terminals
-      alacritty.enable = emulator == "alacritty";
-      wezterm.enable   = emulator == "wezterm";
-      kitty.enable     = emulator == "kitty";
+      ${emulator}.enable = true;
 
-      nix-index.enable = true;
       vscode.enable    = false;
       zathura.enable   = true;
     };
@@ -39,28 +36,40 @@ let emulator = config.syde.terminal.emulator; in
     wayland.windowManager.hyprland.enable = true;
 
     home.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "FiraCode"
+        ];
+      })
       font-awesome
       unstable.obsidian
       libqalculate
-      wl-clipboard
       # synergy
       libreoffice
 
       discord
       betterdiscordctl
 
+      r2modman
+      handbrake
+
       rclone
-      gnome.nautilus
+
       xfce.thunar
+      xfce.exo
 
       floorp
       keepassxc
+
+      bitwig-studio
+      obs-studio
     ];
 
 
     syde.unfreePredicates = [
       "discord"
+      "bitwig-studio"
       "obsidian"
     ];
 

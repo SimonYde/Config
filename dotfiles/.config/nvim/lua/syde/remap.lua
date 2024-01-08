@@ -1,15 +1,15 @@
-vim.g.mapleader      = " "
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
 local keymap = require("syde.keymap")
-local map    = keymap.map
 local nmap   = keymap.nmap
 local vmap   = keymap.vmap
 local xmap   = keymap.xmap
 local tmap   = keymap.tmap
-
-vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+local nvmap  = keymap.map({ "n", "v" })
 
 -- COLEMAK Remaps
 nmap("<C-w>m", "<C-w>h", "Go to the left window")
@@ -23,19 +23,20 @@ local function colemak_toggle()
         vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
         -- vim.opt.langmap = "jh,hk,kj"
         vim.opt.langremap = false
-        map({ "n", "v" }, "gm", "^", "Goto first non-blank in line")
-        map({ "n", "v" }, "gs", "0", "Goto line start")
-        map({ "n", "v" }, "gl", "$", "Goto line end")
+        nvmap("gm", "^", "Goto first non-blank in line")
+        nvmap("gs", "0", "Goto line start")
+        nvmap("gl", "$", "Goto line end")
 
-        map({ "n", "v" }, "x", "x<Esc>", "Delete character under cursor") -- x messes up with langmap
-        map({ "n", "v" }, "X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
-        -- nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
+        nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
+        nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
+        -- nvmap("gi", "$", "Goto line end")
+        -- nmap("gl", vim.lsp.buf.implementation, "Goto Implementation")
         COLEMAK = true
     else
         vim.opt.langmap = ""
-        map({ "n", "v" }, "gh", "^", "Goto first non-blank in line")
-        map({ "n", "v" }, "gs", "0", "Goto line start")
-        map({ "n", "v" }, "gl", "$", "Goto line end")
+        nvmap("gh", "^", "Goto first non-blank in line")
+        nvmap("gs", "0", "Goto line start")
+        nvmap("gl", "$", "Goto line end")
         -- nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
         COLEMAK = false
     end
@@ -58,7 +59,7 @@ nmap("<C-u>", "<C-u>zz", "Move up half page")
 nmap("n", "nzzzv", "Move to next search match")
 nmap("N", "Nzzzv", "Move to previous search match")
 
-map({ "n", "v" }, "<leader>y", [["+y]], "yank to system clipboard")
+nvmap("<leader>y", [["+y]], "yank to system clipboard")
 nmap("<leader>Y", [["+Y]], "yank to system clipboard")
 
 nmap("<leader>w", "<C-w>", "Window")

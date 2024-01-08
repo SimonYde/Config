@@ -12,7 +12,7 @@ let cfg = config.syde.ssh; in
       enableSshSupport = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
-      pinentryFlavor = "gtk2";
+      pinentryFlavor = "qt";
     };
   };
 

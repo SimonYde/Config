@@ -13,7 +13,8 @@
     ../modules/hardware/graphics/amd.nix
   ];
 
-  syde = {
+  # Personal configurations
+  syde = { 
     laptop.enable = true;
     gaming.enable = true;
     hardware = {
@@ -26,8 +27,6 @@
   programs.sway.enable     = false;
   programs.hyprland.enable = true;
   services.xserver.windowManager.i3.enable = false;
-
-  console.useXkbConfig = true;
 
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
@@ -46,10 +45,6 @@
         }
       ];
     };
-  };
-
-  environment.sessionVariables = {
-    TERMINAL = "alacritty";
   };
 
   # services.geoclue2.enable = true;

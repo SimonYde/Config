@@ -31,8 +31,4 @@ let cfg = config.syde.programming; in
       GOPATH     = "${config.xdg.dataHome}/go";
     };
   };
-
-  imports = [
-    ./modules/languages
-  ];
 }

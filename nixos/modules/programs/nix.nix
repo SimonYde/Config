@@ -11,6 +11,7 @@
     };
 
     registry.nixpkgs.flake = inputs.nixpkgs;
+    registry.stable.flake = inputs.stable;
     nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
     gc = {

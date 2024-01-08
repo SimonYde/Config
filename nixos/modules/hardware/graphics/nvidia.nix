@@ -15,10 +15,7 @@ let cfg = config.syde.hardware.nvidia; in
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    services.xserver = {
-      videoDrivers = [ "nvidia" ];
-      # deviceSection = ''Option "TearFree" "true"'';
-    };
+    services.xserver.videoDrivers = [ "nvidia" ];
     nixpkgs.config.allowUnfree = true;
     hardware.opengl.enable = true;
 
@@ -31,6 +28,6 @@ let cfg = config.syde.hardware.nvidia; in
   };
 
   options.syde.hardware.nvidia = {
-    enable = lib.mkEnableOption "Enable Nvidia drivers";
+    enable = lib.mkEnableOption "Enable Nvidia driver configuration";
   };
 }

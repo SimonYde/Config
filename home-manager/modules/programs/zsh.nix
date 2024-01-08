@@ -3,10 +3,10 @@
 {
   programs.zsh = {
     enableAutosuggestions = true;
+    enableCompletion = true;
     syntaxHighlighting = {
       enable = true;
     };
-    enableCompletion = true;
     autocd = true;
     dotDir = ".config/zsh";
     history = {

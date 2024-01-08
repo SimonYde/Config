@@ -3,6 +3,7 @@
 {
   programs.neovim = {
     package = pkgs.neovim-nightly;
+    defaultEditor = true;
     vimAlias = true;
     viAlias = true;
     plugins = with pkgs.vimPlugins; [
@@ -30,22 +31,34 @@
       gitsigns-nvim
       neogit
       diffview-nvim
-      # undotree
       mini-nvim
       vim-be-good
+      vim-table-mode
+
+      (pkgs.vimUtils.buildVimPlugin {
+        pname = "obsidian-nvim";
+        version = "2023-12-29";
+        src = pkgs.fetchFromGitHub {
+          owner = "epwalsh";
+          repo = "obsidian.nvim";
+          rev = "4a962b100a77f852207e9f0b8bc8e3564997a05f";
+          hash = "sha256-aXjJb9PpzW6iNub0DrYbfKUsh5OIDakGkTzxp91SYAw=";
+        };
+      })
 
       # -----Fuzzy Finder-----
       plenary-nvim
-      # telescope-nvim
-      # telescope-fzf-native-nvim
-      # git-worktree-nvim
-      # telescope-undo-nvim
+      telescope-nvim
+      telescope-fzf-native-nvim
+      git-worktree-nvim
+      telescope-undo-nvim
 
       # -----Highlighting-----
       nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects
       nvim-treesitter-context
       rainbow-delimiters-nvim
+
 
       (pkgs.vimUtils.buildVimPlugin {
         pname = "dolphin-vim";
@@ -63,6 +76,7 @@
       trouble-nvim
       indent-blankline-nvim
       nvim-web-devicons
+      noice-nvim
       nui-nvim
       catppuccin-nvim
     ];

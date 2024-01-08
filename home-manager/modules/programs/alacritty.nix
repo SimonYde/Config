@@ -1,8 +1,8 @@
 { pkgs, config, ... }:
 
 let
-  theme = config.themes.flavour;
   terminal = config.syde.terminal;
+  colors = config.colorScheme.colors;
   font = terminal.font;
   fontSize = terminal.fontSize;
 in
@@ -10,15 +10,15 @@ in
   config = {
     programs.alacritty = {
       settings = {
-        import = [
-          (pkgs.fetchFromGitHub
-            {
-              owner = "Catppuccin";
-              repo = "alacritty";
-              rev = "3c808cb";
-              sha256 = "sha256-w9XVtEe7TqzxxGUCDUR9BFkzLZjG8XrplXJ3lX6f+x0=";
-            } + "/catppuccin-${theme}.yml")
-        ];
+        # import = [
+        #   (pkgs.fetchFromGitHub
+        #     {
+        #       owner = "Catppuccin";
+        #       repo = "alacritty";
+        #       rev = "3c808cb";
+        #       sha256 = "sha256-w9XVtEe7TqzxxGUCDUR9BFkzLZjG8XrplXJ3lX6f+x0=";
+        #     } + "/catppuccin-${config.syde.theming.flavour}.yml")
+        # ];
         window = {
           opacity = terminal.opacity;
           dynamic_title = true;
@@ -106,12 +106,97 @@ in
             action = "ToggleViMode";
           }
         ];
-        # colors = {
-        #   cursor = {
-        #     text = "CellBackground";
-        #     cursor = "CellForeground";
-        #   };
-        # };
+        colors = with colors; {
+          primary = {
+            background = "#${base00}";
+            foreground = "#${base05}";
+            # Bright and dim foreground colors
+            dim_foreground = "#${base05}";
+            bright_foreground = "#${base05}";
+          };
+          # Cursor colors
+          cursor = {
+            text = "#${base00}";
+            cursor = "#${base06}";
+            #     text = "CellBackground";
+            #     cursor = "CellForeground";
+          };
+          vi_mode_cursor = {
+            text = "#${base00}";
+            cursor = "#${base07}";
+          };
+          # Search colors
+          search = {
+            matches = {
+              foreground = "#${base00}";
+              background = "#${base05}";
+            };
+            focused_match = {
+              foreground = "#${base00}";
+              background = "#${base0B}";
+            };
+            footer_bar = {
+              foreground = "#${base00}";
+              background = "#${base05}";
+            };
+          };
+
+          # Keyboard regex hints
+          hints = {
+            start = {
+              foreground = "#${base00}";
+              background = "#${base0A}";
+            };
+            end = {
+              foreground = "#${base00}";
+              background = "#${base05}";
+            };
+          };
+          # Selection colors
+          selection = {
+            text = "#${base00}";
+            background = "#${base06}";
+          };
+          # Normal colors
+          normal = {
+            black = "#${base03}";
+            red = "#${base08}";
+            green = "#${base0B}";
+            yellow = "#${base0A}";
+            blue = "#${base0D}";
+            magenta = "#${base0E}";
+            cyan = "#${base0C}";
+            white = "#${base05}";
+          };
+          # Bright colors
+          bright = {
+            black = "#${base04}";
+            red = "#${base08}";
+            green = "#${base0B}";
+            yellow = "#${base0A}";
+            blue = "#${base0D}";
+            magenta = "#${base0E}";
+            cyan = "#${base0C}";
+            white = "#${base05}";
+          };
+
+          # Dim colors
+          dim = {
+            black = "#${base03}";
+            red = "#${base08}";
+            green = "#${base0B}";
+            yellow = "#${base0A}";
+            blue = "#${base0D}";
+            magenta = "#${base0E}";
+            cyan = "#${base0C}";
+            white = "#${base05}";
+          };
+
+          indexed_colors = [
+            { index = 16; color = "#FAB387"; }
+            { index = 17; color = "#${base06}"; }
+          ];
+        };
       };
     };
   };
