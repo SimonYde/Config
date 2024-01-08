@@ -1,4 +1,4 @@
-{ config, inputs, ... }:
+{ config, inputs, pkgs, ... }:
 
 let
   colors = config.colorScheme.colors;
@@ -56,6 +56,17 @@ in
         "hyprland/submap" = {
           format = "<span style=\"italic\">{}</span>";
         };
+        # "hyprland/workspaces" = {
+        #   "format" = "<sub>{icon}</sub>\n{windows}";
+        #   "format-window-separator" = "\n";
+        #   "window-rewrite-default" = "";
+        #   "window-rewrite" = {
+        #     "title<.*youtube.*>" = ""; # Windows whose titles contain "youtube"
+        #     "class<firefox>" = ""; # Windows whose classes are "firefox"
+        #     "class<firefox> title<.*github.*>" = ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
+        #     "alacritty" = "";
+        #   };
+        # };
         network = {
           # "interface" = "wlp2*"; # (Optional) To force the use of this interface
           format-wifi = "{essid} ({signalStrength}%) ";
@@ -96,7 +107,7 @@ in
             car = "";
             default = [ "" "" "" ];
           };
-          on-click = "pavucontrol";
+          on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
         };
       };
     };

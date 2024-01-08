@@ -1,5 +1,9 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
+
+let 
+  cfg = config.syde.terminal;
+in 
 {
   config = {
     programs = {
@@ -10,27 +14,26 @@
       zsh.enable     = false;
 
       # CLI tools
-      bat.enable      = true;
-      direnv.enable   = true;
-      eza.enable      = true;
-      git.enable      = true;
-      lazygit.enable  = true;
-      lf.enable       = false;
-      ripgrep.enable  = true;
-      skim.enable     = true;
-      starship.enable = true;
-      yazi.enable     = true;
-      zellij.enable   = true;
-      zoxide.enable   = true;
+      bat.enable       = true;
+      direnv.enable    = true;
+      eza.enable       = true;
+      git.enable       = true;
+      gh.enable        = true;
+      lazygit.enable   = true;
+      lf.enable        = false;
+      nix-index.enable = true;
+      ripgrep.enable   = true;
+      skim.enable      = true;
+      starship.enable  = true;
+      thefuck.enable   = true;
+      yazi.enable      = true;
+      zellij.enable    = true;
+      zoxide.enable    = true;
     };
 
     home.sessionPath = [
       "$HOME/.local/bin"
     ];
-
-    home.sessionVariables = {
-      EDITOR = "nvim";
-    };
 
     home.packages = with pkgs; [
       # CLI Tools
@@ -52,12 +55,15 @@
 
     home.shellAliases = {
       # sudo = "doas";
-      # cat = "bat";
+      cat = "bat";
       c   = "clear";
       rt  = "trash put";
       zs  = "zellij --session";
       za  = "zellij attach";
     };
+
+
+    xdg.configFile."xfce4/helpers.rc".text = "TerminalEmulator=${cfg.emulator}";
   };
 
   options.syde.terminal = {

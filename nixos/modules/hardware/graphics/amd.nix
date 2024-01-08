@@ -1,9 +1,11 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
   config = {
     boot.initrd.kernelModules = [ "amdgpu" ];
     boot.kernelModules = [ "kvm-amd" ];
+
+    services.xserver.videoDrivers = [ "amdgpu" ];
 
     hardware = {
       opengl = {
@@ -16,11 +18,6 @@
           driversi686Linux.amdvlk
         ];
       };
-    };
-
-    services.xserver = {
-      videoDrivers = [ "amdgpu" ];
-      # deviceSection = ''Option "TearFree" "true"'';
     };
   };
 }

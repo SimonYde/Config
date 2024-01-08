@@ -20,7 +20,7 @@
               ];
             }];
             iconUpdateURL = "https://wiki.archlinux.org/favicon.ico";
-            definedAliases = [ "!aw" ];
+            definedAliases = [ "@aw" ];
           };
           "Brave Search" = {
             urls = [{
@@ -30,7 +30,7 @@
               ];
             }];
             iconUpdateURL = "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-16x16.341beadf.png";
-            definedAliases = [ "!b" ];
+            definedAliases = [ "@b" ];
           };
           "Kagi" = {
             urls = [{
@@ -40,7 +40,7 @@
               ];
             }];
             iconUpdateURL = "https://assets.kagi.com/v1/favicon-16x16.png";
-            definedAliases = [ "!k" ];
+            definedAliases = [ "@k" ];
           };
           "Nix Packages" = {
             urls = [{
@@ -51,7 +51,7 @@
               ];
             }];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = [ "!np" ];
+            definedAliases = [ "@np" ];
           };
           "NixOS Options" = {
             urls = [{
@@ -61,7 +61,7 @@
               ];
             }];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = [ "!no" ];
+            definedAliases = [ "@no" ];
           };
           "NixOS Wiki" = {
             urls = [{
@@ -72,7 +72,7 @@
             }];
             iconUpdateURL = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "!nw" ];
+            definedAliases = [ "@nw" ];
           };
           "Youtube" = {
             urls = [{
@@ -82,9 +82,9 @@
               ];
             }];
             iconUpdateURL = "https://www.youtube.com/s/desktop/fa273944/img/favicon_144x144.png";
-            definedAliases = [ "!yt" ];
+            definedAliases = [ "@yt" ];
           };
-          "Google".metaData.alias = "!g";
+          "Google".metaData.alias = "@g";
           "Bing".metaData.hidden = true;
           "Wikipedia (en)".metaData.hidden = true;
           "Amazon.com".metaData.hidden = true;
@@ -102,33 +102,41 @@
         "browser.search.suggest.enabled" = false;
 
         # Privacy
-        "browser.contentblocking.category" = "strict";
-        "privacy.resistFingerprinting" = true;
-        "privacy.fingerprintingProtection" = true;
-        "privacy.trackingprotection.enabled" = true;
-        "privacy.trackingprotection.socialtracking.enabled" = true;
         "app.shield.optoutstudies.enabled" = false;
+        "browser.contentblocking.category" = "strict";
         "browser.formfill.enable" = false;
+        "browser.laterrun.enabled" = true;
+        "cookiebanners.service.mode" = 2;
+        "cookiebanners.service.mode.privateBrowsing" = 2;
+        "datareporting.healthreport.uploadEnabled" = false;
         "dom.security.https_only_mode" = true;
         "dom.security.https_only_mode_ever_enabled" = true;
+        "extensions.getAddons.cache.enabled" = false;
+        "extensions.getAddons.showPane" = false;
+        "extensions.pocket.enabled" = false;
+        "extensions.update.autoUpdateDefault" = false;
+        "extensions.update.enabled" = false;
         "general.useragent.locale" = "en-US";
+        "places.history.enabled" = false;
+        "privacy.clearOnShutdown.cookies" = false;
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.clearOnShutdown.sessions" = false;
+        "privacy.fingerprintingProtection" = true;
+        "privacy.history.custom" = true;
+        "privacy.resistFingerprinting" = false;
         "privacy.sanitize.pending" = ''[{"id":"shutdown","itemsToClear":["cache","formdata","downloads"],"options":{}}]'';
         "privacy.sanitize.sanitizeOnShutdown" = true;
-        "privacy.clearOnShutdown.cookies" = false;
-        "privacy.history.custom" = true;
-        "privacy.clearOnShutdown.sessions" = false;
-        "privacy.clearOnShutdown.history" = false;
-        "places.history.enabled" = false;
+        "privacy.trackingprotection.enabled" = true;
+        "privacy.trackingprotection.socialtracking.enabled" = true;
+        
+        "signon.autofillForms" = false;
         "signon.rememberSignons" = false;
-        "browser.laterrun.enabled" = true;
-        "datareporting.healthreport.uploadEnabled" = false;
-        "extensions.pocket.enabled" = false;
 
         # Networking and DNS
         "network.dns.disablePrefetch" = true;
         "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
-        "network.trr.uri" = "https://dns.quad9.net/dns-query";
-        "network.trr.mode" = 2;
+        "network.trr.uri" = "https://dns11.quad9.net/dns-query";
+        "network.trr.mode" = 3;
         "network.predictor.enabled" = false;
         "network.prefetch-next" = false;
 
@@ -144,6 +152,12 @@
         "browser.aboutConfig.showWarning" = false;
         "browser.uidensity" = 1;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+        "widget.use-xdg-desktop-portal.location" = 1;
+        "widget.use-xdg-desktop-portal.mime-handler" = 1;
+        "widget.use-xdg-desktop-portal.open-uri" = 1;
+        "widget.use-xdg-desktop-portal.settings" = 1;
       };
 
 
@@ -151,7 +165,7 @@
         export-cookies-txt
         ublock-origin
         cookie-autodelete
-        istilldontcareaboutcookies
+        # istilldontcareaboutcookies
         user-agent-string-switcher
         darkreader
         enhancer-for-youtube
@@ -165,7 +179,7 @@
         stylus
         firefox-color
 
-        # bypass-paywalls-clean
+        bypass-paywalls-clean
         # readwise-highlighter # doesn't exist yet
       ];
       userChrome = builtins.readFile ./userChrome.css;

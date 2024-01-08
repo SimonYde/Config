@@ -31,7 +31,7 @@ let cfg = config.syde.email; in
     programs.thunderbird = {
       enable = true;
       profiles.simonyde.isDefault = true;
-      package = pkgs.unstable.thunderbird;
+      package = pkgs.thunderbird;
       settings = {
         "privacy.donottrackheader.enabled" = true;
       };

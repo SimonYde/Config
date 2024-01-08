@@ -11,5 +11,6 @@
     ./programs
     ./desktops
     ./services
+    ./languages
   ];
 }

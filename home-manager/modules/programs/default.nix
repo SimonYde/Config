@@ -16,6 +16,7 @@
     ./ripgrep.nix
     ./skim.nix
     ./starship.nix
+    ./thefuck.nix
     ./yazi.nix
     ./zellij
     ./zoxide.nix
@@ -29,6 +30,7 @@
     ./brave.nix
     ./firefox
     ./i3status-rust.nix
+    ./mpv.nix
     ./rofi
     ./swaylock.nix
     ./vscode.nix
@@ -36,6 +38,7 @@
     ./zathura.nix
 
     # ---Shells---
+    ./bash.nix
     ./fish.nix
     ./nushell.nix
     ./zsh.nix

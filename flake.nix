@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     unstable.follows = "nixpkgs";
     stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat.url = "github:edolstra/flake-compat";
 

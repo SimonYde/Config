@@ -1,0 +1,11 @@
+{ lib
+, pkgs
+, ...
+}:
+
+{
+  programs.mpv = {
+
+
+  };
+}

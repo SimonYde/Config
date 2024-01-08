@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  theme = config.syde.theming.flavour;
+  flavour = config.syde.theming.flavour;
 in
 {
   programs.bat = {
@@ -16,7 +16,7 @@ in
           rev = "ba4d168";
           sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
         };
-        file = "Catppuccin-${theme}.tmTheme";
+        file = "Catppuccin-${flavour}.tmTheme";
       };
     };
     extraPackages = with pkgs.bat-extras; [

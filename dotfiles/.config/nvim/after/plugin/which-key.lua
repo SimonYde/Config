@@ -1,5 +1,6 @@
 local whichkey = vim.F.npcall(require, "which-key")
 if whichkey then
+    -- vim.opt.timeoutlen = 0
     whichkey.setup {}
     whichkey.register {
         ["<leader>"] = {

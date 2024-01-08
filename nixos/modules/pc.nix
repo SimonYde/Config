@@ -18,14 +18,22 @@
   };
 
   services.xserver = {
-    layout = "us";
-    xkbVariant = "colemak_dh";
-    xkbOptions = "caps:escape";
+    layout = "us(colemak_dh),dk";
+    # xkbVariant = "";
+    xkbOptions = "caps:escape,grp:rctrl_toggle";
     excludePackages = [ pkgs.xterm ];
   };
 
+  console.useXkbConfig = true;
+
   networking = {
-    firewall.enable = false;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [
+        80 # HTTP
+        443 # HTTPS
+      ];
+    };
     useDHCP = lib.mkDefault true;
     networkmanager = {
       enable = true;
@@ -69,6 +77,7 @@
     ../modules/programs/doas.nix
     ../modules/services/systemd-boot.nix
     ../modules/services/syncthing.nix
+    ../modules/services/ssh.nix
     ../modules/hardware/sound.nix
     ../modules/hardware/filesystems.nix
   ];
