@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let emulator = config.syde.terminal.emulator; in
 {
@@ -8,11 +8,17 @@ let emulator = config.syde.terminal.emulator; in
       brave.enable   = true;
       firefox.enable = true;
 
-      # Terminals
+      # Terminal emulators
       ${emulator}.enable = true;
 
-      vscode.enable    = false;
-      zathura.enable   = true;
+      # other GUI programs
+      vscode.enable  = false;
+      zathura.enable = true;
+
+      # personal program configurations
+      syde = { 
+        thunar.enable = true;
+      };
     };
 
     services = {
@@ -52,25 +58,22 @@ let emulator = config.syde.terminal.emulator; in
       betterdiscordctl
 
       r2modman
-      handbrake
 
       rclone
-
-      xfce.thunar
-      xfce.exo
 
       floorp
       keepassxc
 
+      # handbrake
       bitwig-studio
-      obs-studio
+      # obs-studio
     ];
 
 
     syde.unfreePredicates = [
       "discord"
-      "bitwig-studio"
       "obsidian"
+      "bitwig-studio"
     ];
 
     home.pointerCursor = let cursorTheme = config.syde.theming.cursorTheme; in {

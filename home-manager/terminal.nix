@@ -32,7 +32,7 @@ in
     };
 
     home.sessionPath = [
-      "$HOME/.local/bin"
+      "${config.home.homeDirectory}/.local/bin"
     ];
 
     home.packages = with pkgs; [
@@ -54,16 +54,12 @@ in
     ];
 
     home.shellAliases = {
-      # sudo = "doas";
       cat = "bat";
       c   = "clear";
       rt  = "trash put";
       zs  = "zellij --session";
       za  = "zellij attach";
     };
-
-
-    xdg.configFile."xfce4/helpers.rc".text = "TerminalEmulator=${cfg.emulator}";
   };
 
   options.syde.terminal = {

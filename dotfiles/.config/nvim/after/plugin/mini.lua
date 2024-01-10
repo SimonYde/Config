@@ -3,7 +3,7 @@ if not has_mini then
     return
 end
 
-local nmap = require('syde.keymap').map('n')
+local nmap = require('syde.keymap').nmap
 
 starter.setup {}
 require('mini.ai').setup {}
@@ -15,6 +15,7 @@ require('mini.surround').setup {}
 require('mini.jump').setup {}
 require('mini.jump2d').setup {}
 require('mini.splitjoin').setup {}
+-- require('mini.notify').setup {}
 
 nmap("<M-t>", function()
     local MiniTrailspace = require('mini.trailspace')

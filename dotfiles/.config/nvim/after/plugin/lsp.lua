@@ -34,10 +34,6 @@ local function setup_lsp(LSP)
     end
 end
 
-
--- vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
--- vim.api.nvim_create_autocmd("VimEnter", {
---   callback = function(_)
 setup_lsp {
     name = "elmls",
     executable = "elm-language-server",
@@ -153,7 +149,7 @@ setup_lsp {
     name = "typst_lsp",
     executable = "typst-lsp",
     settings = {
-        exportPdf = "onSave", -- Choose onType, onSave or never.
+        exportPdf = "onSave",         -- Choose `onType`, `onSave` or `never`.
     }
 }
 
@@ -177,8 +173,6 @@ setup_lsp({
         end
     end
 })
---   end,
--- })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
     callback = function()

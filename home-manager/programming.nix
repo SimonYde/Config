@@ -5,7 +5,7 @@ let cfg = config.syde.programming; in
   config = {
     programs = {
       # Terminal Editors
-      helix.enable  = true;
+      helix.enable  = false;
       neovim.enable = true;
 
       # Other
