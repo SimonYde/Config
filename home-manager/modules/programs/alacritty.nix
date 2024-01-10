@@ -52,7 +52,7 @@ in
           program = "${pkgs.fish}/bin/fish";
           args = [ "--login" ];
         };
-        key_bindings = [
+        keyboard.bindings = [
           {
             key = "Return";
             mods = "Super|Shift";
@@ -135,10 +135,10 @@ in
               foreground = "#${base00}";
               background = "#${base0B}";
             };
-            footer_bar = {
-              foreground = "#${base00}";
-              background = "#${base05}";
-            };
+            # footer_bar = {
+            #   foreground = "#${base00}";
+            #   background = "#${base05}";
+            # };
           };
 
           # Keyboard regex hints

@@ -33,6 +33,7 @@
     ./mpv.nix
     ./rofi
     ./swaylock.nix
+    ./thunar.nix
     ./vscode.nix
     ./waybar.nix
     ./zathura.nix

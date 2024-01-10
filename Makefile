@@ -7,3 +7,6 @@ home: $(HOME_MANAGER_FILES)
 
 os: $(NIXOS_FILES)
 	sudo nixos-rebuild --flake .#${HOST} --show-trace switch
+
+news: 
+	home-manager --flake .#${HOST} news

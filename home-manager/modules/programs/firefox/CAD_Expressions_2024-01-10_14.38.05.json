@@ -1,0 +1,559 @@
+{
+  "default": [
+    {
+      "expression": "*.element.io",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "fwVLB5M-_"
+    },
+    {
+      "expression": "*.kagi.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "_kagi_search_",
+        "kagi_session"
+      ],
+      "id": "suKMHLJfdF"
+    },
+    {
+      "expression": "*.keybr.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "-WaBBpk6Ug"
+    },
+    {
+      "expression": "*.lastpass.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "LocalStorage",
+        "IndexedDB"
+      ],
+      "cookieNames": [],
+      "id": "pXE-giMXCA"
+    },
+    {
+      "expression": "*.pathbuilder2e.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB"
+      ],
+      "cookieNames": [],
+      "id": "hHOlRxq9FN"
+    },
+    {
+      "expression": "*.proton.me",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "alnLk4NxJW"
+    },
+    {
+      "expression": "*.readwise.io",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "IndexedDB"
+      ],
+      "cookieNames": [],
+      "id": "_p0YMvfKw"
+    },
+    {
+      "expression": "*.typeracer.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "RsWuGP_SFj"
+    },
+    {
+      "expression": "auth0.openai.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "BcyS6b2C3c"
+    },
+    {
+      "expression": "chat.openai.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [
+        "Cache",
+        "IndexedDB",
+        "LocalStorage",
+        "PluginData",
+        "ServiceWorkers"
+      ],
+      "cookieNames": [],
+      "id": "75IZjM-Sr",
+      "cleanAllCookies": false
+    },
+    {
+      "expression": "duckduckgo.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanAllCookies": true,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "LocalStorage",
+        "PluginData",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "ae"
+      ],
+      "id": "Xr-wz6xE1E"
+    },
+    {
+      "expression": "monkeytype.com",
+      "listType": "WHITE",
+      "storeId": "default",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "ag1JBzCjbS"
+    }
+  ],
+  "firefox-container-17": [
+    {
+      "expression": "*.lastpass.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-17",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "2Omq_x9AfQ"
+    },
+    {
+      "expression": "*.proton.me",
+      "listType": "WHITE",
+      "storeId": "firefox-container-17",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "je9xrqwI43"
+    },
+    {
+      "expression": "*.simplelogin.io",
+      "listType": "WHITE",
+      "storeId": "firefox-container-17",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "cNF70N5fPU"
+    },
+    {
+      "expression": "account.proton.me",
+      "listType": "WHITE",
+      "storeId": "firefox-container-17",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "-9kuVWSx6v"
+    },
+    {
+      "expression": "app.element.io",
+      "listType": "WHITE",
+      "storeId": "firefox-container-17",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "6NCQ35-r9b"
+    },
+    {
+      "expression": "mail.proton.me",
+      "listType": "WHITE",
+      "storeId": "firefox-container-17",
+      "cleanSiteData": [],
+      "cookieNames": [],
+      "id": "nuk160mhRWO"
+    }
+  ],
+  "firefox-container-9": [
+    {
+      "expression": "*.element.io",
+      "listType": "WHITE",
+      "storeId": "firefox-container-9",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "aavFKM5_vhN"
+    },
+    {
+      "expression": "*.proton.me",
+      "listType": "WHITE",
+      "storeId": "firefox-container-9",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "S6SWD5fcyRz"
+    }
+  ],
+  "firefox-container-2": [
+    {
+      "expression": "*.overleaf.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-2",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "overleaf_session2"
+      ],
+      "id": "VPjn8KNwE37"
+    },
+    {
+      "expression": "*au.dk",
+      "listType": "WHITE",
+      "storeId": "firefox-container-2",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "-ZEgEAsgKcf"
+    },
+    {
+      "expression": "login.microsoftonline.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-2",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "ccFRdha3A9o"
+    }
+  ],
+  "firefox-container-3": [
+    {
+      "expression": "*.landbobanken.dk",
+      "listType": "WHITE",
+      "storeId": "firefox-container-3",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "201WKCmHTbH"
+    },
+    {
+      "expression": "*.nordjyskebank.dk",
+      "listType": "WHITE",
+      "storeId": "firefox-container-3",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "LocalStorage",
+        "PluginData",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "YVbmkFMDxVW"
+    }
+  ],
+  "firefox-container-11": [
+    {
+      "expression": "*.twitch.tv",
+      "listType": "WHITE",
+      "storeId": "firefox-container-11",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "tQWyZssQfRT"
+    }
+  ],
+  "firefox-container-12": [
+    {
+      "expression": "account.youtube.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-12",
+      "cleanSiteData": [
+        "Cache",
+        "IndexedDB",
+        "LocalStorage",
+        "PluginData",
+        "ServiceWorkers"
+      ],
+      "cookieNames": [],
+      "id": "QAlRTtcCpWo"
+    },
+    {
+      "expression": "accounts.google.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-12",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "5EoDw-xqqh0"
+    },
+    {
+      "expression": "accounts.youtube.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-12",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "QWWRs6PDdwV"
+    },
+    {
+      "expression": "login.live.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-12",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "fkOPU1mUCdn"
+    }
+  ],
+  "firefox-container-7": [
+    {
+      "expression": "*.facebook.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-7",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "mYJ8BAggotd"
+    },
+    {
+      "expression": "*.messenger.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-7",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "WFMUqjrMjCs"
+    }
+  ],
+  "firefox-container-8": [
+    {
+      "expression": "*.facebook.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-8",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "sb",
+        "locale",
+        "checkpoint",
+        "c_user",
+        "oo"
+      ],
+      "id": "pHpCbDKPCyq"
+    },
+    {
+      "expression": "*.messenger.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-8",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "Cache",
+        "IndexedDB",
+        "LocalStorage",
+        "PluginData",
+        "ServiceWorkers"
+      ],
+      "cookieNames": [
+        "datr",
+        "c_user",
+        "wd"
+      ],
+      "id": "xVAwa83YlE_"
+    }
+  ],
+  "firefox-container-18": [
+    {
+      "expression": "*.reddit.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-18",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "session",
+        "USER",
+        "reddit_session"
+      ],
+      "id": "Tr8OoqoaGmM"
+    }
+  ],
+  "firefox-container-14": [
+    {
+      "expression": "accounts.google.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-14",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "l15k1fFqv1J"
+    },
+    {
+      "expression": "accounts.youtube.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-14",
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [],
+      "id": "Toa_Wtzbg"
+    }
+  ],
+  "firefox-container-20": [
+    {
+      "expression": "*.github.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-20",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "LocalStorage",
+        "PluginData",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "_gh_sess",
+        "logged_in",
+        "preferred_color_mode"
+      ],
+      "id": "ovxm6URQHso"
+    },
+    {
+      "expression": "*.gitlab.com",
+      "listType": "WHITE",
+      "storeId": "firefox-container-20",
+      "cleanAllCookies": false,
+      "cleanSiteData": [
+        "ServiceWorkers",
+        "PluginData",
+        "LocalStorage",
+        "IndexedDB",
+        "Cache"
+      ],
+      "cookieNames": [
+        "remember_user_token",
+        "known_sign_in",
+        "gitlab_user",
+        "_gitlab_session"
+      ],
+      "id": "_bWiBmYYO-j"
+    }
+  ]
+}

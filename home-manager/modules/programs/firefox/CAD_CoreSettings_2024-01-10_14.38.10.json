@@ -22,7 +22,7 @@
     },
     {
       "name": "contextualIdentities",
-      "value": false
+      "value": true
     },
     {
       "name": "contextualIdentitiesAutoRemove",
@@ -76,7 +76,7 @@
     },
     {
       "name": "manualNotifications",
-      "value": false
+      "value": true
     },
     {
       "name": "notificationOnScreen",
