@@ -2,7 +2,6 @@
 
 let
   colors = config.colorScheme.colors;
-  flavour = config.themes.flavour;
 in
 {
   programs.i3status-rust = {
@@ -36,7 +35,7 @@ in
         ];
         settings = {
           theme = {
-            theme = "ctp-${flavour}";
+            theme = "ctp-${if config.theming.prefer-dark then "mocha" else "latte"}";
             overrides = with colors; {
               idle_bg = "#${base00}";
               idle_fg = "#${base05}";

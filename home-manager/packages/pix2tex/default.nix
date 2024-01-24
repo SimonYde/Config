@@ -59,7 +59,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
 
-  pythonImportsCheck = [ "pix2tex" ];
+  doCheck = false;
+  # pythonImportsCheck = [ "pix2tex" ];
 
   meta = with lib; {
     description = "Pix2tex: Using a ViT to convert images of equations into LaTeX code";

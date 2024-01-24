@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 
 let
-  cfg = config.programs.syde.thunar;
+  cfg = config.syde.programs.thunar;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -10,10 +10,12 @@ in
       xfce.exo
     ];
 
-    xdg.configFile."xfce4/helpers.rc".text = "TerminalEmulator=${cfg.terminal}";
+    xdg.configFile."xfce4/helpers.rc".text = ''
+      TerminalEmulator=${cfg.terminal}
+    '';
   };
 
-  options.programs.syde.thunar = {
+  options.syde.programs.thunar = {
     enable = lib.mkEnableOption "Thunar file manager";
     terminal = lib.mkOption {
       type = lib.types.str;

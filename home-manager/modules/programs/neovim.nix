@@ -59,33 +59,32 @@
       nvim-treesitter-context
       rainbow-delimiters-nvim
 
-
-      (pkgs.vimUtils.buildVimPlugin {
-        pname = "dolphin-vim";
-        version = "2021-11-01";
-        src = pkgs.fetchFromGitLab {
-          owner = "jo1gi";
-          repo = "dolphin-vim";
-          rev = "1bddf3c798cbb425f0a288c1a3640e06bea2fccc";
-          hash = "sha256-28fPWSYOHyBLiwVkGyYoslpWnqrBFozaSnhFNQ8NG9o=";
-        };
-      })
+      # (pkgs.vimUtils.buildVimPlugin {
+      #   pname = "dolphin-vim";
+      #   version = "2021-11-01";
+      #   src = pkgs.fetchFromGitLab {
+      #     owner = "jo1gi";
+      #     repo = "dolphin-vim";
+      #     rev = "1bddf3c798cbb425f0a288c1a3640e06bea2fccc";
+      #     hash = "sha256-28fPWSYOHyBLiwVkGyYoslpWnqrBFozaSnhFNQ8NG9o=";
+      #   };
+      # })
 
       # -----UI-----
       which-key-nvim
       trouble-nvim
       indent-blankline-nvim
       nvim-web-devicons
-      noice-nvim
       nui-nvim
       catppuccin-nvim
     ];
     extraLuaConfig = ''
       vim.loader.enable()
       require('syde')
+      local transparent = true
       require("catppuccin").setup {
-        flavour = "${config.syde.theming.flavour}",
-        transparent_background = true,
+        flavour = "${if config.syde.theming.prefer-dark then "mocha" else "latte"}",
+        transparent_background = transparent,
         integrations = {
           indent_blankline = {
             enabled = true,
@@ -96,7 +95,7 @@
           nvimtree = true,
           mini = true,
           treesitter = true,
-          treesitter_context = true, -- is ugly unless transparent_background = true
+          treesitter_context = transparent,
           rainbow_delimiters = true,
           harpoon = true,
           lsp_saga = true,

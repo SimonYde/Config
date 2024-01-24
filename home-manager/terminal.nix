@@ -1,6 +1,4 @@
 { config, pkgs, lib, ... }:
-
-
 let 
   cfg = config.syde.terminal;
 in 
@@ -15,6 +13,7 @@ in
 
       # CLI tools
       bat.enable       = true;
+      btop.enable      = true;
       direnv.enable    = true;
       eza.enable       = true;
       git.enable       = true;
@@ -49,13 +48,14 @@ in
       pandoc
 
       grawlix
-      pix2tex
+      # pix2tex
       nur.repos.jo1gi.audiobook-dl-git
     ];
 
     home.shellAliases = {
       cat = "bat";
       c   = "clear";
+      new_bg = "random_background.sh ~/.config/backgrounds/Catppuccin-Mocha";
       rt  = "trash put";
       zs  = "zellij --session";
       za  = "zellij attach";
