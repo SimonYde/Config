@@ -12,10 +12,8 @@ obsidian.setup {
         },
     },
     completion = {
-        -- Set to false to disable completion.
         nvim_cmp = true,
 
-        -- Trigger completion at 2 chars.
         min_chars = 2,
 
         -- Where to put new notes created from completion. Valid options are

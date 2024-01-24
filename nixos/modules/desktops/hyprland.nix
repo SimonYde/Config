@@ -40,7 +40,7 @@ let cfg = config.programs.hyprland; in
       xwaylandvideobridge
     ];
 
-    systemd = {
+    systemd = lib.mkIf config.security.polkit.enable {
       user.services.polkit-kde-authentication-agent-1 = {
         description = "polkit-kde-authentication-agent-1";
         wantedBy = [ "graphical-session.target" ];

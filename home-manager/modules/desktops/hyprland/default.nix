@@ -1,24 +1,35 @@
 { lib, pkgs, config, inputs, ... }:
 
 let
-  cfg = config.wayland.windowManager.hyprland;
+  random_background = pkgs.writeShellScriptBin "ran_bg" ''
+    #!/usr/bin/env bash
+    DIRECTORY=${config.xdg.configHome}/backgrounds/${config.colorScheme.slug}
+
+    # Check if the provided directory exists
+    if [ ! -d "$DIRECTORY" ]; then
+        echo "Directory does not exist: $DIRECTORY"
+        exit 1
+    fi
+
+    # Find all image files in the directory and pick one at random
+    IMAGES=$(find "$DIRECTORY" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.gif' -o -iname '*.jpeg' \))
+    IMAGE=$(echo "$IMAGES" | shuf -n1)
+    ${pkgs.swww}/bin/swww img "$IMAGE"
+  '';
   colors = config.colorScheme.colors;
   terminal = config.syde.terminal;
   browser = config.syde.browser;
   menu = "rofi -show drun";
+  cfg = config.wayland.windowManager.hyprland;
 in
 {
   config = lib.mkIf cfg.enable {
     programs = {
-      swaylock.enable = true;
+      imv.enable = true;
+      mpv.enable = true;
       rofi.enable = true;
-      waybar = {
-        enable = true;
-        systemd = {
-          enable = true;
-          target = "hyprland-session.target";
-        };
-      };
+      swaylock.enable = true;
+      waybar.enable = true;
     };
 
     services = {
@@ -40,16 +51,18 @@ in
           allow_tearing = true; # For gaming. Set windowrule `immediate` for games to enable.
         };
 
+        misc.disable_hyprland_logo = true;
+
         "device:msft0001:00-06cb:ce2d-touchpad" = {
           accel_profile = "adaptive";
         };
-
         "device:zsa-technology-labs-moonlander-mark-i" = {
           kb_layout = "us";
         };
         # "device:zsa-technology-labs-moonlander-mark-i-keyboard" = {
         #   kb_layout = "us";
         # };
+
         input = {
           kb_layout = "us(colemak_dh),dk";
           kb_options = "caps:escape,grp:rctrl_toggle";
@@ -89,7 +102,7 @@ in
             "border, 1, 1, liner"
             "borderangle, 1, 30, liner, loop"
             "fade, 1, 7, default"
-            "workspaces, 1, 4, wind"
+            "workspaces, 0, 4, wind"
           ];
         };
 
@@ -101,38 +114,39 @@ in
         "$browser" = browser;
         "$menu" = menu;
         "$terminal" = terminal.emulator;
-        "$filemanager" = "thunar";
+        "$filemanager" = "${pkgs.xfce.thunar}/bin/thunar";
 
         exec-once = [
+          "waybar"
           "nm-applet"
           "blueman-applet"
-          "swww init"
+          "${pkgs.swww}/bin/swww init"
           "[workspace 1] obsidian"
+          "${random_background}/bin/ran_bg"
         ];
       };
-      extraConfig = with builtins;
-        readFile ./keybindings.conf +
-        readFile ./windowrules.conf;
+      extraConfig =
+        builtins.readFile ./keybindings.conf
+        + builtins.readFile ./windowrules.conf;
     };
 
     home.packages = with pkgs; [
-      swww # wallpaper manager
+      swww
+      random_background # random background script
       playerctl # media keys
       pamixer # volume keys
       networkmanagerapplet
 
       pavucontrol # audio control
 
-      xfce.thunar # file manager
       grimblast # screenshot tool
       wl-clipboard # clipboard manager
       hyprpicker # color picker
-      imv # image viewer
-      mpv # Video player
     ];
+
   };
 
   imports = [
-    inputs.hyprland.homeManagerModules.default
+    inputs.hyprland.homeManagerModules.default # package from source
   ];
 }

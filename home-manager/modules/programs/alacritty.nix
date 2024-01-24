@@ -10,15 +10,6 @@ in
   config = {
     programs.alacritty = {
       settings = {
-        # import = [
-        #   (pkgs.fetchFromGitHub
-        #     {
-        #       owner = "Catppuccin";
-        #       repo = "alacritty";
-        #       rev = "3c808cb";
-        #       sha256 = "sha256-w9XVtEe7TqzxxGUCDUR9BFkzLZjG8XrplXJ3lX6f+x0=";
-        #     } + "/catppuccin-${config.syde.theming.flavour}.yml")
-        # ];
         window = {
           opacity = terminal.opacity;
           dynamic_title = true;
@@ -135,10 +126,6 @@ in
               foreground = "#${base00}";
               background = "#${base0B}";
             };
-            # footer_bar = {
-            #   foreground = "#${base00}";
-            #   background = "#${base05}";
-            # };
           };
 
           # Keyboard regex hints

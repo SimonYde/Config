@@ -2,9 +2,9 @@
 {
   programs = {
     zathura.enable = true;
-    syde.thunar.enable = true;
   };
 
+  syde.programs.thunar.enable = true;
   syde.ssh.enable = true;
 
   gtk.enable = true;

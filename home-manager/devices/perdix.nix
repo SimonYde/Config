@@ -14,11 +14,11 @@ let emulator = config.syde.terminal.emulator; in
       # other GUI programs
       vscode.enable  = false;
       zathura.enable = true;
+    };
 
-      # personal program configurations
-      syde = { 
-        thunar.enable = true;
-      };
+    # personal program configurations
+    syde.programs = { 
+      thunar.enable = true;
     };
 
     services = {
@@ -31,6 +31,7 @@ let emulator = config.syde.terminal.emulator; in
     gtk.enable = true;
     qt.enable  = true;
 
+    # Personal modules
     syde = {
       email.enable = false;
       ssh.enable   = true;

@@ -8,6 +8,8 @@
         python-lsp-black
         python-lsp-ruff
         pylsp-mypy
+
+        numpy
       ]))
     ];
   };

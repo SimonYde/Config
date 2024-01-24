@@ -3,7 +3,7 @@
 let terminal = config.syde.terminal; in
 {
   programs.kitty = {
-    theme = if config.syde.theming.flavour == "mocha" then "Catppuccin-Mocha" else "Catppuccin-Latte";
+    theme = if config.syde.theming.prefer-dark then "Catppuccin-Mocha" else "Catppuccin-Latte";
     font = {
       name = terminal.font;
       size = terminal.fontSize;
