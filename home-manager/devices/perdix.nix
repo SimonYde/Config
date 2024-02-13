@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 
 let emulator = config.syde.terminal.emulator; in
 {
@@ -37,7 +37,6 @@ let emulator = config.syde.terminal.emulator; in
       ssh.enable   = true;
     };
 
-    xsession.enable = false;
     xsession.windowManager.i3.enable  = false;
     wayland.windowManager.sway.enable = false;
     wayland.windowManager.hyprland.enable = true;
@@ -49,6 +48,8 @@ let emulator = config.syde.terminal.emulator; in
           "FiraCode"
         ];
       })
+      gentium
+      libertinus
       font-awesome
       unstable.obsidian
       libqalculate
@@ -66,7 +67,7 @@ let emulator = config.syde.terminal.emulator; in
       keepassxc
 
       # handbrake
-      bitwig-studio
+      # bitwig-studio
       # obs-studio
     ];
 

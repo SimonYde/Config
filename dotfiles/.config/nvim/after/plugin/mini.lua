@@ -15,7 +15,13 @@ require('mini.surround').setup {}
 require('mini.jump').setup {}
 require('mini.jump2d').setup {}
 require('mini.splitjoin').setup {}
--- require('mini.notify').setup {}
+local MiniNotify = require('mini.notify')
+MiniNotify.setup {
+    window = {
+        winblend = 0,
+    },
+}
+vim.notify = MiniNotify.make_notify()
 
 nmap("<M-t>", function()
     local MiniTrailspace = require('mini.trailspace')
