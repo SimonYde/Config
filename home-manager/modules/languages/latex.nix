@@ -5,10 +5,10 @@
     home.packages = with pkgs; [
       texlab
       tectonic
-      ltex-ls
+      # ltex-ls
     ];
     programs.neovim.plugins = with pkgs.vimPlugins; [
-      ltex_extra-nvim
+      # ltex_extra-nvim
     ];
   };
 

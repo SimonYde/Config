@@ -15,6 +15,8 @@ if cmp_nvim_lsp then
     capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 end
 
+local nmap = require('syde.keymap').nmap
+
 local function setup_lsp(LSP)
     if vim.fn.executable(LSP.executable or LSP.name) == 1 then
         lspconfig[LSP.name].setup {
@@ -110,20 +112,20 @@ setup_lsp {
                     "compile",
                     "%f",
                     "--synctex",
-                    "--keep-logs",
-                    "--keep-intermediates",
+                    -- "--keep-logs",
+                    -- "--keep-intermediates",
                 },
                 onSave = true,
                 forwardSearchAfter = true,
             },
-            -- forwardSearch = {
-            -- executable = "zathura",
-            -- args = {
-            --   "--synctex-forward",
-            --   "%l:%c:%f",
-            --   "%p",
-            -- },
-            -- },
+            forwardSearch = {
+                executable = "zathura",
+                args = {
+                    "--synctex-forward",
+                    "%l:%c:%f",
+                    "%p",
+                },
+            },
         },
     }
 }
@@ -149,8 +151,15 @@ setup_lsp {
     name = "typst_lsp",
     executable = "typst-lsp",
     settings = {
-        exportPdf = "onSave",         -- Choose `onType`, `onSave` or `never`.
-    }
+        exportPdf = "onSave", -- Choose `onType`, `onSave` or `never`.
+    },
+    on_attach = function(_)
+        nmap("<leader>sp", function ()
+            local file = vim.fn.expand("%")
+            local pdf = file:gsub("%.typ$", ".pdf")
+            vim.system({ "zathura", pdf })
+        end, "open pdf")
+    end
 }
 
 setup_lsp({
@@ -193,28 +202,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
         if client then
             client.server_capabilities.semanticTokensProvider = nil
         end
-        local fidget = vim.F.npcall(require, 'fidget')
-        if fidget then
-            fidget.setup {
-                progress = {
-                    display = {
-                        progress_icon = {
-                            pattern = "moon", period = 1,
-                        },
-                    },
-                },
-                notification = {
-                    window = {
-                        winblend = 0,
-                        relative = "editor",
-                        -- align = "bottom",
-                    },
-                }
-            }
-        end
+        -- local fidget = vim.F.npcall(require, 'fidget')
+        -- if fidget then
+        --     fidget.setup {
+        --         progress = {
+        --             display = {
+        --                 progress_icon = {
+        --                     pattern = "moon", period = 1,
+        --                 },
+        --             },
+        --         },
+        --         notification = {
+        --             window = {
+        --                 winblend = 0,
+        --                 relative = "editor",
+        --                 -- align = "bottom",
+        --             },
+        --         }
+        --     }
+        -- end
         local lspsaga = vim.F.npcall(require, 'lspsaga')
         if lspsaga then
-            local nmap = require('syde.keymap').nmap
             lspsaga.setup {
                 symbol_in_winbar = {
                     enable = true,

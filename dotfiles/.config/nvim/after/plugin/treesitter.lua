@@ -25,7 +25,7 @@ ts.setup {
   -- Plugins
   highlight = {
     enable = true,
-    --disable = {"scala"};
+    disable = { "latex" },
     additional_vim_regex_highlighting = false,
   },
   indent = {
