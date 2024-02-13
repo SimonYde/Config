@@ -1,9 +1,11 @@
-{lib, config, pkgs, ...}:
+{ lib, config, pkgs, ... }:
 
+let cfg = config.syde.programming.typst; in
 {
-  config = lib.mkIf config.syde.programming.typst.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      stable.typst-lsp
+      typst-lsp
+      typst
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [
