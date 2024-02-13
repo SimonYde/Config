@@ -55,7 +55,6 @@ in
     home.shellAliases = {
       cat = "bat";
       c   = "clear";
-      new_bg = "random_background.sh ~/.config/backgrounds/Catppuccin-Mocha";
       rt  = "trash put";
       zs  = "zellij --session";
       za  = "zellij attach";

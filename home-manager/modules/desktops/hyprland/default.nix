@@ -2,7 +2,7 @@
 
 let
   random_background = pkgs.writeShellScriptBin "ran_bg" ''
-    #!/usr/bin/env bash
+    #!${pkgs.stdenv.shell}/bin/sh
     DIRECTORY=${config.xdg.configHome}/backgrounds/${config.colorScheme.slug}
 
     # Check if the provided directory exists
@@ -24,6 +24,20 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      swww
+      random_background # random background script
+      playerctl # media keys
+      pamixer # volume keys
+      networkmanagerapplet
+
+      pavucontrol # audio control
+
+      grimblast # screenshot tool
+      wl-clipboard # clipboard manager
+      hyprpicker # color picker
+    ];
+
     programs = {
       imv.enable = true;
       mpv.enable = true;
@@ -34,8 +48,6 @@ in
 
     services = {
       dunst.enable = true;
-      # network-manager-applet.enable = true;
-      # blueman-applet.enable = true;
     };
 
     wayland.windowManager.hyprland = {
@@ -56,16 +68,28 @@ in
         "device:msft0001:00-06cb:ce2d-touchpad" = {
           accel_profile = "adaptive";
         };
-        "device:zsa-technology-labs-moonlander-mark-i" = {
-          kb_layout = "us";
-        };
-        # "device:zsa-technology-labs-moonlander-mark-i-keyboard" = {
-        #   kb_layout = "us";
-        # };
-
-        input = {
+        "device:at-translated-set-2-keyboard" = {
           kb_layout = "us(colemak_dh),dk";
           kb_options = "caps:escape,grp:rctrl_toggle";
+        };
+
+        "device:zsa-technology-labs-moonlander-mark-i" = {
+          kb_layout = "eu";
+        };
+        "device:zsa-technology-labs-moonlander-mark-i-keyboard" = {
+          kb_layout = "eu";
+        };
+        "device:zsa-technology-labs-moonlander-mark-i-consumer-control" = {
+          kb_layout = "eu";
+        };
+        "device:zsa-technology-labs-moonlander-mark-i-system-control" = {
+          kb_layout = "eu";
+        };
+
+        input = {
+          # kb_layout = "us(colemak_dh),dk";
+          kb_layout = "eu";
+          kb_options = "caps:escape";
           follow_mouse = 2;
           accel_profile = "flat";
           touchpad = {
@@ -109,6 +133,9 @@ in
         monitor = [
           "eDP-1, 1920x1080, 0x0, 1"
           "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x1080, 1"
+          "desc:Dell Inc. DELL U2722D 5TNW7P3, 2560x1440@60, 0x-1080, 1"
+          # "desc:Dell Inc. DELL U2722D 5TNW7P3, 1920x1080, 0x-1080, 1"
+          ",preferred,auto,1"
         ];
 
         "$browser" = browser;
@@ -129,21 +156,6 @@ in
         builtins.readFile ./keybindings.conf
         + builtins.readFile ./windowrules.conf;
     };
-
-    home.packages = with pkgs; [
-      swww
-      random_background # random background script
-      playerctl # media keys
-      pamixer # volume keys
-      networkmanagerapplet
-
-      pavucontrol # audio control
-
-      grimblast # screenshot tool
-      wl-clipboard # clipboard manager
-      hyprpicker # color picker
-    ];
-
   };
 
   imports = [
