@@ -202,25 +202,25 @@ vim.api.nvim_create_autocmd("LspAttach", {
         if client then
             client.server_capabilities.semanticTokensProvider = nil
         end
-        -- local fidget = vim.F.npcall(require, 'fidget')
-        -- if fidget then
-        --     fidget.setup {
-        --         progress = {
-        --             display = {
-        --                 progress_icon = {
-        --                     pattern = "moon", period = 1,
-        --                 },
-        --             },
-        --         },
-        --         notification = {
-        --             window = {
-        --                 winblend = 0,
-        --                 relative = "editor",
-        --                 -- align = "bottom",
-        --             },
-        --         }
-        --     }
-        -- end
+        local fidget = vim.F.npcall(require, 'fidget')
+        if fidget then
+            fidget.setup {
+                progress = {
+                    display = {
+                        progress_icon = {
+                            pattern = "moon", period = 1,
+                        },
+                    },
+                },
+                notification = {
+                    window = {
+                        winblend = 0,
+                        relative = "editor",
+                        -- align = "bottom",
+                    },
+                }
+            }
+        end
         local lspsaga = vim.F.npcall(require, 'lspsaga')
         if lspsaga then
             lspsaga.setup {
