@@ -11,7 +11,7 @@
       nvim-lspconfig
       lspsaga-nvim
       lspkind-nvim
-      fidget-nvim
+      # fidget-nvim
 
       nvim-cmp
       cmp-cmdline
