@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
 in
 {
   programs.i3status-rust = {

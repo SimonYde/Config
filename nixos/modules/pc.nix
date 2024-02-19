@@ -18,9 +18,8 @@
   };
 
   services.xserver = {
-    layout = "us(colemak_dh),dk";
-    # xkbVariant = "";
-    xkbOptions = "caps:escape,grp:rctrl_toggle";
+    xkb.layout = "us(colemak_dh),dk";
+    xkb.options = "caps:escape,grp:rctrl_toggle";
     excludePackages = [ pkgs.xterm ];
   };
 

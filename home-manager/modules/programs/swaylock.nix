@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   font = config.syde.terminal.font;
 in
 {

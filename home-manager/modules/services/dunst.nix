@@ -2,7 +2,7 @@
 
 let
   terminal = config.syde.terminal;
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
 in
 {
   services.dunst = {

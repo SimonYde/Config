@@ -1,7 +1,7 @@
 { config, inputs, pkgs, ... }:
 
 let
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString ",";
   font = config.syde.terminal.font;
 in

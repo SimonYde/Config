@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   cfg = config.programs.fish;
 in
 {

@@ -8,7 +8,7 @@
     enableFishIntegration = false;
   };
   home.file = let zellij_path = "${config.xdg.configHome}/zellij"; in {
-    "${zellij_path}/config.kdl".text = with config.colorScheme.colors; ''
+    "${zellij_path}/config.kdl".text = with config.colorScheme.palette; ''
       theme "base16-custom"
       themes {
         base16-custom {

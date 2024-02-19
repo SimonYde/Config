@@ -2,7 +2,7 @@
 
 let
   terminal = config.syde.terminal;
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   font = terminal.font;
   fontSize = terminal.fontSize;
 in

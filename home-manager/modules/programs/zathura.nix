@@ -2,7 +2,7 @@
 
 {
   programs.zathura = {
-    options = with config.colorScheme.colors; {
+    options = with config.colorScheme.palette; {
       default-fg         = "#${base05}";
       default-bg         = "#${base00}";
       statusbar-bg       = "#${base02}";

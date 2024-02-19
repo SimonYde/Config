@@ -20,6 +20,7 @@
       cmp-path
       cmp-nvim-lua
       cmp_luasnip
+      cmp-nvim-lsp-signature-help
       luasnip
       friendly-snippets
       copilot-lua

@@ -6,7 +6,7 @@
     enableZshIntegration = true;
     changeDirWidgetCommand = "fd --type d";
     fileWidgetCommand = "fd --type f";
-    defaultOptions = with config.colorScheme.colors; [
+    defaultOptions = with config.colorScheme.palette; [
       "--color=${
         builtins.concatStringsSep "," [
           "fg:#${base05}"
