@@ -2,7 +2,6 @@
 
 let
   random_background = pkgs.writeShellScriptBin "ran_bg" ''
-    #!${pkgs.stdenv.shell}/bin/sh
     DIRECTORY=${config.xdg.configHome}/backgrounds/${config.colorScheme.slug}
 
     # Check if the provided directory exists
@@ -16,7 +15,7 @@ let
     IMAGE=$(echo "$IMAGES" | shuf -n1)
     ${pkgs.swww}/bin/swww img "$IMAGE"
   '';
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   terminal = config.syde.terminal;
   browser = config.syde.browser;
   menu = "rofi -show drun";
@@ -65,31 +64,11 @@ in
 
         misc.disable_hyprland_logo = true;
 
-        "device:msft0001:00-06cb:ce2d-touchpad" = {
-          accel_profile = "adaptive";
-        };
-        "device:at-translated-set-2-keyboard" = {
-          kb_layout = "us(colemak_dh),dk";
-          kb_options = "caps:escape,grp:rctrl_toggle";
-        };
-
-        "device:zsa-technology-labs-moonlander-mark-i" = {
-          kb_layout = "eu";
-        };
-        "device:zsa-technology-labs-moonlander-mark-i-keyboard" = {
-          kb_layout = "eu";
-        };
-        "device:zsa-technology-labs-moonlander-mark-i-consumer-control" = {
-          kb_layout = "eu";
-        };
-        "device:zsa-technology-labs-moonlander-mark-i-system-control" = {
-          kb_layout = "eu";
-        };
-
         input = {
-          # kb_layout = "us(colemak_dh),dk";
-          kb_layout = "eu";
+          kb_layout = "us(colemak_dh),dk";
+          # kb_layout = "eu";
           kb_options = "caps:escape";
+          repeat_delay = 200;
           follow_mouse = 2;
           accel_profile = "flat";
           touchpad = {
@@ -132,16 +111,15 @@ in
 
         monitor = [
           "eDP-1, 1920x1080, 0x0, 1"
-          "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x1080, 1"
-          "desc:Dell Inc. DELL U2722D 5TNW7P3, 2560x1440@60, 0x-1080, 1"
-          # "desc:Dell Inc. DELL U2722D 5TNW7P3, 1920x1080, 0x-1080, 1"
+          "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x-1080, 1"
+          "desc:Dell Inc. DELL U2722D 5TNW7P3, 2560x1440@60, 0x-1440, 1"
           ",preferred,auto,1"
         ];
 
         "$browser" = browser;
+        "$filemanager" = "${pkgs.xfce.thunar}/bin/thunar";
         "$menu" = menu;
         "$terminal" = terminal.emulator;
-        "$filemanager" = "${pkgs.xfce.thunar}/bin/thunar";
 
         exec-once = [
           "waybar"
@@ -153,7 +131,8 @@ in
         ];
       };
       extraConfig =
-        builtins.readFile ./keybindings.conf
+        builtins.readFile ./devices.conf
+        + builtins.readFile ./keybindings.conf
         + builtins.readFile ./windowrules.conf;
     };
   };
