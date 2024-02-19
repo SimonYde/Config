@@ -2,7 +2,7 @@
 
 let
   cfg = config.wayland.windowManager.sway;
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   font = config.syde.terminal.font;
   menu = "rofi -show drun";
   left = "m";

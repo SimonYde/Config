@@ -8,8 +8,8 @@ in
     settings = {
       gui = {
         # use the mocha catppuccin theme
-        theme = with colorScheme.colors; {
-          lightTheme = colorScheme.kind == "light";
+        theme = with colorScheme.palette; {
+          lightTheme = colorScheme.variant == "light";
           activeBorderColor         = [ base0B ]; # Green
           inactiveBorderColor       = [ base05 ]; # Text
           optionsTextColor          = [ base0D ]; # Blue

@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 let
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   cursorline = "#2a2b3c";
   secondary_cursor = "#b5a6a8";
   secondary_cursor_normal = "#878ec0";

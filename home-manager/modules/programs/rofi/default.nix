@@ -2,7 +2,7 @@
 
 let
   cfg = config.programs.rofi;
-  colors = config.colorScheme.colors;
+  colors = config.colorScheme.palette;
   terminal = config.syde.terminal;
 in
 {
