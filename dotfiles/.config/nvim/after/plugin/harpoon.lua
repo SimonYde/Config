@@ -3,17 +3,17 @@ local nmap = require("syde.keymap").nmap
 if harpoon then
     harpoon:setup()
 
-    nmap("<leader>h", function() harpoon:list():append() end)
-    nmap("<C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    nmap("<leader>h", function() harpoon:list():append() end, "[h]arpoon add path")
+    nmap("<C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "[h]arpoon menu")
 
-    nmap("<leader>1", function() harpoon:list():select(1) end)
-    nmap("<leader>2", function() harpoon:list():select(2) end)
-    nmap("<leader>3", function() harpoon:list():select(3) end)
-    nmap("<leader>4", function() harpoon:list():select(4) end)
+    nmap("<leader>1", function() harpoon:list():select(1) end, "Harpoon select 1")
+    nmap("<leader>2", function() harpoon:list():select(2) end, "Harpoon select 2")
+    nmap("<leader>3", function() harpoon:list():select(3) end, "Harpoon select 3")
+    nmap("<leader>4", function() harpoon:list():select(4) end, "Harpoon select 4")
 
     -- Toggle previous & next buffers stored within Harpoon list
-    nmap("<C-S-P>", function() harpoon:list():prev() end)
-    nmap("<C-S-N>", function() harpoon:list():next() end)
+    nmap("<C-S-P>", function() harpoon:list():prev() end, "Harpoon [P]revious")
+    nmap("<C-S-N>", function() harpoon:list():next() end, "Harpoon [N]ext")
     return
 end
 

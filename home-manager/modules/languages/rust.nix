@@ -12,7 +12,7 @@ let cfg = config.syde.programming.rust; in
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [
-      rust-tools-nvim
+      rustaceanvim
     ];
   };
 

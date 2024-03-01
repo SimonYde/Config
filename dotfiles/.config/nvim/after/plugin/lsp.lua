@@ -5,7 +5,7 @@ end
 
 local neodev = vim.F.npcall(require, 'neodev')
 if neodev then
-    neodev.setup()
+    neodev.setup {}
 end
 
 -- Cmp Setup
@@ -28,11 +28,11 @@ local function setup_lsp(LSP)
                 on_attach = LSP.on_attach,
             }
         end
-        -- if LSP.filetypes then
-        --   lspconfig[LSP.name].setup {
-        --     filetypes = LSP.filetypes,
-        --   }
-        -- end
+        if LSP.filetypes then
+            lspconfig[LSP.name].setup {
+                filetypes = LSP.filetypes,
+            }
+        end
     end
 end
 
@@ -71,23 +71,17 @@ setup_lsp {
     name = "metals",
 }
 
-setup_lsp {
-    name = "rust_analyzer",
-    executable = "rust-analyzer",
-    settings = {
-        ["rust-analyzer"] = {
-            checkOnSave = {
-                command = "clippy",
-            },
-        },
-    },
-    on_attach = function(_)
-        local rust_tools = vim.F.npcall(require, 'rust-tools')
-        if rust_tools then
-            rust_tools.setup {}
-        end
-    end
-}
+-- setup_lsp {
+--     name = "rust_analyzer",
+--     executable = "rust-analyzer",
+--     settings = {
+--         ["rust-analyzer"] = {
+--             checkOnSave = {
+--                 command = "clippy",
+--             },
+--         },
+--     },
+-- }
 
 setup_lsp {
     name = "lua_ls",
@@ -112,8 +106,9 @@ setup_lsp {
                     "compile",
                     "%f",
                     "--synctex",
-                    -- "--keep-logs",
-                    -- "--keep-intermediates",
+                    "--keep-logs",
+                    "--keep-intermediates",
+                    "--outdir=build/"
                 },
                 onSave = true,
                 forwardSearchAfter = true,
@@ -127,7 +122,7 @@ setup_lsp {
                 },
             },
         },
-    }
+    },
 }
 
 setup_lsp {
@@ -154,7 +149,7 @@ setup_lsp {
         exportPdf = "onSave", -- Choose `onType`, `onSave` or `never`.
     },
     on_attach = function(_)
-        nmap("<leader>sp", function ()
+        nmap("<leader>sp", function()
             local file = vim.fn.expand("%")
             local pdf = file:gsub("%.typ$", ".pdf")
             vim.system({ "zathura", pdf })
@@ -162,7 +157,7 @@ setup_lsp {
     end
 }
 
-setup_lsp({
+setup_lsp {
     name = "ltex",
     executable = "ltex-ls",
     settings = {
@@ -181,7 +176,7 @@ setup_lsp({
             }
         end
     end
-})
+}
 
 vim.api.nvim_create_autocmd("InsertEnter", {
     callback = function()
@@ -216,7 +211,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     window = {
                         winblend = 0,
                         relative = "editor",
-                        -- align = "bottom",
                     },
                 }
             }
@@ -234,10 +228,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
                 },
             }
-            nmap("<leader>k", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
-            nmap("<leader>n", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
+            nmap("<leader>k", "<cmd>Lspsaga hover_doc<cr>",   "hover documentation")
+            nmap("K",         "<cmd>Lspsaga hover_doc<cr>",   "hover documentation")
+            nmap("<leader>n", "<cmd>Lspsaga hover_doc<cr>",   "hover documentation")
             nmap("<leader>a", "<cmd>Lspsaga code_action<cr>", "code [a]ctions")
-            nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "LSP [r]ename")
+            nmap("<leader>r", "<cmd>Lspsaga rename<cr>",      "LSP [r]ename")
         end
     end,
 })

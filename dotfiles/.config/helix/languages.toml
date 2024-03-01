@@ -38,6 +38,3 @@ config.ltex.language = "da-DK"
 [language-server.vscode-css-language-server]
 command = "css-languageserver"
 
-[[language]]
-name = "bash"
-file-types = ["config", "sh", { suffix = "i3/config" }]

@@ -10,6 +10,7 @@
         pylsp-mypy
 
         numpy
+        matplotlib
       ]))
     ];
   };

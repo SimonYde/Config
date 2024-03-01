@@ -11,6 +11,9 @@
       pull = {
         rebase = false;
       };
+      push = {
+        autoSetupRemote = true;
+      };
       merge = {
         conflictStyle = "diff3";
       };

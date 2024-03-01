@@ -15,6 +15,10 @@ require('mini.surround').setup {}
 require('mini.jump').setup {}
 require('mini.jump2d').setup {}
 require('mini.splitjoin').setup {}
+require('mini.move').setup {}
+require('mini.visits').setup {}
+require('mini.sessions').setup {}
+
 local MiniNotify = require('mini.notify')
 MiniNotify.setup {
     window = {
@@ -23,12 +27,13 @@ MiniNotify.setup {
 }
 vim.notify = MiniNotify.make_notify()
 
-nmap("<M-t>", function()
-    local MiniTrailspace = require('mini.trailspace')
-    MiniTrailspace.setup {}
-    MiniTrailspace.trim()
-    MiniTrailspace.trim_last_lines()
-end, "Clean [t]railing whitespace")
-
-require('mini.move').setup {}
-require('mini.visits').setup {}
+nmap(
+    "<M-t>",
+    function()
+        local MiniTrailspace = require('mini.trailspace')
+        MiniTrailspace.setup {}
+        MiniTrailspace.trim()
+        MiniTrailspace.trim_last_lines()
+    end,
+    "Clean [t]railing whitespace"
+)
