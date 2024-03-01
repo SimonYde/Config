@@ -116,6 +116,7 @@ o.textwidth = 0
 o.wrapmargin = 0
 o.wrap = false
 o.colorcolumn = ""
+o.conceallevel = 2
 
 o.completeopt = 'menuone,noselect'
 

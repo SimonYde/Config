@@ -6,6 +6,7 @@ if whichkey then
         ["<leader>"] = {
             f = { name = "[f]ind" },
             g = { name = "[g]it" },
+            o = { name = "[o]bsidian" },
         },
     }
     local presets = require("which-key.plugins.presets")

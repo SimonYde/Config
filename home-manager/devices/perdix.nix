@@ -6,7 +6,7 @@ let emulator = config.syde.terminal.emulator; in
     programs = {
       # Browsers
       brave.enable   = true;
-      firefox.enable = true;
+      firefox.enable = false;
 
       # Terminal emulators
       ${emulator}.enable = true;
