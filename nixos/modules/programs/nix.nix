@@ -2,7 +2,7 @@
 
 {
   nix = {
-    channel.enable = false;
+    channel.enable = true; # TODO: remove when nixPath is fixed for flake only
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;

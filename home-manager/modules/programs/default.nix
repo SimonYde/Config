@@ -30,6 +30,7 @@
     ./brave.nix
     ./firefox
     ./i3status-rust.nix
+    ./nix-index.nix
     ./mpv.nix
     ./rofi
     ./swaylock.nix
