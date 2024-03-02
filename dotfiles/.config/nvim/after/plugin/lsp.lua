@@ -224,9 +224,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 code_action_prompt = {
                     enable = false,
                 },
-                ui = {
-                    kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
-                },
+                -- ui = {
+                --     kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+                -- },
             }
             nmap("<leader>k", "<cmd>Lspsaga hover_doc<cr>",   "hover documentation")
             nmap("K",         "<cmd>Lspsaga hover_doc<cr>",   "hover documentation")

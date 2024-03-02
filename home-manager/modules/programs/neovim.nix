@@ -36,13 +36,15 @@
       vim-be-good
       vim-table-mode
       obsidian-nvim
+      undotree
 
       # -----Fuzzy Finder-----
       plenary-nvim
       telescope-nvim
       telescope-fzf-native-nvim
+      telescope-ui-select-nvim
+      # telescope-undo-nvim
       git-worktree-nvim
-      telescope-undo-nvim
 
       # -----Highlighting-----
       nvim-treesitter.withAllGrammars

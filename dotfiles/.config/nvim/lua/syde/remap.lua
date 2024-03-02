@@ -78,12 +78,16 @@ nmap("gd", vim.lsp.buf.definition, "Goto Definition")
 nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
 nmap("gr", vim.lsp.buf.references, "Goto References")
 nmap("gF", "<cmd>:e <cfile><CR>", "Goto [F]ile (even if doesn't exist)")
+nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
 
 
 nmap("<leader>x", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Search and replace in buffer")
 tmap("<leader><Esc>", [[<C-\><C-n>]], "Exit terminal mode")
 
--- nmap("<leader><leader>h", vim.cmd.nohlsearch, "Clear [h]ighlights")
+nmap("<leader>u", function ()
+    vim.cmd("UndotreeToggle")
+    vim.cmd("UndotreeFocus")
+end, "Toggle [u]ndo tree")
 
 -- Toggle Quickfix
 nmap("<leader>q", vim.cmd.cclose, "Close [q]uickfix list")
