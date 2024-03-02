@@ -30,7 +30,10 @@
 
     nix = {
       package = pkgs.nix;
-      extraOptions = "experimental-features = flakes nix-command";
+      extraOptions = ''
+        experimental-features = flakes nix-command
+        warn-dirty = false
+      '';
     };
   };
 
