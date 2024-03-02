@@ -9,6 +9,7 @@ if telescope then
     table.insert(vimgrep_arguments, "!**/.git/*") -- I don't want to search in the `.git` directory.
 
     local actions = require("telescope.actions")
+    local themes = require("telescope.themes")
 
     telescope.setup {
         pickers = {
@@ -50,30 +51,18 @@ if telescope then
                 override_file_sorter = true,    -- override the file sorter
                 case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
             },
-            undo = {
-                use_delta = true,
-                layout_strategy = "vertical",
-                layout_config = {
-                    preview_height = 0.6,
-                    vertical = {
-                        width = 0.95,
-                        height = 0.95,
-                    },
-                },
-                mappings = {
-                    i = {
-                        ["<cr>"] = require("telescope-undo.actions").yank_additions,
-                        ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
-                        ["<C-cr>"] = require("telescope-undo.actions").restore,
-                    },
+            ["ui-select"] = {
+                themes.get_dropdown { -- even more opts 
+
                 },
             },
-        }
+        },
     }
 
     telescope.load_extension('fzf')
     telescope.load_extension("git_worktree")
-    telescope.load_extension("undo")
+    -- telescope.load_extension("undo")
+    telescope.load_extension("ui-select")
 
 
     local builtin = require('telescope.builtin')
@@ -93,7 +82,6 @@ if telescope then
     -- nmap("gl", builtin.lsp_implementations, "Goto [i]mplementations")
 
     nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "git [w]orktrees")
-    nmap("<leader>u", "<cmd>Telescope undo<CR>", "[u]ndo-tree")
     return
 end
 

@@ -10,7 +10,6 @@ if whichkey then
         },
     }
     local presets = require("which-key.plugins.presets")
-    -- presets.text_objects = true
     presets.operators["v"] = nil
     return
 end

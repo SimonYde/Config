@@ -6,9 +6,9 @@ end
 local nmap = require('syde.keymap').nmap
 
 starter.setup {}
-require('mini.ai').setup {}
+require('mini.ai').setup { n_lines = 500 }
 require('mini.align').setup {}
-require('mini.bracketed').setup {}
+require('mini.bracketed').setup { n_lines = 500 }
 nmap('U', '<C-r>', 'Redo')
 require('mini.comment').setup {}
 require('mini.surround').setup {}
