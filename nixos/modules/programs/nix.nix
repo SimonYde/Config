@@ -5,6 +5,7 @@
     channel.enable = true; # TODO: remove when nixPath is fixed for flake only
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
       auto-optimise-store = true;
     };
     optimise = {
