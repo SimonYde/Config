@@ -22,6 +22,7 @@
     defaultUser = "syde";
     startMenuLaunchers = true;
     nativeSystemd = true;
+    useWindowsDriver = true;
   };
 
   users.users.syde = {
