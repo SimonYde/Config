@@ -142,14 +142,14 @@ in
 
         #workspaces button {
             transition: none;
-            color: #${base03};
+            color: #${base07};
             background: transparent;
             padding: 5px;
             font-size: 15px;
         }
 
         #workspaces button.persistent {
-            color: #${base03};
+            color: #${base07};
             font-size: 15px;
         }
 
@@ -164,7 +164,9 @@ in
         }
 
         #workspaces button.focused, #workspaces button.active {
-            color: #${base07};
+            color: #${base01};
+            background: rgba(${hexToRGBString base07},0.85);
+            border-radius: inherit;
         }
 
         #language {

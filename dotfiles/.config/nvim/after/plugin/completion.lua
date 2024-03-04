@@ -1,9 +1,7 @@
--- vim.api.nvim_create_autocmd("InsertEnter", {
---     callback = function()
 local cmp = vim.F.npcall(require, "cmp")
 if cmp then
     local luasnip = require("luasnip")
-    require('luasnip.loaders.from_vscode').lazy_load() -- load friendly-snippets into luasnip
+    require('luasnip.loaders.from_vscode').lazy_load()         -- load friendly-snippets into luasnip
     luasnip.config.setup {}
 
     cmp.setup {
@@ -13,7 +11,7 @@ if cmp then
             { name = "nvim_lsp" },
             { name = "path" },
             { name = "luasnip" },
-            { name = "buffer",  keyword_length = 5 },
+            { name = "buffer",                 keyword_length = 5 },
         },
         snippet = {
             expand = function(args)
@@ -32,7 +30,7 @@ if cmp then
             ['<C-d>'] = cmp.mapping.scroll_docs(-4),
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-e>'] = cmp.mapping.abort(),
-            ['<C-Space>'] = cmp.mapping.complete {}, -- does not work on windows
+            ['<C-Space>'] = cmp.mapping.complete {},         -- does not work on windows
             -- ["<CR>"] = cmp.mapping.confirm {
             --     behavior = cmp.ConfirmBehavior.Replace,
             --     select = false,
@@ -105,5 +103,3 @@ if MiniCompletion then
     MiniCompletion.setup {}
     return
 end
---     end
--- })

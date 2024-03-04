@@ -1,13 +1,9 @@
 local M = {}
 
-
 M.map = function(mode)
     return function(keys, cmd, desc, opts)
-        if opts then
-            opts["desc"] = desc
-        else
-            opts = { desc = desc }
-        end
+        opts = opts or {}
+        opts.desc = desc
         vim.keymap.set(mode, keys, cmd, opts)
     end
 end

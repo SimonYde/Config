@@ -1,14 +1,19 @@
-local nmap = require('syde.keymap').nmap
+local lazy = require('syde.lazy')
 
-nmap(
-    '<leader>t',
-    function()
-        local trouble = vim.F.npcall(require, 'trouble')
-        if not trouble then
-            return
-        end
-        trouble.setup {}
-        vim.cmd [[TroubleToggle]]
-    end,
-    "Toggle [t]rouble"
-)
+lazy.lazy_load(function()
+    local trouble = vim.F.npcall(require, 'trouble')
+    if not trouble then
+        return
+    end
+    trouble.setup {}
+
+    local nmap = require('syde.keymap').nmap
+
+    nmap(
+        '<leader>t',
+        function()
+            vim.cmd [[TroubleToggle]]
+        end,
+        "Toggle [t]rouble"
+    )
+end)

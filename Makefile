@@ -6,7 +6,7 @@ hm: $(HOME_MANAGER_FILES)
 	home-manager --flake .#${HOST} --show-trace switch
 
 os: $(NIXOS_FILES)
-	sudo nixos-rebuild --flake .#${HOST} --show-trace switch
+	./rebuild.sh
 
 news: 
 	home-manager --flake .#${HOST} news
