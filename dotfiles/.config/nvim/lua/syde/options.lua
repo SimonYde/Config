@@ -37,7 +37,7 @@ if MiniBasics then
             extra_ui = false,
 
             -- Presets for window borders ('single', 'double', ...)
-            win_borders = 'default',
+            win_borders = 'single',
         },
 
         -- Mappings. Set to `false` to disable.
@@ -143,3 +143,7 @@ for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+local lazy = require('syde.lazy')
+lazy.setup_lazy_loading()
+lazy.perform_lazy_loading()

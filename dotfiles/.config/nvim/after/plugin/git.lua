@@ -39,12 +39,15 @@ nmap("<leader>gc",
     "Neogit [c]ommit")
 
 
-local gitsigns = vim.F.npcall(require, 'gitsigns')
-if gitsigns then
-    gitsigns.setup {
-        current_line_blame_opts = {
-            delay = 1000,
-            virt_text_pos = "eol",
-        },
-    }
-end
+local lazy = require("syde.lazy")
+lazy.lazy_load(function ()
+    local gitsigns = vim.F.npcall(require, 'gitsigns')
+    if gitsigns then
+        gitsigns.setup {
+            current_line_blame_opts = {
+                delay = 1000,
+                virt_text_pos = "eol",
+            },
+        }
+    end
+end)
