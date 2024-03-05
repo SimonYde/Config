@@ -30,11 +30,11 @@ lazy.lazy_load(function()
     }
     vim.notify = MiniNotify.make_notify()
 
+    local MiniTrailspace = require('mini.trailspace')
+    MiniTrailspace.setup {}
     nmap(
         "<M-t>",
         function()
-            local MiniTrailspace = require('mini.trailspace')
-            MiniTrailspace.setup {}
             MiniTrailspace.trim()
             MiniTrailspace.trim_last_lines()
         end,

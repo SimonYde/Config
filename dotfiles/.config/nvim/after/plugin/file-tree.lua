@@ -1,7 +1,6 @@
 local has_nvimtree, nvim_tree = pcall(require, "nvim-tree")
 local nmap = require("syde.keymap").nmap
 
-
 if has_nvimtree then
     nvim_tree.setup {
         disable_netrw = true,
@@ -32,6 +31,6 @@ end
 local MiniFiles = vim.F.npcall(require, 'mini.files')
 if MiniFiles then
     MiniFiles.setup {}
-    nmap('<M-f>', '<cmd>lua MiniFiles.open()<CR>', "Show [f]ile-tree")
-    nmap('<M-F>', '<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>', "Show current [F]ile in file-tree")
+    nmap('<M-f>', function() MiniFiles.open() end, "Show [f]ile-tree")
+    nmap('<M-F>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end, "Show current [F]ile in file-tree")
 end

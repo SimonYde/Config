@@ -2,6 +2,7 @@ local lazy = require('syde.lazy')
 
 lazy.lazy_load(function()
     vim.api.nvim_create_autocmd("InsertEnter", {
+        once = true,
         callback = function()
             local autopairs = vim.F.npcall(require, 'nvim-autopairs')
             if autopairs then

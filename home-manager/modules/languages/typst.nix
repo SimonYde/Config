@@ -22,8 +22,8 @@ let cfg = config.syde.programming.typst; in
     ];
   };
 
-  options.syde.programming.typst = with lib; {
-    enable = mkEnableOption "Typst language support";
+  options.syde.programming.typst = {
+    enable = lib.mkEnableOption "Typst language support";
   };
 }
 

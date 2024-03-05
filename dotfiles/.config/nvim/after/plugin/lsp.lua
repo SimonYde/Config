@@ -20,6 +20,9 @@ lazy.lazy_load(function()
     local nmap = require('syde.keymap').nmap
 
     local function setup_lsp(LSP)
+        if not (vim.fn.executable(LSP.cmd or LSP.name) == 1) then
+            return
+        end
         local config = {}
         config.capabilities = capabilities
 
@@ -145,7 +148,7 @@ lazy.lazy_load(function()
         name = "typst_lsp",
         cmd = "typst-lsp",
         settings = {
-            exportPdf = "onSave", -- Choose `onType`, `onSave` or `never`.
+            exportPdf = "never", -- Choose `onType`, `onSave` or `never`.
         },
         on_attach = function(_)
             nmap("<leader>sp", function()
@@ -165,7 +168,7 @@ lazy.lazy_load(function()
                 language = "da-DK",
             },
         },
-        on_attach = function(_)
+        on_attach = function()
             local ltex_extra = vim.F.npcall(require, 'ltex_extra')
             if ltex_extra then
                 ltex_extra.setup {
