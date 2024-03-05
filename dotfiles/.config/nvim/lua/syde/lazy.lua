@@ -1,11 +1,13 @@
 local M = {}
 
-M.lazy_load = function(setup_func)
+-- Heavily inspired by Lazy.nvim by folke
+
+M.lazy_load = function(func_to_lazy_load)
     vim.api.nvim_create_autocmd("User", {
         pattern = "LazyLoad",
         once = true,
         callback = function()
-            setup_func()
+            func_to_lazy_load()
         end
     })
 end

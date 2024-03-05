@@ -39,11 +39,11 @@ lazy.lazy_load(function()
                 prompt_prefix = "  ",
                 layout_config = {
                     prompt_position = 'top',
-                    -- horizontal = {
-                    --     height = 0.9,
-                    --     width = 0.9,
-                    -- },
-                    -- preview_width = 0.48,
+                    horizontal = {
+                        height = 0.9,
+                        width = 0.9,
+                    },
+                    preview_width = 0.48,
                 },
                 sorting_strategy = 'ascending',
             },
@@ -74,7 +74,7 @@ lazy.lazy_load(function()
         nmap(
             "<leader>fc",
             function()
-                builtin.current_buffer_fuzzy_find(themes.get_dropdown {
+                builtin.current_buffer_fuzzy_find({
                     previewer = false,
                 })
             end,
