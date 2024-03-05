@@ -17,18 +17,16 @@ let cfg = config.programs.hyprland; in
       ];
     };
 
-    programs.hyprland = {
-      xwayland.enable = true;
-    };
+    programs.hyprland.xwayland.enable = true;
 
     programs.dconf.enable = true;
     services.xserver.enable = true;
 
-    security.pam.services.swaylock = { }; # Won't unlock otherwise, see nixpkgs#89019
+    security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
-      WLR_DRM_NO_ATOMIC = "1"; # Tearing support, may not be needed in the future
+      WLR_DRM_NO_ATOMIC = "1"; # Tearing support, may not be needed in the future, see hyprland docs
       QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
