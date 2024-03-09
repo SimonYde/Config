@@ -50,7 +50,5 @@
   # services.geoclue2.enable = true;
 
   environment.systemPackages = with pkgs; [
-    gparted
-    bottles
   ];
 }
