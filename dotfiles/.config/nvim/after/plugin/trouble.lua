@@ -1,12 +1,5 @@
-local lazy = require('syde.lazy')
-
-lazy.lazy_load(function()
-    local trouble = vim.F.npcall(require, 'trouble')
-    if not trouble then
-        return
-    end
-    trouble.setup {}
-
+Load.later(function()
+    require('trouble').setup {}
     local nmap = require('syde.keymap').nmap
 
     nmap(

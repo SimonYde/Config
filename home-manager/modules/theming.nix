@@ -8,7 +8,8 @@ in
     nix-colors.homeManagerModules.default
   ];
 
-  config.colorScheme = nix-colors.colorSchemes."catppuccin-${cfg.flavour}";
+  config.colorScheme = nix-colors.colorSchemes."catppuccin-mocha";
+  # "catppuccin-${cfg.flavour}";
 
   options.syde.theming = {
     flavour = lib.mkOption {
@@ -17,7 +18,7 @@ in
     };
     prefer-dark = lib.mkOption {
       type    = lib.types.bool;
-      default = true;
+      default = config.colorScheme.variant == "dark";
     };
     gtk = {
       darkTheme = lib.mkOption {

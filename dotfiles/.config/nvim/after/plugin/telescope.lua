@@ -1,10 +1,8 @@
-local lazy = require("syde.lazy")
-
-lazy.lazy_load(function()
+Load.later(function()
     local nmap = require('syde.keymap').nmap
 
-    local telescope = vim.F.npcall(require, 'telescope')
-    if telescope then
+    local telescope = Load.now(function()
+        local telescope = require('telescope')
         -- Clone the default Telescope configuration
         local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
 
@@ -92,13 +90,13 @@ lazy.lazy_load(function()
         -- nmap("gl", builtin.lsp_implementations, "Goto [i]mplementations")
 
         nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "git [w]orktrees")
-        return
-    end
+        return telescope
+    end)
+    if telescope then return end
 
-
-    local MiniPick = vim.F.npcall(require, 'mini.pick')
-    if MiniPick then
-        MiniExtra = require('mini.extra')
+    Load.now(function()
+        local MiniPick = require('mini.pick')
+        local MiniExtra = require('mini.extra')
         MiniExtra.setup {}
         MiniPick.setup {
             mappings = {
@@ -109,20 +107,20 @@ lazy.lazy_load(function()
 
         nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
         nmap("<leader>b", MiniPick.builtin.buffers, "Pick [b]uffers")
-        nmap("<leader>c", function() MiniExtra.pickers.buf_lines { scope = "current" } end, "Pick [c]urrent buffer lines")
+        nmap("<leader>c", function() MiniExtra.pickers.buf_lines { scope = "current" } end,
+            "Pick [c]urrent buffer lines")
         nmap("<leader>fc", function() MiniExtra.pickers.buf_lines { scope = "current" } end,
             "Pick [c]urrent buffer lines")
         nmap("<leader>ff", MiniPick.builtin.files, "Pick [f]iles")
         nmap("<leader>F", MiniExtra.pickers.git_files, "Pick git [F]iles")
         nmap("<leader>fh", MiniPick.builtin.help, "Pick [h]elp")
         nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick [g]rep")
-        nmap("<leader>fs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, "LSP document [s]ymbols")
+        nmap("<leader>fs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end,
+            "LSP document [s]ymbols")
         nmap("<leader>fw", function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end,
             "LSP [w]orkspace symbols")
         nmap("<leader>/", MiniPick.builtin.grep_live, "Global search with grep")
         nmap("gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, "Goto [r]eferences")
         nmap("gi", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, "Goto [i]mplementations")
-
-        return
-    end
+    end)
 end)

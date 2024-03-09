@@ -1,21 +1,24 @@
-local lazy = require('syde.lazy')
-
-lazy.lazy_load(function()
+Load.later(function()
     vim.api.nvim_create_autocmd("InsertEnter", {
         once = true,
         callback = function()
-            local autopairs = vim.F.npcall(require, 'nvim-autopairs')
-            if autopairs then
+            local autopairs = Load.now(function()
+                local autopairs = require('nvim-autopairs')
                 autopairs.setup {}
-                return
-            end
+                Load.now(function()
+                    require('cmp').event:on(
+                        'confirm_done',
+                        require('nvim-autopairs.completion.cmp').on_confirm_done()
+                    )
+                end)
+                return autopairs
+            end)
 
-            local minipairs = vim.F.npcall(require, 'mini.pairs')
-            if minipairs then
-                minipairs.setup {}
-                return
-            end
+            if autopairs then return end
+
+            Load.now(function()
+                require('mini.pairs').setup {}
+            end)
         end
     })
 end)
-

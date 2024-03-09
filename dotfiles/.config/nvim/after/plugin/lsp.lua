@@ -1,42 +1,29 @@
-local lazy = require('syde.lazy')
-lazy.lazy_load(function()
-    local lspconfig = vim.F.npcall(require, 'lspconfig')
-    if not lspconfig then
-        return
-    end
+Load.later(function()
+    local lspconfig = require('lspconfig')
+    local nmap = require('syde.keymap').nmap
+    local imap = require('syde.keymap').imap
 
-    local neodev = vim.F.npcall(require, 'neodev')
-    if neodev then
-        neodev.setup {}
-    end
+    Load.now(function()
+        require('neodev').setup {}
+    end)
 
     -- Cmp Setup
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local cmp_nvim_lsp = vim.F.npcall(require, 'cmp_nvim_lsp')
-    if cmp_nvim_lsp then
+    local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
+    if has_cmp_nvim_lsp then
         capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
     end
 
-    local nmap = require('syde.keymap').nmap
-
+    ---@param LSP { name: string, cmd: string?, settings: table?, on_attach: function?, filetypes: string[]? }
     local function setup_lsp(LSP)
         if not (vim.fn.executable(LSP.cmd or LSP.name) == 1) then
-            return
+            return -- LSP not installed
         end
         local config = {}
         config.capabilities = capabilities
-
-        if LSP.settings then
-            config.settings = LSP.settings
-        end
-
-        if LSP.on_attach then
-            config.on_attach = LSP.on_attach
-        end
-
-        if LSP.filetypes then
-            config.filetypes = LSP.filetypes
-        end
+        if LSP.settings then config.settings = LSP.settings end
+        if LSP.on_attach then config.on_attach = LSP.on_attach end
+        if LSP.filetypes then config.filetypes = LSP.filetypes end
 
         lspconfig[LSP.name].setup(config)
     end
@@ -104,13 +91,8 @@ lazy.lazy_load(function()
                 build = {
                     cmd = 'tectonic',
                     args = {
-                        "-X",
                         "compile",
                         "%f",
-                        "--synctex",
-                        "--keep-logs",
-                        "--keep-intermediates",
-                        "--outdir build"
                     },
                     onSave = true,
                     forwardSearchAfter = true,
@@ -150,7 +132,7 @@ lazy.lazy_load(function()
         settings = {
             exportPdf = "never", -- Choose `onType`, `onSave` or `never`.
         },
-        on_attach = function(_)
+        on_attach = function()
             nmap("<leader>sp", function()
                 local file = vim.fn.expand("%")
                 local pdf = file:gsub("%.typ$", ".pdf")
@@ -169,26 +151,24 @@ lazy.lazy_load(function()
             },
         },
         on_attach = function()
-            local ltex_extra = vim.F.npcall(require, 'ltex_extra')
-            if ltex_extra then
-                ltex_extra.setup {
+            Load.now(function()
+                require('ltex_extra').setup {
                     load_langs = { "en-US", "en-GB", "da-DK" },
                     init_check = true,
                     path = vim.fn.expand("~") .. "/.local/share/ltex",
                     log_level = "none",
                 }
-            end
+            end)
         end
     }
 
-    local copilot = vim.F.npcall(require, 'copilot')
-    if copilot then
-        copilot.setup {
+    Load.now(function()
+        require('copilot').setup {
             suggestion = {
                 auto_trigger = true,
             },
         }
-    end
+    end)
 
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
@@ -196,9 +176,8 @@ lazy.lazy_load(function()
             if client then
                 client.server_capabilities.semanticTokensProvider = nil
             end
-            local fidget = vim.F.npcall(require, 'fidget')
-            if fidget then
-                fidget.setup {
+            Load.now(function()
+                require('fidget').setup {
                     progress = {
                         display = {
                             progress_icon = {
@@ -214,26 +193,51 @@ lazy.lazy_load(function()
                         },
                     }
                 }
-            end
-            local lspsaga = vim.F.npcall(require, 'lspsaga')
-            if lspsaga then
-                lspsaga.setup {
+            end)
+            Load.now(function()
+                local settings = {
                     symbol_in_winbar = {
                         enable = false,
                     },
                     code_action_prompt = {
                         enable = false,
                     },
-                    ui = {
-                        kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
-                    },
                 }
-                nmap("<leader>k", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
-                nmap("K", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
-                nmap("<leader>n", "<cmd>Lspsaga hover_doc<cr>", "hover documentation")
-                nmap("<leader>a", "<cmd>Lspsaga code_action<cr>", "code [a]ctions")
-                nmap("<leader>r", "<cmd>Lspsaga rename<cr>", "LSP [r]ename")
-            end
+
+                if pcall(require, 'catppuccin') then
+                    settings.ui = {
+                        kind = require('catppuccin.groups.integrations.lsp_saga').custom_kind(),
+                    }
+                end
+
+                require('lspsaga').setup(settings)
+
+                nmap(
+                    "<leader>k",
+                    function() vim.cmd.Lspsaga("hover_doc") end,
+                    "hover documentation"
+                )
+                nmap(
+                    "K",
+                    function() vim.cmd.Lspsaga("hover_doc") end,
+                    "hover documentation"
+                )
+                nmap(
+                    "<leader>n",
+                    function() vim.cmd.Lspsaga("hover_doc") end,
+                    "hover documentation"
+                )
+                nmap(
+                    "<leader>a",
+                    function() vim.cmd.Lspsaga("code_action") end,
+                    "code [a]ctions"
+                )
+                nmap(
+                    "<leader>r",
+                    function() vim.cmd.Lspsaga("rename") end,
+                    "LSP [r]ename"
+                )
+            end)
         end,
     })
 end)
