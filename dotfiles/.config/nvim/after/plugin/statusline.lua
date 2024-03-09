@@ -1,6 +1,5 @@
-local lualine = vim.F.npcall(require, 'lualine')
-
-if lualine then
+local lualine = Load.now(function()
+    local lualine = require('lualine')
     lualine.setup {
         options = {
             theme = "auto",
@@ -31,11 +30,13 @@ if lualine then
             'trouble',
         },
     }
-    return
-end
+    return lualine
+end)
+if lualine then return end
 
-local MiniStatusline = vim.F.npcall(require, 'mini.statusline')
-if MiniStatusline then
+
+Load.now(function()
+    local MiniStatusline = require('mini.statusline')
     local section_macro_recording = function()
         local recording_register = vim.fn.reg_recording()
 
@@ -66,7 +67,7 @@ if MiniStatusline then
 
         local get_filetype_icon = function()
             if not MiniStatusline.config.use_icons then return '' end
-            local devicons = vim.F.npcall(require, 'nvim-web-devicons')
+            local devicons = Load.now(require, 'nvim-web-devicons')
             if not devicons then return '' end
 
             local file_name, file_ext = vim.fn.expand('%:t'), vim.fn.expand('%:e')
@@ -139,5 +140,4 @@ if MiniStatusline then
     vim.opt.laststatus = 3     -- global statusline
     vim.opt.cmdheight = 0
     vim.opt.hlsearch = true
-    return
-end
+end)

@@ -1,23 +1,36 @@
-local has_mini, starter = pcall(require, 'mini.starter')
-if not has_mini then
-    return
-end
+local nmap = require('syde.keymap').nmap
+Load.now(function()
+    require('mini.starter').setup {}
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniStarterOpened",
+        callback = function()
+            local buf = vim.api.nvim_get_current_buf()
+            local buf_name = vim.api.nvim_buf_get_name(buf)
+            if buf_name:match(vim.uv.cwd() .. "/Starter") then
+                Colemak_toggle()
+            end
+        end,
+    })
+    vim.api.nvim_create_autocmd("BufReadPre", {
+        callback = function()
+            _G.COLEMAK = false
+            Colemak_toggle()
+        end,
+    })
+    require('mini.sessions').setup {}
+end)
 
-starter.setup {}
-require('mini.sessions').setup {}
-
-local lazy = require('syde.lazy')
-lazy.lazy_load(function()
-    local nmap = require('syde.keymap').nmap
+Load.later(function()
     require('mini.ai').setup { n_lines = 500 }
     require('mini.align').setup {}
-    local MiniBracketed = require('mini.bracketed')
-    MiniBracketed.setup { n_lines = 500 }
-    nmap('U', '<C-r>', 'Redo')
+
+    require('mini.bracketed').setup { n_lines = 500 }
+    nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
+
     require('mini.comment').setup {}
-    require('mini.surround').setup {}
     require('mini.jump').setup {}
     require('mini.jump2d').setup {}
+    require('mini.surround').setup {}
     require('mini.splitjoin').setup {}
     require('mini.move').setup {}
     require('mini.visits').setup {}
@@ -40,4 +53,9 @@ lazy.lazy_load(function()
         end,
         "Clean [t]railing whitespace"
     )
+
+    local MiniFiles = require('mini.files')
+    MiniFiles.setup {}
+    nmap('<M-f>', function() MiniFiles.open() end, "Show [f]ile-tree")
+    nmap('<M-F>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end, "Show current [F]ile in file-tree")
 end)

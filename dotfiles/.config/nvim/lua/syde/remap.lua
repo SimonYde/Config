@@ -17,8 +17,8 @@ nmap("<C-w>n", "<C-w>j", "Go to the down window")
 nmap("<C-w>e", "<C-w>k", "Go to the up window")
 nmap("<C-w>i", "<C-w>l", "Go to the right window")
 
-local COLEMAK = false
-local function colemak_toggle()
+_G.COLEMAK = false
+_G.Colemak_toggle = function()
     if not COLEMAK then
         vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
         -- vim.opt.langmap = "jh,hk,kj"
@@ -41,10 +41,10 @@ local function colemak_toggle()
         COLEMAK = false
     end
 end
-colemak_toggle()
+Colemak_toggle()
 
 nmap("<leader><leader>q", function()
-    colemak_toggle()
+    Colemak_toggle()
     print("COLEMAK", COLEMAK)
 end, "Toggle COLEMAK")
 

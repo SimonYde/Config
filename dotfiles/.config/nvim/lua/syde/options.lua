@@ -1,7 +1,3 @@
-vim.cmd [[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]]
-
-vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.cmd [[set guicursor=a:ver25]] end })
-
 -- Disable some unused built-in plugins
 vim.g.loaded_gzip = 1
 vim.g.loaded_zip = 1
@@ -25,9 +21,9 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
-local MiniBasics = vim.F.npcall(require, 'mini.basics')
-if MiniBasics then
-    MiniBasics.setup {
+require('syde.load').setup()
+Load.now(function()
+    require('mini.basics').setup {
         -- Options. Set to `false` to disable.
         options = {
             -- Basic options ('termguicolors', 'number', 'ignorecase', and many more)
@@ -68,7 +64,7 @@ if MiniBasics then
         -- Whether to disable showing non-error feedback
         silent = false,
     }
-end
+end)
 
 local opt = vim.opt
 local o = vim.o
@@ -137,6 +133,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
+-- bar cursor in insert mode
+vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.cmd [[set guicursor=a:ver25]] end })
+vim.cmd [[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]]
 
 local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do
@@ -144,6 +143,4 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local lazy = require('syde.lazy')
-lazy.setup_lazy_loading()
-lazy.perform_lazy_loading()
+Load.perform_lazy_loading()

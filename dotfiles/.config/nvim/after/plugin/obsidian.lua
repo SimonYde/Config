@@ -1,12 +1,5 @@
-local lazy = require("syde.lazy")
-
-lazy.lazy_load(function()
-    local obsidian = vim.F.npcall(require, "obsidian")
-    if not obsidian then
-        return
-    end
-
-    obsidian.setup {
+Load.later(function()
+    require('obsidian').setup {
         workspaces = {
             {
                 name = "Apollo",
@@ -14,33 +7,11 @@ lazy.lazy_load(function()
                 path = "~/Obsidian/Apollo",
             },
         },
+        new_notes_location = "current_dir", -- NOTE: or "notes_subdir"
         completion = {
             nvim_cmp = true,
-
             min_chars = 2,
-
-            -- Where to put new notes created from completion. Valid options are
-            --  * "current_dir" - put new notes in same directory as the current buffer.
-            --  * "notes_subdir" - put new notes in the default notes subdirectory.
-            new_notes_location = "current_dir",
-            preferred_link_style = nil,
-
-            -- Control how wiki links are completed with these (mutually exclusive) options:
-            --
-            -- 1. Whether to add the note ID during completion.
-            -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-            -- Mutually exclusive with 'prepend_note_path' and 'use_path_only'.
-            prepend_note_id = false,
-            -- 2. Whether to add the note path during completion.
-            -- E.g. "[[Foo" completes to "[[notes/foo|Foo]]" assuming "notes/foo.md" is the path of the note.
-            -- Mutually exclusive with 'prepend_note_id' and 'use_path_only'.
-            prepend_note_path = false,
-            -- 3. Whether to only use paths during completion.
-            -- E.g. "[[Foo" completes to "[[notes/foo]]" assuming "notes/foo.md" is the path of the note.
-            -- Mutually exclusive with 'prepend_note_id' and 'prepend_note_path'.
-            use_path_only = false,
         },
-        log_level = nil,
         templates = {
             subdir = "templates",
             date_format = "%Y-%m-%d-%a",

@@ -1,6 +1,11 @@
 local M = {}
 
+---@param mode string | table
 M.map = function(mode)
+    ---@param desc string
+    ---@param keys string
+    ---@param cmd function|string
+    ---@param opts? table
     return function(keys, cmd, desc, opts)
         opts = opts or {}
         opts.desc = desc

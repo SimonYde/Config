@@ -1,7 +1,6 @@
-local lazy = require('syde.lazy')
-lazy.lazy_load(function()
-    local ibl = vim.F.npcall(require, 'ibl')
-    if ibl then
+Load.later(function()
+    local ibl = Load.now(function()
+        local ibl = require('ibl')
         ibl.setup {
             indent = {
                 char = '▏',
@@ -10,7 +9,11 @@ lazy.lazy_load(function()
                 enabled = false,
             },
         }
-    else
+        return ibl
+    end)
+    if ibl then return end
+
+    Load.now(function()
         local indentscope = require('mini.indentscope')
         indentscope.setup {
             symbol = '▏',
@@ -19,5 +22,5 @@ lazy.lazy_load(function()
                 animation = indentscope.gen_animation.none(),
             },
         }
-    end
+    end)
 end)
