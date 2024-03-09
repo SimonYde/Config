@@ -14,9 +14,9 @@
   ];
 
   # Personal configurations
-  syde = { 
+  syde = {
     laptop.enable = true;
-    gaming.enable = true;
+    gaming.enable = false;
     hardware = {
       nvidia.enable = true;
     };
