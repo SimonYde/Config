@@ -29,6 +29,7 @@ in
         modules-right = [
           "pulseaudio"
           # "network"
+          "disk"
           "memory"
           "cpu"
           "battery"
@@ -56,19 +57,7 @@ in
         "hyprland/submap" = {
           format = "<span style=\"italic\">{}</span>";
         };
-        # "hyprland/workspaces" = {
-        #   "format" = "<sub>{icon}</sub>\n{windows}";
-        #   "format-window-separator" = "\n";
-        #   "window-rewrite-default" = "";
-        #   "window-rewrite" = {
-        #     "title<.*youtube.*>" = ""; # Windows whose titles contain "youtube"
-        #     "class<firefox>" = ""; # Windows whose classes are "firefox"
-        #     "class<firefox> title<.*github.*>" = ""; # Windows whose class is "firefox" and title contains "github". Note that "class" always comes first.
-        #     "alacritty" = "";
-        #   };
-        # };
         network = {
-          # "interface" = "wlp2*"; # (Optional) To force the use of this interface
           format-wifi = "{essid} ({signalStrength}%) ";
           format-ethernet = "{ipaddr}/{cidr} 󰈀";
           tooltip-format = "{ifname} via {gwaddr} 󰈀";
@@ -119,7 +108,7 @@ in
       ''
         * {
             border: none;
-            border-radius: 0;
+            border-radius: 15px;
             font-family: ${font}, FontAwesome;
             min-height: 12px;
         }
@@ -135,7 +124,6 @@ in
         #workspaces {
             margin-left: 8px;
             margin-right: 8px;
-            border-radius: 10px;
             transition: none;
             background: ${bg};
         }
@@ -144,7 +132,7 @@ in
             transition: none;
             color: #${base07};
             background: transparent;
-            padding: 5px;
+            margin-top: 0;
             font-size: 15px;
         }
 
@@ -158,7 +146,6 @@ in
             transition: none;
             box-shadow: inherit;
             text-shadow: inherit;
-            border-radius: inherit;
             color: ${bg};
             background: #${base04};
         }
@@ -166,31 +153,11 @@ in
         #workspaces button.focused, #workspaces button.active {
             color: #${base01};
             background: rgba(${hexToRGBString base07},0.85);
-            border-radius: inherit;
-        }
-
-        #language {
-            padding-left: 16px;
-            padding-right: 8px;
-            border-radius: 10px 0px 0px 10px;
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        #keyboard-state {
-            margin-right: 8px;
-            padding-right: 16px;
-            border-radius: 0px 10px 10px 0px;
-            transition: none;
-            color: #${base05};
-            background: ${bg};
         }
 
         #mode, #submap {
             padding-left: 16px;
             padding-right: 16px;
-            border-radius: 10px;
             transition: none;
             color: #${base01};
             background: #${base07};
@@ -201,7 +168,6 @@ in
             margin-right: 8px;
             padding-left: 16px;
             padding-right: 16px;
-            border-radius: 10px;
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -212,19 +178,10 @@ in
             color: #${base05};
         }
 
-        #memory {
+        #memory, #cpu, #disk {
             padding-left: 16px;
-            padding-right: 8px;
-            border-radius: 10px 0px 0px 10px;
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        #cpu {
-            margin-right: 8px;
             padding-right: 16px;
-            border-radius: 0px 10px 10px 0px;
+            margin-right: 8px;
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -234,7 +191,6 @@ in
             margin-right: 8px;
             padding-left: 16px;
             padding-right: 16px;
-            border-radius: 10px;
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -263,7 +219,6 @@ in
         #tray {
             padding-left: 16px;
             padding-right: 16px;
-            border-radius: 10px;
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -274,7 +229,6 @@ in
             padding-left: 16px;
             padding-right: 16px;
             margin-right: 8px;
-            border-radius: 10px 10px 10px 10px;
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -285,6 +239,22 @@ in
                 background-color: #${base05};
                 color: ${bg};
             }
+        }
+
+        #language {
+            padding-left: 16px;
+            padding-right: 8px;
+            transition: none;
+            color: #${base05};
+            background: ${bg};
+        }
+
+        #keyboard-state {
+            margin-right: 8px;
+            padding-right: 16px;
+            transition: none;
+            color: #${base05};
+            background: ${bg};
         }
       '';
   };
