@@ -8,6 +8,10 @@
         inputs.helix.overlays.default
         inputs.neovim-nightly.overlays.default
         (self: super: {
+          unstable = import inputs.unstable {
+            config = pkgs.config;
+            system = pkgs.system;
+          };
           stable = import inputs.stable {
             config = pkgs.config;
             system = pkgs.system;

@@ -14,7 +14,6 @@ let cfg = config.syde.programming; in
 
     syde.programming = {
       latex.enable  = true;
-      lua.enable    = true;
       python.enable = true;
       rust.enable   = true;
       typst.enable  = true;
