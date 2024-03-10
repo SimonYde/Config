@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 
-let cfg = config.syde.programming.lua; in
+let cfg = config.programming.lua; in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
@@ -11,8 +11,10 @@ let cfg = config.syde.programming.lua; in
       neodev-nvim
     ];
   };
-
-  options.syde.programming.lua = {
-    enable = lib.mkEnableOption "lua language tools";
+  options.syde.programming = {
+    lua = {
+      enable = lib.mkEnableOption "lua language tools";
+    };
   };
+
 }

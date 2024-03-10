@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    unstable.follows = "nixpkgs";
     stable.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -15,12 +16,12 @@
     };
     helix = {
       url = "github:helix-editor/helix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
     nil = {
       url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
     nix-index-database = {
@@ -29,7 +30,7 @@
     };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
       inputs.flake-compat.follows = "flake-compat";
     };
     nixos-wsl = {
@@ -89,7 +90,11 @@
     {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
-          gnumake
+          inputs.nil.packages.${system}.default
+          # nixd
+          # nil
+          nixpkgs-fmt
+          lua-language-server
         ];
       };
     });

@@ -17,7 +17,7 @@ let emulator = config.syde.terminal.emulator; in
     };
 
     # personal program configurations
-    syde.programs = {
+    syde.programs = { 
       thunar.enable = true;
     };
 
@@ -51,7 +51,7 @@ let emulator = config.syde.terminal.emulator; in
       gentium
       libertinus
       font-awesome
-      obsidian
+      unstable.obsidian
       libqalculate
       # synergy
       libreoffice
@@ -65,6 +65,10 @@ let emulator = config.syde.terminal.emulator; in
 
       floorp
       keepassxc
+
+      # handbrake
+      # bitwig-studio
+      # obs-studio
     ];
 
 

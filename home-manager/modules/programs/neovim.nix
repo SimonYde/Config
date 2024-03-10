@@ -13,6 +13,7 @@ let cfg = config.programs.neovim; in
         # -----LSP-----
         nvim-lspconfig
         lspsaga-nvim
+        neodev-nvim
 
         # -----Completion-----
         lspkind-nvim

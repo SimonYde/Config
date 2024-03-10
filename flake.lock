@@ -137,7 +137,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ],
         "rust-overlay": "rust-overlay"
       },
@@ -306,7 +306,7 @@
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-flake": "neovim-flake",
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ]
       },
       "locked": {
@@ -329,7 +329,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ],
         "rust-overlay": "rust-overlay_2"
       },
@@ -516,6 +516,9 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "stable": "stable",
+        "unstable": [
+          "nixpkgs"
+        ],
         "vscode-server": "vscode-server"
       }
     },
