@@ -9,7 +9,7 @@ let cfg = config.services.xserver.displayManager.sddm; in
         enable = true;
       };
       sddm = {
-        wayland = true;
+        wayland = false;
       };
     };
   };
