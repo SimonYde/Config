@@ -23,9 +23,9 @@ let cfg = config.programs.hyprland; in
 
     services.xserver = {
       enable = true;
-      # displayManager.sddm.enable = false;
-      # displayManager.lightdm.enable = false;
-      # displayManager.gdm.enable = false;
+      displayManager.sddm.enable = true;
+      displayManager.lightdm.enable = false;
+      displayManager.gdm.enable = false;
     };
 
     security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
