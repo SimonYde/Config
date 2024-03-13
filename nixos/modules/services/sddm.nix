@@ -9,7 +9,9 @@ let cfg = config.services.xserver.displayManager.sddm; in
         enable = true;
       };
       sddm = {
-        wayland.enable = true;
+        wayland.enable =
+          # TODO: add more wayland WM/DE options
+          config.programs.sway.enable || config.programs.hyprland.enable;
       };
     };
   };
