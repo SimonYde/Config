@@ -41,5 +41,6 @@ let cfg = config.programs.sway; in
   imports = [
     ../services/lightdm.nix
     ../services/gdm.nix
+    ../services/sddm.nix
   ];
 }

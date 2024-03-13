@@ -6,10 +6,10 @@ let cfg = config.services.xserver.displayManager.sddm; in
     services.xserver.displayManager = {
       autoLogin = {
         user = "syde";
-        enable = true;
+        enable = false;
       };
       sddm = {
-        wayland = false;
+        wayland.enable = true;
       };
     };
   };
