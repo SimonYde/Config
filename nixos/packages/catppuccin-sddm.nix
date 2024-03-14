@@ -1,12 +1,12 @@
 { stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "catppuccin-sddm";
   version = "2024-03-14";
   dontBuild = true;
   installPhase = ''
     mkdir -p $out/share/sddm/themes
-    cp -aR $src $out/share/sddm/themes/catppuccin-sddm
+    cp -r $src/src/* $out/share/sddm/themes/
   '';
   src = fetchFromGitHub {
     owner = "catppuccin";
