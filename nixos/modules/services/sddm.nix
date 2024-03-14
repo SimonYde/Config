@@ -4,7 +4,8 @@ let cfg = config.services.xserver.displayManager.sddm; in
 {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      inputs.sddm-catppuccin.packages.${pkgs.hostPlatform.system}.sddm-catppuccin
+      # inputs.sddm-catppuccin.packages.${pkgs.hostPlatform.system}.sddm-catppuccin
+      (pkgs.callPackage ../../packages/catppuccin-sddm.nix {}).catppuccin-sddm
       libsForQt5.qt5.qtgraphicaleffects
       libsForQt5.qt5.qtsvg
       libsForQt5.qt5.qtquickcontrols2
@@ -19,7 +20,7 @@ let cfg = config.services.xserver.displayManager.sddm; in
         wayland.enable =
           # TODO: add more wayland WM/DE options
           config.programs.sway.enable || config.programs.hyprland.enable;
-        theme = "catppuccin";
+        theme = "catppuccin-mocha";
       };
     };
   };
