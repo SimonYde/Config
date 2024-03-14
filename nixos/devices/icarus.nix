@@ -16,6 +16,7 @@
   networking.hostName = "icarus";
   system.stateVersion = "23.11";
   time.timeZone = "Europe/Copenhagen";
+
   wsl = {
     enable = true;
     wslConf.automount.root = "/mnt";
@@ -37,7 +38,7 @@
     wget
   ];
 
-  services.vscode-server.enable = true;
+  services.vscode-server.enable = false;
 
   programs = {
     dconf.enable = true;
