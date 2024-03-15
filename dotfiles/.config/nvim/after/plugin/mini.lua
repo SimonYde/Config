@@ -2,6 +2,7 @@ local nmap = require('syde.keymap').nmap
 Load.now(function()
     require('mini.starter').setup {}
     vim.api.nvim_create_autocmd("User", {
+        once = true,
         pattern = "MiniStarterOpened",
         callback = function()
             local buf = vim.api.nvim_get_current_buf()
@@ -11,7 +12,7 @@ Load.now(function()
             end
         end,
     })
-    vim.api.nvim_create_autocmd("BufReadPre", {
+    vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
             _G.COLEMAK = false
             Colemak_toggle()
@@ -27,6 +28,7 @@ Load.later(function()
     require('mini.bracketed').setup { n_lines = 500 }
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
 
+    require('mini.bufremove').setup {}
     require('mini.comment').setup {}
     require('mini.jump').setup {}
     require('mini.jump2d').setup {}
@@ -41,7 +43,7 @@ Load.later(function()
             winblend = 0,
         },
     }
-    vim.notify = MiniNotify.make_notify()
+    vim.notify = MiniNotify.make_notify({ ERROR = { duration = 10000 } })
 
     local MiniTrailspace = require('mini.trailspace')
     MiniTrailspace.setup {}

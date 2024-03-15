@@ -66,59 +66,57 @@ Load.now(function()
     }
 end)
 
-local opt = vim.opt
-local o = vim.o
-o.number = true
-o.relativenumber = true
-o.cursorline = false
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.cursorline = false
 
-o.timeoutlen = 300
+vim.o.timeoutlen = 300
 
 local tabwidth = 4
-o.shiftwidth = tabwidth
-o.tabstop = tabwidth
-o.softtabstop = tabwidth
-o.expandtab = true
+vim.o.shiftwidth = tabwidth
+vim.o.tabstop = tabwidth
+vim.o.softtabstop = tabwidth
+vim.o.expandtab = true
 
-o.smartcase = true
-o.ignorecase = true
+vim.o.smartcase = true
+vim.o.ignorecase = true
 
-o.smartindent = true
-o.breakindent = true
-o.showmode = false
-o.splitright = true
-o.splitbelow = true
+vim.o.smartindent = true
+vim.o.breakindent = true
+vim.o.showmode = false
+vim.o.splitright = true
+vim.o.splitbelow = true
 
-o.swapfile = false
-o.backup = false
-o.writebackup = false
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.writebackup = false
 
-o.undodir = os.getenv("HOME") .. "/.local/state/undodir"
-o.undofile = true
+vim.o.undodir = vim.fn.stdpath('state') .. "/undodir"
+vim.o.undofile = true
 
-o.hlsearch = false
-o.incsearch = true
+vim.o.hlsearch = false
+vim.o.incsearch = true
 
-o.termguicolors = true
+vim.o.termguicolors = true
 
-o.scrolloff = 8
-o.signcolumn = "yes"
-opt.isfname:append("@-@")
-
-
-o.updatetime = 50
-o.timeoutlen = 300
-o.textwidth = 0
-o.wrapmargin = 0
-o.wrap = false
-o.colorcolumn = ""
-o.conceallevel = 2
-
-o.completeopt = 'menuone,noselect'
+vim.o.scrolloff = 8
+vim.o.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
 
 
--- o.listchars = 'tab:▸ ,trail:·,nbsp:␣,extends:❯,precedes:❮'
--- o.list = true
+vim.o.updatetime = 50
+vim.o.timeoutlen = 300
+vim.o.textwidth = 0
+vim.o.wrapmargin = 0
+vim.o.wrap = false
+vim.o.colorcolumn = ""
+vim.o.conceallevel = 2
+
+vim.o.completeopt = 'menuone,noselect'
+
+
+vim.o.listchars = 'tab:▸ ,trail:·,nbsp:␣,extends:❯,precedes:❮'
+-- vim.o.list = true
 
 -- Highlight yanked text
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

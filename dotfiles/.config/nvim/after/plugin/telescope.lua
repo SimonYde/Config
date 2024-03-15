@@ -19,6 +19,13 @@ Load.later(function()
                     -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
                     find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
                 },
+                buffers = {
+                    mappings = {
+                        i = {
+                            ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+                        },
+                    },
+                },
             },
             defaults = {
                 mappings = {
@@ -60,10 +67,10 @@ Load.later(function()
             },
         }
 
-        telescope.load_extension('fzf')
-        telescope.load_extension("git_worktree")
-        -- telescope.load_extension("undo")
-        telescope.load_extension("ui-select")
+        pcall(telescope.load_extension, 'fzf')
+        pcall(telescope.load_extension, "git_worktree")
+        pcall(telescope.load_extension, "undo")
+        pcall(telescope.load_extension, "ui-select")
 
 
         local builtin = require('telescope.builtin')
