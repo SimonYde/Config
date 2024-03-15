@@ -1,7 +1,6 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
     local nmap = require('syde.keymap').nmap
-    local imap = require('syde.keymap').imap
 
     Load.now(function()
         require('neodev').setup {}
@@ -9,8 +8,8 @@ Load.later(function()
 
     -- Cmp Setup
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local has_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-    if has_cmp_nvim_lsp then
+    local cmp_nvim_lsp = Load.now(require, 'cmp_nvim_lsp')
+    if cmp_nvim_lsp then
         capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
     end
 
@@ -133,11 +132,34 @@ Load.later(function()
             exportPdf = "never", -- Choose `onType`, `onSave` or `never`.
         },
         on_attach = function()
-            nmap("<leader>sp", function()
-                local file = vim.fn.expand("%")
-                local pdf = file:gsub("%.typ$", ".pdf")
-                vim.system({ "zathura", pdf })
-            end, "open pdf")
+            nmap(
+                "<leader>lp",
+                function()
+                    local file = vim.fn.expand("%")
+                    local pdf = file:gsub("%.typ$", ".pdf")
+                    vim.system({ "zathura", pdf })
+                end,
+                "open [p]df"
+            )
+            nmap(
+                "<leader>lw",
+                function()
+                    -- local main_file = vim.fs.find("main.typ", { path = vim.fn.getcwd(), type = "file" })[1]
+                    local main_file = vim.fn.expand("%")
+                    if main_file ~= nil then
+                        vim.lsp.buf.execute_command({
+                            command = "typst-lsp.doPinMain",
+                            arguments = { vim.uri_from_fname(main_file) }
+                        })
+                        vim.notify("Pinned to " .. vim.uri_from_fname(main_file), vim.log.levels.INFO)
+                    else
+                        vim.notify("Did not find a main file to pin at " .. vim.fn.getcwd(), vim.log.levels.ERROR)
+                    end
+                    vim.cmd [[TypstWatch]]
+                    vim.notify("Watching for changes in: " .. vim.uri_from_fname(main_file), vim.log.levels.INFO)
+                end,
+                "typst [w]atch"
+            )
         end
     }
 
@@ -155,7 +177,7 @@ Load.later(function()
                 require('ltex_extra').setup {
                     load_langs = { "en-US", "en-GB", "da-DK" },
                     init_check = true,
-                    path = vim.fn.expand("~") .. "/.local/share/ltex",
+                    path = vim.fn.stdpath("data") .. "/ltex",
                     log_level = "none",
                 }
             end)
@@ -165,7 +187,12 @@ Load.later(function()
     Load.now(function()
         require('copilot').setup {
             suggestion = {
-                auto_trigger = true,
+                keymap = {
+                    accept = "<M-l>",
+                    next = "<M-j>",
+                    prev = "<M-k>",
+                },
+                auto_trigger = false,
             },
         }
     end)

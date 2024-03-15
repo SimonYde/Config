@@ -48,6 +48,8 @@ M.now = function(func_to_load, ...)
     return err
 end
 
+---Lazy load function. Meant to run expensive (setup) functions when Neovim has already loaded.
+---@param func_to_lazy_load function
 M.later = function(func_to_lazy_load)
     vim.api.nvim_create_autocmd("User", {
         pattern = "LazyLoad",

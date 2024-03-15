@@ -30,8 +30,15 @@ local catppuccin = Load.now(function()
         },
         custom_highlights = function(colors)
             return {
-                MiniJump = { fg = colors.subtext1, bg = colors.surface2 },
-                MiniStatuslineModeNormal = { fg = colors.mantle, bg = colors.lavender, style = { "bold" } },
+                MiniJump = {
+                    fg = colors.subtext1,
+                    bg = colors.surface2,
+                },
+                MiniStatuslineModeNormal = {
+                    fg = colors.mantle,
+                    bg = colors.lavender,
+                    style = { "bold" },
+                },
             }
         end,
     }
@@ -45,12 +52,12 @@ Load.now(function()
         palette = PALETTE,
         use_cterm = true,
     }
-    Load.Later(function()
+    Load.later(function()
         require('mini.colors')
             .get_colorscheme()
             :add_transparency({
-                general = true,
                 float = true,
+                general = true,
                 statuscolumn = true,
                 statusline = true,
                 tabline = true,
