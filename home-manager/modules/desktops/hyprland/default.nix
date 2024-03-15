@@ -37,6 +37,8 @@ in
       hyprpicker # color picker
     ];
 
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
+
     programs = {
       imv.enable = true;
       mpv.enable = true;
@@ -113,7 +115,8 @@ in
           "eDP-1, 1920x1080, 0x0, 1"
           "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x-1080, 1"
           "desc:Dell Inc. DELL U2722D 5TNW7P3, 2560x1440@60, 0x-1440, 1"
-          ",preferred,auto,1"
+          "desc:HP Inc. HP E273q 6CM9191YW0, 2560x1440@60, 0x-1440, 1,transform,0"
+          ",preferred,auto,1,transform,0"
         ];
 
         "$browser" = browser;
