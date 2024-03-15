@@ -137,7 +137,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "unstable"
+          "nixpkgs"
         ],
         "rust-overlay": "rust-overlay"
       },
@@ -306,7 +306,7 @@
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-flake": "neovim-flake",
         "nixpkgs": [
-          "unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -329,7 +329,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "unstable"
+          "nixpkgs"
         ],
         "rust-overlay": "rust-overlay_2"
       },
@@ -515,10 +515,8 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "sddm-catppuccin": "sddm-catppuccin",
         "stable": "stable",
-        "unstable": [
-          "nixpkgs"
-        ],
         "vscode-server": "vscode-server"
       }
     },
@@ -569,6 +567,29 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sddm-catppuccin": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1685468525,
+        "narHash": "sha256-CaCMrXlwt7JfSycB8WH3XCWUu+i7bPSfFv3duo7ZlZo=",
+        "owner": "khaneliman",
+        "repo": "sddm-catppuccin",
+        "rev": "ffaad5c8964b52ccd92a80dfd3a7931c8b68c446",
+        "type": "github"
+      },
+      "original": {
+        "owner": "khaneliman",
+        "repo": "sddm-catppuccin",
         "type": "github"
       }
     },
