@@ -13,7 +13,6 @@ let cfg = config.programs.neovim; in
         # -----LSP-----
         nvim-lspconfig
         lspsaga-nvim
-        neodev-nvim
 
         # -----Completion-----
         lspkind-nvim
@@ -27,7 +26,7 @@ let cfg = config.programs.neovim; in
         cmp-buffer
         luasnip
         friendly-snippets
-        # copilot-lua
+        copilot-lua
         codeium-nvim
 
         # -----Workflow-----
@@ -78,8 +77,8 @@ let cfg = config.programs.neovim; in
       ];
       extraLuaConfig = with config.colorScheme.palette; ''
         vim.loader.enable()
-        _G.VARIANT = "${config.colorScheme.variant}"
-        _G.PALETTE = {
+        VARIANT = "${config.colorScheme.variant}"
+        PALETTE = {
           base00 = "#${base00}",
           base01 = "#${base01}",
           base02 = "#${base02}",
