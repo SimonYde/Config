@@ -46,7 +46,14 @@
     };
   };
 
+  programs.gh = {
+    settings = {
+      git_protocol = "ssh";
+    };
+  };
+
   home.packages = with pkgs; [
     git-crypt
+    glab
   ];
 }

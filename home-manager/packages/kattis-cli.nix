@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Kattis";
     repo = "kattis-cli";
-    rev = "624fe94515591b42b1545b1b6f027c0333090c41";
-    hash = "sha256-rw3u5OwDXx/bc/x9cTSLhd04rGBuBrRDg7WuWyMMAEs=";
+    rev = "e5d30f8d7d13983617fdbd5912cef4b3eec3ba03";
+    hash = "sha256-LkdZnn+gTS8/I0BJsvC9RKJi7nHBtvKclVu2HtjE++I=";
   };
 
   propagatedBuildInputs = [ python ];
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     cp submit.py $out/bin/submit.py
-    echo "#!${python}/bin/python3 $out/bin/submit.py "$@"" > $out/bin/kattis
+    echo "$out/bin/submit.py "$@"" > $out/bin/kattis
     chmod +x $out/bin/kattis
   '';
 

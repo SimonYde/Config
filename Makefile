@@ -12,7 +12,14 @@ os: $(NIXOS_FILES)
 	echo $$GENERATION; \
 	git commit -m "NixOS ${HOST}: $$GENERATION"
 
-news: 
+boot: $(NIXOS_FILES)
+	sudo nixos-rebuild --flake .#${HOST} --show-trace boot
+	git add $(NIXOS_FILES)
+	@GENERATION=`nixos-rebuild --flake .#${HOST} list-generations | rg current`; \
+	echo $$GENERATION; \
+	git commit -m "NixOS ${HOST}: $$GENERATION"
+
+news:
 	home-manager --flake .#${HOST} news
 
 update:

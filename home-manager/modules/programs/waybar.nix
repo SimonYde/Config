@@ -104,6 +104,9 @@ in
     style = with colors;
       let
         bg = "rgba(${hexToRGBString base00},0.85)";
+        margin = "6px";
+        font-size = "15px";
+        padding = "12px";
       in
       ''
         * {
@@ -122,8 +125,8 @@ in
         }
 
         #workspaces {
-            margin-left: 8px;
-            margin-right: 8px;
+            margin-left: ${margin};
+            margin-right: ${margin};
             transition: none;
             background: ${bg};
         }
@@ -133,12 +136,12 @@ in
             color: #${base07};
             background: transparent;
             margin-top: 0;
-            font-size: 15px;
+            font-size: ${font-size};
         }
 
         #workspaces button.persistent {
             color: #${base07};
-            font-size: 15px;
+            font-size: ${font-size};
         }
 
         /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
@@ -152,12 +155,12 @@ in
 
         #workspaces button.focused, #workspaces button.active {
             color: #${base01};
-            background: rgba(${hexToRGBString base07},0.85);
+            background: rgba(${hexToRGBString base07},1.0);
         }
 
         #mode, #submap {
-            padding-left: 16px;
-            padding-right: 16px;
+            padding-left: ${padding};
+            padding-right: ${padding};
             transition: none;
             color: #${base01};
             background: #${base07};
@@ -165,9 +168,9 @@ in
 
 
         #pulseaudio {
-            margin-right: 8px;
-            padding-left: 16px;
-            padding-right: 16px;
+            margin-right: ${margin};
+            padding-left: ${padding};
+            padding-right: ${padding};
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -179,18 +182,18 @@ in
         }
 
         #memory, #cpu, #disk {
-            padding-left: 16px;
-            padding-right: 16px;
-            margin-right: 8px;
+            padding-left: ${padding};
+            padding-right: ${padding};
+            margin-right: ${margin};
             transition: none;
             color: #${base05};
             background: ${bg};
         }
 
         #battery {
-            margin-right: 8px;
-            padding-left: 16px;
-            padding-right: 16px;
+            margin-right: ${margin};
+            padding-left: ${padding};
+            padding-right: ${padding};
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -217,18 +220,18 @@ in
         }
 
         #tray {
-            padding-left: 16px;
-            padding-right: 16px;
+            padding-left: ${padding};
+            padding-right: ${padding};
             transition: none;
             color: #${base05};
             background: ${bg};
         }
 
         #clock {
-            margin-left: 8px;
-            padding-left: 16px;
-            padding-right: 16px;
-            margin-right: 8px;
+            margin-left: ${margin};
+            padding-left: ${padding};
+            padding-right: ${padding};
+            margin-right: ${margin};
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -242,16 +245,16 @@ in
         }
 
         #language {
-            padding-left: 16px;
-            padding-right: 8px;
+            padding-left: ${padding};
+            padding-right: ${padding};
             transition: none;
             color: #${base05};
             background: ${bg};
         }
 
         #keyboard-state {
-            margin-right: 8px;
-            padding-right: 16px;
+            margin-right: ${margin};
+            padding-right: ${padding};
             transition: none;
             color: #${base05};
             background: ${bg};

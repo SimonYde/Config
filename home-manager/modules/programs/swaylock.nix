@@ -17,7 +17,7 @@ in
 
       clock = true;
       datestr = "%A, %b %e";
-      timestr = "%I:%M %p";
+      timestr = "%H:%M";
 
       indicator = true;
       indicator-radius = 200;

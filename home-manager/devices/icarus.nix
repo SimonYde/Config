@@ -10,6 +10,10 @@
   gtk.enable = true;
   qt.enable = true;
 
+  home.shellAliases = {
+    ex = "explorer.exe";
+  };
+
   home.packages = with pkgs; [
     libqalculate
     rclone
