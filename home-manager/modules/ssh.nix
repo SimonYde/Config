@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let cfg = config.syde.ssh; in
 {
@@ -12,7 +12,7 @@ let cfg = config.syde.ssh; in
       enableSshSupport = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
-      pinentryFlavor = "qt";
+      pinentryPackage = pkgs.pinentry-gnome3;
     };
   };
 

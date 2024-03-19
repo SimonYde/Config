@@ -8,10 +8,11 @@ in
       # Shells
       bash.enable    = true;
       fish.enable    = true;
-      nushell.enable = true;
-      zsh.enable     = false;
+      nushell.enable = false;
+      zsh.enable     = true;
 
       # CLI tools
+      atuin.enable     = true;
       bat.enable       = true;
       btop.enable      = true;
       direnv.enable    = true;
