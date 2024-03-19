@@ -9,23 +9,17 @@ local catppuccin = Load.now(function()
         flavour = flavour,
         transparent_background = true,
         integrations = {
-            indent_blankline = {
-                enabled = true,
-                colored_indent_levels = false,
-            },
             cmp = true,
             gitsigns = true,
-            nvimtree = true,
+            harpoon = true,
+            indent_blankline = { enabled = true, colored_indent_levels = false },
+            lsp_saga = true,
             mini = true,
+            nvimtree = false,
+            rainbow_delimiters = true,
+            telescope = { enabled = true, style = "nvchad" },
             treesitter = true,
             treesitter_context = true,
-            rainbow_delimiters = true,
-            harpoon = true,
-            lsp_saga = true,
-            telescope = {
-                enabled = true,
-                style = "nvchad",
-            },
             which_key = true,
         },
         custom_highlights = function(colors)
@@ -42,7 +36,7 @@ local catppuccin = Load.now(function()
             }
         end,
     }
-    vim.cmd.colorscheme "catppuccin"
+    vim.cmd.colorscheme("catppuccin")
     return catppuccin
 end)
 if catppuccin then return end

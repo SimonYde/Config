@@ -7,6 +7,7 @@
     ./neovim.nix
 
     # ---CLI Tools---
+    ./atuin.nix
     ./bat.nix
     ./direnv.nix
     ./eza.nix

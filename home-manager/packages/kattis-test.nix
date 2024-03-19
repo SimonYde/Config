@@ -9,13 +9,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "kattis-test";
-  version = "unstable-2023-10-17";
+  version = "unstable-2024-03-16";
 
   src = fetchFromGitHub {
     owner = "tyilo";
     repo = "kattis-test";
-    rev = "024cb044f6e5b0ad2666bc8d544f7a7dc5acfafb";
-    hash = "sha256-eFJzbc8FuS3PqueLWuuQvE5MLnNIGxEdRLqboNCSd6s=";
+    rev = "89628b7202c4cc2f262deae080f831e229d784b9";
+    hash = "sha256-h1RkuOOhb9RZYsD+DSnDH3CQj67Z9v4gi7SwzBvcfr4=";
   };
 
   buildInputs = [ kattis-cli ];
@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     substituteInPlace kattis-test \
       --replace '"rustup",' "" \
       --replace '"run",' "" \
-      --replace '"1.61.0",' ""
+      --replace '"1.72.1",' ""
   '';
 
   installPhase = ''

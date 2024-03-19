@@ -1,8 +1,7 @@
 { pkgs, lib, config, ... }:
 
-{
-  config = lib.mkIf config.syde.programming.python.enable {
-    home.packages = with pkgs; [
+let
+  python-pkgs = with pkgs; [
       (python311.withPackages (ps: with ps; [
         python-lsp-server
         python-lsp-black
@@ -10,9 +9,18 @@
         pylsp-mypy
 
         numpy
+        sympy
+        scipy
         matplotlib
       ]))
-    ];
+  ];
+in
+
+{
+  config = lib.mkIf config.syde.programming.python.enable {
+    # programs.neovim.extraPackages = python-pkgs;
+    # programs.helix.extraPackages = python-pkgs;
+    home.packages = python-pkgs;
   };
 
   options.syde.programming.python = with lib; {

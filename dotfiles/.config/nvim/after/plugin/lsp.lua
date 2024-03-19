@@ -92,6 +92,9 @@ Load.later(function()
                     args = {
                         "compile",
                         "%f",
+                        -- "--synctex",
+                        -- "--keep-logs",
+                        -- "--keep-intermediates",
                     },
                     onSave = true,
                     forwardSearchAfter = true,

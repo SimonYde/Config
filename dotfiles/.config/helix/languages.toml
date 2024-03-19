@@ -19,12 +19,11 @@ build.forwardSearchAfter = true
 build.onSave = true
 build.executable = "tectonic"
 build.args = [
-  "-X",
   "compile",
-  "%f", 
-  "--synctex",
-  "--keep-logs",
-  "--keep-intermediates"
+  "%f",
+  # "--synctex",
+  # "--keep-logs",
+  # "--keep-intermediates"
 ]
 
 chktex.onEdit = true
@@ -37,4 +36,3 @@ config.ltex.language = "da-DK"
 
 [language-server.vscode-css-language-server]
 command = "css-languageserver"
-

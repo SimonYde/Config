@@ -64,9 +64,8 @@ nmap("<leader>Y", [["+Y]], "yank to system clipboard")
 
 nmap("<leader>w", "<C-w>", "Window")
 
-xmap("<leader>p", [["_dP]], "Paste without yanking")
-nmap("<leader>d", [["_d]], "Delete without yanking")
-vmap("<leader>d", [["_d]], "Delete without yanking")
+xmap("<leader>p", [["_dP]], "[p]aste without yanking")
+nvmap("<M-d>", [["_d]], "[d]elete without yanking")
 
 -- LSP commands
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
