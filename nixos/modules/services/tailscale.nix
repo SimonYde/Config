@@ -1,0 +1,9 @@
+{ lib
+, ...
+}:
+
+{
+  services.tailscale = {
+
+  };
+}

@@ -41,10 +41,13 @@ in
       du-dust
       entr
       fd
-      trashy
+      gnumake
       jq
+      just
       sd
+      trashy
       xh
+      yt-dlp
 
       pandoc
 
