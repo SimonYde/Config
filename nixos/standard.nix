@@ -22,6 +22,10 @@
       type = lib.types.str;
       default = "fish";
     };
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "syde";
+    };
   };
 
 }

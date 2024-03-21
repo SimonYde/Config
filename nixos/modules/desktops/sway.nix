@@ -26,21 +26,14 @@ let cfg = config.programs.sway; in
       enable = true;
       displayManager = {
         defaultSession = "sway";
-        lightdm.enable = false; # Just to autostart sway
-        gdm.enable = false;
+        sddm.enable = true;
       };
     };
 
-    users.users.syde.packages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       networkmanagerapplet
       grim
       slurp
     ];
   };
-
-  imports = [
-    ../services/lightdm.nix
-    ../services/gdm.nix
-    ../services/sddm.nix
-  ];
 }
