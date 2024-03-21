@@ -20,7 +20,7 @@ let cfg = config.syde.wsl; in
       isNormalUser = true;
       description = "Simon Yde";
       shell = pkgs.${config.syde.shell};
-      extraGroups = [ "video" "networkmanager" "wheel" ];
+      extraGroups = [ "wheel" ];
     };
 
     environment.systemPackages = with pkgs; [
