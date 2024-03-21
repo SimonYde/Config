@@ -24,6 +24,7 @@ let emulator = config.syde.terminal.emulator; in
     services = {
       gammastep.enable = true;
       redshift.enable  = false;
+      udiskie.enable   = true;
     };
 
     fonts.fontconfig.enable = true;

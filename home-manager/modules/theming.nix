@@ -4,20 +4,20 @@ let
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
   slug = config.colorScheme.slug;
   gtk-package =
-    # if slug == "catppuccin-mocha" || slug == "catppuccin-latte"
-    # then
-    #   pkgs.catppuccin-gtk.override
-    #     {
-    #       accents = [ "lavender" ];
-    #       size = "compact";
-    #       tweaks = [ "rimless" ];
-    #       variant = cfg.flavour;
-    #     } else
-    nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
+    if slug == "catppuccin-mocha" || slug == "catppuccin-latte"
+    then
+      pkgs.catppuccin-gtk.override
+        {
+          accents = [ "lavender" ];
+          size = "compact";
+          tweaks = [ "rimless" ];
+          variant = cfg.flavour;
+        } else
+      nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
   gtk-theme =
-    if config.colorScheme.slug == "catppuccin-mocha" then "Catppuccin-Mocha-Compact-Lavender-Dark"
-    else if config.colorScheme.slug == "catppuccin-latte" then "Catppuccin-Latte-Compact-Lavender-Light"
-    else config.colorScheme.slug;
+    if slug == "catppuccin-mocha" then "Catppuccin-Mocha-Compact-Lavender-Dark"
+    else if slug == "catppuccin-latte" then "Catppuccin-Latte-Compact-Lavender-Light"
+    else slug;
   cfg = config.syde.theming;
 in
 {

@@ -72,7 +72,6 @@ Load.later(function()
         pcall(telescope.load_extension, "undo")
         pcall(telescope.load_extension, "ui-select")
 
-
         local builtin = require('telescope.builtin')
         nmap("<leader>?", builtin.keymaps, "Search keymaps")
         nmap("<leader>b", builtin.buffers, "[b]uffers")

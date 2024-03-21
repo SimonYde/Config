@@ -3,30 +3,33 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
-    ../modules/desktops/sway.nix
-    ../modules/desktops/i3.nix
-    ../modules/desktops/hyprland.nix
-    ../modules/gaming.nix
-    ../modules/pc.nix
-    ../modules/hardware/laptop.nix
-    ../modules/hardware/graphics/nvidia.nix
-    ../modules/hardware/graphics/amd.nix
+    ../standard.nix
+  ];
+
+  environment.systemPackages = with pkgs; [
   ];
 
   # Personal configurations
   syde = {
+    ssh.enable = true;
     laptop.enable = true;
+    pc.enable = true;
     gaming.enable = false;
     hardware = {
       nvidia.enable = true;
+      amdgpu.enable = true;
     };
   };
 
-  powerManagement.cpuFreqGovernor = "ondemand";
+  programs = {
+    sway.enable = false;
+    hyprland.enable = true;
+  };
 
-  programs.sway.enable     = false;
-  programs.hyprland.enable = true;
-  services.xserver.windowManager.i3.enable = false;
+  services = {
+    tailscale.enable = true;
+    syncthing.enable = true;
+  };
 
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
@@ -47,8 +50,22 @@
     };
   };
 
-  # services.geoclue2.enable = true;
+  # AMD cpu
+  boot.kernelModules = [ "kvm-amd" ];
 
-  environment.systemPackages = with pkgs; [
-  ];
+  # Filesystems
+  boot.initrd.luks.devices."luks-8c2b7981-b3e3-470e-aae7-2834b1352fa5".device = "/dev/disk/by-uuid/8c2b7981-b3e3-470e-aae7-2834b1352fa5";
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/SYSTEM_DRV";
+    fsType = "vfat";
+  };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
+  };
+
+  swapDevices = [{
+    device = "/dev/disk/by-label/swap";
+  }];
 }

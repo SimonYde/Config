@@ -5,8 +5,10 @@ let cfg = config.syde.ssh; in
   config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      permitRootLogin = "no";
-      passwordAuthentication = false;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
     };
   };
 

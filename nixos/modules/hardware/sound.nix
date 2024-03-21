@@ -1,14 +1,20 @@
-{...}:
+{config, lib, ...}:
 
+let cfg = config.syde.sound; in
 {
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true; # for using REAPER, set to true
+  config = lib.mkIf cfg.enable {
+    sound.enable = true;
+    hardware.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+  };
+  options.syde.sound = {
+    enable = lib.mkEnableOption "sound configuration";
   };
 }

@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let cfg = config.syde.hardware.amdgpu; in
 {
-  config = {
+  config = lib.mkIf cfg.enable {
     boot.initrd.kernelModules = [ "amdgpu" ];
-    boot.kernelModules = [ "kvm-amd" ];
-
     services.xserver.videoDrivers = [ "amdgpu" ];
 
     hardware = {
@@ -19,5 +18,9 @@
         ];
       };
     };
+  };
+
+  options.syde.hardware.amdgpu = {
+    enable = lib.mkEnableOption "Enable AMD GPU driver configuration";
   };
 }
