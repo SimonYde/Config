@@ -16,7 +16,7 @@ let cfg = config.syde.wsl; in
       useWindowsDriver = true;
     };
 
-    users.users.syde = {
+    users.users.${config.syde.user} = {
       isNormalUser = true;
       description = "Simon Yde";
       shell = pkgs.${config.syde.shell};

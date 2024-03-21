@@ -44,14 +44,14 @@ in
       };
     };
 
-    users.users.syde = {
+    users.users.${config.syde.user} = {
       isNormalUser = true;
       description = "Simon Yde";
-      shell = pkgs.fish;
+      shell = pkgs.${config.syde.shell};
       extraGroups = [ "video" "networkmanager" "wheel" ];
     };
 
-    programs.fish.enable = true;
+    programs.${config.syde.shell}.enable = true;
 
     fonts.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
