@@ -31,6 +31,8 @@
     syncthing.enable = true;
   };
 
+  powerManagement.cpuFreqGovernor = "ondemand";
+
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {
