@@ -14,8 +14,9 @@
 
 
   services = {
-    vscode-server.enable = false;
     syncthing.enable = true;
+    tailscale.enable = true;
+    vscode-server.enable = false;
   };
 
   networking.hostName = "icarus";
