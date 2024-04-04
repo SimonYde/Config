@@ -10,7 +10,7 @@ Load.later(function()
 
     cmp.setup {
         sources = {
-            { name = 'nvim_lsp_signature_help' },
+            -- { name = 'nvim_lsp_signature_help' },
             { name = "codeium" },
             { name = "nvim_lua" },
             { name = "nvim_lsp" },
@@ -62,6 +62,7 @@ Load.later(function()
     }
 
     Load.now(function()
+        vim.cmd[[packadd lspkind-nvim]]
         local lspkind = require('lspkind')
         lspkind.init()
         cmp.setup {

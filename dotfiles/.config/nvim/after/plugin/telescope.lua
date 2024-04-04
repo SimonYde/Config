@@ -93,7 +93,7 @@ Load.later(function()
         nmap("<leader>/", builtin.live_grep, "Global search with grep")
         nmap("gr", builtin.lsp_references, "Goto References")
         nmap("gi", builtin.lsp_implementations, "Goto [i]mplementations")
-        -- nmap("gl", builtin.lsp_implementations, "Goto [i]mplementations")
+        nmap("gd", builtin.lsp_definitions, "Goto [d]efinitions")
 
         nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "git [w]orktrees")
         return telescope

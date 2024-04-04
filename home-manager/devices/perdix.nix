@@ -68,6 +68,9 @@ let emulator = config.syde.terminal.emulator; in
       keepassxc
     ];
 
+    home.sessionVariables = {
+      OBSIDIAN_USE_WAYLAND = "0";
+    };
 
     syde.unfreePredicates = [
       "discord"

@@ -1,6 +1,7 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
     local nmap = require('syde.keymap').nmap
+    local imap = require('syde.keymap').imap
 
     Load.now(function()
         require('neodev').setup {}
@@ -224,6 +225,22 @@ Load.later(function()
                     }
                 }
             end)
+
+            -- LSP commands
+            nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
+            nmap("<leader>r", vim.lsp.buf.rename, "Rename")
+            nmap("<leader>k", vim.lsp.buf.hover, "hover documentation")
+            nmap("<leader>a", vim.lsp.buf.code_action, "code actions")
+            nmap("<leader>d", vim.diagnostic.open_float, "hover [d]iagnostics")
+            imap("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
+
+            if not pcall(require, 'telescope') then
+                nmap("gd", vim.lsp.buf.definition, "Goto Definition")
+                nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
+                nmap("gr", vim.lsp.buf.references, "Goto References")
+            end
+
+
             Load.now(function()
                 local settings = {
                     symbol_in_winbar = {

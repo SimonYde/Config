@@ -12,7 +12,8 @@ let cfg = config.syde.ssh; in
       enableSshSupport = true;
       enableZshIntegration = true;
       enableFishIntegration = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      enableNushellIntegration = true;
+      pinentryPackage = pkgs.pinentry-qt;
     };
   };
 

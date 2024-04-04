@@ -1,4 +1,5 @@
 Load.later(function()
+    vim.cmd [[packadd trouble.nvim]]
     require('trouble').setup {}
     local nmap = require('syde.keymap').nmap
 
