@@ -17,9 +17,17 @@
       merge = {
         conflictStyle = "diff3";
       };
+      rebase = {
+        updateRefs = true;
+      };
       diff = {
         colorMoved = "default";
       };
+      rerere = {
+        enabled = true;
+      };
+      column.ui = "auto";
+      branch.sort = "-committerdate";
     };
     ignores = [
       "*.sync-conflict*"

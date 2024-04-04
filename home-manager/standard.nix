@@ -20,7 +20,6 @@
       ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
       config.permittedInsecurePackages = [
-        "electron-25.9.0"
       ];
     };
 

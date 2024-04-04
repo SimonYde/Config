@@ -7,14 +7,14 @@ hm: $(HOME_MANAGER_FILES)
 
 os: $(NIXOS_FILES)
 	sudo nixos-rebuild --flake .#${HOST} --show-trace switch
-	git add $(NIXOS_FILES)
+	git add nixos
 	@GENERATION=`nixos-rebuild --flake .#${HOST} list-generations | rg current`; \
 	echo $$GENERATION; \
 	git commit -m "NixOS ${HOST}: $$GENERATION"
 
 boot: $(NIXOS_FILES)
 	sudo nixos-rebuild --flake .#${HOST} --show-trace boot
-	git add $(NIXOS_FILES)
+	git add nixos
 	@GENERATION=`nixos-rebuild --flake .#${HOST} list-generations | rg current`; \
 	echo $$GENERATION; \
 	git commit -m "NixOS ${HOST}: $$GENERATION"

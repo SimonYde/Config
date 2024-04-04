@@ -1,4 +1,5 @@
 Load.later(function()
+    vim.cmd [[packadd indent-blankline.nvim]]
     local ibl = Load.now(function()
         local ibl = require('ibl')
         ibl.setup {

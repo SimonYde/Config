@@ -1,16 +1,24 @@
 Load.later(function()
     local nmap = require("syde.keymap").nmap
+
+
+
+
     nmap("<leader>gd",
         function()
-            Load.once(function()
-                require('diffview').setup {}
+            local diffview = Load.once(function()
+                vim.cmd [[packadd diffview.nvim]]
+                local diffview = require('diffview')
+                diffview.setup {}
+                return diffview
             end)
-            vim.cmd [[DiffviewOpen]]
+            diffview().open()
         end,
         "git [d]iffview")
 
 
     local neogit = Load.once(function()
+        vim.cmd [[packadd diffview.nvim]]
         local neogit = require('neogit')
         neogit.setup {
             integrations = {
@@ -42,5 +50,6 @@ Load.later(function()
                 virt_text_pos = "eol",
             },
         }
+        nmap("<leader>gb", gitsigns.toggle_current_line_blame, "Toggle git [b]lame")
     end)
 end)

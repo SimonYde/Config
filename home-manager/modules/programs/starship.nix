@@ -8,7 +8,7 @@
     enableBashIntegration    = true;
     settings = {
       add_newline = false;
-      format = "$directory$nix_shell$git_branch$line_break$character";
+      format = "$username$hostname$directory$nix_shell$git_branch$line_break$character";
       right_format = "$cmd_duration$rust$elm$golang$ocaml";
       character = {
         success_symbol = "[⟩](normal white)";
@@ -21,6 +21,9 @@
       git_branch = {
         symbol = " ";
         style = "bold yellow";
+      };
+      hostname = {
+        ssh_symbol = "🌐";
       };
       nix_shell = {
         symbol = " ";

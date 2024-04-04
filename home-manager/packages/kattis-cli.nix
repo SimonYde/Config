@@ -25,8 +25,9 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp submit.py $out/bin/submit.py
-    echo "$out/bin/submit.py "$@"" > $out/bin/kattis
+    mkdir -p $out/lib
+    cp submit.py $out/lib/submit.py
+    echo "$out/lib/submit.py "$@"" > $out/bin/kattis
     chmod +x $out/bin/kattis
   '';
 

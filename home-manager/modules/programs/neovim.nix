@@ -1,13 +1,19 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-let cfg = config.programs.neovim; in
+let
+  catppuccin = [
+    "catppuccin-latte"
+    "catppuccin-mocha"
+  ];
+  mapLazy = map (pkg: { plugin = pkg; optional = true; });
+  cfg = config.programs.neovim;
+in
 {
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.neovim = {
       package = pkgs.neovim-nightly;
       defaultEditor = true;
       vimAlias = true;
-      vimdiffAlias = true;
       viAlias = true;
       plugins = with pkgs.vimPlugins; [
         # -----LSP-----
@@ -17,13 +23,13 @@ let cfg = config.programs.neovim; in
         # -----Completion-----
         lspkind-nvim
         nvim-cmp
-        cmp-cmdline
         cmp-nvim-lsp-signature-help
         cmp-nvim-lua
         cmp-nvim-lsp
+        cmp-cmdline
         cmp-path
-        cmp_luasnip
         cmp-buffer
+        cmp_luasnip
         luasnip
         friendly-snippets
         copilot-lua
@@ -34,11 +40,10 @@ let cfg = config.programs.neovim; in
         nvim-autopairs
         gitsigns-nvim
         neogit
-        diffview-nvim
         mini-nvim
         vim-sleuth
-        vim-be-good
-        vim-table-mode
+        # vim-table-mode
+        # vim-be-good
         undotree
 
         obsidian-nvim
@@ -58,14 +63,16 @@ let cfg = config.programs.neovim; in
 
         # -----UI-----
         which-key-nvim
-        trouble-nvim
-        indent-blankline-nvim
         nvim-web-devicons
         todo-comments-nvim
         nui-nvim
       ] ++
-      (if config.colorScheme.slug == "catppuccin-mocha"
-        || config.colorScheme.slug == "catppuccin-latte"
+      mapLazy [
+        trouble-nvim
+        indent-blankline-nvim
+        diffview-nvim
+      ] ++
+      (if builtins.elem config.colorScheme.slug catppuccin
       then [ catppuccin-nvim ] else [ ]);
       extraLuaConfig = with config.colorScheme.palette; ''
         vim.loader.enable()
