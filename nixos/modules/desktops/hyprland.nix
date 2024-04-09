@@ -62,6 +62,6 @@ let cfg = config.programs.hyprland; in
   };
 
   imports = [
-    inputs.hyprland.nixosModules.default
+    # inputs.hyprland.nixosModules.default
   ];
 }
