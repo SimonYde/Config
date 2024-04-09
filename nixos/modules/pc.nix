@@ -48,10 +48,12 @@ in
       isNormalUser = true;
       description = "Simon Yde";
       shell = pkgs.${config.syde.shell};
-      extraGroups = [ "video" "networkmanager" "wheel" ];
+      extraGroups = [ "video" "networkmanager" "wheel" "docker" ];
     };
 
     programs.${config.syde.shell}.enable = true;
+
+    environment.pathsToLink = [ "/share/fish" ];
 
     fonts.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })

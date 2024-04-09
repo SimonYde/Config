@@ -52,6 +52,8 @@
     };
   };
 
+  virtualisation.docker.enable = true;
+
   # AMD cpu
   boot.kernelModules = [ "kvm-amd" ];
 
