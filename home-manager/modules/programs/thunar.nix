@@ -8,6 +8,7 @@ in
     home.packages = with pkgs; [
       xfce.thunar
       xfce.exo
+      gvfs
     ];
 
     xdg.configFile."xfce4/helpers.rc".text = ''
