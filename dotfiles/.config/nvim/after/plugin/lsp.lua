@@ -1,7 +1,6 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
-    local nmap = require('syde.keymap').nmap
-    local imap = require('syde.keymap').imap
+    local map = require('syde.keymap').map
 
     Load.now(function()
         require('neodev').setup {}
@@ -135,7 +134,10 @@ Load.later(function()
         settings = {
             exportPdf = "never", -- Choose `onType`, `onSave` or `never`.
         },
-        on_attach = function()
+        on_attach = function(_, bufnr)
+            local nmap = function(keys, cmd, desc)
+                map('n')(keys, cmd, desc, { buffer = bufnr })
+            end
             nmap(
                 "<leader>lp",
                 function()
@@ -150,17 +152,18 @@ Load.later(function()
                 function()
                     -- local main_file = vim.fs.find("main.typ", { path = vim.fn.getcwd(), type = "file" })[1]
                     local main_file = vim.fn.expand("%")
+                    local path = vim.uri_from_fname(main_file)
                     if main_file ~= nil then
                         vim.lsp.buf.execute_command({
                             command = "typst-lsp.doPinMain",
-                            arguments = { vim.uri_from_fname(main_file) }
+                            arguments = { path }
                         })
-                        vim.notify("Pinned to " .. vim.uri_from_fname(main_file), vim.log.levels.INFO)
+                        vim.notify("Pinned to " .. path, vim.log.levels.INFO)
                     else
                         vim.notify("Did not find a main file to pin at " .. vim.fn.getcwd(), vim.log.levels.ERROR)
                     end
                     vim.cmd [[TypstWatch]]
-                    vim.notify("Watching for changes in: " .. vim.uri_from_fname(main_file), vim.log.levels.INFO)
+                    vim.notify("Watching for changes in: " .. path, vim.log.levels.INFO)
                 end,
                 "typst [w]atch"
             )
@@ -226,8 +229,14 @@ Load.later(function()
                 }
             end)
 
+            local nmap = function(keys, cmd, desc)
+                map('n')(keys, cmd, desc, { buffer = args.buf })
+            end
+
+            local imap = function(keys, cmd, desc)
+                map('n')(keys, cmd, desc, { buffer = args.buf })
+            end
             -- LSP commands
-            nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
             nmap("<leader>r", vim.lsp.buf.rename, "Rename")
             nmap("<leader>k", vim.lsp.buf.hover, "hover documentation")
             nmap("<leader>a", vim.lsp.buf.code_action, "code actions")
@@ -235,9 +244,9 @@ Load.later(function()
             imap("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
 
             if not pcall(require, 'telescope') then
-                nmap("gd", vim.lsp.buf.definition, "Goto Definition")
-                nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
-                nmap("gr", vim.lsp.buf.references, "Goto References")
+                nmap("gd", vim.lsp.buf.definition, "Goto [d]efinition")
+                nmap("gD", vim.lsp.buf.declaration, "Goto [D]eclaration")
+                nmap("gr", vim.lsp.buf.references, "Goto [r]eferences")
             end
 
 
@@ -261,16 +270,6 @@ Load.later(function()
 
                 nmap(
                     "<leader>k",
-                    function() vim.cmd.Lspsaga("hover_doc") end,
-                    "hover documentation"
-                )
-                nmap(
-                    "K",
-                    function() vim.cmd.Lspsaga("hover_doc") end,
-                    "hover documentation"
-                )
-                nmap(
-                    "<leader>n",
                     function() vim.cmd.Lspsaga("hover_doc") end,
                     "hover documentation"
                 )
