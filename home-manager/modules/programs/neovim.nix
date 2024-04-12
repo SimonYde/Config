@@ -36,6 +36,7 @@ in
         codeium-nvim
 
         # -----Workflow-----
+        conform-nvim
         harpoon2
         nvim-autopairs
         gitsigns-nvim

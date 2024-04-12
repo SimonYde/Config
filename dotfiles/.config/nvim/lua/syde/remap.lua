@@ -77,3 +77,4 @@ tmap("<leader><Esc>", [[<C-\><C-n>]], "Exit terminal mode")
 
 
 nmap("<leader>q", vim.cmd.cclose, "Close [q]uickfix list")
+nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
