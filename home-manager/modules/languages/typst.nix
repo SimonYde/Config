@@ -5,6 +5,8 @@ let cfg = config.syde.programming.typst; in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       typst-lsp
+      typstfmt
+      typstyle
       typst
     ];
 
