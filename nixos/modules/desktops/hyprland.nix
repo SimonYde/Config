@@ -20,13 +20,15 @@ let cfg = config.programs.hyprland; in
     programs.hyprland.xwayland.enable = true;
 
     programs.dconf.enable = true;
-
-    services.xserver = {
-      enable = true;
+    services = {
       displayManager.sddm.enable = true;
-      displayManager.lightdm.enable = false;
-      displayManager.gdm.enable = false;
+      xserver = {
+        enable = true;
+        displayManager.lightdm.enable = false;
+        displayManager.gdm.enable = false;
+      };
     };
+
 
     security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
 
@@ -62,6 +64,6 @@ let cfg = config.programs.hyprland; in
   };
 
   imports = [
-    # inputs.hyprland.nixosModules.default
+    inputs.hyprland.nixosModules.default
   ];
 }

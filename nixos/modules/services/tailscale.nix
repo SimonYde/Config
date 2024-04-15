@@ -4,6 +4,8 @@
 
 {
   services.tailscale = {
-
+    extraUpFlags = [
+      "--ssh"
+    ];
   };
 }
