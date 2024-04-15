@@ -4,13 +4,11 @@ let
   python-pkgs = with pkgs; [
       (python311.withPackages (ps: with ps; [
         python-lsp-server
-        # python-lsp-black
         python-lsp-ruff
         pylsp-mypy
 
         numpy
         sympy
-        scipy
         matplotlib
       ]))
   ];

@@ -6,6 +6,7 @@ let cfg = config.syde.programming.rust; in
     home.packages = with pkgs; [
       cargo
       rustc
+      lldb
       rust-analyzer
       rustfmt
       clippy
