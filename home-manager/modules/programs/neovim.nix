@@ -46,6 +46,9 @@ in
         # vim-table-mode
         # vim-be-good
         undotree
+        nvim-dap
+        nvim-dap-ui
+        nvim-nio
 
         obsidian-nvim
 
@@ -77,6 +80,7 @@ in
       then [ catppuccin-nvim ] else [ ]);
       extraLuaConfig = with config.colorScheme.palette; ''
         vim.loader.enable()
+        require('syde.load').setup()
         VARIANT = "${config.colorScheme.variant}"
         PALETTE = {
           base00 = "#${base00}",
