@@ -37,14 +37,13 @@
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {
-    wg0 = {
+    proton-DK25 = {
       autostart = true;
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
       privateKeyFile = "/home/syde/.secrets/wireguard.key";
       peers = [
         {
-          # proton DK#25
           publicKey = "sbjnjFtxUz4dxYfNL7WOVf1StMjjAhkiPLCPtVtlhRI=";
           allowedIPs = [ "0.0.0.0/0" ];
           endpoint = "193.29.107.162:51820";
