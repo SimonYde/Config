@@ -53,7 +53,7 @@ in
 
     programs.${config.syde.shell}.enable = true;
 
-    environment.pathsToLink = [ "/share/fish" ];
+    # environment.pathsToLink = [ "/share/fish" ];
 
     fonts.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })

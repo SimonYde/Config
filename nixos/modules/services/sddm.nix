@@ -17,8 +17,8 @@ let cfg = config.services.displayManager.sddm; in
         enable = true;
       };
       sddm = {
-        wayland.enable = config.programs.sway.enable 
-        || config.programs.hyprland.enable
+        wayland.enable = config.programs.sway.enable
+          || config.programs.hyprland.enable
           || config.programs.river.enable;
         theme = "catppuccin-mocha";
       };
