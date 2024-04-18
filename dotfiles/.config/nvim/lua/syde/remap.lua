@@ -6,8 +6,6 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 local keymap = require("syde.keymap")
 local nmap   = keymap.nmap
-local vmap   = keymap.vmap
-local imap   = keymap.imap
 local xmap   = keymap.xmap
 local tmap   = keymap.tmap
 local nvmap  = keymap.map({ "n", "v" })
@@ -20,7 +18,7 @@ nmap("<C-w>i", "<C-w>l", "Go to the right window")
 
 _G.COLEMAK = false
 _G.Colemak_toggle = function()
-    if not COLEMAK then
+    if not _G.COLEMAK then
         vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
         -- vim.opt.langmap = "jh,hk,kj"
         vim.opt.langremap = false
@@ -32,14 +30,14 @@ _G.Colemak_toggle = function()
         nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
         -- nvmap("gi", "$", "Goto line end")
         -- nmap("gl", vim.lsp.buf.implementation, "Goto Implementation")
-        COLEMAK = true
+        _G.COLEMAK = true
     else
         vim.opt.langmap = ""
         nvmap("gh", "^", "Goto first non-blank in line")
         nvmap("gs", "0", "Goto line start")
         nvmap("gl", "$", "Goto line end")
         -- nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
-        COLEMAK = false
+        _G.COLEMAK = false
     end
 end
 Colemak_toggle()
@@ -75,6 +73,14 @@ nmap("gF", "<cmd>:e <cfile><CR>", "Goto [F]ile (even if doesn't exist)")
 nmap("<leader>x", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Search and replace in buffer")
 tmap("<leader><Esc>", [[<C-\><C-n>]], "Exit terminal mode")
 
+
+nmap(
+    "<leader>li",
+    function()
+        vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+    end,
+    "Toggle [i]nlay hints"
+)
 
 nmap("<leader>q", vim.cmd.cclose, "Close [q]uickfix list")
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")

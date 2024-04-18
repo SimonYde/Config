@@ -21,7 +21,6 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
-require('syde.load').setup()
 Load.now(function()
     require('mini.basics').setup {
         -- Options. Set to `false` to disable.

@@ -48,7 +48,7 @@ Load.later(function()
                         height = 0.9,
                         width = 0.9,
                     },
-                    preview_width = 0.48,
+                    -- preview_width = 0.48,
                 },
                 sorting_strategy = 'ascending',
             },
