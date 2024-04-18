@@ -6,6 +6,7 @@ Load.later(function()
         whichkey.setup {}
         whichkey.register {
             ['<leader>'] = {
+                d = { name = '[d]ebug' },
                 f = { name = '[f]ind' },
                 g = { name = '[g]it' },
                 o = { name = '[o]bsidian' },
@@ -66,6 +67,7 @@ Load.later(function()
                 { mode = 'n', keys = '<leader>g', desc = '[g]it' },
                 { mode = 'n', keys = '<leader>o', desc = '[o]bsidian' },
                 { mode = 'n', keys = '<leader>l', desc = '[l]sp' },
+                { mode = 'n', keys = '<leader>d', desc = '[d]ebug' },
                 MiniClue.gen_clues.builtin_completion(),
                 MiniClue.gen_clues.g(),
                 MiniClue.gen_clues.marks(),

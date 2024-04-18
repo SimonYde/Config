@@ -37,7 +37,7 @@ Load.later(function()
         settings = {
             pylsp = {
                 plugins = {
-                    black = { enabled = true },
+                    -- black = { enabled = true },
                     mypy  = { enabled = true },
                     ruff  = { enabled = true },
                 },
@@ -165,7 +165,7 @@ Load.later(function()
                     vim.cmd [[TypstWatch]]
                     vim.notify("Watching for changes in: " .. path, vim.log.levels.INFO)
                 end,
-                "typst [w]atch"
+                "Pin main file to current, run typst [w]atch"
             )
         end
     }
@@ -240,7 +240,7 @@ Load.later(function()
             nmap("<leader>r", vim.lsp.buf.rename, "Rename")
             nmap("<leader>k", vim.lsp.buf.hover, "hover documentation")
             nmap("<leader>a", vim.lsp.buf.code_action, "code actions")
-            nmap("<leader>d", vim.diagnostic.open_float, "hover [d]iagnostics")
+            nmap("<leader>n", vim.diagnostic.open_float, "hover [d]iagnostics")
             imap("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
 
             if not pcall(require, 'telescope') then
