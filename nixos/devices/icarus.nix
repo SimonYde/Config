@@ -6,6 +6,7 @@
     ../standard.nix
   ];
 
+  programs.nh.enable = true;
 
   syde = {
     ssh.enable = true;
