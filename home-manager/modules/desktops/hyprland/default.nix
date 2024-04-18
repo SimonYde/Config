@@ -142,6 +142,6 @@ in
   };
 
   imports = [
-    # inputs.hyprland.homeManagerModules.default # package from source
+    inputs.hyprland.homeManagerModules.default
   ];
 }
