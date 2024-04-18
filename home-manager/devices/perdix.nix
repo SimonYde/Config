@@ -22,6 +22,7 @@ let emulator = config.syde.terminal.emulator; in
     };
 
     services = {
+      kdeconnect.enable = true;
       gammastep.enable = true;
       redshift.enable  = false;
       udiskie.enable   = true;
