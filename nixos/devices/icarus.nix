@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
 
@@ -14,7 +14,10 @@
   };
 
 
+  nixpkgs.config.allowUnfree = true;
+
   services = {
+    ollama.enable = true;
     syncthing.enable = true;
     tailscale.enable = true;
     vscode-server.enable = false;

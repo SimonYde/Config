@@ -22,6 +22,7 @@
   };
 
   programs = {
+    nh.enable = true;
     kdeconnect.enable = true;
     sway.enable = false;
     hyprland.enable = true;
