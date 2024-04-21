@@ -1,11 +1,16 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   catppuccin = [
     "catppuccin-latte"
     "catppuccin-mocha"
   ];
-  mapLazy = map (pkg: { plugin = pkg; optional = true; });
+  neogit-nightly = pkgs.vimUtils.buildVimPlugin {
+    version = "1";
+    pname = "neogit-nightly";
+    src = inputs.neogit-nightly;
+  };
+  mapLazy = map (pkg: { plugin = pkg; optional = true; }); # Takes a list of plugins and maps them to load lazily
   cfg = config.programs.neovim;
 in
 {
@@ -33,14 +38,14 @@ in
         luasnip
         friendly-snippets
         copilot-lua
-        codeium-nvim
+        # codeium-nvim
 
         # -----Workflow-----
         conform-nvim
         harpoon2
         nvim-autopairs
         gitsigns-nvim
-        neogit
+        neogit-nightly # NOTE: Supports neovim nightly
         mini-nvim
         vim-sleuth
         # vim-table-mode
@@ -75,9 +80,12 @@ in
         trouble-nvim
         indent-blankline-nvim
         diffview-nvim
-      ] ++
-      (if builtins.elem config.colorScheme.slug catppuccin
-      then [ catppuccin-nvim ] else [ ]);
+      ] ++ (
+        if builtins.elem config.colorScheme.slug catppuccin
+        then [ catppuccin-nvim ]
+        else [ ]
+      );
+
       extraLuaConfig = with config.colorScheme.palette; ''
         vim.loader.enable()
         require('syde.load').setup()

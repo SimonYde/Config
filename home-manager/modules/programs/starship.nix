@@ -8,8 +8,8 @@
     enableBashIntegration    = true;
     settings = {
       add_newline = false;
-      format = "$username$hostname$directory$nix_shell$git_branch$line_break$character";
-      right_format = "$cmd_duration$rust$elm$golang$ocaml";
+      format = "$username$hostname$directory$nix_shell$git_branch$git_status$line_break$character";
+      right_format = "$cmd_duration$rust$elm$golang$ocaml$java$scala$lua$typst";
       character = {
         success_symbol = "[⟩](normal white)";
         error_symbol = "[⟩](bold red)";
@@ -20,6 +20,9 @@
       };
       git_branch = {
         symbol = " ";
+        style = "bold yellow";
+      };
+      git_status = {
         style = "bold yellow";
       };
       hostname = {
