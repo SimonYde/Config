@@ -14,11 +14,18 @@
     ex = "explorer.exe";
   };
 
+  fonts.fontconfig.enable = true;
+
   home.packages = with pkgs; [
     libqalculate
     rclone
     keepassxc
     wl-clipboard
+
+    # Fonts
+    source-sans-pro
+    roboto
+    font-awesome
   ];
 
   imports = [
