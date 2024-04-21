@@ -2,20 +2,36 @@ local nmap = require('syde.keymap').nmap
 Load.now(function()
     require('mini.starter').setup {}
     vim.api.nvim_create_autocmd("User", {
-        once = true,
+        -- once = true,
         pattern = "MiniStarterOpened",
-        callback = function()
-            local buf = vim.api.nvim_get_current_buf()
-            local buf_name = vim.api.nvim_buf_get_name(buf)
-            if buf_name:match(vim.uv.cwd() .. "/Starter") then
+        callback = function(args)
+            local starter_bufid = args.buf
+            local was_colemak = _G.COLEMAK
+            -- Turn off colemak langmap for the starter buffer, if it was enabled
+            if was_colemak then
                 Colemak_toggle()
             end
-        end,
-    })
-    vim.api.nvim_create_autocmd("BufEnter", {
-        callback = function()
-            _G.COLEMAK = false
-            Colemak_toggle()
+            vim.api.nvim_create_autocmd("BufLeave", {
+                callback = function(args)
+                    -- If we're leaving the starter buffer, and we had Colemak enabled
+                    -- before entering the starter buffer, we toggle it back on
+                    if args.buf == starter_bufid and was_colemak then
+                        was_colemak = false
+                        Colemak_toggle()
+                    end
+                end,
+            })
+            vim.api.nvim_create_autocmd("BufEnter", {
+                callback = function(args)
+                    -- If we're back in the starter buffer we disable langmap again
+                    if args.buf == starter_bufid then
+                        if _G.COLEMAK then
+                            was_colemak = true
+                            Colemak_toggle()
+                        end
+                    end
+                end,
+            })
         end,
     })
     require('mini.sessions').setup {}
