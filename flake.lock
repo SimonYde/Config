@@ -16,6 +16,38 @@
         "type": "github"
       }
     },
+    "catppuccin-bat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712664886,
+        "narHash": "sha256-gzf0/Ltw8mGMsEFBTUuN33MSFtUP4xhdxfoZFntaycQ=",
+        "owner": "catppuccin",
+        "repo": "bat",
+        "rev": "b8134f01b0ac176f1cf2a7043a5abf5a1a29457b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "bat",
+        "type": "github"
+      }
+    },
+    "catppuccin-qt5ct": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1679416147,
+        "narHash": "sha256-t/uyK0X7qt6qxrScmkTU2TvcVJH97hSQuF0yyvSO/qQ=",
+        "owner": "catppuccin",
+        "repo": "qt5ct",
+        "rev": "89ee948e72386b816c7dad72099855fb0d46d41e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "qt5ct",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -303,6 +335,23 @@
         "type": "github"
       }
     },
+    "neogit-nightly": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713697584,
+        "narHash": "sha256-24YQhqoXNcgu6RE3a+L0VQewDmZbrv8pxJ1jeBQnlCI=",
+        "owner": "NeogitOrg",
+        "repo": "neogit",
+        "rev": "fbf4619b98e7c5848a96f157d4a1c7ebee9ddfeb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NeogitOrg",
+        "ref": "nightly",
+        "repo": "neogit",
+        "type": "github"
+      }
+    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -531,11 +580,14 @@
     },
     "root": {
       "inputs": {
+        "catppuccin-bat": "catppuccin-bat",
+        "catppuccin-qt5ct": "catppuccin-qt5ct",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "helix": "helix",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "neogit-nightly": "neogit-nightly",
         "neovim-nightly": "neovim-nightly",
         "nil": "nil",
         "nix-colors": "nix-colors",

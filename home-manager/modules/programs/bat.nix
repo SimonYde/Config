@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ inputs, pkgs, config, ... }:
 
 let
   flavour = config.syde.theming.flavour;
@@ -10,12 +10,7 @@ in
     };
     themes = {
       catppuccin = {
-        src = pkgs.fetchFromGitHub {
-          owner = "catppuccin";
-          repo = "bat";
-          rev = "ba4d168";
-          sha256 = "sha256-6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-        };
+        src = inputs.catppuccin-bat;
         file = "Catppuccin-${flavour}.tmTheme";
       };
     };
