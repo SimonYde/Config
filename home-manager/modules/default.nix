@@ -3,6 +3,7 @@
 {
   imports = [
     ./email.nix
+    ./fonts.nix
     ./gtk.nix
     ./qt.nix
     ./ssh.nix
