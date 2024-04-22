@@ -28,7 +28,6 @@ let emulator = config.syde.terminal.emulator; in
       udiskie.enable   = true;
     };
 
-    fonts.fontconfig.enable = true;
     xdg.enable = true;
     gtk.enable = true;
     qt.enable  = true;
@@ -37,6 +36,7 @@ let emulator = config.syde.terminal.emulator; in
     syde = {
       email.enable = false;
       ssh.enable   = true;
+      fonts.enable = true;
     };
 
     xsession.windowManager.i3.enable  = false;
@@ -44,15 +44,6 @@ let emulator = config.syde.terminal.emulator; in
     wayland.windowManager.hyprland.enable = true;
 
     home.packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "FiraCode"
-        ];
-      })
-      gentium
-      libertinus
-      font-awesome
       obsidian
       libqalculate
       # synergy
