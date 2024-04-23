@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.syde.email;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     accounts.email = {
       maildirBasePath = "~/Mail";
@@ -14,9 +16,7 @@ in {
         realName = "Simon Yde";
         userName = "mail@simonyde.com";
         address = "mail@simonyde.com";
-        aliases = [
-          "@simonyde.com"
-        ];
+        aliases = [ "@simonyde.com" ];
         # passwordCommand = "alias cat=cat; cat ../../../.secrets/mailpassword";
         # passwordCommand = "cat ../../../.secrets/mailpassword";
         imap = {
@@ -41,9 +41,7 @@ in {
       };
     };
 
-    home.packages = [
-      pkgs.protonmail-bridge
-    ];
+    home.packages = [ pkgs.protonmail-bridge ];
   };
 
   options.syde.email = {

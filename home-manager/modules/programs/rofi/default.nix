@@ -3,11 +3,13 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.programs.rofi;
   colors = config.colorScheme.palette;
   terminal = config.syde.terminal;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     programs.rofi = {
       package = lib.mkDefault pkgs.rofi-wayland;
@@ -28,7 +30,8 @@ in {
     };
 
     home.file = {
-      "${config.xdg.configHome}/rofi/custom_base16.rasi".text = with colors;
+      "${config.xdg.configHome}/rofi/custom_base16.rasi".text =
+        with colors;
         ''
           * {
               bg-col:  #${base00};

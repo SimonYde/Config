@@ -3,9 +3,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.syde.fonts;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     fonts.fontconfig.enable = true;
 

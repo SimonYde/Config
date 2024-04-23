@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     # Display managers
     ./gdm.nix

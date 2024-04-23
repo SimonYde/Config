@@ -1,11 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   theming = config.syde.theming;
   cfg = config.services.xserver.displayManager.lightdm;
-in {
+in
+{
   config.services.xserver.displayManager = lib.mkIf cfg.enable {
     autoLogin = {
       user = "syde";
@@ -16,10 +14,7 @@ in {
         gtk = {
           enable = true;
           theme = {
-            name =
-              if theming.prefer-dark
-              then theming.gtk.darkTheme
-              else theming.gtk.lightTheme;
+            name = if theming.prefer-dark then theming.gtk.darkTheme else theming.gtk.lightTheme;
             package = theming.gtk.package;
           };
           cursorTheme = {
@@ -31,5 +26,5 @@ in {
     };
   };
 
-  imports = [../../../home-manager/modules/theming.nix];
+  imports = [ ../../../home-manager/modules/theming.nix ];
 }

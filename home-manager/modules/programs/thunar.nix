@@ -3,9 +3,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.syde.programs.thunar;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       xfce.thunar

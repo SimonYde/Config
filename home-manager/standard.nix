@@ -4,7 +4,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   config = {
     nixpkgs = {
       overlays = [
@@ -16,15 +17,14 @@
             config = pkgs.config;
             system = pkgs.system;
           };
-          grawlix = pkgs.callPackage ./packages/grawlix.nix {};
-          pix2tex = pkgs.callPackage ./packages/pix2tex {};
-          kattis-cli = pkgs.callPackage ./packages/kattis-cli.nix {};
-          kattis-test = pkgs.callPackage ./packages/kattis-test.nix {};
+          grawlix = pkgs.callPackage ./packages/grawlix.nix { };
+          pix2tex = pkgs.callPackage ./packages/pix2tex { };
+          kattis-cli = pkgs.callPackage ./packages/kattis-cli.nix { };
+          kattis-test = pkgs.callPackage ./packages/kattis-test.nix { };
         })
       ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
-      config.permittedInsecurePackages = [
-      ];
+      config.permittedInsecurePackages = [ ];
     };
 
     nix = {
@@ -39,10 +39,14 @@
   options.syde = {
     unfreePredicates = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = [ ];
     };
     browser = lib.mkOption {
-      type = lib.types.enum ["firefox" "brave" "floorp"];
+      type = lib.types.enum [
+        "firefox"
+        "brave"
+        "floorp"
+      ];
       default = "floorp";
     };
   };

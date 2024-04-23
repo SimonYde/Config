@@ -1,7 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-}:
+{ stdenv, fetchFromGitHub }:
 stdenv.mkDerivation {
   pname = "catppuccin-sddm";
   version = "2024-03-14";

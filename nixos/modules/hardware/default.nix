@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./laptop.nix
     ./sound.nix

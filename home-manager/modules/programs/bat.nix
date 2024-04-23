@@ -3,12 +3,11 @@
   pkgs,
   config,
   ...
-}: let
-  flavour =
-    if config.syde.theming.flavour == "mocha"
-    then "Mocha"
-    else "Latte";
-in {
+}:
+let
+  flavour = if config.syde.theming.flavour == "mocha" then "Mocha" else "Latte";
+in
+{
   programs.bat = {
     config = {
       theme = "catppuccin";

@@ -1,7 +1,4 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  ...
-}: {
-  programs.lf = {};
+  programs.lf = { };
 }

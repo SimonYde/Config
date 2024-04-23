@@ -1,7 +1,6 @@
-{pkgs, ...}: {
-  imports = [
-    ../standard.nix
-  ];
+{ pkgs, ... }:
+{
+  imports = [ ../standard.nix ];
 
   programs.nh.enable = true;
 

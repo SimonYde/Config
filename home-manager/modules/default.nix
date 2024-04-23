@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./email.nix
     ./fonts.nix

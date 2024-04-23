@@ -1,8 +1,5 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
   programs.vscode = {
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [

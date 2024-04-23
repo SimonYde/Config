@@ -3,9 +3,10 @@
   lib,
   config,
   ...
-}: let
-  python-pkgs = pkgs.python311.withPackages (ps:
-    with ps; [
+}:
+let
+  python-pkgs = pkgs.python311.withPackages (
+    ps: with ps; [
       python-lsp-server
       python-lsp-ruff
       pylsp-mypy
@@ -14,17 +15,17 @@
       sympy
       matplotlib
       debugpy
-    ]);
-in {
+    ]
+  );
+in
+{
   config = lib.mkIf config.syde.programming.python.enable {
     # programs.neovim.extraPackages = python-pkgs;
     # programs.helix.extraPackages = python-pkgs;
-    home.packages = [python-pkgs];
+    home.packages = [ python-pkgs ];
 
     programs.neovim = {
-      plugins = with pkgs.vimPlugins; [
-        nvim-dap-python
-      ];
+      plugins = with pkgs.vimPlugins; [ nvim-dap-python ];
       extraLuaConfig = ''
         require('syde.load').later(function()
           require("dap-python").setup("${python-pkgs}/bin/python")

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.bash = {
     enableCompletion = true;
     historyIgnore = [

@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   programs.skim = {
     enableFishIntegration = true;
     enableZshIntegration = true;

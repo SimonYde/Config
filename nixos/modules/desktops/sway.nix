@@ -3,14 +3,16 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.programs.sway;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = with pkgs; [xdg-desktop-portal-gtk];
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     };
 
     programs.sway = {
@@ -21,7 +23,7 @@ in {
         export WLR_NO_HARDWARE_CURSORS=1
         export MOZ_ENABLE_WAYLAND=1
       '';
-      extraOptions = ["--unsupported-gpu"];
+      extraOptions = [ "--unsupported-gpu" ];
     };
 
     services.dbus.enable = true;

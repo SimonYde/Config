@@ -4,14 +4,16 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   catppuccin-qt5ct = inputs.catppuccin-qt5ct;
   kvantum = pkgs.catppuccin-kvantum.override {
     accent = "Lavender";
     variant = "Mocha";
   };
   cfg = config.qt;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     qt = {
       platformTheme = "qtct";

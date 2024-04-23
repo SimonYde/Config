@@ -3,9 +3,11 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.syde.terminal;
-in {
+in
+{
   config = {
     programs = {
       # Shells
@@ -34,9 +36,7 @@ in {
       zoxide.enable = true;
     };
 
-    home.sessionPath = [
-      "${config.home.homeDirectory}/.local/bin"
-    ];
+    home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
     home.packages = with pkgs; [
       # CLI Tools

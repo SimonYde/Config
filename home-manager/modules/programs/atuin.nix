@@ -1,10 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.programs.atuin;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     programs.atuin = {
       flags = [

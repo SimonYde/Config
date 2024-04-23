@@ -1,13 +1,11 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{ pkgs, config, ... }:
+let
   terminal = config.syde.terminal;
   colors = config.colorScheme.palette;
   font = terminal.font;
   fontSize = terminal.fontSize;
-in {
+in
+{
   config = {
     programs.alacritty = {
       settings = {

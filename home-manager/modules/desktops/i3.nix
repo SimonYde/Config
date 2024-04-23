@@ -3,10 +3,12 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   sway = config.wayland.windowManager.sway.config;
   cfg = config.xsession.windowManager.i3;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     xsession.windowManager.i3.config = {
       assigns = sway.assigns;
@@ -19,18 +21,14 @@ in {
       modifier = sway.modifier;
       terminal = sway.terminal;
       window = sway.window;
-      bars = [
-        (builtins.head sway.bars // {command = "${pkgs.i3}/bin/i3bar";})
-      ];
+      bars = [ (builtins.head sway.bars // { command = "${pkgs.i3}/bin/i3bar"; }) ];
 
       defaultWorkspace = sway.defaultWorkspace;
-      keybindings =
-        sway.keybindings
-        // {
-          # i3 specific
-          "${sway.modifier}+Escape" = "exec loginctl lock-session";
-          "${sway.modifier}+Shift+Escape" = ''exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"'';
-        };
+      keybindings = sway.keybindings // {
+        # i3 specific
+        "${sway.modifier}+Escape" = "exec loginctl lock-session";
+        "${sway.modifier}+Shift+Escape" = ''exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"'';
+      };
 
       startup = [
         {
@@ -42,8 +40,10 @@ in {
           notification = false;
         }
         # { command = "setxkbmap -layout us -variant colemak_dh"; }
-        {command = "${pkgs.feh}/bin/feh --bg-fill ~/Config/assets/backgrounds/battlefield-catppuccin.png";}
-        {command = "obsidian";}
+        {
+          command = "${pkgs.feh}/bin/feh --bg-fill ~/Config/assets/backgrounds/battlefield-catppuccin.png";
+        }
+        { command = "obsidian"; }
       ];
     };
 

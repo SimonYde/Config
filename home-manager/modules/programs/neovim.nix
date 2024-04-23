@@ -4,7 +4,8 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   catppuccin = [
     "catppuccin-latte"
     "catppuccin-mocha"
@@ -19,14 +20,16 @@
     optional = true;
   }); # Takes a list of plugins and maps them to load lazily
   cfg = config.programs.neovim;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     programs.neovim = {
       package = pkgs.neovim-nightly;
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
-      plugins = with pkgs.vimPlugins;
+      plugins =
+        with pkgs.vimPlugins;
         [
           # -----LSP-----
           nvim-lspconfig
@@ -88,11 +91,7 @@ in {
           indent-blankline-nvim
           diffview-nvim
         ]
-        ++ (
-          if builtins.elem config.colorScheme.slug catppuccin
-          then [catppuccin-nvim]
-          else []
-        );
+        ++ (if builtins.elem config.colorScheme.slug catppuccin then [ catppuccin-nvim ] else [ ]);
 
       extraLuaConfig = with config.colorScheme.palette; ''
         vim.loader.enable()
@@ -118,23 +117,17 @@ in {
         }
         require('syde')
       '';
-      extraPackages = with pkgs; let
-        packages = [];
-      in
-        if
-          builtins.elem
-          vimPlugins.copilot-lua
-          cfg.plugins
-        then
-          packages
-          ++ [
-            pkgs.nodejs-slim_20
-          ]
-        else packages;
+      extraPackages =
+        with pkgs;
+        let
+          packages = [ ];
+        in
+        if builtins.elem vimPlugins.copilot-lua cfg.plugins then
+          packages ++ [ pkgs.nodejs-slim_20 ]
+        else
+          packages;
     };
 
-    syde.unfreePredicates = [
-      "codeium"
-    ];
+    syde.unfreePredicates = [ "codeium" ];
   };
 }

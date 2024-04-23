@@ -1,7 +1,9 @@
-{config, ...}: let
+{ config, ... }:
+let
   terminal = config.syde.terminal;
   colors = config.colorScheme.palette;
-in {
+in
+{
   services.dunst = {
     settings = with colors; {
       global = {

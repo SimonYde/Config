@@ -3,9 +3,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.syde.programming.rust;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       cargo
@@ -16,9 +18,7 @@ in {
       clippy
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      rustaceanvim
-    ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [ rustaceanvim ];
   };
 
   options.syde.programming.rust = {

@@ -26,13 +26,13 @@ python3.pkgs.buildPythonApplication rec {
     torchvision
   ];
 
-  pythonImportsCheck = ["timm"];
+  pythonImportsCheck = [ "timm" ];
 
   meta = with lib; {
     description = "PyTorch Image Models";
     homepage = "https://pypi.org/project/timm/";
     license = licenses.asl20;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     mainProgram = "timm";
   };
 }

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   syde.unfreePredicates = [
     "enhancer-for-youtube"
     "lastpass-password-manager"
@@ -23,7 +24,7 @@
               }
             ];
             iconUpdateURL = "https://wiki.archlinux.org/favicon.ico";
-            definedAliases = ["@aw"];
+            definedAliases = [ "@aw" ];
           };
           "Brave Search" = {
             urls = [
@@ -38,7 +39,7 @@
               }
             ];
             iconUpdateURL = "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-16x16.341beadf.png";
-            definedAliases = ["@b"];
+            definedAliases = [ "@b" ];
           };
           "Kagi" = {
             urls = [
@@ -53,7 +54,7 @@
               }
             ];
             iconUpdateURL = "https://assets.kagi.com/v1/favicon-16x16.png";
-            definedAliases = ["@k"];
+            definedAliases = [ "@k" ];
           };
           "Nix Packages" = {
             urls = [
@@ -72,7 +73,7 @@
               }
             ];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = ["@np"];
+            definedAliases = [ "@np" ];
           };
           "NixOS Options" = {
             urls = [
@@ -87,7 +88,7 @@
               }
             ];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-            definedAliases = ["@no"];
+            definedAliases = [ "@no" ];
           };
           "NixOS Wiki" = {
             urls = [
@@ -103,7 +104,7 @@
             ];
             iconUpdateURL = "https://nixos.wiki/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = ["@nw"];
+            definedAliases = [ "@nw" ];
           };
           "Youtube" = {
             urls = [
@@ -118,7 +119,7 @@
               }
             ];
             iconUpdateURL = "https://www.youtube.com/s/desktop/fa273944/img/favicon_144x144.png";
-            definedAliases = ["@yt"];
+            definedAliases = [ "@yt" ];
           };
           "Google".metaData.alias = "@g";
           "Bing".metaData.hidden = true;

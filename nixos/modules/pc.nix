@@ -3,9 +3,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.syde.pc;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     system.stateVersion = "23.11";
     time.timeZone = "Europe/Copenhagen";
@@ -26,7 +28,7 @@ in {
     services.xserver = {
       xkb.layout = "us(colemak_dh),dk";
       xkb.options = "caps:escape,grp:rctrl_toggle";
-      excludePackages = [pkgs.xterm];
+      excludePackages = [ pkgs.xterm ];
     };
 
     console.useXkbConfig = true;
@@ -50,7 +52,12 @@ in {
       isNormalUser = true;
       description = "Simon Yde";
       shell = pkgs.${config.syde.shell};
-      extraGroups = ["video" "networkmanager" "wheel" "docker"];
+      extraGroups = [
+        "video"
+        "networkmanager"
+        "wheel"
+        "docker"
+      ];
     };
 
     programs.${config.syde.shell}.enable = true;
@@ -58,7 +65,12 @@ in {
     # environment.pathsToLink = [ "/share/fish" ];
 
     fonts.packages = with pkgs; [
-      (nerdfonts.override {fonts = ["JetBrainsMono" "FiraCode"];})
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+          "FiraCode"
+        ];
+      })
       gentium
       libertinus
     ];
@@ -70,8 +82,14 @@ in {
 
     services.udisks2.enable = true;
 
-    boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod"];
-    boot.supportedFilesystems = ["ntfs"];
+    boot.initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "ahci"
+      "usb_storage"
+      "sd_mod"
+    ];
+    boot.supportedFilesystems = [ "ntfs" ];
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 

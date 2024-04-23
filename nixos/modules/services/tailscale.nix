@@ -1,7 +1,6 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   services.tailscale = {
-    extraUpFlags = [
-      "--ssh"
-    ];
+    extraUpFlags = [ "--ssh" ];
   };
 }
