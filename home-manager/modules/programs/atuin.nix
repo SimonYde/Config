@@ -1,7 +1,10 @@
-{ config, lib, ... }:
-
-let cfg = config.programs.atuin; in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.atuin;
+in {
   config = lib.mkIf cfg.enable {
     programs.atuin = {
       flags = [
@@ -18,6 +21,8 @@ let cfg = config.programs.atuin; in
           "mkdir *"
           "touch *"
         ];
+        style = "compact";
+        enter_accept = true;
         filter_mode_shell_up_key_binding = "session";
       };
     };

@@ -1,10 +1,12 @@
-{ pkgs, config, lib, ... }:
-
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   colors = config.colorScheme.palette;
   cfg = config.programs.fish;
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     programs.fish = {
       shellInit = ''

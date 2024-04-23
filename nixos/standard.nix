@@ -1,11 +1,12 @@
-{ lib, inputs, ... }:
-
 {
+  lib,
+  inputs,
+  ...
+}: {
   config = {
     nixpkgs.overlays = [
       inputs.nix-ld-rs.overlays.default
     ];
-
   };
   imports = [
     ./modules/gaming.nix
@@ -27,5 +28,4 @@
       default = "syde";
     };
   };
-
 }

@@ -1,11 +1,13 @@
-{ pkgs, lib, config, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   cfg = config.programs.rofi;
   colors = config.colorScheme.palette;
   terminal = config.syde.terminal;
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     programs.rofi = {
       package = lib.mkDefault pkgs.rofi-wayland;
@@ -26,21 +28,23 @@ in
     };
 
     home.file = {
-      "${config.xdg.configHome}/rofi/custom_base16.rasi".text = with colors; ''
-        * {
-            bg-col:  #${base00};
-            bg-col-light: #${base00};
-            border-col: #${base00};
-            selected-col: #${base00};
-            blue: #${base07};
-            fg-col: #${base05};
-            fg-col2: #${base08};
-            grey: #${base04};
+      "${config.xdg.configHome}/rofi/custom_base16.rasi".text = with colors;
+        ''
+          * {
+              bg-col:  #${base00};
+              bg-col-light: #${base00};
+              border-col: #${base00};
+              selected-col: #${base00};
+              blue: #${base07};
+              fg-col: #${base05};
+              fg-col2: #${base08};
+              grey: #${base04};
 
-            width: 600;
-            font: "${terminal.font} 14";
-        }
-      '' + builtins.readFile ./rofi-theme.rasi;
+              width: 600;
+              font: "${terminal.font} 14";
+          }
+        ''
+        + builtins.readFile ./rofi-theme.rasi;
     };
   };
 }

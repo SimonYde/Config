@@ -1,7 +1,11 @@
-{ lib, config, pkgs, ... }:
-
-let cfg = config.syde.fonts; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.syde.fonts;
+in {
   config = lib.mkIf cfg.enable {
     fonts.fontconfig.enable = true;
 
@@ -19,7 +23,6 @@ let cfg = config.syde.fonts; in
       gentium
       libertinus
     ];
-
   };
 
   options.syde.fonts = {

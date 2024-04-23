@@ -1,6 +1,4 @@
-{ config, ... }:
-
-{
+{config, ...}: {
   programs.skim = {
     enableFishIntegration = true;
     enableZshIntegration = true;
@@ -23,7 +21,8 @@
           "selected:#${base07}"
           "header:#${base0C}"
           "border:#${base04}"
-      ]}"
+        ]
+      }"
     ];
   };
 }

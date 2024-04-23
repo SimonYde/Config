@@ -1,6 +1,4 @@
-{...}:
-
-{
+{...}: {
   imports = [
     # ---Editors---
     ./helix.nix
@@ -45,6 +43,5 @@
     ./fish.nix
     ./nushell.nix
     ./zsh.nix
-
   ];
 }

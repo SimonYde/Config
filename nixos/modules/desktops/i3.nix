@@ -1,6 +1,9 @@
-{ pkgs, config, lib, ... }:
-
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   config = lib.mkIf config.services.xserver.windowManager.i3.enable {
     services.xserver = {
       enable = true;
@@ -15,7 +18,6 @@
 
     programs.nm-applet.enable = true;
     programs.dconf.enable = true;
-
   };
 
   imports = [

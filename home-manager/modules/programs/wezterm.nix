@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   font = config.syde.terminal.font;
   fontSize = config.syde.terminal.fontSize;
-in
-{
+in {
   programs.wezterm = {
     extraConfig = ''
       local wezterm = require 'wezterm'

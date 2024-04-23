@@ -1,7 +1,10 @@
-{config, lib, ...}:
-
-let cfg = config.syde.sound; in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.syde.sound;
+in {
   config = lib.mkIf cfg.enable {
     sound.enable = true;
     hardware.pulseaudio.enable = false;

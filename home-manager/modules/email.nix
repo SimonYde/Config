@@ -1,7 +1,11 @@
-{ config, lib, pkgs, ... }:
-
-let cfg = config.syde.email; in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.syde.email;
+in {
   config = lib.mkIf cfg.enable {
     accounts.email = {
       maildirBasePath = "~/Mail";
@@ -42,7 +46,7 @@ let cfg = config.syde.email; in
     ];
   };
 
-  options.syde.email = with lib; {
-    enable = mkEnableOption "email configuration";
+  options.syde.email = {
+    enable = lib.mkEnableOption "email configuration";
   };
 }

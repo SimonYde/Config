@@ -1,15 +1,13 @@
-{ ... }:
-
-{
+{...}: {
   programs.starship = {
     enableNushellIntegration = true;
-    enableFishIntegration    = true;
-    enableZshIntegration     = true;
-    enableBashIntegration    = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
     settings = {
       add_newline = false;
-      format = "$username$hostname$directory$nix_shell$git_branch$git_status$line_break$character";
-      right_format = "$cmd_duration$rust$elm$golang$ocaml$java$scala$lua$typst";
+      format = ''$username$hostname$directory$nix_shell$git_branch$git_status$line_break$character'';
+      right_format = "$cmd_duration$rust$elm$golang$ocaml$java$scala$lua$typst$direnv";
       character = {
         success_symbol = "[⟩](normal white)";
         error_symbol = "[⟩](bold red)";

@@ -1,8 +1,12 @@
-{ config, lib, pkgs, inputs, ... }:
-
-let cfg = config.syde.wsl; in
-
 {
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: let
+  cfg = config.syde.wsl;
+in {
   config = lib.mkIf cfg.enable {
     system.stateVersion = "23.11";
     time.timeZone = "Europe/Copenhagen";
@@ -20,7 +24,7 @@ let cfg = config.syde.wsl; in
       isNormalUser = true;
       description = "Simon Yde";
       shell = pkgs.${config.syde.shell};
-      extraGroups = [ "wheel" ];
+      extraGroups = ["wheel"];
     };
 
     environment.systemPackages = with pkgs; [
@@ -41,5 +45,4 @@ let cfg = config.syde.wsl; in
   options.syde.wsl = {
     enable = lib.mkEnableOption "WSL2 configuration";
   };
-
 }

@@ -1,26 +1,32 @@
-{ inputs, lib, config, pkgs, ... }:
-let
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   nix-colors = inputs.nix-colors;
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
+  nix-colors-lib = nix-colors.lib.contrib {inherit pkgs;};
   slug = config.colorScheme.slug;
   gtk-package =
     if slug == "catppuccin-mocha" || slug == "catppuccin-latte"
     then
       pkgs.catppuccin-gtk.override
-        {
-          accents = [ "lavender" ];
-          size = "compact";
-          tweaks = [ "rimless" ];
-          variant = cfg.flavour;
-        } else
-      nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
+      {
+        accents = ["lavender"];
+        size = "compact";
+        tweaks = ["rimless"];
+        variant = cfg.flavour;
+      }
+    else nix-colors-lib.gtkThemeFromScheme {scheme = config.colorScheme;};
   gtk-theme =
-    if slug == "catppuccin-mocha" then "Catppuccin-Mocha-Compact-Lavender-Dark"
-    else if slug == "catppuccin-latte" then "Catppuccin-Latte-Compact-Lavender-Light"
+    if slug == "catppuccin-mocha"
+    then "Catppuccin-Mocha-Compact-Lavender-Dark"
+    else if slug == "catppuccin-latte"
+    then "Catppuccin-Latte-Compact-Lavender-Light"
     else slug;
   cfg = config.syde.theming;
-in
-{
+in {
   imports = [
     nix-colors.homeManagerModules.default
   ];
@@ -30,7 +36,10 @@ in
   options.syde.theming = {
     flavour = lib.mkOption {
       type = lib.types.str;
-      default = if cfg.prefer-dark then "mocha" else "latte";
+      default =
+        if cfg.prefer-dark
+        then "mocha"
+        else "latte";
     };
     prefer-dark = lib.mkOption {
       type = lib.types.bool;

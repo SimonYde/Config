@@ -1,9 +1,12 @@
-{ pkgs, lib, config, ... }:
-
-let cfg = config.syde.gaming; in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.syde.gaming;
+in {
   config = lib.mkIf cfg.enable {
-
     programs = {
       steam.enable = true;
       gamemode.enable = true;

@@ -1,7 +1,11 @@
-{ pkgs, lib, config, ... }:
-
-let cfg = config.syde.programming.rust; in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.syde.programming.rust;
+in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       cargo
@@ -17,8 +21,7 @@ let cfg = config.syde.programming.rust; in
     ];
   };
 
-  options.syde.programming.rust = with lib; {
-    enable = mkEnableOption "Rust programming language support";
+  options.syde.programming.rust = {
+    enable = lib.mkEnableOption "Rust programming language support";
   };
 }
-

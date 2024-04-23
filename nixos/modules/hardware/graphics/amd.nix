@@ -1,10 +1,14 @@
-{ config, pkgs, lib, ... }:
-
-let cfg = config.syde.hardware.amdgpu; in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.syde.hardware.amdgpu;
+in {
   config = lib.mkIf cfg.enable {
-    boot.initrd.kernelModules = [ "amdgpu" ];
-    services.xserver.videoDrivers = [ "amdgpu" ];
+    boot.initrd.kernelModules = ["amdgpu"];
+    services.xserver.videoDrivers = ["amdgpu"];
 
     hardware = {
       opengl = {

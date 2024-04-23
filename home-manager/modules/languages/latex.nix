@@ -1,6 +1,9 @@
-{ pkgs, config, lib, ... }:
-
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
   config = lib.mkIf config.syde.programming.latex.enable {
     home.packages = with pkgs; [
       texlab
@@ -12,7 +15,7 @@
     ];
   };
 
-  options.syde.programming.latex = with lib; {
-    enable = mkEnableOption "Latex";
+  options.syde.programming.latex = {
+    enable = lib.mkEnableOption "Latex";
   };
 }

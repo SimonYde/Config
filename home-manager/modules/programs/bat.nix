@@ -1,17 +1,23 @@
-{ inputs, pkgs, config, ... }:
-
-let
-  flavour = config.syde.theming.flavour;
-in
 {
+  inputs,
+  pkgs,
+  config,
+  ...
+}: let
+  flavour =
+    if config.syde.theming.flavour == "mocha"
+    then "Mocha"
+    else "Latte";
+in {
   programs.bat = {
     config = {
       theme = "catppuccin";
+      pager = "less -FR";
     };
     themes = {
       catppuccin = {
         src = inputs.catppuccin-bat;
-        file = "Catppuccin-${flavour}.tmTheme";
+        file = "/themes/Catppuccin ${flavour}.tmTheme";
       };
     };
     extraPackages = with pkgs.bat-extras; [
@@ -23,6 +29,6 @@ in
   };
 
   home.sessionVariables = {
-    MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'";
+    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
   };
 }

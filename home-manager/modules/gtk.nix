@@ -1,17 +1,23 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   theming = config.syde.theming;
   prefer-dark = theming.prefer-dark;
   cfg = config.gtk;
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     gtk = {
       gtk2 = {
         configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
       };
       iconTheme = {
-        name = if prefer-dark then "Papirus-Dark" else "Papirus";
+        name =
+          if prefer-dark
+          then "Papirus-Dark"
+          else "Papirus";
         package = pkgs.papirus-icon-theme;
       };
       theme = {
