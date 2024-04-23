@@ -1,12 +1,13 @@
-{ pkgs, config, ... }:
-
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   terminal = config.syde.terminal;
   colors = config.colorScheme.palette;
   font = terminal.font;
   fontSize = terminal.fontSize;
-in
-{
+in {
   config = {
     programs.alacritty = {
       settings = {
@@ -39,10 +40,10 @@ in
             blinking = "Off";
           };
         };
-        shell = {
-          program = "${pkgs.fish}/bin/fish";
-          args = [ "--login" ];
-        };
+        # shell = {
+        #   program = "${pkgs.fish}/bin/fish";
+        #   args = [ "--login" ];
+        # };
         keyboard.bindings = [
           {
             key = "Return";
@@ -180,8 +181,14 @@ in
           };
 
           indexed_colors = [
-            { index = 16; color = "#FAB387"; }
-            { index = 17; color = "#${base06}"; }
+            {
+              index = 16;
+              color = "#FAB387";
+            }
+            {
+              index = 17;
+              color = "#${base06}";
+            }
           ];
         };
       };

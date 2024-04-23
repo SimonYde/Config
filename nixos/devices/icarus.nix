@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-
-{
-
+{pkgs, ...}: {
   imports = [
     ../standard.nix
   ];
@@ -12,7 +9,6 @@
     ssh.enable = true;
     wsl.enable = true;
   };
-
 
   nixpkgs.config.allowUnfree = true;
 

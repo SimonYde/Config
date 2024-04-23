@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.zsh = {
     autosuggestion.enable = true;
     enableCompletion = true;

@@ -1,7 +1,11 @@
-{ config, lib, pkgs, ... }:
-
-let cfg = config.syde.ssh; in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.syde.ssh;
+in {
   config = lib.mkIf cfg.enable {
     programs.gpg = {
       enable = true;

@@ -1,5 +1,4 @@
-{ pkgs, config, ... }:
-{
+{pkgs, ...}: {
   programs = {
     zathura.enable = true;
   };
@@ -14,7 +13,6 @@
   home.shellAliases = {
     ex = "explorer.exe";
   };
-
 
   home.packages = with pkgs; [
     libqalculate

@@ -1,6 +1,9 @@
-{ pkgs, config, lib, ... }:
-
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   cfg = config.wayland.windowManager.sway;
   colors = config.colorScheme.palette;
   font = config.syde.terminal.font;
@@ -14,8 +17,7 @@ let
   volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     programs = {
       rofi.enable = true;
@@ -158,7 +160,12 @@ in
           };
         };
 
-        bars = [{ position = "top"; command = "waybar"; }];
+        bars = [
+          {
+            position = "top";
+            command = "waybar";
+          }
+        ];
         # bars = [{
         #   position = "top";
         #   fonts = {
@@ -195,14 +202,17 @@ in
 
         floating = {
           criteria = [
-            { app_id = "firefox"; title = "Picture-in-Picture"; }
-            { window_role = "pop-up"; }
-            { class = "Matplotlib"; }
+            {
+              app_id = "firefox";
+              title = "Picture-in-Picture";
+            }
+            {window_role = "pop-up";}
+            {class = "Matplotlib";}
           ];
         };
 
         fonts = {
-          names = [ font ];
+          names = [font];
           size = 11.0;
         };
 
@@ -231,24 +241,29 @@ in
         };
 
         output = {
-          "*" = { bg = "~/Config/assets/backgrounds/battlefield-catppuccin.png fill"; };
+          "*" = {bg = "~/Config/assets/backgrounds/battlefield-catppuccin.png fill";};
         };
 
         assigns = {
-          "1" = [{ class = "obsidian"; }];
-          "2" = [{ class = "firefox"; } { app_id = "firefox"; }];
-          "4" = [{ class = "Brave-browser"; }];
-          "5" = [{ class = "VSCodium"; }];
+          "1" = [{class = "obsidian";}];
+          "2" = [{class = "firefox";} {app_id = "firefox";}];
+          "4" = [{class = "Brave-browser";}];
+          "5" = [{class = "VSCodium";}];
         };
 
         startup = [
-          { command = "${pkgs.autotiling-rs}/bin/autotiling-rs"; }
-          { command = "nm-applet"; always = false; }
-          { command = "blueman-applet"; always = false; }
-          { command = "obsidian"; }
+          {command = "${pkgs.autotiling-rs}/bin/autotiling-rs";}
+          {
+            command = "nm-applet";
+            always = false;
+          }
+          {
+            command = "blueman-applet";
+            always = false;
+          }
+          {command = "obsidian";}
         ];
       };
     };
-
   };
 }

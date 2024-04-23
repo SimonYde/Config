@@ -114,14 +114,6 @@ Load.later(function()
     setup_lsp {
         name = "nil_ls",
         cmd = "nil",
-        settings = {
-            ['nil'] = {
-                formatting = {
-                    command = { "nixpkgs-fmt" },
-                },
-                autoArchive = true,
-            },
-        }
     }
 
     setup_lsp {

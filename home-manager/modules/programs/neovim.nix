@@ -1,6 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
   catppuccin = [
     "catppuccin-latte"
     "catppuccin-mocha"
@@ -10,81 +14,85 @@ let
     pname = "neogit-nightly";
     src = inputs.neogit-nightly;
   };
-  mapLazy = map (pkg: { plugin = pkg; optional = true; }); # Takes a list of plugins and maps them to load lazily
+  mapLazy = map (pkg: {
+    plugin = pkg;
+    optional = true;
+  }); # Takes a list of plugins and maps them to load lazily
   cfg = config.programs.neovim;
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     programs.neovim = {
       package = pkgs.neovim-nightly;
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
-      plugins = with pkgs.vimPlugins; [
-        # -----LSP-----
-        nvim-lspconfig
-        lspsaga-nvim
+      plugins = with pkgs.vimPlugins;
+        [
+          # -----LSP-----
+          nvim-lspconfig
+          lspsaga-nvim
 
-        # -----Completion-----
-        lspkind-nvim
-        nvim-cmp
-        cmp-nvim-lsp-signature-help
-        cmp-nvim-lua
-        cmp-nvim-lsp
-        cmp-cmdline
-        cmp-path
-        cmp-buffer
-        cmp_luasnip
-        luasnip
-        friendly-snippets
-        copilot-lua
-        # codeium-nvim
+          # -----Completion-----
+          lspkind-nvim
+          nvim-cmp
+          cmp-nvim-lsp-signature-help
+          cmp-nvim-lua
+          cmp-nvim-lsp
+          cmp-cmdline
+          cmp-path
+          cmp-buffer
+          cmp_luasnip
+          luasnip
+          friendly-snippets
+          copilot-lua
+          # codeium-nvim
 
-        # -----Workflow-----
-        conform-nvim
-        harpoon2
-        nvim-autopairs
-        gitsigns-nvim
-        neogit-nightly # NOTE: Supports neovim nightly
-        mini-nvim
-        vim-sleuth
-        # vim-table-mode
-        # vim-be-good
-        undotree
-        nvim-dap
-        nvim-dap-ui
-        nvim-nio
+          # -----Workflow-----
+          conform-nvim
+          harpoon2
+          nvim-autopairs
+          gitsigns-nvim
+          neogit-nightly # NOTE: Supports neovim nightly
+          mini-nvim
+          vim-sleuth
+          # vim-table-mode
+          # vim-be-good
+          undotree
+          nvim-dap
+          nvim-dap-ui
+          nvim-nio
 
-        obsidian-nvim
+          obsidian-nvim
 
-        # -----Fuzzy Finder-----
-        plenary-nvim
-        telescope-nvim
-        telescope-fzf-native-nvim
-        telescope-ui-select-nvim
-        git-worktree-nvim
+          # -----Fuzzy Finder-----
+          plenary-nvim
+          telescope-nvim
+          telescope-fzf-native-nvim
+          telescope-ui-select-nvim
+          git-worktree-nvim
 
-        # -----Highlighting-----
-        nvim-treesitter.withAllGrammars
-        nvim-treesitter-textobjects
-        nvim-treesitter-context
-        rainbow-delimiters-nvim
+          # -----Highlighting-----
+          nvim-treesitter.withAllGrammars
+          nvim-treesitter-textobjects
+          nvim-treesitter-context
+          rainbow-delimiters-nvim
 
-        # -----UI-----
-        which-key-nvim
-        nvim-web-devicons
-        todo-comments-nvim
-        nui-nvim
-      ] ++
-      mapLazy [
-        trouble-nvim
-        indent-blankline-nvim
-        diffview-nvim
-      ] ++ (
-        if builtins.elem config.colorScheme.slug catppuccin
-        then [ catppuccin-nvim ]
-        else [ ]
-      );
+          # -----UI-----
+          which-key-nvim
+          nvim-web-devicons
+          todo-comments-nvim
+          nui-nvim
+        ]
+        ++ mapLazy [
+          trouble-nvim
+          indent-blankline-nvim
+          diffview-nvim
+        ]
+        ++ (
+          if builtins.elem config.colorScheme.slug catppuccin
+          then [catppuccin-nvim]
+          else []
+        );
 
       extraLuaConfig = with config.colorScheme.palette; ''
         vim.loader.enable()
@@ -110,14 +118,16 @@ in
         }
         require('syde')
       '';
-      extraPackages = with pkgs;
-        let packages = [ ]; in
+      extraPackages = with pkgs; let
+        packages = [];
+      in
         if
           builtins.elem
-            vimPlugins.copilot-lua
-            cfg.plugins
+          vimPlugins.copilot-lua
+          cfg.plugins
         then
-          packages ++ [
+          packages
+          ++ [
             pkgs.nodejs-slim_20
           ]
         else packages;

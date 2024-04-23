@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.git = {
     userName = "Simon Yde";
     userEmail = "git@simonyde.com";
@@ -35,6 +33,8 @@
       ".stignore"
       ".stfolder"
       ".vscode"
+      ".mypy_cache"
+      ".ruff_cache"
       "**/_build"
       "**/target"
       "**/node_modules"
@@ -45,10 +45,11 @@
       options = {
         navigate = true;
         light = false;
+        dark = true;
         features = builtins.concatStringsSep " " [
           "line-numbers"
           "side-by-side"
-          "Catppuccin"
+          "catppuccin"
         ];
       };
     };

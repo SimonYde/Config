@@ -8,6 +8,7 @@ Load.later(function()
         -- },
         formatters_by_ft = {
             typst = { "typstyle" },
+            nix = { { "alejandra", "nixpkgs_fmt" } },
         },
 
         formatters = {

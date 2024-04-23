@@ -1,9 +1,12 @@
-{ lib, pkgs, config, ... }:
-
-let
-  cfg = config.syde.programming.java;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
+  inherit (lib) types;
+  cfg = config.syde.programming.java;
+in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       gradle
@@ -26,15 +29,14 @@ in
   };
 
   options.syde.programming = {
-    java = with lib; {
-      enable = mkEnableOption "java";
-      enableMaven = mkEnableOption "maven for java";
+    java = {
+      enable = lib.mkEnableOption "java";
+      enableMaven = lib.mkEnableOption "maven for java";
 
-      jdk = mkOption {
+      jdk = lib.mkOption {
         type = types.package;
         default = pkgs.jdk;
       };
     };
   };
-
 }

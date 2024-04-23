@@ -1,4 +1,4 @@
-Load.later(function()
+Load.now(function()
     vim.filetype.add({
         extension = {
             mll = "ocamllex",

@@ -1,11 +1,15 @@
-{ pkgs, config, lib, ... }:
-
-let cfg = config.syde.programming; in
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.syde.programming;
+in {
   config = {
     programs = {
       # Terminal Editors
-      helix.enable  = false;
+      helix.enable = false;
       neovim.enable = true;
 
       # Other
@@ -13,13 +17,13 @@ let cfg = config.syde.programming; in
     };
 
     syde.programming = {
-      latex.enable  = true;
-      lua.enable    = true;
+      latex.enable = true;
+      lua.enable = true;
       python.enable = true;
-      rust.enable   = true;
-      typst.enable  = true;
-      nix.enable    = true;
-      java.enable   = false;
+      rust.enable = true;
+      typst.enable = true;
+      nix.enable = true;
+      java.enable = false;
     };
 
     home.packages = with pkgs; [
@@ -29,7 +33,7 @@ let cfg = config.syde.programming; in
 
     home.sessionVariables = {
       CARGO_HOME = "${config.xdg.configHome}/cargo";
-      GOPATH     = "${config.xdg.dataHome}/go";
+      GOPATH = "${config.xdg.dataHome}/go";
     };
   };
 }

@@ -1,8 +1,8 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "entmax";
   version = "1.0";
@@ -22,13 +22,13 @@ python3.pkgs.buildPythonApplication rec {
     torch
   ];
 
-  pythonImportsCheck = [ "entmax" ];
+  pythonImportsCheck = ["entmax"];
 
   meta = with lib; {
     description = "The entmax mapping and its loss, a family of sparse alternatives to softmax";
     homepage = "https://pypi.org/project/entmax/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "entmax";
   };
 }

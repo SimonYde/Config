@@ -1,8 +1,8 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "timm";
   version = "0.5.4";
@@ -26,13 +26,13 @@ python3.pkgs.buildPythonApplication rec {
     torchvision
   ];
 
-  pythonImportsCheck = [ "timm" ];
+  pythonImportsCheck = ["timm"];
 
   meta = with lib; {
     description = "PyTorch Image Models";
     homepage = "https://pypi.org/project/timm/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "timm";
   };
 }

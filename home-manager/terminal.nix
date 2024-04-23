@@ -1,34 +1,37 @@
-{ config, pkgs, lib, ... }:
-let 
-  cfg = config.syde.terminal;
-in 
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.syde.terminal;
+in {
   config = {
     programs = {
       # Shells
-      bash.enable    = true;
-      fish.enable    = true;
+      fish.enable = true;
+      bash.enable = true;
       nushell.enable = false;
-      zsh.enable     = true;
+      zsh.enable = false;
 
       # CLI tools
-      atuin.enable     = true;
-      bat.enable       = true;
-      btop.enable      = true;
-      direnv.enable    = true;
-      eza.enable       = true;
-      git.enable       = true;
-      gh.enable        = true;
-      lazygit.enable   = true;
-      lf.enable        = false;
+      atuin.enable = true;
+      bat.enable = true;
+      btop.enable = true;
+      direnv.enable = true;
+      eza.enable = true;
+      git.enable = true;
+      gh.enable = true;
+      lazygit.enable = true;
+      lf.enable = false;
       nix-index.enable = true;
-      ripgrep.enable   = true;
-      skim.enable      = true;
-      starship.enable  = true;
-      thefuck.enable   = true;
-      yazi.enable      = true;
-      zellij.enable    = true;
-      zoxide.enable    = true;
+      ripgrep.enable = true;
+      skim.enable = true;
+      starship.enable = true;
+      thefuck.enable = true;
+      yazi.enable = true;
+      zellij.enable = true;
+      zoxide.enable = true;
     };
 
     home.sessionPath = [
@@ -58,10 +61,11 @@ in
 
     home.shellAliases = {
       cat = "bat";
-      c   = "clear";
-      rt  = "trash put";
-      zs  = "zellij --session";
-      za  = "zellij attach";
+      man = "batman";
+      c = "clear";
+      rt = "trash put";
+      zs = "zellij --session";
+      za = "zellij attach";
     };
   };
 

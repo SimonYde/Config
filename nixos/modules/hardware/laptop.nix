@@ -1,6 +1,8 @@
-{ lib, config, ... }:
-
 {
+  lib,
+  config,
+  ...
+}: {
   config = lib.mkIf config.syde.laptop.enable {
     powerManagement = {
       cpuFreqGovernor = lib.mkDefault "powersave";
@@ -23,7 +25,7 @@
     services.blueman.enable = true;
   };
 
-  options.syde.laptop =  {
+  options.syde.laptop = {
     enable = lib.mkEnableOption "laptop hardware configuration.";
   };
 }

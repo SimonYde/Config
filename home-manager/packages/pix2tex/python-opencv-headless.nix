@@ -1,9 +1,9 @@
-{ lib
-, python3
-, fetchPypi
-, callPackage
+{
+  lib,
+  python3,
+  fetchPypi,
+  callPackage,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "x-transformers";
   version = "0.15.0";
@@ -28,13 +28,13 @@ python3.pkgs.buildPythonApplication rec {
     # wheel
   ];
 
-  pythonImportsCheck = [ "x_transformers" ];
+  pythonImportsCheck = ["x_transformers"];
 
   meta = with lib; {
     description = "X-Transformers - Pytorch";
     homepage = "https://pypi.org/project/x-transformers/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "x-transformers";
   };
 }

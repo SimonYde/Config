@@ -1,7 +1,12 @@
-{ inputs, config, lib, pkgs, ... }:
-
-let cfg = config.programs.hyprland; in
 {
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.programs.hyprland;
+in {
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       xdgOpenUsePortal = false;
@@ -29,8 +34,7 @@ let cfg = config.programs.hyprland; in
       };
     };
 
-
-    security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
+    security.pam.services.swaylock = {}; # swaylock cannot unlock otherwise, see nixpkgs#89019
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
@@ -49,9 +53,9 @@ let cfg = config.programs.hyprland; in
     systemd = lib.mkIf config.security.polkit.enable {
       user.services.polkit-kde-authentication-agent-1 = {
         description = "polkit-kde-authentication-agent-1";
-        wantedBy = [ "graphical-session.target" ];
-        wants = [ "graphical-session.target" ];
-        after = [ "graphical-session.target" ];
+        wantedBy = ["graphical-session.target"];
+        wants = ["graphical-session.target"];
+        after = ["graphical-session.target"];
         serviceConfig = {
           Type = "simple";
           ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";

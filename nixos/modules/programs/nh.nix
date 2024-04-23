@@ -1,6 +1,4 @@
-{config, ...}:
-
-{
+{config, ...}: {
   programs.nh = {
     flake = "/home/${config.syde.user}/Config";
     clean = {

@@ -26,7 +26,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
-    neogit-nightly = { url = "github:NeogitOrg/neogit/nightly"; flake = false; };
+    neogit-nightly = {
+      url = "github:NeogitOrg/neogit/nightly";
+      flake = false;
+    };
 
     helix = {
       url = "github:helix-editor/helix";
@@ -70,42 +73,57 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
-    catppuccin-bat = { url = "github:catppuccin/bat"; flake = false; };
-    catppuccin-qt5ct = { url = "github:catppuccin/qt5ct"; flake = false; };
+    catppuccin-bat = {
+      url = "github:catppuccin/bat";
+      flake = false;
+    };
+    catppuccin-qt5ct = {
+      url = "github:catppuccin/qt5ct";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, ... }@inputs: {
-    nixosConfigurations = {
-      icarus = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [ ./nixos/devices/icarus.nix ];
-      };
-      perdix = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [ ./nixos/devices/perdix.nix ];
-      };
-    };
-
-    homeConfigurations = let pkgs = nixpkgs.legacyPackages.x86_64-linux; in rec {
-      icarus = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/devices/icarus.nix ];
-      };
-      perdix = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home-manager/devices/perdix.nix ];
-      };
-      "syde@icarus" = icarus;
-      "syde@perdix" = perdix;
-    };
-  } //
-  flake-utils.lib.eachDefaultSystem (system:
-    let pkgs = nixpkgs.legacyPackages.${system}; in
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    flake-utils,
+    ...
+  } @ inputs:
     {
+      nixosConfigurations = {
+        icarus = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {inherit inputs;};
+          modules = [./nixos/devices/icarus.nix];
+        };
+        perdix = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {inherit inputs;};
+          modules = [./nixos/devices/perdix.nix];
+        };
+      };
+
+      homeConfigurations = let
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      in rec {
+        icarus = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {inherit inputs;};
+          modules = [./home-manager/devices/icarus.nix];
+        };
+        perdix = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {inherit inputs;};
+          modules = [./home-manager/devices/perdix.nix];
+        };
+        "syde@icarus" = icarus;
+        "syde@perdix" = perdix;
+      };
+    }
+    // flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
           gnumake

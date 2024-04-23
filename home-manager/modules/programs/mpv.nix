@@ -1,6 +1,4 @@
-{ lib, pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.mpv = {
     config = {
       vo = "gpu";

@@ -1,9 +1,16 @@
-{ config, pkgs, lib, ... }:
-
-let terminal = config.syde.terminal; in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  terminal = config.syde.terminal;
+in {
   programs.kitty = {
-    theme = if config.syde.theming.prefer-dark then "Catppuccin-Mocha" else "Catppuccin-Latte";
+    theme =
+      if config.syde.theming.prefer-dark
+      then "Catppuccin-Mocha"
+      else "Catppuccin-Latte";
     font = {
       name = terminal.font;
       size = terminal.fontSize;
@@ -18,5 +25,4 @@ let terminal = config.syde.terminal; in
       background_opacity = lib.strings.floatToString terminal.opacity;
     };
   };
-
 }

@@ -1,11 +1,13 @@
-{ config, inputs, pkgs, ... }:
-
-let
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}: let
   colors = config.colorScheme.palette;
   hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString ",";
   font = config.syde.terminal.font;
-in
-{
+in {
   programs.waybar = {
     settings = {
       mainBar = {
@@ -76,7 +78,7 @@ in
           format-charging = "{capacity}% ";
           format-plugged = "{capacity}% ";
           format-alt = "{time} {icon}";
-          format-icons = [ "" "" "" "" "" ];
+          format-icons = ["" "" "" "" ""];
         };
         pulseaudio = {
           scroll-step = 10; # %, can be a float
@@ -94,171 +96,169 @@ in
             phone = "";
             portable = "";
             car = "";
-            default = [ "" "" "" ];
+            default = ["" "" ""];
           };
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
         };
       };
     };
 
-    style = with colors;
-      let
-        bg = "rgba(${hexToRGBString base00},0.85)";
-        margin = "6px";
-        font-size = "15px";
-        padding = "12px";
-      in
-      ''
-        * {
-            border: none;
-            border-radius: 15px;
-            font-family: ${font}, FontAwesome;
-            min-height: 12px;
-        }
+    style = with colors; let
+      bg = "rgba(${hexToRGBString base00},0.85)";
+      margin = "6px";
+      font-size = "15px";
+      padding = "12px";
+    in ''
+      * {
+          border: none;
+          border-radius: 15px;
+          font-family: ${font}, FontAwesome;
+          min-height: 12px;
+      }
 
-        window#waybar {
-            background: transparent;
-        }
+      window#waybar {
+          background: transparent;
+      }
 
-        window#waybar.hidden {
-            opacity: 0.2;
-        }
+      window#waybar.hidden {
+          opacity: 0.2;
+      }
 
-        #workspaces {
-            margin-left: ${margin};
-            margin-right: ${margin};
-            transition: none;
-            background: ${bg};
-        }
+      #workspaces {
+          margin-left: ${margin};
+          margin-right: ${margin};
+          transition: none;
+          background: ${bg};
+      }
 
-        #workspaces button {
-            transition: none;
-            color: #${base07};
-            background: transparent;
-            margin-top: 0;
-            font-size: ${font-size};
-        }
+      #workspaces button {
+          transition: none;
+          color: #${base07};
+          background: transparent;
+          margin-top: 0;
+          font-size: ${font-size};
+      }
 
-        #workspaces button.persistent {
-            color: #${base07};
-            font-size: ${font-size};
-        }
+      #workspaces button.persistent {
+          color: #${base07};
+          font-size: ${font-size};
+      }
 
-        /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-        #workspaces button:hover {
-            transition: none;
-            box-shadow: inherit;
-            text-shadow: inherit;
-            color: ${bg};
-            background: #${base04};
-        }
+      /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+      #workspaces button:hover {
+          transition: none;
+          box-shadow: inherit;
+          text-shadow: inherit;
+          color: ${bg};
+          background: #${base04};
+      }
 
-        #workspaces button.focused, #workspaces button.active {
-            color: #${base01};
-            background: rgba(${hexToRGBString base07},1.0);
-        }
+      #workspaces button.focused, #workspaces button.active {
+          color: #${base01};
+          background: rgba(${hexToRGBString base07},1.0);
+      }
 
-        #mode, #submap {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base01};
-            background: #${base07};
-        }
+      #mode, #submap {
+          padding-left: ${padding};
+          padding-right: ${padding};
+          transition: none;
+          color: #${base01};
+          background: #${base07};
+      }
 
 
-        #pulseaudio {
-            margin-right: ${margin};
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
+      #pulseaudio {
+          margin-right: ${margin};
+          padding-left: ${padding};
+          padding-right: ${padding};
+          transition: none;
+          color: #${base05};
+          background: ${bg};
+      }
 
-        #pulseaudio.muted {
-            background-color: ${bg};
-            color: #${base05};
-        }
+      #pulseaudio.muted {
+          background-color: ${bg};
+          color: #${base05};
+      }
 
-        #memory, #cpu, #disk {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            margin-right: ${margin};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
+      #memory, #cpu, #disk {
+          padding-left: ${padding};
+          padding-right: ${padding};
+          margin-right: ${margin};
+          transition: none;
+          color: #${base05};
+          background: ${bg};
+      }
 
-        #battery {
-            margin-right: ${margin};
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
+      #battery {
+          margin-right: ${margin};
+          padding-left: ${padding};
+          padding-right: ${padding};
+          transition: none;
+          color: #${base05};
+          background: ${bg};
+      }
 
-        #battery.charging {
-            color: ${bg};
-            background-color: #${base07};
-        }
+      #battery.charging {
+          color: ${bg};
+          background-color: #${base07};
+      }
 
-        #battery.warning:not(.charging) {
-            background-color: #${base0A};
-            color: ${bg};
-        }
+      #battery.warning:not(.charging) {
+          background-color: #${base0A};
+          color: ${bg};
+      }
 
-        #battery.critical:not(.charging) {
-            background-color: #${base08};
-            color: ${bg};
-            animation-name: blink;
-            animation-duration: 0.5s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
+      #battery.critical:not(.charging) {
+          background-color: #${base08};
+          color: ${bg};
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+      }
 
-        #tray {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
+      #tray {
+          padding-left: ${padding};
+          padding-right: ${padding};
+          transition: none;
+          color: #${base05};
+          background: ${bg};
+      }
 
-        #clock {
-            margin-left: ${margin};
-            padding-left: ${padding};
-            padding-right: ${padding};
-            margin-right: ${margin};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
+      #clock {
+          margin-left: ${margin};
+          padding-left: ${padding};
+          padding-right: ${padding};
+          margin-right: ${margin};
+          transition: none;
+          color: #${base05};
+          background: ${bg};
+      }
 
-        @keyframes blink {
-            to {
-                background-color: #${base05};
-                color: ${bg};
-            }
-        }
+      @keyframes blink {
+          to {
+              background-color: #${base05};
+              color: ${bg};
+          }
+      }
 
-        #language {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
+      #language {
+          padding-left: ${padding};
+          padding-right: ${padding};
+          transition: none;
+          color: #${base05};
+          background: ${bg};
+      }
 
-        #keyboard-state {
-            margin-right: ${margin};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-      '';
+      #keyboard-state {
+          margin-right: ${margin};
+          padding-right: ${padding};
+          transition: none;
+          color: #${base05};
+          background: ${bg};
+      }
+    '';
   };
 }

@@ -1,7 +1,11 @@
-{ lib, config, pkgs, ... }:
-
-let cfg = config.syde.programming.typst; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.syde.programming.typst;
+in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       typst-lsp
@@ -19,4 +23,3 @@ let cfg = config.syde.programming.typst; in
     enable = lib.mkEnableOption "Typst language support";
   };
 }
-

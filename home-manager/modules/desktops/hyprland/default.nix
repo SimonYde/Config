@@ -1,6 +1,10 @@
-{ lib, pkgs, config, inputs, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  config,
+  inputs,
+  ...
+}: let
   random_background = pkgs.writeShellScriptBin "ran_bg" ''
     DIRECTORY=${config.xdg.configHome}/backgrounds/${config.colorScheme.slug}
 
@@ -20,8 +24,7 @@ let
   browser = config.syde.browser;
   menu = "rofi -show drun";
   cfg = config.wayland.windowManager.hyprland;
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       swww

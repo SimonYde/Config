@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.vscode = {
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
@@ -43,7 +45,6 @@
         };
       })
     ];
-
 
     # userSettings = builtins.fromJSON (builtins.readFile ../../dotfiles/.config/Code/User/settings.json);
   };
