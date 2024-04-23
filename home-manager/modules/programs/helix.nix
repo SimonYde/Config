@@ -1,8 +1,5 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{ pkgs, config, ... }:
+let
   colors = config.colorScheme.palette;
   cursorline = "#2a2b3c";
   secondary_cursor = "#b5a6a8";
@@ -12,7 +9,8 @@
   overlay1 = "#7f849c";
   overlay2 = "#9399b2";
   subtext0 = "#a6adc8";
-in {
+in
+{
   programs.helix = {
     defaultEditor = false;
     themes.base16 = with colors; {
@@ -31,13 +29,13 @@ in {
 
       "comment" = {
         fg = "${overlay1}";
-        modifiers = ["italic"];
+        modifiers = [ "italic" ];
       };
 
       "variable" = "#${base05}";
       "variable.parameter" = {
         fg = "#${base09}";
-        modifiers = ["italic"];
+        modifiers = [ "italic" ];
       };
       "variable.builtin" = "#${base07}";
       "variable.other.member" = "#${base07}";
@@ -51,7 +49,7 @@ in {
       "keyword.storage.modifier.ref" = "#${base0C}";
       "keyword.control.conditional" = {
         fg = "#${base0E}";
-        modifiers = ["italic"];
+        modifiers = [ "italic" ];
       };
 
       "operator" = "#${base0C}";
@@ -62,11 +60,13 @@ in {
       "attribute" = "#${base0A}";
       "namespace" = {
         fg = "#${base0D}";
-        modifiers = ["italic"];
+        modifiers = [ "italic" ];
       };
       "special" = "#${base0D}"; # fuzzy highlight
 
-      "markup.bold" = {modifiers = ["bold"];};
+      "markup.bold" = {
+        modifiers = [ "bold" ];
+      };
       "markup.heading.2" = "#${base07}";
       "markup.heading.3" = "#${base0E}";
       "markup.heading.4" = "#${base0B}";
@@ -75,17 +75,21 @@ in {
       "markup.heading.7" = "#${base0C}";
       "markup.heading.marker" = {
         fg = "#${base09}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
-      "markup.italic" = {modifiers = ["italic"];};
+      "markup.italic" = {
+        modifiers = [ "italic" ];
+      };
       "markup.link.text" = "#${base0D}";
       "markup.link.url" = {
         fg = "#${base06}";
-        modifiers = ["underlined"];
+        modifiers = [ "underlined" ];
       };
       "markup.list" = "#${base0E}";
       "markup.raw" = "#${base0F}";
-      "markup.strikethrough" = {modifiers = ["crossed_out"];};
+      "markup.strikethrough" = {
+        modifiers = [ "crossed_out" ];
+      };
 
       "diff.delta" = "#${base0A}";
       "diff.minus" = "#${base08}";
@@ -100,8 +104,12 @@ in {
         fg = "#${base05}";
         bg = "none";
       };
-      "ui.linenr" = {fg = "#${base04}";};
-      "ui.linenr.selected" = {fg = "#${base07}";};
+      "ui.linenr" = {
+        fg = "#${base04}";
+      };
+      "ui.linenr.selected" = {
+        fg = "#${base07}";
+      };
       "ui.statusline" = {
         fg = "#${base05}";
         bg = "#${base01}";
@@ -113,24 +121,26 @@ in {
       "ui.statusline.normal" = {
         fg = "#${base00}";
         bg = "#${base07}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
       "ui.statusline.insert" = {
         fg = "#${base00}";
         bg = "#${base0B}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
       "ui.statusline.select" = {
         fg = "#${base00}";
         bg = "#${base0F}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
 
       "ui.popup" = {
         fg = "#${base05}";
         bg = "#${base00}";
       };
-      "ui.window" = {fg = "#${base01}";}; # crust originally
+      "ui.window" = {
+        fg = "#${base01}";
+      }; # crust originally
       "ui.help" = {
         fg = "${overlay2}";
         bg = "none";
@@ -148,25 +158,33 @@ in {
           style = "line";
         };
       };
-      "ui.bufferline.background" = {bg = "#${base01}";};
+      "ui.bufferline.background" = {
+        bg = "#${base01}";
+      };
 
       "ui.text" = "#${base05}";
       "ui.text.focus" = {
         fg = "#${base05}";
         bg = "#${base03}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
-      "ui.text.inactive" = {fg = "${overlay1}";};
+      "ui.text.inactive" = {
+        fg = "${overlay1}";
+      };
 
       "ui.virtual" = "${overlay0}";
-      "ui.virtual.ruler" = {bg = "#${base03}";};
+      "ui.virtual.ruler" = {
+        bg = "#${base03}";
+      };
       "ui.virtual.indent-guide" = "#${base03}";
       "ui.virtual.inlay-hint" = {
         fg = "#${base04}";
         bg = "#${base01}";
       };
 
-      "ui.selection" = {bg = "#${base04}";};
+      "ui.selection" = {
+        bg = "#${base04}";
+      };
 
       "ui.cursor" = {
         fg = "#${base00}";
@@ -178,7 +196,7 @@ in {
       };
       "ui.cursor.match" = {
         fg = "#${base09}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
 
       "ui.cursor.primary.normal" = {
@@ -207,11 +225,13 @@ in {
         bg = "${secondary_cursor}";
       };
 
-      "ui.cursorline.primary" = {bg = "${cursorline}";};
+      "ui.cursorline.primary" = {
+        bg = "${cursorline}";
+      };
 
       "ui.highlight" = {
         bg = "#${base04}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
 
       "ui.menu" = {
@@ -221,7 +241,7 @@ in {
       "ui.menu.selected" = {
         fg = "#${base05}";
         bg = "#${base04}";
-        modifiers = ["bold"];
+        modifiers = [ "bold" ];
       };
 
       "diagnostic.error" = {

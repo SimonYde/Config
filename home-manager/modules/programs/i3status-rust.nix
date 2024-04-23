@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   colors = config.colorScheme.palette;
-in {
+in
+{
   programs.i3status-rust = {
     bars = {
       top = {
@@ -21,9 +23,9 @@ in {
             block = "cpu";
             interval = 1;
           }
-          {block = "battery";}
-          {block = "sound";}
-          {block = "net";}
+          { block = "battery"; }
+          { block = "sound"; }
+          { block = "net"; }
           {
             block = "time";
             interval = 60;
@@ -32,11 +34,7 @@ in {
         ];
         settings = {
           theme = {
-            theme = "ctp-${
-              if config.theming.prefer-dark
-              then "mocha"
-              else "latte"
-            }";
+            theme = "ctp-${if config.theming.prefer-dark then "mocha" else "latte"}";
             overrides = with colors; {
               idle_bg = "#${base00}";
               idle_fg = "#${base05}";

@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.ripgrep = {
     arguments = [
       "--hidden"

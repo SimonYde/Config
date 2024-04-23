@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.syde.programming;
-in {
+in
+{
   config = {
     programs = {
       # Terminal Editors

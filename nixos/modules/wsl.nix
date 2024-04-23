@@ -4,9 +4,11 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   cfg = config.syde.wsl;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     system.stateVersion = "23.11";
     time.timeZone = "Europe/Copenhagen";
@@ -24,7 +26,7 @@ in {
       isNormalUser = true;
       description = "Simon Yde";
       shell = pkgs.${config.syde.shell};
-      extraGroups = ["wheel"];
+      extraGroups = [ "wheel" ];
     };
 
     environment.systemPackages = with pkgs; [
@@ -38,9 +40,7 @@ in {
     };
   };
 
-  imports = [
-    inputs.nixos-wsl.nixosModules.default
-  ];
+  imports = [ inputs.nixos-wsl.nixosModules.default ];
 
   options.syde.wsl = {
     enable = lib.mkEnableOption "WSL2 configuration";

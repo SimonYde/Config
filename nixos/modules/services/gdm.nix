@@ -1,10 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.services.xserver.displayManager.gdm;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     services.xserver.displayManager = {
       autoLogin = {

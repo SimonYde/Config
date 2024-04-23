@@ -18,17 +18,15 @@ python3.pkgs.buildPythonApplication rec {
     python3.pkgs.wheel
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    torch
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ torch ];
 
-  pythonImportsCheck = ["entmax"];
+  pythonImportsCheck = [ "entmax" ];
 
   meta = with lib; {
     description = "The entmax mapping and its loss, a family of sparse alternatives to softmax";
     homepage = "https://pypi.org/project/entmax/";
     license = licenses.mit;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     mainProgram = "entmax";
   };
 }

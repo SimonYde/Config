@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.starship = {
     enableNushellIntegration = true;
     enableFishIntegration = true;

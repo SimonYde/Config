@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   gammastep = config.services.gammastep;
-in {
+in
+{
   services.redshift = {
     temperature = {
       day = gammastep.temperature.day;

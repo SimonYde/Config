@@ -1,11 +1,9 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config, pkgs, ... }:
+let
   colors = config.colorScheme.palette;
   font = config.syde.terminal.font;
-in {
+in
+{
   programs.swaylock = {
     package = pkgs.swaylock-effects;
     settings = {

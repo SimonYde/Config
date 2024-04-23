@@ -3,23 +3,21 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.syde.hardware.amdgpu;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
-    boot.initrd.kernelModules = ["amdgpu"];
-    services.xserver.videoDrivers = ["amdgpu"];
+    boot.initrd.kernelModules = [ "amdgpu" ];
+    services.xserver.videoDrivers = [ "amdgpu" ];
 
     hardware = {
       opengl = {
         enable = true;
         driSupport32Bit = config.hardware.opengl.enable;
-        extraPackages = with pkgs; [
-          amdvlk
-        ];
-        extraPackages32 = with pkgs; [
-          driversi686Linux.amdvlk
-        ];
+        extraPackages = with pkgs; [ amdvlk ];
+        extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
       };
     };
   };

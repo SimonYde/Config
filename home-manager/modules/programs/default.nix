@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     # ---Editors---
     ./helix.nix

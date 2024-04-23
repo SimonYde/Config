@@ -1,10 +1,8 @@
-{
-  pkgs,
-  config,
-  ...
-}: let
+{ pkgs, config, ... }:
+let
   emulator = config.syde.terminal.emulator;
-in {
+in
+{
   config = {
     programs = {
       # Browsers
@@ -73,17 +71,17 @@ in {
       "bitwig-studio"
     ];
 
-    home.pointerCursor = let
-      cursorTheme = config.syde.theming.cursorTheme;
-    in {
-      name = cursorTheme.name;
-      package = cursorTheme.package;
-      size = 24;
-      gtk.enable = config.gtk.enable;
-    };
+    home.pointerCursor =
+      let
+        cursorTheme = config.syde.theming.cursorTheme;
+      in
+      {
+        name = cursorTheme.name;
+        package = cursorTheme.package;
+        size = 24;
+        gtk.enable = config.gtk.enable;
+      };
   };
 
-  imports = [
-    ../standard.nix
-  ];
+  imports = [ ../standard.nix ];
 }

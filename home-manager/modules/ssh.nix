@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.syde.ssh;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     programs.gpg = {
       enable = true;

@@ -3,10 +3,12 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) types;
   cfg = config.syde.programming.java;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       gradle
@@ -22,9 +24,7 @@ in {
     };
 
     programs.neovim = {
-      plugins = with pkgs.vimPlugins; [
-        nvim-jdtls
-      ];
+      plugins = with pkgs.vimPlugins; [ nvim-jdtls ];
     };
   };
 

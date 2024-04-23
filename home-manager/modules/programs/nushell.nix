@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   programs.nushell = {
     configFile.text = with config.colorScheme.palette; ''
       let $config = {

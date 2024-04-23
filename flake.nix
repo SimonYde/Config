@@ -83,52 +83,67 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    flake-utils,
-    ...
-  } @ inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      flake-utils,
+      ...
+    }@inputs:
     {
       nixosConfigurations = {
         icarus = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {inherit inputs;};
-          modules = [./nixos/devices/icarus.nix];
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./nixos/devices/icarus.nix ];
         };
         perdix = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {inherit inputs;};
-          modules = [./nixos/devices/perdix.nix];
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./nixos/devices/perdix.nix ];
         };
       };
 
-      homeConfigurations = let
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      in rec {
-        icarus = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {inherit inputs;};
-          modules = [./home-manager/devices/icarus.nix];
+      homeConfigurations =
+        let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        in
+        rec {
+          icarus = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {
+              inherit inputs;
+            };
+            modules = [ ./home-manager/devices/icarus.nix ];
+          };
+          perdix = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {
+              inherit inputs;
+            };
+            modules = [ ./home-manager/devices/perdix.nix ];
+          };
+          "syde@icarus" = icarus;
+          "syde@perdix" = perdix;
         };
-        perdix = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {inherit inputs;};
-          modules = [./home-manager/devices/perdix.nix];
-        };
-        "syde@icarus" = icarus;
-        "syde@perdix" = perdix;
-      };
     }
-    // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      devShells.default = pkgs.mkShell {
-        packages = with pkgs; [
-          gnumake
-          just
-        ];
-      };
-    });
+    // flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            gnumake
+            just
+          ];
+        };
+      }
+    );
 }

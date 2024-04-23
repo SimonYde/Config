@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   config = lib.mkIf config.syde.programming.latex.enable {
     home.packages = with pkgs; [
       texlab

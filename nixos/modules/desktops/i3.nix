@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   config = lib.mkIf config.services.xserver.windowManager.i3.enable {
     services.xserver = {
       enable = true;
@@ -20,7 +21,5 @@
     programs.dconf.enable = true;
   };
 
-  imports = [
-    ../services/lightdm.nix
-  ];
+  imports = [ ../services/lightdm.nix ];
 }

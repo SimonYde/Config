@@ -4,7 +4,8 @@
   config,
   inputs,
   ...
-}: let
+}:
+let
   random_background = pkgs.writeShellScriptBin "ran_bg" ''
     DIRECTORY=${config.xdg.configHome}/backgrounds/${config.colorScheme.slug}
 
@@ -24,7 +25,8 @@
   browser = config.syde.browser;
   menu = "rofi -show drun";
   cfg = config.wayland.windowManager.hyprland;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       swww
@@ -144,7 +146,5 @@ in {
     };
   };
 
-  imports = [
-    inputs.hyprland.homeManagerModules.default
-  ];
+  imports = [ inputs.hyprland.homeManagerModules.default ];
 }

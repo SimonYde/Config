@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.git = {
     userName = "Simon Yde";
     userEmail = "git@simonyde.com";

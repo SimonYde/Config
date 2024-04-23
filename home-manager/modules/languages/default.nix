@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./java.nix
     ./latex.nix

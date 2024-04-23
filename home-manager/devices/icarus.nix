@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs = {
     zathura.enable = true;
   };
@@ -21,7 +22,5 @@
     wl-clipboard
   ];
 
-  imports = [
-    ../standard.nix
-  ];
+  imports = [ ../standard.nix ];
 }

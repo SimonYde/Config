@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.thefuck = {
     enableBashIntegration = true;
     enableFishIntegration = true;

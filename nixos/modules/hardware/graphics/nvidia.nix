@@ -1,13 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   cfg = config.syde.hardware.nvidia;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
-    boot.initrd.kernelModules = ["nvidia"];
-    boot.blacklistedKernelModules = ["nouveau"];
+    boot.initrd.kernelModules = [ "nvidia" ];
+    boot.blacklistedKernelModules = [ "nouveau" ];
 
     hardware.nvidia = {
       powerManagement.enable = true;
@@ -18,7 +16,7 @@ in {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
     nixpkgs.config.allowUnfree = true;
     hardware.opengl.enable = true;
 

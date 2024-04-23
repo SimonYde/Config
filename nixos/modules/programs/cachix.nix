@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nix = {
     settings = {
       substituters = [
@@ -16,7 +17,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    cachix
-  ];
+  environment.systemPackages = with pkgs; [ cachix ];
 }

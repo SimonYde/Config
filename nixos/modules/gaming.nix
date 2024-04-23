@@ -3,9 +3,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.syde.gaming;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     programs = {
       steam.enable = true;
@@ -21,9 +23,7 @@ in {
           rocm-opencl-runtime
           rocm-opencl-icd
         ];
-        extraPackages32 = with pkgs.pkgsi686Linux; [
-          libva
-        ];
+        extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
       };
     };
 

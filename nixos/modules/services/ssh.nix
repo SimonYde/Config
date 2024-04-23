@@ -1,10 +1,8 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   cfg = config.syde.ssh;
-in {
+in
+{
   config = lib.mkIf cfg.enable {
     services.openssh = {
       enable = true;

@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   programs.zathura = {
     options = with config.colorScheme.palette; {
       default-fg = "#${base05}";
