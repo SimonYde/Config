@@ -4,7 +4,6 @@
     # Display managers
     ./gdm.nix
     ./sddm.nix
-    ./lightdm.nix
 
     # Other
     ./ssh.nix
