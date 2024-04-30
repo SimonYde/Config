@@ -23,7 +23,7 @@ let
   colors = config.colorScheme.palette;
   terminal = config.syde.terminal;
   browser = config.syde.browser;
-  menu = "rofi -show drun";
+  menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
   cfg = config.wayland.windowManager.hyprland;
 in
 {
@@ -49,6 +49,7 @@ in
       mpv.enable = true;
       rofi.enable = true;
       swaylock.enable = true;
+      hyprlock.enable = false;
       waybar.enable = true;
     };
 
@@ -78,6 +79,7 @@ in
           follow_mouse = 2;
           accel_profile = "flat";
           touchpad = {
+            scroll_factor = 0.7;
             natural_scroll = true;
           };
         };
