@@ -1,4 +1,8 @@
 { lib, inputs, ... }:
+
+let
+  inherit (lib) mkOption types;
+in
 {
   config = {
     nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ];
@@ -14,12 +18,12 @@
   ];
 
   options.syde = {
-    shell = lib.mkOption {
-      type = lib.types.str;
+    shell = mkOption {
+      type = types.str;
       default = "fish";
     };
-    user = lib.mkOption {
-      type = lib.types.str;
+    user = mkOption {
+      type = types.str;
       default = "syde";
     };
   };

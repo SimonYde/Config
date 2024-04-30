@@ -5,10 +5,16 @@
   ...
 }:
 let
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    types
+    mkIf
+    ;
   cfg = config.syde.programs.thunar;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       xfce.thunar
       xfce.exo
@@ -21,9 +27,9 @@ in
   };
 
   options.syde.programs.thunar = {
-    enable = lib.mkEnableOption "Thunar file manager";
-    terminal = lib.mkOption {
-      type = lib.types.str;
+    enable = mkEnableOption "Thunar file manager";
+    terminal = mkOption {
+      type = types.str;
       default = "${config.syde.terminal.emulator}";
       description = "The terminal emulator to open from within Thunar";
     };

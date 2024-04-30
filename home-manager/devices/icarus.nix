@@ -4,13 +4,16 @@
     zathura.enable = true;
   };
 
-  syde.programs.thunar.enable = true;
-  syde.ssh.enable = true;
-  syde.fonts.enable = true;
+  syde.programs = {
+    thunar.enable = true;
+  };
 
-  gtk.enable = true;
-  xdg.enable = true;
-  qt.enable = true;
+  syde = {
+    programming.enable = true;
+    theming.enable = true;
+    ssh.enable = true;
+    fonts.enable = true;
+  };
 
   home.shellAliases = {
     ex = "explorer.exe";

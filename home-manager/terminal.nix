@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib) mkOption types;
   cfg = config.syde.terminal;
 in
 {
@@ -52,6 +53,8 @@ in
       xh
       yt-dlp
 
+      tldr
+
       pandoc
       nix-output-monitor
 
@@ -67,31 +70,31 @@ in
   };
 
   options.syde.terminal = {
-    font = lib.mkOption {
-      type = lib.types.enum [
+    font = mkOption {
+      type = types.enum [
         "FiraCode Nerd Font Mono"
         "JetBrains Mono Nerd Font Mono"
       ];
       default = "JetBrains Mono Nerd Font Mono";
     };
-    fontSize = lib.mkOption {
-      type = lib.types.float;
+    fontSize = mkOption {
+      type = types.float;
       default = 11.5;
     };
-    emulator = lib.mkOption {
-      type = lib.types.enum [
+    emulator = mkOption {
+      type = types.enum [
         "alacritty"
         "kitty"
         "wezterm"
       ];
       default = "alacritty";
     };
-    opacity = lib.mkOption {
-      type = lib.types.float;
+    opacity = mkOption {
+      type = types.float;
       default = 0.85;
     };
-    cursor = lib.mkOption {
-      type = lib.types.enum [
+    cursor = mkOption {
+      type = types.enum [
         "block"
         "beam"
         "underline"

@@ -5,27 +5,26 @@
   ...
 }:
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.syde.programming;
 in
 {
-  config = {
+  config = mkIf cfg.enable {
     programs = {
       # Terminal Editors
       helix.enable = false;
       neovim.enable = true;
-
-      # Other
-      opam.enable = false;
     };
 
     syde.programming = {
+      java.enable = false;
       latex.enable = true;
       lua.enable = true;
+      nix.enable = true;
+      ocaml.enable = false;
       python.enable = true;
       rust.enable = true;
       typst.enable = true;
-      nix.enable = true;
-      java.enable = false;
     };
 
     home.packages = with pkgs; [
@@ -37,5 +36,9 @@ in
       CARGO_HOME = "${config.xdg.configHome}/cargo";
       GOPATH = "${config.xdg.dataHome}/go";
     };
+  };
+
+  options.syde.programming = {
+    enable = mkEnableOption "Development support";
   };
 }
