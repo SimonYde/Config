@@ -20,7 +20,7 @@ let
     IMAGE=$(echo "$IMAGES" | shuf -n1)
     ${pkgs.swww}/bin/swww img "$IMAGE"
   '';
-  colors = config.colorScheme.palette;
+  palette = config.colorScheme.palette;
   terminal = config.syde.terminal;
   browser = config.syde.browser;
   menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
@@ -42,7 +42,7 @@ in
       hyprpicker # color picker
     ];
 
-    home.sessionVariables.NIXOS_OZONE_WL = "1";
+    # home.sessionVariables.NIXOS_OZONE_WL = "1";
 
     programs = {
       imv.enable = true;
@@ -59,7 +59,7 @@ in
 
     wayland.windowManager.hyprland = {
       settings = {
-        general = with colors; {
+        general = with palette; {
           gaps_in = 3;
           gaps_out = 8;
           border_size = 2;

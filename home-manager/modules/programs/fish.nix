@@ -5,7 +5,7 @@
   ...
 }:
 let
-  colors = config.colorScheme.palette;
+  palette = config.colorScheme.palette;
   cfg = config.programs.fish;
 in
 {
@@ -19,7 +19,7 @@ in
     };
 
     home.file."${config.xdg.configHome}/fish/themes/base16_custom.theme" = {
-      text = with colors; ''
+      text = with palette; ''
         fish_color_autosuggestion ${base04}
         fish_color_cancel ${base08}
         fish_color_command ${base0D}

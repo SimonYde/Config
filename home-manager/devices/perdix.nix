@@ -29,15 +29,13 @@ in
       udiskie.enable = true;
     };
 
-    xdg.enable = true;
-    gtk.enable = true;
-    qt.enable = true;
-
     # Personal modules
     syde = {
       email.enable = false;
-      ssh.enable = true;
       fonts.enable = true;
+      programming.enable = true;
+      ssh.enable = true;
+      theming.enable = true;
     };
 
     xsession.windowManager.i3.enable = false;
@@ -61,26 +59,11 @@ in
       keepassxc
     ];
 
-    home.sessionVariables = {
-      OBSIDIAN_USE_WAYLAND = "0";
-    };
-
     syde.unfreePredicates = [
       "discord"
       "obsidian"
       "bitwig-studio"
     ];
-
-    home.pointerCursor =
-      let
-        cursorTheme = config.syde.theming.cursorTheme;
-      in
-      {
-        name = cursorTheme.name;
-        package = cursorTheme.package;
-        size = 24;
-        gtk.enable = config.gtk.enable;
-      };
   };
 
   imports = [ ../standard.nix ];

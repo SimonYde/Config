@@ -10,7 +10,7 @@
       enable = true;
       displayManager = {
         defaultSession = "none+i3";
-        lightdm.enable = true;
+        sddm.enable = true;
       };
       windowManager.i3 = {
         package = pkgs.i3-gaps;
@@ -20,6 +20,4 @@
     programs.nm-applet.enable = true;
     programs.dconf.enable = true;
   };
-
-  imports = [ ../services/lightdm.nix ];
 }

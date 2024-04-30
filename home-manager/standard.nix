@@ -34,6 +34,8 @@
         warn-dirty = false
       '';
     };
+
+    xdg.enable = true;
   };
 
   options.syde = {
