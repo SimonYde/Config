@@ -4,7 +4,7 @@ Load.later(function()
         local harpoon = require("harpoon")
         harpoon:setup()
 
-        nmap("<leader>h", function() harpoon:list():append() end, "[h]arpoon add path")
+        nmap("<leader>h", function() harpoon:list():add() end, "[h]arpoon add path")
         nmap("<C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, "[h]arpoon menu")
 
         nmap("<leader>1", function() harpoon:list():select(1) end, "Harpoon select 1")

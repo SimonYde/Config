@@ -45,7 +45,6 @@ in
           cmp-path
           cmp-buffer
           cmp_luasnip
-          luasnip
           friendly-snippets
           copilot-lua
           # codeium-nvim
@@ -74,11 +73,6 @@ in
           telescope-ui-select-nvim
           git-worktree-nvim
 
-          # -----Highlighting-----
-          nvim-treesitter.withAllGrammars
-          nvim-treesitter-textobjects
-          nvim-treesitter-context
-          rainbow-delimiters-nvim
 
           # -----UI-----
           which-key-nvim
@@ -87,9 +81,17 @@ in
           nui-nvim
         ]
         ++ mapLazy [
+          luasnip
           trouble-nvim
           indent-blankline-nvim
           diffview-nvim
+
+          # -----Highlighting-----
+          nvim-treesitter.withAllGrammars
+          nvim-treesitter-textobjects
+          nvim-treesitter-context
+          rainbow-delimiters-nvim
+
         ]
         ++ (if builtins.elem config.colorScheme.slug catppuccin then [ catppuccin-nvim ] else [ ]);
 

@@ -77,7 +77,7 @@ tmap("<leader><Esc>", [[<C-\><C-n>]], "Exit terminal mode")
 nmap(
     "<leader>li",
     function()
-        vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end,
     "Toggle [i]nlay hints"
 )

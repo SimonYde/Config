@@ -17,7 +17,7 @@ Load.later(function()
             pickers = {
                 find_files = {
                     -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-                    find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+                    find_command = { "rg", "--files", "--hidden", "--no-ignore", "--glob", "!**/.git/*" },
                 },
                 buffers = {
                     mappings = {
@@ -38,6 +38,9 @@ Load.later(function()
                 file_ignore_patterns = {
                     "__pycache__",
                     "target",
+                    ".direnv",
+                    ".mypy_cache",
+                    ".ruff_cache",
                     "node_modules",
                     "undodir",
                 },
