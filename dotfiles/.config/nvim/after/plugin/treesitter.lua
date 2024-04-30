@@ -1,4 +1,8 @@
 Load.later(function()
+    vim.cmd [[packadd nvim-treesitter]]
+    vim.cmd [[packadd nvim-treesitter-context]]
+    vim.cmd [[packadd nvim-treesitter-textobjects]]
+
     local treesitter_opts = {
         highlight = {
             enable = true,
@@ -72,7 +76,10 @@ Load.later(function()
 
     }
 
-    local rainbow_delimiters = Load.now(require, 'rainbow-delimiters')
+    local rainbow_delimiters = Load.now(function()
+        vim.cmd [[packadd rainbow-delimiters.nvim]]
+        require('rainbow-delimiters')
+    end)
     if rainbow_delimiters then
         treesitter_opts.rainbow = {
             enable = true,
@@ -88,6 +95,10 @@ Load.later(function()
     require('nvim-treesitter.configs').setup(treesitter_opts)
 
     Load.now(function()
-        require('treesitter-context').setup {}
+        local context = require('treesitter-context')
+        context.setup {}
+        local nmap = require('syde.keymap').nmap
+
+        nmap("<leader><leader>t", context.toggle, "toggle [t]reesitter context")
     end)
 end)

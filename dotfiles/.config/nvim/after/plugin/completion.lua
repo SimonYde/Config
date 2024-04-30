@@ -1,5 +1,7 @@
 Load.later(function()
     local cmp = require('cmp')
+
+    vim.cmd[[packadd luasnip]]
     local luasnip = require("luasnip")
     require('luasnip.loaders.from_vscode').lazy_load() -- load friendly-snippets into luasnip
     luasnip.config.setup {}
