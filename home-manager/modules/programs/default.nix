@@ -34,6 +34,7 @@
     ./mpv.nix
     ./rofi
     ./swaylock.nix
+    ./hyprlock.nix
     ./thunar.nix
     ./vscode.nix
     ./waybar.nix

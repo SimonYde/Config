@@ -30,17 +30,18 @@ in
       inside-color = "${colors.base00}";
       inside-ver-color = "${colors.base00}";
       inside-wrong-color = "${colors.base00}";
-      key-hl-color = "${colors.base06}";
-      line-clear-color = "${colors.base00}";
-      line-color = "${colors.base00}";
+      key-hl-color = "${colors.base07}";
+      line-clear-color = "${colors.base07}";
+      line-color = "${colors.base0E}";
       line-ver-color = "${colors.base0D}";
       line-wrong-color = "${colors.base00}";
       ring-clear-color = "${colors.base07}";
-      ring-color = "${colors.base0F}";
+      ring-color = "${colors.base0E}";
       ring-ver-color = "${colors.base0D}";
       ring-wrong-color = "${colors.base08}";
-      separator-color = "${colors.base01}";
-      text-caps-lock-color = "\"\"";
+      separator-color = "${colors.base07}";
+
+      text-caps-lock-color = "${colors.base08}";
       text-clear-color = "${colors.base05}";
       text-color = "${colors.base05}";
       text-ver-color = "${colors.base05}";

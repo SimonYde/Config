@@ -66,21 +66,13 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-colors.url = "github:misterio77/nix-colors";
-    sddm-catppuccin = {
-      url = "github:khaneliman/sddm-catppuccin";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-    };
-    catppuccin-bat = {
-      url = "github:catppuccin/bat";
-      flake = false;
-    };
-    catppuccin-qt5ct = {
-      url = "github:catppuccin/qt5ct";
-      flake = false;
-    };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =

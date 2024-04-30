@@ -35,6 +35,7 @@ in
     };
 
     security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
+    security.pam.services.hyprlock = { }; # hyprlock cannot unlock otherwise, see nixpkgs#89019
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
