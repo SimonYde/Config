@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 {
   programs.git = {
     userName = "Simon Yde";
@@ -32,6 +32,7 @@
       "*.sync-conflict*"
       ".direnv"
       ".stignore"
+      "*.log"
       ".stfolder"
       ".vscode"
       ".mypy_cache"
@@ -45,13 +46,11 @@
       enable = true;
       options = {
         navigate = true;
-        light = false;
-        dark = true;
-        features = builtins.concatStringsSep " " [
+        features = lib.mkForce (builtins.concatStringsSep " " [
           "line-numbers"
           "side-by-side"
-          "catppuccin"
-        ];
+          "catppuccin-${config.syde.theming.flavour}"
+        ]);
       };
     };
   };

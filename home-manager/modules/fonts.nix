@@ -19,7 +19,6 @@ in
       (nerdfonts.override {
         fonts = [
           "JetBrainsMono"
-          "FiraCode"
         ];
       })
       gentium

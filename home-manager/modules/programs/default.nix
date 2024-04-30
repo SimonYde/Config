@@ -8,6 +8,7 @@
     # ---CLI Tools---
     ./atuin.nix
     ./bat.nix
+    ./btop.nix
     ./direnv.nix
     ./eza.nix
     ./git.nix

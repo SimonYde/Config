@@ -2,32 +2,34 @@
   inputs,
   pkgs,
   config,
+  lib,
   ...
 }:
 let
-  flavour = if config.syde.theming.flavour == "mocha" then "Mocha" else "Latte";
+  cfg = config.programs.bat;
 in
 {
-  programs.bat = {
-    config = {
-      theme = "catppuccin";
-      pager = "less -FR";
-    };
-    themes = {
-      catppuccin = {
-        src = inputs.catppuccin-bat;
-        file = "/themes/Catppuccin ${flavour}.tmTheme";
+  config = lib.mkIf cfg.enable {
+    programs.bat = {
+      config = {
+        # theme = "catppuccin";
+        pager = "less -FR";
       };
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batman
+        batgrep
+        batwatch
+      ];
     };
-    extraPackages = with pkgs.bat-extras; [
-      batdiff
-      batman
-      batgrep
-      batwatch
-    ];
-  };
 
-  home.sessionVariables = {
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    home.shellAliases = {
+      cat = "bat";
+      man = "batman";
+    };
+
+    home.sessionVariables = {
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    };
   };
 }
