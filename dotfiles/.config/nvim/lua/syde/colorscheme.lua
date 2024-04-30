@@ -7,7 +7,7 @@ local catppuccin = Load.now(function()
 
     catppuccin.setup {
         flavour = flavour,
-        transparent_background = true,
+        transparent_background = false,
         integrations = {
             cmp = true,
             gitsigns = true,
@@ -39,6 +39,20 @@ local catppuccin = Load.now(function()
     vim.cmd.colorscheme("catppuccin")
     return catppuccin
 end)
+
+Load.later(function()
+    require('mini.colors')
+        .get_colorscheme()
+        :add_transparency({
+            float = true,
+            general = true,
+            statuscolumn = true,
+            statusline = true,
+            tabline = true,
+            winbar = true,
+        })
+        :apply()
+end)
 if catppuccin then return end
 
 Load.now(function()
@@ -46,17 +60,5 @@ Load.now(function()
         palette = PALETTE,
         use_cterm = true,
     }
-    Load.later(function()
-        require('mini.colors')
-            .get_colorscheme()
-            :add_transparency({
-                float = true,
-                general = true,
-                statuscolumn = true,
-                statusline = true,
-                tabline = true,
-                winbar = true,
-            })
-            :apply()
-    end)
 end)
+

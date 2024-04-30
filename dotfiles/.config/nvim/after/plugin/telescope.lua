@@ -22,7 +22,7 @@ Load.later(function()
                 buffers = {
                     mappings = {
                         i = {
-                            ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+                            ["<c-d>"] = actions.delete_buffer --+ actions.move_to_top,
                         },
                     },
                 },
@@ -94,9 +94,9 @@ Load.later(function()
         nmap("<leader>fs", builtin.lsp_document_symbols, "LSP document [s]ymbols")
         nmap("<leader>fw", builtin.lsp_dynamic_workspace_symbols, "LSP workspace [s]ymbols")
         nmap("<leader>/", builtin.live_grep, "Global search with grep")
-        nmap("gr", builtin.lsp_references, "Goto References")
-        nmap("gi", builtin.lsp_implementations, "Goto [i]mplementations")
-        nmap("gd", builtin.lsp_definitions, "Goto [d]efinitions")
+        nmap("gr", builtin.lsp_references, "Goto [r]eferences (telescope)")
+        nmap("gi", builtin.lsp_implementations, "Goto [i]mplementations (telescope)")
+        nmap("gd", builtin.lsp_definitions, "Goto [d]efinitions (telescope)")
 
         nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "git [w]orktrees")
         return telescope

@@ -34,11 +34,11 @@ in
           # -----LSP-----
           nvim-lspconfig
           lspsaga-nvim
+          lsp_signature-nvim
 
           # -----Completion-----
           lspkind-nvim
           nvim-cmp
-          cmp-nvim-lsp-signature-help
           cmp-nvim-lua
           cmp-nvim-lsp
           cmp-cmdline

@@ -1,6 +1,5 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
-    local map = require('syde.keymap').map
 
     Load.now(function()
         require('neodev').setup {}
@@ -38,8 +37,8 @@ Load.later(function()
             pylsp = {
                 plugins = {
                     -- black = { enabled = true },
-                    mypy  = { enabled = true },
-                    ruff  = { enabled = true },
+                    mypy = { enabled = true },
+                    ruff = { enabled = true },
                 },
             },
         },
@@ -128,7 +127,7 @@ Load.later(function()
         },
         on_attach = function(_, bufnr)
             local nmap = function(keys, cmd, desc)
-                map('n')(keys, cmd, desc, { buffer = bufnr })
+                require('syde.keymap').nmap(keys, cmd, desc, { buffer = bufnr })
             end
             nmap(
                 "<leader>lp",
@@ -202,6 +201,14 @@ Load.later(function()
             if client then
                 client.server_capabilities.semanticTokensProvider = nil
             end
+
+
+            Load.now(function ()
+                require('lsp_signature').on_attach({
+                    doc_lines = 0,
+                }, args.buf)
+            end)
+
             Load.now(function()
                 require('fidget').setup {
                     progress = {
@@ -222,25 +229,18 @@ Load.later(function()
             end)
 
             local nmap = function(keys, cmd, desc)
-                map('n')(keys, cmd, desc, { buffer = args.buf })
+                require('syde.keymap').nmap(keys, cmd, desc, { buffer = args.buf })
             end
 
             local imap = function(keys, cmd, desc)
-                map('n')(keys, cmd, desc, { buffer = args.buf })
+                require('syde.keymap').imap(keys, cmd, desc, { buffer = args.buf })
             end
             -- LSP commands
             nmap("<leader>r", vim.lsp.buf.rename, "Rename")
             nmap("<leader>k", vim.lsp.buf.hover, "hover documentation")
             nmap("<leader>a", vim.lsp.buf.code_action, "code actions")
             nmap("<leader>n", vim.diagnostic.open_float, "hover [d]iagnostics")
-            imap("<C-k>", vim.lsp.buf.signature_help, "Signature Help")
-
-            if not pcall(require, 'telescope') then
-                nmap("gd", vim.lsp.buf.definition, "Goto [d]efinition")
-                nmap("gD", vim.lsp.buf.declaration, "Goto [D]eclaration")
-                nmap("gr", vim.lsp.buf.references, "Goto [r]eferences")
-            end
-
+            imap("<C-s>", vim.lsp.buf.signature_help, "Signature Help")
 
             Load.now(function()
                 local settings = {

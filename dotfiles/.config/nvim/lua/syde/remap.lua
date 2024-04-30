@@ -84,3 +84,6 @@ nmap(
 
 nmap("<leader>q", vim.cmd.cclose, "Close [q]uickfix list")
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
+nmap("gd", vim.lsp.buf.definition, "Goto [d]efinition")
+nmap("gD", vim.lsp.buf.declaration, "Goto [D]eclaration")
+nmap("gr", vim.lsp.buf.references, "Goto [r]eferences")
