@@ -115,6 +115,16 @@ vim.o.completeopt = 'menuone,noselect'
 
 
 vim.o.listchars = 'tab:▸ ,trail:·,nbsp:␣,extends:❯,precedes:❮'
+
+-- more useful diffs (nvim -d)
+vim.opt.diffopt:append('iwhite')
+-- and using a smarter algorithm
+-- https://vimways.org/2018/the-power-of-diff/
+-- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
+-- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
+vim.opt.diffopt:append('algorithm:histogram')
+vim.opt.diffopt:append('indent-heuristic')
+
 -- vim.o.list = true
 
 -- Highlight yanked text

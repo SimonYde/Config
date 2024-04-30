@@ -1,3 +1,3 @@
-Load.later(function ()
+Load.later(function()
     require("todo-comments").setup {}
 end)
