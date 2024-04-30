@@ -9,6 +9,7 @@
   syde.fonts.enable = true;
 
   gtk.enable = true;
+  xdg.enable = true;
   qt.enable = true;
 
   home.shellAliases = {

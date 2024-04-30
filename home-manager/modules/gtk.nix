@@ -20,7 +20,7 @@ in
         package = pkgs.papirus-icon-theme;
       };
       theme = {
-        name = if prefer-dark then theming.gtk.darkTheme else theming.gtk.lightTheme;
+        name = theming.gtk.theme;
         package = theming.gtk.package;
       };
       gtk3 = {
