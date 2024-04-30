@@ -53,6 +53,7 @@ in
       yt-dlp
 
       pandoc
+      nix-output-monitor
 
       grawlix
       # pix2tex
@@ -60,12 +61,8 @@ in
     ];
 
     home.shellAliases = {
-      cat = "bat";
-      man = "batman";
       c = "clear";
       rt = "trash put";
-      zs = "zellij --session";
-      za = "zellij attach";
     };
   };
 
