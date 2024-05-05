@@ -11,6 +11,7 @@ let
 in
 {
   programs.waybar = {
+    package = inputs.waybar.packages.${pkgs.system}.default;
     settings = {
       mainBar = {
         layer = "top";
@@ -131,10 +132,12 @@ in
 
         window#waybar {
             background: transparent;
+            color: #${base05};
         }
 
         window#waybar.hidden {
             opacity: 0.2;
+            color: #${base05};
         }
 
         #workspaces {
@@ -146,14 +149,14 @@ in
 
         #workspaces button {
             transition: none;
-            color: #${base07};
+            color: #${base0D};
             background: transparent;
             margin-top: 0;
             font-size: ${font-size};
         }
 
         #workspaces button.persistent {
-            color: #${base07};
+            color: #${base0D};
             font-size: ${font-size};
         }
 
@@ -168,7 +171,7 @@ in
 
         #workspaces button.focused, #workspaces button.active {
             color: #${base01};
-            background: rgba(${hexToRGBString base07},1.0);
+            background: rgba(${hexToRGBString base0D},1.0);
         }
 
         #mode, #submap {
@@ -176,7 +179,7 @@ in
             padding-right: ${padding};
             transition: none;
             color: #${base01};
-            background: #${base07};
+            background: #${base0D};
         }
 
 
@@ -214,11 +217,11 @@ in
 
         #battery.charging {
             color: ${bg};
-            background-color: #${base07};
+            background-color: #${base0D};
         }
 
         #battery.warning:not(.charging) {
-            background-color: #${base0A};
+            background-color: #${base09};
             color: ${bg};
         }
 

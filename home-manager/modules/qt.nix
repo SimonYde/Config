@@ -14,7 +14,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     qt = {
-      platformTheme = "qtct";
+      platformTheme.name = "qtct";
       style.package = kvantum;
       style.name = "kvantum";
     };

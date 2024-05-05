@@ -12,7 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.bat = {
       config = {
-        # theme = "catppuccin";
+        theme = "base16-256";
         pager = "less -FR";
       };
       extraPackages = with pkgs.bat-extras; [
@@ -28,8 +28,8 @@ in
       man = "batman";
     };
 
-    home.sessionVariables = {
-      MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    };
+    # home.sessionVariables = {
+    #   MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    # };
   };
 }

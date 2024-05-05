@@ -7,17 +7,15 @@
 }:
 let
   inherit (lib)
-    head
-    mapAttrs
-    mkIf
-    mkOption
     mkEnableOption
+    mkOption
+    mkIf
     splitString
     stringLength
-    substring
     toUpper
     types
     ;
+  inherit (builtins) head mapAttrs substring;
   mkCapitalised = str: (toUpper (substring 0 1 str)) + (substring 1 (stringLength str) str);
   nix-colors = inputs.nix-colors;
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
@@ -66,11 +64,7 @@ in
     };
 
     programs = mkIf is_catppuccin {
-      git.delta.catppuccin.enable = true;
-      bat.catppuccin.enable = true;
-      imv.catppuccin.enable = true;
-      btop.catppuccin.enable = true;
-      mpv.catppuccin.enable = true;
+      git.delta.catppuccin.enable = false;
     };
   };
 
