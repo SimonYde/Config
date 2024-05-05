@@ -8,7 +8,8 @@ let
   cfg = config.syde.gaming;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config.specialisation."gaming".configuration = lib.mkIf cfg.enable {
+    environment.etc."gaming".text = "gaming";
     programs = {
       steam.enable = true;
       gamemode.enable = true;
@@ -33,17 +34,17 @@ in
         extraPkgs = pkgs: [
           wineWowPackages.staging
           wineWowPackages.fonts
-          corefonts
           winetricks
         ];
       })
       mangohud
+      r2modman
+      heroic
 
       # ---Wine and Wine Dependencies---
       wineWowPackages.staging
       wineWowPackages.fonts
       winetricks
-      corefonts
 
       # ---Graphics Libraries---
       vulkan-tools
@@ -57,8 +58,9 @@ in
       pkgsi686Linux.mesa
       pkgsi686Linux.mesa_drivers
     ];
-  };
 
+    powerManagement.cpuFreqGovernor = "performance";
+  };
   options.syde.gaming = {
     enable = lib.mkEnableOption "gaming configuration";
   };

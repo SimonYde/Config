@@ -12,7 +12,7 @@
     ssh.enable = true;
     laptop.enable = true;
     pc.enable = true;
-    gaming.enable = false;
+    gaming.enable = true;
     hardware = {
       nvidia.enable = true;
       amdgpu.enable = true;
