@@ -7,7 +7,7 @@ in
   services.dunst = {
     settings = with colors; {
       global = {
-        frame_color = "#${base07}";
+        frame_color = "#${base0D}";
         font = "${terminal.font} 10";
         frame_width = 2;
         separator_color = "frame";

@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
-
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.programs.zellij;
 in
@@ -12,7 +16,7 @@ in
     };
     home.shellAliases = {
       zs = "zellij --session";
-      zb = "zellij --session $(basename $PWD)";
+      zp = "zellij --session $(basename $PWD)";
       za = "zellij attach";
     };
     home.file =
@@ -21,22 +25,22 @@ in
       in
       {
         "${zellij_path}/config.kdl".text =
-          with config.colorScheme.palette;
+          with config.syde.theming.palette_with_hex;
           ''
             theme "base16-custom"
             themes {
               base16-custom {
-                bg "#${base02}"
-                fg "#${base05}"
-                red "#${base08}"
-                green "#${base07}"
-                blue "#${base0D}"
-                yellow "#${base0A}"
-                magenta "#${base0E}"
-                orange "#${base09}"
-                cyan "#${base0C}"
-                black "#${base01}"
-                white "#${base05}"
+                bg "${base02}"
+                fg "${base05}"
+                red "${base08}"
+                green "${base0D}"
+                blue "${base0D}"
+                yellow "${base0A}"
+                magenta "${base0E}"
+                orange "${base09}"
+                cyan "${base0C}"
+                black "${base01}"
+                white "${base05}"
               }
             }
             layout_dir "${zellij_path}/layouts"

@@ -29,7 +29,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      swww
+      swww # Background daemon
       random_background # random background script
       playerctl # media keys
       pamixer # volume keys
@@ -63,8 +63,8 @@ in
           gaps_in = 3;
           gaps_out = 8;
           border_size = 2;
-          "col.active_border" = "rgba(${base07}ff) rgba(${base0E}ff) 45deg";
-          "col.inactive_border" = "transparent"; # "rgba(${base00}d9)";
+          "col.active_border" = "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
+          "col.inactive_border" = "transparent";
           layout = "dwindle";
           resize_on_border = true;
           allow_tearing = true; # For gaming. Set windowrule `immediate` for games to enable.
@@ -136,7 +136,7 @@ in
           "waybar"
           "nm-applet"
           "blueman-applet"
-          "${pkgs.swww}/bin/swww init"
+          "${pkgs.swww}/bin/swww-daemon"
           "[workspace 1] obsidian"
           "${random_background}/bin/ran_bg"
         ];

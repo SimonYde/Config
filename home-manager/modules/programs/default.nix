@@ -31,6 +31,7 @@
     ./brave.nix
     ./firefox
     ./i3status-rust.nix
+    ./imv.nix
     ./nix-index.nix
     ./mpv.nix
     ./rofi

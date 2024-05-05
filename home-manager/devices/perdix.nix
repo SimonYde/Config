@@ -38,9 +38,10 @@ in
       theming.enable = true;
     };
 
-    xsession.windowManager.i3.enable = false;
-    wayland.windowManager.sway.enable = false;
-    wayland.windowManager.hyprland.enable = true;
+    wayland.windowManager = {
+      sway.enable = false;
+      hyprland.enable = true;
+    };
 
     home.packages = with pkgs; [
       obsidian
@@ -50,8 +51,6 @@ in
 
       discord
       betterdiscordctl
-
-      r2modman
 
       rclone
 

@@ -38,7 +38,7 @@ in
               bg-col-light: #${base00};
               border-col: #${base00};
               selected-col: #${base00};
-              blue: #${base07};
+              blue: #${base0D};
               fg-col: #${base05};
               fg-col2: #${base08};
               grey: #${base04};

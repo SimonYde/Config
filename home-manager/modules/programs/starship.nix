@@ -1,32 +1,28 @@
-{ config, lib, ... }:
-let
-  inherit (lib) mapAttrs' nameValuePair toLower;
-in
+{ config, ... }:
 {
-  programs.starship = {
+  programs.starship = with config.syde.theming.palette_with_hex; {
     enableNushellIntegration = true;
     enableFishIntegration = true;
     enableZshIntegration = true;
     enableBashIntegration = true;
     settings = {
-      palette = "custom_base16";
       add_newline = false;
       format = ''$username$hostname$directory$nix_shell$git_branch$git_status$line_break$character'';
       right_format = "$cmd_duration$rust$elm$golang$ocaml$java$scala$lua$typst$direnv";
       character = {
-        success_symbol = "[⟩](normal base05)";
-        error_symbol = "[⟩](bold base08)";
+        success_symbol = "[⟩](normal ${base05})";
+        error_symbol = "[⟩](bold ${base08})";
       };
       directory = {
-        style = "bold base0b";
+        style = "bold ${base0B}";
         fish_style_pwd_dir_length = 1;
       };
       git_branch = {
         symbol = " ";
-        style = "bold base0e";
+        style = "bold ${base0E}";
       };
       git_status = {
-        style = "bold base0e";
+        style = "bold ${base0E}";
       };
       hostname = {
         ssh_symbol = "🌐";
@@ -35,19 +31,16 @@ in
         symbol = " ";
         unknown_msg = "nix shell";
         heuristic = false;
-        style = "bold base0d";
+        style = "bold ${base0D}";
       };
       golang = {
         symbol = " ";
-        style = "bold base0c";
+        style = "bold ${base0C}";
       };
       elm = {
         symbol = " ";
-        style = "bold base0c";
+        style = "bold ${base0C}";
       };
-      palettes.custom_base16 = mapAttrs' (
-        name: value: nameValuePair (toLower name) ("#" + value)
-      ) config.colorScheme.palette;
     };
   };
 }
