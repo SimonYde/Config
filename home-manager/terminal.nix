@@ -5,11 +5,16 @@
   ...
 }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib)
+    mkOption
+    types
+    mkIf
+    mkEnableOption
+    ;
   cfg = config.syde.terminal;
 in
 {
-  config = {
+  config = mkIf cfg.enable {
     programs = {
       # Shells
       fish.enable = true;
@@ -29,7 +34,8 @@ in
       lf.enable = false;
       nix-index.enable = true;
       ripgrep.enable = true;
-      skim.enable = true;
+      fzf.enable = true;
+      skim.enable = false;
       starship.enable = true;
       thefuck.enable = true;
       yazi.enable = true;
@@ -70,6 +76,7 @@ in
   };
 
   options.syde.terminal = {
+    enable = mkEnableOption "terminal configuration";
     font = mkOption {
       type = types.enum [
         "FiraCode Nerd Font Mono"

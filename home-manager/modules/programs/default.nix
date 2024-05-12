@@ -16,6 +16,7 @@
     ./lf.nix
     ./ripgrep.nix
     ./skim.nix
+    ./fzf.nix
     ./starship.nix
     ./thefuck.nix
     ./yazi.nix

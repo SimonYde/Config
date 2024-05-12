@@ -34,6 +34,7 @@ in
       email.enable = false;
       fonts.enable = true;
       programming.enable = true;
+      terminal.enable = true;
       ssh.enable = true;
       theming.enable = true;
     };

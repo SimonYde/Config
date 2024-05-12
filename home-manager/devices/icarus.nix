@@ -9,6 +9,7 @@
   };
 
   syde = {
+    terminal.enable = true;
     programming.enable = true;
     theming.enable = true;
     ssh.enable = true;
@@ -17,6 +18,7 @@
 
   home.shellAliases = {
     ex = "explorer.exe";
+    poweroff = "wsl.exe --shutdown NixOS";
   };
 
   home.packages = with pkgs; [
