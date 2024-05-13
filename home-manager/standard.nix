@@ -5,6 +5,18 @@
   config,
   ...
 }:
+let
+  mini-nvim-nightly = pkgs.vimUtils.buildVimPlugin {
+    version = "nightly";
+    pname = "mini-nvim";
+    src = inputs.mini-nvim-nightly;
+  };
+  neogit-nightly = pkgs.vimUtils.buildVimPlugin {
+    version = "nightly";
+    pname = "neogit";
+    src = inputs.neogit-nightly;
+  };
+in
 {
   config = {
     nixpkgs = {
@@ -12,7 +24,8 @@
         inputs.nur.overlay
         inputs.helix.overlays.default
         inputs.neovim-nightly.overlays.default
-        (self: super: {
+        inputs.rustaceanvim.overlays.default
+        (final: prev: {
           stable = import inputs.stable {
             config = pkgs.config;
             system = pkgs.system;
@@ -21,6 +34,10 @@
           pix2tex = pkgs.callPackage ./packages/pix2tex { };
           kattis-cli = pkgs.callPackage ./packages/kattis-cli.nix { };
           kattis-test = pkgs.callPackage ./packages/kattis-test.nix { };
+          vimPlugins = prev.vimPlugins // {
+            mini-nvim = mini-nvim-nightly;
+            neogit = neogit-nightly;
+          };
         })
       ];
       config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;

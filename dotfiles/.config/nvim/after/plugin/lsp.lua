@@ -195,6 +195,17 @@ Load.later(function()
         }
     end)
 
+    Load.now(function()
+        require('lsp_signature').setup({
+            doc_lines = 0,
+            hint_enable = false,
+            hint_inline = function() return false end,     -- should the hint be inline(nvim 0.10 only)?  default false
+            handler_opts = {
+                border = "none"
+            },
+        })
+    end)
+
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
             local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -203,11 +214,6 @@ Load.later(function()
             end
 
 
-            Load.now(function ()
-                require('lsp_signature').on_attach({
-                    doc_lines = 0,
-                }, args.buf)
-            end)
 
             Load.now(function()
                 require('fidget').setup {
@@ -239,7 +245,7 @@ Load.later(function()
             nmap("<leader>r", vim.lsp.buf.rename, "Rename")
             nmap("<leader>k", vim.lsp.buf.hover, "hover documentation")
             nmap("<leader>a", vim.lsp.buf.code_action, "code actions")
-            nmap("<leader>n", vim.diagnostic.open_float, "hover [d]iagnostics")
+            nmap("<C-e>", vim.diagnostic.open_float, "hover [d]iagnostics")
             imap("<C-s>", vim.lsp.buf.signature_help, "Signature Help")
 
             Load.now(function()

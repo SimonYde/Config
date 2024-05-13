@@ -4,8 +4,8 @@ Load.now(function()
     vim.api.nvim_create_autocmd("User", {
         -- once = true,
         pattern = "MiniStarterOpened",
-        callback = function(args)
-            local starter_bufid = args.buf
+        callback = function(starter_args)
+            local starter_bufid = starter_args.buf
             local was_colemak = _G.COLEMAK
             -- Turn off colemak langmap for the starter buffer, if it was enabled
             if was_colemak then
@@ -20,6 +20,7 @@ Load.now(function()
                         Colemak_toggle()
                     end
                 end,
+
             })
             vim.api.nvim_create_autocmd("BufEnter", {
                 callback = function(args)
@@ -38,6 +39,8 @@ Load.now(function()
 end)
 
 Load.later(function()
+    local MiniExtra = require('mini.extra')
+
     require('mini.ai').setup { n_lines = 500 }
     require('mini.align').setup {}
 
@@ -46,6 +49,23 @@ Load.later(function()
 
     require('mini.bufremove').setup {}
     require('mini.comment').setup {}
+    require('mini.cursorword').setup { delay = 100 }
+
+    local hipatterns = require('mini.hipatterns')
+    local hi_words = MiniExtra.gen_highlighter.words
+    hipatterns.setup({
+        highlighters = {
+            -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+            fixme     = hi_words({ 'FIX', 'FIXME' }, 'MiniHipatternsFixme'),
+            note      = hi_words({ 'NOTE' }, 'MiniHipatternsNote'),
+            hack      = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
+            todo      = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
+
+            -- Highlight hex color strings (`#9436FF`) using that color
+            hex_color = hipatterns.gen_highlighter.hex_color(),
+        },
+    })
+
     require('mini.jump').setup {}
     require('mini.jump2d').setup {}
     require('mini.surround').setup {}

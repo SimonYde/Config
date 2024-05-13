@@ -6,8 +6,11 @@
   ...
 }:
 let
+  colorScheme = config.colorScheme;
+  palette = colorScheme.palette;
+  slug = colorScheme.slug;
   random_background = pkgs.writeShellScriptBin "ran_bg" ''
-    DIRECTORY=${config.xdg.configHome}/backgrounds/${config.colorScheme.slug}
+    DIRECTORY=${config.xdg.configHome}/backgrounds/${slug}
 
     # Check if the provided directory exists
     if [ ! -d "$DIRECTORY" ]; then
@@ -16,11 +19,10 @@ let
     fi
 
     # Find all image files in the directory and pick one at random
-    IMAGES=$(find "$DIRECTORY" -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.gif' -o -iname '*.jpeg' \))
+    IMAGES=$(${pkgs.fd}/bin/fd . "$DIRECTORY" -t f)
     IMAGE=$(echo "$IMAGES" | shuf -n1)
     ${pkgs.swww}/bin/swww img "$IMAGE"
   '';
-  palette = config.colorScheme.palette;
   terminal = config.syde.terminal;
   browser = config.syde.browser;
   menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";

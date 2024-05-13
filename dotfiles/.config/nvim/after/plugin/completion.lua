@@ -91,7 +91,7 @@ Load.later(function()
         mapping = cmp.mapping.preset.cmdline(),
         completion = { autocomplete = false },
         sources = {
-            { name = 'buffer' }
+            { name = 'buffer' },
         }
     })
 
@@ -107,7 +107,9 @@ Load.later(function()
                     ignore_cmds = { '!', 'w', 'q' }
                 },
                 -- keyword_length = 5,
-            }
+            },
+            { name = 'nvim_lua' },
+            { name = 'nvim_lsp' },
         }
     })
 end)
