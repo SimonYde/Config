@@ -3,7 +3,11 @@ Load.later(function()
         local whichkey = require('which-key')
         local presets = require('which-key.plugins.presets')
         presets.operators['v'] = nil
-        whichkey.setup {}
+        whichkey.setup {
+            disable = {
+                buftypes = { "nofile", "prompt", "quickfix", "terminal" }, -- nofile is for `cmdwin`. see `:h cmdwin`
+            }
+        }
         whichkey.register {
             ['<leader>'] = {
                 d = { name = '[d]ebug' },

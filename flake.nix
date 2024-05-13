@@ -30,6 +30,13 @@
       url = "github:NeogitOrg/neogit/nightly";
       flake = false;
     };
+    mini-nvim-nightly = {
+      url = "github:echasnovski/mini.nvim";
+      flake = false;
+    };
+    rustaceanvim = {
+      url = "github:mrcjkb/rustaceanvim";
+    };
 
     helix = {
       url = "github:helix-editor/helix";
@@ -70,6 +77,16 @@
       url = "github:hyprwm/hyprlock";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    waybar = {
+      url = "github:alexays/waybar";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+    };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-colors.url = "github:misterio77/nix-colors";
     catppuccin.url = "github:catppuccin/nix";
@@ -101,28 +118,22 @@
         };
       };
 
-      homeConfigurations =
-        let
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        in
-        rec {
-          icarus = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = {
-              inherit inputs;
-            };
-            modules = [ ./home-manager/devices/icarus.nix ];
+      homeConfigurations = {
+        "syde@icarus" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          extraSpecialArgs = {
+            inherit inputs;
           };
-          perdix = home-manager.lib.homeManagerConfiguration {
-            inherit pkgs;
-            extraSpecialArgs = {
-              inherit inputs;
-            };
-            modules = [ ./home-manager/devices/perdix.nix ];
-          };
-          "syde@icarus" = icarus;
-          "syde@perdix" = perdix;
+          modules = [ ./home-manager/devices/icarus.nix ];
         };
+        "syde@perdix" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./home-manager/devices/perdix.nix ];
+        };
+      };
     }
     // flake-utils.lib.eachDefaultSystem (
       system:

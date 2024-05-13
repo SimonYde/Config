@@ -56,7 +56,6 @@ in
       rclone
 
       floorp
-      keepassxc
     ];
 
     syde.unfreePredicates = [

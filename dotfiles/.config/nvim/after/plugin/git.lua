@@ -1,13 +1,10 @@
 Load.later(function()
     local nmap = require("syde.keymap").nmap
-
-
-
+    vim.cmd [[packadd diffview.nvim]]
 
     nmap("<leader>gd",
         function()
             local diffview = Load.once(function()
-                vim.cmd [[packadd diffview.nvim]]
                 local diffview = require('diffview')
                 diffview.setup {}
                 return diffview
@@ -18,7 +15,6 @@ Load.later(function()
 
 
     local neogit = Load.once(function()
-        vim.cmd [[packadd diffview.nvim]]
         local neogit = require('neogit')
         neogit.setup {
             integrations = {

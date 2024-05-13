@@ -140,14 +140,30 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
+
 -- bar cursor in insert mode
 vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.cmd [[set guicursor=a:ver25]] end })
 vim.cmd [[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]]
-
 local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+Load.now(function()
+    require('project_nvim').setup {
+        patterns = {
+            ".git",
+            -- "_darcs",
+            -- ".hg",
+            -- ".bzr",
+            -- ".svn",
+            -- "Makefile",
+            -- "package.json",
+            -- "Justfile"
+        },
+    }
+end)
+
 
 Load.perform_lazy_loading()

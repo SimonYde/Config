@@ -1,6 +1,30 @@
 local buffer = vim.api.nvim_get_current_buf()
 
 local nmap = require("syde.keymap").nmap
+vim.g.rustaceanvim = {
+    -- Plugin configuration
+    tools = {
+    },
+    -- LSP configuration
+    server = {
+        default_settings = {
+            -- rust-analyzer language server configuration
+            ['rust-analyzer'] = {
+                cargo = {
+                    allFeatures = true,
+                },
+                imports = {
+                    group = {
+                        enable = false,
+                    },
+                },
+            },
+        },
+    },
+    -- DAP configuration
+    dap = {
+    },
+}
 
 nmap(
     "<leader>a",
@@ -13,10 +37,10 @@ nmap(
 )
 
 nmap(
-    "<leader>k",function()
+    "<leader>k", function()
         vim.lsp.buf.hover()
     end
-    ,"RustLsp Hover",
+    , "RustLsp Hover",
     { silent = true, buffer = buffer }
 )
 

@@ -2,19 +2,13 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 let
-  catppuccin = [
-    "catppuccin-latte"
-    "catppuccin-mocha"
-  ];
-  neogit-nightly = pkgs.vimUtils.buildVimPlugin {
-    version = "1";
-    pname = "neogit-nightly";
-    src = inputs.neogit-nightly;
-  };
+  inherit (builtins) head;
+  inherit (lib) splitString;
+
+  is_catppuccin = (head (splitString "-" config.colorScheme.slug)) == "catppuccin";
   mapLazy = map (pkg: {
     plugin = pkg;
     optional = true;
@@ -50,11 +44,13 @@ in
           # codeium-nvim
 
           # -----Workflow-----
+          project-nvim
           conform-nvim
           harpoon2
           nvim-autopairs
           gitsigns-nvim
-          neogit-nightly # NOTE: Supports neovim nightly
+
+          neogit
           mini-nvim
           vim-sleuth
           # vim-table-mode
@@ -73,7 +69,6 @@ in
           telescope-ui-select-nvim
           git-worktree-nvim
 
-
           # -----UI-----
           which-key-nvim
           nvim-web-devicons
@@ -91,9 +86,8 @@ in
           nvim-treesitter-textobjects
           nvim-treesitter-context
           rainbow-delimiters-nvim
-
         ]
-        ++ (if builtins.elem config.colorScheme.slug catppuccin then [ catppuccin-nvim ] else [ ]);
+        ++ (if is_catppuccin then [ catppuccin-nvim ] else [ ]);
 
       extraLuaConfig = with config.colorScheme.palette; ''
         vim.loader.enable()

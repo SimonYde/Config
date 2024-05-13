@@ -1,40 +1,3 @@
-local lualine = Load.now(function()
-    local lualine = require('lualine')
-    lualine.setup {
-        options = {
-            theme = "auto",
-            icons_enabled = true,
-            globalstatus = true,
-            -- component_separators = { left = '', right = '' },
-            -- section_separators = { left = '', right = '' },
-            -- section_separators = { left = '', right = '' },
-            -- component_separators = { left = '', right = '' }
-        },
-        sections = {
-            lualine_a = { 'mode' },
-            lualine_b = { 'branch', 'diff' },
-            lualine_c = {
-                {
-                    'filename',
-                    path = 1,
-                    shorting_target = 80,
-                },
-                'diagnostics'
-            },
-            lualine_x = { 'filetype' },
-            lualine_y = { 'progress' },
-            lualine_z = { 'location' },
-        },
-        extensions = {
-            'nvim-tree',
-            'trouble',
-        },
-    }
-    return lualine
-end)
-if lualine then return end
-
-
 Load.now(function()
     local MiniStatusline = require('mini.statusline')
     local section_macro_recording = function()
@@ -86,7 +49,9 @@ Load.now(function()
         -- Construct output string if truncated
 
         -- Construct output string with extra file info
-        -- local encoding = vim.bo.fileencoding or vim.bo.encoding
+        local encoding = vim.bo.fileencoding or vim.bo.encoding
+        if encoding == 'utf-8' then encoding = '' else encoding = string.format('[%s]', encoding) end
+
         local format = vim.bo.fileformat
         local format_icon = ''
         if format == 'unix' then
@@ -97,8 +62,7 @@ Load.now(function()
 
         local size = get_filesize()
 
-        -- return string.format('%s %s[%s] %s', filetype, encoding, format_icon, size)
-        return string.format('%s %s %s', filetype, format_icon, size)
+        return string.format('%s %s%s %s', filetype, format_icon, encoding, size)
     end
 
 
@@ -120,13 +84,13 @@ Load.now(function()
                 return MiniStatusline.combine_groups({
                     { hl = mode_hl,                 strings = { mode } },
                     { hl = 'MiniStatuslineDevinfo', strings = { git } },
-                    '%<',     -- Mark general truncate point
+                    '%<', -- Mark general truncate point
                     { hl = 'MiniStatuslineFilename', strings = { filename } },
                     { hl = 'DiagnosticError',        strings = { errors } },
                     { hl = 'DiagnosticWarn',         strings = { warnings } },
                     { hl = 'DiagnosticHint',         strings = { hints } },
                     { hl = 'DiagnosticInfo',         strings = { info } },
-                    '%=',     -- End left alignment
+                    '%=', -- End left alignment
 
                     { hl = 'MiniStatuslineFilename', strings = { macro, searchcount } },
                     { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
@@ -137,7 +101,21 @@ Load.now(function()
         set_vim_settings = true,
     }
 
-    vim.opt.laststatus = 3     -- global statusline
+    vim.opt.laststatus = 3 -- global statusline
     vim.opt.cmdheight = 0
     vim.opt.hlsearch = true
+
+    -- local group = vim.api.nvim_create_augroup("statusline_cmdline", {})
+    -- vim.api.nvim_create_autocmd("CmdlineEnter", {
+    --     group = group,
+    --     callback = function()
+    --         vim.opt.cmdheight = 1
+    --     end
+    -- })
+    -- vim.api.nvim_create_autocmd("CmdlineLeave", {
+    --     group = group,
+    --     callback = function()
+    --         vim.opt.cmdheight = 0
+    --     end
+    -- })
 end)
