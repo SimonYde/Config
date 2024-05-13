@@ -40,6 +40,7 @@ in
       mangohud
       r2modman
       heroic
+      bottles
 
       # ---Wine and Wine Dependencies---
       wineWowPackages.staging
@@ -59,7 +60,7 @@ in
       pkgsi686Linux.mesa_drivers
     ];
 
-    powerManagement.cpuFreqGovernor = "performance";
+    powerManagement.cpuFreqGovernor = lib.mkForce "performance";
   };
   options.syde.gaming = {
     enable = lib.mkEnableOption "gaming configuration";

@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, config, lib, ... }:
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
@@ -41,7 +41,7 @@
       autostart = true;
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
-      privateKeyFile = "/home/syde/.secrets/wireguard.key";
+      privateKeyFile = "/home/${config.syde.user}/.secrets/wireguard.key";
       peers = [
         {
           publicKey = "sbjnjFtxUz4dxYfNL7WOVf1StMjjAhkiPLCPtVtlhRI=";

@@ -1,4 +1,4 @@
-{ lib, inputs, ... }:
+{ lib, inputs, pkgs, ... }:
 
 let
   inherit (lib) mkOption types;
@@ -6,8 +6,13 @@ in
 {
   config = {
     nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ];
+
+    environment.systemPackages = [
+      inputs.agenix.packages.${pkgs.system}.default
+    ];
   };
   imports = [
+    inputs.agenix.nixosModules.default
     ./modules/gaming.nix
     ./modules/pc.nix
     ./modules/wsl.nix
