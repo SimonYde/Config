@@ -41,7 +41,7 @@
       autostart = true;
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
-      privateKeyFile = "/home/${config.syde.user}/.secrets/wireguard.key";
+      privateKeyFile = config.age.secrets.wireguard.path;
       peers = [
         {
           publicKey = "sbjnjFtxUz4dxYfNL7WOVf1StMjjAhkiPLCPtVtlhRI=";
