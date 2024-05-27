@@ -28,14 +28,14 @@ in
       btop.enable = true;
       direnv.enable = true;
       eza.enable = true;
-      git.enable = true;
+      fzf.enable = true;
       gh.enable = true;
+      git.enable = true;
       lazygit.enable = true;
       lf.enable = false;
       nix-index.enable = true;
       ripgrep.enable = true;
-      fzf.enable = true;
-      skim.enable = false;
+      skim.enable = true;
       starship.enable = true;
       thefuck.enable = true;
       yazi.enable = true;
@@ -47,25 +47,27 @@ in
 
     home.packages = with pkgs; [
       # CLI Tools
-      dogdns
-      du-dust
-      entr
-      fd
+      dogdns # rust version of `dig`
+      du-dust # Histogram of file sizes
+      fd # Friendlier `find`
+      jq # JSON magic
       gnumake
-      jq
-      just
-      sd
-      trashy
-      xh
+      just # alternative to `gnumake`
+      sd # Friendlier `sed`
+      trashy # for when `rm -rf` is too scary
+      xh # Colorful curl
       yt-dlp
 
-      tldr
+      tokei # Counting lines of code
+      tldr # Quick hits on programs
 
+      entr
       pandoc
+
       nix-output-monitor
 
       grawlix
-      # pix2tex
+      pix2tex
       nur.repos.jo1gi.audiobook-dl-git
     ];
 

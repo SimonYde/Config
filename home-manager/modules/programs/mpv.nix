@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  palette = config.syde.theming.palette_with_hex;
+  palette = config.syde.theming.palette-hex;
 in
 {
   programs.mpv = with palette; {

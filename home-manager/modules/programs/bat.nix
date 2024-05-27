@@ -12,7 +12,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.bat = {
       config = {
-        theme = "base16-256";
+        # theme = "base16-256";
         pager = "less -FR";
       };
       extraPackages = with pkgs.bat-extras; [

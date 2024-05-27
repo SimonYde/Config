@@ -1,11 +1,11 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   terminal = config.syde.terminal;
   colors = config.colorScheme.palette;
 in
 {
   services.dunst = {
-    settings = with colors; {
+    settings = with colors; lib.mkDefault {
       global = {
         frame_color = "#${base0D}";
         font = "${terminal.font} 10";

@@ -1,14 +1,15 @@
 { config, ... }:
 let
-  colorScheme = config.colorScheme;
+  variant = config.colorScheme.variant;
+  palette = config.colorScheme.palette;
 in
 {
   programs.lazygit = {
     settings = {
       gui = {
         # use the mocha catppuccin theme
-        theme = with colorScheme.palette; {
-          lightTheme = colorScheme.variant == "light";
+        theme = with palette; {
+          lightTheme = variant == "light";
           activeBorderColor = [ base0B ]; # Green
           inactiveBorderColor = [ base05 ]; # Text
           optionsTextColor = [ base0D ]; # Blue

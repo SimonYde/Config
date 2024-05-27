@@ -11,7 +11,7 @@ let
 in
 {
   programs.waybar = {
-    package = inputs.waybar.packages.${pkgs.system}.default;
+    # package = inputs.waybar.packages.${pkgs.system}.default;
     settings = {
       mainBar = {
         layer = "top";

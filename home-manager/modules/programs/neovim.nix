@@ -18,7 +18,6 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.neovim = {
-      package = pkgs.neovim-nightly;
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;

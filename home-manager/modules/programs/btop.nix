@@ -7,13 +7,13 @@ in
   config = lib.mkIf cfg.enable {
     programs.btop = {
       settings = {
-        color_theme = "custom_base16.theme";
+        color_theme = lib.mkDefault "custom_base16.theme";
         theme_background = false;
       };
     };
 
     xdg.configFile = {
-      "btop/themes/custom_base16.theme".text = with config.syde.theming.palette_with_hex; ''
+      "btop/themes/custom_base16.theme".text = with config.syde.theming.palette-hex; ''
         # Main background, empty for terminal default, need to be empty if you want transparent background
         theme[main_bg]="${base00}"
 

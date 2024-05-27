@@ -6,9 +6,7 @@
     changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
     fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";
     defaultCommand = "${pkgs.fd}/bin/fd --type f";
-    defaultOptions = with config.syde.theming.palette_with_hex; [
-      "--height 40%"
-      "--prompt ⟫"
+    defaultOptions = with config.syde.theming.palette-hex; [
       "--color=${
         builtins.concatStringsSep "," [
           "fg:${base05}"

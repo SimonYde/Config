@@ -5,17 +5,18 @@
   ...
 }:
 let
+  inherit (lib) mkDefault mkForce mkIf;
   cfg = config.programs.rofi;
   colors = config.colorScheme.palette;
   terminal = config.syde.terminal;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.rofi = {
-      package = lib.mkDefault pkgs.rofi-wayland;
-      font = terminal.font;
+      package = mkDefault pkgs.rofi-wayland;
+      font = mkDefault terminal.font;
       terminal = terminal.emulator;
-      theme = "custom_base16";
+      theme = mkForce "custom_base16";
       extraConfig = {
         modi = "run,drun";
         icon-theme = "Oranchelo";

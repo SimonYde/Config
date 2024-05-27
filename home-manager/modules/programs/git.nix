@@ -55,14 +55,12 @@ in
       delta = {
         enable = true;
         options = {
+          dark = config.colorScheme.variant == "dark";
           navigate = true;
-          features = lib.mkForce (
-            builtins.concatStringsSep " " [
-              "line-numbers"
-              "side-by-side"
-              "base16"
-            ]
-          );
+          line-numbers = true;
+          side-by-side = true;
+          features = builtins.concatStringsSep " " [
+          ];
         };
       };
     };

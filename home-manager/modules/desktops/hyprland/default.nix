@@ -6,30 +6,21 @@
   ...
 }:
 let
+  inherit (builtins) readFile;
+  inherit (lib) mkIf;
   colorScheme = config.colorScheme;
   palette = colorScheme.palette;
   slug = colorScheme.slug;
-  random_background = pkgs.writeShellScriptBin "ran_bg" ''
-    DIRECTORY=${config.xdg.configHome}/backgrounds/${slug}
-
-    # Check if the provided directory exists
-    if [ ! -d "$DIRECTORY" ]; then
-        echo "Directory does not exist: $DIRECTORY"
-        exit 1
-    fi
-
-    # Find all image files in the directory and pick one at random
-    IMAGES=$(${pkgs.fd}/bin/fd . "$DIRECTORY" -t f)
-    IMAGE=$(echo "$IMAGES" | shuf -n1)
-    ${pkgs.swww}/bin/swww img "$IMAGE"
-  '';
+  random_background = pkgs.callPackage ./ran_bg.nix { slug = slug; };
   terminal = config.syde.terminal;
   browser = config.syde.browser;
   menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
+  split-monitor-workspaces =
+    inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces;
   cfg = config.wayland.windowManager.hyprland;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       swww # Background daemon
       random_background # random background script
@@ -51,6 +42,7 @@ in
       mpv.enable = true;
       rofi.enable = true;
       swaylock.enable = true;
+      wlogout.enable = true;
       hyprlock.enable = false;
       waybar.enable = true;
     };
@@ -65,8 +57,9 @@ in
           gaps_in = 3;
           gaps_out = 8;
           border_size = 2;
-          "col.active_border" = "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
-          "col.inactive_border" = "transparent";
+          "col.active_border" =  lib.mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
+          "col.inactive_border" = lib.mkForce "transparent";
+
           layout = "dwindle";
           resize_on_border = true;
           allow_tearing = true; # For gaming. Set windowrule `immediate` for games to enable.
@@ -81,9 +74,10 @@ in
           follow_mouse = 2;
           accel_profile = "flat";
           touchpad = {
-            scroll_factor = 0.7;
+            # scroll_factor = 0.7;
             natural_scroll = true;
           };
+          special_fallthrough = true;
         };
 
         decoration = {
@@ -97,6 +91,11 @@ in
             xray = false;
           };
           drop_shadow = false;
+          dim_special = 0.0;
+        };
+
+        xwayland = {
+
         };
 
         animations = {
@@ -143,10 +142,9 @@ in
           "${random_background}/bin/ran_bg"
         ];
       };
-      extraConfig =
-        builtins.readFile ./devices.conf
-        + builtins.readFile ./keybindings.conf
-        + builtins.readFile ./windowrules.conf;
+      extraConfig = readFile ./devices.conf + readFile ./keybindings.conf + readFile ./windowrules.conf;
+
+      plugins = [ split-monitor-workspaces ];
     };
   };
 

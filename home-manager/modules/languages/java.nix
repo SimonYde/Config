@@ -5,18 +5,23 @@
   ...
 }:
 let
-  inherit (lib) types;
+  inherit (lib)
+    types
+    mkOption
+    mkEnableOption
+    mkIf
+    ;
   cfg = config.syde.programming.java;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       gradle
       gradle-completion
       metals
       jdt-language-server
       cfg.jdk
-      (lib.mkIf cfg.enableMaven maven)
+      (mkIf cfg.enableMaven maven)
     ];
 
     home.sessionVariables = {
@@ -30,10 +35,10 @@ in
 
   options.syde.programming = {
     java = {
-      enable = lib.mkEnableOption "java";
-      enableMaven = lib.mkEnableOption "maven for java";
+      enable = mkEnableOption "java";
+      enableMaven = mkEnableOption "maven for java";
 
-      jdk = lib.mkOption {
+      jdk = mkOption {
         type = types.package;
         default = pkgs.jdk;
       };
