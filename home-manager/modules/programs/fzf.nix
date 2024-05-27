@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   rfv = pkgs.writeShellScriptBin "rfv" ''
     # 1. Search for text in files using Ripgrep
@@ -14,21 +19,23 @@ let
   '';
 in
 {
-  home.packages = [ rfv ];
+  config = lib.mkIf config.programs.fzf.enable {
+    home.packages = [ rfv ];
 
-  programs.fzf = {
-    enableBashIntegration = true;
-    enableFishIntegration = true;
-    enableZshIntegration = true;
-    changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
-    fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";
-    defaultCommand = "${pkgs.fd}/bin/fd --type f";
-    colors = with config.syde.theming.palette_with_hex; {
-      bg = "";
-      "bg+" = "";
-      fg = base05;
-      "fg+" = base05;
+    programs.fzf = {
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+      changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
+      fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";
+      defaultCommand = "${pkgs.fd}/bin/fd --type f";
+      colors = with config.syde.theming.palette-hex; lib.mkForce {
+        bg = "";
+        "bg+" = "";
+        fg = base05;
+        "fg+" = base05;
+      };
+      defaultOptions = [ ];
     };
-    defaultOptions = [ ];
   };
 }

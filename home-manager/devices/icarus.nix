@@ -24,7 +24,6 @@
   home.packages = with pkgs; [
     libqalculate
     rclone
-    keepassxc
     wl-clipboard
   ];
 

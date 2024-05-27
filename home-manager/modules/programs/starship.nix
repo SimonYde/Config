@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  programs.starship = with config.syde.theming.palette_with_hex; {
+  programs.starship = with config.syde.theming.palette-hex; {
     enableNushellIntegration = true;
     enableFishIntegration = true;
     enableZshIntegration = true;

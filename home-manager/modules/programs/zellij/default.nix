@@ -25,7 +25,7 @@ in
       in
       {
         "${zellij_path}/config.kdl".text =
-          with config.syde.theming.palette_with_hex;
+          with config.syde.theming.palette-hex;
           ''
             theme "base16-custom"
             themes {

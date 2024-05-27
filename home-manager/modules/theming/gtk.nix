@@ -11,7 +11,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    gtk = {
+    gtk = lib.mkForce {
       gtk2 = {
         configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
       };

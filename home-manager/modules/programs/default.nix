@@ -41,6 +41,7 @@
     ./thunar.nix
     ./vscode.nix
     ./waybar.nix
+    ./wlogout.nix
     ./zathura.nix
 
     # ---Shells---

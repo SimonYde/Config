@@ -6,10 +6,12 @@
   ...
 }:
 let
-  mini-nvim-nightly = pkgs.vimUtils.buildVimPlugin {
+  inherit (lib) removePrefix getName types mkOption;
+  inherit (builtins) elem;
+  mini-nvim = pkgs.vimUtils.buildVimPlugin {
     version = "nightly";
     pname = "mini-nvim";
-    src = inputs.mini-nvim-nightly;
+    src = inputs.mini-nvim;
   };
   neogit-nightly = pkgs.vimUtils.buildVimPlugin {
     version = "nightly";
@@ -31,18 +33,28 @@ in
             system = pkgs.system;
           };
           grawlix = pkgs.callPackage ./packages/grawlix.nix { };
-          pix2tex = pkgs.callPackage ./packages/pix2tex { };
+          pix2tex = inputs.pix2tex.packages.${pkgs.system}.default;
           kattis-cli = pkgs.callPackage ./packages/kattis-cli.nix { };
           kattis-test = pkgs.callPackage ./packages/kattis-test.nix { };
           vimPlugins = prev.vimPlugins // {
-            mini-nvim = mini-nvim-nightly;
+            inherit mini-nvim;
             neogit = neogit-nightly;
           };
         })
       ];
-      config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
+      config.allowUnfreePredicate = pkg: elem (getName pkg) config.syde.unfreePredicates;
       config.permittedInsecurePackages = [ ];
     };
+
+    lib.meta = {
+      configPath = "${config.home.homeDirectory}/Config";
+      mkMutableSymlink =
+        path:
+        config.lib.file.mkOutOfStoreSymlink (
+          config.lib.meta.configPath + removePrefix (toString inputs.self) (toString path)
+        );
+    };
+
 
     nix = {
       package = pkgs.nix;
@@ -56,12 +68,12 @@ in
   };
 
   options.syde = {
-    unfreePredicates = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
+    unfreePredicates = mkOption {
+      type = types.listOf types.str;
       default = [ ];
     };
-    browser = lib.mkOption {
-      type = lib.types.enum [
+    browser = mkOption {
+      type = types.enum [
         "firefox"
         "brave"
         "floorp"
