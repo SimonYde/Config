@@ -6,6 +6,9 @@
 }:
 let
   cfg = config.services.displayManager.sddm;
+  has_xorg = config.services.xserver.windowManager.i3.enable;
+  has_wayland =
+    config.programs.sway.enable || config.programs.hyprland.enable || config.programs.river.enable;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -22,8 +25,7 @@ in
         enable = true;
       };
       sddm = {
-        wayland.enable =
-          config.programs.sway.enable || config.programs.hyprland.enable || config.programs.river.enable;
+        wayland.enable = !has_xorg && has_wayland;
         theme = "catppuccin-mocha";
       };
     };

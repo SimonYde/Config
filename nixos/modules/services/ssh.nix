@@ -1,9 +1,10 @@
 { lib, config, ... }:
 let
+  inherit (lib) mkIf mkEnableOption;
   cfg = config.syde.ssh;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
       settings = {
@@ -14,6 +15,6 @@ in
   };
 
   options.syde.ssh = {
-    enable = lib.mkEnableOption "SSH configuration";
+    enable = mkEnableOption "SSH configuration";
   };
 }

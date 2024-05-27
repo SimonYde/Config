@@ -7,7 +7,7 @@
 }:
 
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkOption types removePrefix;
   user = config.syde.user;
   agenix = inputs.agenix;
   system = pkgs.system;

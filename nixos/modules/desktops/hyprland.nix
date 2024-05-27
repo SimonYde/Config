@@ -6,11 +6,13 @@
   ...
 }:
 let
+  inherit (lib) mkIf;
   cfg = config.programs.hyprland;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     xdg.portal = {
+
       xdgOpenUsePortal = false;
       enable = true;
       config = {
@@ -28,7 +30,7 @@ in
     services = {
       displayManager.sddm.enable = true;
       xserver = {
-        enable = true;
+        enable = false;
         displayManager.lightdm.enable = false;
         displayManager.gdm.enable = false;
       };
@@ -50,7 +52,7 @@ in
       xwaylandvideobridge
     ];
 
-    systemd = lib.mkIf config.security.polkit.enable {
+    systemd = mkIf config.security.polkit.enable {
       user.services.polkit-kde-authentication-agent-1 = {
         description = "polkit-kde-authentication-agent-1";
         wantedBy = [ "graphical-session.target" ];
@@ -58,7 +60,7 @@ in
         after = [ "graphical-session.target" ];
         serviceConfig = {
           Type = "simple";
-          ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+          ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 10;
