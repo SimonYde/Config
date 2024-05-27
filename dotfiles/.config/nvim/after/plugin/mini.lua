@@ -1,9 +1,11 @@
 local nmap = require('syde.keymap').nmap
 Load.now(function()
     require('mini.starter').setup {}
+    local group = vim.api.nvim_create_augroup("MiniStarterKeymap", {})
     vim.api.nvim_create_autocmd("User", {
         -- once = true,
         pattern = "MiniStarterOpened",
+        group = group,
         callback = function(starter_args)
             local starter_bufid = starter_args.buf
             local was_colemak = _G.COLEMAK
@@ -12,6 +14,7 @@ Load.now(function()
                 Colemak_toggle()
             end
             vim.api.nvim_create_autocmd("BufLeave", {
+                group = group,
                 callback = function(args)
                     -- If we're leaving the starter buffer, and we had Colemak enabled
                     -- before entering the starter buffer, we toggle it back on
@@ -23,6 +26,7 @@ Load.now(function()
 
             })
             vim.api.nvim_create_autocmd("BufEnter", {
+                group = group,
                 callback = function(args)
                     -- If we're back in the starter buffer we disable langmap again
                     if args.buf == starter_bufid then
@@ -56,16 +60,15 @@ Load.later(function()
     hipatterns.setup({
         highlighters = {
             -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-            fixme     = hi_words({ 'FIX', 'FIXME' }, 'MiniHipatternsFixme'),
-            note      = hi_words({ 'NOTE' }, 'MiniHipatternsNote'),
-            hack      = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
-            todo      = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
+            -- fixme     = hi_words({ 'FIX', 'FIXME' }, 'MiniHipatternsFixme'),
+            -- note      = hi_words({ 'NOTE' }, 'MiniHipatternsNote'),
+            -- hack      = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
+            -- todo      = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
 
             -- Highlight hex color strings (`#9436FF`) using that color
             hex_color = hipatterns.gen_highlighter.hex_color(),
         },
     })
-
     require('mini.jump').setup {}
     require('mini.jump2d').setup {}
     require('mini.surround').setup {}

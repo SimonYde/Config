@@ -47,5 +47,7 @@ Load.later(function()
             },
         }
         nmap("<leader>gb", gitsigns.toggle_current_line_blame, "Toggle git [b]lame")
+        nmap("]h", gitsigns.next_hunk, "next git [h]unk")
+        nmap("[h", gitsigns.prev_hunk, "previous git [h]unk")
     end)
 end)
