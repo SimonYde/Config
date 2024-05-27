@@ -5,11 +5,12 @@
   ...
 }:
 let
+  inherit (lib) mkEnableOption mkIf mkDefault;
   cfg = config.syde.pc;
 in
 {
-  config = lib.mkIf cfg.enable {
-    system.stateVersion = "23.11";
+  config = mkIf cfg.enable {
+    system.stateVersion = "24.05";
     time.timeZone = "Europe/Copenhagen";
 
     i18n.defaultLocale = "en_GB.UTF-8";
@@ -31,7 +32,10 @@ in
       excludePackages = [ pkgs.xterm ];
     };
 
-    console.useXkbConfig = true;
+    console = {
+      useXkbConfig = true;
+      font = "Lat2-Terminus16";
+    };
 
     networking = {
       firewall = {
@@ -41,7 +45,7 @@ in
           443 # HTTPS
         ];
       };
-      useDHCP = lib.mkDefault true;
+      useDHCP = mkDefault true;
       networkmanager = {
         enable = true;
         wifi.powersave = false;
@@ -98,10 +102,10 @@ in
       enableRedistributableFirmware = true;
     };
 
-    syde.sound.enable = lib.mkDefault true;
+    syde.sound.enable = mkDefault true;
   };
 
   options.syde.pc = {
-    enable = lib.mkEnableOption "PC configuration";
+    enable = mkEnableOption "PC configuration";
   };
 }
