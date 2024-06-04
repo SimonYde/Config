@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-pkgs.writeShellScriptBin "hyprland_gamemode" ''
+pkgs.writeShellScriptBin "hyprland-gamemode" ''
 HYPRGAMEMODE=$(hyprctl getoption animations:enabled | sed -n '1p' | awk '{print $2}')
 
 # # Waybar performance
