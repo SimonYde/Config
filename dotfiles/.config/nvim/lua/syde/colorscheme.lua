@@ -1,3 +1,25 @@
+local add_transparency = function()
+    Load.later(function()
+        require('mini.colors')
+            .get_colorscheme()
+            :add_transparency({
+                float = false,
+                general = true,
+                statuscolumn = true,
+                statusline = true,
+                tabline = false,
+                winbar = false,
+            })
+            :apply()
+        vim.cmd [[hi GitSignsAdd guibg= ctermbg=]]
+        vim.cmd [[hi GitSignsChange guibg= ctermbg=]]
+        vim.cmd [[hi GitSignsChangeDelete guibg= ctermbg=]]
+        vim.cmd [[hi GitSignsDelete guibg= ctermbg=]]
+        Separator = string.format([[hi TreesitterContextBottom cterm=underline gui=underline guisp=%s]], PALETTE.base01)
+        vim.cmd(Separator)
+    end)
+end
+
 local catppuccin = Load.now(function()
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
@@ -53,19 +75,7 @@ local rose_pine = Load.now(function()
 
     })
     vim.cmd.colorscheme('rose-pine')
-    Load.later(function()
-        require('mini.colors')
-            .get_colorscheme()
-            :add_transparency({
-                float = true,
-                general = true,
-                statuscolumn = true,
-                statusline = true,
-                tabline = false,
-                winbar = false,
-            })
-            :apply()
-    end)
+    add_transparency()
     return rose_pine
 end)
 
@@ -111,23 +121,5 @@ Load.now(function()
             ['williamboman/mason.nvim'] = false,
         },
     }
-    Load.later(function()
-        require('mini.colors')
-            .get_colorscheme()
-            :add_transparency({
-                float = true,
-                general = true,
-                statuscolumn = true,
-                statusline = true,
-                tabline = false,
-                winbar = false,
-            })
-            :apply()
-        vim.cmd [[hi GitSignsAdd guibg= ctermbg=]]
-        vim.cmd [[hi GitSignsChange guibg= ctermbg=]]
-        vim.cmd [[hi GitSignsChangeDelete guibg= ctermbg=]]
-        vim.cmd [[hi GitSignsDelete guibg= ctermbg=]]
-        Separator = string.format([[hi TreesitterContextBottom cterm=underline gui=underline guisp=%s]], PALETTE.base01)
-        vim.cmd(Separator)
-    end)
+    add_transparency()
 end)
