@@ -12,11 +12,10 @@ let
   palette = colorScheme.palette;
   slug = colorScheme.slug;
   random_background = pkgs.callPackage ./ran_bg.nix { slug = slug; };
+  hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
   browser = config.syde.browser;
   menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
-  split-monitor-workspaces =
-    inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces;
   cfg = config.wayland.windowManager.hyprland;
 in
 {
@@ -24,6 +23,7 @@ in
     home.packages = with pkgs; [
       swww # Background daemon
       random_background # random background script
+      hyprland-gamemode # disable hyprland animations for games
       playerctl # media keys
       pamixer # volume keys
       networkmanagerapplet
@@ -57,7 +57,7 @@ in
           gaps_in = 3;
           gaps_out = 8;
           border_size = 2;
-          "col.active_border" =  lib.mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
+          "col.active_border" = lib.mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
           "col.inactive_border" = lib.mkForce "transparent";
 
           layout = "dwindle";
@@ -91,7 +91,7 @@ in
             xray = false;
           };
           drop_shadow = false;
-          dim_special = 0.0;
+          dim_special = 0.2;
         };
 
         xwayland = {
@@ -144,7 +144,9 @@ in
       };
       extraConfig = readFile ./devices.conf + readFile ./keybindings.conf + readFile ./windowrules.conf;
 
-      plugins = [ split-monitor-workspaces ];
+      plugins = [
+        # inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+      ];
     };
   };
 
