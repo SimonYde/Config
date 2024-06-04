@@ -34,7 +34,7 @@ in
           package = pkgs.gentium;
         };
         sizes = {
-          terminal = 13;
+          terminal = 12;
           # popups = 12;
         };
       };
@@ -43,6 +43,8 @@ in
         terminal = config.syde.terminal.opacity;
       };
     };
+
+    syde.terminal.font = config.stylix.fonts.monospace.name;
   };
 
   imports = [

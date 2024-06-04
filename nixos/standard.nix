@@ -7,9 +7,10 @@
 }:
 
 let
-  inherit (lib) mkOption types removePrefix;
+  inherit (lib) mkOption types;
   user = config.syde.user;
   agenix = inputs.agenix;
+  home-manager = inputs.home-manager;
   system = pkgs.system;
 in
 {
@@ -25,6 +26,7 @@ in
   };
   imports = [
     agenix.nixosModules.default
+    home-manager.nixosModules.default
     ./modules/gaming.nix
     ./modules/pc.nix
     ./modules/wsl.nix

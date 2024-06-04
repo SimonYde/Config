@@ -19,7 +19,7 @@ in
       # Shells
       fish.enable = true;
       bash.enable = true;
-      nushell.enable = false;
+      nushell.enable = true;
       zsh.enable = false;
 
       # CLI tools
@@ -80,10 +80,7 @@ in
   options.syde.terminal = {
     enable = mkEnableOption "terminal configuration";
     font = mkOption {
-      type = types.enum [
-        "FiraCode Nerd Font Mono"
-        "JetBrains Mono Nerd Font Mono"
-      ];
+      type = types.str;
       default = "JetBrains Mono Nerd Font Mono";
     };
     fontSize = mkOption {

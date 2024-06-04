@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }:
 let
+  inherit (lib) mkDefault mkForce;
   terminal = config.syde.terminal;
   palettes = config.syde.theming.palette-hex;
   font = terminal.font;
@@ -10,27 +11,27 @@ in
     programs.alacritty = {
       settings = {
         window = {
-          # opacity = terminal.opacity;
+          opacity = lib.mkDefault terminal.opacity;
           dynamic_title = true;
         };
         font = {
-          # normal = {
-          #   family = font;
-          #   style = "Regular";
-          # };
-          # bold = {
-          #   family = font;
-          #   style = "Bold";
-          # };
-          # italic = {
-          #   family = font;
-          #   style = "Italic";
-          # };
-          # bold_italic = {
-          #   family = font;
-          #   style = "Bold Italic";
-          # };
-          size = lib.mkForce fontSize;
+          normal = mkDefault {
+            family = font;
+            style = "Regular";
+          };
+          bold = mkDefault {
+            family = font;
+            style = "Bold";
+          };
+          italic = mkDefault {
+            family = font;
+            style = "Italic";
+          };
+          bold_italic = mkDefault {
+            family = font;
+            style = "Bold Italic";
+          };
+          size = mkForce fontSize;
         };
         cursor = {
           style = {
@@ -96,7 +97,7 @@ in
             action = "ToggleViMode";
           }
         ];
-        colors = with palettes; lib.mkDefault {
+        colors = with palettes; lib.mkForce {
           primary = {
             background = base00;
             foreground = base05;

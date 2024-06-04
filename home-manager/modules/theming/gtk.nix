@@ -11,7 +11,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    gtk = lib.mkForce {
+    gtk = {
       gtk2 = {
         configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
       };
@@ -19,7 +19,7 @@ in
         name = if prefer-dark then "Papirus-Dark" else "Papirus";
         package = pkgs.papirus-icon-theme;
       };
-      theme = {
+      theme = lib.mkForce {
         name = theming.gtk.theme;
         package = theming.gtk.package;
       };
@@ -35,8 +35,8 @@ in
       };
     };
 
-    home.sessionVariables = {
-      GTK_THEME = cfg.theme.name;
-    };
+    # home.sessionVariables = {
+    #   GTK_THEME = cfg.theme.name;
+    # };
   };
 }

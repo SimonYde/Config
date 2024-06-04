@@ -1,8 +1,11 @@
-{ inputs, ... }:
+{ inputs, config, lib, ... }:
 {
-  config = {
+  config = lib.mkIf config.programs.nix-index.enable {
     programs.nix-index-database = {
       comma.enable = true;
+    };
+    home.sessionVariables = {
+      COMMA_PICKER = "fzf";
     };
   };
 

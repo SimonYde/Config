@@ -48,6 +48,7 @@ in
           harpoon2
           nvim-autopairs
           gitsigns-nvim
+          rustaceanvim
 
           neogit
           mini-nvim
