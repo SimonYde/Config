@@ -201,7 +201,7 @@ Load.later(function()
             hint_enable = false,
             hint_inline = function() return false end,     -- should the hint be inline(nvim 0.10 only)?  default false
             handler_opts = {
-                border = "none"
+                border = "rounded"
             },
         })
     end)

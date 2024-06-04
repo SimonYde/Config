@@ -1,9 +1,8 @@
-Load.later(function()
+Load.now(function()
     require('obsidian').setup {
         workspaces = {
             {
                 name = "Apollo",
-                -- path = "~/second-brain",
                 path = "~/Obsidian/Apollo",
             },
         },

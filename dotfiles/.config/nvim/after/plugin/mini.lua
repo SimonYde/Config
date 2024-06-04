@@ -1,7 +1,7 @@
 local nmap = require('syde.keymap').nmap
 Load.now(function()
     require('mini.starter').setup {}
-    local group = vim.api.nvim_create_augroup("MiniStarterKeymap", {})
+    local group = vim.api.nvim_create_augroup("MiniStarterKeymap", { clear = true })
     vim.api.nvim_create_autocmd("User", {
         -- once = true,
         pattern = "MiniStarterOpened",
