@@ -1,32 +1,32 @@
 { config, lib, ... }:
 let
+  inherit (lib) mkDefault mkForce;
   terminal = config.syde.terminal;
-  colors = config.colorScheme.palette;
 in
 {
   services.dunst = {
-    settings = with colors; lib.mkDefault {
+    settings = with config.syde.theming.palette-hex; {
       global = {
         frame_color = "#${base0D}";
-        font = "${terminal.font} 10";
+        font = mkDefault "${terminal.font} 10";
         frame_width = 2;
-        separator_color = "frame";
-        corner_radius = 10;
+        # separator_color = "frame";
+        corner_radius = mkForce 10;
         icon_position = "left";
         show_indicator = true;
       };
 
-      urgency_low = {
+      urgency_low = mkDefault {
         background = "#${base00}";
         foreground = "#${base05}";
       };
 
-      urgency_normal = {
+      urgency_normal = mkDefault {
         background = "#${base00}";
         foreground = "#${base05}";
       };
 
-      urgency_critical = {
+      urgency_critical = mkDefault {
         background = "#${base00}";
         foreground = "#${base05}";
         frame_color = "#${base08}";

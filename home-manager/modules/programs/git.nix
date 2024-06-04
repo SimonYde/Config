@@ -60,6 +60,7 @@ in
           line-numbers = true;
           side-by-side = true;
           features = builtins.concatStringsSep " " [
+            "base16-stylix"
           ];
         };
       };

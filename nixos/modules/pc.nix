@@ -5,7 +5,13 @@
   ...
 }:
 let
-  inherit (lib) mkEnableOption mkIf mkDefault;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkDefault
+    types
+    mkOption
+    ;
   cfg = config.syde.pc;
 in
 {
@@ -27,8 +33,8 @@ in
     };
 
     services.xserver = {
-      xkb.layout = "us(colemak_dh),dk";
-      xkb.options = "caps:escape,grp:rctrl_toggle";
+      xkb.layout = cfg.keyboard.layout;
+      xkb.options = cfg.keyboard.options;
       excludePackages = [ pkgs.xterm ];
     };
 
@@ -107,5 +113,13 @@ in
 
   options.syde.pc = {
     enable = mkEnableOption "PC configuration";
+    keyboard.layout = mkOption {
+      type = types.str;
+      default = "us(colemak_dh),dk";
+    };
+    keyboard.options = mkOption {
+      type = types.str;
+      default = "caps:escape,grp:rctrl_toggle";
+    };
   };
 }

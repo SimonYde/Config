@@ -1,11 +1,21 @@
-{ pkgs, inputs, config, lib, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  lib,
+  ...
+}:
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../standard.nix
   ];
 
-  environment.systemPackages = with pkgs; [ ];
+  home-manager.users.${config.syde.user} = { pkgs, ... }: {
+    imports = [
+      ../../home-manager/devices/perdix.nix
+    ];
+  };
 
   # Personal configurations
   syde = {
@@ -19,6 +29,14 @@
     };
   };
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.package = pkgs.nix-ld-rs;
+  programs.nix-ld.libraries = with pkgs; [
+    ncurses
+    libz
+    libstdcxx5
+  ];
+
   programs = {
     nh.enable = true;
     kdeconnect.enable = true;
@@ -31,6 +49,7 @@
     tailscale.enable = true;
     syncthing.enable = true;
   };
+
 
   powerManagement.cpuFreqGovernor = "ondemand";
 

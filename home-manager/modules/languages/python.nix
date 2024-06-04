@@ -12,6 +12,7 @@ let
       pylsp-mypy
 
       numpy
+      pandas
       sympy
       matplotlib
       debugpy
