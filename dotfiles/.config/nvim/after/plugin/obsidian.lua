@@ -1,4 +1,4 @@
-Load.now(function()
+Load.later(function()
     require('obsidian').setup {
         workspaces = {
             {
@@ -36,9 +36,11 @@ Load.now(function()
     }
 
     local nmap = require("syde.keymap").nmap
+    local imap = require("syde.keymap").imap
 
-    nmap("<leader>oo", vim.cmd.ObsidianOpen, "Open Obsidian vault")
-    nmap("<leader>od", vim.cmd.ObsidianDaily, "Open today's daily note")
+    nmap("<leader>oo", vim.cmd.ObsidianOpen, "Open current file in Obsidian")
+    nmap("<leader>od", vim.cmd.ObsidianDailies, "Open [d]aily note search")
     nmap("<leader>on", vim.cmd.ObsidianTemplate, "Insert Obsidian template")
     nmap("<leader>ot", vim.cmd.ObsidianTags, "Open tag list")
+    imap("<C-i>", vim.cmd.ObsidianToggleCheckbox, "Toggle markdown checkbox")
 end)

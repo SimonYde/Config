@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+    stable.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat.url = "github:edolstra/flake-compat";
@@ -130,20 +130,28 @@
         };
       };
 
-      homeConfigurations = {
-        "syde@icarus" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations = rec {
+        "syde@icarus" = icarus;
+        "syde@perdix" = perdix;
+        icarus = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = {
             inherit inputs;
           };
-          modules = [ ./home-manager/devices/icarus.nix ];
+          modules = [
+            ./home-manager/standalone.nix
+            ./home-manager/devices/icarus.nix
+          ];
         };
-        "syde@perdix" = home-manager.lib.homeManagerConfiguration {
+        perdix = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = {
             inherit inputs;
           };
-          modules = [ ./home-manager/devices/perdix.nix ];
+          modules = [
+            ./home-manager/standalone.nix
+            ./home-manager/devices/perdix.nix
+          ];
         };
       };
     }

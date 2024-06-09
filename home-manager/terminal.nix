@@ -79,10 +79,6 @@ in
 
   options.syde.terminal = {
     enable = mkEnableOption "terminal configuration";
-    font = mkOption {
-      type = types.str;
-      default = "JetBrains Mono Nerd Font Mono";
-    };
     fontSize = mkOption {
       type = types.float;
       default = 11.5;

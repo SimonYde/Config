@@ -1,14 +1,14 @@
 { config, lib, ... }:
 let
   inherit (lib) mkDefault mkForce;
-  terminal = config.syde.terminal;
+  font = config.syde.theming.fonts.sansSerif;
 in
 {
   services.dunst = {
     settings = with config.syde.theming.palette-hex; {
       global = {
         frame_color = "#${base0D}";
-        font = mkDefault "${terminal.font} 10";
+        font = mkDefault "${font.name} 10";
         frame_width = 2;
         # separator_color = "frame";
         corner_radius = mkForce 10;

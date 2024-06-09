@@ -14,5 +14,13 @@ in
         };
       };
     };
+
+    xdg.mimeApps.defaultApplications = {
+      "image/apng" = "imv.desktop";
+      "image/gif" = "imv.desktop";
+      "image/jpeg" = "imv.desktop";
+      "image/png" = "imv.desktop";
+      "image/webp" = "imv.desktop";
+    };
   };
 }

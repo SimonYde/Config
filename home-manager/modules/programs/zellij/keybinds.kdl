@@ -26,13 +26,13 @@ keybinds clear-defaults=true {
         bind "E" { MovePane "Up";    }
         bind "I" { MovePane "Right"; }
 
-        bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;   }
-        bind "p" { NewPane;               SwitchToMode "Locked"; }
-        bind "x" { CloseFocus;            SwitchToMode "Locked"; }
-        bind "z" { TogglePaneFrames;      SwitchToMode "Locked"; }
-        bind "f" { ToggleFocusFullscreen; SwitchToMode "Locked"; }
-        bind "q" { ToggleFloatingPanes;   SwitchToMode "Locked"; }
-        bind "Ctrl q" { TogglePaneEmbedOrFloating; SwitchToMode "Locked"; }
+        bind "c"      { SwitchToMode "RenamePane";      PaneNameInput 0;       }
+        bind "p"      { NewPane "Right";                SwitchToMode "Locked"; }
+        bind "x"      { CloseFocus;                     SwitchToMode "Locked"; }
+        bind "z"      { TogglePaneFrames;               SwitchToMode "Locked"; }
+        bind "f"      { ToggleFocusFullscreen;          SwitchToMode "Locked"; }
+        bind "q"      { ToggleFloatingPanes;            SwitchToMode "Locked"; }
+        bind "Ctrl q" { TogglePaneEmbedOrFloating;      SwitchToMode "Locked"; }
     }
 
     locked {

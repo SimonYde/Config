@@ -167,19 +167,25 @@ Load.later(function()
         cmd = "ltex-ls",
         settings = {
             ltex = {
-                language = "da-DK",
+                -- language = "en-GB",
             },
         },
         on_attach = function()
             Load.now(function()
                 require('ltex_extra').setup {
-                    load_langs = { "en-US", "en-GB", "da-DK" },
+                    load_langs = {  "en-GB", "da-DK" },
                     init_check = true,
                     path = vim.fn.stdpath("data") .. "/ltex",
-                    log_level = "none",
+                    log_level = "HINT",
                 }
             end)
-        end
+        end,
+        filetypes = {
+            "typst",
+            "latex",
+            "tex",
+            "markdown",
+        }
     }
 
     Load.now(function()
@@ -195,16 +201,16 @@ Load.later(function()
         }
     end)
 
-    Load.now(function()
-        require('lsp_signature').setup({
-            doc_lines = 0,
-            hint_enable = false,
-            hint_inline = function() return false end,     -- should the hint be inline(nvim 0.10 only)?  default false
-            handler_opts = {
-                border = "rounded"
-            },
-        })
-    end)
+    -- Load.now(function()
+    --     require('lsp_signature').setup({
+    --         doc_lines = 0,
+    --         hint_enable = false,
+    --         hint_inline = function() return false end,     -- should the hint be inline(nvim 0.10 only)?  default false
+    --         handler_opts = {
+    --             border = "rounded"
+    --         },
+    --     })
+    -- end)
 
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)

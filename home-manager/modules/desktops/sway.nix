@@ -7,7 +7,7 @@
 let
   cfg = config.wayland.windowManager.sway;
   colors = config.colorScheme.palette;
-  font = config.syde.terminal.font;
+  font = config.syde.theming.fonts.sansSerif;
   menu = "rofi -show drun";
   left = "m";
   down = "n";
@@ -221,7 +221,7 @@ in
         };
 
         fonts = {
-          names = [ font ];
+          names = [ font.name ];
           size = 11.0;
         };
 

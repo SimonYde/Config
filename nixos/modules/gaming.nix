@@ -41,6 +41,7 @@ in
       r2modman
       heroic
       bottles
+      prismlauncher
 
       # ---Wine and Wine Dependencies---
       wineWowPackages.staging

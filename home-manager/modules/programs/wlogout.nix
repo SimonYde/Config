@@ -1,38 +1,40 @@
 { pkgs, config, ... }:
 
 let
-  lock = "${pkgs.swaylock-effects}/bin/swaylock";
+  lock = "${pkgs.swaylock-effects}/bin/swaylock -f";
   icon_path = "${pkgs.wlogout}/share/wlogout/icons";
-  palette = config.syde.theming.palette-hex;
+  theming = config.syde.theming;
+  palette = theming.palette-hex;
+  font = theming.fonts.sansSerif;
 in
 {
   programs.wlogout = {
 
     style = with palette; ''
-      * {
-      	background-image: none;
-      	box-shadow: none;
-      }
 
       window {
-      	background-color: rgba(12, 12, 12, 0.9);
+        font-family: ${font.name} Medium;
+        background-color: transparent;
+        color: ${base05};
       }
 
       button {
-          border-radius: 0;
-          border-color: black;
-      	text-decoration-color: ${base05}; color: ${base05};
-      	background-color: ${base00};
-      	border-style: solid;
-      	border-width: 1px;
-      	background-repeat: no-repeat;
-      	background-position: center;
-      	background-size: 25%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 20%;
+        background-color: transparent;
+        border-color: black;
+      	text-decoration-color: ${base05};
+        color: ${base05};
+        border-radius: 36px;
       }
 
       button:focus, button:active, button:hover {
+        background-size: 50%;
+        box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
       	background-color: ${base0D};
-      	outline-style: none;
+        color: transparent;
+        transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
       }
 
       #lock {
@@ -63,7 +65,7 @@ in
     layout = [
       {
         "label" = "lock";
-        "action" = "${lock}";
+        "action" = "sleep 1 && ${lock}";
         "text" = "Lock";
         "keybind" = "l";
       }
@@ -77,7 +79,7 @@ in
 
       {
         "label" = "suspend";
-        "action" = "${lock} -f && systemctl suspend";
+        "action" = "${lock} && systemctl suspend && hyprctl reload";
         "text" = "Suspend";
         "keybind" = "u";
       }
@@ -91,7 +93,7 @@ in
 
       {
         "label" = "hibernate";
-        "action" = "systemctl hibernate";
+        "action" = "systemctl hibernate && hyprctl reload";
         "text" = "Hibernate";
         "keybind" = "h";
       }

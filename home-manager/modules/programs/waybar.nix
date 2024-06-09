@@ -5,9 +5,11 @@
   ...
 }:
 let
-  colors = config.colorScheme.palette;
+  palette = config.colorScheme.palette;
   hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString ",";
-  font = config.syde.terminal.font;
+  terminal = config.syde.terminal;
+  emulator = terminal.emulator;
+  font = config.syde.theming.fonts.sansSerif;
 in
 {
   programs.waybar = {
@@ -19,7 +21,7 @@ in
         height = 25;
         output = [ "*" ];
         modules-left = [
-          "hyprland/workspaces"
+          "hyprland/workspaces#icons"
           "hyprland/submap"
 
           "sway/workspaces"
@@ -39,15 +41,18 @@ in
           "tray"
           "clock"
         ];
+
+        # module definitions
         disk = {
-          format = "{free} ";
+          format = "{free} 󰋊";
           path = "/";
         };
         memory = {
-          format = "{}% 󰍛";
+          format = "{}% 󰾆";
+          on-click = "${emulator} -e ${pkgs.btop}/bin/btop";
         };
         cpu = {
-          format = "{usage}% ";
+          format = "{usage}% 󰍛";
           tooltip = false;
         };
         tray = {
@@ -60,6 +65,50 @@ in
         "hyprland/submap" = {
           format = "<span style=\"italic\">{}</span>";
         };
+        "hyprland/workspaces" = {
+          artive-only = false;
+          all-outputs = true;
+          format = "{icon}";
+          show-special = false;
+          on-click = "activate";
+          on-scroll-up = "hyprctl dispatch workspace e+1";
+          on-scroll-down = "hyprctl dispatch workspace e-1";
+          "persistent-workspaces" = {
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
+          };
+          "format-icons" = {
+            "active" = "";
+            "default" = "";
+          };
+        };
+        "hyprland/workspaces#icons" = {
+          format = " {icon} ";
+          show-special = false;
+          on-click = "activate";
+          on-scroll-up = "hyprctl dispatch workspace e+1";
+          on-scroll-down = "hyprctl dispatch workspace e-1";
+          all-outputs = true;
+          sort-by-number = true;
+          format-icons = {
+            "1" = "󰚸";
+            "2" = "";
+            "3" = "";
+            "4" = "";
+            "5" = "";
+            "6" = "";
+            "7" = "";
+            "8" = "8";
+            "9" = "9";
+            "10" = "10";
+            "focused" = "";
+            "default" = "";
+          };
+        };
+
         network = {
           format-wifi = "{essid} ({signalStrength}%) ";
           format-ethernet = "{ipaddr}/{cidr} 󰈀";
@@ -76,23 +125,30 @@ in
           };
 
           format = "{capacity}% {icon}";
-          format-charging = "{capacity}% ";
+          format-charging = "{capacity}% ";
           format-plugged = "{capacity}% ";
           format-alt = "{time} {icon}";
+          # format-icons = [ "" "" "" "" "" ];
           format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
+            "󰂎"
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
           ];
         };
         pulseaudio = {
           scroll-step = 10; # %, can be a float
           format = "{volume}% {icon} {format_source}";
-          format-muted = "󰝟 {format_source}";
+          format-muted = " {format_source}";
           format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = "󰝟 {icon} {format_source}";
+          format-bluetooth-muted = " {icon} {format_source}";
           format-source = "{volume}% ";
           format-source-muted = "";
 
@@ -115,9 +171,9 @@ in
     };
 
     style =
-      with colors;
+      with palette;
       let
-        bg = "rgba(${hexToRGBString base00},0.85)";
+        bg = "rgba(${hexToRGBString base00},0.7)";
         margin = "6px";
         font-size = "15px";
         padding = "12px";
@@ -126,7 +182,7 @@ in
         * {
             border: none;
             border-radius: 15px;
-            font-family: ${font}, FontAwesome;
+            font-family: ${font.name}, FontAwesome;
             min-height: 12px;
         }
 

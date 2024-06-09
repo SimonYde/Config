@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+} @ args:
 let
   emulator = config.syde.terminal.emulator;
 in
@@ -19,7 +24,10 @@ in
 
     # personal program configurations
     syde.programs = {
-      thunar.enable = true;
+      thunar = {
+        defaultFilemanager = true;
+        enable = true;
+      };
     };
 
     services = {
@@ -32,17 +40,22 @@ in
     # Personal modules
     syde = {
       email.enable = false;
-      fonts.enable = true;
       programming.enable = true;
       terminal.enable = true;
       ssh.enable = true;
       theming.enable = true;
     };
 
-    wayland.windowManager = {
-      sway.enable = false;
-      hyprland.enable = true;
-    };
+    wayland.windowManager =
+      {
+        sway.enable = false;
+        hyprland.enable = true;
+      }
+      # NOTE: This is more of a tests than anything else.
+      // lib.optionalAttrs (args ? "osConfig") {
+        sway.enable = args.osConfig.programs.sway.enable;
+        hyprland.enable = args.osConfig.programs.hyprland.enable;
+      };
 
     home.packages = with pkgs; [
       obsidian

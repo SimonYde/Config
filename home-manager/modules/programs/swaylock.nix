@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   colors = config.colorScheme.palette;
-  font = config.syde.terminal.font;
+  fontName = config.syde.theming.fonts.sansSerif.name;
 in
 {
   programs.swaylock = {
@@ -12,7 +12,7 @@ in
       show-failed-attempts = true;
       ignore-empty-password = true;
 
-      font = font;
+      font = fontName;
       font-size = 24;
 
       clock = true;
@@ -33,7 +33,7 @@ in
       key-hl-color = base0B;
       line-color = base0D;
       ring-color = base0D;
-      separator-color = base0D;
+      separator-color = "00000000";
       line-clear-color = base0B;
       ring-clear-color = base0B;
       line-ver-color = base0C;
