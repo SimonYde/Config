@@ -6,6 +6,7 @@
     ./sddm.nix
 
     # Other
+    ./languagetool.nix
     ./ssh.nix
     ./syncthing.nix
     ./ollama.nix

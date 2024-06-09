@@ -50,4 +50,5 @@
     ./nushell.nix
     ./zsh.nix
   ];
+
 }

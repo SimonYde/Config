@@ -150,20 +150,26 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- Load.now(function()
---     require('project_nvim').setup {
---         patterns = {
---             ".git",
---             -- "_darcs",
---             -- ".hg",
---             -- ".bzr",
---             -- ".svn",
---             -- "Makefile",
---             -- "package.json",
---             -- "Justfile"
---         },
---     }
--- end)
+Load.later(function()
+    require('project_nvim').setup {
+        patterns = {
+            ".git",
+            "flake.nix",
+            -- "_darcs",
+            -- ".hg",
+            -- ".bzr",
+            -- ".svn",
+            -- "Makefile",
+            -- "package.json",
+            -- "Justfile",
+        },
+        detection_methods = { "pattern" },
+        silent_chdir = false,
+        exclude_dirs = {
+            "~/Obsidian/*"
+        },
+    }
+end)
 
 
 Load.perform_lazy_loading()

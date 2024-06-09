@@ -71,19 +71,21 @@ Load.now(function()
             active = function()
                 local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
                 local git           = MiniStatusline.section_git({ trunc_width = 75 })
+                local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
                 local errors        = diagnostic_level('ERROR', ' ') -- alternative symbol "⬤ "
                 local warnings      = diagnostic_level('WARN', ' ') -- alternative symbol ""
                 local hints         = diagnostic_level('HINT', ' ')
                 local info          = diagnostic_level('INFO', ' ')
                 local macro         = section_macro_recording()
                 local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
-                local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
+                local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75, options = { recompute = false } })
                 local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
                 local location      = MiniStatusline.section_location({ trunc_width = 75 })
+                local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
 
                 return MiniStatusline.combine_groups({
                     { hl = mode_hl,                 strings = { mode } },
-                    { hl = 'MiniStatuslineDevinfo', strings = { git } },
+                    { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
                     '%<', -- Mark general truncate point
                     { hl = 'MiniStatuslineFilename', strings = { filename } },
                     { hl = 'DiagnosticError',        strings = { errors } },
@@ -93,19 +95,19 @@ Load.now(function()
                     '%=', -- End left alignment
 
                     { hl = 'MiniStatuslineFilename', strings = { macro, searchcount } },
-                    { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+                    { hl = 'MiniStatuslineFileinfo', strings = { lsp, fileinfo } },
                     { hl = mode_hl,                  strings = { location } },
                 })
             end,
         },
-        set_vim_settings = true,
+        set_vim_settings = false,
     }
 
     vim.opt.laststatus = 3 -- global statusline
     vim.opt.cmdheight = 0
     vim.opt.hlsearch = true
 
-    -- local group = vim.api.nvim_create_augroup("statusline_cmdline", {})
+    -- local group = vim.api.nvim_create_augroup("StatusLineCmdLine", { clear = true })
     -- vim.api.nvim_create_autocmd("CmdlineEnter", {
     --     group = group,
     --     callback = function()

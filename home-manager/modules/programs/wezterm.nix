@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  font = config.syde.terminal.font;
+  fontName = config.syde.theming.fonts.monospace.name;
   fontSize = config.syde.terminal.fontSize;
 in
 {
@@ -25,7 +25,7 @@ in
         enable_tab_bar = false,
         default_cursor_style = "SteadyBar",
         font = wezterm.font {
-          family = '${font}',
+          family = '${fontName}',
           weight = 'Light',
           italic = false,
         },

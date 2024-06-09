@@ -1,51 +1,22 @@
 {
-  pkgs,
   inputs,
   lib,
   config,
+  pkgs,
   ...
 }:
 let
-  inherit (lib) removePrefix getName types mkOption;
-  inherit (builtins) elem;
-  mini-nvim = pkgs.vimUtils.buildVimPlugin {
-    version = "nightly";
-    pname = "mini-nvim";
-    src = inputs.mini-nvim;
-  };
-  neogit-nightly = pkgs.vimUtils.buildVimPlugin {
-    version = "nightly";
-    pname = "neogit";
-    src = inputs.neogit-nightly;
-  };
+  inherit (lib)
+    removePrefix
+    types
+    mkOption
+    optionalAttrs
+    ;
+  browser = config.syde.browser;
+  file-manager = config.syde.file-manager;
 in
 {
   config = {
-    nixpkgs = {
-      overlays = [
-        inputs.nur.overlay
-        inputs.helix.overlays.default
-        inputs.neovim-nightly.overlays.default
-        inputs.rustaceanvim.overlays.default
-        (final: prev: {
-          stable = import inputs.stable {
-            config = pkgs.config;
-            system = pkgs.system;
-          };
-          grawlix = pkgs.callPackage ./packages/grawlix.nix { };
-          pix2tex = inputs.pix2tex.packages.${pkgs.system}.default;
-          kattis-cli = pkgs.callPackage ./packages/kattis-cli.nix { };
-          kattis-test = pkgs.callPackage ./packages/kattis-test.nix { };
-          vimPlugins = prev.vimPlugins // {
-            inherit mini-nvim;
-            neogit = neogit-nightly;
-          };
-        })
-      ];
-      config.allowUnfreePredicate = pkg: elem (getName pkg) config.syde.unfreePredicates;
-      config.permittedInsecurePackages = [ ];
-    };
-
     lib.meta = {
       configPath = "${config.home.homeDirectory}/Config";
       mkMutableSymlink =
@@ -55,9 +26,8 @@ in
         );
     };
 
-
     nix = {
-      package = pkgs.nix;
+      package = lib.mkDefault pkgs.nix;
       extraOptions = ''
         experimental-features = flakes nix-command
         warn-dirty = false
@@ -65,6 +35,34 @@ in
     };
 
     xdg.enable = true;
+    xdg.mimeApps.enable = true;
+    xdg.mimeApps.defaultApplications =
+      {
+        "x-scheme-handler/http" = "${browser}.desktop";
+        "x-scheme-handler/https" = "${browser}.desktop";
+        "x-scheme-handler/chrome" = "${browser}.desktop";
+        "text/html" = "${browser}.desktop";
+        "image/svg" = "${browser}.desktop";
+        "application/x-extension-htm" = "${browser}.desktop";
+        "application/x-extension-html" = "${browser}.desktop";
+        "application/x-extension-shtml" = "${browser}.desktop";
+        "application/xhtml+xml" = "${browser}.desktop";
+        "application/x-extension-xhtml" = "${browser}.desktop";
+        "application/x-extension-xht" = "${browser}.desktop";
+      }
+      // optionalAttrs (file-manager != null) {
+        "application/zstd" = "${file-manager}.desktop";
+        "application/x-lha" = "${file-manager}.desktop";
+        "application/x-cpio" = "${file-manager}.desktop";
+        "application/x-lzip" = "${file-manager}.desktop";
+        "application/x-compress" = "${file-manager}.desktop";
+        "application/gzip" = "${file-manager}.desktop";
+        "application/x-bzip2" = "${file-manager}.desktop";
+        "application/x-xz" = "${file-manager}.desktop";
+        "application/x-xar" = "${file-manager}.desktop";
+        "application/x-lzma" = "${file-manager}.desktop";
+        "inode/directory" = "${file-manager}.desktop";
+      };
   };
 
   options.syde = {
@@ -79,6 +77,10 @@ in
         "floorp"
       ];
       default = "floorp";
+    };
+    file-manager = mkOption {
+      type = types.nullOr types.str;
+      default = null;
     };
   };
 

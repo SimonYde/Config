@@ -6,10 +6,10 @@
 }:
 let
   inherit (lib)
-    mkOption
     mkEnableOption
-    types
     mkIf
+    types
+    mkOption
     ;
   cfg = config.syde.programs.thunar;
 in
@@ -22,16 +22,17 @@ in
     ];
 
     xdg.configFile."xfce4/helpers.rc".text = ''
-      TerminalEmulator=${cfg.terminal}
+      TerminalEmulator=${config.syde.terminal.emulator}
     '';
+
+    syde.file-manager = mkIf cfg.defaultFilemanager "thunar";
   };
 
   options.syde.programs.thunar = {
     enable = mkEnableOption "Thunar file manager";
-    terminal = mkOption {
-      type = types.str;
-      default = "${config.syde.terminal.emulator}";
-      description = "The terminal emulator to open from within Thunar";
+    defaultFilemanager = mkOption {
+      type = types.bool;
+      default = false;
     };
   };
 }

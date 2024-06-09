@@ -1,9 +1,9 @@
-{ pkgs, config, lib, ... }:
+{ config, lib, ... }:
 let
   inherit (lib) mkDefault mkForce;
   terminal = config.syde.terminal;
   palettes = config.syde.theming.palette-hex;
-  font = terminal.font;
+  fontName = config.syde.theming.fonts.monospace.name;
   fontSize = terminal.fontSize;
 in
 {
@@ -16,19 +16,19 @@ in
         };
         font = {
           normal = mkDefault {
-            family = font;
+            family = fontName;
             style = "Regular";
           };
           bold = mkDefault {
-            family = font;
+            family = fontName;
             style = "Bold";
           };
           italic = mkDefault {
-            family = font;
+            family = fontName;
             style = "Italic";
           };
           bold_italic = mkDefault {
-            family = font;
+            family = fontName;
             style = "Bold Italic";
           };
           size = mkForce fontSize;

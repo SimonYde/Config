@@ -2,7 +2,6 @@
 {
   imports = [
     ./email.nix
-    ./fonts.nix
     ./ssh.nix
 
     ./programs

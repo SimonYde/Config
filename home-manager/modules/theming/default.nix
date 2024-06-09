@@ -21,22 +21,23 @@ let
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
   nix-colors-gtk = nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
   slug = config.colorScheme.slug;
-  is_catppuccin = (head (splitString "-" slug)) == "catppuccin";
 
   accent = "lavender";
   size = "compact";
+  flavour = if cfg.prefer-dark then "mocha" else "latte";
   accentUpper = mkCapitalised accent;
   sizeUpper = mkCapitalised size;
-  flavourUpper = mkCapitalised cfg.flavour;
+  flavourUpper = mkCapitalised flavour;
   variantUpper = mkCapitalised config.colorScheme.variant;
 
-  gtk-package = pkgs.catppuccin-gtk.override {
+  catppuccin-gtk-package = pkgs.catppuccin-gtk.override {
     accents = [ accent ];
     inherit size;
     tweaks = [ "rimless" ];
-    variant = cfg.flavour;
+    variant = flavour;
   };
-  gtk-theme = "Catppuccin-${flavourUpper}-${sizeUpper}-${accentUpper}-${variantUpper}";
+  catppuccin-gtk-theme = "Catppuccin-${flavourUpper}-${sizeUpper}-${accentUpper}-${variantUpper}";
+
   cfg = config.syde.theming;
 in
 {
@@ -50,12 +51,50 @@ in
   config = mkIf cfg.enable {
     colorScheme = nix-colors.colorSchemes."catppuccin-mocha";
 
+    fonts.fontconfig = {
+      enable = true;
+      defaultFonts = {
+        monospace = [ cfg.fonts.monospace.name ];
+        serif = [ cfg.fonts.serif.name ];
+        sansSerif = [ cfg.fonts.sansSerif.name ];
+        emoji = [ cfg.fonts.emoji.name ];
+      };
+    };
+
+    home.packages = cfg.fonts.packages;
     gtk.enable = true;
     qt.enable = true;
 
-    syde.theming = mkIf is_catppuccin {
-      gtk.package = gtk-package;
-      gtk.theme = gtk-theme;
+    syde.theming.fonts = {
+      monospace = {
+        name = "JetBrains Mono Nerd Font Mono";
+        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
+      };
+      sansSerif = {
+        name = "JetBrains Mono Nerd Font Propo";
+        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
+      };
+      serif = {
+        name = "Gentium Plus";
+        package = pkgs.gentium;
+      };
+      packages = [
+        cfg.fonts.monospace.package
+        cfg.fonts.serif.package
+        cfg.fonts.sansSerif.package
+        cfg.fonts.emoji.package
+        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        pkgs.gentium
+        pkgs.source-sans-pro
+        pkgs.roboto
+        pkgs.font-awesome
+        pkgs.libertinus
+      ];
+    };
+
+    syde.theming.gtk = mkIf ((head (splitString "-" slug)) == "catppuccin") {
+      package = catppuccin-gtk-package;
+      theme = catppuccin-gtk-theme;
     };
   };
 
@@ -64,10 +103,6 @@ in
     palette-hex = mkOption {
       type = types.attrsOf types.str;
       default = mapAttrs (name: value: "#" + value) config.colorScheme.palette;
-    };
-    flavour = mkOption {
-      type = types.str;
-      default = if cfg.prefer-dark then "mocha" else "latte";
     };
     prefer-dark = mkOption {
       type = types.bool;
@@ -83,7 +118,7 @@ in
         default = nix-colors-gtk;
       };
     };
-    cursorTheme = {
+    cursor = {
       name = mkOption {
         type = types.str;
         default = "Catppuccin-Mocha-Dark-Cursors";
@@ -93,5 +128,61 @@ in
         default = pkgs.catppuccin-cursors.mochaDark;
       };
     };
+    fonts =
+      let
+        fontType = types.submodule {
+          options = {
+            package = mkOption {
+              description = "Package providing the font.";
+              type = types.package;
+            };
+            name = mkOption {
+              description = "Name of the font within the package.";
+              type = types.str;
+            };
+          };
+        };
+      in
+      {
+        monospace = mkOption {
+          description = "Monospace font.";
+          type = fontType;
+          default = {
+            name = "DejaVu Sans Mono";
+            package = pkgs.dejavu_fonts;
+          };
+        };
+        serif = mkOption {
+          description = "Serif font.";
+          type = fontType;
+          default = {
+            name = "DejaVu Serif";
+            package = pkgs.dejavu_fonts;
+          };
+        };
+
+        sansSerif = mkOption {
+          description = "Sans-serif font.";
+          type = fontType;
+          default = {
+            name = "DejaVu Sans";
+            package = pkgs.dejavu_fonts;
+          };
+        };
+
+        emoji = mkOption {
+          description = "Emoji font.";
+          type = fontType;
+          default = {
+            name = "Noto Color Emoji";
+            package = pkgs.noto-fonts-emoji;
+          };
+        };
+        packages = mkOption {
+          description = "Additional font packages.";
+          type = types.listOf types.package;
+          default = [ ];
+        };
+      };
   };
 }

@@ -2,7 +2,6 @@
   pkgs,
   inputs,
   config,
-  lib,
   ...
 }:
 {
@@ -11,11 +10,15 @@
     ../standard.nix
   ];
 
-  home-manager.users.${config.syde.user} = { pkgs, ... }: {
-    imports = [
-      ../../home-manager/devices/perdix.nix
-    ];
-  };
+  # home-manager = {
+  #   useUserPackages = true;
+  #   useGlobalPkgs = true;
+  #   backupFileExtension = "bak";
+  #   extraSpecialArgs = {
+  #     inherit inputs outputs;
+  #   };
+  #   users.${config.syde.user} = import ../../home-manager/devices/perdix.nix;
+  # };
 
   # Personal configurations
   syde = {
@@ -39,17 +42,17 @@
 
   programs = {
     nh.enable = true;
-    kdeconnect.enable = true;
+    kdeconnect.enable = false;
     sway.enable = false;
     hyprland.enable = true;
   };
 
   services = {
+    languagetool.enable = true;
     ollama.enable = true;
     tailscale.enable = true;
     syncthing.enable = true;
   };
-
 
   powerManagement.cpuFreqGovernor = "ondemand";
 

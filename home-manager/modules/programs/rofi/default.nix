@@ -7,14 +7,15 @@
 let
   inherit (lib) mkDefault mkForce mkIf;
   cfg = config.programs.rofi;
-  colors = config.colorScheme.palette;
+  palette = config.syde.theming.palette-hex;
   terminal = config.syde.terminal;
+  font = config.syde.theming.fonts.sansSerif;
 in
 {
   config = mkIf cfg.enable {
     programs.rofi = {
       package = mkDefault pkgs.rofi-wayland;
-      font = mkDefault terminal.font;
+      font = mkForce font.name;
       terminal = terminal.emulator;
       theme = mkForce "custom_base16";
       extraConfig = {
@@ -24,31 +25,29 @@ in
         drun-display-format = "{icon} {name}";
         disable-history = false;
         hide-scrollbar = true;
-        sidebar-mode = true;
+        sidebar-mode = false;
         display-drun = "   Apps ";
         display-run = "   Run ";
       };
     };
 
-    home.file = {
-      "${config.xdg.configHome}/rofi/custom_base16.rasi".text =
-        with colors;
-        ''
-          * {
-              bg-col:  #${base00};
-              bg-col-light: #${base00};
-              border-col: #${base00};
-              selected-col: #${base00};
-              blue: #${base0D};
-              fg-col: #${base05};
-              fg-col2: #${base08};
-              grey: #${base04};
+    xdg.configFile."rofi/custom_base16.rasi".text =
+      with palette;
+      ''
+        * {
+            bg-col:  ${base00};
+            bg-col-light: ${base00};
+            border-col: ${base00};
+            selected-col: ${base00};
+            blue: ${base0D};
+            fg-col: ${base05};
+            fg-col2: ${base08};
+            grey: ${base04};
 
-              width: 600;
-              font: "${terminal.font} 14";
-          }
-        ''
-        + builtins.readFile ./rofi-theme.rasi;
-    };
+            width: 600;
+            font: "${font.name} 14";
+        }
+      ''
+      + builtins.readFile ./rofi-theme.rasi;
   };
 }

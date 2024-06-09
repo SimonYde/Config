@@ -2,16 +2,14 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
-  inherit (builtins) readFile;
   inherit (lib) mkIf;
   colorScheme = config.colorScheme;
   palette = colorScheme.palette;
   slug = colorScheme.slug;
-  random_background = pkgs.callPackage ./ran_bg.nix { slug = slug; };
+  random-background = pkgs.callPackage ./ran_bg.nix { slug = slug; };
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
   browser = config.syde.browser;
@@ -22,7 +20,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       swww # Background daemon
-      random_background # random background script
+      random-background # random background script
       hyprland-gamemode # disable hyprland animations for games
       playerctl # media keys
       pamixer # volume keys
@@ -68,8 +66,9 @@ in
         misc.disable_hyprland_logo = true;
 
         input = {
-          kb_layout = "us(colemak_dh),dk";
-          kb_options = "caps:escape";
+          kb_layout = "us(colemak_dh),eu";
+          kb_options = "caps:escape,grp:rctrl_toggle";
+          resolve_binds_by_sym = true;
           repeat_delay = 200;
           follow_mouse = 2;
           accel_profile = "flat";
@@ -95,7 +94,7 @@ in
         };
 
         xwayland = {
-
+          force_zero_scaling = true;
         };
 
         animations = {
@@ -139,16 +138,18 @@ in
           "blueman-applet"
           "${pkgs.swww}/bin/swww-daemon"
           "[workspace 1] obsidian"
-          "${random_background}/bin/ran_bg"
+          "${random-background}/bin/ran_bg"
         ];
       };
-      extraConfig = readFile ./devices.conf + readFile ./keybindings.conf + readFile ./windowrules.conf;
+      extraConfig = ''
+        source = ~/.config/hypr/devices.conf
+        source = ~/.config/hypr/keybindings.conf
+        source = ~/.config/hypr/windowrules.conf
+      '';
 
       plugins = [
         # inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
       ];
     };
   };
-
-  imports = [ inputs.hyprland.homeManagerModules.default ];
 }

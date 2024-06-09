@@ -1,32 +1,58 @@
 {
   lib,
   inputs,
-  pkgs,
   config,
+  pkgs,
   ...
 }:
 
 let
   inherit (lib) mkOption types;
   user = config.syde.user;
-  agenix = inputs.agenix;
-  home-manager = inputs.home-manager;
-  system = pkgs.system;
 in
 {
   config = {
-    nixpkgs.overlays = [ inputs.nix-ld-rs.overlays.default ];
+    nixpkgs.overlays = [
+      inputs.nur.overlay
+      inputs.helix.overlays.default
+      inputs.neovim-nightly.overlays.default
+      inputs.rustaceanvim.overlays.default
+      (final: prev: {
+        stable = import inputs.stable {
+          system = prev.system;
+          config = prev.config;
+        };
+        grawlix = prev.callPackage ../home-manager/packages/grawlix.nix { };
+        pix2tex = inputs.pix2tex.packages.${prev.system}.default;
+        kattis-cli = prev.callPackage ../home-manager/packages/kattis-cli.nix { };
+        kattis-test = prev.callPackage ../home-manager/packages/kattis-test.nix { };
+        vimPlugins = prev.vimPlugins // {
+          mini-nvim = prev.vimUtils.buildVimPlugin {
+            version = "nightly";
+            pname = "mini-nvim";
+            src = inputs.mini-nvim;
+          };
+          neogit = prev.vimUtils.buildVimPlugin {
+            version = "nightly";
+            pname = "neogit";
+            src = inputs.neogit-nightly;
+          };
+        };
+      })
+
+      inputs.nix-ld-rs.overlays.default
+    ];
 
     environment.systemPackages = [
-      (agenix.packages.${system}.default.override { ageBin = "${pkgs.rage}/bin/rage"; })
+      (inputs.agenix.packages.${pkgs.system}.default.override { ageBin = "${pkgs.rage}/bin/rage"; })
     ];
 
     age.secrets.wireguard.file = ../secrets/wireguard.age;
     age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
   };
   imports = [
-    agenix.nixosModules.default
-    home-manager.nixosModules.default
+    inputs.agenix.nixosModules.default
+    # home-manager.nixosModules.default
     ./modules/gaming.nix
     ./modules/pc.nix
     ./modules/wsl.nix

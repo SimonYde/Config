@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -18,6 +17,7 @@ in
         common.default = [
           "gtk"
           "hyprland"
+          "*"
         ];
       };
       extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
@@ -52,19 +52,6 @@ in
     ];
 
     systemd = mkIf config.security.polkit.enable {
-      # user.services.polkit-kde-authentication-agent-1 = {
-      #   description = "polkit-kde-authentication-agent-1";
-      #   wantedBy = [ "graphical-session.target" ];
-      #   wants = [ "graphical-session.target" ];
-      #   after = [ "graphical-session.target" ];
-      #   serviceConfig = {
-      #     Type = "simple";
-      #     ExecStart = "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-      #     Restart = "on-failure";
-      #     RestartSec = 1;
-      #     TimeoutStopSec = 10;
-      #   };
-      # };
       user.services.polkit-gnome-authentication-agent-1 = {
         description = "polkit-gnome-authentication-agent-1";
         wantedBy = [ "graphical-session.target" ];
@@ -80,6 +67,4 @@ in
       };
     };
   };
-
-  imports = [ inputs.hyprland.nixosModules.default ];
 }
