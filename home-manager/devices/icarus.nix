@@ -5,15 +5,18 @@
   };
 
   syde.programs = {
-    thunar.enable = true;
+    thunar = {
+      defaultFilemanager = false;
+      enable = false;
+    };
   };
 
   syde = {
-    terminal.enable = true;
+    email.enable = false;
     programming.enable = true;
-    theming.enable = true;
     ssh.enable = true;
-    fonts.enable = true;
+    terminal.enable = true;
+    theming.enable = true;
   };
 
   home.shellAliases = {

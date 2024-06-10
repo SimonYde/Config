@@ -12,36 +12,38 @@ let
 in
 {
   config = {
-    nixpkgs.overlays = [
-      inputs.nur.overlay
-      inputs.helix.overlays.default
-      inputs.neovim-nightly.overlays.default
-      inputs.rustaceanvim.overlays.default
-      (final: prev: {
-        stable = import inputs.stable {
-          system = prev.system;
-          config = prev.config;
-        };
-        grawlix = prev.callPackage ../home-manager/packages/grawlix.nix { };
-        pix2tex = inputs.pix2tex.packages.${prev.system}.default;
-        kattis-cli = prev.callPackage ../home-manager/packages/kattis-cli.nix { };
-        kattis-test = prev.callPackage ../home-manager/packages/kattis-test.nix { };
-        vimPlugins = prev.vimPlugins // {
-          mini-nvim = prev.vimUtils.buildVimPlugin {
-            version = "nightly";
-            pname = "mini-nvim";
-            src = inputs.mini-nvim;
+    nixpkgs = {
+      overlays = [
+        inputs.nur.overlay
+        inputs.helix.overlays.default
+        inputs.neovim-nightly.overlays.default
+        inputs.rustaceanvim.overlays.default
+        (final: prev: {
+          stable = import inputs.stable {
+            system = prev.system;
+            config = prev.config;
           };
-          neogit = prev.vimUtils.buildVimPlugin {
-            version = "nightly";
-            pname = "neogit";
-            src = inputs.neogit-nightly;
+          grawlix = prev.callPackage ../home-manager/packages/grawlix.nix { };
+          pix2tex = inputs.pix2tex.packages.${prev.system}.default;
+          kattis-cli = prev.callPackage ../home-manager/packages/kattis-cli.nix { };
+          kattis-test = prev.callPackage ../home-manager/packages/kattis-test.nix { };
+          vimPlugins = prev.vimPlugins // {
+            mini-nvim = prev.vimUtils.buildVimPlugin {
+              version = "nightly";
+              pname = "mini-nvim";
+              src = inputs.mini-nvim;
+            };
+            neogit = prev.vimUtils.buildVimPlugin {
+              version = "nightly";
+              pname = "neogit";
+              src = inputs.neogit-nightly;
+            };
           };
-        };
-      })
+        })
 
-      inputs.nix-ld-rs.overlays.default
-    ];
+        inputs.nix-ld-rs.overlays.default
+      ];
+    };
 
     environment.systemPackages = [
       (inputs.agenix.packages.${pkgs.system}.default.override { ageBin = "${pkgs.rage}/bin/rage"; })

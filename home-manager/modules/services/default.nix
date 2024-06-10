@@ -1,10 +1,11 @@
 { ... }:
 {
   imports = [
-    ./redshift.nix
-    ./gammastep.nix
     ./dunst.nix
+    ./gammastep.nix
     ./kdeconnect.nix
+    ./redshift.nix
+    ./swaync.nix
     ./udiskie.nix
   ];
 }

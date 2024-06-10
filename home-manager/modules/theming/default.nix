@@ -37,6 +37,7 @@ let
     variant = flavour;
   };
   catppuccin-gtk-theme = "Catppuccin-${flavourUpper}-${sizeUpper}-${accentUpper}-${variantUpper}";
+  is_catppuccin = (head (splitString "-" slug)) == "catppuccin";
 
   cfg = config.syde.theming;
 in
@@ -92,10 +93,11 @@ in
       ];
     };
 
-    syde.theming.gtk = mkIf ((head (splitString "-" slug)) == "catppuccin") {
+    syde.theming.gtk = mkIf is_catppuccin {
       package = catppuccin-gtk-package;
       theme = catppuccin-gtk-theme;
     };
+    programs.neovim.plugins = with pkgs.vimPlugins; mkIf is_catppuccin [ catppuccin-nvim ];
   };
 
   options.syde.theming = {

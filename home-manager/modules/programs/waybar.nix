@@ -18,7 +18,14 @@ in
       mainBar = {
         layer = "top";
         position = "top";
-        height = 25;
+        # height = 25;
+        margin-left = 8;
+        margin-right = 8;
+        ipc = true;
+        passthrough = false;
+        exclusive = true;
+        fixed-center = true;
+        spacing = 3;
         output = [ "*" ];
         modules-left = [
           "hyprland/workspaces#icons"
@@ -33,13 +40,20 @@ in
         ];
         modules-right = [
           "pulseaudio"
-          # "network"
+          "custom/separator#blank"
           "disk"
+          "custom/separator#blank"
           "memory"
+          "custom/separator#blank"
           "cpu"
+          "custom/separator#blank"
           "battery"
+          "custom/separator#blank"
           "tray"
+          "custom/separator#blank"
           "clock"
+          "custom/separator#blank"
+          "custom/swaync"
         ];
 
         # module definitions
@@ -109,6 +123,27 @@ in
           };
         };
 
+        "custom/swaync" = {
+          tooltip = true;
+          format = "{icon} {}";
+          format-icons = {
+            notification = "<span foreground='red'><sup></sup></span>";
+            none = "";
+            dnd-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-none = "";
+            inhibited-notification = "<span foreground='red'><sup></sup></span>";
+            inhibited-none = "";
+            dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-inhibited-none = "";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "sleep 0.1 && swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
+        };
+
         network = {
           format-wifi = "{essid} ({signalStrength}%) ";
           format-ethernet = "{ipaddr}/{cidr} 󰈀";
@@ -143,6 +178,13 @@ in
             "󰁹"
           ];
         };
+
+        "custom/separator#blank" = {
+          format = "";
+          interval = "once";
+          tooltip = false;
+        };
+
         pulseaudio = {
           scroll-step = 10; # %, can be a float
           format = "{volume}% {icon} {format_source}";
@@ -174,7 +216,6 @@ in
       with palette;
       let
         bg = "rgba(${hexToRGBString base00},0.7)";
-        margin = "6px";
         font-size = "15px";
         padding = "12px";
       in
@@ -196,9 +237,12 @@ in
             color: #${base05};
         }
 
+        #blank {
+          background: transparent;
+          color: transparent;
+        }
+
         #workspaces {
-            margin-left: ${margin};
-            margin-right: ${margin};
             transition: none;
             background: ${bg};
         }
@@ -207,7 +251,6 @@ in
             transition: none;
             color: #${base0D};
             background: transparent;
-            margin-top: 0;
             font-size: ${font-size};
         }
 
@@ -240,7 +283,6 @@ in
 
 
         #pulseaudio {
-            margin-right: ${margin};
             padding-left: ${padding};
             padding-right: ${padding};
             transition: none;
@@ -256,14 +298,12 @@ in
         #memory, #cpu, #disk {
             padding-left: ${padding};
             padding-right: ${padding};
-            margin-right: ${margin};
             transition: none;
             color: #${base05};
             background: ${bg};
         }
 
         #battery {
-            margin-right: ${margin};
             padding-left: ${padding};
             padding-right: ${padding};
             transition: none;
@@ -291,6 +331,11 @@ in
             animation-direction: alternate;
         }
 
+        #custom-swaync {
+            background: ${bg};
+            color: #${base05};
+        }
+
         #tray {
             padding-left: ${padding};
             padding-right: ${padding};
@@ -300,10 +345,8 @@ in
         }
 
         #clock {
-            margin-left: ${margin};
             padding-left: ${padding};
             padding-right: ${padding};
-            margin-right: ${margin};
             transition: none;
             color: #${base05};
             background: ${bg};
@@ -325,7 +368,6 @@ in
         }
 
         #keyboard-state {
-            margin-right: ${margin};
             padding-right: ${padding};
             transition: none;
             color: #${base05};

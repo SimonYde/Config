@@ -1,3 +1,14 @@
+vim.opt.laststatus = 3     -- global statusline
+vim.opt.cmdheight = 0
+vim.opt.hlsearch = true
+
+local lualine = Load.now(function()
+    local lualine = require('lualine')
+    lualine.setup {}
+    return lualine
+end)
+if lualine then return end
+
 Load.now(function()
     local MiniStatusline = require('mini.statusline')
     local section_macro_recording = function()
@@ -78,7 +89,7 @@ Load.now(function()
                 local info          = diagnostic_level('INFO', ' ')
                 local macro         = section_macro_recording()
                 local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
-                local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75, options = { recompute = false } })
+                local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
                 local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
                 local location      = MiniStatusline.section_location({ trunc_width = 75 })
                 local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
@@ -102,11 +113,6 @@ Load.now(function()
         },
         set_vim_settings = false,
     }
-
-    vim.opt.laststatus = 3 -- global statusline
-    vim.opt.cmdheight = 0
-    vim.opt.hlsearch = true
-
     -- local group = vim.api.nvim_create_augroup("StatusLineCmdLine", { clear = true })
     -- vim.api.nvim_create_autocmd("CmdlineEnter", {
     --     group = group,

@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  syde.unfreePredicates = [
-    "enhancer-for-youtube"
-    "lastpass-password-manager"
-  ];
   programs.firefox = {
     profiles.syde = {
       name = "syde";
