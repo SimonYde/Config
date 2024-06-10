@@ -66,10 +66,6 @@ in
   };
 
   options.syde = {
-    unfreePredicates = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-    };
     browser = mkOption {
       type = types.enum [
         "firefox"

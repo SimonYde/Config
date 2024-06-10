@@ -40,7 +40,7 @@
           };
         })
       ];
-      config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.syde.unfreePredicates;
+      config.allowUnfreePredicate = _: true;
       config.permittedInsecurePackages = [ ];
     };
   };

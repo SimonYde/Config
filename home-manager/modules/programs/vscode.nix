@@ -11,7 +11,6 @@
       ms-toolsai.jupyter-renderers
       ms-toolsai.jupyter-keymap
 
-      # Unfree
       github.copilot
       ms-python.python
       ms-python.vscode-pylance
@@ -45,8 +44,4 @@
 
     # userSettings = builtins.fromJSON (builtins.readFile ../../dotfiles/.config/Code/User/settings.json);
   };
-  syde.unfreePredicates = [
-    "vscode-extension-github-copilot"
-    "vscode-extension-MS-python-vscode-pylance"
-  ];
 }

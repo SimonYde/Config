@@ -5,10 +5,6 @@
   ...
 }:
 let
-  inherit (builtins) head;
-  inherit (lib) splitString;
-
-  is_catppuccin = (head (splitString "-" config.colorScheme.slug)) == "catppuccin";
   mapLazy = map (pkg: {
     plugin = pkg;
     optional = true;
@@ -86,44 +82,40 @@ in
           nvim-treesitter-textobjects
           nvim-treesitter-context
           rainbow-delimiters-nvim
-        ]
-        ++ (if is_catppuccin then [ catppuccin-nvim ] else [ ]);
+        ];
 
-      extraLuaConfig = with config.colorScheme.palette; ''
+      extraLuaConfig = with config.syde.theming.palette-hex; ''
         vim.loader.enable()
         require('syde.load').setup()
         VARIANT = "${config.colorScheme.variant}"
         PALETTE = {
-          base00 = "#${base00}",
-          base01 = "#${base01}",
-          base02 = "#${base02}",
-          base03 = "#${base03}",
-          base04 = "#${base04}",
-          base05 = "#${base05}",
-          base06 = "#${base06}",
-          base07 = "#${base07}",
-          base08 = "#${base08}",
-          base09 = "#${base09}",
-          base0A = "#${base0A}",
-          base0B = "#${base0B}",
-          base0C = "#${base0C}",
-          base0D = "#${base0D}",
-          base0E = "#${base0E}",
-          base0F = "#${base0F}",
+          base00 = "${base00}",
+          base01 = "${base01}",
+          base02 = "${base02}",
+          base03 = "${base03}",
+          base04 = "${base04}",
+          base05 = "${base05}",
+          base06 = "${base06}",
+          base07 = "${base07}",
+          base08 = "${base08}",
+          base09 = "${base09}",
+          base0A = "${base0A}",
+          base0B = "${base0B}",
+          base0C = "${base0C}",
+          base0D = "${base0D}",
+          base0E = "${base0E}",
+          base0F = "${base0F}",
         }
         require('syde')
       '';
       extraPackages =
-        with pkgs;
         let
           packages = [ ];
         in
-        if builtins.elem vimPlugins.copilot-lua cfg.plugins then
+        if builtins.elem pkgs.vimPlugins.copilot-lua cfg.plugins then
           packages ++ [ pkgs.nodejs-slim_20 ]
         else
           packages;
     };
-
-    syde.unfreePredicates = [ "codeium" ];
   };
 }

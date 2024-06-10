@@ -41,8 +41,8 @@ in
     syde = {
       email.enable = false;
       programming.enable = true;
-      terminal.enable = true;
       ssh.enable = true;
+      terminal.enable = true;
       theming.enable = true;
     };
 
@@ -69,12 +69,6 @@ in
       rclone
 
       floorp
-    ];
-
-    syde.unfreePredicates = [
-      "discord"
-      "obsidian"
-      "bitwig-studio"
     ];
   };
 

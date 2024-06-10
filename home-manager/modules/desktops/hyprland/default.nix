@@ -46,7 +46,8 @@ in
     };
 
     services = {
-      dunst.enable = true;
+      dunst.enable = false;
+      swaync.enable = true;
     };
 
     wayland.windowManager.hyprland = {
