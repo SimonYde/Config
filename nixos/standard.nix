@@ -13,6 +13,7 @@ in
 {
   config = {
     nixpkgs = {
+      config.allowUnfree = true;
       overlays = [
         inputs.nur.overlay
         inputs.helix.overlays.default

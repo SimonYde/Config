@@ -76,9 +76,6 @@
 
   virtualisation.docker.enable = true;
 
-  # AMD cpu
-  boot.kernelModules = [ "kvm-amd" ];
-
   # Filesystems
   boot.initrd.luks.devices."luks-8c2b7981-b3e3-470e-aae7-2834b1352fa5".device = "/dev/disk/by-uuid/8c2b7981-b3e3-470e-aae7-2834b1352fa5";
   fileSystems."/boot" = {
