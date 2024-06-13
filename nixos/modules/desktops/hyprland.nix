@@ -39,7 +39,7 @@ in
     security.pam.services.hyprlock = { }; # hyprlock cannot unlock otherwise, see nixpkgs#89019
 
     environment.sessionVariables = {
-      WLR_NO_HARDWARE_CURSORS = "1";
+      # WLR_NO_HARDWARE_CURSORS = "1";
       WLR_DRM_NO_ATOMIC = "1"; # Tearing support, may not be needed in the future, see hyprland docs
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";

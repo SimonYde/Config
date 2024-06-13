@@ -8,8 +8,8 @@ in
     boot.blacklistedKernelModules = [ "nouveau" ];
 
     hardware.nvidia = {
-      powerManagement.enable = true;
-      powerManagement.finegrained = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
       modesetting.enable = true;
       open = false;
       nvidiaSettings = false;
@@ -20,10 +20,11 @@ in
     hardware.opengl.enable = true;
 
     environment.sessionVariables = {
-      # LIBVA_DRIVER_NAME = "nvidia";
-      # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      # __GL_VRR_ALLOWED = "1";
-      # WLR_DRM_NO_ATOMIC = "1";
+      LIBVA_DRIVER_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      __GL_VRR_ALLOWED = "1";
+      WLR_DRM_NO_ATOMIC = "1";
     };
   };
 

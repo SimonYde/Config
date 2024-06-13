@@ -119,12 +119,15 @@ in
         };
 
         monitor = [
-          "eDP-1, 1920x1080, 0x0, 1"
+          "desc:Lenovo Group Limited L24i-10 U3P0M4Y1, 1920x1080@60, -1920x0, 1"
+          "desc:ASUSTek COMPUTER INC VG27A M1LMQS176051, 2560x1440@165, 0x0, 1"
+          "desc:Philips Consumer Electronics Company PHL 243V7 UK02030003208, 1920x1080@75, 2560x0, 1"
           "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x-1080, 1"
           "desc:Dell Inc. DELL U2722D 5TNW7P3, 2560x1440@60, 0x-1440, 1"
           "desc:HP Inc. HP E273q 6CM9191YW0, 2560x1440@60, 0x-1440, 1,transform,0"
           "desc:HP Inc. HP E273q 6CM9191ZBN, 2560x1440@60, 0x-1440, 1,transform,0"
           "desc:HP Inc. HP E273q 6CM9191ZBQ, 2560x1440@60, 0x-1440, 1,transform,0" # I hate this
+          "eDP-1, 1920x1080, 0x0, 1"
           ",preferred,auto,1,transform,0"
         ];
 

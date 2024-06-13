@@ -1,12 +1,6 @@
+{ pkgs, config, ... }:
 {
-  pkgs,
-  config,
-  ...
-}:
-{
-  imports = [
-    ../standard.nix
-  ];
+  imports = [ ../standard.nix ];
 
   # home-manager = {
   #   useUserPackages = true;
@@ -23,6 +17,7 @@
     ssh.enable = true;
     laptop.enable = false;
     pc.enable = true;
+    pc.keyboard.layout = "eu";
     gaming.enable = true;
     hardware = {
       nvidia.enable = true;
@@ -48,9 +43,9 @@
 
   services = {
     languagetool.enable = true;
-    ollama.enable = true;
+    ollama.enable = false;
     tailscale.enable = true;
-    syncthing.enable = true;
+    syncthing.enable = false;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
@@ -75,16 +70,22 @@
 
   virtualisation.docker.enable = false;
   # # Filesystems
-  # boot.initrd.luks.devices."luks-8c2b7981-b3e3-470e-aae7-2834b1352fa5".device = "/dev/disk/by-uuid/8c2b7981-b3e3-470e-aae7-2834b1352fa5";
-  # fileSystems."/boot" = {
-  #   device = "/dev/disk/by-label/SYSTEM_DRV";
-  #   fsType = "vfat";
-  # };
-  #
-  # fileSystems."/" = {
-  #   device = "/dev/disk/by-label/nixos";
-  #   fsType = "ext4";
-  # };
-  #
-  # swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/e37c4644-2a85-4cfd-adaf-87961ad57a72";
+    fsType = "ext4";
+  };
+
+  boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device = "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/157E-B4A5";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
+
+  swapDevices = [ { device = "/dev/disk/by-uuid/73f31fb0-74eb-4d36-a061-0f1c760a157f"; } ];
 }
