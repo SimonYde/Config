@@ -2,16 +2,17 @@
 {
   imports = [ ../standard.nix ];
 
-  programs.nh.enable = true;
-
   syde = {
     ssh.enable = true;
     wsl.enable = true;
   };
 
-  nixpkgs.config.allowUnfree = true;
+  programs = {
+    nh.enable = true;
+  };
 
   services = {
+    languagetool.enable = true;
     ollama.enable = true;
     syncthing.enable = true;
     tailscale.enable = true;
