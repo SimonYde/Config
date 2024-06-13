@@ -332,6 +332,9 @@ in
         }
 
         #custom-swaync {
+            padding-left: ${padding};
+            padding-right: ${padding};
+            transition: none;
             background: ${bg};
             color: #${base05};
         }

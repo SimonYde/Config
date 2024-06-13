@@ -23,13 +23,13 @@ in
       indicator-radius = 200;
       indicator-thickness = 20;
 
-      color = base00;
+      color = "${base00}33";
 
       bs-hl-color = base08;
-      inside-clear-color = base00;
-      inside-color = base00;
-      inside-ver-color = base00;
-      inside-wrong-color = base00;
+      inside-clear-color = "${base00}33";
+      inside-color = "${base00}33";
+      inside-ver-color = "${base00}33";
+      inside-wrong-color = "${base00}33";
       key-hl-color = base0B;
       line-color = base0D;
       ring-color = base0D;

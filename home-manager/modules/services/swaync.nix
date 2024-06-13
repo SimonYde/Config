@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.swaync;
@@ -80,7 +80,7 @@ in
           buttons-grid = {
             actions = [
               {
-                label = " ";
+                label = "";
                 command = "amixer set Master toggle";
               }
               {
@@ -88,11 +88,11 @@ in
                 command = "amixer set Capture toggle";
               }
               {
-                label = " ";
-                command = "nm-connection-editor";
+                label = "";
+                command = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
               }
               {
-                label = "󰂯";
+                label = "";
                 command = "blueman-manager";
               }
             ];
@@ -102,9 +102,9 @@ in
       style = with theming.palette-hex; ''
         @define-color background      ${base00};
         @define-color text            ${base05};
-        @define-color background-alt  ${base01};
+        @define-color background-alt  alpha(${base01}, .4);
         @define-color selected        ${base04};
-        @define-color hover           ${base03};
+        @define-color hover           alpha(@selected, .4);
         @define-color urgent          ${base08};
 
         * {
@@ -123,7 +123,7 @@ in
         }
 
         .floating-notifications.background .notification-row .notification-background {
-          background: alpha(@background, .55);
+          background: alpha(@background, .75);
           box-shadow: 0 0 8px 0 rgba(0,0,0,.6);
           border: 1px solid @selected;
           border-radius: 24px;
@@ -204,21 +204,6 @@ in
           background-color: @selected;
         }
 
-        @define-color text            @foreground;
-        @define-color background-alt  alpha(${base01}, .4);
-        @define-color selected        ${base04};
-        @define-color hover           alpha(@selected, .4);
-        @define-color urgent          ${base08};
-
-        * {
-          color:            @text;
-
-          all: unset;
-          font-size: 14px;
-          font-family: "JetBrains Mono Nerd Font 10";
-          transition: 200ms;
-
-        }
 
         /* Avoid 'annoying' backgroud */
         .blank-window {
@@ -228,7 +213,7 @@ in
         /* CONTROL CENTER ------------------------------------------------------------------------ */
 
         .control-center {
-          background: alpha(@background, .55);
+          background: alpha(@background, .75);
           border-radius: 24px;
           border: 1px solid @selected;
           box-shadow: 0 0 10px 0 rgba(0,0,0,.6);
@@ -280,7 +265,7 @@ in
           border-radius: 6px;
           color: @text;
           margin: 0px;
-          padding: 4px;
+          padding: 6px;
         }
 
         .control-center .notification-row .notification-background .close-button:hover {
