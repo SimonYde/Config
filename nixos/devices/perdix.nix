@@ -28,7 +28,8 @@
     gaming.enable = true;
     hardware = {
       nvidia.enable = true;
-      amdgpu.enable = true;
+      amd.cpu.enable = true;
+      amd.gpu.enable = true;
     };
   };
 

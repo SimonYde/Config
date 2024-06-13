@@ -114,6 +114,13 @@
     }@inputs:
     {
       nixosConfigurations = {
+        icarus-wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./nixos/devices/icarus-wsl.nix ];
+        };
         icarus = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
@@ -131,7 +138,8 @@
       };
 
       homeConfigurations = rec {
-        "syde@icarus" = icarus;
+        "syde@icarus-wsl" = icarus;
+        "syde@icarus" = perdix;
         "syde@perdix" = perdix;
         icarus = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
