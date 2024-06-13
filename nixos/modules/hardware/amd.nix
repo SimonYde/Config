@@ -5,12 +5,12 @@
   ...
 }:
 let
-  inherit (lib) mkEnableOption optionalAttrs;
+  inherit (lib) mkEnableOption mkMerge mkIf;
   cfg = config.syde.hardware.amd;
 in
 {
-  config =
-    optionalAttrs (cfg.gpu.enable) {
+  config = mkMerge [
+    (mkIf cfg.gpu.enable {
       boot.initrd.kernelModules = [ "amdgpu" ];
       services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -18,15 +18,16 @@ in
         opengl = {
           enable = true;
           driSupport32Bit = true;
-          extraPackages = with pkgs; [ amdvlk ];
-          extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+          extraPackages = [ pkgs.amdvlk ];
+          extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
         };
       };
-    }
-    // optionalAttrs (cfg.cpu.enable) {
+    })
+    (mkIf cfg.cpu.enable {
       # Virtualization support
       boot.kernelModules = [ "kvm-amd" ];
-    };
+    })
+  ];
 
   options.syde.hardware.amd = {
     gpu = {
