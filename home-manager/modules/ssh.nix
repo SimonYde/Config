@@ -19,7 +19,7 @@ in
       enableZshIntegration = true;
       enableFishIntegration = true;
       enableNushellIntegration = true;
-      pinentryPackage = pkgs.pinentry-qt;
+      pinentryPackage = pkgs.pinentry-gtk2;
     };
   };
 

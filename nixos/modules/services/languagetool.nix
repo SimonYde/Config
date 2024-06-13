@@ -4,7 +4,7 @@
 {
   services.languagetool = {
     port = 8081;
-    public = false;
+    public = true;
     allowOrigin = "*";
     settings = {
     };
