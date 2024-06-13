@@ -1,24 +1,19 @@
-{
-  lib,
-  inputs,
-  config,
-  pkgs,
-  ...
-}:
+{ lib, inputs, ... }:
 
 let
   inherit (lib) mkOption types;
-  user = config.syde.user;
 in
 {
   config = {
     nixpkgs = {
       config.allowUnfree = true;
       overlays = [
-        inputs.nur.overlay
         inputs.helix.overlays.default
         inputs.neovim-nightly.overlays.default
+        inputs.nix-ld-rs.overlays.default
+        inputs.nur.overlay
         inputs.rustaceanvim.overlays.default
+
         (final: prev: {
           stable = import inputs.stable {
             system = prev.system;
@@ -41,22 +36,13 @@ in
             };
           };
         })
-
-        inputs.nix-ld-rs.overlays.default
       ];
     };
-
-    environment.systemPackages = [
-      (inputs.agenix.packages.${pkgs.system}.default.override { ageBin = "${pkgs.rage}/bin/rage"; })
-    ];
-
-    age.secrets.wireguard.file = ../secrets/wireguard.age;
-    age.identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
   };
   imports = [
-    inputs.agenix.nixosModules.default
     # home-manager.nixosModules.default
     ./modules/gaming.nix
+    ./modules/agenix.nix
     ./modules/pc.nix
     ./modules/wsl.nix
     ./modules/desktops
