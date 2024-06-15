@@ -18,13 +18,18 @@ in
         opengl = {
           enable = true;
           driSupport32Bit = true;
-          extraPackages = [ pkgs.amdvlk ];
+          extraPackages = with pkgs; [
+            rocm-opencl-runtime
+            rocm-opencl-icd
+            amdvlk
+          ];
           extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
         };
       };
     })
     (mkIf cfg.cpu.enable {
       # Virtualization support
+      hardware.cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
       boot.kernelModules = [ "kvm-amd" ];
     })
   ];

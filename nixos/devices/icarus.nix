@@ -1,16 +1,16 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   imports = [ ../standard.nix ];
 
-  # home-manager = {
-  #   useUserPackages = true;
-  #   useGlobalPkgs = true;
-  #   backupFileExtension = "bak";
-  #   extraSpecialArgs = {
-  #     inherit inputs outputs;
-  #   };
-  #   users.${config.syde.user} = import ../../home-manager/devices/perdix.nix;
-  # };
+  environment.systemPackages = with pkgs; [
+    gparted
+    kdePackages.partitionmanager
+  ];
 
   # Personal configurations
   syde = {
@@ -20,9 +20,14 @@
     pc.keyboard.layout = "eu";
     gaming.enable = true;
     hardware = {
-      nvidia.enable = true;
-      amd.cpu.enable = true;
-      amd.gpu.enable = false;
+      nvidia = {
+        enable = true;
+        dedicated = true;
+      };
+      amd = {
+        cpu.enable = true;
+        gpu.enable = false;
+      };
     };
   };
 
@@ -45,7 +50,7 @@
     languagetool.enable = true;
     ollama.enable = false;
     tailscale.enable = true;
-    syncthing.enable = false;
+    syncthing.enable = true;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
@@ -87,5 +92,6 @@
     ];
   };
 
-  swapDevices = [ { device = "/dev/disk/by-uuid/73f31fb0-74eb-4d36-a061-0f1c760a157f"; } ];
+  swapDevices = lib.mkForce [ ];
+  # [ { device = "/dev/disk/by-uuid/73f31fb0-74eb-4d36-a061-0f1c760a157f"; } ];
 }

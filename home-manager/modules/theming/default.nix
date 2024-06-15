@@ -66,6 +66,13 @@ in
     gtk.enable = true;
     qt.enable = true;
 
+    home.pointerCursor = {
+      package = cfg.cursor.package;
+      name = cfg.cursor.name;
+      size = 24;
+      gtk.enable = true;
+    };
+
     syde.theming.fonts = {
       monospace = {
         name = "JetBrains Mono Nerd Font Mono";
@@ -123,7 +130,7 @@ in
     cursor = {
       name = mkOption {
         type = types.str;
-        default = "Catppuccin-Mocha-Dark-Cursors";
+        default = "catppuccin-mocha-dark-cursors";
       };
       package = mkOption {
         type = types.package;

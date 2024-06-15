@@ -138,8 +138,8 @@
       };
 
       homeConfigurations = rec {
-        "syde@icarus-wsl" = icarus;
-        "syde@icarus" = perdix;
+        "syde@icarus-wsl" = icarus-wsl;
+        "syde@icarus" = icarus;
         "syde@perdix" = perdix;
         icarus = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages."x86_64-linux";
@@ -149,6 +149,16 @@
           modules = [
             ./home-manager/standalone.nix
             ./home-manager/devices/icarus.nix
+          ];
+        };
+        icarus-wsl = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home-manager/standalone.nix
+            ./home-manager/devices/icarus-wsl.nix
           ];
         };
         perdix = home-manager.lib.homeManagerConfiguration {

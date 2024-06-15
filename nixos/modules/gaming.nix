@@ -5,11 +5,14 @@
   ...
 }:
 let
+  inherit (lib)
+    mkEnableOption
+    mkForce
+    mkIf
+    mkMerge
+    ;
   cfg = config.syde.gaming;
-in
-{
-  config.specialisation."gaming".configuration = lib.mkIf cfg.enable {
-    environment.etc."gaming".text = "gaming";
+  gamingConfig = {
     programs = {
       steam.enable = true;
       gamemode.enable = true;
@@ -20,10 +23,6 @@ in
       opengl = {
         driSupport32Bit = true;
         enable = true;
-        extraPackages = with pkgs; [
-          rocm-opencl-runtime
-          rocm-opencl-icd
-        ];
         extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
       };
     };
@@ -61,9 +60,22 @@ in
       pkgsi686Linux.mesa_drivers
     ];
 
-    powerManagement.cpuFreqGovernor = lib.mkForce "performance";
+    powerManagement.cpuFreqGovernor = mkForce "performance";
   };
+in
+{
+  config = mkMerge [
+    {
+      specialisation."gaming".configuration = mkIf (cfg.enable && cfg.specialisation) (mkMerge [
+        { environment.etc."gaming".text = "gaming"; }
+        gamingConfig
+      ]);
+    }
+    (mkIf (cfg.enable && !cfg.specialisation) gamingConfig)
+  ];
+
   options.syde.gaming = {
-    enable = lib.mkEnableOption "gaming configuration";
+    enable = mkEnableOption "gaming configuration";
+    specialisation = mkEnableOption "whether gaming configuration should be specialisation";
   };
 }

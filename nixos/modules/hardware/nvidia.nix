@@ -1,9 +1,10 @@
 { config, lib, ... }:
 let
+  inherit (lib) mkIf;
   cfg = config.syde.hardware.nvidia;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     boot.initrd.kernelModules = [ "nvidia" ];
     boot.blacklistedKernelModules = [ "nouveau" ];
 
@@ -19,16 +20,16 @@ in
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.opengl.enable = true;
 
-    environment.sessionVariables = {
+    environment.sessionVariables = mkIf cfg.dedicated {
       LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
       __GL_VRR_ALLOWED = "1";
-      WLR_DRM_NO_ATOMIC = "1";
     };
   };
 
   options.syde.hardware.nvidia = {
     enable = lib.mkEnableOption "Enable Nvidia driver configuration";
+    dedicated = lib.mkEnableOption "Nvidia GPU only";
   };
 }

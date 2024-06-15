@@ -63,6 +63,7 @@ in
         "application/x-lzma" = "${file-manager}.desktop";
         "inode/directory" = "${file-manager}.desktop";
       };
+    home.preferXdgDirectories = true;
   };
 
   options.syde = {

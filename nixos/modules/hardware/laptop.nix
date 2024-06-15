@@ -6,6 +6,11 @@
       powertop.enable = false;
     };
 
+    hardware.nvidia = {
+      powerManagement.enable = lib.mkForce true;
+      powerManagement.finegrained = lib.mkForce true;
+    };
+
     services.xserver.libinput = {
       enable = true;
       touchpad = {
