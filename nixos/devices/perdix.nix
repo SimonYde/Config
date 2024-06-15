@@ -26,6 +26,7 @@
     laptop.enable = true;
     pc.enable = true;
     gaming.enable = true;
+    gaming.specialisation = true;
     hardware = {
       nvidia.enable = true;
       amd.cpu.enable = true;

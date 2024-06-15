@@ -12,13 +12,14 @@ in
     programs = {
       # Browsers
       brave.enable = true;
-      firefox.enable = false;
+      firefox.enable = true;
 
       # Terminal emulators
       ${emulator}.enable = true;
 
       # other GUI programs
       vscode.enable = false;
+      emacs.enable = false;
       zathura.enable = true;
     };
 

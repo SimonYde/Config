@@ -2,7 +2,6 @@
 {
   programs = {
     zathura.enable = true;
-    zellij.package = pkgs.stable.zellij;
   };
 
   syde.programs = {

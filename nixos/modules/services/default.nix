@@ -8,7 +8,7 @@
     # Other
     ./languagetool.nix
     ./ssh.nix
-    # ./syncthing.nix
+    ./syncthing.nix
     ./ollama.nix
     ./tailscale.nix
     ./vscode-server.nix
