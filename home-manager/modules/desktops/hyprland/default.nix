@@ -47,6 +47,7 @@ in
 
     services = {
       dunst.enable = false;
+      hypridle.enable = true;
       swaync.enable = true;
     };
 
