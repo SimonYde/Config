@@ -12,7 +12,7 @@ in
     xdg.portal = {
       xdgOpenUsePortal = false;
       enable = true;
-      wlr.enable = true;
+      wlr.enable = lib.mkForce true;
       config = {
         common.default = [
           "gtk"
