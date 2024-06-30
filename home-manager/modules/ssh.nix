@@ -19,7 +19,7 @@ in
       enableZshIntegration = true;
       enableFishIntegration = true;
       enableNushellIntegration = true;
-      pinentryPackage = pkgs.pinentry-gtk2;
+      pinentryPackage = pkgs.pinentry-gnome3;
     };
   };
 

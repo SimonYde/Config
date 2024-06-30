@@ -14,6 +14,7 @@ in
 {
   programs.waybar = {
     # package = inputs.waybar.packages.${pkgs.system}.default;
+    # systemd.enable = true;
     settings = {
       mainBar = {
         layer = "top";
@@ -28,7 +29,7 @@ in
         spacing = 3;
         output = [ "*" ];
         modules-left = [
-          "hyprland/workspaces#icons"
+          "hyprland/workspaces"
           "hyprland/submap"
 
           "sway/workspaces"
@@ -81,18 +82,13 @@ in
         };
         "hyprland/workspaces" = {
           artive-only = false;
-          all-outputs = true;
-          format = "{icon}";
+          all-outputs = false;
+          format = "{name}";
           show-special = false;
           on-click = "activate";
           on-scroll-up = "hyprctl dispatch workspace e+1";
           on-scroll-down = "hyprctl dispatch workspace e-1";
           "persistent-workspaces" = {
-            "1" = [ ];
-            "2" = [ ];
-            "3" = [ ];
-            "4" = [ ];
-            "5" = [ ];
           };
           "format-icons" = {
             "active" = "";
@@ -278,7 +274,7 @@ in
             padding-right: ${padding};
             transition: none;
             color: #${base01};
-            background: #${base0D};
+            background: #${base0F};
         }
 
 

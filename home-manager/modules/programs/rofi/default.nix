@@ -35,10 +35,11 @@ in
       with palette;
       ''
         * {
-            bg-col:  ${base00};
-            bg-col-light: ${base00};
-            border-col: ${base00};
-            selected-col: ${base00};
+            bg: ${base00}b2;
+            bg-col: ${base00}00;
+            bg-col-light: ${base00}00;
+            border-col: ${base00}00;
+            selected-col: ${base00}00;
             blue: ${base0D};
             fg-col: ${base05};
             fg-col2: ${base08};

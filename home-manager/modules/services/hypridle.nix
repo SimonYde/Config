@@ -2,15 +2,16 @@
 
 let
   cfg = config.services.hypridle;
+  lock = config.syde.gui.lock;
 in
 {
   config = lib.mkIf cfg.enable {
     services.hypridle = {
       settings = {
         general = {
-          after_sleep_cmd = "hyprctl dispatch dpms on";
+          # after_sleep_cmd = "hyprctl dispatch dpms on";
           ignore_dbus_inhibit = false;
-          lock_cmd = "lock";
+          lock_cmd = lock;
         };
         listener = [
           {

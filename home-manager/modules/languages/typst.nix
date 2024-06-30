@@ -14,6 +14,7 @@ in
       typstfmt
       typstyle
       typst
+      polylux2pdfpc # Converting slides into `.pdfpc` file with speaker notes
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [ typst-vim ];

@@ -1,7 +1,7 @@
-{ pkgs, slug, ... }:
+{ pkgs, ... }:
 
 pkgs.writeShellScriptBin "ran_bg" ''
-  DIRECTORY=$HOME/Config/assets/backgrounds/${slug}
+  DIRECTORY=$BACKGROUND_DIR
 
   # Check if the provided directory exists
   if [ ! -d "$DIRECTORY" ]; then

@@ -19,6 +19,7 @@
     theming.enable = true;
   };
 
+  xdg.mimeApps.enable = true;
   home.shellAliases = {
     ex = "explorer.exe";
     poweroff = "wsl.exe --shutdown NixOS";

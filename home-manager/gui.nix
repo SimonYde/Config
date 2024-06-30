@@ -1,12 +1,70 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
-  inherit (lib) types mkOption optionalAttrs mkIf mkEnableOption;
+  inherit (lib)
+    types
+    mkOption
+    optionalAttrs
+    mkIf
+    mkEnableOption
+    ;
   cfg = config.syde.gui;
   browser = config.syde.gui.browser;
   file-manager = config.syde.gui.file-manager;
+  emulator = config.syde.terminal.emulator;
 in
 {
   config = mkIf cfg.enable {
+    programs = {
+      # Browsers
+      brave.enable = true;
+      firefox.enable = true;
+
+      # Terminal emulators
+      ${emulator}.enable = true;
+
+      # other GUI programs
+      vscode.enable = false;
+      mangohud.enable = true;
+      qutebrowser.enable = true;
+      emacs.enable = false;
+      zathura.enable = true;
+    };
+
+    # personal program configurations
+    syde.programs = {
+      thunar = {
+        defaultFilemanager = true;
+        enable = true;
+      };
+    };
+
+    services = {
+      kdeconnect.enable = true;
+      gammastep.enable = true;
+      redshift.enable = false;
+      udiskie.enable = true;
+    };
+
+    home.packages = with pkgs; [
+      # synergy
+      pdfpc
+
+      libreoffice
+      anki
+      obsidian
+      zoom-us
+      youtube-music
+      todoist-electron
+      ferdium
+      discord
+      betterdiscordctl
+    ];
+
     xdg.mimeApps.enable = true;
     xdg.mimeApps.defaultApplications =
       {
@@ -44,12 +102,17 @@ in
         "firefox"
         "brave"
         "floorp"
+        "qutebrowser"
       ];
       default = "floorp";
     };
     file-manager = mkOption {
       type = types.nullOr types.str;
       default = null;
+    };
+    lock = mkOption {
+      type = types.str;
+      default = "${pkgs.swaylock}/bin/swaylock -f";
     };
   };
 }

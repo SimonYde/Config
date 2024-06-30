@@ -17,7 +17,7 @@ in
     home.shellAliases = {
       zs = "zellij --session";
       zp = "zellij --session $(basename $PWD)";
-      za = "zellij attach";
+      za = "zellij attach $(zellij list-sessions | ${pkgs.skim}/bin/sk --ansi | awk '{ print $1 }')";
     };
     home.file =
       let
@@ -53,14 +53,15 @@ in
           ''
           + builtins.readFile ./keybinds.kdl;
 
-        "${zellij_path}/layouts/custom_compact.kdl".text = ''
-          layout {
-            pane size=1 borderless=true {
-              plugin location="zellij:compact-bar"
+        "${zellij_path}/layouts/custom_compact.kdl".text = # kdl
+          ''
+            layout {
+              pane size=1 borderless=true {
+                plugin location="zellij:compact-bar"
+              }
+              pane
             }
-            pane
-          }
-        '';
+          '';
       };
   };
 }

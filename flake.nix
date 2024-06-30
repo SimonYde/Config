@@ -95,8 +95,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-colors.url = "github:misterio77/nix-colors";
+    firefox-csshacks = {
+      url = "github:MrOtherGuy/firefox-csshacks";
+      flake = false;
+    };
+    betterfox = {
+      url = "github:yokoffing/Betterfox";
+      flake = false;
+    };
 
+    nix-colors.url = "github:misterio77/nix-colors";
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -138,6 +146,7 @@
       };
 
       homeConfigurations = rec {
+        # NOTE: These are here in order to use `nix repl` to check options
         "syde@icarus-wsl" = icarus-wsl;
         "syde@icarus" = icarus;
         "syde@perdix" = perdix;

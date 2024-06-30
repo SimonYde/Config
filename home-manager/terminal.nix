@@ -65,6 +65,8 @@ in
       pandoc
 
       nix-output-monitor
+      libqalculate
+      rclone
 
       grawlix
       pix2tex
@@ -88,6 +90,7 @@ in
         "alacritty"
         "kitty"
         "wezterm"
+        "foot"
       ];
       default = "alacritty";
     };

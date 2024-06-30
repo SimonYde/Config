@@ -14,6 +14,8 @@ let
     stringLength
     toUpper
     types
+    mkForce
+    mkDefault
     ;
   inherit (builtins) head mapAttrs substring;
   mkCapitalised = str: (toUpper (substring 0 1 str)) + (substring 1 (stringLength str) str);
@@ -66,7 +68,12 @@ in
     gtk.enable = true;
     qt.enable = true;
 
-    home.pointerCursor = {
+    home.sessionVariables = {
+      # NOTE: hardcoded path
+      BACKGROUND_DIR = "$HOME/Config/assets/backgrounds/${slug}";
+    };
+
+    home.pointerCursor = mkDefault {
       package = cfg.cursor.package;
       name = cfg.cursor.name;
       size = 24;
@@ -100,10 +107,6 @@ in
       ];
     };
 
-    syde.theming.gtk = mkIf is_catppuccin {
-      package = catppuccin-gtk-package;
-      theme = catppuccin-gtk-theme;
-    };
     programs.neovim.plugins = with pkgs.vimPlugins; mkIf is_catppuccin [ catppuccin-nvim ];
   };
 

@@ -3,6 +3,7 @@
   imports = [
     ./java.nix
     ./latex.nix
+    ./bash.nix
     ./lua.nix
     ./nix.nix
     ./ocaml.nix

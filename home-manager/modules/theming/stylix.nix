@@ -1,6 +1,6 @@
 {
   config,
-  inputs,
+  inputs, lib,
   ...
 }:
 
@@ -12,9 +12,12 @@ in
 {
   config = {
     stylix = {
+      enable = true;
       image = ../../../assets/backgrounds/rose-pine/chainsaw_makima.png;
       base16Scheme = config.colorScheme.palette;
       targets = {
+        hyprpaper.enable = lib.mkForce false;
+        hyprland.enable = false;
         sway.enable = false;
         swaylock.enable = false;
         vim.enable = false;
