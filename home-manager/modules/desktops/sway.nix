@@ -14,7 +14,8 @@ let
   up = "e";
   right = "i";
   terminal = config.syde.terminal.emulator;
-  browser = config.syde.browser;
+  browser = config.syde.gui.browser;
+  lock = config.syde.gui.lock;
   volumeChange = 10;
   brightnessChange = 5;
   mod = "Mod4";
@@ -46,7 +47,7 @@ in
           "ctrl+${mod}+f" = "exec ${browser}";
           "${mod}+d" = "exec ${menu}";
           "${mod}+Shift+s" = "exec ${pkgs.shotman}/bin/shotman -c region -C";
-          "${mod}+Escape" = "exec swaylock";
+          "${mod}+Escape" = "exec ${lock}";
           "mod1+Space" = "exec ${menu}";
 
           # Sound
@@ -249,11 +250,7 @@ in
           };
         };
 
-        output = {
-          "*" = {
-            bg = "~/Config/assets/backgrounds/battlefield-catppuccin.png fill";
-          };
-        };
+        output = { };
 
         assigns = {
           "1" = [ { class = "obsidian"; } ];
@@ -275,7 +272,10 @@ in
             command = "blueman-applet";
             always = false;
           }
-          { command = "obsidian"; }
+          {
+            command = "obsidian";
+            always = false;
+          }
         ];
       };
     };

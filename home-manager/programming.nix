@@ -18,6 +18,7 @@ in
 
     syde.programming = {
       java.enable = false;
+      bash.enable = true;
       latex.enable = true;
       lua.enable = true;
       nix.enable = true;

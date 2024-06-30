@@ -2,17 +2,18 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 let
   inherit (lib) mkIf;
   colorScheme = config.colorScheme;
   palette = colorScheme.palette;
-  slug = colorScheme.slug;
-  random-background = pkgs.callPackage ./ran_bg.nix { slug = slug; };
+  random-background = pkgs.callPackage ./ran_bg.nix { };
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
-  browser = config.syde.browser;
+  browser = config.syde.gui.browser;
+  lock = config.syde.gui.lock;
   menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
   cfg = config.wayland.windowManager.hyprland;
 in
@@ -80,6 +81,9 @@ in
           };
           special_fallthrough = true;
         };
+        cursor = {
+          no_hardware_cursors = true;
+        };
 
         decoration = {
           rounding = 10;
@@ -121,7 +125,7 @@ in
 
         monitor = [
           "desc:Lenovo Group Limited L24i-10 U3P0M4Y1, 1920x1080@60, -1920x0, 1"
-          "desc:ASUSTek COMPUTER INC VG27A M1LMQS176051, 2560x1440@165, 0x0, 1"
+          "desc:ASUSTek COMPUTER INC VG27A M1LMQS176051, 2560x1440@165, 0x0, 1, vrr, 2"
           "desc:Philips Consumer Electronics Company PHL 243V7 UK02030003208, 1920x1080@75, 2560x0, 1"
           "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x-1080, 1"
           "desc:Dell Inc. DELL U2722D 5TNW7P3, 2560x1440@60, 0x-1440, 1"
@@ -129,6 +133,7 @@ in
           "desc:HP Inc. HP E273q 6CM9191ZBN, 2560x1440@60, 0x-1440, 1,transform,0"
           "desc:HP Inc. HP E273q 6CM9191ZBQ, 2560x1440@60, 0x-1440, 1,transform,0" # I hate this
           "eDP-1, 1920x1080, 0x0, 1"
+          "Unknown-1,disabled"
           ",preferred,auto,1,transform,0"
         ];
 
@@ -136,6 +141,7 @@ in
         "$filemanager" = "${pkgs.xfce.thunar}/bin/thunar";
         "$menu" = menu;
         "$terminal" = terminal.emulator;
+        "$lock" = lock;
 
         exec-once = [
           "waybar"
@@ -146,15 +152,17 @@ in
           "${random-background}/bin/ran_bg"
         ];
       };
-      extraConfig = ''
-        source = ~/.config/hypr/devices.conf
-        source = ~/.config/hypr/keybindings.conf
-        source = ~/.config/hypr/windowrules.conf
-      '';
+      extraConfig = # hyprlang
+        ''
+          source = ~/.config/hypr/devices.conf
+          source = ~/.config/hypr/keybindings.conf
+          source = ~/.config/hypr/windowrules.conf
+        '';
 
       plugins = [
         # inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
       ];
     };
   };
+  imports = [ inputs.hyprland.homeManagerModules.default ];
 }

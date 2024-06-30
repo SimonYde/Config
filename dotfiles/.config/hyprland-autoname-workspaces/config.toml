@@ -20,7 +20,7 @@ client = "{icon}"
 client_active = "{icon}"
 
 # deduplicate client formatter
-# client_fullscreen = "[{icon}]"
+client_fullscreen = "[{icon}]"
 # client_dup = "{client}{counter_sup}"
 # client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused}"
 # client_dup_active = "*{icon}*{delim}{icon}{counter_unfocused}"
@@ -29,24 +29,27 @@ client_active = "{icon}"
 # Add your icons mapping
 # use double quote the key and the value
 # take class name from 'hyprctl clients'
-"DEFAULT" = "{title}"
+"DEFAULT" = "({title})"
 "(?i)Kitty|(?i)Alacritty|(?i)foot|(?i)st" = ""
 "[Ff]irefox" = ""
 "(?i)waydroid.*" = "droid"
 "(?i)obsidian" = "󰚸"
 "(?i)mpv"        = ""
 "(?i)slack"      = "󰒱"
+"(?i)xwaylandvideobridge" = ""
 "(?i)discord"    = ""
 "(?i)spotify"    = ""
 "(?i)chromium|(?i)brave" = ""
 "(?i)emacs"      = ""
 "(?i)steam"      = ""
+"(?i)lutris"      = "󰊴"
 "(?i)zathura"    = ""
 "(?i)Anki"       = ""
 "(?i)virtualbox" = ""
 "(?i)Gimp"       = ""
-"(?i)libreoffice-writer" = "󰷈 "
-"(?i)blueman-manager" = " "
+"(?i)libreoffice-writer" = "󰷈"
+"(?i)blueman-manager" = ""
+"(?i)pavucontrol" = "󱡫"
 
 # [class_active]
 # DEFAULT = "{icon}"
@@ -68,8 +71,8 @@ client_active = "{icon}"
 # regex captures support is supported
 # "emerge: (.+?/.+?)-.*" = "{match1}"
 
-[title_in_class_active."(?i)firefox"]
-"(?i)twitch" = "<span color='purple'>{icon}</span>"
+# [title_in_class_active."(?i)firefox"]
+# "(?i)twitch" = "<span color='purple'>{icon}</span>"
 
 # [title_in_initial_class."(?i)kitty"]
 # "(?i)neomutt" = "neomutt"

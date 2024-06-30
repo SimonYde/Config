@@ -5,21 +5,21 @@
   ...
 }:
 let
-  colors = config.colorScheme.palette;
-  fontName = config.syde.theming.fonts.sansSerif.name;
+  palette = config.colorScheme.palette;
+  font = config.syde.theming.fonts.sansSerif;
   cfg = config.programs.swaylock;
 in
 {
   config = lib.mkIf cfg.enable {
     programs.swaylock = {
       package = pkgs.swaylock-effects;
-      settings = with colors; {
+      settings = with palette; {
         daemonize = true;
         screenshot = true;
         show-failed-attempts = true;
         ignore-empty-password = true;
 
-        font = fontName;
+        font = font.name;
         font-size = 24;
 
         clock = true;
@@ -63,8 +63,6 @@ in
         fade-in = 0.5;
       };
     };
-    home.shellAliases = {
-      lock = "swaylock -f";
-    };
+    syde.gui.lock = "${pkgs.swaylock-effects}/bin/swaylock";
   };
 }

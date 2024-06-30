@@ -29,6 +29,6 @@ if [ $HYPRGAMEMODE = 1 ]; then
 	exit
 else
 	hyprctl reload
-        ${pkgs.waybar}/bin/waybar
+        waybar
 fi
 ''

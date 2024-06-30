@@ -1,73 +1,76 @@
 { pkgs, config, ... }:
 
 let
-  lock = "${pkgs.swaylock-effects}/bin/swaylock -f";
   icon_path = "${pkgs.wlogout}/share/wlogout/icons";
   theming = config.syde.theming;
+  lock = config.syde.gui.lock;
   palette = theming.palette-hex;
   font = theming.fonts.sansSerif;
 in
 {
   programs.wlogout = {
 
-    style = with palette; ''
+    style =
+      with palette; # css
+      ''
 
-      window {
-        font-family: ${font.name} Medium;
-        background-color: transparent;
-        color: ${base05};
-      }
+        window {
+          font-family: ${font.name} Medium;
+          background-color: transparent;
+          color: ${base05};
+        }
 
-      button {
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 20%;
-        background-color: transparent;
-        border-color: black;
-      	text-decoration-color: ${base05};
-        color: ${base05};
-        border-radius: 36px;
-      }
+        button {
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 20%;
+          box-shadow: 0 0 0 0;
+          background-color: transparent;
+          border-color: transparent;
+        	text-decoration-color: ${base05};
+          color: ${base05};
+          border-radius: 36px;
+        }
 
-      button:focus, button:active, button:hover {
-        background-size: 50%;
-        box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
-      	background-color: ${base0D};
-        color: transparent;
-        transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
-      }
+        button:focus, button:active, button:hover {
+          background-size: 50%;
+          box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
+        	background-color: ${base0D};
+          color: transparent;
+          transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
+        }
 
-      #lock {
-          background-image: image(url("${icon_path}/lock.png"));
-      }
+        #lock {
+            background-image: image(url("${icon_path}/lock.png"));
+        }
 
-      #logout {
-          background-image: image(url("${icon_path}/logout.png"));
-      }
+        #logout {
+            background-image: image(url("${icon_path}/logout.png"));
+        }
 
-      #suspend {
-          background-image: image(url("${icon_path}/suspend.png"));
-      }
+        #suspend {
+            background-image: image(url("${icon_path}/suspend.png"));
+        }
 
-      #hibernate {
-          background-image: image(url("${icon_path}/hibernate.png"));
-      }
+        #hibernate {
+            background-image: image(url("${icon_path}/hibernate.png"));
+        }
 
-      #shutdown {
-          background-image: image(url("${icon_path}/shutdown.png"));
-      }
+        #shutdown {
+            background-image: image(url("${icon_path}/shutdown.png"));
+        }
 
-      #reboot {
-          background-image: image(url("${icon_path}/reboot.png"));
-      }
-    '';
+        #reboot {
+            background-image: image(url("${icon_path}/reboot.png"));
+        }
+      '';
 
     layout = [
       {
-        "label" = "lock";
-        "action" = "sleep 1 && ${lock}";
-        "text" = "Lock";
-        "keybind" = "l";
+        label = "lock";
+        action = "sleep 1 && ${lock}";
+        text = "Lock";
+        keybind = "l";
       }
 
       {
@@ -79,7 +82,7 @@ in
 
       {
         "label" = "suspend";
-        "action" = "${lock} && systemctl suspend && hyprctl reload";
+        "action" = "lock && systemctl suspend && hyprctl reload";
         "text" = "Suspend";
         "keybind" = "u";
       }

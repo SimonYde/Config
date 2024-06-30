@@ -14,6 +14,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.neovim = {
+      # package = pkgs.neovim-developer;
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
@@ -24,6 +25,7 @@ in
           nvim-lspconfig
           lspsaga-nvim
           lsp_signature-nvim
+          otter-nvim
 
           # -----Completion-----
           lspkind-nvim

@@ -1,46 +1,10 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-} @ args:
-let
-  emulator = config.syde.terminal.emulator;
-in
+{ lib, ... }@args:
 {
   config = {
-    programs = {
-      # Browsers
-      brave.enable = true;
-      firefox.enable = true;
-
-      # Terminal emulators
-      ${emulator}.enable = true;
-
-      # other GUI programs
-      vscode.enable = false;
-      emacs.enable = false;
-      zathura.enable = true;
-    };
-
-    # personal program configurations
-    syde.programs = {
-      thunar = {
-        defaultFilemanager = true;
-        enable = true;
-      };
-    };
-
-    services = {
-      kdeconnect.enable = true;
-      gammastep.enable = true;
-      redshift.enable = false;
-      udiskie.enable = true;
-    };
-
     # Personal modules
     syde = {
       email.enable = false;
+      gui.enable = true;
       programming.enable = true;
       ssh.enable = true;
       terminal.enable = true;
@@ -57,20 +21,6 @@ in
         sway.enable = args.osConfig.programs.sway.enable;
         hyprland.enable = args.osConfig.programs.hyprland.enable;
       };
-
-    home.packages = with pkgs; [
-      obsidian
-      libqalculate
-      # synergy
-      libreoffice
-
-      discord
-      betterdiscordctl
-
-      rclone
-
-      floorp
-    ];
   };
 
   imports = [ ../standard.nix ];
