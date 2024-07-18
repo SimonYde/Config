@@ -68,19 +68,13 @@ in
         "wheel"
         "docker"
       ];
+      hashedPasswordFile = config.age.secrets.pc-password.path;
     };
 
     programs.${config.syde.shell}.enable = true;
 
-    # environment.pathsToLink = [ "/share/fish" ];
-
     fonts.packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "FiraCode"
-        ];
-      })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       gentium
       libertinus
     ];
