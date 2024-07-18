@@ -8,8 +8,8 @@
       };
 
       custom = {
-        start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
-        end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+        start = "${pkgs.libnotify}/bin/notify-send 'GameMode started' && hyprland-gamemode";
+        end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended' && hyprland-gamemode";
       };
     };
     enableRenice = true;

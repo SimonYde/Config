@@ -18,10 +18,19 @@ let
       gamemode.enable = true;
     };
 
+    programs.steam = {
+      gamescopeSession.enable = true;
+    };
+
+    programs.nix-ld = {
+      enable = true;
+      libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+    };
+
     hardware = {
       pulseaudio.support32Bit = true;
-      opengl = {
-        driSupport32Bit = true;
+      graphics = {
+        enable32Bit = true;
         enable = true;
         extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
       };
@@ -51,13 +60,13 @@ let
       vulkan-tools
       vulkan-loader
       mesa
-      mesa_drivers
+      mesa.drivers
 
       # ---32 bit---
       pkgsi686Linux.vulkan-tools
       pkgsi686Linux.vulkan-loader
       pkgsi686Linux.mesa
-      pkgsi686Linux.mesa_drivers
+      pkgsi686Linux.mesa.drivers
     ];
 
     powerManagement.cpuFreqGovernor = mkForce "performance";
@@ -65,12 +74,12 @@ let
 in
 {
   config = mkMerge [
-    {
+    (mkIf cfg.specialisation {
       specialisation."gaming".configuration = mkIf (cfg.enable && cfg.specialisation) (mkMerge [
         { environment.etc."gaming".text = "gaming"; }
         gamingConfig
       ]);
-    }
+    })
     (mkIf (cfg.enable && !cfg.specialisation) gamingConfig)
   ];
 

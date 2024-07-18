@@ -10,20 +10,23 @@ let
 in
 {
   config = mkIf cfg.enable {
-    boot.initrd.kernelModules = [ "nvidia" ];
-    boot.blacklistedKernelModules = [ "nouveau" ];
+    # boot.initrd.kernelModules = [ "nvidia" ];
+    # boot.blacklistedKernelModules = [ "nouveau" ];
+    services.xserver.videoDrivers = [ "nvidia" ];
+    boot.kernelModules = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_drm"
+    ];
 
     hardware.nvidia = {
       powerManagement.enable = false;
       powerManagement.finegrained = false;
       modesetting.enable = true;
       open = false;
-      nvidiaSettings = false;
+      nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
-
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.opengl.enable = true;
 
     hardware.graphics = {
       enable = true;

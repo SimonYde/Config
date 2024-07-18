@@ -13,7 +13,7 @@
 
   services = {
     languagetool.enable = true;
-    ollama.enable = true;
+    ollama.enable = false;
     syncthing.enable = true;
     tailscale.enable = true;
     vscode-server.enable = false;

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -37,6 +38,10 @@ in
 
     security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
     security.pam.services.hyprlock = { }; # hyprlock cannot unlock otherwise, see nixpkgs#89019
+    security.pam.services.kwallet = {
+      name = "kwallet";
+      enableKwallet = true;
+    };
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = 1;
@@ -51,8 +56,8 @@ in
       xwaylandvideobridge
     ];
 
-    systemd = mkIf config.security.polkit.enable {
-      user.services.polkit-gnome-authentication-agent-1 = {
+    systemd.user.services = {
+      polkit-gnome-authentication-agent-1 = mkIf config.security.polkit.enable {
         description = "polkit-gnome-authentication-agent-1";
         wantedBy = [ "graphical-session.target" ];
         wants = [ "graphical-session.target" ];
@@ -65,6 +70,15 @@ in
           TimeoutStopSec = 10;
         };
       };
+      hyprland-autoname-workspaces = {
+        description = "Hyprland-autoname-workspaces as systemd service";
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        script = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces";
+        serviceConfig.Restart = "always";
+        serviceConfig.RestartSec = 1;
+      };
     };
   };
+  imports = [ inputs.hyprland.nixosModules.default ];
 }
