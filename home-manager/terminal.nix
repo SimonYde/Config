@@ -32,7 +32,6 @@ in
       gh.enable = true;
       git.enable = true;
       lazygit.enable = true;
-      lf.enable = false;
       nix-index.enable = true;
       ripgrep.enable = true;
       skim.enable = true;
@@ -57,6 +56,9 @@ in
       trashy # for when `rm -rf` is too scary
       xh # Colorful curl
       yt-dlp
+
+      zip
+      unzip
 
       tokei # Counting lines of code
       tldr # Quick hits on programs

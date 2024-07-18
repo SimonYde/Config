@@ -82,7 +82,7 @@ in
 
       {
         "label" = "suspend";
-        "action" = "lock && systemctl suspend && hyprctl reload";
+        "action" = "${lock} && systemctl suspend";
         "text" = "Suspend";
         "keybind" = "u";
       }
@@ -96,7 +96,7 @@ in
 
       {
         "label" = "hibernate";
-        "action" = "systemctl hibernate && hyprctl reload";
+        "action" = "systemctl hibernate";
         "text" = "Hibernate";
         "keybind" = "h";
       }

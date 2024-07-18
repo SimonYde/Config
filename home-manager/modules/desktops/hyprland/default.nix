@@ -13,6 +13,7 @@ let
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
   browser = config.syde.gui.browser;
+  file-manager = config.syde.gui.file-manager;
   lock = config.syde.gui.lock;
   menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
   cfg = config.wayland.windowManager.hyprland;
@@ -54,6 +55,12 @@ in
 
     wayland.windowManager.hyprland = {
       settings = {
+        "$browser" = browser;
+        "$file-manager" = file-manager;
+        "$menu" = menu;
+        "$terminal" = terminal.emulator;
+        "$lock" = lock;
+
         general = with palette; {
           gaps_in = 3;
           gaps_out = 8;
@@ -123,27 +130,8 @@ in
           ];
         };
 
-        monitor = [
-          "desc:Lenovo Group Limited L24i-10 U3P0M4Y1, 1920x1080@60, -1920x0, 1"
-          "desc:ASUSTek COMPUTER INC VG27A M1LMQS176051, 2560x1440@165, 0x0, 1, vrr, 2"
-          "desc:Philips Consumer Electronics Company PHL 243V7 UK02030003208, 1920x1080@75, 2560x0, 1"
-          "desc:Ancor Communications Inc VG248 FBLMQS053462, 1920x1080@119.982002, 0x-1080, 1"
-          "desc:Dell Inc. DELL U2722D 5TNW7P3, 2560x1440@60, 0x-1440, 1"
-          "desc:HP Inc. HP E273q 6CM9191YW0, 2560x1440@60, 0x-1440, 1,transform,0"
-          "desc:HP Inc. HP E273q 6CM9191ZBN, 2560x1440@60, 0x-1440, 1,transform,0"
-          "desc:HP Inc. HP E273q 6CM9191ZBQ, 2560x1440@60, 0x-1440, 1,transform,0" # I hate this
-          "eDP-1, 1920x1080, 0x0, 1"
-          "Unknown-1,disabled"
-          ",preferred,auto,1,transform,0"
-        ];
-
-        "$browser" = browser;
-        "$filemanager" = "${pkgs.xfce.thunar}/bin/thunar";
-        "$menu" = menu;
-        "$terminal" = terminal.emulator;
-        "$lock" = lock;
-
         exec-once = [
+          "[workspace 9] discord"
           "waybar"
           "nm-applet"
           "blueman-applet"
@@ -155,6 +143,7 @@ in
       extraConfig = # hyprlang
         ''
           source = ~/.config/hypr/devices.conf
+          source = ~/.config/hypr/monitors.conf
           source = ~/.config/hypr/keybindings.conf
           source = ~/.config/hypr/windowrules.conf
         '';

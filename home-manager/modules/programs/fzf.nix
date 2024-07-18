@@ -5,7 +5,7 @@
   ...
 }:
 let
-  rfv = pkgs.writeShellScriptBin "rfv" ''
+  fzp = pkgs.writeShellScriptBin "fzp" ''
     # 1. Search for text in files using Ripgrep
     # 2. Interactively narrow down the list using fzf
     # 3. Open the file in Vim
@@ -17,24 +17,28 @@ let
           --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
           --bind 'enter:become($EDITOR {1} +{2})'
   '';
+  fd = "${pkgs.fd}/bin/fd";
+  cfg = config.programs.fzf;
 in
 {
-  config = lib.mkIf config.programs.fzf.enable {
-    home.packages = [ rfv ];
+  config = lib.mkIf cfg.enable {
+    home.packages = [ fzp ];
 
     programs.fzf = {
       enableBashIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
-      changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
-      fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";
-      defaultCommand = "${pkgs.fd}/bin/fd --type f";
-      colors = with config.syde.theming.palette-hex; lib.mkForce {
-        bg = "";
-        "bg+" = "";
-        fg = base05;
-        "fg+" = base05;
-      };
+      changeDirWidgetCommand = "${fd} --type directory";
+      fileWidgetCommand = "${fd} --type file";
+      defaultCommand = "${fd} --type file";
+      colors =
+        with config.syde.theming.palette-hex;
+        lib.mkForce {
+          bg = "";
+          "bg+" = "";
+          fg = base05;
+          "fg+" = base05;
+        };
       defaultOptions = [ ];
     };
   };

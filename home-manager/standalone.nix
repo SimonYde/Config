@@ -1,20 +1,14 @@
 # This file exists separately from the rest of the home-manager config, as
 # it needs to handle `nixpkgs` overlays in the case of standalone usage.
 
-{
-  lib,
-  inputs,
-  config,
-  ...
-}:
-
+{ inputs, ... }:
 {
   config = {
     nixpkgs = {
       overlays = [
         inputs.nur.overlay
         inputs.helix.overlays.default
-        inputs.neovim-nightly.overlays.default
+        # inputs.neovim-nightly.overlays.default
         inputs.rustaceanvim.overlays.default
         (final: prev: {
           stable = import inputs.stable {
