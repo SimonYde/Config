@@ -13,7 +13,6 @@
     ./eza.nix
     ./git.nix
     ./lazygit.nix
-    ./lf.nix
     ./ripgrep.nix
     ./skim.nix
     ./fzf.nix

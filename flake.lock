@@ -1304,19 +1304,36 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "pix2tex-src": "pix2tex-src"
       },
       "locked": {
-        "lastModified": 1718279123,
-        "narHash": "sha256-VPmQybVBDnnkdvqFUby+PUr++lwQyrgVmAUjjFSufqU=",
+        "lastModified": 1721068727,
+        "narHash": "sha256-qB1ucDTka9HIcDa6dCgbva1TDQBxK2C3LK01yDozxNk=",
         "owner": "SimonYde",
         "repo": "pix2tex.nix",
-        "rev": "c0e87572776e9b6d1dff9df40e6167f2d43916b9",
+        "rev": "4f7df6c408fc162809c6e8f1ff833f837a1ad4ea",
         "type": "github"
       },
       "original": {
         "owner": "SimonYde",
         "repo": "pix2tex.nix",
+        "type": "github"
+      }
+    },
+    "pix2tex-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1694866804,
+        "narHash": "sha256-I3B8eH7zV2zIogDt9znkEzp4EeBjY6NfI4jsl+v/8aM=",
+        "owner": "lukas-blecher",
+        "repo": "LaTeX-OCR",
+        "rev": "1781514fb8c92ea9f94057295fdae0e683f4648e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lukas-blecher",
+        "repo": "LaTeX-OCR",
         "type": "github"
       }
     },

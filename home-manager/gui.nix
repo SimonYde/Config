@@ -30,7 +30,7 @@ in
       # other GUI programs
       vscode.enable = false;
       mangohud.enable = true;
-      qutebrowser.enable = true;
+      qutebrowser.enable = false;
       emacs.enable = false;
       zathura.enable = true;
     };
@@ -41,6 +41,7 @@ in
         defaultFilemanager = true;
         enable = true;
       };
+      yazi.defaultFilemanager = false;
     };
 
     services = {
@@ -57,7 +58,8 @@ in
       libreoffice
       anki
       obsidian
-      zoom-us
+      qbittorrent
+      stremio
       youtube-music
       todoist-electron
       ferdium

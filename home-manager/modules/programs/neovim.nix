@@ -69,7 +69,6 @@ in
 
           # -----UI-----
           which-key-nvim
-          nvim-web-devicons
           todo-comments-nvim
           nui-nvim
         ]
@@ -86,30 +85,32 @@ in
           rainbow-delimiters-nvim
         ];
 
-      extraLuaConfig = with config.syde.theming.palette-hex; ''
-        vim.loader.enable()
-        require('syde.load').setup()
-        VARIANT = "${config.colorScheme.variant}"
-        PALETTE = {
-          base00 = "${base00}",
-          base01 = "${base01}",
-          base02 = "${base02}",
-          base03 = "${base03}",
-          base04 = "${base04}",
-          base05 = "${base05}",
-          base06 = "${base06}",
-          base07 = "${base07}",
-          base08 = "${base08}",
-          base09 = "${base09}",
-          base0A = "${base0A}",
-          base0B = "${base0B}",
-          base0C = "${base0C}",
-          base0D = "${base0D}",
-          base0E = "${base0E}",
-          base0F = "${base0F}",
-        }
-        require('syde')
-      '';
+      extraLuaConfig =
+        with config.syde.theming.palette-hex; # lua
+        ''
+          vim.loader.enable()
+          require('syde.load').setup()
+          VARIANT = "${config.colorScheme.variant}"
+          PALETTE = {
+            base00 = "${base00}",
+            base01 = "${base01}",
+            base02 = "${base02}",
+            base03 = "${base03}",
+            base04 = "${base04}",
+            base05 = "${base05}",
+            base06 = "${base06}",
+            base07 = "${base07}",
+            base08 = "${base08}",
+            base09 = "${base09}",
+            base0A = "${base0A}",
+            base0B = "${base0B}",
+            base0C = "${base0C}",
+            base0D = "${base0D}",
+            base0E = "${base0E}",
+            base0F = "${base0F}",
+          }
+          require('syde')
+        '';
       extraPackages =
         let
           packages = [ ];
