@@ -47,6 +47,9 @@ Load.later(function()
 
     require('mini.ai').setup { n_lines = 500 }
     require('mini.align').setup {}
+    local MiniIcons = require('mini.icons')
+    MiniIcons.setup {}
+    MiniIcons.mock_nvim_web_devicons()
 
     require('mini.bracketed').setup { n_lines = 500 }
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')

@@ -2,6 +2,7 @@ Load.later(function()
     local nmap = require('syde.keymap').nmap
 
     local telescope = Load.now(function()
+        do return end
         local telescope = require('telescope')
         -- Clone the default Telescope configuration
         local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
@@ -108,7 +109,7 @@ Load.later(function()
         end, "[b]uffers")
         nmap("<leader>fc", function() builtin.current_buffer_fuzzy_find(no_preview) end, "fuzzy [c]urrent buffer search")
         nmap("<leader>ff", function() builtin.find_files(preview) end, "find [f]iles")
-        nmap("<C-p>", function() builtin.git_files(preview) end, "Git [F]iles")
+        -- nmap("<C-p>", function() builtin.git_files(preview) end, "Git [F]iles")
         nmap("<leader>fh", function() builtin.help_tags(preview) end, "fuzzy search [h]elp tags")
         nmap("<leader>fg", function() builtin.live_grep(preview) end, "file search with [g]rep")
         nmap("<leader>fb", function() builtin.builtin(preview) end, "See [b]uiltin telescope pickers")
@@ -130,8 +131,14 @@ Load.later(function()
         local MiniExtra = require('mini.extra')
         MiniExtra.setup {}
         MiniPick.setup {
+            options = {
+                content_from_bottom = false,
+                -- Whether to cache matches (more speed and memory on repeated prompts)
+                use_cache = true,
+            },
+
             mappings = {
-                refine = "<C-q>",
+                refine = "<C-Space>",
                 refine_marked = "<M-q>",
             }
         }

@@ -142,7 +142,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 -- bar cursor in insert mode
-vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.cmd [[set guicursor=a:ver25]] end })
+-- vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.cmd [[set guicursor=a:ver25]] end })
 vim.cmd [[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]]
 local signs = { Error = '', Warn = '', Hint = '', Info = '' }
 for type, icon in pairs(signs) do

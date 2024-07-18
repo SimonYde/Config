@@ -27,7 +27,7 @@ Load.now(function()
         return (n == 0) and '' or ('%s%s'):format(prefix, n)
     end
 
-    MiniStatusline.section_fileinfo = function(args)
+    local section_fileinfo = function(args)
         local get_filesize = function()
             local size = vim.fn.getfsize(vim.fn.getreg('%'))
             if size < 1024 then
@@ -41,23 +41,25 @@ Load.now(function()
 
         local get_filetype_icon = function()
             if not MiniStatusline.config.use_icons then return '' end
-            local devicons = Load.now(require, 'nvim-web-devicons')
-            if not devicons then return '' end
+            local MiniIcons = Load.now(require, 'mini.icons')
+            -- NOTE: Make sure setup is called
+            local file_name = vim.fn.expand('%:t')
+            local icon, _, is_default = MiniIcons.get('file', file_name)
+            if is_default then return '' end
 
-            local file_name, file_ext = vim.fn.expand('%:t'), vim.fn.expand('%:e')
-            return devicons.get_icon(file_name, file_ext, { default = true })
+            return icon
         end
         local filetype = vim.bo.filetype
 
         -- Don't show anything if can't detect file type or not inside a "normal buffer"
         if (filetype == '') or vim.bo.buftype ~= '' then return '' end
-        if MiniStatusline.is_truncated(args.trunc_width) then return filetype end
 
         -- Add filetype icon
         local icon = get_filetype_icon()
         if icon ~= '' then filetype = string.format('%s %s', icon, filetype) end
 
         -- Construct output string if truncated
+        if MiniStatusline.is_truncated(args.trunc_width) then return filetype end
 
         -- Construct output string with extra file info
         local encoding = vim.bo.fileencoding or vim.bo.encoding
@@ -90,7 +92,7 @@ Load.now(function()
                 local macro         = section_macro_recording()
                 local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
                 local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
-                local fileinfo      = MiniStatusline.section_fileinfo({ trunc_width = 120 })
+                local fileinfo      = section_fileinfo({ trunc_width = 120 })
                 local location      = MiniStatusline.section_location({ trunc_width = 75 })
                 local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
 
@@ -104,9 +106,9 @@ Load.now(function()
                     { hl = 'DiagnosticHint',         strings = { hints } },
                     { hl = 'DiagnosticInfo',         strings = { info } },
                     '%=', -- End left alignment
-
+                    --
                     { hl = 'MiniStatuslineFilename', strings = { macro, searchcount } },
-                    { hl = 'MiniStatuslineFileinfo', strings = { lsp, fileinfo } },
+                    { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
                     { hl = mode_hl,                  strings = { location } },
                 })
             end,
