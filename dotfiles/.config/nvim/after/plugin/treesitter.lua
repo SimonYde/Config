@@ -6,7 +6,10 @@ Load.later(function()
     local treesitter_opts = {
         highlight = {
             enable = true,
-            disable = { "latex" },
+            disable = {
+                "latex",
+                "nix",
+            },
             additional_vim_regex_highlighting = false,
         },
         indent = {

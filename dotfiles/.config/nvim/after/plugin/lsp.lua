@@ -45,6 +45,12 @@ Load.later(function()
     }
 
     setup_lsp {
+        name = "bashls",
+        cmd = "bash-language-server",
+        filetypes = { "bash", "sh" },
+    }
+
+    setup_lsp {
         name = "ruby_ls",
         cmd = "ruby-lsp",
     }
@@ -173,7 +179,7 @@ Load.later(function()
         on_attach = function()
             Load.now(function()
                 require('ltex_extra').setup {
-                    load_langs = {  "en-GB", "da-DK" },
+                    load_langs = { "en-GB", "da-DK" },
                     init_check = true,
                     path = vim.fn.stdpath("data") .. "/ltex",
                     log_level = "HINT",
@@ -290,4 +296,6 @@ Load.later(function()
             end)
         end,
     })
+
+    require('otter').activate({ "bash" }, true, true, nil)
 end)

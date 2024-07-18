@@ -24,9 +24,9 @@ Colemak_toggle = function()
         vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
         -- vim.opt.langmap = "jh,hk,kj"
         vim.opt.langremap = false
-        nvmap("gm", "^", "Goto first non-blank in line")
+        -- nvmap("gm", "^", "Goto first non-blank in line")
         nvmap("gs", "0", "Goto line start")
-        nvmap("gl", "$", "Goto line end")
+        -- nvmap("gl", "$", "Goto line end")
 
         nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
         nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
@@ -35,9 +35,11 @@ Colemak_toggle = function()
         COLEMAK = true
     else
         vim.opt.langmap = ""
-        nvmap("gh", "^", "Goto first non-blank in line")
+        -- nvmap("gh", "^", "Goto first non-blank in line")
         nvmap("gs", "0", "Goto line start")
-        nvmap("gl", "$", "Goto line end")
+        -- nvmap("gl", "$", "Goto line end")
+        nvmap("H", "^", "Goto first non-empty cell in line")
+        nvmap("L", "$", "Goto line end")
         -- nmap("gi", vim.lsp.buf.implementation, "Goto Implementation")
         COLEMAK = false
     end
@@ -69,7 +71,7 @@ nmap("<leader>w", "<C-w>", "Window")
 
 xmap("<leader>p", [["_dP]], "[p]aste without yanking")
 nvmap("<M-d>", [["_d]], "[d]elete without yanking")
-
+nvmap("<M-c>", [["_c]], "[c]hange without yanking")
 
 nmap("gF", "<cmd>:e <cfile><CR>", "Goto [F]ile (even if doesn't exist)")
 
