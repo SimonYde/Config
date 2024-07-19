@@ -225,7 +225,7 @@ in
           stylus
           firefox-color
 
-          bypass-paywalls-clean
+          # bypass-paywalls-clean
           # readwise-highlighter # doesn't exist yet
         ];
         userChrome =
