@@ -54,14 +54,17 @@ in
     home.packages = with pkgs; [
       # synergy
       pdfpc
-
       libreoffice
       anki
       obsidian
+
       qbittorrent
+      zed-editor
+
       stremio
       youtube-music
       todoist-electron
+
       ferdium
       discord
       betterdiscordctl

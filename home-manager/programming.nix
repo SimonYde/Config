@@ -31,7 +31,7 @@ in
     home.packages = with pkgs; [
       kattis-cli
       kattis-test
-      imhex
+      # imhex
     ];
 
     home.sessionVariables = {

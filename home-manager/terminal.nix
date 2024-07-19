@@ -29,6 +29,8 @@ in
       direnv.enable = true;
       eza.enable = true;
       fzf.enable = true;
+      fastfetch.enable = true;
+      fd.enable = true;
       gh.enable = true;
       git.enable = true;
       lazygit.enable = true;
@@ -48,7 +50,6 @@ in
       # CLI Tools
       dogdns # rust version of `dig`
       du-dust # Histogram of file sizes
-      fd # Friendlier `find`
       jq # JSON magic
       gnumake
       just # alternative to `gnumake`
