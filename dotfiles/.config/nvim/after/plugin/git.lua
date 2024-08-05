@@ -38,7 +38,7 @@ Load.later(function()
         "Neogit [c]ommit")
 
 
-    Load.now(function()
+    local gitsigns = Load.now(function()
         local gitsigns = require('gitsigns')
         gitsigns.setup {
             current_line_blame_opts = {
@@ -49,5 +49,13 @@ Load.later(function()
         nmap("<leader>gb", gitsigns.toggle_current_line_blame, "Toggle git [b]lame")
         nmap("]h", gitsigns.next_hunk, "next git [h]unk")
         nmap("[h", gitsigns.prev_hunk, "previous git [h]unk")
+        return gitsigns
     end)
+
+    if gitsigns then return end
+
+    Load.now(function ()
+        require('mini.diff').setup()
+    end)
+
 end)

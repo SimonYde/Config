@@ -8,7 +8,7 @@ Load.later(function()
         -- },
         formatters_by_ft = {
             typst = { "typstyle" },
-            nix = { { "nixfmt", "alejandra", "nixpkgs_fmt" } },
+            nix = { "nixfmt", "alejandra", "nixpkgs_fmt" },
         },
 
         formatters = {
@@ -18,5 +18,9 @@ Load.later(function()
         },
     })
 
-    nmap("<leader>=", function() conform.format({ lsp_fallback = true }) end, "Format with conform (LSP fallback)")
+    nmap(
+        "<leader>=",
+        function() conform.format({ stop_after_first = true, lsp_fallback = true }) end,
+        "Format with conform"
+    )
 end)

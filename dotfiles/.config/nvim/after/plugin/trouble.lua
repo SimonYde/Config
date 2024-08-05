@@ -4,10 +4,10 @@ Load.later(function()
     local nmap = require('syde.keymap').nmap
 
     nmap(
-        '<leader>t',
+        '<leader>td',
         function()
-            vim.cmd [[TroubleToggle]]
+            vim.cmd [[Trouble diagnostics toggle]]
         end,
-        "Toggle [t]rouble"
+        "Toggle [t]rouble [d]iagnostics"
     )
 end)

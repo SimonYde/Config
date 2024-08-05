@@ -129,6 +129,12 @@ Load.later(function()
     Load.now(function()
         local MiniPick = require('mini.pick')
         local MiniExtra = require('mini.extra')
+
+        local send_to_qflist = function()
+            local mappings = MiniPick.get_picker_opts().mappings
+            vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)
+        end
+
         MiniExtra.setup {}
         MiniPick.setup {
             options = {
@@ -140,28 +146,32 @@ Load.later(function()
             mappings = {
                 refine = "<C-Space>",
                 refine_marked = "<M-q>",
+                send_to_qflist = { char = '<C-q>', func = send_to_qflist },
             }
         }
 
         nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
-        nmap("<leader>b", MiniPick.builtin.buffers, "Pick [b]uffers")
-        nmap("<leader>c", function() MiniExtra.pickers.buf_lines { scope = "current" } end,
-            "Pick [c]urrent buffer lines")
-        nmap("<leader>fc", function() MiniExtra.pickers.buf_lines { scope = "current" } end,
-            "Pick [c]urrent buffer lines")
-        nmap("<leader>ff", MiniPick.builtin.files, "Pick [f]iles")
-        nmap("<leader>F", MiniExtra.pickers.git_files, "Pick git [F]iles")
-        nmap("<leader>fh", MiniPick.builtin.help, "Pick [h]elp")
-        nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick [g]rep")
-        nmap("<leader>fs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, "LSP document [s]ymbols")
+        nmap("<leader>b", MiniPick.builtin.buffers, "Pick buffers")
+        nmap(
+            "<leader>fc",
+            function() MiniExtra.pickers.buf_lines { scope = "current" } end,
+            "Pick current buffer lines"
+        )
+        nmap("<leader>ff", function() MiniPick.builtin.files({ tool = 'rg' }) end, "Pick files")
+        nmap("<leader>F", MiniExtra.pickers.git_files, "Pick git Files")
+        nmap("<leader>fh", MiniPick.builtin.help, "Pick help")
+        nmap("<leader>'", MiniPick.builtin.resume, "Resume latest picker")
+        nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick grep")
+        nmap("<leader>fs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, "LSP document symbols")
         nmap(
             "<leader>fw",
             function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end,
-            "LSP [w]orkspace symbols"
+            "LSP workspace symbols"
         )
         nmap("<leader>/", MiniPick.builtin.grep_live, "Global search with grep")
-        nmap("gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, "Goto [r]eferences")
-        nmap("gi", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, "Goto [i]mplementations")
-        nmap("<leader>gw", function() MiniExtra.pickers.git_branches({ scope = 'local' }) end, "git [w]orktrees")
+        nmap("gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, "Goto references")
+        nmap("gi", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, "Goto implementations")
+        nmap("gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, "Goto definitions")
+        nmap("<leader>gw", function() MiniExtra.pickers.git_branches({ scope = 'local' }) end, "git worktrees")
     end)
 end)
