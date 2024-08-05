@@ -21,6 +21,10 @@ local add_transparency = function()
 end
 
 local catppuccin = Load.now(function()
+    if (os.getenv("XDG_SESSION_TYPE") == "tty") then
+        return nil
+    end
+
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
     if VARIANT ~= 'dark' then

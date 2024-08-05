@@ -76,12 +76,24 @@ M.once = function(func_to_load)
     end
 end
 
+local defer_group = vim.api.nvim_create_augroup("DeferFunction", {})
+
+M.on_events = function(cb, events, pattern)
+    local opts = {
+        group = defer_group,
+        desc = "DeferFunction",
+        once = true,
+        callback = function(ev) cb(ev) end,
+    }
+    if pattern then opts["pattern"] = pattern end
+    vim.api.nvim_create_autocmd(events, opts)
+end
+
 M.perform_lazy_loading = function()
     vim.api.nvim_exec_autocmds("User", {
         pattern = "LazyDone",
         modeline = false,
     })
 end
-
 
 return M

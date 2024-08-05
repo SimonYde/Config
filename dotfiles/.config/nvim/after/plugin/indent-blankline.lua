@@ -1,4 +1,8 @@
 Load.later(function()
+    if (os.getenv("XDG_SESSION_TYPE") == "tty") then
+        return
+    end
+
     vim.cmd [[packadd indent-blankline.nvim]]
     local ibl = Load.now(function()
         local ibl = require('ibl')

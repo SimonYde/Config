@@ -8,14 +8,13 @@ Load.later(function()
                 buftypes = { "nofile", "prompt", "quickfix", "terminal" }, -- nofile is for `cmdwin`. see `:h cmdwin`
             }
         }
-        whichkey.register {
-            ['<leader>'] = {
-                d = { name = '[d]ebug' },
-                f = { name = '[f]ind' },
-                g = { name = '[g]it' },
-                o = { name = '[o]bsidian' },
-                l = { name = '[l]sp' },
-            },
+        whichkey.add {
+            { "<leader>w", proxy = "<c-w>",   group = "windows" }, -- proxy to window mappings
+            { "<leader>d", group = "Debug" },
+            { "<leader>f", group = "Find" },
+            { "<leader>g", group = "Git" },
+            { "<leader>l", group = "Lsp" },
+            { "<leader>o", group = "Obsidian" },
         }
         return whichkey
     end)

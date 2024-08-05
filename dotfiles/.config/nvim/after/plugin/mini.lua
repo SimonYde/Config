@@ -1,46 +1,4 @@
 local nmap = require('syde.keymap').nmap
-Load.now(function()
-    require('mini.starter').setup {}
-    local group = vim.api.nvim_create_augroup("MiniStarterKeymap", { clear = true })
-    vim.api.nvim_create_autocmd("User", {
-        -- once = true,
-        pattern = "MiniStarterOpened",
-        group = group,
-        callback = function(starter_args)
-            local starter_bufid = starter_args.buf
-            local was_colemak = _G.COLEMAK
-            -- Turn off colemak langmap for the starter buffer, if it was enabled
-            if was_colemak then
-                Colemak_toggle()
-            end
-            vim.api.nvim_create_autocmd("BufLeave", {
-                group = group,
-                callback = function(args)
-                    -- If we're leaving the starter buffer, and we had Colemak enabled
-                    -- before entering the starter buffer, we toggle it back on
-                    if args.buf == starter_bufid and was_colemak then
-                        was_colemak = false
-                        Colemak_toggle()
-                    end
-                end,
-
-            })
-            vim.api.nvim_create_autocmd("BufEnter", {
-                group = group,
-                callback = function(args)
-                    -- If we're back in the starter buffer we disable langmap again
-                    if args.buf == starter_bufid then
-                        if _G.COLEMAK then
-                            was_colemak = true
-                            Colemak_toggle()
-                        end
-                    end
-                end,
-            })
-        end,
-    })
-    require('mini.sessions').setup {}
-end)
 
 Load.later(function()
     local MiniExtra = require('mini.extra')
@@ -50,6 +8,7 @@ Load.later(function()
     local MiniIcons = require('mini.icons')
     MiniIcons.setup {}
     MiniIcons.mock_nvim_web_devicons()
+    -- MiniIcons.tweak_lsp_kind()
 
     require('mini.bracketed').setup { n_lines = 500 }
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
@@ -79,6 +38,10 @@ Load.later(function()
     require('mini.move').setup {}
     require('mini.visits').setup {}
 
+    local MiniMisc = require('mini.misc')
+    MiniMisc.setup()
+    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile' })
+
     local MiniNotify = require('mini.notify')
     MiniNotify.setup {
         window = {
@@ -101,5 +64,5 @@ Load.later(function()
     local MiniFiles = require('mini.files')
     MiniFiles.setup {}
     nmap('<M-f>', function() MiniFiles.open() end, "Show [f]ile-tree")
-    nmap('<M-F>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end, "Show current [F]ile in file-tree")
+    nmap('<M-F>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end, "Show current [F]ile in explorer")
 end)
