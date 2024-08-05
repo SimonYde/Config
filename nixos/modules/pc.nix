@@ -12,6 +12,8 @@ let
     types
     mkOption
     ;
+  shell = config.syde.shell;
+  user = config.syde.user;
   cfg = config.syde.pc;
 in
 {
@@ -58,10 +60,10 @@ in
       };
     };
 
-    users.users.${config.syde.user} = {
+    users.users.${user} = {
       isNormalUser = true;
       description = "Simon Yde";
-      shell = pkgs.${config.syde.shell};
+      shell = pkgs.${shell};
       extraGroups = [
         "video"
         "networkmanager"
@@ -71,7 +73,7 @@ in
       hashedPasswordFile = config.age.secrets.pc-password.path;
     };
 
-    programs.${config.syde.shell}.enable = true;
+    programs.${shell}.enable = true;
 
     fonts.packages = with pkgs; [
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
@@ -79,10 +81,7 @@ in
       libertinus
     ];
 
-    environment.systemPackages = with pkgs; [
-      git
-      alacritty
-    ];
+    environment.systemPackages = with pkgs; [ git ];
 
     services.udisks2.enable = true;
 

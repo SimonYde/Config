@@ -28,7 +28,6 @@ in
 
     programs.dconf.enable = true;
     services = {
-      displayManager.sddm.enable = true;
       xserver = {
         enable = false;
         displayManager.lightdm.enable = false;
@@ -72,13 +71,13 @@ in
       };
       hyprland-autoname-workspaces = {
         description = "Hyprland-autoname-workspaces as systemd service";
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
+        wantedBy = [ "hyprland-session.target" ];
+        partOf = [ "hyprland-session.target" ];
         script = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces";
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = 1;
       };
     };
   };
-  imports = [ inputs.hyprland.nixosModules.default ];
+  # imports = [ inputs.hyprland.nixosModules.default ];
 }

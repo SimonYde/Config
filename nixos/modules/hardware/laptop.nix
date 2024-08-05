@@ -11,7 +11,7 @@
       powerManagement.finegrained = lib.mkForce true;
     };
 
-    services.xserver.libinput = {
+    services.libinput = {
       enable = true;
       touchpad = {
         disableWhileTyping = true;
