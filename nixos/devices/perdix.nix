@@ -46,8 +46,12 @@
     nh.enable = true;
     kdeconnect.enable = false;
     sway.enable = false;
-    hyprland.enable = true;
+    hyprland.enable = false;
   };
+
+  services.displayManager.sddm.enable = false;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
   services = {
     languagetool.enable = true;

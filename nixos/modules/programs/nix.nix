@@ -1,7 +1,14 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
+  nixpkgs.flake = {
+    setNixPath = true;
+    setFlakeRegistry = true;
+  };
+
+  environment.systemPackages = with pkgs; [ cachix ];
+
   nix = {
-    channel.enable = true; # TODO: remove when nixPath is fixed for flake only
+    channel.enable = false;
     settings = {
       experimental-features = [
         "nix-command"
@@ -9,14 +16,29 @@
       ];
       warn-dirty = false;
       auto-optimise-store = true;
+
+      substituters = [
+        "https://cuda-maintainers.cachix.org"
+        "https://helix.cachix.org"
+        "https://hyprland.cachix.org"
+        "https://cosmic.cachix.org/"
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+        "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+        "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
     optimise = {
       automatic = true;
     };
 
-    registry.nixpkgs.flake = inputs.nixpkgs;
+    # registry.nixpkgs.flake = inputs.nixpkgs;
     registry.stable.flake = inputs.stable;
-    nixPath = [ "nixpkgs=flake:nixpkgs" ];
+    # nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
     gc = {
       automatic = false;
