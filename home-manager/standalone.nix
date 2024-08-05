@@ -8,7 +8,7 @@
       overlays = [
         inputs.nur.overlay
         inputs.helix.overlays.default
-        # inputs.neovim-nightly.overlays.default
+        inputs.neovim-nightly.overlays.default
         inputs.rustaceanvim.overlays.default
         (final: prev: {
           stable = import inputs.stable {

@@ -153,5 +153,5 @@ in
       ];
     };
   };
-  imports = [ inputs.hyprland.homeManagerModules.default ];
+  # imports = [ inputs.hyprland.homeManagerModules.default ];
 }

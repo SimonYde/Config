@@ -95,7 +95,7 @@ in
         "wezterm"
         "foot"
       ];
-      default = "alacritty";
+      default = "kitty";
     };
     opacity = mkOption {
       type = types.float;

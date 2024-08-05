@@ -5,19 +5,12 @@
   ...
 }:
 let
-  inherit (lib) mkIf types mkOption;
+  inherit (lib) mkIf;
   cfg = config.programs.yazi;
 in
 {
-  options.syde.programs.yazi = {
-    defaultFilemanager = mkOption {
-      type = types.bool;
-      default = false;
-    };
-  };
 
   config = mkIf cfg.enable {
-    syde.gui.file-manager = mkIf config.syde.programs.yazi.defaultFilemanager "yazi";
     home.packages = with pkgs; [
       poppler
       ueberzugpp
@@ -27,7 +20,7 @@ in
       enableFishIntegration = true;
       enableZshIntegration = true;
       enableNushellIntegration = true;
-      shellWrapperName = "ya";
+      shellWrapperName = "yy";
       settings = {
         manager = {
           show_hidden = true;

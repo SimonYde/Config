@@ -62,13 +62,14 @@ in
 
           # -----Fuzzy Finder-----
           plenary-nvim
-          telescope-nvim
-          telescope-fzf-native-nvim
-          telescope-ui-select-nvim
-          git-worktree-nvim
+          # telescope-nvim
+          # telescope-fzf-native-nvim
+          # telescope-ui-select-nvim
+          # git-worktree-nvim
 
           # -----UI-----
           which-key-nvim
+          catppuccin-nvim
           todo-comments-nvim
           nui-nvim
         ]

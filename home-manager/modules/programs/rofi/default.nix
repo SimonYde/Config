@@ -16,7 +16,7 @@ in
     programs.rofi = {
       package = mkDefault pkgs.rofi-wayland;
       font = mkForce font.name;
-      terminal = terminal.emulator;
+      terminal = "${pkgs.${terminal.emulator}}/bin/${terminal.emulator}";
       theme = mkForce "custom_base16";
       extraConfig = {
         modi = "run,drun";

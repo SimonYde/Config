@@ -39,9 +39,8 @@ in
     syde.programs = {
       thunar = {
         defaultFilemanager = true;
-        enable = true;
+        enable = false;
       };
-      yazi.defaultFilemanager = false;
     };
 
     services = {
@@ -57,6 +56,7 @@ in
       libreoffice
       anki
       obsidian
+      gimp
 
       qbittorrent
       zed-editor

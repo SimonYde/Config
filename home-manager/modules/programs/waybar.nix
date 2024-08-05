@@ -14,7 +14,7 @@ in
 {
   programs.waybar = {
     # package = inputs.waybar.packages.${pkgs.system}.default;
-    # systemd.enable = true;
+    systemd.enable = false;
     settings = {
       mainBar = {
         layer = "top";
