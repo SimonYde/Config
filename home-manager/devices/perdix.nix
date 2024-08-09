@@ -8,6 +8,7 @@
       programming.enable = true;
       ssh.enable = true;
       terminal.enable = true;
+      desktop.cosmic.enable = true;
       theming.enable = true;
     };
 
