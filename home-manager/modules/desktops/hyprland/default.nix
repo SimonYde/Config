@@ -6,9 +6,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
-  colorScheme = config.colorScheme;
-  palette = colorScheme.palette;
+  inherit (lib) mkIf mkForce;
+  palette = config.colorScheme.palette;
   random-background = pkgs.callPackage ./ran_bg.nix { };
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
@@ -65,8 +64,8 @@ in
           gaps_in = 3;
           gaps_out = 8;
           border_size = 2;
-          "col.active_border" = lib.mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
-          "col.inactive_border" = lib.mkForce "transparent";
+          "col.active_border" = mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
+          "col.inactive_border" = mkForce "transparent";
 
           layout = "dwindle";
           resize_on_border = true;
@@ -153,5 +152,5 @@ in
       ];
     };
   };
-  # imports = [ inputs.hyprland.homeManagerModules.default ];
+  imports = [ inputs.hyprland.homeManagerModules.default ];
 }
