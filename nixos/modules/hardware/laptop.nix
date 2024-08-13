@@ -1,14 +1,23 @@
 { lib, config, ... }:
+
+let
+  inherit (lib)
+    mkIf
+    mkForce
+    mkDefault
+    mkEnableOption
+    ;
+in
 {
-  config = lib.mkIf config.syde.laptop.enable {
+  config = mkIf config.syde.laptop.enable {
     powerManagement = {
-      cpuFreqGovernor = lib.mkDefault "powersave";
+      cpuFreqGovernor = mkDefault "powersave";
       powertop.enable = false;
     };
 
     hardware.nvidia = {
-      powerManagement.enable = lib.mkForce true;
-      powerManagement.finegrained = lib.mkForce true;
+      powerManagement.enable = mkForce true;
+      powerManagement.finegrained = mkForce true;
     };
 
     services.libinput = {
@@ -24,10 +33,9 @@
     programs.light.enable = true;
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = false;
-    services.blueman.enable = true;
   };
 
   options.syde.laptop = {
-    enable = lib.mkEnableOption "laptop hardware configuration.";
+    enable = mkEnableOption "laptop hardware configuration.";
   };
 }

@@ -28,6 +28,7 @@ in
 
     programs.dconf.enable = true;
     services = {
+      blueman.enable = true;
       xserver = {
         enable = false;
         displayManager.lightdm.enable = false;
@@ -79,5 +80,5 @@ in
       };
     };
   };
-  # imports = [ inputs.hyprland.nixosModules.default ];
+  imports = [ inputs.hyprland.nixosModules.default ];
 }

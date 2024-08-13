@@ -54,7 +54,8 @@
   services.displayManager.cosmic-greeter.enable = true;
 
   services = {
-    languagetool.enable = true;
+    geoclue2.enable = false;
+    languagetool.enable = false;
     ollama.enable = false;
     tailscale.enable = true;
     syncthing.enable = true;

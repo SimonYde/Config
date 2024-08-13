@@ -19,7 +19,8 @@ in
 {
   config = mkIf cfg.enable {
     system.stateVersion = "24.05";
-    time.timeZone = "Europe/Copenhagen";
+    # time.timeZone = "Europe/Copenhagen";
+    time.timeZone = "America/Nuuk";
 
     i18n.defaultLocale = "en_GB.UTF-8";
     i18n.extraLocaleSettings = {
