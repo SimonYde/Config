@@ -11,10 +11,10 @@ local add_transparency = function()
                 winbar = false,
             })
             :apply()
-        vim.cmd [[hi GitSignsAdd guibg= ctermbg=]]
-        vim.cmd [[hi GitSignsChange guibg= ctermbg=]]
-        vim.cmd [[hi GitSignsChangeDelete guibg= ctermbg=]]
-        vim.cmd [[hi GitSignsDelete guibg= ctermbg=]]
+        vim.cmd [[hi GitSignsAdd guibg=NONE ctermbg=NONE]]
+        vim.cmd [[hi GitSignsChange guibg=NONE ctermbg=NONE]]
+        vim.cmd [[hi GitSignsChangeDelete guibg=NONE ctermbg=NONE]]
+        vim.cmd [[hi GitSignsDelete guibg=NONE ctermbg=NONE]]
         Separator = string.format([[hi TreesitterContextBottom cterm=underline gui=underline guisp=%s]], PALETTE.base01)
         vim.cmd(Separator)
     end)

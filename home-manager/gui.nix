@@ -32,6 +32,7 @@ in
       mangohud.enable = true;
       qutebrowser.enable = false;
       emacs.enable = false;
+      mpv.enable = true;
       zathura.enable = true;
     };
 
