@@ -17,8 +17,9 @@ in
     };
 
     syde.programming = {
-      java.enable = false;
       bash.enable = true;
+      go.enable = true;
+      java.enable = false;
       latex.enable = true;
       lua.enable = true;
       nix.enable = true;
