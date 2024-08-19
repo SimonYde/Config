@@ -9,6 +9,7 @@
     ./nix.nix
     ./ocaml.nix
     ./python.nix
+    ./scala.nix
     ./rust.nix
     ./typst.nix
   ];

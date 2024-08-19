@@ -18,7 +18,14 @@ in
       clippy
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [ rustaceanvim ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [
+      # Extra rust support
+      rustaceanvim
+    ];
+
+    home.sessionVariables = {
+      CARGO_HOME = "${config.xdg.configHome}/cargo";
+    };
   };
 
   options.syde.programming.rust = {

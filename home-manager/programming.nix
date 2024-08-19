@@ -20,7 +20,8 @@ in
       bash.enable = true;
       go.enable = true;
       java.enable = false;
-      latex.enable = true;
+      latex.enable = false;
+      scala.enable = true;
       lua.enable = true;
       nix.enable = true;
       ocaml.enable = false;
@@ -34,11 +35,6 @@ in
       kattis-test
       # imhex
     ];
-
-    home.sessionVariables = {
-      CARGO_HOME = "${config.xdg.configHome}/cargo";
-      GOPATH = "${config.xdg.dataHome}/go";
-    };
   };
 
   options.syde.programming = {
