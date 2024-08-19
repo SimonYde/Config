@@ -18,7 +18,6 @@ in
     home.packages = with pkgs; [
       gradle
       gradle-completion
-      metals
       jdt-language-server
       cfg.jdk
       (mkIf cfg.enableMaven maven)

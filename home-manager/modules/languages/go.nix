@@ -10,11 +10,21 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      # CLI
       go
+
+      # LSP
       gopls
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [ nvim-dap-go ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [
+      # debugging
+      nvim-dap-go
+    ];
+
+    home.sessionVariables = {
+      GOPATH = "${config.xdg.dataHome}/go";
+    };
   };
 
   options.syde.programming.go = {
