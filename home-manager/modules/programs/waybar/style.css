@@ -1,0 +1,103 @@
+* {
+    border-radius: 10px;
+    border: none;
+    min-height: 12px;
+}
+
+window#waybar {
+    border-radius: 0px;
+    background: @background;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+    background: transparent;
+}
+
+#custom-separator {
+    background: transparent;
+    color: transparent;
+}
+
+#workspaces {
+  transition: none;
+  color: @base0D;
+  background: transparent;
+}
+
+#workspaces button {
+  transition: none;
+  color: @base0D;
+  background: transparent;
+}
+
+#workspaces button.persistent {
+  color: @base0D;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+  transition: none;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  color: @background;
+  background: @base05;
+}
+
+#workspaces button.focused, #workspaces button.active {
+  color: @base01;
+  background: @base0D;
+}
+
+#mode, #submap {
+  padding-left: 8px;
+  padding-right: 8px;
+  transition: none;
+  color: @base01;
+  background: @base0F;
+}
+
+#pulseaudio.muted {
+  color: @base09;
+  background: @background;
+}
+
+#pulseaudio,
+#language,
+#keyboard-state,
+#tray,
+#clock,
+#memory,
+#cpu,
+#disk,
+#battery,
+#custom-swaync {
+  transition: none;
+}
+
+#battery.charging {
+  color: @background;
+  background-color: @base0D;
+}
+
+#battery.warning:not(.charging) {
+  background-color: @base09;
+  color: @background;
+}
+
+#battery.critical:not(.charging) {
+  background-color: @base08;
+  color: @background;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  to {
+      background-color: @text;
+      color: @background;
+  }
+}

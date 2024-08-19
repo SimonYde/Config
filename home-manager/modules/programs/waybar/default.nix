@@ -1,12 +1,6 @@
-{
-  config,
-  inputs,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 let
-  palette = config.colorScheme.palette;
-  hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString ",";
+  palette = config.syde.theming.palette-hex;
   terminal = config.syde.terminal;
   emulator = terminal.emulator;
   font = config.syde.theming.fonts.sansSerif;
@@ -20,8 +14,8 @@ in
         layer = "top";
         position = "top";
         # height = 25;
-        margin-left = 8;
-        margin-right = 8;
+        # margin-left = 12;
+        # margin-right = 12;
         ipc = true;
         passthrough = false;
         exclusive = true;
@@ -54,8 +48,19 @@ in
           "custom/separator#blank"
           "clock"
           "custom/separator#blank"
+          "idle_inhibitor"
+          "custom/separator#blank"
           "custom/swaync"
+          "custom/separator#blank"
         ];
+
+        idle_inhibitor = {
+          format = "{icon}";
+          format-icons = {
+            deactivated = "󰌶";
+            activated = "󰛨";
+          };
+        };
 
         # module definitions
         disk = {
@@ -75,10 +80,10 @@ in
           spacing = 10;
         };
         "sway/mode" = {
-          format = "<span style=\"italic\">{}</span>";
+          format = "<span style='italic'>{}</span>";
         };
         "hyprland/submap" = {
-          format = "<span style=\"italic\">{}</span>";
+          format = "<span style='italic'>{}</span>";
         };
         "hyprland/workspaces" = {
           artive-only = false;
@@ -88,8 +93,7 @@ in
           on-click = "activate";
           on-scroll-up = "hyprctl dispatch workspace e+1";
           on-scroll-down = "hyprctl dispatch workspace e-1";
-          "persistent-workspaces" = {
-          };
+          "persistent-workspaces" = { };
           "format-icons" = {
             "active" = "";
             "default" = "";
@@ -176,7 +180,7 @@ in
         };
 
         "custom/separator#blank" = {
-          format = "";
+          format = "  ";
           interval = "once";
           tooltip = false;
         };
@@ -210,168 +214,36 @@ in
 
     style =
       with palette;
-      let
-        bg = "rgba(${hexToRGBString base00},0.7)";
-        font-size = "15px";
-        padding = "12px";
-      in
       ''
+        @define-color base00 ${base00};
+        @define-color base01 ${base01};
+        @define-color base02 ${base02};
+        @define-color base03 ${base03};
+        @define-color base04 ${base04};
+        @define-color base05 ${base05};
+        @define-color base06 ${base06};
+        @define-color base07 ${base07};
+        @define-color base08 ${base08};
+        @define-color base09 ${base09};
+        @define-color base0A ${base0A};
+        @define-color base0B ${base0B};
+        @define-color base0C ${base0C};
+        @define-color base0D ${base0D};
+        @define-color base0E ${base0E};
+        @define-color base0F ${base0F};
+
+        @define-color background      alpha(${base00}, .85);
+        @define-color text            ${base05};
+        @define-color background-alt  alpha(${base01}, .85);
+        @define-color selected        ${base04};
+        @define-color hover           alpha(@selected, .4);
+        @define-color urgent          ${base08};
+
         * {
-            border: none;
-            border-radius: 15px;
             font-family: ${font.name}, FontAwesome;
-            min-height: 12px;
+            font-size: 14px;
         }
-
-        window#waybar {
-            background: transparent;
-            color: #${base05};
-        }
-
-        window#waybar.hidden {
-            opacity: 0.2;
-            color: #${base05};
-        }
-
-        #blank {
-          background: transparent;
-          color: transparent;
-        }
-
-        #workspaces {
-            transition: none;
-            background: ${bg};
-        }
-
-        #workspaces button {
-            transition: none;
-            color: #${base0D};
-            background: transparent;
-            font-size: ${font-size};
-        }
-
-        #workspaces button.persistent {
-            color: #${base0D};
-            font-size: ${font-size};
-        }
-
-        /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-        #workspaces button:hover {
-            transition: none;
-            box-shadow: inherit;
-            text-shadow: inherit;
-            color: ${bg};
-            background: #${base04};
-        }
-
-        #workspaces button.focused, #workspaces button.active {
-            color: #${base01};
-            background: rgba(${hexToRGBString base0D},1.0);
-        }
-
-        #mode, #submap {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base01};
-            background: #${base0F};
-        }
-
-
-        #pulseaudio {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        #pulseaudio.muted {
-            background-color: ${bg};
-            color: #${base05};
-        }
-
-        #memory, #cpu, #disk {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        #battery {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        #battery.charging {
-            color: ${bg};
-            background-color: #${base0D};
-        }
-
-        #battery.warning:not(.charging) {
-            background-color: #${base09};
-            color: ${bg};
-        }
-
-        #battery.critical:not(.charging) {
-            background-color: #${base08};
-            color: ${bg};
-            animation-name: blink;
-            animation-duration: 0.5s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
-        }
-
-        #custom-swaync {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            background: ${bg};
-            color: #${base05};
-        }
-
-        #tray {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        #clock {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        @keyframes blink {
-            to {
-                background-color: #${base05};
-                color: ${bg};
-            }
-        }
-
-        #language {
-            padding-left: ${padding};
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-
-        #keyboard-state {
-            padding-right: ${padding};
-            transition: none;
-            color: #${base05};
-            background: ${bg};
-        }
-      '';
+      ''
+      + builtins.readFile ./style.css;
   };
 }
