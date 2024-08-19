@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
-    neogit-nightly = {
+    neogit = {
       url = "github:NeogitOrg/neogit/master";
       flake = false;
     };

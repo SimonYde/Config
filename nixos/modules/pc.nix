@@ -20,7 +20,6 @@ in
   config = mkIf cfg.enable {
     system.stateVersion = "24.05";
     # time.timeZone = "Europe/Copenhagen";
-    time.timeZone = "America/Nuuk";
 
     i18n.defaultLocale = "en_GB.UTF-8";
     i18n.extraLocaleSettings = {
@@ -57,7 +56,10 @@ in
       useDHCP = mkDefault true;
       networkmanager = {
         enable = true;
-        wifi.powersave = false;
+        wifi = {
+          powersave = false;
+          macAddress = "random";
+        };
       };
     };
 
@@ -69,18 +71,11 @@ in
         "video"
         "networkmanager"
         "wheel"
-        "docker"
       ];
       hashedPasswordFile = config.age.secrets.pc-password.path;
     };
 
     programs.${shell}.enable = true;
-
-    fonts.packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-      gentium
-      libertinus
-    ];
 
     environment.systemPackages = with pkgs; [ git ];
 
@@ -95,6 +90,7 @@ in
     ];
     boot.supportedFilesystems = [ "ntfs" ];
     boot.loader.systemd-boot.enable = true;
+    boot.loader.systemd-boot.editor = false;
     boot.loader.efi.canTouchEfiVariables = true;
 
     hardware = {

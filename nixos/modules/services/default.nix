@@ -12,5 +12,6 @@
     ./ollama.nix
     ./tailscale.nix
     ./vscode-server.nix
+    ./docker.nix
   ];
 }

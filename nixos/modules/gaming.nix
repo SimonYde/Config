@@ -19,7 +19,15 @@ let
     };
 
     programs.steam = {
+      extraCompatPackages = with pkgs; [
+        # glorious eggroll
+        proton-ge-bin
+      ];
       gamescopeSession.enable = true;
+      fontPackages = with pkgs; [
+        wineWowPackages.fonts
+        source-han-sans
+      ];
     };
 
     programs.nix-ld = {

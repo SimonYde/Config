@@ -2,11 +2,12 @@
   inputs,
   pkgs,
   config,
+  lib,
   ...
 }:
 
 let
-  ageBin = "${pkgs.rage}/bin/rage";
+  ageBin = lib.getExe pkgs.rage;
 in
 {
   config = {

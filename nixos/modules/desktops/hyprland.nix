@@ -24,9 +24,11 @@ in
       extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     };
 
-    programs.hyprland.xwayland.enable = true;
+    programs = {
+      hyprland.xwayland.enable = true;
+      dconf.enable = true;
+    };
 
-    programs.dconf.enable = true;
     services = {
       blueman.enable = true;
       xserver = {
@@ -36,12 +38,21 @@ in
       };
     };
 
-    security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
-    security.pam.services.hyprlock = { }; # hyprlock cannot unlock otherwise, see nixpkgs#89019
-    security.pam.services.kwallet = {
-      name = "kwallet";
-      enableKwallet = true;
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.greetd}/bin/agreety --cmd hyprland";
+        };
+        initial_session = {
+          command = "hyprland";
+          user = config.syde.user;
+        };
+      };
     };
+
+    security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
+    security.pam.services.hyprlock = { }; # NOTE: Could alternatively use the NixOS module for hyprlock
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = 1;
@@ -70,14 +81,14 @@ in
           TimeoutStopSec = 10;
         };
       };
-      hyprland-autoname-workspaces = {
-        description = "Hyprland-autoname-workspaces as systemd service";
-        wantedBy = [ "hyprland-session.target" ];
-        partOf = [ "hyprland-session.target" ];
-        script = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces";
-        serviceConfig.Restart = "always";
-        serviceConfig.RestartSec = 1;
-      };
+      # hyprland-autoname-workspaces = {
+      #   description = "Hyprland-autoname-workspaces as systemd service";
+      #   wantedBy = [ "hyprland-session.target" ];
+      #   partOf = [ "hyprland-session.target" ];
+      #   script = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces";
+      #   serviceConfig.Restart = "always";
+      #   serviceConfig.RestartSec = 1;
+      # };
     };
   };
   imports = [ inputs.hyprland.nixosModules.default ];

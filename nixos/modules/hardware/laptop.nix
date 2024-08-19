@@ -7,9 +7,10 @@ let
     mkDefault
     mkEnableOption
     ;
+  cfg = config.syde.laptop;
 in
 {
-  config = mkIf config.syde.laptop.enable {
+  config = mkIf cfg.enable {
     powerManagement = {
       cpuFreqGovernor = mkDefault "powersave";
       powertop.enable = false;
