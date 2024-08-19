@@ -6,14 +6,12 @@
 }:
 let
   cfg = config.services.displayManager.sddm;
-  has_xorg = config.services.xserver.windowManager.i3.enable;
-  has_wayland =
-    config.programs.sway.enable || config.programs.hyprland.enable || config.programs.river.enable;
+  catppuccin-sddm = pkgs.callPackage ../../packages/catppuccin-sddm.nix {};
 in
 {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      (pkgs.callPackage ../../packages/catppuccin-sddm.nix { })
+      catppuccin-sddm
       libsForQt5.qt5.qtgraphicaleffects
       libsForQt5.qt5.qtsvg
       libsForQt5.qt5.qtquickcontrols2
@@ -25,7 +23,7 @@ in
         enable = true;
       };
       sddm = {
-        wayland.enable = !has_xorg && has_wayland;
+        wayland.enable = true;
         theme = "catppuccin-mocha";
       };
     };

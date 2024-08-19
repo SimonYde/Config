@@ -8,6 +8,7 @@
 
 let
   inherit (lib) mkIf mkForce;
+  user = config.syde.user;
   cfg = config.services.desktopManager.cosmic;
 in
 
@@ -17,9 +18,19 @@ in
     environment.cosmic.excludePackages = with pkgs; [
       cosmic-edit
       cosmic-term
+      cosmic-files
     ];
+
+    users.users.${user}.extraGroups = [ "adm" ];
     programs.light.enable = mkForce false;
     services.blueman.enable = mkForce false;
+    services.greetd.settings = {
+      # auto-login support
+      initial_session = {
+        user = "${config.syde.user}";
+        command = "start-cosmic --in-login-shell";
+      };
+    };
   };
 
   imports = [ inputs.nixos-cosmic.nixosModules.default ];

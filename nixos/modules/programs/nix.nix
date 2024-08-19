@@ -1,14 +1,14 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 {
   nixpkgs.flake = {
     setNixPath = true;
     setFlakeRegistry = true;
   };
 
-  environment.systemPackages = with pkgs; [ cachix ];
-
   nix = {
+    registry.stable.flake = inputs.stable;
     channel.enable = false;
+
     settings = {
       experimental-features = [
         "nix-command"
@@ -32,13 +32,10 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
+
     optimise = {
       automatic = true;
     };
-
-    # registry.nixpkgs.flake = inputs.nixpkgs;
-    registry.stable.flake = inputs.stable;
-    # nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
     gc = {
       automatic = false;

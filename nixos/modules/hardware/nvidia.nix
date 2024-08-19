@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkEnableOption;
   cfg = config.syde.hardware.nvidia;
 in
 {
@@ -19,8 +19,14 @@ in
       "nvidia_drm"
     ];
 
+    boot.kernelParams = [
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+      "nvidia_drm.modeset-1"
+      "nvidia_drm.fbdev=1"
+    ];
+
     hardware.nvidia = {
-      powerManagement.enable = false;
+      powerManagement.enable = true;
       powerManagement.finegrained = false;
       modesetting.enable = true;
       open = false;
@@ -44,7 +50,7 @@ in
   };
 
   options.syde.hardware.nvidia = {
-    enable = lib.mkEnableOption "Enable Nvidia driver configuration";
-    dedicated = lib.mkEnableOption "Nvidia GPU only configuration";
+    enable = mkEnableOption "Enable Nvidia driver configuration";
+    dedicated = mkEnableOption "Nvidia GPU only configuration";
   };
 }
