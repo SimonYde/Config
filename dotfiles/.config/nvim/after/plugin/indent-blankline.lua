@@ -1,5 +1,5 @@
 Load.later(function()
-    if (os.getenv("XDG_SESSION_TYPE") == "tty") then
+    if not os.getenv("XDG_CURRENT_DESKTOP") then
         return
     end
 

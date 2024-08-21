@@ -18,7 +18,7 @@ in
       profiles.syde = {
         name = "syde";
         search = {
-          default = "DuckDuckGo";
+          default = "Kagi";
           force = true;
           engines = {
             "Arch Wiki" = {
@@ -72,6 +72,10 @@ in
                   template = "https://search.nixos.org/packages";
                   params = [
                     {
+                      name = "channel";
+                      value = "unstable";
+                    }
+                    {
                       name = "type";
                       value = "packages";
                     }
@@ -90,6 +94,10 @@ in
                 {
                   template = "https://search.nixos.org/options";
                   params = [
+                    {
+                      name = "channel";
+                      value = "unstable";
+                    }
                     {
                       name = "query";
                       value = "{searchTerms}";
@@ -138,8 +146,8 @@ in
             "Twitter.com".metaData.hidden = true;
           };
           order = [
-            "DuckDuckGo"
             "Kagi"
+            "DuckDuckGo"
           ];
         };
 

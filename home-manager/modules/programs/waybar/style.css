@@ -1,22 +1,22 @@
 * {
-    border-radius: 10px;
-    border: none;
-    min-height: 12px;
+  border-radius: 10px;
+  border: none;
+  min-height: 12px;
 }
 
 window#waybar {
-    border-radius: 0px;
-    background: @background;
+  border-radius: 0px;
+  background: @background;
 }
 
 window#waybar.hidden {
-    opacity: 0.2;
-    background: transparent;
+  opacity: 0.2;
+  background: transparent;
 }
 
 #custom-separator {
-    background: transparent;
-    color: transparent;
+  background: transparent;
+  color: transparent;
 }
 
 #workspaces {
@@ -97,7 +97,7 @@ window#waybar.hidden {
 
 @keyframes blink {
   to {
-      background-color: @text;
-      color: @background;
+    background-color: @text;
+    color: @background;
   }
 }

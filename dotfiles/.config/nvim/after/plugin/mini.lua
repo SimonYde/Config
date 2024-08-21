@@ -36,7 +36,33 @@ Load.later(function()
     require('mini.surround').setup {}
     require('mini.splitjoin').setup {}
     require('mini.move').setup {}
+
     require('mini.visits').setup {}
+    require('mini.diff').setup()
+
+    local make_select_path = function(select_global, recency_weight)
+        return function()
+            local cwd = select_global and '' or vim.fn.getcwd()
+            -- visits.select_path(cwd, select_opts)
+            MiniExtra.pickers.visit_paths({
+                cwd = cwd,
+                -- sort = sort,
+                recency_weight = recency_weight,
+            })
+        end
+    end
+
+    local map = function(lhs, desc, ...)
+        vim.keymap.set('n', lhs, make_select_path(...), { desc = desc })
+    end
+
+    -- Adjust LHS and description to your liking
+    map('<Leader>vr', 'Select recent (all)', true, 1)
+    map('<Leader>vR', 'Select recent (cwd)', false, 1)
+    map('<Leader>vy', 'Select frecent (all)', true, 0.5)
+    map('<Leader>vY', 'Select frecent (cwd)', false, 0.5)
+    map('<Leader>vf', 'Select frequent (all)', true, 0)
+    map('<Leader>vF', 'Select frequent (cwd)', false, 0)
 
     local MiniMisc = require('mini.misc')
     MiniMisc.setup()
@@ -45,6 +71,9 @@ Load.later(function()
     local MiniNotify = require('mini.notify')
     MiniNotify.setup {
         window = {
+            config = {
+                border = "rounded",
+            },
             winblend = 0,
         },
     }

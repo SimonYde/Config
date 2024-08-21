@@ -8,6 +8,7 @@ let
   stylix = inputs.stylix;
   theming = config.syde.theming;
   fonts = theming.fonts;
+  cursor = theming.cursor;
 in
 {
   config = {
@@ -27,8 +28,8 @@ in
         zathura.enable = false;
       };
       cursor = {
-        package = theming.cursor.package;
-        name = theming.cursor.name;
+        package = cursor.package;
+        name = cursor.name;
         size = 24;
       };
       fonts = {

@@ -62,7 +62,7 @@ in
 
         general = with palette; {
           gaps_in = 3;
-          gaps_out = 8;
+          gaps_out = 6;
           border_size = 2;
           "col.active_border" = mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
           "col.inactive_border" = mkForce "transparent";
@@ -73,11 +73,12 @@ in
         };
 
         misc.disable_hyprland_logo = true;
+        # render.explicit_sync = false;
 
         input = {
           kb_layout = "us(colemak_dh),eu";
           kb_options = "caps:escape,grp:rctrl_toggle";
-          resolve_binds_by_sym = true;
+          # resolve_binds_by_sym = true;
           repeat_delay = 200;
           follow_mouse = 2;
           accel_profile = "flat";

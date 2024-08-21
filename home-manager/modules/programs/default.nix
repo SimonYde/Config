@@ -41,7 +41,7 @@
     ./hyprlock.nix
     ./thunar.nix
     ./vscode.nix
-    ./waybar.nix
+    ./waybar
     ./wlogout.nix
     ./zathura.nix
 

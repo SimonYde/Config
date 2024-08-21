@@ -36,15 +36,18 @@ in
       zathura.enable = true;
     };
 
+    syde.desktop.cosmic.files.enable = false;
+
     # personal program configurations
     syde.programs = {
       thunar = {
         defaultFilemanager = true;
-        enable = false;
+        enable = true;
       };
     };
 
     services = {
+      blanket.enable = false;
       kdeconnect.enable = true;
       gammastep.enable = true;
       redshift.enable = false;
@@ -58,6 +61,7 @@ in
       anki
       obsidian
       gimp
+      brightnessctl
 
       qbittorrent
       zed-editor

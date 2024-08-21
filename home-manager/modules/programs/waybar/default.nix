@@ -232,16 +232,16 @@ in
         @define-color base0E ${base0E};
         @define-color base0F ${base0F};
 
-        @define-color background      alpha(${base00}, .85);
+        @define-color background      alpha(${base00}, .7);
         @define-color text            ${base05};
-        @define-color background-alt  alpha(${base01}, .85);
+        @define-color background-alt  alpha(${base01}, .7);
         @define-color selected        ${base04};
         @define-color hover           alpha(@selected, .4);
         @define-color urgent          ${base08};
 
         * {
-            font-family: ${font.name}, FontAwesome;
-            font-size: 14px;
+          font-family: ${font.name}, FontAwesome;
+          font-size: 14px;
         }
       ''
       + builtins.readFile ./style.css;

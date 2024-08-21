@@ -54,8 +54,5 @@ Load.later(function()
 
     if gitsigns then return end
 
-    Load.now(function ()
-        require('mini.diff').setup()
-    end)
 
 end)

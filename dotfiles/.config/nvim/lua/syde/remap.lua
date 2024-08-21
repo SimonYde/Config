@@ -17,23 +17,32 @@ COLEMAK        = false
 Colemak_toggle = function()
     if not COLEMAK then
         vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
-        -- vim.opt.langmap = "jh,hk,kj"
         vim.opt.langremap = false
-        nvmap("gm", "^", "Goto first non-blank in line")
-        -- nvmap("gs", "0", "Goto line start")
-        -- nvmap("gl", "$", "Goto line end")
 
-        nvmap("gh", "^", "Goto first non-blank in line")
-        nvmap("gs", "0", "Goto line start")
-        nvmap("gl", "$", "Goto line end")
+        -- nvmap("m", "h", "")
+        -- nvmap("n", "j", "")
+        -- nvmap("e", "k", "")
+        -- nvmap("i", "l", "")
+        -- nvmap("h", "m", "")
+        -- nvmap("j", "e", "")
+        -- nvmap("k", "n", "")
+        -- nvmap("l", "i", "")
+        -- nvmap("M", "H", "")
+        -- nvmap("N", "J", "")
+        -- nvmap("E", "K", "")
+        -- nvmap("I", "L", "")
+        -- nvmap("H", "M", "")
+        -- nvmap("J", "E", "")
+        -- nvmap("K", "N", "")
+        -- nvmap("L", "I", "")
+        -- nvmap("gm", "^", "")
+        -- nvmap("gi", "$", "")
+
         nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
         nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
         COLEMAK = true
     else
         vim.opt.langmap = ""
-        nvmap("gh", "^", "Goto first non-blank in line")
-        nvmap("gs", "0", "Goto line start")
-        nvmap("gl", "$", "Goto line end")
         nvmap("H", "^", "Goto first non-empty cell in line")
         nvmap("L", "$", "Goto line end")
         COLEMAK = false
@@ -50,6 +59,9 @@ nmap("U", "<C-r>", "redo")
 
 -- vmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
 -- vmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
+nvmap("gh", "^", "Goto first non-blank in line")
+nvmap("gs", "0", "Goto line start")
+nvmap("gl", "$", "Goto line end")
 
 nmap("J", "mzJ`z", "Join following line with current")
 nmap("<C-d>", "<C-d>zz", "Move down half page")
