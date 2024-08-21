@@ -15,13 +15,12 @@ local add_transparency = function()
         vim.cmd [[hi GitSignsChange guibg=NONE ctermbg=NONE]]
         vim.cmd [[hi GitSignsChangeDelete guibg=NONE ctermbg=NONE]]
         vim.cmd [[hi GitSignsDelete guibg=NONE ctermbg=NONE]]
-        Separator = string.format([[hi TreesitterContextBottom cterm=underline gui=underline guisp=%s]], PALETTE.base01)
-        vim.cmd(Separator)
+        -- vim.cmd(("hi TreesitterContextBottom cterm=underline gui=underline guisp=%s"):format(PALETTE.base01))
     end)
 end
 
 local catppuccin = Load.now(function()
-    if (os.getenv("XDG_SESSION_TYPE") == "tty") then
+    if not os.getenv("XDG_CURRENT_DESKTOP") then
         return nil
     end
 
@@ -33,7 +32,7 @@ local catppuccin = Load.now(function()
 
     catppuccin.setup {
         flavour = flavour,
-        transparent_background = true,
+        transparent_background = false,
         integrations = {
             cmp = true,
             gitsigns = true,

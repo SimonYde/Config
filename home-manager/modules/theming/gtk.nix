@@ -35,8 +35,8 @@ in
       };
     };
 
-    # home.sessionVariables = {
-    #   GTK_THEME = cfg.theme.name;
-    # };
+    home.sessionVariables = {
+      GTK_THEME = cfg.theme.name;
+    };
   };
 }

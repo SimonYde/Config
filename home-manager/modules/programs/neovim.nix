@@ -41,7 +41,6 @@ in
           # codeium-nvim
 
           # -----Workflow-----
-          project-nvim
           conform-nvim
           harpoon2
           nvim-autopairs

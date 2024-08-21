@@ -1,6 +1,5 @@
 Load.later(function()
     vim.cmd [[packadd nvim-treesitter]]
-    vim.cmd [[packadd nvim-treesitter-context]]
     vim.cmd [[packadd nvim-treesitter-textobjects]]
 
     local treesitter_opts = {
@@ -36,6 +35,8 @@ Load.later(function()
                     ["if"] = "@function.inner",
                     ["ac"] = "@class.outer",
                     ["ic"] = "@class.inner",
+                    ["ao"] = "@loop.outer",
+                    ["io"] = "@loop.inner",
                 },
             },
             move = {
@@ -79,11 +80,9 @@ Load.later(function()
 
     }
 
-    local rainbow_delimiters = Load.now(function()
+    Load.now(function()
         vim.cmd [[packadd rainbow-delimiters.nvim]]
-        require('rainbow-delimiters')
-    end)
-    if rainbow_delimiters then
+        local rainbow_delimiters = require('rainbow-delimiters')
         treesitter_opts.rainbow = {
             enable = true,
             -- list of languages you want to disable the plugin for
@@ -93,11 +92,12 @@ Load.later(function()
             -- Highlight the entire buffer all at once
             strategy = rainbow_delimiters.strategy.global,
         }
-    end
+    end)
 
     require('nvim-treesitter.configs').setup(treesitter_opts)
 
     Load.now(function()
+        vim.cmd [[packadd nvim-treesitter-context]]
         local context = require('treesitter-context')
         context.setup {}
         local nmap = require('syde.keymap').nmap

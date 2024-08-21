@@ -30,20 +30,21 @@ in
         input-field = [
           {
             size = "200, 50";
-            position = "0, -80";
-            monitor = "";
+            outline_thickness = 3;
             dots_center = true;
             fade_on_empty = true;
             font_color = base05;
             inner_color = base02;
+            monitor = "";
             outer_color = base00;
-            outline_thickness = 5;
-            placeholder_text = ''<span foreground="${base05}">Password...</span>'';
+            placeholder_text = "<i>Password...</i>";
+            position = "0, -80";
+
             shadow_passes = 2;
           }
         ];
       };
     };
-    syde.gui.lock = "${pkgs.hyprlock}/bin/hyprlock";
+    syde.gui.lock = lib.getExe pkgs.hyprlock;
   };
 }

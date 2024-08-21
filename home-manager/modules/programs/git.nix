@@ -41,6 +41,8 @@ in
       ignores = [
         "*.sync-conflict*"
         ".direnv"
+        ".envrc"
+        ".env"
         ".stignore"
         "*.log"
         ".stfolder"

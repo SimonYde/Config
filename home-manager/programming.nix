@@ -20,7 +20,7 @@ in
       bash.enable = true;
       go.enable = true;
       java.enable = false;
-      latex.enable = false;
+      latex.enable = true;
       scala.enable = true;
       lua.enable = true;
       nix.enable = true;

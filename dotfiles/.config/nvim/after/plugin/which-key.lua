@@ -12,6 +12,7 @@ Load.later(function()
             { "<leader>w", proxy = "<c-w>",   group = "windows" }, -- proxy to window mappings
             { "<leader>d", group = "Debug" },
             { "<leader>f", group = "Find" },
+            { "<leader>v", group = "Visits" },
             { "<leader>g", group = "Git" },
             { "<leader>l", group = "Lsp" },
             { "<leader>o", group = "Obsidian" },

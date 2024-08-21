@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }@args:
+{ pkgs, ... }:
 {
   config = {
     # Personal modules
@@ -25,16 +25,28 @@
       };
     };
 
-    wayland.windowManager =
-      {
-        sway.enable = false;
-        hyprland.enable = false;
-      }
-      # NOTE: This is more of a tests than anything else.
-      // lib.optionalAttrs (args ? "osConfig") {
-        sway.enable = args.osConfig.programs.sway.enable;
-        hyprland.enable = args.osConfig.programs.hyprland.enable;
-      };
+    wayland.windowManager.hyprland = {
+      enable = false;
+      extraConfig = # hyprlang
+        ''
+          source = ~/.config/hypr/devices.conf
+          source = ~/.config/hypr/monitors.conf
+          source = ~/.config/hypr/keybindings.conf
+          source = ~/.config/hypr/windowrules.conf
+
+          # workspace=1, monitor:HDMI-A-1, default:true
+          # workspace=2, monitor:HDMI-A-1
+          # workspace=3, monitor:HDMI-A-1
+          # workspace=4, monitor:HDMI-A-1
+          # workspace=5, monitor:HDMI-A-1
+          # workspace=6, monitor:HDMI-A-1
+          #
+          # workspace=7, monitor:e-DP-1
+          # workspace=8, monitor:e-DP-1
+          # workspace=9, monitor:e-DP-1
+          # workspace=10, monitor:e-DP-1
+        '';
+    };
   };
 
   imports = [ ../standard.nix ];

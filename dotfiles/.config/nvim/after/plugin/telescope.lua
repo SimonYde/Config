@@ -2,7 +2,6 @@ Load.later(function()
     local nmap = require('syde.keymap').nmap
 
     local telescope = Load.now(function()
-        do return end
         local telescope = require('telescope')
         -- Clone the default Telescope configuration
         local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
@@ -129,13 +128,26 @@ Load.later(function()
     Load.now(function()
         local MiniPick = require('mini.pick')
         local MiniExtra = require('mini.extra')
+        MiniExtra.setup {}
 
         local send_to_qflist = function()
             local mappings = MiniPick.get_picker_opts().mappings
             vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)
         end
 
-        MiniExtra.setup {}
+        local center_window = function()
+            local height = math.floor(0.618 * vim.o.lines)
+            local width = math.floor(0.618 * vim.o.columns)
+            return {
+                anchor = 'NW',
+                height = height,
+                width = width,
+                row = math.floor(0.5 * (vim.o.lines - height)),
+                col = math.floor(0.5 * (vim.o.columns - width)),
+                border = "rounded",
+            }
+        end
+
         MiniPick.setup {
             options = {
                 content_from_bottom = false,
@@ -147,8 +159,14 @@ Load.later(function()
                 refine = "<C-Space>",
                 refine_marked = "<M-q>",
                 send_to_qflist = { char = '<C-q>', func = send_to_qflist },
-            }
+            },
+
+            window = {
+                config = center_window
+            },
         }
+
+        vim.ui.select = MiniPick.ui_select
 
         nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
         nmap("<leader>b", MiniPick.builtin.buffers, "Pick buffers")
