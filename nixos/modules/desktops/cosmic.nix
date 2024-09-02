@@ -15,6 +15,9 @@ in
 {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ ];
+
+    hardware.system76.enableAll = true;
+
     environment.cosmic.excludePackages = with pkgs; [
       cosmic-edit
       cosmic-term

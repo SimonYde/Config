@@ -4,7 +4,6 @@ let
   inherit (lib)
     mkIf
     mkForce
-    mkDefault
     mkEnableOption
     ;
   cfg = config.syde.laptop;
@@ -12,7 +11,6 @@ in
 {
   config = mkIf cfg.enable {
     powerManagement = {
-      cpuFreqGovernor = mkDefault "powersave";
       powertop.enable = false;
     };
 

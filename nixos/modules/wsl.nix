@@ -6,6 +6,8 @@
   ...
 }:
 let
+  shell = config.syde.shell;
+  user = config.syde.user;
   cfg = config.syde.wsl;
 in
 {
@@ -22,10 +24,10 @@ in
       useWindowsDriver = true;
     };
 
-    users.users.${config.syde.user} = {
+    users.users.${user} = {
       isNormalUser = true;
       description = "Simon Yde";
-      shell = pkgs.${config.syde.shell};
+      shell = pkgs.${shell};
       extraGroups = [ "wheel" ];
     };
 
@@ -36,11 +38,13 @@ in
 
     programs = {
       dconf.enable = true;
-      ${config.syde.shell}.enable = true;
+      ${shell}.enable = true;
     };
   };
 
-  imports = [ inputs.nixos-wsl.nixosModules.default ];
+  imports = [
+    inputs.nixos-wsl.nixosModules.default
+  ];
 
   options.syde.wsl = {
     enable = lib.mkEnableOption "WSL2 configuration";

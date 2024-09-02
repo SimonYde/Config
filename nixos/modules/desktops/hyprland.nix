@@ -91,5 +91,5 @@ in
       # };
     };
   };
-  imports = [ inputs.hyprland.nixosModules.default ];
+  # imports = [ inputs.hyprland.nixosModules.default ];
 }
