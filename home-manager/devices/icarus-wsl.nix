@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   programs = {
     zathura.enable = true;
@@ -24,6 +24,8 @@
     ex = "explorer.exe";
     poweroff = "wsl.exe --shutdown NixOS";
   };
+
+  syde.terminal.opacity = lib.mkForce 1.0;
 
   home.packages = with pkgs; [
     libqalculate

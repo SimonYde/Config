@@ -28,7 +28,7 @@ in
       btop.enable = true;
       direnv.enable = true;
       eza.enable = true;
-      fzf.enable = true;
+      fzf.enable = false;
       fastfetch.enable = true;
       fd.enable = true;
       gh.enable = true;
@@ -78,7 +78,7 @@ in
 
     home.shellAliases = {
       c = "clear";
-      rt = "trash put";
+      tp = "${pkgs.trashy}/bin/trash put";
     };
   };
 

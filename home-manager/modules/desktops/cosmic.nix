@@ -28,6 +28,7 @@ in
 
     syde.desktop.cosmic.files.enable = mkDefault true;
     syde.programs.thunar.enable = mkDefault false;
+    services.gammastep.enable = mkForce false; # TODO: find night-light alternative
 
     home.packages =
       with pkgs;

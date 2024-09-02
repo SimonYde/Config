@@ -59,7 +59,6 @@ window#waybar.hidden {
 
 #pulseaudio.muted {
   color: @base09;
-  background: @background;
 }
 
 #pulseaudio,

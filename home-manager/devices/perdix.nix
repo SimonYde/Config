@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   config = {
     # Personal modules
@@ -8,7 +8,7 @@
       programming.enable = true;
       ssh.enable = true;
       terminal.enable = true;
-      desktop.cosmic.enable = true;
+      desktop.cosmic.enable = false;
       theming.enable = true;
     };
 
@@ -26,25 +26,23 @@
     };
 
     wayland.windowManager.hyprland = {
-      enable = false;
+      enable = true;
+      settings = {
+        general.allow_tearing = lib.mkForce false; # NOTE: freezes and doesn't tear
+      };
       extraConfig = # hyprlang
         ''
-          source = ~/.config/hypr/devices.conf
-          source = ~/.config/hypr/monitors.conf
-          source = ~/.config/hypr/keybindings.conf
-          source = ~/.config/hypr/windowrules.conf
+          workspace=1, monitor:e-DP-1, default:true
+          workspace=2, monitor:e-DP-1
+          workspace=3, monitor:e-DP-1
+          workspace=4, monitor:e-DP-1
+          workspace=5, monitor:e-DP-1
+          workspace=6, monitor:e-DP-1
+          workspace=7, monitor:e-DP-1
+          workspace=8, monitor:e-DP-1
 
-          # workspace=1, monitor:HDMI-A-1, default:true
-          # workspace=2, monitor:HDMI-A-1
-          # workspace=3, monitor:HDMI-A-1
-          # workspace=4, monitor:HDMI-A-1
-          # workspace=5, monitor:HDMI-A-1
-          # workspace=6, monitor:HDMI-A-1
-          #
-          # workspace=7, monitor:e-DP-1
-          # workspace=8, monitor:e-DP-1
-          # workspace=9, monitor:e-DP-1
-          # workspace=10, monitor:e-DP-1
+          workspace=9, monitor:HDMI-A-1,  default:true
+          workspace=10, monitor:HDMI-A-1
         '';
     };
   };

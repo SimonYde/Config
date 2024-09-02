@@ -46,6 +46,10 @@ in
           symbol = " ";
           style = "bold ${base0C}";
         };
+        scala = {
+          symbol = " ";
+          disabled = true;
+        };
       };
     };
   };

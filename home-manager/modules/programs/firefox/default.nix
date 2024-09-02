@@ -20,6 +20,10 @@ in
         search = {
           default = "Kagi";
           force = true;
+          order = [
+            "Kagi"
+            "DuckDuckGo"
+          ];
           engines = {
             "Arch Wiki" = {
               urls = [
@@ -145,10 +149,6 @@ in
             "Amazon.com".metaData.hidden = true;
             "Twitter.com".metaData.hidden = true;
           };
-          order = [
-            "Kagi"
-            "DuckDuckGo"
-          ];
         };
 
         settings = {
@@ -183,6 +183,7 @@ in
           "privacy.sanitize.sanitizeOnShutdown" = true;
           "privacy.trackingprotection.enabled" = true;
           "privacy.trackingprotection.socialtracking.enabled" = true;
+          "media.peerconnection.enabled" = false; # remove WebRTC IP leak
 
           "signon.autofillForms" = false;
           "signon.rememberSignons" = false;
