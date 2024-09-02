@@ -6,19 +6,20 @@ Load.later(function()
     end)
 
     -- Cmp Setup
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local default_capabilities = vim.lsp.protocol.make_client_capabilities()
     local cmp_nvim_lsp = Load.now(require, 'cmp_nvim_lsp')
     if cmp_nvim_lsp then
-        capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+        default_capabilities = cmp_nvim_lsp.default_capabilities(default_capabilities)
     end
 
-    ---@param LSP { name: string, cmd: string?, settings: table?, on_attach: function?, filetypes: string[]? }
+    ---@param LSP { name: string, cmd: string?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
     local function setup_lsp(LSP)
         if not (vim.fn.executable(LSP.cmd or LSP.name) == 1) then
             return -- LSP not installed
         end
         local config = {}
-        config.capabilities = capabilities
+        local extra_capabilities = LSP.capabilities or {}
+        config.capabilities = vim.tbl_deep_extend('force', default_capabilities, extra_capabilities)
         if LSP.settings then config.settings = LSP.settings end
         if LSP.on_attach then config.on_attach = LSP.on_attach end
         if LSP.filetypes then config.filetypes = LSP.filetypes end
@@ -29,6 +30,11 @@ Load.later(function()
     setup_lsp {
         name = "elmls",
         cmd = "elm-language-server",
+    }
+
+    setup_lsp {
+        name = "metals",
+        filetypes = { "java", "scala", "sbt" },
     }
 
     setup_lsp {
@@ -61,10 +67,6 @@ Load.later(function()
 
     setup_lsp {
         name = "ocamllsp",
-    }
-
-    setup_lsp {
-        name = "metals",
     }
 
     setup_lsp {
@@ -194,6 +196,7 @@ Load.later(function()
         }
     }
 
+
     Load.now(function()
         require('copilot').setup {
             suggestion = {
@@ -207,16 +210,42 @@ Load.later(function()
         }
     end)
 
-    -- Load.now(function()
-    --     require('lsp_signature').setup({
-    --         doc_lines = 0,
-    --         hint_enable = false,
-    --         hint_inline = function() return false end,     -- should the hint be inline(nvim 0.10 only)?  default false
-    --         handler_opts = {
-    --             border = "rounded"
-    --         },
-    --     })
-    -- end)
+    Load.now(function()
+        require('lsp_signature').setup({
+            doc_lines = 0,
+            hint_enable = false,
+            hint_inline = function() return false end, -- should the hint be inline(nvim 0.10 only)?  default false
+            handler_opts = {
+                border = "none"
+            },
+        })
+    end)
+
+    Load.now(function()
+        local settings = {
+            symbol_in_winbar = {
+                enable = false,
+            },
+            code_action = {
+                show_server_name = true,
+            },
+            lightbulb = {
+                enable = false,
+            },
+            implement = {
+                enable = true,
+            },
+            ui = {
+                border = 'rounded'
+            }
+        }
+
+        if pcall(require, 'catppuccin') then
+            settings.ui.kind = require('catppuccin.groups.integrations.lsp_saga').custom_kind()
+        end
+
+        require('lspsaga').setup(settings)
+    end)
 
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
@@ -224,8 +253,6 @@ Load.later(function()
             if client then
                 client.server_capabilities.semanticTokensProvider = nil
             end
-
-
 
             Load.now(function()
                 require('fidget').setup {
@@ -261,23 +288,6 @@ Load.later(function()
             imap("<C-s>", vim.lsp.buf.signature_help, "Signature Help")
 
             Load.now(function()
-                local settings = {
-                    symbol_in_winbar = {
-                        enable = false,
-                    },
-                    code_action_prompt = {
-                        enable = false,
-                    },
-                }
-
-                if pcall(require, 'catppuccin') then
-                    settings.ui = {
-                        kind = require('catppuccin.groups.integrations.lsp_saga').custom_kind(),
-                    }
-                end
-
-                require('lspsaga').setup(settings)
-
                 nmap(
                     "<leader>k",
                     function() vim.cmd.Lspsaga("hover_doc") end,

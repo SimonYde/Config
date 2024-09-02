@@ -20,10 +20,6 @@ local add_transparency = function()
 end
 
 local catppuccin = Load.now(function()
-    if not os.getenv("XDG_CURRENT_DESKTOP") then
-        return nil
-    end
-
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
     if VARIANT ~= 'dark' then
@@ -32,7 +28,7 @@ local catppuccin = Load.now(function()
 
     catppuccin.setup {
         flavour = flavour,
-        transparent_background = false,
+        transparent_background = vim.g.transparent,
         integrations = {
             cmp = true,
             gitsigns = true,
@@ -67,22 +63,7 @@ local catppuccin = Load.now(function()
     vim.cmd.colorscheme("catppuccin")
     return catppuccin
 end)
-
-local rose_pine = Load.now(function()
-    local rose_pine = require('rose-pine')
-    rose_pine.setup({
-        disable_background = true,
-        styles = {
-            italic = false,
-        }
-
-    })
-    vim.cmd.colorscheme('rose-pine')
-    add_transparency()
-    return rose_pine
-end)
-
-if catppuccin or rose_pine then return end
+if catppuccin then return end
 
 Load.now(function()
     require('mini.base16').setup {
@@ -124,5 +105,7 @@ Load.now(function()
             ['williamboman/mason.nvim'] = false,
         },
     }
-    add_transparency()
+    if vim.g.transparent then
+        add_transparency()
+    end
 end)

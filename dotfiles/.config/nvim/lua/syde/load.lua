@@ -1,7 +1,67 @@
 local M = {}
+local U = {}
+
+---@alias FileType "file"|"directory"|"link"
+---@param path string
+---@param fn fun(path: string, name:string, type:FileType):boolean?
+U.ls = function(path, fn)
+    local handle = vim.uv.fs_scandir(path)
+    while handle do
+        local name, t = vim.uv.fs_scandir_next(handle)
+        if not name then
+            break
+        end
+
+        local fname = path .. "/" .. name
+
+        -- HACK: type is not always returned due to a bug in luv,
+        -- so fecth it with fs_stat instead when needed.
+        -- see https://github.com/folke/lazy.nvim/issues/306
+        if fn(fname, name, t or vim.uv.fs_stat(fname).type) == false then
+            break
+        end
+    end
+end
+
+---@param path string
+---@param fn fun(path: string, name:string, type:FileType)
+U.walk = function(path, fn)
+    U.ls(path, function(child, name, type)
+        if type == "directory" then
+            U.walk(child, fn)
+        end
+        fn(child, name, type)
+    end)
+end
+
+---@param ... string
+M.source_runtime = function(...)
+    local dir = table.concat({ ... }, "/")
+    ---@type string[]
+    local files = {}
+    Util.walk(dir, function(path, name, t)
+        local ext = name:sub(-3)
+        name = name:sub(1, -5)
+        if (t == "file" or t == "link") and (ext == "lua" or ext == "vim") and not M.disabled_rtp_plugins[name] then
+            files[#files + 1] = path
+        end
+    end)
+    -- plugin files are sourced alphabetically per directory
+    table.sort(files)
+    for _, path in ipairs(files) do
+        M.source(path)
+    end
+end
+
+M.source = function(path)
+    Load.now(function()
+        vim.cmd("source " .. path)
+    end)
+end
 
 M.setup = function()
     _G.Load = M -- export module
+    _G.Util = U -- export module
     local _setup_lazy_loading = function()
         local function _load()
             vim.schedule(function()
