@@ -20,7 +20,7 @@ in
         passthrough = false;
         exclusive = true;
         fixed-center = true;
-        spacing = 3;
+        spacing = 0;
         output = [ "*" ];
         modules-left = [
           "hyprland/workspaces"
@@ -35,27 +35,27 @@ in
         ];
         modules-right = [
           "pulseaudio"
-          "custom/separator#blank"
+          # "custom/separator#blank"
           "disk"
-          "custom/separator#blank"
+          # "custom/separator#blank"
           "memory"
-          "custom/separator#blank"
+          # "custom/separator#blank"
           "cpu"
-          "custom/separator#blank"
+          # "custom/separator#blank"
           "battery"
           "custom/separator#blank"
           "tray"
           "custom/separator#blank"
           "clock"
-          "custom/separator#blank"
+          # "custom/separator#blank"
           "idle_inhibitor"
-          "custom/separator#blank"
+          # "custom/separator#blank"
           "custom/swaync"
-          "custom/separator#blank"
+          # "custom/separator#blank"
         ];
 
         idle_inhibitor = {
-          format = "{icon}";
+          format = " {icon} ";
           format-icons = {
             deactivated = "󰌶";
             activated = "󰛨";
@@ -64,16 +64,41 @@ in
 
         # module definitions
         disk = {
-          format = "{free} 󰋊";
+          format = " {free} 󰋊 ";
           path = "/";
         };
         memory = {
-          format = "{}% 󰾆";
+          format = " {}% 󰍛 ";
           on-click = "${emulator} -e ${pkgs.btop}/bin/btop";
         };
         cpu = {
-          format = "{usage}% 󰍛";
+          format = " {usage}% 󰾆 ";
           tooltip = false;
+        };
+        clock = {
+          format = " {:%H:%M} ";
+          format-alt = " {:%A, %B %d, %Y (%R)} ";
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          calendar = {
+            mode = "year";
+            mode-mon-col = 3;
+            weeks-pos = "right";
+            on-scroll = 1;
+            format = with palette; {
+              months = "<span color='${base0F}'><b>{}</b></span>";
+              days = "<span color='${base0E}'><b>{}</b></span>";
+              weeks = "<span color='${base0C}'><b>W{}</b></span>";
+              weekdays = "<span color='${base09}'><b>{}</b></span>";
+              today = "<span color='${base08}'><b><u>{}</u></b></span>";
+            };
+          };
+          actions = {
+            on-click-right = "mode";
+            on-click-forward = "tz_up";
+            on-click-backward = "tz_down";
+            on-scroll-up = "shift_up";
+            on-scroll-down = "shift_down";
+          };
         };
         tray = {
           # icon-size = 20;
@@ -125,7 +150,7 @@ in
 
         "custom/swaync" = {
           tooltip = true;
-          format = "{icon} {}";
+          format = " {icon} {} ";
           format-icons = {
             notification = "<span foreground='red'><sup></sup></span>";
             none = "";
@@ -159,10 +184,10 @@ in
             critical = 15;
           };
 
-          format = "{capacity}% {icon}";
-          format-charging = "{capacity}% ";
-          format-plugged = "{capacity}% ";
-          format-alt = "{time} {icon}";
+          format = " {capacity}% {icon} ";
+          format-charging = " {capacity}%  ";
+          format-plugged = " {capacity}%  ";
+          format-alt = " {time} {icon} ";
           # format-icons = [ "" "" "" "" "" ];
           format-icons = [
             "󰂎"
@@ -180,18 +205,18 @@ in
         };
 
         "custom/separator#blank" = {
-          format = "  ";
+          format = " ";
           interval = "once";
           tooltip = false;
         };
 
         pulseaudio = {
           scroll-step = 10; # %, can be a float
-          format = "{volume}% {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-source = "{volume}% ";
+          format = " {volume}% {icon} {format_source} ";
+          format-muted = "  {format_source} ";
+          format-bluetooth = " {volume}% {icon} {format_source} ";
+          format-bluetooth-muted = "  {icon} {format_source} ";
+          format-source = " {volume}%  ";
           format-source-muted = "";
 
           format-icons = {

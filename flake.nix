@@ -109,6 +109,10 @@
       url = "github:yokoffing/Betterfox";
       flake = false;
     };
+    zen-browser = {
+      url = "github:MarceColl/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-colors.url = "github:misterio77/nix-colors";
     stylix = {

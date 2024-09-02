@@ -7,7 +7,6 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.syde.programming.scala;
-  java = config.syde.programming.java;
 in
 {
   config = mkIf cfg.enable {
@@ -15,14 +14,12 @@ in
       scala
       scalafmt
       sbt
-      java.jdk
-
       metals
     ];
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [
-        nvim-metals
+        # nvim-metals
         plenary-nvim
       ];
     };

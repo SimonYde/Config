@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs,
   pkgs,
   ...
 }:
@@ -26,6 +27,7 @@ in
 
       # Terminal emulators
       ${emulator}.enable = true;
+      alacritty.enable = true;
 
       # other GUI programs
       vscode.enable = false;
@@ -60,11 +62,12 @@ in
       libreoffice
       anki
       obsidian
+      inputs.zen-browser.packages.${pkgs.system}.default
       gimp
       brightnessctl
+      jetbrains.idea-community
 
       qbittorrent
-      zed-editor
 
       stremio
       youtube-music

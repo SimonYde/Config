@@ -37,14 +37,14 @@ in
           cmp-buffer
           cmp_luasnip
           friendly-snippets
-          copilot-lua
+          # copilot-lua
           # codeium-nvim
 
           # -----Workflow-----
           conform-nvim
           harpoon2
           nvim-autopairs
-          gitsigns-nvim
+          # gitsigns-nvim
           rustaceanvim
 
           neogit
@@ -109,6 +109,7 @@ in
             base0E = "${base0E}",
             base0F = "${base0F}",
           }
+          vim.g.transparent = ${if config.syde.terminal.opacity != 1.0 then "true" else "false"}
           require('syde')
         '';
       extraPackages =

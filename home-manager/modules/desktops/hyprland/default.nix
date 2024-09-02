@@ -73,7 +73,6 @@ in
         };
 
         misc.disable_hyprland_logo = true;
-        # render.explicit_sync = false;
 
         input = {
           kb_layout = "us(colemak_dh),eu";
@@ -131,7 +130,7 @@ in
         };
 
         exec-once = [
-          "[workspace 9] discord"
+          "discord"
           "waybar"
           "nm-applet"
           "blueman-applet"
@@ -153,5 +152,5 @@ in
       ];
     };
   };
-  imports = [ inputs.hyprland.homeManagerModules.default ];
+  # imports = [ inputs.hyprland.homeManagerModules.default ];
 }

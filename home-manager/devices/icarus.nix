@@ -15,11 +15,6 @@
       enable = true;
       extraConfig = # hyprlang
         ''
-          source = ~/.config/hypr/devices.conf
-          source = ~/.config/hypr/monitors.conf
-          source = ~/.config/hypr/keybindings.conf
-          source = ~/.config/hypr/windowrules.conf
-
           workspace=1, monitor:DP-1, default:true
           workspace=2, monitor:DP-1
           workspace=3, monitor:DP-1

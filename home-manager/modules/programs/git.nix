@@ -37,12 +37,19 @@ in
         };
         column.ui = "auto";
         branch.sort = "-committerdate";
+
+        # Signing commits
+        gpg.format = "ssh";
+        # commit.gpgsign = true;
+        user.signingkey = "~/.ssh/id_ed25519.pub";
       };
       ignores = [
         "*.sync-conflict*"
         ".direnv"
         ".envrc"
         ".env"
+        ".metals"
+        ".idea"
         ".stignore"
         "*.log"
         ".stfolder"
