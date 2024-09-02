@@ -37,20 +37,22 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.package = pkgs.nix-ld-rs;
   programs.nix-ld.libraries = with pkgs; [
-    ncurses
-    libz
-    libstdcxx5
+    # ncurses
+    # libz
+    # libstdcxx5
   ];
 
   programs = {
     nh.enable = true;
     kdeconnect.enable = false;
     sway.enable = false;
-    hyprland.enable = false;
+    hyprland = {
+      enable = true;
+    };
   };
 
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = false;
+  services.displayManager.cosmic-greeter.enable = false;
 
   services = {
     geoclue2.enable = false;
@@ -60,13 +62,11 @@
     syncthing.enable = true;
   };
 
-  powerManagement.cpuFreqGovernor = "ondemand";
-
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {
     proton-DK25 = {
-      autostart = true;
+      autostart = false;
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
       privateKeyFile = config.age.secrets.wireguard.path;
