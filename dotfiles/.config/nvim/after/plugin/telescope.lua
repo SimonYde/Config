@@ -152,7 +152,7 @@ Load.later(function()
             options = {
                 content_from_bottom = false,
                 -- Whether to cache matches (more speed and memory on repeated prompts)
-                use_cache = true,
+                use_cache = false,
             },
 
             mappings = {

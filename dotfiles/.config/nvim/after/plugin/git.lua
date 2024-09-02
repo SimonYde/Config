@@ -38,9 +38,13 @@ Load.later(function()
         "Neogit [c]ommit")
 
 
-    local gitsigns = Load.now(function()
+    Load.now(function()
         local gitsigns = require('gitsigns')
         gitsigns.setup {
+            signcolumn              = false, -- Toggle with `:Gitsigns toggle_signs`
+            numhl                   = true,  -- Toggle with `:Gitsigns toggle_numhl`
+            linehl                  = false, -- Toggle with `:Gitsigns toggle_linehl`
+            word_diff               = false, -- Toggle with `:Gitsigns toggle_word_diff`
             current_line_blame_opts = {
                 delay = 1000,
                 virt_text_pos = "eol",
@@ -49,10 +53,5 @@ Load.later(function()
         nmap("<leader>gb", gitsigns.toggle_current_line_blame, "Toggle git [b]lame")
         nmap("]h", gitsigns.next_hunk, "next git [h]unk")
         nmap("[h", gitsigns.prev_hunk, "previous git [h]unk")
-        return gitsigns
     end)
-
-    if gitsigns then return end
-
-
 end)

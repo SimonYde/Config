@@ -1,5 +1,5 @@
 Load.later(function()
-    if not os.getenv("XDG_CURRENT_DESKTOP") then
+    if not os.getenv("XDG_CURRENT_DESKTOP") and not os.getenv("WAYLAND_DISPLAY") then
         return
     end
 

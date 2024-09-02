@@ -1,4 +1,7 @@
 local nmap = require('syde.keymap').nmap
+Load.now(function ()
+    require('mini.surround').setup {}
+end)
 
 Load.later(function()
     local MiniExtra = require('mini.extra')
@@ -38,7 +41,30 @@ Load.later(function()
     require('mini.move').setup {}
 
     require('mini.visits').setup {}
-    require('mini.diff').setup()
+    require('mini.diff').setup {
+        mappings = {
+            -- Apply hunks inside a visual/operator region
+            apply = '<leader>ga',
+
+            -- Reset hunks inside a visual/operator region
+            reset = '<leader>gr',
+
+            -- Hunk range textobject to be used inside operator
+            -- Works also in Visual mode if mapping differs from apply and reset
+            textobject = 'gh',
+
+            -- Go to hunk range in corresponding direction
+            goto_first = '[H',
+            goto_prev = '[h',
+            goto_next = ']h',
+            goto_last = ']H',
+        },
+    }
+    local MiniGit = require('mini.git')
+    MiniGit.setup({ })
+
+    nmap("<leader>gg", MiniGit.show_at_cursor, "Show git info at cursor")
+
 
     local make_select_path = function(select_global, recency_weight)
         return function()
@@ -52,21 +78,21 @@ Load.later(function()
         end
     end
 
-    local map = function(lhs, desc, ...)
+    local visit_map = function(lhs, desc, ...)
         vim.keymap.set('n', lhs, make_select_path(...), { desc = desc })
     end
 
     -- Adjust LHS and description to your liking
-    map('<Leader>vr', 'Select recent (all)', true, 1)
-    map('<Leader>vR', 'Select recent (cwd)', false, 1)
-    map('<Leader>vy', 'Select frecent (all)', true, 0.5)
-    map('<Leader>vY', 'Select frecent (cwd)', false, 0.5)
-    map('<Leader>vf', 'Select frequent (all)', true, 0)
-    map('<Leader>vF', 'Select frequent (cwd)', false, 0)
+    visit_map('<Leader>vr', 'Select recent (all)', true, 1)
+    visit_map('<Leader>vR', 'Select recent (cwd)', false, 1)
+    visit_map('<Leader>vy', 'Select frecent (all)', true, 0.5)
+    visit_map('<Leader>vY', 'Select frecent (cwd)', false, 0.5)
+    visit_map('<Leader>vf', 'Select frequent (all)', true, 0)
+    visit_map('<Leader>vF', 'Select frequent (cwd)', false, 0)
 
     local MiniMisc = require('mini.misc')
     MiniMisc.setup()
-    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile' })
+    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
 
     local MiniNotify = require('mini.notify')
     MiniNotify.setup {
