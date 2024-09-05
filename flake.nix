@@ -39,6 +39,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    bookmarks-yazi = {
+      url = "github:dedukun/bookmarks.yazi";
+      flake = false;
+    };
+
     helix = {
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";

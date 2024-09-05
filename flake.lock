@@ -204,6 +204,22 @@
         "type": "github"
       }
     },
+    "bookmarks-yazi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725047627,
+        "narHash": "sha256-f1+ANWYw//cU+icLFgtFS9/DrSNIIGTkkXPMQ6zWfT4=",
+        "owner": "dedukun",
+        "repo": "bookmarks.yazi",
+        "rev": "ae06e0c1c02f42ad4ec57073f579d7204d2ca563",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dedukun",
+        "repo": "bookmarks.yazi",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -1824,6 +1840,7 @@
       "inputs": {
         "agenix": "agenix",
         "betterfox": "betterfox",
+        "bookmarks-yazi": "bookmarks-yazi",
         "firefox-csshacks": "firefox-csshacks",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
