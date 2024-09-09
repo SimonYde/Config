@@ -6,6 +6,7 @@
     ./sddm.nix
 
     # Other
+    ./kanata.nix
     ./languagetool.nix
     ./ssh.nix
     ./syncthing.nix
