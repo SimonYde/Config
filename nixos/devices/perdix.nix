@@ -60,6 +60,7 @@
     ollama.enable = false;
     tailscale.enable = true;
     syncthing.enable = true;
+    kanata.enable = false;
   };
 
   networking.hostName = "perdix";

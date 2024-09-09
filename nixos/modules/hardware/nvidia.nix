@@ -29,7 +29,6 @@ in
       powerManagement.enable = true;
       powerManagement.finegrained = false;
       modesetting.enable = true;
-      open = mkDefault true;
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
