@@ -1,24 +1,26 @@
 local nmap = require('syde.keymap').nmap
-Load.now(function ()
+
+Load.now(function()
     require('mini.surround').setup {}
 end)
+
 
 Load.later(function()
     local MiniExtra = require('mini.extra')
 
     require('mini.ai').setup { n_lines = 500 }
-    require('mini.align').setup {}
+    require('mini.align').setup()
     local MiniIcons = require('mini.icons')
-    MiniIcons.setup {}
+    MiniIcons.setup()
     MiniIcons.mock_nvim_web_devicons()
     -- MiniIcons.tweak_lsp_kind()
 
     require('mini.bracketed').setup { n_lines = 500 }
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
 
-    require('mini.bufremove').setup {}
-    require('mini.comment').setup {}
-    require('mini.cursorword').setup { delay = 100 }
+    require('mini.bufremove').setup()
+    require('mini.comment').setup()
+    require('mini.cursorword').setup({ delay = 100 })
 
     local hipatterns = require('mini.hipatterns')
     local hi_words = MiniExtra.gen_highlighter.words
@@ -34,11 +36,32 @@ Load.later(function()
             hex_color = hipatterns.gen_highlighter.hex_color(),
         },
     })
-    require('mini.jump').setup {}
-    require('mini.jump2d').setup {}
-    require('mini.surround').setup {}
-    require('mini.splitjoin').setup {}
-    require('mini.move').setup {}
+    require('mini.jump').setup()
+    require('mini.jump2d').setup()
+    require('mini.splitjoin').setup()
+
+    local MiniMove = require('mini.move')
+    MiniMove.setup {
+        mappings = {
+            -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+            left = '<M-m>',
+            right = '<M-i>',
+            down = '<M-n>',
+            up = '<M-e>',
+
+            -- Move current line in Normal mode
+            line_left = '<M-m>',
+            line_right = '<M-i>',
+            line_down = '<M-n>',
+            line_up = '<M-e>',
+        },
+
+        -- Options which control moving behavior
+        options = {
+            -- Automatically reindent selection during linewise vertical move
+            reindent_linewise = true,
+        },
+    }
 
     require('mini.visits').setup {}
     require('mini.diff').setup {
@@ -61,7 +84,7 @@ Load.later(function()
         },
     }
     local MiniGit = require('mini.git')
-    MiniGit.setup({ })
+    MiniGit.setup {}
 
     nmap("<leader>gg", MiniGit.show_at_cursor, "Show git info at cursor")
 
@@ -117,7 +140,23 @@ Load.later(function()
     )
 
     local MiniFiles = require('mini.files')
-    MiniFiles.setup {}
+    MiniFiles.setup {
+        mappings = {
+            close       = 'q',
+            go_in       = 'i',
+            go_in_plus  = 'I',
+            go_out      = 'm',
+            go_out_plus = 'M',
+            mark_goto   = "'",
+            mark_set    = 'h',
+            reset       = '<BS>',
+            reveal_cwd  = '@',
+            show_help   = 'g?',
+            synchronize = '=',
+            trim_left   = '<',
+            trim_right  = '>',
+        },
+    }
     nmap('<M-f>', function() MiniFiles.open() end, "Show [f]ile-tree")
     nmap('<M-F>', function() MiniFiles.open(vim.api.nvim_buf_get_name(0)) end, "Show current [F]ile in explorer")
 end)

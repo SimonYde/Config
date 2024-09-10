@@ -211,12 +211,15 @@ Load.later(function()
     end)
 
     Load.now(function()
+        local border = "none"
+        if vim.g.transparent then border = "rounded" end
+
         require('lsp_signature').setup({
             doc_lines = 0,
             hint_enable = false,
             hint_inline = function() return false end, -- should the hint be inline(nvim 0.10 only)?  default false
             handler_opts = {
-                border = "none"
+                border = border
             },
         })
     end)
@@ -282,7 +285,7 @@ Load.later(function()
             end
             -- LSP commands
             nmap("<leader>r", vim.lsp.buf.rename, "Rename")
-            nmap("<leader>k", vim.lsp.buf.hover, "hover documentation")
+            nmap("<leader>e", vim.lsp.buf.hover, "hover documentation")
             nmap("<leader>a", vim.lsp.buf.code_action, "code actions")
             nmap("<C-e>", vim.diagnostic.open_float, "hover [d]iagnostics")
             imap("<C-s>", vim.lsp.buf.signature_help, "Signature Help")
