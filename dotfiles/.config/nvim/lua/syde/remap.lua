@@ -9,6 +9,7 @@ local nmap     = keymap.nmap
 local xmap     = keymap.xmap
 local tmap     = keymap.tmap
 local nvmap    = keymap.map({ "n", "v" })
+local nxmap    = keymap.map({ 'n', 'x' })
 
 -- COLEMAK Remaps
 -- NOTE: is reversed because the function below toggles the value, in order to
@@ -16,35 +17,40 @@ local nvmap    = keymap.map({ "n", "v" })
 COLEMAK        = false
 Colemak_toggle = function()
     if not COLEMAK then
-        vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
-        vim.opt.langremap = false
+        -- vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
+        -- vim.opt.langremap = false
+        -- nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
+        -- nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
 
-        -- nvmap("m", "h", "")
-        -- nvmap("n", "j", "")
-        -- nvmap("e", "k", "")
-        -- nvmap("i", "l", "")
-        -- nvmap("h", "m", "")
-        -- nvmap("j", "e", "")
-        -- nvmap("k", "n", "")
-        -- nvmap("l", "i", "")
-        -- nvmap("M", "H", "")
-        -- nvmap("N", "J", "")
-        -- nvmap("E", "K", "")
-        -- nvmap("I", "L", "")
-        -- nvmap("H", "M", "")
-        -- nvmap("J", "E", "")
-        -- nvmap("K", "N", "")
-        -- nvmap("L", "I", "")
-        -- nvmap("gm", "^", "")
-        -- nvmap("gi", "$", "")
+        nxmap('n', [[v:count == 0 ? 'gj' : 'j']], "", { expr = true, noremap = true })
+        nxmap('e', [[v:count == 0 ? 'gk' : 'k']], "", { expr = true, noremap = true })
+        nvmap("m", "h", "", { noremap = true })
+        nvmap("i", "l", "", { noremap = true })
+        nvmap("h", "m", "", { noremap = true })
+        nvmap("j", "e", "", { noremap = true })
+        nvmap("k", "n", "", { noremap = true })
+        nvmap("l", "i", "", { noremap = true })
+        nvmap("M", "H", "", { noremap = true })
+        nvmap("N", "J", "", { noremap = true })
+        nvmap("E", "K", "", { noremap = true })
+        nvmap("I", "L", "", { noremap = true })
+        nvmap("H", "M", "", { noremap = true })
+        nvmap("J", "E", "", { noremap = true })
+        nvmap("K", "N", "", { noremap = true })
+        nvmap("L", "I", "", { noremap = true })
+        nmap("<C-w>m", "<C-w>h", "", { noremap = true })
+        nmap("<C-w>n", "<C-w>j", "", { noremap = true })
+        nmap("<C-w>e", "<C-w>k", "", { noremap = true })
+        nmap("<C-w>i", "<C-w>l", "", { noremap = true })
 
-        nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
-        nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
+        nvmap("M", "^", "Goto first non-empty cell in line")
+        nvmap("I", "$", "Goto line end")
         COLEMAK = true
     else
+        nvmap("gh", "^", "Goto first non-blank in line")
+        nvmap("gs", "0", "Goto line start")
+        nvmap("gl", "$", "Goto line end")
         vim.opt.langmap = ""
-        nvmap("H", "^", "Goto first non-empty cell in line")
-        nvmap("L", "$", "Goto line end")
         COLEMAK = false
     end
 end
@@ -59,9 +65,6 @@ nmap("U", "<C-r>", "redo")
 
 -- vmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
 -- vmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
-nvmap("gh", "^", "Goto first non-blank in line")
-nvmap("gs", "0", "Goto line start")
-nvmap("gl", "$", "Goto line end")
 
 nmap("J", "mzJ`z", "Join following line with current")
 nmap("<C-d>", "<C-d>zz", "Move down half page")

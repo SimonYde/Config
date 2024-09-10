@@ -68,6 +68,7 @@ in
 
           # -----UI-----
           which-key-nvim
+          render-markdown
           catppuccin-nvim
           todo-comments-nvim
           nui-nvim
