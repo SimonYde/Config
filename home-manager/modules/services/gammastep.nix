@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.gammastep;
 in
@@ -14,7 +19,7 @@ in
       tray = true;
       duskTime = "18:45-20:30";
       dawnTime = "6:00-7:45";
-      provider  = "manual";
+      provider = "manual";
       latitude = 56.3;
       longitude = 9.5;
       settings = {
@@ -23,6 +28,17 @@ in
           # fade = 1;
         };
       };
+    };
+
+    xdg.configFile."gammastep/hooks/notify" = {
+      text = ''
+        #!/usr/bin/env bash
+        case $1 in
+            period-changed)
+                exec notify-send "Gammastep" "Period changed to $3"
+        esac
+      '';
+      executable = true;
     };
   };
 }

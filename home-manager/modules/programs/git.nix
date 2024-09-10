@@ -44,22 +44,22 @@ in
         user.signingkey = "~/.ssh/id_ed25519.pub";
       };
       ignores = [
+        "**/.idea"
+        "**/.metals"
+        "**/_build"
+        "**/elm-stuff"
+        "**/node_modules"
+        "**/target"
+        "*.log"
         "*.sync-conflict*"
         ".direnv"
-        ".envrc"
         ".env"
-        ".metals"
-        ".idea"
-        ".stignore"
-        "*.log"
-        ".stfolder"
-        ".vscode"
+        ".envrc"
         ".mypy_cache"
         ".ruff_cache"
-        "**/_build"
-        "**/target"
-        "**/node_modules"
-        "**/elm-stuff"
+        ".stfolder"
+        ".stignore"
+        ".vscode"
       ];
       delta = {
         enable = true;
