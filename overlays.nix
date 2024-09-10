@@ -18,9 +18,8 @@
           grawlix = prev.callPackage ./home-manager/packages/grawlix.nix { };
           pix2tex = inputs.pix2tex.packages.${prev.system}.default;
 
-          ueberzugpp = final.stable.ueberzugpp;
           delta = final.stable.delta;
-          typst-lsp = final.stable.typst-lsp;
+          swaylock-effects = final.stable.swaylock-effects;
 
           kattis-cli = prev.callPackage ./home-manager/packages/kattis-cli.nix { };
           kattis-test = prev.callPackage ./home-manager/packages/kattis-test.nix { };

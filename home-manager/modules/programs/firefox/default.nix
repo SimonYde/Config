@@ -9,14 +9,16 @@ let
   inherit (builtins) readFile;
   csshacks = inputs.firefox-csshacks + "/chrome";
   betterfox = inputs.betterfox;
+  arc-wtf = inputs.arc-wtf;
   cfg = config.programs.firefox;
+  profile = "syde";
 in
 {
   config = lib.mkIf cfg.enable {
     syde.gui.browser = "firefox";
     programs.firefox = {
-      profiles.syde = {
-        name = "syde";
+      profiles.${profile} = {
+        name = profile;
         search = {
           default = "Kagi";
           force = true;
@@ -192,7 +194,7 @@ in
           "network.dns.disablePrefetch" = true;
           "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
           "network.trr.uri" = "https://dns11.quad9.net/dns-query";
-          "network.trr.mode" = 3;
+          # "network.trr.mode" = 3;
           "network.predictor.enabled" = false;
           "network.prefetch-next" = false;
 
@@ -208,6 +210,7 @@ in
           "browser.aboutConfig.showWarning" = false;
           "browser.uidensity" = 1;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          "svg.context-properties.content.enabled" = true;
 
           "widget.use-xdg-desktop-portal.file-picker" = 1;
           "widget.use-xdg-desktop-portal.location" = 1;
@@ -237,16 +240,21 @@ in
           # bypass-paywalls-clean
           # readwise-highlighter # doesn't exist yet
         ];
-        userChrome =
-           readFile "${csshacks}/window_control_placeholder_support.css"
-          + readFile "${csshacks}/hide_tabs_toolbar.css"
-          + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
-          + readFile "${csshacks}/window_control_force_linux_system_style.css"
-          + readFile "${csshacks}/overlay_sidebar_header.css";
+        userChrome = ''
+          @import url("ArcWTF/userChrome.css");
+        '';
+
+        #  readFile "${csshacks}/window_control_placeholder_support.css"
+        # + readFile "${csshacks}/hide_tabs_toolbar.css"
+        # + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
+        # + readFile "${csshacks}/window_control_force_linux_system_style.css"
+        # + readFile "${csshacks}/overlay_sidebar_header.css";
         userContent = readFile ./userContent.css;
         extraConfig = readFile "${betterfox}/Securefox.js";
       };
     };
+    home.file.".mozilla/firefox/${profile}/chrome/ArcWTF" = {
+      source = inputs.arc-wtf;
+    };
   };
-
 }
