@@ -8,7 +8,10 @@
 let
   inherit (lib) mkIf mkForce;
   palette = config.colorScheme.palette;
-  random-background = pkgs.callPackage ./ran_bg.nix { };
+  random-background = pkgs.callPackage ./rand_bg.nix {
+    homeDirectory = config.home.homeDirectory;
+    slug = config.colorScheme.slug;
+  };
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
   browser = config.syde.gui.browser;
@@ -40,9 +43,9 @@ in
       imv.enable = true;
       mpv.enable = true;
       rofi.enable = true;
-      swaylock.enable = true;
+      swaylock.enable = false;
       wlogout.enable = true;
-      hyprlock.enable = false;
+      hyprlock.enable = true;
       waybar.enable = true;
     };
 
@@ -50,6 +53,29 @@ in
       dunst.enable = false;
       hypridle.enable = true;
       swaync.enable = true;
+    };
+
+    systemd.user.services.rand-bg = {
+      Unit = {
+        Description = "Random Background";
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = lib.getExe random-background;
+      };
+    };
+    systemd.user.timers.rand-bg = {
+      Unit = {
+        Description = "Random Background";
+      };
+      Timer = {
+        OnStartupSec = "15min";
+        OnUnitActiveSec = "15min";
+        Unit = "rand-bg.service";
+      };
+      Install = {
+        WantedBy = [ "timers.target" ];
+      };
     };
 
     wayland.windowManager.hyprland = {
@@ -78,7 +104,7 @@ in
           kb_layout = "us(colemak_dh),eu";
           kb_options = "caps:escape,grp:rctrl_toggle";
           # resolve_binds_by_sym = true;
-          repeat_delay = 200;
+          repeat_delay = 400;
           follow_mouse = 2;
           accel_profile = "flat";
           touchpad = {

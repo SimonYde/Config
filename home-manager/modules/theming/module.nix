@@ -16,6 +16,7 @@ let
   inherit (builtins) mapAttrs;
   nix-colors = inputs.nix-colors;
   colorScheme = config.colorScheme;
+  hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString ",";
   nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
   nix-colors-gtk = nix-colors-lib.gtkThemeFromScheme { scheme = colorScheme; };
   slug = colorScheme.slug;
@@ -68,6 +69,11 @@ in
     palette-hex = mkOption {
       type = types.attrsOf types.str;
       default = mapAttrs (name: value: "#" + value) config.colorScheme.palette;
+    };
+    palette-rgb = mkOption {
+      description = "base16 palette as comma separated rgb string";
+      type = types.attrsOf types.str;
+      default = mapAttrs (name: value: hexToRGBString value) config.colorScheme.palette;
     };
     prefer-dark = mkOption {
       type = types.bool;
