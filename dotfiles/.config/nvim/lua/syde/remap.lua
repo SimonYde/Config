@@ -4,62 +4,12 @@ vim.g.maplocalleader = " "
 vim.keymap.set({ 'n', 'v', 'x' }, 's', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v', 'x' }, '<Space>', '<Nop>', { silent = true })
 
-local keymap   = require("syde.keymap")
-local nmap     = keymap.nmap
-local xmap     = keymap.xmap
-local tmap     = keymap.tmap
-local nvmap    = keymap.map({ "n", "v" })
-local nxmap    = keymap.map({ 'n', 'x' })
-
--- COLEMAK Remaps
--- NOTE: is reversed because the function below toggles the value, in order to
--- enable appropriate options.
-COLEMAK        = false
-Colemak_toggle = function()
-    if not COLEMAK then
-        -- vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
-        -- vim.opt.langremap = false
-        -- nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
-        -- nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
-
-        nxmap('n', [[v:count == 0 ? 'gj' : 'j']], "", { expr = true, noremap = true })
-        nxmap('e', [[v:count == 0 ? 'gk' : 'k']], "", { expr = true, noremap = true })
-        nvmap("m", "h", "", { noremap = true })
-        nvmap("i", "l", "", { noremap = true })
-        nvmap("h", "m", "", { noremap = true })
-        nvmap("j", "e", "", { noremap = true })
-        nvmap("k", "n", "", { noremap = true })
-        nvmap("l", "i", "", { noremap = true })
-        nvmap("M", "H", "", { noremap = true })
-        nvmap("N", "J", "", { noremap = true })
-        nvmap("E", "K", "", { noremap = true })
-        nvmap("I", "L", "", { noremap = true })
-        nvmap("H", "M", "", { noremap = true })
-        nvmap("J", "E", "", { noremap = true })
-        nvmap("K", "N", "", { noremap = true })
-        nvmap("L", "I", "", { noremap = true })
-        nmap("<C-w>m", "<C-w>h", "", { noremap = true })
-        nmap("<C-w>n", "<C-w>j", "", { noremap = true })
-        nmap("<C-w>e", "<C-w>k", "", { noremap = true })
-        nmap("<C-w>i", "<C-w>l", "", { noremap = true })
-
-        nvmap("M", "^", "Goto first non-empty cell in line")
-        nvmap("I", "$", "Goto line end")
-        COLEMAK = true
-    else
-        nvmap("gh", "^", "Goto first non-blank in line")
-        nvmap("gs", "0", "Goto line start")
-        nvmap("gl", "$", "Goto line end")
-        vim.opt.langmap = ""
-        COLEMAK = false
-    end
-end
-Colemak_toggle()
-
-nmap("<leader><leader>q", function()
-    Colemak_toggle()
-    print("COLEMAK", COLEMAK)
-end, "Toggle COLEMAK")
+local keymap = require("syde.keymap")
+local nmap   = keymap.nmap
+local xmap   = keymap.xmap
+local tmap   = keymap.tmap
+local nvmap  = keymap.map({ "n", "v" })
+local nxmap  = keymap.map({ 'n', 'x' })
 
 nmap("U", "<C-r>", "redo")
 
@@ -98,3 +48,52 @@ nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
 nmap("gd", vim.lsp.buf.definition, "Goto [d]efinition")
 nmap("gD", vim.lsp.buf.declaration, "Goto [D]eclaration")
 nmap("gr", vim.lsp.buf.references, "Goto [r]eferences")
+
+-- COLEMAK Remaps
+-- NOTE: is reversed because the function below toggles the value, in order to
+-- enable appropriate options.
+COLEMAK        = false
+Colemak_toggle = function()
+    if not COLEMAK then
+        -- vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
+        -- vim.opt.langremap = false
+        vim.opt.langmap = ""
+        -- nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
+        -- nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
+
+        nxmap('n', [[v:count == 0 ? 'gj' : 'j']], "", { expr = true, noremap = true })
+        nxmap('e', [[v:count == 0 ? 'gk' : 'k']], "", { expr = true, noremap = true })
+        nvmap("m", "h", "", { noremap = true })
+        nmap("i", "l", "", { noremap = true })
+        nvmap("I", "L", "", { noremap = true })
+        nvmap("h", "m", "", { noremap = true })
+        nvmap("j", "e", "", { noremap = true })
+        nvmap("k", "nzz", "", { noremap = true })
+        nmap("l", "i", "", { noremap = true })
+        nvmap("M", "H", "", { noremap = true })
+        nvmap("N", "J", "", { noremap = true })
+        nvmap("E", "K", "", { noremap = true })
+        nvmap("H", "M", "", { noremap = true })
+        nvmap("J", "E", "", { noremap = true })
+        nvmap("K", "Nzz", "", { noremap = true })
+        nvmap("L", "I", "", { noremap = true })
+        nmap("<C-w>m", "<C-w>h", "", { noremap = true })
+        nmap("<C-w>n", "<C-w>j", "", { noremap = true })
+        nmap("<C-w>e", "<C-w>k", "", { noremap = true })
+        nmap("<C-w>i", "<C-w>l", "", { noremap = true })
+
+        nvmap("M", "^", "Goto first non-empty cell in line")
+        nvmap("I", "$", "Goto line end")
+        COLEMAK = true
+    else
+        COLEMAK = false
+    end
+end
+Load.later(function()
+    Colemak_toggle()
+end)
+
+nmap("<leader><leader>q", function()
+    Colemak_toggle()
+    print("COLEMAK", COLEMAK)
+end, "Toggle COLEMAK")

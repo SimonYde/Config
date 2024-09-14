@@ -1,0 +1,6 @@
+{
+    "diagnostics.globals": [
+        "VARIANT",
+        "PALETTE"
+    ]
+}

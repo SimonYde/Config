@@ -1,25 +1,21 @@
 local nmap = require('syde.keymap').nmap
 
-Load.now(function()
-    require('mini.surround').setup {}
-end)
-
-
 Load.later(function()
     local MiniExtra = require('mini.extra')
 
-    require('mini.ai').setup { n_lines = 500 }
+    require('mini.ai').setup({ n_lines = 500 })
     require('mini.align').setup()
     local MiniIcons = require('mini.icons')
     MiniIcons.setup()
     MiniIcons.mock_nvim_web_devicons()
     -- MiniIcons.tweak_lsp_kind()
 
-    require('mini.bracketed').setup { n_lines = 500 }
+    require('mini.bracketed').setup({ n_lines = 500 })
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
 
     require('mini.bufremove').setup()
     require('mini.comment').setup()
+    require('mini.surround').setup()
     require('mini.cursorword').setup({ delay = 100 })
 
     local hipatterns = require('mini.hipatterns')
@@ -41,7 +37,7 @@ Load.later(function()
     require('mini.splitjoin').setup()
 
     local MiniMove = require('mini.move')
-    MiniMove.setup {
+    MiniMove.setup({
         mappings = {
             -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
             left = '<M-m>',
@@ -61,10 +57,10 @@ Load.later(function()
             -- Automatically reindent selection during linewise vertical move
             reindent_linewise = true,
         },
-    }
+    })
 
-    require('mini.visits').setup {}
-    require('mini.diff').setup {
+    require('mini.visits').setup()
+    require('mini.diff').setup({
         mappings = {
             -- Apply hunks inside a visual/operator region
             apply = '<leader>ga',
@@ -82,9 +78,9 @@ Load.later(function()
             goto_next = ']h',
             goto_last = ']H',
         },
-    }
+    })
     local MiniGit = require('mini.git')
-    MiniGit.setup {}
+    MiniGit.setup()
 
     nmap("<leader>gg", MiniGit.show_at_cursor, "Show git info at cursor")
 
@@ -118,18 +114,18 @@ Load.later(function()
     MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
 
     local MiniNotify = require('mini.notify')
-    MiniNotify.setup {
+    MiniNotify.setup({
         window = {
             config = {
                 border = "rounded",
             },
             winblend = 0,
         },
-    }
+    })
     vim.notify = MiniNotify.make_notify({ ERROR = { duration = 10000 } })
 
     local MiniTrailspace = require('mini.trailspace')
-    MiniTrailspace.setup {}
+    MiniTrailspace.setup()
     nmap(
         "<M-t>",
         function()
