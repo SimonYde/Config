@@ -17,8 +17,8 @@ in
         listener = [
           {
             timeout = 180;
-            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl s 63";
-            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl s 255";
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s s 50%-";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
           }
           {
             timeout = 360;
