@@ -193,7 +193,7 @@ in
           # Networking and DNS
           "network.dns.disablePrefetch" = true;
           "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
-          "network.trr.uri" = "https://dns11.quad9.net/dns-query";
+          "network.trr.uri" = "https://base.dns.mullvad.net/dns-query";
           # "network.trr.mode" = 3;
           "network.predictor.enabled" = false;
           "network.prefetch-next" = false;

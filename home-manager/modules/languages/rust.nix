@@ -16,6 +16,7 @@ in
       rust-analyzer
       rustfmt
       clippy
+      gcc
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [

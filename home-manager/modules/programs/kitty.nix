@@ -12,6 +12,7 @@ in
     };
 
     settings = {
+      disable_ligatures = "never";
       cursor_shape = terminal.cursor;
       cursor_blink_interval = 0;
     };

@@ -1,4 +1,4 @@
-{lib, pkgs, options, config, ...}:
+{lib, pkgs, config, ...}:
 
 let
 cfg = config.syde.programming.bash;
@@ -9,6 +9,6 @@ in
   };
 
   options.syde.programming.bash = {
-    enable = lib.mkEnableOption "lua language tools";
+    enable = lib.mkEnableOption "bash language tools";
   };
 }
