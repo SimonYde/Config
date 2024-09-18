@@ -5,7 +5,7 @@
     nixpkgs = {
       overlays = [
         inputs.nur.overlay
-        inputs.helix.overlays.default
+        # inputs.helix.overlays.default
         inputs.nix-ld-rs.overlays.default
         inputs.neovim-nightly.overlays.default
         inputs.rustaceanvim.overlays.default
@@ -21,8 +21,8 @@
           delta = final.stable.delta;
           swaylock-effects = final.stable.swaylock-effects;
 
-          kattis-cli = prev.callPackage ./home-manager/packages/kattis-cli.nix { };
-          kattis-test = prev.callPackage ./home-manager/packages/kattis-test.nix { };
+          kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
+          kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
           vimPlugins = prev.vimPlugins // {
             mini-nvim = prev.vimUtils.buildVimPlugin {
               version = "nightly";

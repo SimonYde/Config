@@ -101,10 +101,7 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    pix2tex = {
-      url = "github:SimonYde/pix2tex.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
 
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";
@@ -128,6 +125,16 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
+    };
+
+    # My flakes
+    pix2tex = {
+      url = "github:SimonYde/pix2tex.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    kattis-cli = {
+      url = "github:SimonYde/kattis-cli.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -209,7 +216,6 @@
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            gnumake
             just
           ];
         };
