@@ -83,6 +83,8 @@ let
         Name = profile.name;
         Path = if isDarwin then "Profiles/${profile.path}" else profile.path;
         IsRelative = 1;
+        # NOTE: hardcoded avatar icon, profile won't launch otherwise
+        ZenAvatarPath = "chrome://browser/content/zen-avatars/avatar-1.svg";
         Default = if profile.isDefault then 1 else 0;
       }
     )
@@ -191,18 +193,20 @@ let
 
       bookmarkEntries = allItemsToHTML 1 bookmarks;
     in
-    pkgs.writeText "${packageName}-bookmarks.html" ''
-      <!DOCTYPE NETSCAPE-Bookmark-file-1>
-      <!-- This is an automatically generated file.
-        It will be read and overwritten.
-        DO NOT EDIT! -->
-      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-      <TITLE>Bookmarks</TITLE>
-      <H1>Bookmarks Menu</H1>
-      <DL><p>
-      ${bookmarkEntries}
-      </DL>
-    '';
+    pkgs.writeText "${packageName}-bookmarks.html"
+      # html
+      ''
+        <!DOCTYPE NETSCAPE-Bookmark-file-1>
+        <!-- This is an automatically generated file.
+          It will be read and overwritten.
+          DO NOT EDIT! -->
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+        <TITLE>Bookmarks</TITLE>
+        <H1>Bookmarks Menu</H1>
+        <DL><p>
+        ${bookmarkEntries}
+        </DL>
+      '';
 
   mkNoDuplicateAssertion =
     entities: entityKind:
@@ -297,14 +301,6 @@ in
       description = "Name of the wrapped browser package.";
     };
 
-    vendorPath = mkOption {
-      internal = true;
-      type = with types; nullOr str;
-      default = with platforms; if isDarwin then darwin.vendorPath or null else linux.vendorPath or null;
-      example = ".mozilla";
-      description = "Directory containing the native messaging hosts directory.";
-    };
-
     configPath = mkOption {
       internal = true;
       type = types.str;
@@ -312,16 +308,6 @@ in
       example = ".mozilla/firefox";
       description = "Directory containing the ${name} configuration files.";
     };
-
-    nativeMessagingHosts = optionalAttrs (cfg.vendorPath != null) (mkOption {
-      inherit visible;
-      type = types.listOf types.package;
-      default = [ ];
-      description = ''
-        Additional packages containing native messaging hosts that should be
-        made available to ${name} extensions.
-      '';
-    });
 
     finalPackage = mkOption {
       inherit visible;
@@ -776,18 +762,6 @@ in
       );
       default = { };
       description = "Attribute set of ${name} profiles.";
-    };
-
-    enableGnomeExtensions = mkOption {
-      inherit visible;
-      type = types.bool;
-      default = false;
-      description = ''
-        Whether to enable the GNOME Shell native host connector. Note, you
-        also need to set the NixOS option
-        `services.gnome.gnome-browser-connector.enable` to
-        `true`.
-      '';
     };
   };
 

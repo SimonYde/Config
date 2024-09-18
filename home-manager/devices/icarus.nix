@@ -13,6 +13,13 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
+      settings = {
+        input = {
+          kb_layout = lib.mkForce "eu";
+          kb_options = lib.mkForce "";
+
+        };
+      };
       extraConfig = # hyprlang
         ''
           workspace=1, monitor:DP-1, default:true
