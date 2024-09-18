@@ -31,7 +31,7 @@
     };
   };
 
-  programs.nix-ld.enable = false;
+  programs.nix-ld.enable = lib.mkDefault false;
   programs.nix-ld.package = pkgs.nix-ld-rs;
   programs.nix-ld.libraries = with pkgs; [
     ncurses

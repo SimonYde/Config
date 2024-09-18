@@ -57,6 +57,7 @@ in
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = 1;
       WLR_DRM_NO_ATOMIC = 1; # Tearing support, may not be needed in the future, see hyprland docs
+      QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
       QT_AUTO_SCREEN_SCALE_FACTOR = 1;
     };
@@ -81,14 +82,6 @@ in
           TimeoutStopSec = 10;
         };
       };
-      # hyprland-autoname-workspaces = {
-      #   description = "Hyprland-autoname-workspaces as systemd service";
-      #   wantedBy = [ "hyprland-session.target" ];
-      #   partOf = [ "hyprland-session.target" ];
-      #   script = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces";
-      #   serviceConfig.Restart = "always";
-      #   serviceConfig.RestartSec = 1;
-      # };
     };
   };
   # imports = [ inputs.hyprland.nixosModules.default ];
