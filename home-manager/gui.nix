@@ -24,10 +24,10 @@ in
       # Browsers
       brave.enable = true;
       firefox.enable = true;
+      zen.enable = true;
 
       # Terminal emulators
       ${emulator}.enable = true;
-      alacritty.enable = true;
 
       # other GUI programs
       vscode.enable = false;
@@ -35,6 +35,7 @@ in
       qutebrowser.enable = false;
       emacs.enable = false;
       mpv.enable = true;
+      obs-studio.enable = true;
       zathura.enable = true;
     };
 
@@ -65,7 +66,6 @@ in
       inputs.zen-browser.packages.${pkgs.system}.default
       gimp
       brightnessctl
-      jetbrains.idea-community
 
       qbittorrent
 

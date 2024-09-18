@@ -1,30 +1,23 @@
 {
   inputs,
-  pkgs,
   config,
   lib,
+  pkgs,
   ...
 }:
 let
-  inherit (builtins) readFile;
-  csshacks = inputs.firefox-csshacks + "/chrome";
-  firefox-addons = pkgs.nur.repos.rycee.firefox-addons;
-  readwise-highlighter = firefox-addons.buildFirefoxXpiAddon {
-    pname = "readwise-highlighter";
-    version = "0.15.23";
-    addonId = "team@readwise.io";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4222692/readwise_highlighter-0.15.23.xpi";
-    sha256 = "sha256-Jg62eKy7s3tbs0IR/zHOSzLpQVj++wTUYyPU4MUBipQ=";
-    meta = { };
-  };
-  betterfox = inputs.betterfox;
-  cfg = config.programs.firefox;
+  cfg = config.programs.zen;
+  inherit (lib) mkIf;
   profile = "syde";
 in
+
 {
-  config = lib.mkIf cfg.enable {
-    syde.gui.browser = "firefox";
-    programs.firefox = {
+  imports = [
+    ./module.nix
+  ];
+  config = mkIf cfg.enable {
+    programs.zen = {
+      package = inputs.zen-browser.packages.${pkgs.system}.default;
       profiles.${profile} = {
         name = profile;
         search = {
@@ -216,12 +209,10 @@ in
           "browser.bookmarks.restore_default_bookmarks" = false;
           "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
           "browser.startup.page" = 3;
-          "browser.newtabpage.pinned" = "[]";
           "browser.aboutConfig.showWarning" = false;
           "browser.uidensity" = 1;
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "svg.context-properties.content.enabled" = true;
-
 
           "widget.use-xdg-desktop-portal.file-picker" = 1;
           "widget.use-xdg-desktop-portal.location" = 1;
@@ -230,12 +221,12 @@ in
           "widget.use-xdg-desktop-portal.settings" = 1;
         };
 
-        extensions = with firefox-addons; [
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           export-cookies-txt
           ublock-origin
           cookie-autodelete
           istilldontcareaboutcookies
-          # user-agent-string-switcher
+          user-agent-string-switcher
           darkreader
           enhancer-for-youtube
           sponsorblock
@@ -245,30 +236,14 @@ in
           lastpass-password-manager
           proton-pass
           vimium
-
           stylus
           firefox-color
-          userchrome-toggle
 
           # bypass-paywalls-clean
-          readwise-highlighter
+          # readwise-highlighter # doesn't exist yet
         ];
-        userChrome = # css
-          ''
-            @import url("ArcWTF/userChrome.css");
-          '';
-
-        #  readFile "${csshacks}/window_control_placeholder_support.css"
-        # + readFile "${csshacks}/hide_tabs_toolbar.css"
-        # + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
-        # + readFile "${csshacks}/window_control_force_linux_system_style.css"
-        # + readFile "${csshacks}/overlay_sidebar_header.css";
-        userContent = readFile ./userContent.css;
-        extraConfig = readFile "${betterfox}/Securefox.js";
       };
     };
-    home.file.".mozilla/firefox/${profile}/chrome/ArcWTF" = {
-      source = inputs.arc-wtf;
-    };
+
   };
 }
