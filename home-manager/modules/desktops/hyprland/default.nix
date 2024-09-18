@@ -49,6 +49,10 @@ in
       waybar.enable = true;
     };
 
+    syde.services = {
+      hyprland-autoname-workspaces.enable = true;
+    };
+
     services = {
       dunst.enable = false;
       hypridle.enable = true;
@@ -162,7 +166,7 @@ in
           "blueman-applet"
           "${pkgs.swww}/bin/swww-daemon"
           "[workspace 1] obsidian"
-          "${random-background}/bin/ran_bg"
+          "${lib.getExe random-background}"
         ];
       };
       extraConfig = # hyprlang

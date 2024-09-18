@@ -31,7 +31,8 @@ in
     };
 
     xdg.configFile."gammastep/hooks/notify" = {
-      text = ''
+      text = # bash
+        ''
         #!/usr/bin/env bash
         case $1 in
             period-changed)
