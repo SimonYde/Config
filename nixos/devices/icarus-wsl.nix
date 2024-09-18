@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [ ../standard.nix ];
 
@@ -11,7 +11,13 @@
     nh.enable = true;
   };
 
+  security.polkit.enable = true;
+
   services = {
+    dbus = {
+      enable = true;
+      packages = [ pkgs.gcr ];
+    };
     languagetool.enable = true;
     ollama.enable = false;
     syncthing.enable = true;

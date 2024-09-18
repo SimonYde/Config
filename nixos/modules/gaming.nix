@@ -40,7 +40,10 @@ let
       graphics = {
         enable32Bit = true;
         enable = true;
-        extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+        extraPackages32 = with pkgs.pkgsi686Linux; [
+          mesa.drivers
+          libva
+        ];
       };
     };
 

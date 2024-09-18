@@ -12,17 +12,18 @@ in
             caps a s d f j k l ;
           )
           (defvar
-            tap-time 180
-            hold-time 180
+            tap-time 250
+            hold-time 250
+            shift-time 180
           )
 
           (defalias
             a (tap-hold $tap-time $hold-time a lmet)
             s (tap-hold $tap-time $hold-time s lalt)
             d (tap-hold $tap-time $hold-time d lctl)
-            f (tap-hold $tap-time $hold-time f lsft)
+            f (tap-hold $shift-time $shift-time f lsft)
 
-            j (tap-hold $tap-time $hold-time j rsft)
+            j (tap-hold $shift-time $shift-time j rsft)
             k (tap-hold $tap-time $hold-time k lctl)
             l (tap-hold $tap-time $hold-time l lalt)
             ; (tap-hold $tap-time $hold-time ; rmet)
