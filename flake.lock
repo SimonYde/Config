@@ -1187,6 +1187,60 @@
         "type": "github"
       }
     },
+    "kattis-cli": {
+      "inputs": {
+        "kattis-cli": "kattis-cli_2",
+        "kattis-test": "kattis-test",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1726693033,
+        "narHash": "sha256-zk1yJR0ZebkFBwnYytS/jDdQaAzc+IeH2CJByqSy0T4=",
+        "owner": "SimonYde",
+        "repo": "kattis-cli.nix",
+        "rev": "35e17638f7d7b4c6309e9333397170cd9b513183",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SimonYde",
+        "repo": "kattis-cli.nix",
+        "type": "github"
+      }
+    },
+    "kattis-cli_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725122815,
+        "narHash": "sha256-Q/DqnY6+xO6kepsfH6y385HZNdz1AMwyW0SWU3QbLD4=",
+        "owner": "Kattis",
+        "repo": "kattis-cli",
+        "rev": "4fb228c5666215fcb26a1644e91cb2518db351e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kattis",
+        "repo": "kattis-cli",
+        "type": "github"
+      }
+    },
+    "kattis-test": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707836977,
+        "narHash": "sha256-h1RkuOOhb9RZYsD+DSnDH3CQj67Z9v4gi7SwzBvcfr4=",
+        "owner": "tyilo",
+        "repo": "kattis-test",
+        "rev": "89628b7202c4cc2f262deae080f831e229d784b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tyilo",
+        "repo": "kattis-test",
+        "type": "github"
+      }
+    },
     "luvit-meta": {
       "flake": false,
       "locked": {
@@ -1864,6 +1918,7 @@
         "helix": "helix",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "kattis-cli": "kattis-cli",
         "mini-nvim": "mini-nvim",
         "neogit": "neogit",
         "neovim-nightly": "neovim-nightly",
