@@ -27,11 +27,12 @@ in
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [ nvim-dap-python ];
-      extraLuaConfig = ''
-        require('syde.load').later(function()
-          require("dap-python").setup("${python-pkgs}/bin/python")
-        end)
-      '';
+      extraLuaConfig = # lua
+        ''
+          require('syde.load').later(function()
+            require("dap-python").setup("${python-pkgs}/bin/python")
+          end)
+        '';
     };
   };
 

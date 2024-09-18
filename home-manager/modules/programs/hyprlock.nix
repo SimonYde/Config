@@ -22,6 +22,7 @@ in
         };
         background = [
           {
+            monitor = "";
             path = "screenshot";
             blur_passes = 3;
             blur_size = 8;
@@ -42,6 +43,21 @@ in
             placeholder_text = "<i>Password...</i>";
             position = "0, -80";
 
+            shadow_passes = 2;
+          }
+        ];
+        label = [
+          {
+            monitor = "";
+            text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
+            text_align = "center";
+            color = "rgba(${base05},1.0)";
+            font_size = 25;
+            font_family = config.syde.theming.fonts.sansSerif.name;
+            rotate = 0;
+            position = "0, 80";
+            halign = "center";
+            valign = "center";
             shadow_passes = 2;
           }
         ];

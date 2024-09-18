@@ -32,22 +32,22 @@ in
       };
       initLua = # lua
         ''
-        require("bookmarks"):setup({
-        	last_directory = { enable = false, persist = false },
-        	persist = "vim",
-        	desc_format = "parent",
-        	file_pick_mode = "hover",
-        	notify = {
-        		enable = false,
-        		timeout = 1,
-        		message = {
-        			new = "New bookmark '<key>' -> '<folder>'",
-        			delete = "Deleted bookmark in '<key>'",
-        			delete_all = "Deleted all bookmarks",
-        		},
-        	},
-        })
-      '';
+          require("bookmarks"):setup({
+              last_directory = { enable = false, persist = false },
+              persist = "vim",
+              desc_format = "parent",
+              file_pick_mode = "hover",
+              notify = {
+                  enable = false,
+                  timeout = 1,
+                  message = {
+                      new = "New bookmark '<key>' -> '<folder>'",
+                      delete = "Deleted bookmark in '<key>'",
+                      delete_all = "Deleted all bookmarks",
+                  },
+              },
+          })
+        '';
       keymap = {
         manager.keymap = [
           {

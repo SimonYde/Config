@@ -238,6 +238,7 @@ in
     };
 
     style =
+      # css
       with palette;
       ''
         @define-color base00 ${base00};
