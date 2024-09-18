@@ -12,7 +12,7 @@ in
   config = mkIf cfg.enable {
     programs = {
       # Terminal Editors
-      helix.enable = false;
+      helix.enable = true;
       neovim.enable = true;
     };
 

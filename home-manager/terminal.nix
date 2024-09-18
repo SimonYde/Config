@@ -28,7 +28,7 @@ in
       btop.enable = true;
       direnv.enable = true;
       eza.enable = true;
-      fzf.enable = false;
+      fzf.enable = true;
       fastfetch.enable = true;
       fd.enable = true;
       gh.enable = true;

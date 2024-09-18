@@ -22,6 +22,7 @@ in
         sway.enable = false;
         swaylock.enable = false;
         vim.enable = false;
+        helix.enable = false;
         neovim.enable = false;
         waybar.enable = false;
         zellij.enable = false;
