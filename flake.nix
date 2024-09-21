@@ -101,8 +101,6 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-
-
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;

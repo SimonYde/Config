@@ -85,7 +85,7 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         "$browser" = browser;
-        "$file-manager" = file-manager;
+        "$file-manager" = lib.getExe file-manager.package;
         "$menu" = menu;
         "$terminal" = terminal.emulator;
         "$lock" = lock;

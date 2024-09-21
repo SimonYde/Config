@@ -68,7 +68,7 @@ in
     layout = [
       {
         label = "lock";
-        action = "sleep 1 && ${lock}";
+        action = "${lock}";
         text = "Lock";
         keybind = "l";
       }
@@ -82,7 +82,7 @@ in
 
       {
         "label" = "suspend";
-        "action" = "${lock} && systemctl suspend";
+        "action" = "systemctl suspend";
         "text" = "Suspend";
         "keybind" = "u";
       }

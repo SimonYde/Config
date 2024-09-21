@@ -38,7 +38,7 @@ in
       ripgrep.enable = true;
       skim.enable = true;
       starship.enable = true;
-      thefuck.enable = true;
+      thefuck.enable = false;
       yazi.enable = true;
       zellij.enable = true;
       zoxide.enable = true;
