@@ -1,8 +1,11 @@
-{ ... }:
+{ config, ... }:
 {
   config = {
     services.tailscale = {
-      extraUpFlags = [ "--ssh" ];
+      extraUpFlags = [
+        "--ssh"
+        "--operator=${config.syde.user}"
+      ];
       useRoutingFeatures = "both";
       openFirewall = true;
       extraDaemonFlags = [

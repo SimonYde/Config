@@ -59,7 +59,7 @@
   networking.wireguard.enable = true;
   networking.wg-quick.interfaces = {
     proton-DK25 = {
-      autostart = true;
+      autostart = false;
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
       privateKeyFile = config.age.secrets.wireguard.path;
