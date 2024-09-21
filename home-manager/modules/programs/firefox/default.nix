@@ -264,7 +264,7 @@ in
         # + readFile "${csshacks}/window_control_force_linux_system_style.css"
         # + readFile "${csshacks}/overlay_sidebar_header.css";
         userContent = readFile ./userContent.css;
-        extraConfig = readFile "${betterfox}/Securefox.js";
+        extraConfig = readFile "${betterfox}/Fastfox.js";
       };
     };
     home.file.".mozilla/firefox/${profile}/chrome/ArcWTF" = {

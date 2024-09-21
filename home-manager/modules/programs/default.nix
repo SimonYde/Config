@@ -30,6 +30,7 @@
 
     # ---GUI programs---
     ./brave.nix
+    ./discord.nix
     ./emacs.nix
     ./firefox
     ./i3status-rust.nix

@@ -29,6 +29,9 @@ in
         display-drun = "   Apps ";
         display-run = "   Run ";
       };
+      plugins = with pkgs; [
+        (if cfg.package == pkgs.rofi-wayland then rofi-emoji-wayland else rofi-emoji)
+      ];
     };
 
     xdg.configFile."rofi/custom_base16.rasi".text =

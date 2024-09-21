@@ -13,13 +13,11 @@ let
     mkEnableOption
     mkOption
     mkDefault
-    optionals
     ;
   cfg = config.syde.desktop.cosmic;
 in
 {
   config = mkIf cfg.enable {
-
     qt.enable = mkForce false;
 
     programs = {
@@ -30,15 +28,16 @@ in
     syde.programs.thunar.enable = mkDefault false;
     services.gammastep.enable = mkForce false; # TODO: find night-light alternative
 
-    home.packages =
-      with pkgs;
-      [
-        wl-clipboard # clipboard manager
-      ]
-      ++ optionals cfg.files.enable [ cosmic-files ];
+    home.packages = with pkgs; [
+      wl-clipboard # clipboard manager
+      (mkIf cfg.files.enable cosmic-files)
+    ];
 
     syde.desktop.cosmic.files.defaultFilemanager = mkDefault cfg.files.enable;
-    syde.gui.file-manager = mkIf (cfg.files.defaultFilemanager && cfg.files.enable) "com.system76.CosmicFiles";
+    syde.gui.file-manager = mkIf (cfg.files.defaultFilemanager && cfg.files.enable) {
+      mime = "com.system76.CosmicFiles";
+      package = pkgs.cosmic-files;
+    };
     syde.terminal.opacity = mkForce 1.0;
   };
 

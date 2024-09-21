@@ -25,7 +25,10 @@ in
       TerminalEmulator=${config.syde.terminal.emulator}
     '';
 
-    syde.gui.file-manager = mkIf cfg.defaultFilemanager "thunar";
+    syde.gui.file-manager = mkIf cfg.defaultFilemanager {
+      mime = "thunar";
+      package = pkgs.xfce.thunar;
+    };
   };
 
   options.syde.programs.thunar = {
