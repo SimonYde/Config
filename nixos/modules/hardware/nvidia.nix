@@ -10,6 +10,7 @@ let
 in
 {
   config = mkIf cfg.enable {
+    nixpkgs.config.cudaSupport = true;
     # boot.initrd.kernelModules = [ "nvidia" ];
     # boot.blacklistedKernelModules = [ "nouveau" ];
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -17,12 +18,7 @@ in
       "nvidia"
       "nvidia_modeset"
       "nvidia_drm"
-    ];
-
-    boot.kernelParams = [
-      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-      "nvidia_drm.modeset-1"
-      "nvidia_drm.fbdev=1"
+      "nvidia_uvm"
     ];
 
     hardware.nvidia = {
@@ -33,6 +29,10 @@ in
       open = mkDefault true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
+
+    environment.systemPackages = with pkgs; [
+      cudaPackages.cudatoolkit
+    ];
 
     hardware.graphics = {
       enable = true;
