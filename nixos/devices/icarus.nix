@@ -47,8 +47,9 @@
   };
 
   services = {
+    blueman.enable = true;
     languagetool.enable = true;
-    ollama.enable = false;
+    ollama.enable = true;
     tailscale.enable = true;
     syncthing.enable = true;
   };
