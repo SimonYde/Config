@@ -61,14 +61,13 @@ in
 
           # -----Fuzzy Finder-----
           plenary-nvim
-          # telescope-nvim
-          # telescope-fzf-native-nvim
-          # telescope-ui-select-nvim
-          # git-worktree-nvim
+          telescope-nvim
+          telescope-fzf-native-nvim
+          telescope-ui-select-nvim
+          git-worktree-nvim
 
           # -----UI-----
           which-key-nvim
-          render-markdown
           catppuccin-nvim
           todo-comments-nvim
           nui-nvim
@@ -80,6 +79,7 @@ in
           diffview-nvim
 
           # -----Highlighting-----
+          render-markdown
           nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
           nvim-treesitter-context

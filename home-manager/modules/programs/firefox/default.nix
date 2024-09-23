@@ -237,7 +237,7 @@ in
           istilldontcareaboutcookies
           # user-agent-string-switcher
           darkreader
-          enhancer-for-youtube
+          # enhancer-for-youtube
           sponsorblock
           multi-account-containers
           news-feed-eradicator
@@ -245,6 +245,7 @@ in
           lastpass-password-manager
           proton-pass
           vimium
+          kagi-search
 
           stylus
           firefox-color
@@ -256,7 +257,7 @@ in
         userChrome = # css
           ''
             @import url("ArcWTF/userChrome.css");
-          '';
+          '' + readFile ./userChrome.css;
 
         #  readFile "${csshacks}/window_control_placeholder_support.css"
         # + readFile "${csshacks}/hide_tabs_toolbar.css"

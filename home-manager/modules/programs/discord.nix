@@ -19,11 +19,7 @@ in
     home.packages = [
       cfg.package
       cfg.betterDiscordCtlPackage
-      pkgs.curl
     ];
-    home.activation.better-discord-install = lib.hm.dag.entryAfter [ "installPackages" ] ''
-      PATH="${config.home.path}/bin:$PATH" $DRY_RUN_CMD betterdiscordctl install
-    '';
   };
 
   options.syde.programs.discord = {

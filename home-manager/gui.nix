@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   pkgs,
   ...
 }:
@@ -9,7 +8,6 @@ let
   inherit (lib)
     types
     mkOption
-    optionalAttrs
     mkIf
     mkEnableOption
     ;
@@ -64,7 +62,6 @@ in
       libreoffice
       anki
       obsidian
-      inputs.zen-browser.packages.${pkgs.system}.default
       gimp
       brightnessctl
 
@@ -74,7 +71,6 @@ in
       youtube-music
       todoist-electron
 
-      ferdium
       file-manager.package
     ];
 
