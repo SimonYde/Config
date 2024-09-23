@@ -1,4 +1,7 @@
 { config, lib, ... }@args:
+let
+  inherit (lib) mkForce;
+in
 {
   config = {
     # Personal modules
@@ -11,12 +14,17 @@
       theming.enable = true;
     };
 
+    programs = {
+      swaylock.enable = mkForce true;
+      hyprlock.enable = mkForce false;
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {
         input = {
-          kb_layout = lib.mkForce "eu";
-          kb_options = lib.mkForce "";
+          kb_layout = mkForce "eu";
+          kb_options = mkForce "";
 
         };
       };

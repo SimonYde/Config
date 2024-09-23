@@ -32,6 +32,9 @@ in
         hostname = {
           ssh_symbol = "🌐";
         };
+        username = {
+          format = "[$user]($style)";
+        };
         nix_shell = {
           symbol = " ";
           unknown_msg = "nix shell";

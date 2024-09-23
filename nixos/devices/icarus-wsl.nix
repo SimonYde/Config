@@ -18,7 +18,7 @@
       enable = true;
       packages = [ pkgs.gcr ];
     };
-    languagetool.enable = true;
+    languagetool.enable = false;
     ollama.enable = false;
     syncthing.enable = true;
     tailscale.enable = true;

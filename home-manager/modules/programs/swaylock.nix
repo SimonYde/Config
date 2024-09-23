@@ -20,7 +20,7 @@ in
         ignore-empty-password = true;
 
         font = font.name;
-        font-size = 24;
+        font-size = 45;
 
         clock = true;
         datestr = "%A, %b %e";
@@ -28,9 +28,9 @@ in
 
         indicator = true;
         indicator-radius = 200;
-        indicator-thickness = 20;
+        indicator-thickness = 10;
 
-        color = "${base00}33";
+        color = "${base00}00";
 
         bs-hl-color = base08;
         inside-clear-color = "${base00}33";
