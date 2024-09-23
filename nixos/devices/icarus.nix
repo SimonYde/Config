@@ -91,7 +91,10 @@
       "dmask=0022"
     ];
   };
-
-  swapDevices = lib.mkForce [ ];
-  # [ { device = "/dev/disk/by-uuid/73f31fb0-74eb-4d36-a061-0f1c760a157f"; } ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 }
