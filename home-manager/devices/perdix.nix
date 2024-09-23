@@ -12,6 +12,7 @@
       theming.enable = true;
     };
 
+    # TODO: laptop module?
     services.hypridle = {
       settings = {
         listener = [
@@ -20,6 +21,11 @@
             # NOTE: name of device is specific for this device
             on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -sd platform::kbd_backlight set 0";
             on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -rd platform::kbd_backlight";
+          }
+          {
+            timeout = 900;
+            on-timeout = "systemctl suspend";
+            on-resume = "hyprctl dispatch dpms on";
           }
         ];
       };

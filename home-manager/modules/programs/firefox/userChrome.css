@@ -1,46 +1,13 @@
-/* #main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items { */
-/*   opacity: 0; */
-/*   pointer-events: none; */
-/* } */
-/* #main-window:not([tabsintitlebar="true"]) #TabsToolbar { */
-/*   visibility: collapse !important; */
-/* } */
-/**/
-/* /* 15px for dragging whole window by mouse*/ */
-/* #titlebar { */
-/*   appearance: none !important; */
-/*   height: 0px; */
-/* } */
-/**/
-/* /* Fix for main menu calling by Alt button */ */
-/* #titlebar > #toolbar-menubar { */
-/*   margin-top: 0px; */
-/* } */
-/**/
-.titlebar-buttonbox-container {
-  display: none;
+/* Zoom level and tab container indicators. */
+#userContext-icons,
+#urlbar-zoom-button {
+  padding-inline: var(--uc-urlbar-icon-inline-padding) !important;
+  margin-block: 0 !important;
+  margin-inline: 0 !important;
+  visibility: visible !important;
 }
-
-#TabsToolbar { visibility: collapse !important; }
-
-#toolbar-menubar:not([inactive="true"]) {
-    z-index: 1000 !important;
+/* Move tracking protection button. */
+#tracking-protection-icon-container,
+#page-action-buttons {
+  order: unset !important;
 }
-
-#titlebar {
-	appearance: none !important;
-	height: 0px;
-}
-
-/* Adding empty space for buttons */
-/* #nav-bar {
-  margin-right:70px;
-} */
-
-/* Move minimize/restore/close buttons to empty space */
-/* #TabsToolbar > .titlebar-buttonbox-container {
-  display: block;
-  position: absolute;
-  top: 0px;
-  right: 8px;
-} */

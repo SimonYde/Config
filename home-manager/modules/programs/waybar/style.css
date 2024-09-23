@@ -19,6 +19,10 @@ window#waybar.hidden {
   color: transparent;
 }
 
+#window {
+  color: @text;
+}
+
 #workspaces {
   transition: none;
   color: @base0D;
@@ -72,6 +76,15 @@ window#waybar.hidden {
 #battery,
 #custom-swaync {
   transition: none;
+  color: @text;
+}
+
+#idle_inhibitor.deactivated {
+  color: @text;
+}
+
+#idle_inhibitor.activated {
+  color: @base0A;
 }
 
 #battery.charging {

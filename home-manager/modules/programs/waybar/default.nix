@@ -259,7 +259,7 @@ in
         @define-color base0F ${base0F};
 
         @define-color background      alpha(${base00}, .7);
-        @define-color text            ${base05};
+        @define-color text            ${base0D};
         @define-color background-alt  alpha(${base01}, .7);
         @define-color selected        ${base04};
         @define-color hover           alpha(@selected, .4);
