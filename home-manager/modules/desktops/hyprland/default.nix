@@ -8,10 +8,6 @@
 let
   inherit (lib) mkIf mkForce;
   palette = config.colorScheme.palette;
-  random-background = pkgs.callPackage ./rand_bg.nix {
-    homeDirectory = config.home.homeDirectory;
-    slug = config.colorScheme.slug;
-  };
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
   browser = config.syde.gui.browser;
@@ -23,8 +19,6 @@ in
 {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      swww # Background daemon
-      random-background # random background script
       hyprland-gamemode # disable hyprland animations for games
       playerctl # media keys
       pamixer # volume keys
@@ -51,6 +45,7 @@ in
 
     syde.services = {
       hyprland-autoname-workspaces.enable = true;
+      swww.enable = true;
     };
 
     services = {
@@ -59,28 +54,6 @@ in
       swaync.enable = true;
     };
 
-    systemd.user.services.rand-bg = {
-      Unit = {
-        Description = "Random Background";
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = lib.getExe random-background;
-      };
-    };
-    systemd.user.timers.rand-bg = {
-      Unit = {
-        Description = "Random Background";
-      };
-      Timer = {
-        OnStartupSec = "15min";
-        OnUnitActiveSec = "15min";
-        Unit = "rand-bg.service";
-      };
-      Install = {
-        WantedBy = [ "timers.target" ];
-      };
-    };
 
     wayland.windowManager.hyprland = {
       settings = {
@@ -164,9 +137,7 @@ in
           "waybar"
           "nm-applet"
           "blueman-applet"
-          "${pkgs.swww}/bin/swww-daemon"
           "[workspace 1] obsidian"
-          "${lib.getExe random-background}"
         ];
       };
       extraConfig = # hyprlang
