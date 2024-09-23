@@ -13,6 +13,6 @@ pkgs.writeShellScriptBin "rand_bg" ''
 
   # Find all image files in the directory and pick one at random
   IMAGES=$(${pkgs.fd}/bin/fd . "$DIRECTORY" -E $CURRENT -t f)
-  IMAGE=$(echo "$IMAGES" | shuf -n1)
+  IMAGE=$(echo "$IMAGES" | ${pkgs.coreutils}/bin/shuf -n1)
   ${pkgs.swww}/bin/swww img "$IMAGE"
 ''

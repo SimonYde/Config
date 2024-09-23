@@ -8,6 +8,7 @@
     ./redshift.nix
     ./hypridle.nix
     ./swaync.nix
+    ./swww.nix
     ./udiskie.nix
   ];
 }
