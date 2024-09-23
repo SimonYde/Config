@@ -32,14 +32,14 @@ in
           {
             monitor = "";
             size = "200, 50";
-            outline_thickness = 3;
+            outline_thickness = 2;
             dots_center = true;
             fade_on_empty = true;
             font_color = "rgba(${base05},1.0)";
-            inner_color = "rgba(${base02},1.0)";
-            outer_color = "rgba(${base0D},1.0)";
-            check_color = "rgba(${base0A},1.0)";
-            fail_color = "rgba(${base08},1.0)";
+            inner_color = "rgba(${base02},0.85)";
+            outer_color = "rgba(${base0D},0.85)";
+            check_color = "rgba(${base0A},0.85)";
+            fail_color = "rgba(${base08},0.85)";
             placeholder_text = "<i>Password...</i>";
             position = "0, -80";
 
@@ -52,7 +52,7 @@ in
             text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
             text_align = "center";
             color = "rgba(${base05},1.0)";
-            font_size = 25;
+            font_size = 45;
             font_family = config.syde.theming.fonts.sansSerif.name;
             rotate = 0;
             position = "0, 80";
