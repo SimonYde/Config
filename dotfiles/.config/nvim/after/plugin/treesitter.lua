@@ -6,8 +6,7 @@ Load.later(function()
         highlight = {
             enable = true,
             disable = {
-                "latex",
-                "nix",
+                -- "latex",
             },
             additional_vim_regex_highlighting = false,
         },

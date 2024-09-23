@@ -83,15 +83,14 @@ Colemak_toggle = function()
         nmap("<C-w>i", "<C-w>l", "", { noremap = true })
 
         nvmap("M", "^", "Goto first non-empty cell in line")
+        nvmap("S", "0", "Goto line start")
         nvmap("I", "$", "Goto line end")
         COLEMAK = true
     else
         COLEMAK = false
     end
 end
-Load.later(function()
-    Colemak_toggle()
-end)
+Colemak_toggle()
 
 nmap("<leader><leader>q", function()
     Colemak_toggle()

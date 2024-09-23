@@ -15,6 +15,11 @@ Load.later(function()
 
     require('mini.bufremove').setup()
     require('mini.comment').setup()
+    require('mini.operators').setup({
+        replace = {
+            prefix = "cr"
+        },
+    })
     require('mini.surround').setup()
     require('mini.cursorword').setup({ delay = 100 })
 

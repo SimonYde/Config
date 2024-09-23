@@ -97,6 +97,7 @@ Load.later(function()
                 build = {
                     cmd = 'tectonic',
                     args = {
+                        "-X",
                         "compile",
                         "%f",
                         -- "--synctex",
@@ -291,8 +292,9 @@ Load.later(function()
             imap("<C-s>", vim.lsp.buf.signature_help, "Signature Help")
 
             Load.now(function()
+                require('lspsaga')
                 nmap(
-                    "<leader>k",
+                    "<leader>e",
                     function() vim.cmd.Lspsaga("hover_doc") end,
                     "hover documentation"
                 )
