@@ -30,7 +30,7 @@ client_fullscreen = "[{icon}]"
 # use double quote the key and the value
 # take class name from 'hyprctl clients'
 "DEFAULT" = "({title})"
-"(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)|(st)" = ""
+"(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)" = ""
 "[Ff]irefox" = ""
 "(?i)waydroid.*" = "droid"
 "(?i)obsidian" = "󰚸"
