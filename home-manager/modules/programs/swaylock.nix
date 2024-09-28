@@ -32,21 +32,21 @@ in
 
         color = "${base00}00";
 
-        bs-hl-color = base08;
-        inside-clear-color = "${base00}33";
-        inside-color = "${base00}33";
-        inside-ver-color = "${base00}33";
-        inside-wrong-color = "${base00}33";
-        key-hl-color = base0B;
-        line-color = base0D;
-        ring-color = base0D;
+        bs-hl-color = "${base08}";
+        inside-clear-color = "${base00}00";
+        inside-color = "${base00}00";
+        inside-ver-color = "${base00}00";
+        inside-wrong-color = "${base00}00";
+        key-hl-color = "${base0B}";
+        line-color = "${base0D}00";
+        ring-color = "${base0D}00";
         separator-color = "00000000";
-        line-clear-color = base0B;
-        ring-clear-color = base0B;
-        line-ver-color = base0C;
-        ring-ver-color = base0C;
-        line-wrong-color = base08;
-        ring-wrong-color = base08;
+        line-clear-color = "${base0B}";
+        ring-clear-color = "${base0B}";
+        line-ver-color = "${base0C}";
+        ring-ver-color = "${base0C}";
+        line-wrong-color = "${base08}";
+        ring-wrong-color = "${base08}";
 
         text-caps-lock-color = base08;
         text-clear-color = base05;

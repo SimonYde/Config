@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib) mkIf;
   mapLazy = map (pkg: {
     plugin = pkg;
     optional = true;
@@ -12,9 +13,9 @@ let
   cfg = config.programs.neovim;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.neovim = {
-      # package = pkgs.neovim-developer;
+      package = pkgs.neovim;
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
@@ -60,15 +61,13 @@ in
           obsidian-nvim
 
           # -----Fuzzy Finder-----
-          plenary-nvim
-          telescope-nvim
-          telescope-fzf-native-nvim
-          telescope-ui-select-nvim
-          git-worktree-nvim
+          # telescope-nvim
+          # telescope-fzf-native-nvim
+          # telescope-ui-select-nvim
+          # git-worktree-nvim
 
           # -----UI-----
           which-key-nvim
-          catppuccin-nvim
           todo-comments-nvim
           nui-nvim
         ]
@@ -79,7 +78,7 @@ in
           diffview-nvim
 
           # -----Highlighting-----
-          render-markdown
+          render-markdown-nvim
           nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
           nvim-treesitter-context
@@ -113,14 +112,9 @@ in
           vim.g.transparent = ${if config.syde.terminal.opacity != 1.0 then "true" else "false"}
           require('syde')
         '';
-      extraPackages =
-        let
-          packages = [ ];
-        in
-        if builtins.elem pkgs.vimPlugins.copilot-lua cfg.plugins then
-          packages ++ [ pkgs.nodejs-slim_20 ]
-        else
-          packages;
+      extraPackages = with pkgs; [
+        (mkIf (builtins.elem vimPlugins.copilot-lua cfg.plugins) nodejs-slim_20)
+      ];
     };
   };
 }

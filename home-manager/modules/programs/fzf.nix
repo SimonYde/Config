@@ -33,11 +33,11 @@ in
       defaultCommand = "${fd} --type file";
       colors =
         with config.syde.theming.palette-hex;
-        lib.mkForce {
+        lib.mkDefault {
           bg = "";
           "bg+" = "";
-          fg = base05;
-          "fg+" = base05;
+          fg = base04;
+          "fg+" = base06;
         };
       defaultOptions = [ ];
     };
