@@ -8,19 +8,13 @@
 let
   inherit (lib) mkIf;
   nix-colors = inputs.nix-colors;
-  colorScheme = config.colorScheme;
-  slug = colorScheme.slug;
   cfg = config.syde.theming;
 in
 {
   imports = [ ./module.nix ];
 
   config = mkIf cfg.enable {
-    colorScheme = nix-colors.colorSchemes."catppuccin-mocha";
-
-    home.sessionVariables = {
-      BACKGROUND_DIR = "$HOME/Config/assets/backgrounds/${slug}"; # NOTE: hardcoded path
-    };
+    colorScheme = nix-colors.colorSchemes."gruvbox-dark-hard";
 
     syde.theming.fonts = {
       monospace = {

@@ -1,11 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.programs.zathura;
 in
 {
   config = lib.mkIf cfg.enable {
     programs.zathura = {
-      package = pkgs.stable.zathura;
       options =
         with config.syde.theming.palette-hex;
         lib.mkDefault {
