@@ -11,7 +11,8 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       typst
-      typst-lsp
+      tinymist
+      # typst-lsp
       typstfmt
       typstyle
       polylux2pdfpc # Converting slides into `.pdfpc` file with speaker notes

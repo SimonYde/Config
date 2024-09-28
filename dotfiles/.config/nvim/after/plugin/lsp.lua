@@ -132,7 +132,7 @@ Load.later(function()
         name = "typst_lsp",
         cmd = "typst-lsp",
         settings = {
-            exportPdf = "never", -- Choose `onType`, `onSave` or `never`.
+            exportPdf = "onSave", -- Choose `onType`, `onSave` or `never`.
         },
         on_attach = function(_, bufnr)
             local nmap = function(keys, cmd, desc)
@@ -143,7 +143,7 @@ Load.later(function()
                 function()
                     local file = vim.fn.expand("%")
                     local pdf = file:gsub("%.typ$", ".pdf")
-                    vim.system({ "zathura", pdf })
+                    vim.system({ "xdg-open", pdf })
                 end,
                 "open [p]df"
             )
@@ -162,13 +162,45 @@ Load.later(function()
                     else
                         vim.notify("Did not find a main file to pin at " .. vim.fn.getcwd(), vim.log.levels.ERROR)
                     end
-                    vim.cmd [[TypstWatch]]
-                    vim.notify("Watching for changes in: " .. path, vim.log.levels.INFO)
+                    local pdf = main_file:gsub("%.typ$", ".pdf")
+                    vim.system({ "xdg-open", pdf })
                 end,
                 "Pin main file to current, run typst [w]atch"
             )
         end
     }
+
+    setup_lsp({
+        name = "tinymist",
+        settings = {
+            exportPdf = "onSave", -- Choose `onType`, `onSave` or `never`.
+        },
+        on_attach = function(_, bufnr)
+            local nmap = function(keys, cmd, desc)
+                require('syde.keymap').nmap(keys, cmd, desc, { buffer = bufnr })
+            end
+            nmap(
+                "<leader>lp",
+                function()
+                    local file = vim.fn.expand("%")
+                    local pdf = file:gsub("%.typ$", ".pdf")
+                    vim.system({ "xdg-open", pdf })
+                end,
+                "open [p]df"
+            )
+            nmap(
+                "<leader>lw",
+                function()
+                    local main_file = vim.api.nvim_buf_get_name(bufnr)
+                    vim.lsp.buf.execute_command({ command = 'tinymist.pinMain', arguments = { main_file } })
+                    vim.notify("Pinned to " .. main_file, vim.log.levels.INFO)
+                    local pdf = main_file:gsub("%.typ$", ".pdf")
+                    vim.system({ "xdg-open", pdf })
+                end,
+                "Pin main file to current"
+            )
+        end
+    })
 
 
     setup_lsp {
