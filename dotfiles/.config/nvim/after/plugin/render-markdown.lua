@@ -1,5 +1,5 @@
 Load.later(function()
-    vim.cmd [[packadd render-markdown]]
+    vim.cmd [[packadd render-markdown.nvim]]
     require('render-markdown').setup({
         callout = {
             definition = { raw = '[!definition]', rendered = ' Definition', highlight = 'RenderMarkdownInfo' },

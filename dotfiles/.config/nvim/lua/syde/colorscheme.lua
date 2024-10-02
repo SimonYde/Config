@@ -11,10 +11,9 @@ local add_transparency = function()
                 winbar = false,
             })
             :apply()
-        vim.cmd [[hi GitSignsAdd guibg=NONE ctermbg=NONE]]
-        vim.cmd [[hi GitSignsChange guibg=NONE ctermbg=NONE]]
-        vim.cmd [[hi GitSignsChangeDelete guibg=NONE ctermbg=NONE]]
-        vim.cmd [[hi GitSignsDelete guibg=NONE ctermbg=NONE]]
+        vim.cmd [[hi MiniDiffSignAdd guibg=NONE ctermbg=NONE]]
+        vim.cmd [[hi MiniDiffSignChange guibg=NONE ctermbg=NONE]]
+        vim.cmd [[hi MiniDiffSignDelete guibg=NONE ctermbg=NONE]]
         -- vim.cmd(("hi TreesitterContextBottom cterm=underline gui=underline guisp=%s"):format(PALETTE.base01))
     end)
 end
@@ -105,6 +104,7 @@ Load.now(function()
             ['williamboman/mason.nvim'] = false,
         },
     }
+    vim.cmd(("hi MiniStatuslineFilename guifg=%s"):format(PALETTE.base04))
     if vim.g.transparent then
         add_transparency()
     end

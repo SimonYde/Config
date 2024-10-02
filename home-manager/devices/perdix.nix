@@ -12,6 +12,10 @@
       theming.enable = true;
     };
 
+    home.packages = with pkgs; [
+      brightnessctl
+    ];
+
     # TODO: laptop module?
     services.hypridle = {
       settings = {

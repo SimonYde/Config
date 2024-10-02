@@ -3,7 +3,37 @@ local nmap = require('syde.keymap').nmap
 Load.later(function()
     local MiniExtra = require('mini.extra')
 
-    require('mini.ai').setup({ n_lines = 500 })
+    Load.now(function()
+        -- For mini.ai
+        vim.cmd [[packadd nvim-treesitter]]
+        vim.cmd [[packadd nvim-treesitter-textobjects]]
+    end)
+    local spec_treesitter = require('mini.ai').gen_spec.treesitter
+    local gen_ai_spec = MiniExtra.gen_ai_spec
+    require('mini.ai').setup({
+        custom_textobjects = {
+            B = gen_ai_spec.buffer(),
+            D = gen_ai_spec.diagnostic(),
+            I = gen_ai_spec.indent(),
+            L = gen_ai_spec.line(),
+            N = gen_ai_spec.number(),
+            F = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
+            o = spec_treesitter({
+                a = { '@loop.outer' },
+                i = { '@loop.inner' },
+            }),
+            c = spec_treesitter({
+                a = { '@conditional.outer' },
+                i = { '@conditional.inner' },
+            }),
+            v = spec_treesitter({
+                a = { '@variable.outer' },
+                i = { '@variable.inner' },
+            }),
+        },
+        n_lines = 500,
+    })
+
     require('mini.align').setup()
     local MiniIcons = require('mini.icons')
     MiniIcons.setup()
@@ -38,7 +68,15 @@ Load.later(function()
         },
     })
     require('mini.jump').setup()
-    require('mini.jump2d').setup()
+    require('mini.jump2d').setup({
+        view = {
+            -- Whether to dim lines with at least one jump spot
+            dim = false,
+
+            -- How many steps ahead to show. Set to big number to show all steps.
+            n_steps_ahead = 0,
+        },
+    })
     require('mini.splitjoin').setup()
 
     local MiniMove = require('mini.move')
@@ -64,7 +102,6 @@ Load.later(function()
         },
     })
 
-    require('mini.visits').setup()
     require('mini.diff').setup({
         mappings = {
             -- Apply hunks inside a visual/operator region
@@ -90,15 +127,19 @@ Load.later(function()
     nmap("<leader>gg", MiniGit.show_at_cursor, "Show git info at cursor")
 
 
+    local MiniVisits = require('mini.visits')
+    MiniVisits.setup()
     local make_select_path = function(select_global, recency_weight)
         return function()
             local cwd = select_global and '' or vim.fn.getcwd()
-            -- visits.select_path(cwd, select_opts)
-            MiniExtra.pickers.visit_paths({
-                cwd = cwd,
-                -- sort = sort,
-                recency_weight = recency_weight,
-            })
+            local sort = MiniVisits.gen_sort.default({ recency_weight = recency_weight })
+            local select_opts = { sort = sort }
+            MiniVisits.select_path(cwd, select_opts)
+            -- MiniExtra.pickers.visit_paths({
+            --     cwd = cwd,
+            --     -- sort = sort,
+            --     recency_weight = recency_weight,
+            -- })
         end
     end
 

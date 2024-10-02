@@ -15,7 +15,7 @@ in
 {
   config = mkIf cfg.enable {
     programs.neovim = {
-      package = pkgs.neovim;
+      # package = pkgs.neovim;
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
@@ -61,9 +61,9 @@ in
           obsidian-nvim
 
           # -----Fuzzy Finder-----
-          # telescope-nvim
-          # telescope-fzf-native-nvim
-          # telescope-ui-select-nvim
+          telescope-nvim
+          telescope-fzf-native-nvim
+          telescope-ui-select-nvim
           # git-worktree-nvim
 
           # -----UI-----

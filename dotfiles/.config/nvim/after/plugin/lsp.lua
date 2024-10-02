@@ -159,11 +159,11 @@ Load.later(function()
                             arguments = { path }
                         })
                         vim.notify("Pinned to " .. path, vim.log.levels.INFO)
+                        local pdf = main_file:gsub("%.typ$", ".pdf")
+                        vim.system({ "xdg-open", pdf })
                     else
                         vim.notify("Did not find a main file to pin at " .. vim.fn.getcwd(), vim.log.levels.ERROR)
                     end
-                    local pdf = main_file:gsub("%.typ$", ".pdf")
-                    vim.system({ "xdg-open", pdf })
                 end,
                 "Pin main file to current, run typst [w]atch"
             )
@@ -344,5 +344,29 @@ Load.later(function()
         end,
     })
 
-    require('otter').activate({ "bash" }, true, true, nil)
+    Load.now(function()
+        local otter = require('otter')
+        otter.setup {
+            lsp = {
+                diagnostic_update_events = { "BufWritePost" },
+                root_dir = function(_) return vim.fn.getcwd(0) end,
+            },
+            buffers = {
+                set_filetype = false,
+                -- write <path>.otter.<embedded language extension> files to
+                -- disk on save of main buffer.
+                -- useful for some linters that require actual files
+                -- otter files are deleted on quit or main buffer close
+                write_to_disk = false,
+            },
+            strip_wrapping_quote_characters = { "'", '"', "`" },
+            -- otter may not work the way you expect when entire code blocks are indented (eg. in Org files)
+            -- When true, otter handles these cases fully.
+            handle_leading_whitespace = true,
+        }
+        local nmap = require('syde.keymap').nmap
+        nmap("<leader>lo", function() otter.activate() end, "Otter activate")
+    end)
+
+    vim.cmd [[LspStart]]
 end)

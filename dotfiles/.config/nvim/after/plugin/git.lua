@@ -20,6 +20,7 @@ Load.later(function()
             integrations = {
                 diffview = true,
                 telescope = true,
+                mini_pick = true,
             },
         }
         return neogit

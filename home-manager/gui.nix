@@ -57,18 +57,16 @@ in
     };
 
     home.packages = with pkgs; [
-      # synergy
-      pdfpc
-      libreoffice
-      anki
-      obsidian
-      gimp
-      brightnessctl
+      pdfpc # PDF presentation tool
+      libreoffice # Office365 replacement
+      anki # Flash cards
+      obsidian # Second brain
+      gimp # Image editor
 
-      qbittorrent
-
+      qbittorrent # Linux ISOs
       stremio
       youtube-music
+
       todoist-electron
 
       file-manager.package

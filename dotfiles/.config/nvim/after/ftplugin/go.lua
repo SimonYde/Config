@@ -1,6 +1,6 @@
-local bo = vim.bo
+local opt = vim.opt_local
 local tabwidth = 4
-bo.shiftwidth = tabwidth
-bo.tabstop = tabwidth
-bo.softtabstop = tabwidth
-bo.expandtab = false
+opt.shiftwidth = tabwidth
+opt.tabstop = tabwidth
+opt.softtabstop = tabwidth
+opt.expandtab = false

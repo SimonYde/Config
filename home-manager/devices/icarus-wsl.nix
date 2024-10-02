@@ -31,6 +31,7 @@
     libqalculate
     rclone
     wl-clipboard
+    xdg-utils
   ];
 
   imports = [ ../standard.nix ];
