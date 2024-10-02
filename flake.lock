@@ -926,6 +926,43 @@
         "type": "github"
       }
     },
+    "grawlix": {
+      "inputs": {
+        "grawlix": "grawlix_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727884006,
+        "narHash": "sha256-TojTkm4deCCgEDRQsvwjrL5hn2iEkvhCsYv8UDvJ3KA=",
+        "owner": "SimonYde",
+        "repo": "grawlix.nix",
+        "rev": "d3f544422eea8ebc3a595976d214f6d8bfc17de6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SimonYde",
+        "repo": "grawlix.nix",
+        "type": "github"
+      }
+    },
+    "grawlix_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723214480,
+        "narHash": "sha256-B9JUXgkZXgcwO4KTh0IgTRZTd+WqJcAtJHZpIou1sq8=",
+        "owner": "jo1gi",
+        "repo": "grawlix",
+        "rev": "651f672e25a2c1be95b75c905a8a7cfa3157278e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jo1gi",
+        "repo": "grawlix",
+        "type": "github"
+      }
+    },
     "helix": {
       "inputs": {
         "crane": "crane",
@@ -1898,6 +1935,7 @@
         "firefox-csshacks": "firefox-csshacks",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
+        "grawlix": "grawlix",
         "helix": "helix",
         "home-manager": "home-manager",
         "hyprland": "hyprland",

@@ -15,7 +15,7 @@
             config = prev.config;
             system = prev.system;
           };
-          grawlix = prev.callPackage ./home-manager/packages/grawlix.nix { };
+          grawlix = inputs.grawlix.packages.${prev.system}.default;
           pix2tex = inputs.pix2tex.packages.${prev.system}.default;
 
           delta = final.stable.delta;

@@ -128,6 +128,10 @@
       url = "github:SimonYde/kattis-cli.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    grawlix = {
+      url = "github:SimonYde/grawlix.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
