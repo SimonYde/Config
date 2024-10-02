@@ -15,6 +15,17 @@ in
     system.stateVersion = "24.05";
     time.timeZone = "Europe/Copenhagen";
 
+    xdg.portal ={
+      enable = true;
+      config = {
+        common.default = [
+          "gtk"
+          "*"
+        ];
+      };
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    };
+
     wsl = {
       enable = true;
       wslConf.automount.root = "/mnt";
