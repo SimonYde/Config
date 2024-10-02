@@ -13,7 +13,7 @@ Load.later(function()
         local actions = require("telescope.actions")
         local themes = require("telescope.themes")
 
-        local preview = {
+        vim.g.telescope_preview = {
             show_line = false,
             layout_config = {
                 preview_width = 0.55,
@@ -25,7 +25,7 @@ Load.later(function()
             },
         }
 
-        local no_preview = {
+        vim.g.telescope_no_preview = {
             layout_config = {
                 prompt_position = 'top',
                 horizontal = {
@@ -102,11 +102,13 @@ Load.later(function()
         Load.now(function() telescope.load_extension('fzf') end)
         Load.now(function()
             telescope.load_extension('git_worktree')
-            nmap("<leader>gw", "<cmd>Telescope git_worktree git_worktrees<CR>", "git [w]orktrees")
+            nmap("<leader>gw", function() telescope.extensions.git_worktree.git_worktrees() end, "git [w]orktrees")
         end)
         Load.now(function() telescope.load_extension('ui-select') end)
 
         local builtin = require('telescope.builtin')
+        local preview = vim.g.telescope_preview
+        local no_preview = vim.g.telescope_no_preview
         nmap("<leader>?", builtin.keymaps, "Search keymaps")
         nmap("<leader>b", function() builtin.buffers(preview) end, "[b]uffers")
         nmap("<leader>fc", function() builtin.current_buffer_fuzzy_find(no_preview) end, "fuzzy [c]urrent buffer search")

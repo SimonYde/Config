@@ -16,6 +16,11 @@ nmap("U", "<C-r>", "redo")
 -- vmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
 -- vmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
 
+-- vim.keymap.del("n", "grr")
+-- vim.keymap.del("n", "gra")
+-- vim.keymap.del("x", "gra")
+-- vim.keymap.del("n", "grn")
+
 nmap("J", "mzJ`z", "Join following line with current")
 nmap("<C-d>", "<C-d>zz", "Move down half page")
 nmap("<C-u>", "<C-u>zz", "Move up half page")
@@ -81,6 +86,10 @@ Colemak_toggle = function()
         nmap("<C-w>n", "<C-w>j", "", { noremap = true })
         nmap("<C-w>e", "<C-w>k", "", { noremap = true })
         nmap("<C-w>i", "<C-w>l", "", { noremap = true })
+        nmap("<C-w>M", "<C-w>H", "", { noremap = true })
+        nmap("<C-w>N", "<C-w>J", "", { noremap = true })
+        nmap("<C-w>E", "<C-w>K", "", { noremap = true })
+        nmap("<C-w>I", "<C-w>L", "", { noremap = true })
 
         nvmap("M", "^", "Goto first non-empty cell in line")
         nvmap("S", "0", "Goto line start")

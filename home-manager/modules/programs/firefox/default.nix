@@ -222,7 +222,6 @@ in
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "svg.context-properties.content.enabled" = true;
 
-
           "widget.use-xdg-desktop-portal.file-picker" = 1;
           "widget.use-xdg-desktop-portal.location" = 1;
           "widget.use-xdg-desktop-portal.mime-handler" = 1;
@@ -231,39 +230,41 @@ in
         };
 
         extensions = with firefox-addons; [
-          export-cookies-txt
+          # ---Privacy---
           ublock-origin
           cookie-autodelete
           istilldontcareaboutcookies
           # user-agent-string-switcher
-          darkreader
-          # enhancer-for-youtube
+          # bypass-paywalls-clean
+
+          # ---Workflow---
           sponsorblock
+          export-cookies-txt
           multi-account-containers
           news-feed-eradicator
-          sidebery
           lastpass-password-manager
           proton-pass
           vimium
           kagi-search
+          readwise-highlighter
 
+          # ---UI---
+          darkreader
+          sidebery
           stylus
           firefox-color
-          userchrome-toggle
-
-          # bypass-paywalls-clean
-          readwise-highlighter
+          # userchrome-toggle
         ];
         userChrome = # css
-          ''
-            @import url("ArcWTF/userChrome.css");
-          '' + readFile ./userChrome.css;
+          # ''
+          #   @import url("ArcWTF/userChrome.css");
+          # '' + readFile ./userChrome.css;
 
-        #  readFile "${csshacks}/window_control_placeholder_support.css"
-        # + readFile "${csshacks}/hide_tabs_toolbar.css"
-        # + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
-        # + readFile "${csshacks}/window_control_force_linux_system_style.css"
-        # + readFile "${csshacks}/overlay_sidebar_header.css";
+          readFile "${csshacks}/window_control_placeholder_support.css"
+          + readFile "${csshacks}/hide_tabs_toolbar.css"
+          + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
+          + readFile "${csshacks}/window_control_force_linux_system_style.css"
+          + readFile "${csshacks}/overlay_sidebar_header.css";
         userContent = readFile ./userContent.css;
         extraConfig = readFile "${betterfox}/Fastfox.js";
       };

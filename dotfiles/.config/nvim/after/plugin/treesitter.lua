@@ -1,6 +1,8 @@
 Load.later(function()
     vim.cmd [[packadd nvim-treesitter]]
-    vim.cmd [[packadd nvim-treesitter-textobjects]]
+    vim.opt.foldmethod = "expr"
+    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    vim.opt.foldenable = false
 
     local treesitter_opts = {
         highlight = {
@@ -16,30 +18,19 @@ Load.later(function()
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = "gnn",
-                node_incremental = "grn",
-                scope_incremental = "grc",
-                node_decremental = "grm",
+                init_selection = "<M-w>",       -- maps in normal mode to init the node/scope selection
+                node_incremental = "<M-w>",     -- increment to the upper named parent
+                node_decremental = "<M-C-w>",   -- decrement to the previous node
+                scope_incremental = "<M-s>",    -- increment to the upper scope (as defined in locals.scm)
             },
         },
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true,
-                keymaps = {
-                    -- You can use the capture groups defined in textobjects.scm
-                    ["aa"] = "@parameter.outer",
-                    ["ia"] = "@parameter.inner",
-                    ["af"] = "@function.outer",
-                    ["if"] = "@function.inner",
-                    ["ac"] = "@class.outer",
-                    ["ic"] = "@class.inner",
-                    ["ao"] = "@loop.outer",
-                    ["io"] = "@loop.inner",
-                },
-            },
+    }
+
+    Load.now(function()
+        vim.cmd [[packadd nvim-treesitter-textobjects]]
+        treesitter_opts.textobjects = {
             move = {
-                enable = true,
+                enable = false,
                 set_jumps = true,
                 goto_next_start = {
                     ["]f"] = "@function.outer",
@@ -47,8 +38,8 @@ Load.later(function()
                     ["]o"] = "@loop.*",
                 },
                 goto_next_end = {
-                    ["]F"] = "@function.outer",
-                    ["]["] = "@class.outer",
+                    ["]M"] = "@function.outer",
+                    ["]]"] = "@class.outer",
                 },
                 goto_previous_start = {
                     ["[f"] = "@function.outer",
@@ -56,28 +47,25 @@ Load.later(function()
                     ["[o"] = "@loop.*",
                 },
                 goto_previous_end = {
-                    ["[F"] = "@function.outer",
+                    ["[M"] = "@function.outer",
                     ["[]"] = "@class.outer",
-                },
-                goto_next = {
-                    ["]i"] = "@conditional.inner",
-                },
-                goto_previous = {
-                    ["[i"] = "@conditional.inner",
                 },
             },
             swap = {
-                enable = true,
+                enable = false,
                 swap_next = {
-                    ["<leader>s"] = "@parameter.inner",
+                    ["<leader>snp"] = "@parameter.inner",
+                    ["<leader>snf"] = "@function.inner",
+                    ["<leader>sne"] = "@element",
                 },
                 swap_previous = {
-                    ["<leader>S"] = "@parameter.inner",
+                    ["<leader>spp"] = "@parameter.inner",
+                    ["<leader>spf"] = "@function.inner",
+                    ["<leader>spe"] = "@element",
                 },
             },
-        },
-
-    }
+        }
+    end)
 
     Load.now(function()
         vim.cmd [[packadd rainbow-delimiters.nvim]]

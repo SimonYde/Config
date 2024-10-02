@@ -1,4 +1,4 @@
-{ config, lib, ... }@args:
+{ lib, ... }:
 let
   inherit (lib) mkForce;
 in

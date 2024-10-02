@@ -89,6 +89,7 @@ vim.o.splitbelow = true
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
+vim.o.inccommand = "split"
 
 vim.o.undodir = vim.fn.stdpath('state') .. "/undodir"
 vim.o.undofile = true
@@ -125,6 +126,10 @@ vim.opt.diffopt:append('iwhite')
 vim.opt.diffopt:append('algorithm:histogram')
 vim.opt.diffopt:append('indent-heuristic')
 
+-- Don't have `o` add a comment
+vim.opt.formatoptions:remove("o")
+
+
 -- vim.o.list = true
 
 -- Highlight yanked text
@@ -142,12 +147,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 
 -- bar cursor in insert mode
--- vim.api.nvim_create_autocmd("VimLeave", { callback = function() vim.cmd [[set guicursor=a:ver25]] end })
 vim.cmd [[set guicursor=n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50]]
-local signs = { Error = '', Warn = '', Hint = '', Info = '' }
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.HINT] = '',
+            [vim.diagnostic.severity.INFO] = '',
+        }
+    }
+})
 
 Load.perform_lazy_loading()

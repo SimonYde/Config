@@ -3,7 +3,7 @@ theme = "base16"
 [editor]
 true-color = true
 color-modes = true
-bufferline = "multiple"
+bufferline = "never"
 line-number = "relative"
 scrolloff = 8
 
