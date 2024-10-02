@@ -22,6 +22,7 @@ in
         profile = "gpu-hq";
         ytdl-format = "best[height<=720]";
         osc = "no";
+        save-position-on-quit = true;
       };
       scripts = with pkgs.mpvScripts; [
         sponsorblock
