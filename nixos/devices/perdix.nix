@@ -34,15 +34,10 @@
     };
   };
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.package = pkgs.nix-ld-rs;
-  programs.nix-ld.libraries = with pkgs; [
-    # ncurses
-    # libz
-    # libstdcxx5
-  ];
+
 
   programs = {
+    nix-ld.enable = true;
     nh.enable = true;
     kdeconnect.enable = false;
     sway.enable = false;

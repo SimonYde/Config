@@ -7,10 +7,7 @@
 {
   imports = [ ../standard.nix ];
 
-  environment.systemPackages = with pkgs; [
-    gparted
-    kdePackages.partitionmanager
-  ];
+  environment.systemPackages = with pkgs; [ ];
 
   # Personal configurations
   syde = {
@@ -30,14 +27,6 @@
       };
     };
   };
-
-  programs.nix-ld.enable = lib.mkDefault false;
-  programs.nix-ld.package = pkgs.nix-ld-rs;
-  programs.nix-ld.libraries = with pkgs; [
-    ncurses
-    libz
-    libstdcxx5
-  ];
 
   programs = {
     nh.enable = true;
@@ -95,7 +84,7 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 16 * 1024;
+      size = 32 * 1024;
     }
   ];
 }
