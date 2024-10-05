@@ -119,6 +119,7 @@ Load.later(function()
         nmap("<leader>fs", function() builtin.lsp_document_symbols(preview) end, "LSP document [s]ymbols")
         nmap("<leader>fw", function() builtin.lsp_dynamic_workspace_symbols(preview) end, "LSP workspace [s]ymbols")
         nmap("<leader>/", function() builtin.live_grep(preview) end, "Global search with grep")
+        nmap("<leader>'", function() builtin.resume() end, "Resume last picker")
         nmap("gr", function() builtin.lsp_references(preview) end, "Goto [r]eferences (telescope)")
         nmap("gi", function() builtin.lsp_implementations(preview) end, "Goto [i]mplementations (telescope)")
         nmap("gd", function() builtin.lsp_definitions(preview) end, "Goto [d]efinitions (telescope)")
@@ -138,8 +139,8 @@ Load.later(function()
         end
 
         local center_window = function()
-            local height = math.floor(0.618 * vim.o.lines)
-            local width = math.floor(0.618 * vim.o.columns)
+            local height = math.floor(0.7 * vim.o.lines)
+            local width = math.floor(0.7 * vim.o.columns)
             return {
                 anchor = 'NW',
                 height = height,
@@ -172,6 +173,7 @@ Load.later(function()
 
         nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
         nmap("<leader>b", MiniPick.builtin.buffers, "Pick buffers")
+        nmap("<leader>'", MiniPick.builtin.resume, "Pick resume")
         nmap(
             "<leader>fc",
             function() MiniExtra.pickers.buf_lines { scope = "current" } end,

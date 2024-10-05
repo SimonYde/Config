@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+
 vim.g.maplocalleader = " "
 
 vim.keymap.set({ 'n', 'v', 'x' }, 's', '<Nop>', { silent = true })
@@ -8,13 +8,12 @@ local keymap = require("syde.keymap")
 local nmap   = keymap.nmap
 local xmap   = keymap.xmap
 local tmap   = keymap.tmap
-local nvmap  = keymap.map({ "n", "v" })
 local nxmap  = keymap.map({ 'n', 'x' })
 
 nmap("U", "<C-r>", "redo")
 
--- vmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
--- vmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
+-- xmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
+-- xmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
 
 -- vim.keymap.del("n", "grr")
 -- vim.keymap.del("n", "gra")
@@ -27,14 +26,14 @@ nmap("<C-u>", "<C-u>zz", "Move up half page")
 nmap("n", "nzz", "Move to next search match")
 nmap("N", "Nzz", "Move to previous search match")
 
-nvmap("<leader>y", [["+y]], "yank to system clipboard")
+nxmap("<leader>y", [["+y]], "yank to system clipboard")
 nmap("<leader>Y", [["+Y]], "yank end-of-line to system clipboard")
 
 nmap("<leader>w", "<C-w>", "Window")
 
 xmap("<leader>p", [["_dP]], "[p]aste without yanking")
-nvmap("<M-d>", [["_d]], "[d]elete without yanking")
-nvmap("<M-c>", [["_c]], "[c]hange without yanking")
+nxmap("<M-d>", [["_d]], "[d]elete without yanking")
+nxmap("<M-c>", [["_c]], "[c]hange without yanking")
 
 nmap("gF", "<cmd>:e <cfile><CR>", "Goto [F]ile (even if doesn't exist)")
 
@@ -63,37 +62,35 @@ Colemak_toggle = function()
         -- vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
         -- vim.opt.langremap = false
         vim.opt.langmap = ""
-        -- nvmap("x", "x<Esc>", "Delete character under cursor")  -- x messes up with langmap
-        -- nvmap("X", "X<Esc>", "Delete character before cursor") -- X messes up with langmap
 
         nxmap('n', [[v:count == 0 ? 'gj' : 'j']], "", { expr = true, noremap = true })
         nxmap('e', [[v:count == 0 ? 'gk' : 'k']], "", { expr = true, noremap = true })
-        nvmap("m", "h", "", { noremap = true })
-        nmap("i", "l", "", { noremap = true })
-        nvmap("I", "L", "", { noremap = true })
-        nvmap("h", "m", "", { noremap = true })
-        nvmap("j", "e", "", { noremap = true })
-        nvmap("k", "nzz", "", { noremap = true })
-        nmap("l", "i", "", { noremap = true })
-        nvmap("M", "H", "", { noremap = true })
-        nvmap("N", "J", "", { noremap = true })
-        nvmap("E", "K", "", { noremap = true })
-        nvmap("H", "M", "", { noremap = true })
-        nvmap("J", "E", "", { noremap = true })
-        nvmap("K", "Nzz", "", { noremap = true })
-        nvmap("L", "I", "", { noremap = true })
-        nmap("<C-w>m", "<C-w>h", "", { noremap = true })
-        nmap("<C-w>n", "<C-w>j", "", { noremap = true })
-        nmap("<C-w>e", "<C-w>k", "", { noremap = true })
-        nmap("<C-w>i", "<C-w>l", "", { noremap = true })
-        nmap("<C-w>M", "<C-w>H", "", { noremap = true })
-        nmap("<C-w>N", "<C-w>J", "", { noremap = true })
-        nmap("<C-w>E", "<C-w>K", "", { noremap = true })
-        nmap("<C-w>I", "<C-w>L", "", { noremap = true })
+        nxmap("m", "h", "", { noremap = true })
+        nxmap("i", "l", "", { noremap = true })
+        nxmap("I", "L", "", { noremap = true })
+        nxmap("h", "m", "", { noremap = true })
+        nxmap("j", "e", "", { noremap = true })
+        nxmap("k", "nzz", "", { noremap = true })
+        nxmap("l", "i", "", { noremap = true })
+        nxmap("M", "H", "", { noremap = true })
+        nxmap("N", "J", "", { noremap = true })
+        nxmap("E", "K", "", { noremap = true })
+        nxmap("H", "M", "", { noremap = true })
+        nxmap("J", "E", "", { noremap = true })
+        nxmap("K", "Nzz", "", { noremap = true })
+        nxmap("L", "I", "", { noremap = true })
+        nxmap("<C-w>m", "<C-w>h", "", { noremap = true })
+        nxmap("<C-w>n", "<C-w>j", "", { noremap = true })
+        nxmap("<C-w>e", "<C-w>k", "", { noremap = true })
+        nxmap("<C-w>i", "<C-w>l", "", { noremap = true })
+        nxmap("<C-w>M", "<C-w>H", "", { noremap = true })
+        nxmap("<C-w>N", "<C-w>J", "", { noremap = true })
+        nxmap("<C-w>E", "<C-w>K", "", { noremap = true })
+        nxmap("<C-w>I", "<C-w>L", "", { noremap = true })
 
-        nvmap("M", "^", "Goto first non-empty cell in line")
-        nvmap("S", "0", "Goto line start")
-        nvmap("I", "$", "Goto line end")
+        nxmap("M", "^", "Goto first non-empty cell in line")
+        nxmap("S", "0", "Goto line start")
+        nxmap("I", "$", "Goto line end")
         COLEMAK = true
     else
         COLEMAK = false
