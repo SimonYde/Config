@@ -2,6 +2,7 @@
 {
   imports = [
     ./bash.nix
+    ./cpp.nix
     ./go.nix
     ./java.nix
     ./latex.nix

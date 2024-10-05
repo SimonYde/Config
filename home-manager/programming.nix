@@ -18,6 +18,7 @@ in
 
     syde.programming = {
       bash.enable   = true;
+      cpp.enable    = false;
       go.enable     = true;
       java.enable   = false;
       latex.enable  = true;
