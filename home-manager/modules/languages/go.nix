@@ -13,6 +13,8 @@ in
       # CLI
       go
 
+      # Debugger
+      delve
       # LSP
       gopls
     ];

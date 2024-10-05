@@ -14,6 +14,7 @@ let
       numpy
       pandas
       sympy
+      scipy
       matplotlib
       debugpy
     ]
@@ -21,18 +22,18 @@ let
 in
 {
   config = lib.mkIf config.syde.programming.python.enable {
-    # programs.neovim.extraPackages = python-pkgs;
-    # programs.helix.extraPackages = python-pkgs;
     home.packages = [ python-pkgs ];
 
     programs.neovim = {
-      plugins = with pkgs.vimPlugins; [ nvim-dap-python ];
-      extraLuaConfig = # lua
-        ''
-          require('syde.load').later(function()
-            require("dap-python").setup("${python-pkgs}/bin/python")
-          end)
-        '';
+      plugins = with pkgs.vimPlugins; [
+        {
+          plugin = nvim-dap-python;
+          type = "lua";
+          config = ''
+            PYTHON_PATH = '${python-pkgs}/bin/python'
+          '';
+        }
+      ];
     };
   };
 

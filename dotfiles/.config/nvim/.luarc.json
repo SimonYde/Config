@@ -1,6 +1,7 @@
 {
     "diagnostics.globals": [
         "VARIANT",
-        "PALETTE"
+        "PALETTE",
+        "PYTHON_PATH"
     ]
 }
