@@ -11,10 +11,17 @@ local add_transparency = function()
                 winbar = false,
             })
             :apply()
-        vim.cmd [[hi MiniDiffSignAdd guibg=NONE ctermbg=NONE]]
-        vim.cmd [[hi MiniDiffSignChange guibg=NONE ctermbg=NONE]]
-        vim.cmd [[hi MiniDiffSignDelete guibg=NONE ctermbg=NONE]]
-        -- vim.cmd(("hi TreesitterContextBottom cterm=underline gui=underline guisp=%s"):format(PALETTE.base01))
+        -- Remove background for sign column elements
+        vim.cmd [[
+            hi MiniDiffSignAdd guibg=NONE ctermbg=NONE
+            hi MiniDiffSignChange guibg=NONE ctermbg=NONE
+            hi MiniDiffSignDelete guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingOk guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
+        ]]
     end)
 end
 
@@ -87,6 +94,7 @@ Load.now(function()
             ['glepnir/lspsaga.nvim'] = true,
             ['hrsh7th/nvim-cmp'] = true,
             ['justinmk/vim-sneak'] = false,
+            ['kevinhwang91/nvim-bqf'] = false,
             ['kevinhwang91/nvim-ufo'] = false,
             ['lewis6991/gitsigns.nvim'] = true,
             ['lukas-reineke/indent-blankline.nvim'] = true,
