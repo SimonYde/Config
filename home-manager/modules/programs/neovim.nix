@@ -18,7 +18,11 @@ in
       # package = pkgs.neovim;
       defaultEditor = true;
       vimAlias = true;
+      vimdiffAlias = true;
       viAlias = true;
+      withRuby = false;
+      withNodeJs = false;
+      withPython3 = false;
       plugins =
         with pkgs.vimPlugins;
         [
