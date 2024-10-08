@@ -36,6 +36,7 @@
   };
 
   services = {
+    ratbagd.enable = true;
     blueman.enable = true;
     languagetool.enable = true;
     ollama.enable = true;
@@ -43,28 +44,14 @@
     syncthing.enable = true;
   };
 
+
   powerManagement.cpuFreqGovernor = "performance";
 
   networking.hostName = "icarus";
   networking.wireguard.enable = true;
-  networking.wg-quick.interfaces = {
-    proton-DK25 = {
-      autostart = false;
-      address = [ "10.2.0.2/32" ];
-      dns = [ "10.2.0.1" ];
-      privateKeyFile = config.age.secrets.wireguard.path;
-      peers = [
-        {
-          publicKey = "sbjnjFtxUz4dxYfNL7WOVf1StMjjAhkiPLCPtVtlhRI=";
-          allowedIPs = [ "0.0.0.0/0" ];
-          endpoint = "193.29.107.162:51820";
-        }
-      ];
-    };
-  };
 
   virtualisation.docker.enable = false;
-  # # Filesystems
+  # Filesystems
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e37c4644-2a85-4cfd-adaf-87961ad57a72";

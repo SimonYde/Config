@@ -16,9 +16,8 @@ in
       enable = true;
       config = {
         common.default = [
-          "gtk"
           "hyprland"
-          "*"
+          "gtk"
         ];
       };
       extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
@@ -65,7 +64,6 @@ in
     environment.systemPackages = with pkgs; [
       qt6.qtwayland
       libsForQt5.qt5.qtwayland
-      xwaylandvideobridge
     ];
 
     systemd.user.services = {
