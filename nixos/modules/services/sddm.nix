@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.services.displayManager.sddm;
-  catppuccin-sddm = pkgs.callPackage ../../packages/catppuccin-sddm.nix {};
 in
 {
   config = lib.mkIf cfg.enable {
