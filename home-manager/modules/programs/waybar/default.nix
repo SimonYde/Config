@@ -8,7 +8,7 @@ in
 {
   programs.waybar = {
     # package = inputs.waybar.packages.${pkgs.system}.default;
-    systemd.enable = false;
+    systemd.enable = true;
     settings = {
       mainBar = {
         layer = "top";

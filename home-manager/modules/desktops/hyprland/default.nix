@@ -96,6 +96,8 @@ in
 
         decoration = {
           rounding = 10;
+          drop_shadow = false;
+          dim_special = 0.2;
           blur = {
             enabled = true;
             size = 6;
@@ -104,8 +106,6 @@ in
             ignore_opacity = true;
             xray = false;
           };
-          drop_shadow = false;
-          dim_special = 0.2;
         };
 
         xwayland = {
@@ -134,10 +134,10 @@ in
 
         exec-once = [
           "discord"
-          "waybar"
           "nm-applet"
           "blueman-applet"
-          "[workspace 1] obsidian"
+          "obsidian"
+          "todoist-electron"
         ];
       };
       extraConfig = # hyprlang

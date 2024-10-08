@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (lib) mkForce;
 in
@@ -15,9 +15,13 @@ in
     };
 
     programs = {
-      swaylock.enable = mkForce true;
-      hyprlock.enable = mkForce false;
+      swaylock.enable = mkForce false;
+      hyprlock.enable = mkForce true;
     };
+
+    home.packages = with pkgs; [
+      keymapp
+    ];
 
     wayland.windowManager.hyprland = {
       enable = true;
