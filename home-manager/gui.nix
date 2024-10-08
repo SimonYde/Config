@@ -49,6 +49,7 @@ in
     };
 
     services = {
+      trayscale.enable = true;
       blanket.enable = false;
       kdeconnect.enable = true;
       gammastep.enable = true;
@@ -113,7 +114,7 @@ in
         "floorp"
         "qutebrowser"
       ];
-      default = "floorp";
+      default = "firefox";
     };
     file-manager = {
       mime = mkOption {

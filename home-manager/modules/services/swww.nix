@@ -44,6 +44,8 @@ in
     systemd.user.timers.rand-bg = mkIf cfg.random-background {
       Unit = {
         Description = "Random Background";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
       };
       Timer = {
         OnStartupSec = "1sec";

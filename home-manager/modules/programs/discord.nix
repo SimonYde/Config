@@ -17,9 +17,10 @@ let
 in
 {
   config = mkIf cfg.enable {
-    home.packages = [
+    home.packages = with pkgs; [
       cfg.package
       cfg.betterDiscordCtlPackage
+      xwaylandvideobridge
     ];
 
     xdg.configFile."BetterDiscord/themes/base16.theme.css" = {
