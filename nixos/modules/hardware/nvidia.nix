@@ -11,8 +11,6 @@ in
 {
   config = mkIf cfg.enable {
     nixpkgs.config.cudaSupport = true;
-    # boot.initrd.kernelModules = [ "nvidia" ];
-    # boot.blacklistedKernelModules = [ "nouveau" ];
     services.xserver.videoDrivers = [ "nvidia" ];
     boot.kernelModules = [
       "nvidia"
@@ -42,9 +40,9 @@ in
     };
 
     environment.sessionVariables = mkIf cfg.dedicated {
-      LIBVA_DRIVER_NAME = "nvidia";
       GBM_BACKEND = "nvidia-drm";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      LIBVA_DRIVER_NAME = "nvidia";
       __GL_GSYNC_ALLOWED = "1";
       __GL_VRR_ALLOWED = "1";
     };

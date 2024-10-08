@@ -6,13 +6,15 @@
     ./sddm.nix
 
     # Other
+    ./docker.nix
     ./kanata.nix
     ./languagetool.nix
+    ./ollama.nix
+    ./ratbagd.nix
     ./ssh.nix
     ./syncthing.nix
-    ./ollama.nix
     ./tailscale.nix
     ./vscode-server.nix
-    ./docker.nix
+    ./wireguard.nix
   ];
 }
