@@ -62,6 +62,10 @@ Load.later(function()
     }
 
     setup_lsp {
+        name = "gleam",
+    }
+
+    setup_lsp {
         name = "gopls",
     }
 

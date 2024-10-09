@@ -3,6 +3,7 @@
   imports = [
     ./bash.nix
     ./cpp.nix
+    ./gleam.nix
     ./go.nix
     ./java.nix
     ./latex.nix
