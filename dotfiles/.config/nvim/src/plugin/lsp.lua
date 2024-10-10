@@ -2,7 +2,7 @@ Load.later(function()
     local lspconfig = require('lspconfig')
 
     Load.now(function()
-        require('neodev').setup {}
+        require('neodev').setup()
     end)
 
     -- Cmp Setup
@@ -140,7 +140,7 @@ Load.later(function()
         },
         on_attach = function(_, bufnr)
             local nmap = function(keys, cmd, desc)
-                require('syde.keymap').nmap(keys, cmd, desc, { buffer = bufnr })
+                Keymap.nmap(keys, cmd, desc, { buffer = bufnr })
             end
             nmap(
                 "<leader>lp",
@@ -181,7 +181,7 @@ Load.later(function()
         },
         on_attach = function(_, bufnr)
             local nmap = function(keys, cmd, desc)
-                require('syde.keymap').nmap(keys, cmd, desc, { buffer = bufnr })
+                Keymap.nmap(keys, cmd, desc, { buffer = bufnr })
             end
             nmap(
                 "<leader>lp",
@@ -249,7 +249,7 @@ Load.later(function()
 
     Load.now(function()
         local border = "none"
-        if vim.g.transparent then border = "rounded" end
+        -- if vim.g.transparent then border = "rounded" end
 
         require('lsp_signature').setup({
             doc_lines = 0,
@@ -276,7 +276,7 @@ Load.later(function()
                 enable = true,
             },
             ui = {
-                border = 'rounded'
+                border = 'none'
             }
         }
 
@@ -314,11 +314,11 @@ Load.later(function()
             end)
 
             local nmap = function(keys, cmd, desc)
-                require('syde.keymap').nmap(keys, cmd, desc, { buffer = args.buf })
+                Keymap.nmap(keys, cmd, desc, { buffer = args.buf })
             end
 
             local imap = function(keys, cmd, desc)
-                require('syde.keymap').imap(keys, cmd, desc, { buffer = args.buf })
+                Keymap.imap(keys, cmd, desc, { buffer = args.buf })
             end
             -- LSP commands
             nmap("<leader>r", vim.lsp.buf.rename, "Rename")
@@ -368,7 +368,7 @@ Load.later(function()
             -- When true, otter handles these cases fully.
             handle_leading_whitespace = true,
         }
-        local nmap = require('syde.keymap').nmap
+        local nmap = Keymap.nmap
         nmap("<leader>lo", function() otter.activate() end, "Otter activate")
     end)
 

@@ -15,7 +15,7 @@ in
 {
   config = mkIf cfg.enable {
     programs.neovim = {
-      # package = pkgs.neovim;
+      package = pkgs.neovim;
       defaultEditor = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -42,14 +42,11 @@ in
           cmp-buffer
           cmp_luasnip
           friendly-snippets
-          # copilot-lua
-          # codeium-nvim
 
           # -----Workflow-----
           conform-nvim
           harpoon2
           nvim-autopairs
-          # gitsigns-nvim
           rustaceanvim
 
           neogit
@@ -60,7 +57,6 @@ in
           undotree
           nvim-dap
           nvim-dap-ui
-          nvim-nio
 
           obsidian-nvim
 
@@ -68,12 +64,11 @@ in
           telescope-nvim
           telescope-fzf-native-nvim
           telescope-ui-select-nvim
-          # git-worktree-nvim
 
           # -----UI-----
           which-key-nvim
           todo-comments-nvim
-          nui-nvim
+          nvim-treesitter.withAllGrammars
         ]
         ++ mapLazy [
           luasnip
@@ -83,7 +78,6 @@ in
 
           # -----Highlighting-----
           render-markdown-nvim
-          nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
           nvim-treesitter-context
           rainbow-delimiters-nvim
@@ -93,7 +87,6 @@ in
         with config.syde.theming.palette-hex; # lua
         ''
           vim.loader.enable()
-          require('syde.load').setup()
           VARIANT = "${config.colorScheme.variant}"
           PALETTE = {
             base00 = "${base00}",
@@ -114,7 +107,10 @@ in
             base0F = "${base0F}",
           }
           vim.g.transparent = ${if config.syde.terminal.opacity != 1.0 then "true" else "false"}
-          require('syde')
+          _G.Config = {
+            path_source = '${config.xdg.configHome}/nvim/src/'
+          }
+          dofile(Config.path_source .. 'init.lua')
         '';
       extraPackages = with pkgs; [
         (mkIf (builtins.elem vimPlugins.copilot-lua cfg.plugins) nodejs-slim_20)

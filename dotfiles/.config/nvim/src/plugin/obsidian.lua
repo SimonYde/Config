@@ -38,8 +38,8 @@ Load.later(function()
         },
     }
 
-    local nmap = require("syde.keymap").nmap
-    local imap = require("syde.keymap").imap
+    local nmap = Keymap.nmap
+    local imap = Keymap.imap
 
     nmap("<leader>oo", vim.cmd.ObsidianOpen, "Open current file in Obsidian")
     nmap("<leader>od", vim.cmd.ObsidianDailies, "Open [d]aily note search")

@@ -1,5 +1,5 @@
 Load.later(function()
-    local nmap = require('syde.keymap').nmap
+    local nmap = Keymap.nmap
     local conform = require('conform')
     conform.setup({
         -- format_on_save = { -- These options will be passed to conform.format()

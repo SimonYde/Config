@@ -13,19 +13,8 @@ Load.now(function()
         return ("Good %s, %s"):format(day_part, username)
     end
 
-    require('mini.starter').setup {
+    require('mini.starter').setup({
         header = function()
---             local banner = [[
---
---       ████ ██████           █████      ██
---      ███████████             █████ 
---      █████████ ███████████████████ ███   ███████████
---     █████████  ███    █████████████ █████ ██████████████
---    █████████ ██████████ █████████ █████ █████ ████ █████
---  ███████████ ███    ███ █████████ █████ █████ ████ █████
--- ██████  █████████████████████ ████ █████ █████ ████ ██████
---
---   ]]
             local banner = [[
 
 	     /\__\         /\  \         /\  \         /\__\          ___        /\__\
@@ -44,6 +33,6 @@ Load.now(function()
             local n = math.floor((70 - msg:len()) / 2)
             return banner .. pad(msg, n)
         end,
-    }
-    require('mini.sessions').setup {}
+    })
+    require('mini.sessions').setup()
 end)
