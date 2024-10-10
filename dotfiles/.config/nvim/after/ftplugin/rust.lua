@@ -25,7 +25,7 @@ vim.g.rustaceanvim = {
 
 local buffer = vim.api.nvim_get_current_buf()
 local nmap = function(keys, cmd, desc)
-    require("syde.keymap").nmap(keys, cmd, desc, { buffer = buffer, silent = true })
+    Keymap.nmap(keys, cmd, desc, { buffer = buffer, silent = true })
 end
 
 nmap(

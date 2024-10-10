@@ -22,7 +22,7 @@ Load.later(function()
         require('dap-python').setup(PYTHON_PATH) -- PYTHON_PATH set by nix
     end)
 
-    local nmap = require("syde.keymap").nmap
+    local nmap = Keymap.nmap
     nmap("<leader>db", dap.toggle_breakpoint, "toggle [b]reakpoint")
     nmap("<leader>dc", dap.continue, "[c]ontinue")
     nmap("<leader>di", dap.step_into, "step [i]nto")

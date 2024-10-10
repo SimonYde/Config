@@ -1,5 +1,5 @@
 Load.later(function()
-    local nmap = require('syde.keymap').nmap
+    local nmap = Keymap.nmap
 
     local telescope = Load.now(function()
         local telescope = require('telescope')
@@ -130,9 +130,6 @@ Load.later(function()
 
     Load.now(function()
         local MiniPick = require('mini.pick')
-        local MiniExtra = require('mini.extra')
-        MiniExtra.setup {}
-
         local send_to_qflist = function()
             local mappings = MiniPick.get_picker_opts().mappings
             vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)

@@ -1,14 +1,3 @@
-vim.opt.laststatus = 3     -- global statusline
-vim.opt.cmdheight = 0
-vim.opt.hlsearch = true
-
-local lualine = Load.now(function()
-    local lualine = require('lualine')
-    lualine.setup {}
-    return lualine
-end)
-if lualine then return end
-
 Load.now(function()
     local MiniStatusline = require('mini.statusline')
     local section_macro_recording = function()
@@ -21,21 +10,21 @@ Load.now(function()
         end
     end
 
-    local diagnostic_level = function(level, prefix)
-        -- if MiniStatusline.is_truncated(75) then return '' end
-        local n = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity[level] })
-        return (n == 0) and '' or ('%s%s'):format(prefix, n)
+    local diagnostic_level = function(level)
+        local n = #vim.diagnostic.get(0, { severity = level })
+        local sign = vim.diagnostic.config().signs.text[level]
+        return (n == 0) and '' or ('%s %s'):format(sign, n)
     end
 
     local section_fileinfo = function(args)
         local get_filesize = function()
             local size = vim.fn.getfsize(vim.fn.getreg('%'))
             if size < 1024 then
-                return string.format('%dB', size)
+                return ('%dB'):format(size)
             elseif size < 1048576 then
-                return string.format('%.2fKiB', size / 1024)
+                return ('%.2fKiB'):format(size / 1024)
             else
-                return string.format('%.2fMiB', size / 1048576)
+                return ('%.2fMiB'):format(size / 1048576)
             end
         end
 
@@ -56,14 +45,14 @@ Load.now(function()
 
         -- Add filetype icon
         local icon = get_filetype_icon()
-        if icon ~= '' then filetype = string.format('%s %s', icon, filetype) end
+        if icon ~= '' then filetype = ('%s %s'):format(icon, filetype) end
 
         -- Construct output string if truncated
         if MiniStatusline.is_truncated(args.trunc_width) then return filetype end
 
         -- Construct output string with extra file info
         local encoding = vim.bo.fileencoding or vim.bo.encoding
-        if encoding == 'utf-8' then encoding = '' else encoding = string.format('[%s]', encoding) end
+        if encoding == 'utf-8' then encoding = '' else encoding = ('[%s]'):format(encoding) end
 
         local format = vim.bo.fileformat
         local format_icon = ''
@@ -75,26 +64,26 @@ Load.now(function()
 
         local size = get_filesize()
 
-        return string.format('%s %s%s %s', filetype, format_icon, encoding, size)
+        return ('%s %s%s %s'):format(filetype, format_icon, encoding, size)
     end
 
 
-    MiniStatusline.setup {
+    MiniStatusline.setup({
         content = {
             active = function()
                 local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
                 local git           = MiniStatusline.section_git({ trunc_width = 75 })
                 local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
-                local errors        = diagnostic_level('ERROR', ' ') -- alternative symbol "⬤ "
-                local warnings      = diagnostic_level('WARN', ' ') -- alternative symbol ""
-                local hints         = diagnostic_level('HINT', ' ')
-                local info          = diagnostic_level('INFO', ' ')
+                local errors        = diagnostic_level(vim.diagnostic.severity.ERROR) -- alternative symbol "⬤ "
+                local warnings      = diagnostic_level(vim.diagnostic.severity.WARN)  -- alternative symbol ""
+                local info          = diagnostic_level(vim.diagnostic.severity.INFO)
+                local hints         = diagnostic_level(vim.diagnostic.severity.HINT)
                 local macro         = section_macro_recording()
                 local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
                 local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
                 local fileinfo      = section_fileinfo({ trunc_width = 120 })
                 local location      = MiniStatusline.section_location({ trunc_width = 75 })
-                local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
+                -- local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
 
                 return MiniStatusline.combine_groups({
                     { hl = mode_hl,                 strings = { mode } },
@@ -114,7 +103,7 @@ Load.now(function()
             end,
         },
         set_vim_settings = false,
-    }
+    })
     -- local group = vim.api.nvim_create_augroup("StatusLineCmdLine", { clear = true })
     -- vim.api.nvim_create_autocmd("CmdlineEnter", {
     --     group = group,

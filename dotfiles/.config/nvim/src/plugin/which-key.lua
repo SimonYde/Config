@@ -6,7 +6,12 @@ Load.later(function()
         whichkey.setup {
             disable = {
                 buftypes = { "nofile", "prompt", "quickfix", "terminal" }, -- nofile is for `cmdwin`. see `:h cmdwin`
-            }
+            },
+            triggers = {
+                { "<auto>", mode = "nixsotc" },
+                { "s", mode = { "n", "v" } },
+                { "S", mode = { "n", "v" } },
+            },
         }
         whichkey.add {
             { "<leader>w", proxy = "<c-w>",   group = "windows" }, -- proxy to window mappings

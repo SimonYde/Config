@@ -1,38 +1,31 @@
 Load.later(function()
-    local has_completion = false;
-    Load.now(function()
+    local cmp = Load.now(function()
         local cmp = require('cmp')
 
-        vim.cmd [[packadd luasnip]]
+        Load.packadd('luasnip')
         local luasnip = require("luasnip")
         require('luasnip.loaders.from_vscode').lazy_load() -- load friendly-snippets into luasnip
-        luasnip.config.setup {}
+        luasnip.config.setup()
 
         Load.now(function()
-            require('codeium').setup {}
+            require('codeium').setup()
         end)
 
-        cmp.setup {
+        cmp.setup({
             sources = {
                 { name = "codeium" },
                 { name = "nvim_lua" },
                 { name = "nvim_lsp" },
                 { name = "path" },
                 { name = "luasnip" },
-                { name = "buffer",
-                    keyword_length = 5
-                },
+                { name = "buffer",  keyword_length = 5 },
             },
             snippet = {
                 expand = function(args) luasnip.lsp_expand(args.body) end,
             },
             mapping = cmp.mapping.preset.insert {
                 ['<C-n>'] = cmp.mapping(function()
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    else
-                        cmp.complete()
-                    end
+                    if cmp.visible() then cmp.select_next_item() else cmp.complete() end
                 end),
                 ['<C-p>'] = cmp.mapping.select_prev_item(),
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -62,16 +55,30 @@ Load.later(function()
                     end
                 end, { 'i', 's' }),
             },
-        }
+            formatting = {
+                -- format = function(_, vim_item)
+                --     local icon, hl, is_default = Load.now(require, "mini.icons").get("lsp", vim_item.kind)
+                --     -- If the icon is not found in mini.icons (is_default is true), use the fallback
+                --     if is_default then
+                --         hl = "CmpItemKind" .. vim_item.kind
+                --     end
+                --     vim_item.kind = icon -- .. " " .. vim_item.kind
+                --     vim_item.kind_hl_group = hl
+                --     return vim_item
+                -- end,
+                fields = { "kind", "abbr", "menu" }, -- "menu",
+            }
+        })
 
         Load.now(function()
-            vim.cmd [[packadd lspkind-nvim]]
+            Load.packadd('lspkind-nvim')
             local lspkind = require('lspkind')
-            lspkind.init()
             cmp.setup {
                 formatting = {
                     format = lspkind.cmp_format {
-                        mode = 'symbol_text',
+                        ellipsis_char = '…',
+                        show_labelDetails = true,
+                        mode = 'symbol',
                         symbol_map = {
                             Codeium = "󰚩",
                         },
@@ -114,10 +121,13 @@ Load.later(function()
             }
         })
 
-        has_completion = true
+        return cmp
     end)
+    if cmp then return end
+
     Load.now(function()
-        if has_completion then return end
-        require('mini.completion').setup {}
+        require('mini.completion').setup({
+
+        })
     end)
 end)

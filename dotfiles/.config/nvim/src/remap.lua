@@ -1,26 +1,52 @@
+local M = {}
 
-vim.g.maplocalleader = " "
+---@param mode string | table
+M.map = function(mode)
+    ---@param desc string
+    ---@param keys string
+    ---@param cmd function|string
+    ---@param opts? table
+    return function(keys, cmd, desc, opts)
+        opts = opts or {}
+        opts.desc = desc
+        if opts.silent == nil then opts.silent = true end
+        vim.keymap.set(mode, keys, cmd, opts)
+    end
+end
+
+M.nmap = M.map("n")
+--- Insert mode remap
+M.imap = M.map("i")
+--- Visual and select mode remap
+M.vmap = M.map("v")
+--- Select mode remap
+M.smap = M.map("s")
+--- Visual mode remap
+M.xmap = M.map("x")
+--- Terminal mode remap
+M.tmap = M.map("t")
+
+_G.Keymap = M
+
+local nmap = Keymap.nmap
+local xmap = Keymap.xmap
+local tmap = Keymap.tmap
+local nxmap = Keymap.map({ 'n', 'x' })
 
 vim.keymap.set({ 'n', 'v', 'x' }, 's', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v', 'x' }, '<Space>', '<Nop>', { silent = true })
-
-local keymap = require("syde.keymap")
-local nmap   = keymap.nmap
-local xmap   = keymap.xmap
-local tmap   = keymap.tmap
-local nxmap  = keymap.map({ 'n', 'x' })
-
 nmap("U", "<C-r>", "redo")
 
 -- xmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
 -- xmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
 
--- vim.keymap.del("n", "grr")
--- vim.keymap.del("n", "gra")
--- vim.keymap.del("x", "gra")
--- vim.keymap.del("n", "grn")
+if vim.fn.has('nvim-0.11') then
+    vim.keymap.del("n", "grr")
+    vim.keymap.del("n", "gra")
+    vim.keymap.del("x", "gra")
+    vim.keymap.del("n", "grn")
+end
 
-nmap("J", "mzJ`z", "Join following line with current")
 nmap("<C-d>", "<C-d>zz", "Move down half page")
 nmap("<C-u>", "<C-u>zz", "Move up half page")
 nmap("n", "nzz", "Move to next search match")
@@ -52,6 +78,14 @@ nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
 nmap("gd", vim.lsp.buf.definition, "Goto [d]efinition")
 nmap("gD", vim.lsp.buf.declaration, "Goto [D]eclaration")
 nmap("gr", vim.lsp.buf.references, "Goto [r]eferences")
+nmap(
+    "<leader>u",
+    function()
+        vim.cmd("UndotreeToggle")
+        vim.cmd("UndotreeFocus")
+    end,
+    "Toggle [u]ndo tree"
+)
 
 -- COLEMAK Remaps
 -- NOTE: is reversed because the function below toggles the value, in order to
@@ -59,10 +93,6 @@ nmap("gr", vim.lsp.buf.references, "Goto [r]eferences")
 COLEMAK        = false
 Colemak_toggle = function()
     if not COLEMAK then
-        -- vim.opt.langmap = "hm,je,kn,li,mh,ek,nj,il,HM,JE,KN,LI,MH,EK,NJ,IL"
-        -- vim.opt.langremap = false
-        vim.opt.langmap = ""
-
         nxmap('n', [[v:count == 0 ? 'gj' : 'j']], "", { expr = true, noremap = true })
         nxmap('e', [[v:count == 0 ? 'gk' : 'k']], "", { expr = true, noremap = true })
         nxmap("m", "h", "", { noremap = true })
@@ -73,7 +103,7 @@ Colemak_toggle = function()
         nxmap("k", "nzz", "", { noremap = true })
         nxmap("l", "i", "", { noremap = true })
         nxmap("M", "H", "", { noremap = true })
-        nxmap("N", "J", "", { noremap = true })
+        nxmap("N", "mzJ`z", "", { noremap = true })
         nxmap("E", "K", "", { noremap = true })
         nxmap("H", "M", "", { noremap = true })
         nxmap("J", "E", "", { noremap = true })
@@ -93,6 +123,22 @@ Colemak_toggle = function()
         nxmap("I", "$", "Goto line end")
         COLEMAK = true
     else
+        nxmap('j', [[v:count == 0 ? 'gj' : 'j']], "", { expr = true, noremap = true })
+        nxmap('k', [[v:count == 0 ? 'gk' : 'k']], "", { expr = true, noremap = true })
+        nxmap("h", "h", "", { noremap = true })
+        nxmap("l", "l", "", { noremap = true })
+        nxmap("L", "L", "", { noremap = true })
+        nxmap("m", "m", "", { noremap = true })
+        nxmap("e", "e", "", { noremap = true })
+        nxmap("n", "nzz", "", { noremap = true })
+        nxmap("i", "i", "", { noremap = true })
+        nxmap("H", "H", "", { noremap = true })
+        nxmap("J", "mzJ`z", "Join following line with current", { noremap = true })
+        nxmap("K", "K", "", { noremap = true })
+        nxmap("M", "M", "", { noremap = true })
+        nxmap("E", "E", "", { noremap = true })
+        nxmap("N", "Nzz", "", { noremap = true })
+        nxmap("I", "I", "", { noremap = true })
         COLEMAK = false
     end
 end
