@@ -15,14 +15,24 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    systemd.user.services.swww-daemon = {
+    systemd.user.targets."wallpaper" = {
       Unit = {
-        Description = "Swww daemon";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
+        Description = "Wallpapers";
+        BindsTo = [ "graphical-session.target" ];
+        Wants = [ "graphical-session.target" ];
       };
       Install = {
         WantedBy = [ "graphical-session.target" ];
+      };
+    };
+    systemd.user.services.swww-daemon = {
+      Unit = {
+        Description = "Swww daemon";
+        PartOf = [ "wallpaper.target" ];
+        After = [ "graphical-session.target" ];
+      };
+      Install = {
+        WantedBy = [ "wallpaper.target" ];
       };
       Service = {
         ExecStart = "${pkgs.swww}/bin/swww-daemon";
@@ -44,8 +54,8 @@ in
     systemd.user.timers.rand-bg = mkIf cfg.random-background {
       Unit = {
         Description = "Random Background";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
+        PartOf = [ "wallpaper.target" ];
+        After = [ "wallpaper.target" ];
       };
       Timer = {
         OnStartupSec = "1sec";
@@ -53,13 +63,15 @@ in
         Unit = "rand-bg.service";
       };
       Install = {
-        WantedBy = [ "timers.target" ];
+        WantedBy = [
+          "wallpaper.target"
+        ];
       };
     };
 
     home.packages = [
       pkgs.swww
-      random-background
+      (mkIf cfg.random-background random-background)
     ];
   };
 

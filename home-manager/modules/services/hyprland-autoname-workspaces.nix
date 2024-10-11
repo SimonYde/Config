@@ -8,7 +8,6 @@
 let
   inherit (lib) mkEnableOption;
   cfg = config.syde.services.hyprland-autoname-workspaces;
-  lock = config.syde.gui.lock;
 in
 {
   config = lib.mkIf cfg.enable {
