@@ -33,13 +33,14 @@
     ./discord.nix
     ./emacs.nix
     ./firefox
+    ./hyprlock.nix
     ./i3status-rust.nix
     ./imv.nix
-    ./nix-index.nix
+    ./mangohud.nix
     ./mpv.nix
+    ./nix-index.nix
     ./rofi
     ./swaylock.nix
-    ./hyprlock.nix
     ./thunar.nix
     ./vscode.nix
     ./waybar

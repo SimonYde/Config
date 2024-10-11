@@ -33,12 +33,12 @@ in
       initLua = # lua
         ''
           require("bookmarks"):setup({
-              last_directory = { enable = false, persist = false },
+              last_directory = { enable = true, persist = true },
               persist = "vim",
               desc_format = "parent",
               file_pick_mode = "hover",
               notify = {
-                  enable = false,
+                  enable = true,
                   timeout = 1,
                   message = {
                       new = "New bookmark '<key>' -> '<folder>'",
