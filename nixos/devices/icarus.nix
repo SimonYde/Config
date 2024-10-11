@@ -1,13 +1,14 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 {
   imports = [ ../standard.nix ];
 
   environment.systemPackages = with pkgs; [ ];
+
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Personal configurations
   syde = {
