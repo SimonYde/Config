@@ -233,6 +233,10 @@ Load.later(function()
         }
     }
 
+    setup_lsp({
+        name = "clangd",
+    })
+
 
     Load.now(function()
         require('copilot').setup {

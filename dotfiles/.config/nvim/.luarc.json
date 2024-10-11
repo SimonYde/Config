@@ -3,6 +3,11 @@
         "VARIANT",
         "PALETTE",
         "PYTHON_PATH",
-        "Config"
+        "Config",
+        "MiniIcons",
+        "MiniFiles",
+        "MiniExtra",
+        "MiniGit",
+        "MiniMisc"
     ]
 }

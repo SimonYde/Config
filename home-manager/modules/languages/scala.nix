@@ -19,8 +19,9 @@ in
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [
-        # nvim-metals
-        plenary-nvim
+        (nvim-treesitter.withPlugins (p: [
+          p.scala
+        ]))
       ];
     };
   };

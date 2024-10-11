@@ -16,6 +16,7 @@ source('plugin/obsidian.lua')
 source('plugin/nvim-dap.lua')
 source('plugin/which-key.lua')
 
+local nmap = Keymap.nmap
 Load.later(function()
     require("todo-comments").setup()
 end)
@@ -23,27 +24,24 @@ end)
 Load.later(function()
     Load.packadd('trouble.nvim')
     require('trouble').setup()
-    local nmap = Keymap.nmap
 
     nmap(
         '<leader>td',
         function()
-            vim.cmd [[Trouble diagnostics toggle]]
+            vim.cmd("Trouble diagnostics toggle")
         end,
         "Toggle [t]rouble [d]iagnostics"
     )
 end)
 
 Load.on_events(function()
-    local autopairs = require('nvim-autopairs')
-    autopairs.setup()
+    require('nvim-autopairs').setup()
     Load.now(function()
         require('cmp').event:on(
             'confirm_done',
             require('nvim-autopairs.completion.cmp').on_confirm_done()
         )
     end)
-    return autopairs
 end, "InsertEnter")
 
 Load.later(function()
@@ -72,8 +70,6 @@ Load.later(function()
 end)
 
 Load.later(function()
-    local nmap = Keymap.nmap
-
     Load.now(function()
         Load.packadd('diffview.nvim')
         local diffview = require('diffview')
@@ -95,5 +91,3 @@ Load.later(function()
         nmap("<leader>gc", function() neogit.open({ "commit" }) end, "Neogit [c]ommit")
     end)
 end)
-
-Load.perform_lazy_loading()

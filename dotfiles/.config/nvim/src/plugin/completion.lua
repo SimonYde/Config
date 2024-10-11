@@ -11,6 +11,15 @@ Load.later(function()
             require('codeium').setup()
         end)
 
+        local menu_icon = {
+            buffer = '[buf]',
+            nvim_lsp = '[LSP]',
+            nvim_lua = '[api]',
+            path = '[path]',
+            luasnip = '[snip]',
+            codeium = '[AI]',
+        }
+
         cmp.setup({
             sources = {
                 { name = "codeium" },
@@ -19,6 +28,9 @@ Load.later(function()
                 { name = "path" },
                 { name = "luasnip" },
                 { name = "buffer",  keyword_length = 5 },
+            },
+            performance = {
+                debounce = 150,
             },
             snippet = {
                 expand = function(args) luasnip.lsp_expand(args.body) end,
@@ -56,44 +68,20 @@ Load.later(function()
                 end, { 'i', 's' }),
             },
             formatting = {
-                -- format = function(_, vim_item)
-                --     local icon, hl, is_default = Load.now(require, "mini.icons").get("lsp", vim_item.kind)
-                --     -- If the icon is not found in mini.icons (is_default is true), use the fallback
-                --     if is_default then
-                --         hl = "CmpItemKind" .. vim_item.kind
-                --     end
-                --     vim_item.kind = icon -- .. " " .. vim_item.kind
-                --     vim_item.kind_hl_group = hl
-                --     return vim_item
-                -- end,
+                format = function(entry, vim_item)
+                    local source = menu_icon[entry.source.name]
+
+                    local icon, hl, is_default = MiniIcons.get("lsp", vim_item.kind)
+                    -- If the icon is not found in mini.icons (is_default is true), use the fallback
+                    if is_default then hl = "CmpItemKind" .. vim_item.kind end
+                    vim_item.kind = icon -- .. " " .. vim_item.kind
+                    vim_item.kind_hl_group = hl
+                    vim_item.menu = source
+                    return vim_item
+                end,
                 fields = { "kind", "abbr", "menu" }, -- "menu",
             }
         })
-
-        Load.now(function()
-            Load.packadd('lspkind-nvim')
-            local lspkind = require('lspkind')
-            cmp.setup {
-                formatting = {
-                    format = lspkind.cmp_format {
-                        ellipsis_char = '…',
-                        show_labelDetails = true,
-                        mode = 'symbol',
-                        symbol_map = {
-                            Codeium = "󰚩",
-                        },
-                        menu = {
-                            buffer = '[buf]',
-                            nvim_lsp = '[LSP]',
-                            nvim_lua = '[api]',
-                            path = '[path]',
-                            luasnip = '[snip]',
-                            codeium = '[AI]',
-                        },
-                    },
-                },
-            }
-        end)
 
         cmp.setup.cmdline({ '/', '?' }, {
             mapping = cmp.mapping.preset.cmdline(),
