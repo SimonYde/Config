@@ -45,15 +45,12 @@ in
 
           # -----Workflow-----
           conform-nvim
-          harpoon2
           nvim-autopairs
           rustaceanvim
 
           neogit
           mini-nvim
           vim-sleuth
-          # vim-table-mode
-          # vim-be-good
           undotree
           nvim-dap
           nvim-dap-ui
@@ -87,8 +84,8 @@ in
         with config.syde.theming.palette-hex; # lua
         ''
           vim.loader.enable()
-          VARIANT = "${config.colorScheme.variant}"
-          PALETTE = {
+          _G.VARIANT = "${config.colorScheme.variant}"
+          _G.PALETTE = {
             base00 = "${base00}",
             base01 = "${base01}",
             base02 = "${base02}",

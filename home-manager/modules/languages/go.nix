@@ -10,18 +10,16 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      # CLI
-      go
-
-      # Debugger
-      delve
-      # LSP
-      gopls
+      go # CLI
+      delve # Debugger
+      gopls # LSP
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [
-      # debugging
-      nvim-dap-go
+      (nvim-treesitter.withPlugins (p: [
+        p.go
+      ]))
+      nvim-dap-go # debugging support
     ];
 
     home.sessionVariables = {

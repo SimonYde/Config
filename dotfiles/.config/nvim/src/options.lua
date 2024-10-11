@@ -123,7 +123,7 @@ vim.opt.diffopt:append('algorithm:histogram')
 vim.opt.diffopt:append('indent-heuristic')
 
 -- Spelling ===================================================================
-vim.o.spelllang = 'en,da'
+vim.o.spelllang = 'en'
 vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as seprate words
 vim.opt.complete:append('kspell') -- Add spellcheck options for autocomplete
 vim.opt.complete:remove('t')      -- Don't use tags for completion

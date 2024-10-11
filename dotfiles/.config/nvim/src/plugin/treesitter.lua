@@ -4,6 +4,7 @@ Load.later(function()
     vim.opt.foldenable = false
 
     local treesitter_opts = {
+        auto_install = false,
         highlight = {
             enable = true,
             disable = {
