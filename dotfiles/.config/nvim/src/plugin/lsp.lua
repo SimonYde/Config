@@ -1,10 +1,6 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
 
-    Load.now(function()
-        require('neodev').setup()
-    end)
-
     -- Cmp Setup
     local default_capabilities = vim.lsp.protocol.make_client_capabilities()
     local cmp_nvim_lsp = Load.now(require, 'cmp_nvim_lsp')
@@ -237,85 +233,12 @@ Load.later(function()
         name = "clangd",
     })
 
-
-    Load.now(function()
-        require('copilot').setup {
-            suggestion = {
-                keymap = {
-                    accept = "<M-l>",
-                    next = "<M-j>",
-                    prev = "<M-k>",
-                },
-                auto_trigger = false,
-            },
-        }
-    end)
-
-    Load.now(function()
-        local border = "none"
-        -- if vim.g.transparent then border = "rounded" end
-
-        require('lsp_signature').setup({
-            doc_lines = 0,
-            hint_enable = false,
-            hint_inline = function() return false end, -- should the hint be inline(nvim 0.10 only)?  default false
-            handler_opts = {
-                border = border
-            },
-        })
-    end)
-
-    Load.now(function()
-        local settings = {
-            symbol_in_winbar = {
-                enable = false,
-            },
-            code_action = {
-                show_server_name = true,
-            },
-            lightbulb = {
-                enable = false,
-            },
-            implement = {
-                enable = true,
-            },
-            ui = {
-                border = 'none'
-            }
-        }
-
-        if pcall(require, 'catppuccin') then
-            settings.ui.kind = require('catppuccin.groups.integrations.lsp_saga').custom_kind()
-        end
-
-        require('lspsaga').setup(settings)
-    end)
-
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
             local client = vim.lsp.get_client_by_id(args.data.client_id)
             if client then
                 client.server_capabilities.semanticTokensProvider = nil
             end
-
-            Load.now(function()
-                require('fidget').setup {
-                    progress = {
-                        display = {
-                            progress_icon = {
-                                pattern = "moon",
-                                period = 1,
-                            },
-                        },
-                    },
-                    notification = {
-                        window = {
-                            winblend = 0,
-                            relative = "editor",
-                        },
-                    }
-                }
-            end)
 
             local nmap = function(keys, cmd, desc)
                 Keymap.nmap(keys, cmd, desc, { buffer = args.buf })
@@ -332,49 +255,14 @@ Load.later(function()
             imap("<C-s>", vim.lsp.buf.signature_help, "Signature Help")
 
             Load.now(function()
-                require('lspsaga')
-                nmap(
-                    "<leader>e",
-                    function() vim.cmd.Lspsaga("hover_doc") end,
-                    "hover documentation"
-                )
-                nmap(
-                    "<leader>a",
-                    function() vim.cmd.Lspsaga("code_action") end,
-                    "code [a]ctions"
-                )
-                nmap(
-                    "<leader>r",
-                    function() vim.cmd.Lspsaga("rename") end,
-                    "LSP [r]ename"
-                )
+                nmap("<leader>e", function() vim.cmd.Lspsaga("hover_doc") end, "hover documentation")
+                nmap("<leader>a", function() vim.cmd.Lspsaga("code_action") end, "code [a]ctions")
+                nmap("<leader>r", function() vim.cmd.Lspsaga("rename") end, "LSP [r]ename")
             end)
         end,
     })
 
-    Load.now(function()
-        local otter = require('otter')
-        otter.setup {
-            lsp = {
-                diagnostic_update_events = { "BufWritePost" },
-                root_dir = function(_) return vim.fn.getcwd(0) end,
-            },
-            buffers = {
-                set_filetype = false,
-                -- write <path>.otter.<embedded language extension> files to
-                -- disk on save of main buffer.
-                -- useful for some linters that require actual files
-                -- otter files are deleted on quit or main buffer close
-                write_to_disk = false,
-            },
-            strip_wrapping_quote_characters = { "'", '"', "`" },
-            -- otter may not work the way you expect when entire code blocks are indented (eg. in Org files)
-            -- When true, otter handles these cases fully.
-            handle_leading_whitespace = true,
-        }
-        local nmap = Keymap.nmap
-        nmap("<leader>lo", function() otter.activate() end, "Otter activate")
-    end)
-
-    vim.cmd [[LspStart]]
+    vim.defer_fn(function()
+        vim.cmd("LspStart")
+    end, 100)
 end)

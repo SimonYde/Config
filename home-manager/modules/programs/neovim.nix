@@ -33,8 +33,8 @@ in
           otter-nvim
 
           # -----Completion-----
-          lspkind-nvim
           nvim-cmp
+          cmp-git
           cmp-nvim-lua
           cmp-nvim-lsp
           cmp-cmdline

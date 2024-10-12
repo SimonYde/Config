@@ -49,7 +49,7 @@ vim.o.linebreak = true
 vim.o.cmdheight = 0
 vim.o.hlsearch = true
 vim.o.list = true
-vim.o.pumblend = 0   -- slightly transparent built-in menus
+vim.o.pumblend = 0
 vim.o.winblend = 0
 vim.o.pumheight = 10 -- slightly smaller built-in menus
 vim.o.ruler = false
@@ -61,13 +61,13 @@ vim.o.termguicolors = true
 vim.o.breakindent = true
 vim.o.breakindentopt = 'list:-1' -- Add padding for lists when 'wrap' is on
 
+vim.o.fillchars = 'eob: '        -- Don't show `~` outside of buffer
 vim.o.listchars = 'tab:▸ ,nbsp:␣,extends:❯,precedes:❮'
 vim.o.guicursor = "n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50"
 
 vim.o.splitkeep = 'screen' -- Reduce scoll during window split
 vim.o.splitright = true
 vim.o.splitbelow = true
-vim.o.hlsearch = false
 vim.o.incsearch = true
 
 vim.o.wrap = false
@@ -140,10 +140,10 @@ local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = t
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function()
         -- Highlight yanked text
-        vim.highlight.on_yank {
+        vim.highlight.on_yank({
             timeout = 200,
             on_visual = false,
-        }
+        })
     end,
     group = highlight_group,
     pattern = '*',

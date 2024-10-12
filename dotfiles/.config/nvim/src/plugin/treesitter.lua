@@ -1,14 +1,14 @@
 Load.later(function()
     vim.opt.foldmethod = "expr"
+    vim.opt.foldlevel = 1        -- Display all folds except top ones
     vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-    vim.opt.foldenable = false
+    vim.opt.foldenable = true
 
     local treesitter_opts = {
         auto_install = false,
         highlight = {
             enable = true,
             disable = {
-                "sh",
                 -- "latex",
             },
             additional_vim_regex_highlighting = false,
