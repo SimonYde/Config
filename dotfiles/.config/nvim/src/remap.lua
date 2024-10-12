@@ -1,5 +1,17 @@
 local M = {}
 
+-- Toggle quickfix window
+Config.toggle_quickfix = function()
+    local quickfix_wins = vim.tbl_filter(
+        function(win_id) return vim.fn.getwininfo(win_id)[1].quickfix == 1 end,
+        vim.api.nvim_tabpage_list_wins(0)
+    )
+
+    local command = #quickfix_wins == 0 and 'copen' or 'cclose'
+    vim.cmd(command)
+end
+
+
 ---@param mode string | table
 M.map = function(mode)
     ---@param desc string
@@ -73,7 +85,7 @@ end
 nmap("<leader>li", vim.lsp.inlay_hint.toggle, "Toggle [i]nlay hints")
 nmap("<leader>lf", vim.lsp.buf.format, "LSP format")
 
-nmap("<leader>q", vim.cmd.cclose, "Close [q]uickfix list")
+nmap("<leader>q", Config.toggle_quickfix, "Toggle [q]uickfix list")
 nmap("<leader>=", vim.lsp.buf.format, "Format with LSP")
 nmap("gd", vim.lsp.buf.definition, "Goto [d]efinition")
 nmap("gD", vim.lsp.buf.declaration, "Goto [D]eclaration")

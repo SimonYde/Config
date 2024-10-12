@@ -2,6 +2,45 @@ local nmap = Keymap.nmap
 local nxmap = Keymap.map({ 'x', 'n' })
 
 Load.now(function()
+    local greeting = function()
+        local hour = tonumber(vim.fn.strftime("%H"))
+        -- [04:00, 12:00) - morning, [12:00, 20:00) - day, [20:00, 04:00) - evening
+        local part_id = math.floor((hour + 4) / 8) + 1
+        local day_part = ({ "evening", "morning", "afternoon", "evening" })[part_id]
+        local username = vim.uv.os_get_passwd()["username"] or "USERNAME"
+
+        return ("Good %s, %s"):format(day_part, username)
+    end
+
+    require('mini.starter').setup({
+        header = function()
+            local banner = [[
+
+    /\__\         /\  \         /\  \         /\__\          ___        /\__\
+   /::|  |       /::\  \       /::\  \       /:/  /         /\  \      /::|  |
+  /:|:|  |      /:/\:\  \     /:/\:\  \     /:/  /          \:\  \    /:|:|  |
+ /:/|:|  |__   /::\~\:\  \   /:/  \:\  \   /:/__/  ___      /::\__\  /:/|:|__|__
+/:/ |:| /\__\ /:/\:\ \:\__\ /:/__/ \:\__\  |:|  | /\__\  __/:/\/__/ /:/ |::::\__\
+\/__|:|/:/  / \:\~\:\ \/__/ \:\  \ /:/  /  |:|  |/:/  / /\/:/  /    \/__/~~/:/  /
+    |:/:/  /   \:\ \:\__\    \:\  /:/  /   |:|__/:/  /  \::/__/           /:/  /
+    |::/  /     \:\ \/__/     \:\/:/  /     \::::/__/    \:\__\          /:/  /
+    /:/  /       \:\__\        \::/  /       ~~~~         \/__/         /:/  /
+    \/__/         \/__/         \/__/                                   \/__/
+
+]]
+            local msg = greeting()
+            local n = math.floor((70 - msg:len()) / 2)
+            local padding = (" "):rep(n)
+            return banner .. padding .. msg
+        end,
+    })
+end)
+
+Load.now(function()
+    require('mini.sessions').setup()
+end)
+
+Load.now(function()
     require('mini.icons').setup({
         lsp = {
             ellipsis_char = { glyph = '…', hl = 'MiniIconsRed' },
@@ -286,9 +325,7 @@ Load.later(function()
     vim.notify = MiniNotify.make_notify({ ERROR = { duration = 10000 } })
 end)
 
-
 Load.later(function()
-    local MiniTrailspace = require('mini.trailspace')
     require('mini.trailspace').setup()
     nmap(
         "<M-t>",
@@ -298,4 +335,241 @@ Load.later(function()
         end,
         "Clean [t]railing whitespace"
     )
+end)
+
+Load.later(function()
+    do return end
+    local MiniPick = require('mini.pick')
+    local send_to_qflist = function()
+        local mappings = MiniPick.get_picker_opts().mappings
+        vim.api.nvim_input(mappings.mark_all .. mappings.choose_marked)
+    end
+
+    local center_window = function()
+        local height = math.floor(0.7 * vim.o.lines)
+        local width = math.floor(0.7 * vim.o.columns)
+        return {
+            anchor = 'NW',
+            height = height,
+            width = width,
+            row = math.floor(0.5 * (vim.o.lines - height)),
+            col = math.floor(0.5 * (vim.o.columns - width)),
+            border = "rounded",
+        }
+    end
+
+    MiniPick.setup({
+        options = {
+            content_from_bottom = false,
+            -- Whether to cache matches (more speed and memory on repeated prompts)
+            use_cache = false,
+        },
+
+        mappings = {
+            refine = "<C-Space>",
+            refine_marked = "<M-q>",
+            send_to_qflist = { char = '<C-q>', func = send_to_qflist },
+        },
+
+        window = {
+            config = center_window
+        },
+    })
+
+    vim.ui.select = MiniPick.ui_select
+
+    nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
+    nmap("<leader>b", MiniPick.builtin.buffers, "Pick buffers")
+    nmap("<leader>'", MiniPick.builtin.resume, "Pick resume")
+    nmap(
+        "<leader>fc",
+        function() MiniExtra.pickers.buf_lines { scope = "current" } end,
+        "Pick current buffer lines"
+    )
+    nmap("<leader>ff", function() MiniPick.builtin.files({ tool = 'rg' }) end, "Pick files")
+    nmap("<leader>F", MiniExtra.pickers.git_files, "Pick git Files")
+    nmap("<leader>fh", MiniPick.builtin.help, "Pick help")
+    nmap("<leader>'", MiniPick.builtin.resume, "Resume latest picker")
+    nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick grep")
+    nmap("<leader>fs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, "LSP document symbols")
+    nmap(
+        "<leader>fw",
+        function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end,
+        "LSP workspace symbols"
+    )
+    nmap("<leader>/", MiniPick.builtin.grep_live, "Global search with grep")
+    nmap("gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, "Goto references")
+    nmap("gi", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, "Goto implementations")
+    nmap("gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, "Goto definitions")
+    nmap("<leader>gw", function() MiniExtra.pickers.git_branches({ scope = 'local' }) end, "git worktrees")
+end)
+
+Load.later(function()
+    do return end
+    local MiniClue = require('mini.clue')
+    MiniClue.setup {
+        window = {
+            config = { anchor = 'SE', row = 'auto', col = 'auto', width = 'auto' },
+            delay = vim.o.timeoutlen,
+        },
+        triggers = {
+            -- Leader triggers
+            { mode = 'n', keys = '<Leader>' },
+            { mode = 'x', keys = '<Leader>' },
+            { mode = 'n', keys = '[' },
+            { mode = 'n', keys = ']' },
+            { mode = 'v', keys = '[' },
+            { mode = 'v', keys = ']' },
+
+            -- Built-in completion
+            { mode = 'i', keys = '<C-x>' },
+
+            -- `g` key
+            { mode = 'n', keys = 'g' },
+            { mode = 'x', keys = 'g' },
+
+            -- Marks
+            { mode = 'n', keys = "'" },
+            { mode = 'n', keys = '`' },
+            { mode = 'x', keys = "'" },
+            { mode = 'x', keys = '`' },
+
+            -- Registers
+            { mode = 'n', keys = '"' },
+            { mode = 'x', keys = '"' },
+            { mode = 'i', keys = '<C-r>' },
+            { mode = 'c', keys = '<C-r>' },
+
+            -- Window commands
+            { mode = 'n', keys = '<C-w>' },
+            { mode = 'n', keys = '<leader>w' },
+
+            -- `z` key
+            { mode = 'n', keys = 'z' },
+            { mode = 'x', keys = 'z' },
+        },
+
+        clues = {
+            -- Enhance this by adding descriptions for <Leader> mapping groups
+            { mode = 'n', keys = '<leader>f', desc = '[f]ind' },
+            { mode = 'n', keys = '<leader>g', desc = '[g]it' },
+            { mode = 'n', keys = '<leader>o', desc = '[o]bsidian' },
+            { mode = 'n', keys = '<leader>l', desc = '[l]sp' },
+            { mode = 'n', keys = '<leader>d', desc = '[d]ebug' },
+            MiniClue.gen_clues.builtin_completion(),
+            MiniClue.gen_clues.g(),
+            MiniClue.gen_clues.marks(),
+            MiniClue.gen_clues.registers(),
+            MiniClue.gen_clues.windows(),
+            MiniClue.gen_clues.z(),
+        },
+    }
+end)
+
+Load.now(function()
+    local MiniStatusline = require('mini.statusline')
+    local section_macro_recording = function()
+        local recording_register = vim.fn.reg_recording()
+
+        if recording_register == "" then
+            return ""
+        else
+            return ("rec @%s"):format(recording_register)
+        end
+    end
+
+    local diagnostic_level = function(level)
+        local n = #vim.diagnostic.get(0, { severity = level })
+        local sign = vim.diagnostic.config().signs.text[level]
+        return (n == 0) and '' or ('%s %s'):format(sign, n)
+    end
+
+    local section_fileinfo = function(args)
+        local get_filesize = function()
+            local size = vim.fn.getfsize(vim.fn.getreg('%'))
+            if size < 1024 then
+                return ('%dB'):format(size)
+            elseif size < 1048576 then
+                return ('%.2fKiB'):format(size / 1024)
+            else
+                return ('%.2fMiB'):format(size / 1048576)
+            end
+        end
+
+        local get_filetype_icon = function()
+            if not MiniStatusline.config.use_icons then return '' end
+            local MiniIcons = Load.now(require, 'mini.icons')
+            -- NOTE: Make sure setup is called
+            local file_name = vim.fn.expand('%:t')
+            local icon, _, is_default = MiniIcons.get('file', file_name)
+            if is_default then return '' end
+
+            return icon
+        end
+        local filetype = vim.bo.filetype
+
+        -- Don't show anything if can't detect file type or not inside a "normal buffer"
+        if (filetype == '') or vim.bo.buftype ~= '' then return '' end
+
+        -- Add filetype icon
+        local icon = get_filetype_icon()
+        if icon ~= '' then filetype = ('%s %s'):format(icon, filetype) end
+
+        -- Construct output string if truncated
+        if MiniStatusline.is_truncated(args.trunc_width) then return filetype end
+
+        -- Construct output string with extra file info
+        local encoding = vim.bo.fileencoding or vim.bo.encoding
+        if encoding == 'utf-8' then encoding = '' else encoding = ('[%s]'):format(encoding) end
+
+        local format = vim.bo.fileformat
+        local format_icon = ''
+        if format == 'unix' then
+            format_icon = ''
+        elseif format == 'dos' then
+            format_icon = ''
+        end
+
+        local size = get_filesize()
+
+        return ('%s %s%s %s'):format(filetype, format_icon, encoding, size)
+    end
+
+
+    MiniStatusline.setup({
+        content = {
+            active = function()
+                local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
+                local git           = MiniStatusline.section_git({ trunc_width = 75 })
+                local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
+                local errors        = diagnostic_level(vim.diagnostic.severity.ERROR) -- alternative symbol "⬤ "
+                local warnings      = diagnostic_level(vim.diagnostic.severity.WARN)  -- alternative symbol ""
+                local info          = diagnostic_level(vim.diagnostic.severity.INFO)
+                local hints         = diagnostic_level(vim.diagnostic.severity.HINT)
+                local macro         = section_macro_recording()
+                local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
+                local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
+                local fileinfo      = section_fileinfo({ trunc_width = 120 })
+                local location      = MiniStatusline.section_location({ trunc_width = 75 })
+                -- local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
+
+                return MiniStatusline.combine_groups({
+                    { hl = mode_hl,                 strings = { mode } },
+                    { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
+                    '%<', -- Mark general truncate point
+                    { hl = 'MiniStatuslineFilename', strings = { filename } },
+                    { hl = 'DiagnosticError',        strings = { errors } },
+                    { hl = 'DiagnosticWarn',         strings = { warnings } },
+                    { hl = 'DiagnosticHint',         strings = { hints } },
+                    { hl = 'DiagnosticInfo',         strings = { info } },
+                    '%=', -- End left alignment
+                    --
+                    { hl = 'MiniStatuslineFilename', strings = { macro, searchcount } },
+                    { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+                    { hl = mode_hl,                  strings = { location } },
+                })
+            end,
+        },
+        set_vim_settings = false,
+    })
 end)
