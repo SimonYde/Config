@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
@@ -41,10 +40,10 @@ in
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.greetd}/bin/agreety --cmd hyprland";
+          command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${lib.getExe pkgs.hyprland}";
         };
         initial_session = {
-          command = "hyprland";
+          command = lib.getExe pkgs.hyprland;
           user = config.syde.user;
         };
       };
