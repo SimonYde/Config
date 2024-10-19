@@ -12,7 +12,7 @@ local add_transparency = function()
             })
             :apply()
         -- Remove background for sign column elements
-        vim.cmd [[
+        vim.cmd([[
             hi MiniDiffSignAdd guibg=NONE ctermbg=NONE
             hi MiniDiffSignChange guibg=NONE ctermbg=NONE
             hi MiniDiffSignDelete guibg=NONE ctermbg=NONE
@@ -21,18 +21,16 @@ local add_transparency = function()
             hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
             hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
             hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
-        ]]
+        ]])
     end)
 end
 
 local catppuccin = Load.now(function()
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
-    if VARIANT ~= 'dark' then
-        flavour = 'latte'
-    end
+    if VARIANT ~= 'dark' then flavour = 'latte' end
 
-    catppuccin.setup {
+    catppuccin.setup({
         flavour = flavour,
         transparent_background = vim.g.transparent,
         integrations = {
@@ -65,14 +63,14 @@ local catppuccin = Load.now(function()
                 },
             }
         end,
-    }
-    vim.cmd.colorscheme("catppuccin")
+    })
+    vim.cmd.colorscheme('catppuccin')
     return catppuccin
 end)
 if catppuccin then return end
 
 Load.now(function()
-    require('mini.base16').setup {
+    require('mini.base16').setup({
         palette = PALETTE,
         use_cterm = true,
         plugins = {
@@ -111,9 +109,7 @@ Load.now(function()
             ['stevearc/aerial.nvim'] = false,
             ['williamboman/mason.nvim'] = false,
         },
-    }
-    vim.cmd(("hi MiniStatuslineFilename guifg=%s"):format(PALETTE.base04))
-    if vim.g.transparent then
-        add_transparency()
-    end
+    })
+    vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
+    if vim.g.transparent then add_transparency() end
 end)

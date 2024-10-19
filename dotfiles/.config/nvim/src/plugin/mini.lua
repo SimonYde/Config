@@ -3,13 +3,13 @@ local nxmap = Keymap.map({ 'x', 'n' })
 
 Load.now(function()
     local greeting = function()
-        local hour = tonumber(vim.fn.strftime("%H"))
+        local hour = tonumber(vim.fn.strftime('%H'))
         -- [04:00, 12:00) - morning, [12:00, 20:00) - day, [20:00, 04:00) - evening
         local part_id = math.floor((hour + 4) / 8) + 1
-        local day_part = ({ "evening", "morning", "afternoon", "evening" })[part_id]
-        local username = vim.uv.os_get_passwd()["username"] or "USERNAME"
+        local day_part = ({ 'evening', 'morning', 'afternoon', 'evening' })[part_id]
+        local username = vim.uv.os_get_passwd()['username'] or 'USERNAME'
 
-        return ("Good %s, %s"):format(day_part, username)
+        return ('Good %s, %s'):format(day_part, username)
     end
 
     require('mini.starter').setup({
@@ -30,51 +30,49 @@ Load.now(function()
 ]]
             local msg = greeting()
             local n = math.floor((70 - msg:len()) / 2)
-            local padding = (" "):rep(n)
+            local padding = (' '):rep(n)
             return banner .. padding .. msg
         end,
     })
 end)
 
-Load.now(function()
-    require('mini.sessions').setup()
-end)
+Load.now(function() require('mini.sessions').setup() end)
 
 Load.now(function()
     require('mini.icons').setup({
         lsp = {
             ellipsis_char = { glyph = '…', hl = 'MiniIconsRed' },
-            copilot       = { glyph = '', hl = 'MiniIconsOrange' },
-            codeium       = { glyph = '', hl = 'MiniIconsGreen' },
-            cody          = { glyph = '', hl = 'MiniIconsAzure' },
-            supermaven    = { glyph = '', hl = 'MiniIconsYellow' },
-            otter         = { glyph = '🦦', hl = 'MiniIconsCyan' },
+            copilot = { glyph = '', hl = 'MiniIconsOrange' },
+            codeium = { glyph = '', hl = 'MiniIconsGreen' },
+            cody = { glyph = '', hl = 'MiniIconsAzure' },
+            supermaven = { glyph = '', hl = 'MiniIconsYellow' },
+            otter = { glyph = '🦦', hl = 'MiniIconsCyan' },
 
-            ["function"]  = { glyph = "󰊕", hl = 'MiniIconsAzure' },
-            text          = { glyph = "󰉿", hl = 'MiniIconsRed' },
-            method        = { glyph = "󰆧", hl = 'MiniIconsAzure' },
-            constructor   = { glyph = "", hl = 'MiniIconsYellow' },
-            field         = { glyph = "󰜢", hl = 'MiniIconsPurple' },
-            variable      = { glyph = "󰀫", hl = 'MiniIconsBlue' },
-            class         = { glyph = "󰠱", hl = 'MiniIconsYellow' },
-            interface     = { glyph = "", hl = 'MiniIconsPurple' },
-            module        = { glyph = "", hl = 'MiniIconsPurple' },
-            property      = { glyph = "󰜢", hl = 'MiniIconsPurple' },
-            unit          = { glyph = "󰑭", hl = 'MiniIconsCyan' },
-            value         = { glyph = "󰎠", hl = 'MiniIconsRed' },
-            enum          = { glyph = "", hl = 'MiniIconsPurple' },
-            keyword       = { glyph = "󰌋", hl = 'MiniIconsPurple' },
-            snippet       = { glyph = "", hl = 'MiniIconsCyan' },
-            color         = { glyph = "󰏘", hl = 'MiniIconsCyan' },
-            file          = { glyph = "󰈙", hl = 'MiniIconsYellow' },
-            reference     = { glyph = "󰈇", hl = 'MiniIconsYellow' },
-            folder        = { glyph = "󰉋", hl = 'MiniIconsAzure' },
-            enumMember    = { glyph = "", hl = 'MiniIconsPurple' },
-            constant      = { glyph = "󰏿", hl = 'MiniIconsOrange' },
-            struct        = { glyph = "󰙅", hl = 'MiniIconsPurple' },
-            event         = { glyph = "", hl = 'MiniIconsRed' },
-            operator      = { glyph = "󰆕", hl = 'Normal' },
-            typeParameter = { glyph = "", hl = 'MiniIconsYellow' },
+            ['function'] = { glyph = '󰊕', hl = 'MiniIconsAzure' },
+            text = { glyph = '󰉿', hl = 'MiniIconsRed' },
+            method = { glyph = '󰆧', hl = 'MiniIconsAzure' },
+            constructor = { glyph = '', hl = 'MiniIconsYellow' },
+            field = { glyph = '󰜢', hl = 'MiniIconsPurple' },
+            variable = { glyph = '󰀫', hl = 'MiniIconsBlue' },
+            class = { glyph = '󰠱', hl = 'MiniIconsYellow' },
+            interface = { glyph = '', hl = 'MiniIconsPurple' },
+            module = { glyph = '', hl = 'MiniIconsPurple' },
+            property = { glyph = '󰜢', hl = 'MiniIconsPurple' },
+            unit = { glyph = '󰑭', hl = 'MiniIconsCyan' },
+            value = { glyph = '󰎠', hl = 'MiniIconsRed' },
+            enum = { glyph = '', hl = 'MiniIconsPurple' },
+            keyword = { glyph = '󰌋', hl = 'MiniIconsPurple' },
+            snippet = { glyph = '', hl = 'MiniIconsCyan' },
+            color = { glyph = '󰏘', hl = 'MiniIconsCyan' },
+            file = { glyph = '󰈙', hl = 'MiniIconsYellow' },
+            reference = { glyph = '󰈇', hl = 'MiniIconsYellow' },
+            folder = { glyph = '󰉋', hl = 'MiniIconsAzure' },
+            enumMember = { glyph = '', hl = 'MiniIconsPurple' },
+            constant = { glyph = '󰏿', hl = 'MiniIconsOrange' },
+            struct = { glyph = '󰙅', hl = 'MiniIconsPurple' },
+            event = { glyph = '', hl = 'MiniIconsRed' },
+            operator = { glyph = '󰆕', hl = 'Normal' },
+            typeParameter = { glyph = '', hl = 'MiniIconsYellow' },
         },
     })
     Load.later(MiniIcons.tweak_lsp_kind)
@@ -84,31 +82,31 @@ end)
 Load.later(function()
     require('mini.files').setup({
         mappings = {
-            close       = 'q',
-            go_in       = 'i',
-            go_in_plus  = 'I',
-            go_out      = 'm',
+            close = 'q',
+            go_in = 'i',
+            go_in_plus = 'I',
+            go_out = 'm',
             go_out_plus = 'M',
-            mark_goto   = "'",
-            mark_set    = 'h',
-            reset       = '<BS>',
-            reveal_cwd  = '@',
-            show_help   = 'g?',
+            mark_goto = "'",
+            mark_set = 'h',
+            reset = '<BS>',
+            reveal_cwd = '@',
+            show_help = 'g?',
             synchronize = '=',
-            trim_left   = '<',
-            trim_right  = '>',
+            trim_left = '<',
+            trim_right = '>',
         },
     })
-    nmap('<M-f>', function() MiniFiles.open() end, "Show [f]ile-tree")
+    nmap('<M-f>', function() MiniFiles.open() end, 'Show [f]ile-tree')
     nmap('<M-F>', function()
         local file_name = vim.api.nvim_buf_get_name(0)
         if vim.uv.fs_stat(file_name) then
             MiniFiles.open(file_name)
         else
-            vim.notify("Current buffer is not a file... opening mini.files in CWD", vim.log.levels.WARN)
+            vim.notify('Current buffer is not a file... opening mini.files in CWD', vim.log.levels.WARN)
             MiniFiles.open()
         end
-    end, "Show current [F]ile in explorer")
+    end, 'Show current [F]ile in explorer')
 end)
 
 Load.later(function()
@@ -127,7 +125,7 @@ Load.later(function()
     })
 end)
 
-Load.later(function () require('mini.tabline').setup() end)
+Load.later(function() require('mini.tabline').setup() end)
 
 Load.later(function() require('mini.extra').setup() end)
 
@@ -170,22 +168,23 @@ Load.later(function()
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
 end)
 
-
 Load.later(function() require('mini.bufremove').setup() end)
 
 Load.later(function() require('mini.comment').setup() end)
 
-Load.later(function()
-    require('mini.operators').setup({
-        replace = {
-            prefix = "cr"
-        },
-    })
-end)
+Load.later(
+    function()
+        require('mini.operators').setup({
+            replace = {
+                prefix = 'cr',
+            },
+        })
+    end
+)
 
 Load.later(function()
     require('mini.surround').setup({
-        search_method = "cover_or_next",
+        search_method = 'cover_or_next',
     })
 end)
 
@@ -275,7 +274,7 @@ end)
 
 Load.later(function()
     require('mini.git').setup()
-    nxmap("<leader>gg", MiniGit.show_at_cursor, "Show git info at cursor")
+    nxmap('<leader>gg', MiniGit.show_at_cursor, 'Show git info at cursor')
 end)
 
 Load.later(function()
@@ -295,9 +294,7 @@ Load.later(function()
         end
     end
 
-    local visit_map = function(lhs, desc, ...)
-        Keymap.nmap(lhs, make_select_path(...), desc)
-    end
+    local visit_map = function(lhs, desc, ...) Keymap.nmap(lhs, make_select_path(...), desc) end
 
     -- Adjust LHS and description to your liking
     visit_map('<Leader>vr', 'Select recent (all)', true, 1)
@@ -319,7 +316,7 @@ Load.later(function()
     MiniNotify.setup({
         window = {
             config = {
-                border = "rounded",
+                border = 'rounded',
             },
             winblend = 0,
         },
@@ -329,18 +326,16 @@ end)
 
 Load.later(function()
     require('mini.trailspace').setup()
-    nmap(
-        "<M-t>",
-        function()
-            MiniTrailspace.trim()
-            MiniTrailspace.trim_last_lines()
-        end,
-        "Clean [t]railing whitespace"
-    )
+    nmap('<M-t>', function()
+        MiniTrailspace.trim()
+        MiniTrailspace.trim_last_lines()
+    end, 'Clean [t]railing whitespace')
 end)
 
 Load.later(function()
-    do return end
+    do
+        return
+    end
     local MiniPick = require('mini.pick')
     local send_to_qflist = function()
         local mappings = MiniPick.get_picker_opts().mappings
@@ -356,7 +351,7 @@ Load.later(function()
             width = width,
             row = math.floor(0.5 * (vim.o.lines - height)),
             col = math.floor(0.5 * (vim.o.columns - width)),
-            border = "rounded",
+            border = 'rounded',
         }
     end
 
@@ -368,47 +363,41 @@ Load.later(function()
         },
 
         mappings = {
-            refine = "<C-Space>",
-            refine_marked = "<M-q>",
+            refine = '<C-Space>',
+            refine_marked = '<M-q>',
             send_to_qflist = { char = '<C-q>', func = send_to_qflist },
         },
 
         window = {
-            config = center_window
+            config = center_window,
         },
     })
 
     vim.ui.select = MiniPick.ui_select
 
-    nmap("<leader>?", MiniExtra.pickers.keymaps, "Search keymaps")
-    nmap("<leader>b", MiniPick.builtin.buffers, "Pick buffers")
-    nmap("<leader>'", MiniPick.builtin.resume, "Pick resume")
-    nmap(
-        "<leader>fc",
-        function() MiniExtra.pickers.buf_lines { scope = "current" } end,
-        "Pick current buffer lines"
-    )
-    nmap("<leader>ff", function() MiniPick.builtin.files({ tool = 'rg' }) end, "Pick files")
-    nmap("<leader>fg", MiniExtra.pickers.git_files, "git files")
-    nmap("<leader>fh", MiniPick.builtin.help, "help")
-    nmap("<leader>'", MiniPick.builtin.resume, "Resume latest picker")
-    nmap("<leader>fs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, "LSP document symbols")
-    nmap(
-        "<leader>fw",
-        function() MiniExtra.pickers.lsp({ scope = "workspace_symbol" }) end,
-        "LSP workspace symbols"
-    )
-    nmap("<leader>/", MiniPick.builtin.grep_live, "Global search with grep")
-    nmap("gr", function() MiniExtra.pickers.lsp({ scope = "references" }) end, "Goto references")
-    nmap("gi", function() MiniExtra.pickers.lsp({ scope = "implementation" }) end, "Goto implementations")
-    nmap("gd", function() MiniExtra.pickers.lsp({ scope = "definition" }) end, "Goto definitions")
-    nmap("<leader>gw", function() MiniExtra.pickers.git_branches({ scope = 'local' }) end, "git worktrees")
+    nmap('<leader>?', MiniExtra.pickers.keymaps, 'Search keymaps')
+    nmap('<leader>b', MiniPick.builtin.buffers, 'Pick buffers')
+    nmap("<leader>'", MiniPick.builtin.resume, 'Pick resume')
+    nmap('<leader>fc', function() MiniExtra.pickers.buf_lines({ scope = 'current' }) end, 'Pick current buffer lines')
+    nmap('<leader>ff', function() MiniPick.builtin.files({ tool = 'rg' }) end, 'Pick files')
+    nmap('<leader>fg', MiniExtra.pickers.git_files, 'git files')
+    nmap('<leader>fh', MiniPick.builtin.help, 'help')
+    nmap("<leader>'", MiniPick.builtin.resume, 'Resume latest picker')
+    nmap('<leader>fs', function() MiniExtra.pickers.lsp({ scope = 'document_symbol' }) end, 'LSP document symbols')
+    nmap('<leader>fw', function() MiniExtra.pickers.lsp({ scope = 'workspace_symbol' }) end, 'LSP workspace symbols')
+    nmap('<leader>/', MiniPick.builtin.grep_live, 'Global search with grep')
+    nmap('gr', function() MiniExtra.pickers.lsp({ scope = 'references' }) end, 'Goto references')
+    nmap('gi', function() MiniExtra.pickers.lsp({ scope = 'implementation' }) end, 'Goto implementations')
+    nmap('gd', function() MiniExtra.pickers.lsp({ scope = 'definition' }) end, 'Goto definitions')
+    nmap('<leader>gw', function() MiniExtra.pickers.git_branches({ scope = 'local' }) end, 'git worktrees')
 end)
 
 Load.later(function()
-    do return end
+    do
+        return
+    end
     local MiniClue = require('mini.clue')
-    MiniClue.setup {
+    MiniClue.setup({
         window = {
             config = { anchor = 'SE', row = 'auto', col = 'auto', width = 'auto' },
             delay = vim.o.timeoutlen,
@@ -464,7 +453,7 @@ Load.later(function()
             MiniClue.gen_clues.windows(),
             MiniClue.gen_clues.z(),
         },
-    }
+    })
 end)
 
 Load.now(function()
@@ -472,10 +461,10 @@ Load.now(function()
     local section_macro_recording = function()
         local recording_register = vim.fn.reg_recording()
 
-        if recording_register == "" then
-            return ""
+        if recording_register == '' then
+            return ''
         else
-            return ("rec @%s"):format(recording_register)
+            return ('rec @%s'):format(recording_register)
         end
     end
 
@@ -521,7 +510,11 @@ Load.now(function()
 
         -- Construct output string with extra file info
         local encoding = vim.bo.fileencoding or vim.bo.encoding
-        if encoding == 'utf-8' then encoding = '' else encoding = ('[%s]'):format(encoding) end
+        if encoding == 'utf-8' then
+            encoding = ''
+        else
+            encoding = ('[%s]'):format(encoding)
+        end
 
         local format = vim.bo.fileformat
         local format_icon = ''
@@ -536,38 +529,37 @@ Load.now(function()
         return ('%s %s%s %s'):format(filetype, format_icon, encoding, size)
     end
 
-
     MiniStatusline.setup({
         content = {
             active = function()
                 local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
-                local git           = MiniStatusline.section_git({ trunc_width = 75 })
-                local diff          = MiniStatusline.section_diff({ trunc_width = 75 })
-                local errors        = diagnostic_level(vim.diagnostic.severity.ERROR) -- alternative symbol "⬤ "
-                local warnings      = diagnostic_level(vim.diagnostic.severity.WARN)  -- alternative symbol ""
-                local info          = diagnostic_level(vim.diagnostic.severity.INFO)
-                local hints         = diagnostic_level(vim.diagnostic.severity.HINT)
-                local macro         = section_macro_recording()
-                local filename      = MiniStatusline.section_filename({ trunc_width = 140 })
-                local searchcount   = MiniStatusline.section_searchcount({ trunc_width = 75 })
-                local fileinfo      = section_fileinfo({ trunc_width = 120 })
-                local location      = MiniStatusline.section_location({ trunc_width = 75 })
+                local git = MiniStatusline.section_git({ trunc_width = 75 })
+                local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+                local errors = diagnostic_level(vim.diagnostic.severity.ERROR) -- alternative symbol "⬤ "
+                local warnings = diagnostic_level(vim.diagnostic.severity.WARN) -- alternative symbol ""
+                local info = diagnostic_level(vim.diagnostic.severity.INFO)
+                local hints = diagnostic_level(vim.diagnostic.severity.HINT)
+                local macro = section_macro_recording()
+                local filename = MiniStatusline.section_filename({ trunc_width = 140 })
+                local searchcount = MiniStatusline.section_searchcount({ trunc_width = 75 })
+                local fileinfo = section_fileinfo({ trunc_width = 120 })
+                local location = MiniStatusline.section_location({ trunc_width = 75 })
                 -- local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
 
                 return MiniStatusline.combine_groups({
-                    { hl = mode_hl,                 strings = { mode } },
+                    { hl = mode_hl, strings = { mode } },
                     { hl = 'MiniStatuslineDevinfo', strings = { git, diff } },
                     '%<', -- Mark general truncate point
                     { hl = 'MiniStatuslineFilename', strings = { filename } },
-                    { hl = 'DiagnosticError',        strings = { errors } },
-                    { hl = 'DiagnosticWarn',         strings = { warnings } },
-                    { hl = 'DiagnosticHint',         strings = { hints } },
-                    { hl = 'DiagnosticInfo',         strings = { info } },
+                    { hl = 'DiagnosticError', strings = { errors } },
+                    { hl = 'DiagnosticWarn', strings = { warnings } },
+                    { hl = 'DiagnosticHint', strings = { hints } },
+                    { hl = 'DiagnosticInfo', strings = { info } },
                     '%=', -- End left alignment
                     --
                     { hl = 'MiniStatuslineFilename', strings = { macro, searchcount } },
                     { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-                    { hl = mode_hl,                  strings = { location } },
+                    { hl = mode_hl, strings = { location } },
                 })
             end,
         },

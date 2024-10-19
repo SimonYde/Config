@@ -9,7 +9,10 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ lua-language-server ];
+    home.packages = with pkgs; [
+      stylua
+      lua-language-server
+    ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (p: [

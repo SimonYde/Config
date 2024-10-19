@@ -2,25 +2,16 @@ Load.later(function()
     local nmap = Keymap.nmap
     local conform = require('conform')
     conform.setup({
-        -- format_on_save = { -- These options will be passed to conform.format()
-        --     timeout_ms = 500,
-        --     lsp_fallback = true,
-        -- },
         formatters_by_ft = {
-            typst = { "typstyle" },
-            nix = { "nixfmt", "alejandra", "nixpkgs_fmt" },
-        },
-
-        formatters = {
-            typstyle = {
-                command = "typstyle",
-            },
+            typst = { 'typstyle' },
+            lua = { 'stylua' },
+            nix = { 'nixfmt', 'alejandra', 'nixpkgs_fmt' },
         },
     })
 
     nmap(
-        "<leader>=",
+        '<leader>=',
         function() conform.format({ stop_after_first = true, lsp_fallback = true }) end,
-        "Format with conform"
+        'Format with conform'
     )
 end)
