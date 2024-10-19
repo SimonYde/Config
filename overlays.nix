@@ -6,7 +6,6 @@
       overlays = [
         inputs.nur.overlay
         # inputs.helix.overlays.default
-        inputs.nix-ld-rs.overlays.default
         inputs.neovim-nightly.overlays.default
         inputs.rustaceanvim.overlays.default
 

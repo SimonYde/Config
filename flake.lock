@@ -1518,32 +1518,6 @@
         "type": "github"
       }
     },
-    "nix-ld-rs": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1723871880,
-        "narHash": "sha256-HKHx2tDZEcKTKKkhyIDRifJW7a4bxOsWlvIVI1qm+ng=",
-        "owner": "nix-community",
-        "repo": "nix-ld-rs",
-        "rev": "8af5fc9add315c251edea8f659b56fc7836a163f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nix-ld-rs",
-        "type": "github"
-      }
-    },
     "nixos-cosmic": {
       "inputs": {
         "flake-compat": [
@@ -1997,7 +1971,6 @@
         "neovim-nightly": "neovim-nightly",
         "nix-colors": "nix-colors",
         "nix-index-database": "nix-index-database",
-        "nix-ld-rs": "nix-ld-rs",
         "nixos-cosmic": "nixos-cosmic",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
