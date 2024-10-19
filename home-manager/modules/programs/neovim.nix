@@ -141,9 +141,6 @@ in
           }
           dofile(Config.path_source .. 'init.lua')
         '';
-      extraPackages = with pkgs; [
-        (mkIf (builtins.elem vimPlugins.copilot-lua cfg.plugins) nodejs-slim_20)
-      ];
     };
   };
 }

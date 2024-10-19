@@ -6,10 +6,7 @@ Load.later(function()
     require('luasnip.loaders.from_vscode').lazy_load() -- load friendly-snippets into luasnip
     luasnip.config.setup()
 
-    Load.now(function() require('codeium').setup() end)
-
     local menu_icon = {
-        codeium = '[AI]',
         nvim_lsp = '[LSP]',
         path = '[path]',
         luasnip = '[snip]',
@@ -20,7 +17,6 @@ Load.later(function()
     cmp.setup({
         sources = {
             { name = "git" },
-            { name = "codeium" },
             { name = "nvim_lsp" },
             { name = "path" },
             { name = "luasnip" },

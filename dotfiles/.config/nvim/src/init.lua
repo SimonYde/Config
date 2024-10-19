@@ -226,19 +226,6 @@ Load.later(function()
 end)
 
 Load.later(function()
-    require('copilot').setup {
-        suggestion = {
-            keymap = {
-                accept = "<M-l>",
-                next = "<M-j>",
-                prev = "<M-k>",
-            },
-            auto_trigger = false,
-        },
-    }
-end)
-
-Load.later(function()
     require('lsp_signature').setup({
         doc_lines = 0,
         hint_enable = false,
