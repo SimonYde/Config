@@ -23,17 +23,17 @@ Load.later(function()
         lspconfig[LSP.name].setup(config)
     end
 
-    setup_lsp {
+    setup_lsp({
         name = "elmls",
         cmd = "elm-language-server",
-    }
+    })
 
-    setup_lsp {
+    setup_lsp({
         name = "metals",
         filetypes = { "java", "scala", "sbt" },
-    }
+    })
 
-    setup_lsp {
+    setup_lsp({
         name = "pylsp",
         settings = {
             pylsp = {
@@ -44,53 +44,51 @@ Load.later(function()
                 },
             },
         },
-    }
+    })
 
-    setup_lsp {
+    setup_lsp({
         name = "bashls",
         cmd = "bash-language-server",
         filetypes = { "bash", "sh" },
-    }
+    })
 
-    setup_lsp {
-        name = "ruby_ls",
-        cmd = "ruby-lsp",
-    }
+    setup_lsp({ name = "clangd" })
+    setup_lsp({ name = "gleam" })
+    setup_lsp({ name = "nixd" })
+    setup_lsp({ name = "gopls" })
+    setup_lsp({ name = "ocamllsp" })
 
-    setup_lsp {
-        name = "gleam",
-    }
-
-    setup_lsp {
-        name = "gopls",
-    }
-
-    setup_lsp {
-        name = "ocamllsp",
-    }
-
-    setup_lsp {
+    setup_lsp({
         name = "lua_ls",
         cmd = "lua-language-server",
         settings = {
             Lua = {
-                runtime = { version = "LuaJIT" },
+                runtime = {
+                    version = "LuaJIT",
+                },
+                diagnostics = {
+                    globals = { 'vim', 'describe', 'it', 'before_each', 'after_each' },
+                    -- Don't make workspace diagnostic, as it consumes too much CPU and RAM
+                    workspaceDelay = -1,
+                },
                 workspace = {
                     checkThirdParty = false,
                     library = {
-                        '${3rd}/luv/library',
                         vim.env.VIMRUNTIME,
+                        -- '${3rd}/luv/library',
                     },
+                    -- Don't analyze code from submodules
+                    ignoreSubmodules = true,
                 },
                 telemetry = { enable = false },
-                completion = {
-                    callSnippet = 'Replace',
-                },
+                -- completion = {
+                --     callSnippet = 'Replace',
+                -- },
             }
         }
-    }
+    })
 
-    setup_lsp {
+    setup_lsp({
         name = "texlab",
         settings = {
             texlab = {
@@ -117,18 +115,14 @@ Load.later(function()
                 },
             },
         },
-    }
+    })
 
-    setup_lsp {
+    setup_lsp({
         name = "nil_ls",
         cmd = "nil",
-    }
+    })
 
-    setup_lsp {
-        name = "nixd",
-    }
-
-    setup_lsp {
+    setup_lsp({
         name = "typst_lsp",
         cmd = "typst-lsp",
         settings = {
@@ -168,7 +162,7 @@ Load.later(function()
                 "Pin main file to current, run typst [w]atch"
             )
         end
-    }
+    })
 
     setup_lsp({
         name = "tinymist",
@@ -202,8 +196,7 @@ Load.later(function()
         end
     })
 
-
-    setup_lsp {
+    setup_lsp({
         name = "ltex",
         cmd = "ltex-ls",
         settings = {
@@ -227,11 +220,8 @@ Load.later(function()
             "tex",
             "markdown",
         }
-    }
-
-    setup_lsp({
-        name = "clangd",
     })
+
 
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)

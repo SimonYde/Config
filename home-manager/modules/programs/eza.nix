@@ -1,6 +1,6 @@
 { ... }:
 {
   programs.eza = {
-    icons = true;
+    icons = "auto";
   };
 }

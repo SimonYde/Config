@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -10,9 +9,7 @@
     home.packages = with pkgs; [
       # nil
       nixd
-      # nixpkgs-fmt
       nixfmt-rfc-style
-      # alejandra
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [

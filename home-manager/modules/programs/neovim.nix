@@ -35,7 +35,6 @@ in
           # -----Completion-----
           nvim-cmp
           cmp-git
-          cmp-nvim-lua
           cmp-nvim-lsp
           cmp-cmdline
           cmp-path
@@ -65,7 +64,40 @@ in
           # -----UI-----
           which-key-nvim
           todo-comments-nvim
-          nvim-treesitter.withAllGrammars
+          # nvim-treesitter.withAllGrammars
+          (nvim-treesitter.withPlugins (p: [
+            p.bash
+            p.hyprlang
+            p.kdl
+
+            p.vim
+            p.vimdoc
+            p.query
+            p.markdown
+            p.markdown-inline
+
+            p.csv
+            p.ini
+            p.json
+            p.jsonc
+            p.jq
+            p.yaml
+            p.toml
+
+            p.git_config
+            p.git_rebase
+            p.gitattributes
+            p.gitcommit
+            p.gitignore
+
+            p.just
+            p.make
+
+            p.html
+            p.css
+            p.scss
+            p.javascript
+          ]))
         ]
         ++ mapLazy [
           luasnip

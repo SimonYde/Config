@@ -7,7 +7,7 @@ local add_transparency = function()
                 general = true,
                 statuscolumn = true,
                 statusline = true,
-                tabline = false,
+                tabline = true,
                 winbar = false,
             })
             :apply()

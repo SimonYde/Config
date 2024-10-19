@@ -27,7 +27,7 @@ Load.later(function()
         function()
             vim.cmd("Trouble diagnostics toggle")
         end,
-        "Toggle [t]rouble [d]iagnostics"
+        "Toggle trouble diagnostics"
     )
 end)
 
@@ -68,7 +68,7 @@ Load.later(function()
     Load.packadd('diffview.nvim')
     local diffview = require('diffview')
     diffview.setup()
-    nmap("<leader>gd", function() diffview.open() end, "git [d]iffview")
+    nmap("<leader>gd", function() diffview.open() end, "git diffview")
 end)
 
 Load.later(function()
@@ -80,45 +80,15 @@ Load.later(function()
             mini_pick = true,
         },
     })
-    nmap("<leader>gs", function() neogit.open() end, "Neogit [s]tatus")
-    nmap("<leader>gw", function() neogit.open({ "worktree" }) end, "Neogit [w]orktree")
-    nmap("<leader>gc", function() neogit.open({ "commit" }) end, "Neogit [c]ommit")
+    nmap("<leader>gs", function() neogit.open() end, "Neogit status")
+    nmap("<leader>gw", function() neogit.open({ "worktree" }) end, "Neogit worktree")
+    nmap("<leader>gc", function() neogit.open({ "commit" }) end, "Neogit commit")
 end)
 
 Load.later(function()
     local telescope = require('telescope')
-    -- Clone the default Telescope configuration
-    local vimgrep_arguments = { unpack(require("telescope.config").values.vimgrep_arguments) }
-
-    table.insert(vimgrep_arguments, "--hidden")   -- I want to search in hidden/dot files.
-    table.insert(vimgrep_arguments, "--glob")
-    table.insert(vimgrep_arguments, "!**/.git/*") -- I don't want to search in the `.git` directory.
-
     local actions = require("telescope.actions")
     local themes = require("telescope.themes")
-
-    local previewers = require("telescope.previewers")
-    local putils = require("telescope.previewers.utils")
-    local pfiletype = require("plenary.filetype")
-
-    local new_maker = function(filepath, bufnr, opts)
-        opts = opts or {}
-        if opts.use_ft_detect == nil then
-            local ft = pfiletype.detect(filepath)
-            -- Here for example you can say: if ft == "xyz" then this_regex_highlighing else nothing end
-            if ft == "sh" or ft == "text" then
-                putils.regex_highlighter(bufnr, ft)
-                opts.use_ft_detect = false
-            end
-        end
-        previewers.buffer_previewer_maker(filepath, bufnr, opts)
-    end
-
-    require("telescope").setup {
-        defaults = {
-            buffer_previewer_maker = new_maker,
-        }
-    }
 
     vim.g.telescope_preview = {
         show_line = false,
@@ -167,14 +137,12 @@ Load.later(function()
             },
         },
         defaults = {
-            buffer_previewer_maker = new_maker,
             mappings = {
                 i = {
                     ["<C-s>"] = actions.select_horizontal,
                 },
             },
             -- `hidden = true` is not supported in text grep commands.
-            vimgrep_arguments = vimgrep_arguments,
             file_ignore_patterns = {
                 "__pycache__",
                 "target",
@@ -205,12 +173,12 @@ Load.later(function()
 
     Load.now(function()
         telescope.load_extension('projects')
-        nmap("<leader>fp", function() telescope.extensions.projects.projects() end, "Find [p]rojects")
+        nmap("<leader>fp", function() telescope.extensions.projects.projects() end, "Find projects")
     end)
     Load.now(function() telescope.load_extension('fzf') end)
     Load.now(function()
         telescope.load_extension('git_worktree')
-        nmap("<leader>gw", function() telescope.extensions.git_worktree.git_worktrees() end, "git [w]orktrees")
+        nmap("<leader>gw", function() telescope.extensions.git_worktree.git_worktrees() end, "git worktrees")
     end)
     Load.now(function() telescope.load_extension('ui-select') end)
 
@@ -218,24 +186,25 @@ Load.later(function()
     local preview = vim.g.telescope_preview
     local no_preview = vim.g.telescope_no_preview
     nmap("<leader>?", builtin.keymaps, "Search keymaps")
-    nmap("<leader>b", function() builtin.buffers(preview) end, "[b]uffers")
-    nmap("<leader>fc", function() builtin.current_buffer_fuzzy_find(no_preview) end, "fuzzy [c]urrent buffer search")
-    nmap("<leader>ff", function() builtin.find_files(preview) end, "find [f]iles")
-    nmap("<leader>fh", function() builtin.help_tags(preview) end, "fuzzy search [h]elp tags")
-    nmap("<leader>fg", function() builtin.live_grep(preview) end, "file search with [g]rep")
-    nmap("<leader>fb", function() builtin.builtin(preview) end, "See [b]uiltin telescope pickers")
-    nmap("<leader>fs", function() builtin.lsp_document_symbols(preview) end, "LSP document [s]ymbols")
-    nmap("<leader>fw", function() builtin.lsp_dynamic_workspace_symbols(preview) end, "LSP workspace [s]ymbols")
+    nmap("<leader>b", function() builtin.buffers(preview) end, "buffers")
+    nmap("<leader>fc", function() builtin.current_buffer_fuzzy_find(no_preview) end, "current buffer lines")
+    nmap("<leader>ff", function() builtin.find_files(preview) end, "Files")
+    nmap("<leader>fh", function() builtin.help_tags(preview) end, "Help tags")
+    nmap("<leader>fg", function() builtin.git_files(preview) end, "Git files")
+    nmap("<leader>fb", function() builtin.builtin(preview) end, "Builtin telescope pickers")
+    nmap("<leader>fs", function() builtin.lsp_document_symbols(preview) end, "LSP document symbols")
+    nmap("<leader>fw", function() builtin.lsp_dynamic_workspace_symbols(preview) end, "LSP workspace symbols")
     nmap("<leader>/", function() builtin.live_grep(preview) end, "Global search with grep")
     nmap("<leader>'", function() builtin.resume() end, "Resume last picker")
-    nmap("gr", function() builtin.lsp_references(preview) end, "Goto [r]eferences (telescope)")
-    nmap("gi", function() builtin.lsp_implementations(preview) end, "Goto [i]mplementations (telescope)")
-    nmap("gd", function() builtin.lsp_definitions(preview) end, "Goto [d]efinitions (telescope)")
+    nmap("gr", function() builtin.lsp_references(preview) end, "Goto references (telescope)")
+    nmap("gi", function() builtin.lsp_implementations(preview) end, "Goto implementations (telescope)")
+    nmap("gd", function() builtin.lsp_definitions(preview) end, "Goto definitions (telescope)")
 end)
 
 Load.later(function()
     local whichkey = require('which-key')
     whichkey.setup {
+        preset = "classic",
         disable = {
             buftypes = { "nofile", "prompt", "quickfix", "terminal" }, -- nofile is for `cmdwin`. see `:h cmdwin`
         },
@@ -278,10 +247,6 @@ Load.later(function()
             border = "none"
         },
     })
-end)
-
-Load.later(function()
-    require('neodev').setup()
 end)
 
 Load.later(function()
@@ -344,18 +309,18 @@ Load.later(function()
         dapui.close()
     end
 
-    nmap("<leader>db", dap.toggle_breakpoint, "toggle [b]reakpoint")
-    nmap("<leader>dc", dap.continue, "[c]ontinue")
-    nmap("<leader>di", dap.step_into, "step [i]nto")
-    nmap("<leader>do", dap.step_over, "step [o]ver")
-    nmap("<leader>dO", dap.step_out, "step [O]ut")
-    nmap("<leader>dr", dap.repl.open, "open [r]epl")
-    nmap("<leader>dl", dap.run_last, "run [l]ast")
-    nmap("<leader>dh", widgets.hover, "show [h]over")
-    nmap("<leader>dp", widgets.preview, "show [p]review")
-    nmap("<leader>df", function() widgets.centered_float(widgets.frames) end, "[f]rames")
-    nmap("<leader>ds", function() widgets.centered_float(widgets.scopes) end, "[s]copes")
-    nmap("<leader>du", dapui.toggle, "toggle [u]i")
+    nmap("<leader>db", dap.toggle_breakpoint, "toggle breakpoint")
+    nmap("<leader>dc", dap.continue, "continue")
+    nmap("<leader>di", dap.step_into, "step into")
+    nmap("<leader>do", dap.step_over, "step over")
+    nmap("<leader>dO", dap.step_out, "step Out")
+    nmap("<leader>dr", dap.repl.open, "open repl")
+    nmap("<leader>dl", dap.run_last, "run last")
+    nmap("<leader>dh", widgets.hover, "show hover")
+    nmap("<leader>dp", widgets.preview, "show preview")
+    nmap("<leader>df", function() widgets.centered_float(widgets.frames) end, "frames")
+    nmap("<leader>ds", function() widgets.centered_float(widgets.scopes) end, "scopes")
+    nmap("<leader>du", dapui.toggle, "toggle ui")
 end)
 
 Load.later(function()
@@ -409,7 +374,7 @@ Load.later(function()
     }
 
     nmap("<leader>oo", vim.cmd.ObsidianOpen, "Open current file in Obsidian")
-    nmap("<leader>od", vim.cmd.ObsidianDailies, "Open [d]aily note search")
+    nmap("<leader>od", vim.cmd.ObsidianDailies, "Open daily note search")
     nmap("<leader>on", vim.cmd.ObsidianTemplate, "Insert Obsidian template")
     nmap("<leader>ot", vim.cmd.ObsidianTags, "Open tag list")
     imap("<C-l>", vim.cmd.ObsidianToggleCheckbox, "Toggle markdown checkbox")

@@ -18,6 +18,13 @@ in
     programs.neovim.plugins = with pkgs.vimPlugins; [
       (nvim-treesitter.withPlugins (p: [
         p.go
+        p.gomod
+        p.gosum
+        p.gowork
+
+        # Other
+        p.goctl
+        p.gotmpl
       ]))
       nvim-dap-go # debugging support
     ];

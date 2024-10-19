@@ -16,10 +16,18 @@ in
       ocaml
     ];
 
+    programs.neovim.plugins = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (p: [
+        p.ocaml
+        p.commonlisp
+        p.ocaml-interface
+      ]))
+    ];
+
     programs.opam.enable = true;
   };
 
   options.syde.programming.ocaml = {
-    enable = mkEnableOption "Ocaml development";
+    enable = mkEnableOption "OCaml development";
   };
 }
