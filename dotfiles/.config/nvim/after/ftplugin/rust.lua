@@ -1,7 +1,6 @@
 vim.g.rustaceanvim = {
     -- Plugin configuration
-    tools = {
-    },
+    tools = {},
     -- LSP configuration
     server = {
         default_settings = {
@@ -19,21 +18,14 @@ vim.g.rustaceanvim = {
         },
     },
     -- DAP configuration
-    dap = {
-    },
+    dap = {},
 }
 
 local buffer = vim.api.nvim_get_current_buf()
-local nmap = function(keys, cmd, desc)
-    Keymap.nmap(keys, cmd, desc, { buffer = buffer, silent = true })
-end
+local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = buffer, silent = true }) end
 
-nmap(
-    "<leader>la",
-    function()
-        vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
-    end,
-    "RustLsp Code Action"
-)
+nmap('<leader>la', function()
+    vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping
+end, 'RustLsp Code Action')
 
 --  https://github.com/mrcjkb/rustaceanvim for more configuration

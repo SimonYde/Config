@@ -1,12 +1,12 @@
 Load.later(function()
     vim.o.foldtext = '' -- Use underlying text with its highlighting
     vim.o.foldnestmax = 10
-    vim.opt.foldmethod = "expr"
-    vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    vim.opt.foldlevel = 1        -- Display all folds except top ones
+    vim.opt.foldmethod = 'expr'
+    vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.opt.foldlevel = 1 -- Display all folds except top ones
     vim.opt.foldenable = true
 
-    vim.treesitter.language.register("bash", "sh")
+    vim.treesitter.language.register('bash', 'sh')
 
     local treesitter_opts = {
         auto_install = false,
@@ -18,15 +18,15 @@ Load.later(function()
             additional_vim_regex_highlighting = false,
         },
         indent = {
-            enable = true
+            enable = true,
         },
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = "<M-w>",     -- maps in normal mode to init the node/scope selection
-                node_incremental = "<M-w>",   -- increment to the upper named parent
-                node_decremental = "<M-C-w>", -- decrement to the previous node
-                scope_incremental = "<M-s>",  -- increment to the upper scope (as defined in locals.scm)
+                init_selection = '<M-w>', -- maps in normal mode to init the node/scope selection
+                node_incremental = '<M-w>', -- increment to the upper named parent
+                node_decremental = '<M-C-w>', -- decrement to the previous node
+                scope_incremental = '<M-s>', -- increment to the upper scope (as defined in locals.scm)
             },
         },
     }
@@ -50,9 +50,9 @@ Load.later(function()
     Load.now(function()
         Load.packadd('nvim-treesitter-context')
         local context = require('treesitter-context')
-        context.setup {}
+        context.setup({})
         local nmap = Keymap.nmap
 
-        nmap("<leader><leader>t", context.toggle, "toggle [t]reesitter context")
+        nmap('<leader><leader>t', context.toggle, 'toggle [t]reesitter context')
     end)
 end)

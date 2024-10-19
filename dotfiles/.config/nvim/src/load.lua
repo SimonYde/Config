@@ -45,25 +45,22 @@ M.once = function(func_to_load)
     end
 end
 
-local defer_group = vim.api.nvim_create_augroup("DeferFunction", {})
+local defer_group = vim.api.nvim_create_augroup('DeferFunction', {})
 
 M.on_events = function(cb, events, pattern)
     local opts = {
         group = defer_group,
-        desc = "DeferFunction",
+        desc = 'DeferFunction',
         once = true,
         callback = function(ev) Load.now(cb, ev) end,
     }
-    if pattern then opts["pattern"] = pattern end
+    if pattern then opts['pattern'] = pattern end
     vim.api.nvim_create_autocmd(events, opts)
 end
 
 M.packadd = function(package_name)
-    Load.now(function()
-        vim.cmd("packadd " .. package_name)
-    end)
+    Load.now(function() vim.cmd('packadd ' .. package_name) end)
 end
-
 
 -- Two-stage execution --------------------------------------------------------
 H.schedule_finish = function()
@@ -98,9 +95,7 @@ H.report_errors = function()
 end
 
 H.notify = vim.schedule_wrap(function(msg, level)
-    if not DEBUG then
-        return
-    end
+    if not DEBUG then return end
     level = level or 'INFO'
     if type(msg) == 'table' then msg = table.concat(msg, '\n') end
     vim.notify(string.format('(mini.deps) %s', msg), vim.log.levels[level])
