@@ -127,6 +127,8 @@ Load.later(function()
     })
 end)
 
+Load.later(function () require('mini.tabline').setup() end)
+
 Load.later(function() require('mini.extra').setup() end)
 
 Load.later(function()
@@ -387,10 +389,9 @@ Load.later(function()
         "Pick current buffer lines"
     )
     nmap("<leader>ff", function() MiniPick.builtin.files({ tool = 'rg' }) end, "Pick files")
-    nmap("<leader>F", MiniExtra.pickers.git_files, "Pick git Files")
-    nmap("<leader>fh", MiniPick.builtin.help, "Pick help")
+    nmap("<leader>fg", MiniExtra.pickers.git_files, "git files")
+    nmap("<leader>fh", MiniPick.builtin.help, "help")
     nmap("<leader>'", MiniPick.builtin.resume, "Resume latest picker")
-    nmap("<leader>fg", MiniPick.builtin.grep_live, "Pick grep")
     nmap("<leader>fs", function() MiniExtra.pickers.lsp({ scope = "document_symbol" }) end, "LSP document symbols")
     nmap(
         "<leader>fw",

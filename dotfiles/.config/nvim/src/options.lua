@@ -29,7 +29,7 @@ vim.g.mapleader = " "
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.mouse = 'a'
-vim.o.mousescroll = 'ver:25,hor:6'
+vim.o.mousescroll = 'ver:6,hor:6'
 vim.o.switchbuf = 'usetab'
 vim.o.undodir = vim.fn.stdpath('state') .. "/undodir"
 vim.o.undofile = true
@@ -127,13 +127,6 @@ vim.o.spelllang = 'en'
 vim.o.spelloptions = 'camel'      -- Treat parts of camelCase words as seprate words
 vim.opt.complete:append('kspell') -- Add spellcheck options for autocomplete
 vim.opt.complete:remove('t')      -- Don't use tags for completion
-
--- Folds ======================================================================
--- vim.o.foldmethod  = 'indent' -- Set 'indent' folding method
--- vim.o.foldlevel   = 1        -- Display all folds except top ones
--- vim.o.foldnestmax = 10       -- Create folds only for some number of nested levels
--- vim.g.markdown_folding = 1   -- Use folding by heading in markdown files
-vim.o.foldtext = '' -- Use underlying text with its highlighting
 
 -- Custom autocommands ========================================================
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

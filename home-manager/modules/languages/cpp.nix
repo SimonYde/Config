@@ -11,11 +11,15 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       libgcc
-      clang
       clang-tools
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [  ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (p: [
+        p.cpp
+        p.c
+      ]))
+    ];
   };
 
   options.syde.programming.cpp = {

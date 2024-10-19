@@ -18,7 +18,7 @@ in
 
     syde.programming = {
       bash.enable   = true;
-      cpp.enable    = false;
+      cpp.enable    = true;
       gleam.enable  = true;
       go.enable     = true;
       java.enable   = false;

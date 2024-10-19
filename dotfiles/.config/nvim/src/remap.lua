@@ -98,6 +98,7 @@ nmap(
     end,
     "Toggle [u]ndo tree"
 )
+nmap("<leader><leader>f", function () vim.opt.foldenable = not vim.opt.foldenable end, "Toggle fold")
 
 -- COLEMAK Remaps
 -- NOTE: is reversed because the function below toggles the value, in order to
@@ -156,7 +157,7 @@ Colemak_toggle = function()
 end
 Colemak_toggle()
 
-nmap("<leader><leader>q", function()
+nmap("<leader><leader>k", function()
     Colemak_toggle()
     print("COLEMAK", COLEMAK)
-end, "Toggle COLEMAK")
+end, "Toggle keymap")
