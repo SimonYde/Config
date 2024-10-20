@@ -13,7 +13,6 @@ in
       typst
       tinymist
       # typst-lsp
-      typstfmt
       typstyle
       polylux2pdfpc # Converting slides into `.pdfpc` file with speaker notes
     ];

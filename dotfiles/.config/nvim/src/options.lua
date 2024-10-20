@@ -31,7 +31,6 @@ vim.o.writebackup = false
 vim.o.mouse = 'a'
 vim.o.mousescroll = 'ver:6,hor:6'
 vim.o.switchbuf = 'usetab'
-vim.o.undodir = vim.fn.stdpath('state') .. '/undodir'
 vim.o.undofile = true
 vim.o.swapfile = false
 
@@ -107,6 +106,11 @@ vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
 vim.opt.completeopt = 'menuone,noselect'
+
+vim.opt.wildmode = 'list:longest'
+-- when opening a file with a command (like :e),
+-- don't suggest files like there:
+vim.opt.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
 
 if vim.fn.has('nvim-0.11') then vim.opt.completeopt:append('fuzzy') end
 
