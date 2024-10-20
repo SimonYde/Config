@@ -31,7 +31,7 @@ in
       hyprpicker # color picker
     ];
 
-    home.sessionVariables.NIXOS_OZONE_WL = 0;
+    # home.sessionVariables.NIXOS_OZONE_WL = 1;
 
     programs = {
       imv.enable = true;
