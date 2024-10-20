@@ -31,30 +31,26 @@ in
       enableBashIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
-      changeDirWidgetCommand = "${fd} --type directory";
-      fileWidgetCommand = "${fd} --type file";
-      defaultCommand = "${fd} --type file";
+      changeDirWidgetCommand = "${fd} -H --type directory";
+      fileWidgetCommand = "${fd} -H --type file";
+      defaultCommand = "${fd} -H --type file";
       defaultOptions = with config.syde.theming.palette-hex; [
         "--multi"
         "--tabstop=4"
         "--color=${
           builtins.concatStringsSep "," [
-            "dark"
-            "border:${base04}"
-            "current:${base05}"
-            "current_bg:${base03}"
-            "current_match:${base00}"
-            "current_match_bg:${base06}"
-            "cursor:${base08}"
-            "fg:${base05}"
-            "bg:none"
-            "header:${base0C}"
-            "info:${base0E}"
-            "matched:${base02}"
-            "matched_bg:${base0F}"
-            "prompt:${base0D}"
-            "selected:${base07}"
-            "spinner:${base0B}"
+            "bg:${base00}"
+            "bg+:${base01}"
+            "fg:${base04}"
+            "fg+:${base06}"
+            "header:${base0D}"
+            "hl:${base0D}"
+            "hl+:${base0D}"
+            "info:${base0A}"
+            "marker:${base0C}"
+            "pointer:${base0C}"
+            "prompt:${base0A}"
+            "spinner:${base0C}"
           ]
         }"
       ];

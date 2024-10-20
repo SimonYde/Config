@@ -28,9 +28,9 @@ in
       enableBashIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
-      changeDirWidgetCommand = "${fd} --type directory";
-      fileWidgetCommand = "${fd} --type file";
-      defaultCommand = "${fd} --type file";
+      changeDirWidgetCommand = "${fd} -H --type directory";
+      fileWidgetCommand = "${fd} -H --type file";
+      defaultCommand = "${fd} -H --type file";
       colors =
         with config.syde.theming.palette-hex;
         lib.mkDefault {
