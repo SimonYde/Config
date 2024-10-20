@@ -18,8 +18,6 @@ let
   nix-colors = inputs.nix-colors;
   colorScheme = config.colorScheme;
   hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString ",";
-  nix-colors-lib = nix-colors.lib.contrib { inherit pkgs; };
-  nix-colors-gtk = nix-colors-lib.gtkThemeFromScheme { scheme = colorScheme; };
   slug = colorScheme.slug;
 
   cfg = config.syde.theming;
@@ -27,14 +25,43 @@ in
 {
   imports = [
     nix-colors.homeManagerModules.default
-    ./qt.nix
-    ./gtk.nix
     ./stylix.nix
   ];
 
   config = mkIf cfg.enable {
     gtk.enable = true;
-    qt.enable = true;
+    gtk = {
+      gtk2 = {
+        configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+      };
+      iconTheme = {
+        name = if cfg.prefer-dark then "Papirus-Dark" else "Papirus";
+        package = pkgs.papirus-icon-theme;
+      };
+      theme = lib.mkDefault {
+        name = cfg.gtk.theme;
+        package = cfg.gtk.package;
+      };
+      gtk3 = {
+        extraConfig = {
+          gtk-application-prefer-dark-theme = cfg.prefer-dark;
+        };
+      };
+      gtk4 = {
+        extraConfig = {
+          gtk-application-prefer-dark-theme = cfg.prefer-dark;
+        };
+      };
+    };
+
+    home.sessionVariables = {
+      GTK_THEME = config.gtk.theme.name;
+    };
+
+    qt = {
+      enable = true;
+      platformTheme.name = lib.mkDefault "gtk3";
+    };
 
     home.pointerCursor = mkDefault {
       package = cfg.cursor.package;
@@ -91,17 +118,17 @@ in
       };
       package = mkOption {
         type = types.package;
-        default = nix-colors-gtk;
+        default = pkgs.adw-gtk3;
       };
     };
     cursor = {
       name = mkOption {
         type = types.str;
-        default = "catppuccin-mocha-dark-cursors";
+        default = "volantes_cursors";
       };
       package = mkOption {
         type = types.package;
-        default = pkgs.catppuccin-cursors.mochaDark;
+        default = pkgs.volantes-cursors;
       };
     };
     fonts =

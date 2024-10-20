@@ -30,6 +30,7 @@ in
         package = pkgs.gentium;
       };
       packages = [
+        pkgs.newcomputermodern
         pkgs.gentium
         pkgs.source-sans-pro
         pkgs.roboto
