@@ -1,7 +1,11 @@
 { config, ... }:
 {
   programs.nushell = {
-    configFile.text = ''
-    '';
+    configFile.text = # nu
+      ''
+        let $config = {
+          show_banner: false,
+        }
+      '';
   };
 }

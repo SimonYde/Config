@@ -47,6 +47,9 @@ end
 
 local defer_group = vim.api.nvim_create_augroup('DeferFunction', {})
 
+---@param cb function function that will be called once event fires
+---@param events string | table that will be called once event fires
+---@param pattern string? that will be called once event fires
 M.on_events = function(cb, events, pattern)
     local opts = {
         group = defer_group,

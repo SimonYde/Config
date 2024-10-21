@@ -33,7 +33,7 @@ in
       fd.enable = true;
       gh.enable = true;
       git.enable = true;
-      lazygit.enable = true;
+      lazygit.enable = false;
       nix-index.enable = true;
       ripgrep.enable = true;
       skim.enable = true;

@@ -238,36 +238,23 @@ in
     };
 
     style =
-      # css
-      with palette;
+      with palette; # css
       ''
-        @define-color base00 ${base00};
-        @define-color base01 ${base01};
-        @define-color base02 ${base02};
-        @define-color base03 ${base03};
-        @define-color base04 ${base04};
-        @define-color base05 ${base05};
-        @define-color base06 ${base06};
-        @define-color base07 ${base07};
-        @define-color base08 ${base08};
-        @define-color base09 ${base09};
-        @define-color base0A ${base0A};
-        @define-color base0B ${base0B};
-        @define-color base0C ${base0C};
-        @define-color base0D ${base0D};
-        @define-color base0E ${base0E};
-        @define-color base0F ${base0F};
+        @define-color base00 ${base00}; @define-color base01 ${base01}; @define-color base02 ${base02}; @define-color base03 ${base03};
+        @define-color base04 ${base04}; @define-color base05 ${base05}; @define-color base06 ${base06}; @define-color base07 ${base07};
+        @define-color base08 ${base08}; @define-color base09 ${base09}; @define-color base0A ${base0A}; @define-color base0B ${base0B};
+        @define-color base0C ${base0C}; @define-color base0D ${base0D}; @define-color base0E ${base0E}; @define-color base0F ${base0F};
 
-        @define-color background      alpha(${base00}, .7);
-        @define-color text            ${base0D};
-        @define-color background-alt  alpha(${base01}, .7);
-        @define-color selected        ${base04};
-        @define-color hover           alpha(@selected, .4);
-        @define-color urgent          ${base08};
+        @define-color background alpha(${base00}, .7); @define-color background-alt  alpha(${base01}, .7);
+        @define-color text       ${base0D};            @define-color selected        ${base04};
+        @define-color hover      alpha(@selected, .4); @define-color urgent          ${base08};
 
         * {
-          font-family: ${font.name}, FontAwesome;
+          font-family: ${font.name};
           font-size: 14px;
+          border-radius: 10px;
+          border: none;
+          min-height: 12px;
         }
       ''
       + builtins.readFile ./style.css;

@@ -255,11 +255,7 @@ in
           firefox-color
           # userchrome-toggle
         ];
-        userChrome = # css
-          # ''
-          #   @import url("ArcWTF/userChrome.css");
-          # '' + readFile ./userChrome.css;
-
+        userChrome =
           readFile "${csshacks}/window_control_placeholder_support.css"
           + readFile "${csshacks}/hide_tabs_toolbar.css"
           + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
@@ -268,9 +264,6 @@ in
         userContent = readFile ./userContent.css;
         extraConfig = readFile "${betterfox}/Fastfox.js";
       };
-    };
-    home.file.".mozilla/firefox/${profile}/chrome/ArcWTF" = {
-      source = inputs.arc-wtf;
     };
   };
 }
