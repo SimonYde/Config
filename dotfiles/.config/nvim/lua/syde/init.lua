@@ -2,6 +2,7 @@ require('syde.load')
 require('syde.options')
 require('syde.remap')
 require('syde.colorscheme')
+
 require('syde.plugin.mini')
 require('syde.plugin.treesitter')
 require('syde.plugin.completion')
@@ -71,9 +72,6 @@ Load.later(function()
 end)
 
 Load.later(function()
-    do
-        return
-    end
     local telescope = require('telescope')
     local actions = require('telescope.actions')
     local themes = require('telescope.themes')
@@ -159,15 +157,7 @@ Load.later(function()
         },
     })
 
-    Load.now(function()
-        telescope.load_extension('projects')
-        nmap('<leader>fp', function() telescope.extensions.projects.projects() end, 'Find projects')
-    end)
     Load.now(function() telescope.load_extension('fzf') end)
-    Load.now(function()
-        telescope.load_extension('git_worktree')
-        nmap('<leader>gw', function() telescope.extensions.git_worktree.git_worktrees() end, 'git worktrees')
-    end)
     Load.now(function() telescope.load_extension('ui-select') end)
 
     local builtin = require('telescope.builtin')
@@ -248,7 +238,7 @@ Load.later(function()
     nmap('<leader>lo', function() otter.activate() end, 'Otter activate')
 end)
 
-Load.later(function()
+Load.on_events(function()
     local lazydev = require('lazydev')
     lazydev.setup({
         runtime = vim.env.VIMRUNTIME,
@@ -260,7 +250,7 @@ Load.later(function()
             { path = 'luvit-meta/library', words = { 'vim%.uv' } },
         },
     })
-end)
+end, 'FileType', 'lua')
 
 Load.later(function()
     local lspsaga = require('lspsaga')
@@ -306,6 +296,7 @@ Load.later(function()
     nmap('<leader>df', function() widgets.centered_float(widgets.frames) end, 'frames')
     nmap('<leader>ds', function() widgets.centered_float(widgets.scopes) end, 'scopes')
     nmap('<leader>du', dapui.toggle, 'toggle ui')
+    nmap('<leader>d', function() require('which-key').show({ keys = '<leader>d', loop = true }) end, 'toggle ui')
 end)
 
 Load.later(function() require('dap-go').setup() end)
@@ -361,6 +352,7 @@ Load.later(function()
     nmap('<leader>od', vim.cmd.ObsidianDailies, 'Open daily note search')
     nmap('<leader>on', vim.cmd.ObsidianTemplate, 'Insert Obsidian template')
     nmap('<leader>ot', vim.cmd.ObsidianTags, 'Open tag list')
+    nmap('<leader>op', vim.cmd.ObsidianPasteImg, 'Paste image')
     imap('<C-l>', vim.cmd.ObsidianToggleCheckbox, 'Toggle markdown checkbox')
 end)
 

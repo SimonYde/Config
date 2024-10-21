@@ -128,9 +128,7 @@ in
             base0C = "${base0C}", base0D = "${base0D}", base0E = "${base0E}", base0F = "${base0F}",
           }
           vim.g.transparent = ${if config.syde.terminal.opacity != 1.0 then "true" else "false"}
-          _G.Config = {
-            path_source = '${config.xdg.configHome}/nvim/src/'
-          }
+          _G.Config = { }
           require('syde')
         '';
     };

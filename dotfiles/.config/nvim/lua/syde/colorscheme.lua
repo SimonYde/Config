@@ -1,30 +1,3 @@
-local add_transparency = function()
-    Load.later(function()
-        require('mini.colors')
-            .get_colorscheme()
-            :add_transparency({
-                float = false,
-                general = true,
-                statuscolumn = true,
-                statusline = true,
-                tabline = true,
-                winbar = false,
-            })
-            :apply()
-        -- Remove background for sign column elements
-        vim.cmd([[
-            hi MiniDiffSignAdd guibg=NONE ctermbg=NONE
-            hi MiniDiffSignChange guibg=NONE ctermbg=NONE
-            hi MiniDiffSignDelete guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingOk guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
-        ]])
-    end)
-end
-
 local catppuccin = Load.now(function()
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
@@ -111,5 +84,30 @@ Load.now(function()
         },
     })
     vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
-    if vim.g.transparent then add_transparency() end
+    if vim.g.transparent then
+        Load.later(function()
+            require('mini.colors')
+                .get_colorscheme()
+                :add_transparency({
+                    float = false,
+                    general = true,
+                    statuscolumn = true,
+                    statusline = true,
+                    tabline = true,
+                    winbar = false,
+                })
+                :apply()
+            -- Remove background for sign column elements
+            vim.cmd([[
+            hi MiniDiffSignAdd guibg=NONE ctermbg=NONE
+            hi MiniDiffSignChange guibg=NONE ctermbg=NONE
+            hi MiniDiffSignDelete guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingOk guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
+        ]])
+        end)
+    end
 end)

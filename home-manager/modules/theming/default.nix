@@ -18,11 +18,11 @@ in
 
     syde.theming.fonts = {
       monospace = {
-        name = "JetBrains Mono Nerd Font Mono";
+        name = "JetBrainsMono Nerd Font Mono";
         package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
       };
       sansSerif = {
-        name = "JetBrains Mono Nerd Font Propo";
+        name = "JetBrainsMono Nerd Font Propo";
         package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
       };
       serif = {
