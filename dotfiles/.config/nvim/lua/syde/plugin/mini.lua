@@ -168,7 +168,11 @@ Load.later(function()
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
 end)
 
-Load.later(function() require('mini.bufremove').setup() end)
+Load.later(function()
+    local MiniBufremove = require('mini.bufremove')
+    MiniBufremove.setup()
+    nmap('<leader>mbd', function() MiniBufremove.delete() end, 'Delete current buffer')
+end)
 
 Load.later(function() require('mini.comment').setup() end)
 
@@ -333,9 +337,6 @@ Load.later(function()
 end)
 
 Load.later(function()
-    do
-        return
-    end
     local MiniPick = require('mini.pick')
     local send_to_qflist = function()
         local mappings = MiniPick.get_picker_opts().mappings

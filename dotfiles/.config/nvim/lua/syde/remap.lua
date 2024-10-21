@@ -43,11 +43,13 @@ nmap('U', '<C-r>', 'redo')
 -- xmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
 
 if vim.fn.has('nvim-0.11') then
-    vim.keymap.del('n', 'gri')
-    vim.keymap.del('n', 'grr')
-    vim.keymap.del('n', 'gra')
-    vim.keymap.del('x', 'gra')
-    vim.keymap.del('n', 'grn')
+    Load.now(function()
+        vim.keymap.del('n', 'gri')
+        vim.keymap.del('n', 'grr')
+        vim.keymap.del('n', 'gra')
+        vim.keymap.del('x', 'gra')
+        vim.keymap.del('n', 'grn')
+    end)
 end
 
 nmap('<C-d>', '<C-d>zz', 'Move down half page')

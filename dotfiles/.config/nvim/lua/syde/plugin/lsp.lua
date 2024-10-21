@@ -65,23 +65,20 @@ Load.later(function()
                     version = 'LuaJIT',
                 },
                 diagnostics = {
-                    globals = { 'vim', 'describe', 'it', 'before_each', 'after_each' },
+                    globals = { 'vim' },
                     -- Don't make workspace diagnostic, as it consumes too much CPU and RAM
                     workspaceDelay = -1,
                 },
-                workspace = {
-                    checkThirdParty = false,
-                    library = {
-                        vim.env.VIMRUNTIME,
-                        -- '${3rd}/luv/library',
-                    },
-                    -- Don't analyze code from submodules
-                    ignoreSubmodules = true,
-                },
-                telemetry = { enable = false },
-                -- completion = {
-                --     callSnippet = 'Replace',
+                -- workspace = {
+                --     checkThirdParty = false,
+                --     library = {
+                --         vim.env.VIMRUNTIME,
+                --         -- '${3rd}/luv/library',
+                --     },
+                --     -- Don't analyze code from submodules
+                --     ignoreSubmodules = true,
                 -- },
+                telemetry = { enable = false },
             },
         },
     })

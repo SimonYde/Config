@@ -8,6 +8,7 @@ Load.later(function()
 
     local menu_icon = {
         nvim_lsp = '[LSP]',
+        lazydev = '[dev]',
         path = '[path]',
         luasnip = '[snip]',
         buffer = '[buf]',
@@ -16,6 +17,7 @@ Load.later(function()
 
     cmp.setup({
         sources = {
+            { name = 'lazydev', group_index = 0 },
             { name = 'git' },
             { name = 'nvim_lsp' },
             { name = 'path' },
