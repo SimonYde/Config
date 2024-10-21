@@ -1,20 +1,15 @@
-local source = function(path) dofile(Config.path_source .. path) end
-
-source('load.lua')
-source('options.lua')
-source('remap.lua')
-source('colorscheme.lua')
-
-source('plugin/mini.lua')
-source('plugin/treesitter.lua')
-source('plugin/completion.lua')
-source('plugin/conform.lua')
-source('plugin/lsp.lua')
+require('syde.load')
+require('syde.options')
+require('syde.remap')
+require('syde.colorscheme')
+require('syde.plugin.mini')
+require('syde.plugin.treesitter')
+require('syde.plugin.completion')
+require('syde.plugin.conform')
+require('syde.plugin.lsp')
 
 local nmap = Keymap.nmap
 local imap = Keymap.imap
-
-Load.later(function() require('todo-comments').setup() end)
 
 Load.later(function()
     Load.packadd('trouble.nvim')
@@ -61,6 +56,7 @@ Load.later(function()
 end)
 
 Load.later(function()
+    Load.packadd('neogit')
     local neogit = require('neogit')
     neogit.setup({
         integrations = {
@@ -75,11 +71,14 @@ Load.later(function()
 end)
 
 Load.later(function()
+    do
+        return
+    end
     local telescope = require('telescope')
     local actions = require('telescope.actions')
     local themes = require('telescope.themes')
 
-    vim.g.telescope_preview = {
+    local preview = {
         show_line = false,
         layout_config = {
             preview_width = 0.55,
@@ -91,7 +90,7 @@ Load.later(function()
         },
     }
 
-    vim.g.telescope_no_preview = {
+    local no_preview = {
         layout_config = {
             prompt_position = 'top',
             horizontal = {
@@ -120,7 +119,7 @@ Load.later(function()
             buffers = {
                 mappings = {
                     i = {
-                        ['<c-d>'] = actions.delete_buffer, --+ actions.move_to_top,
+                        ['<c-x>'] = actions.delete_buffer, --+ actions.move_to_top,
                     },
                 },
             },
@@ -172,8 +171,6 @@ Load.later(function()
     Load.now(function() telescope.load_extension('ui-select') end)
 
     local builtin = require('telescope.builtin')
-    local preview = vim.g.telescope_preview
-    local no_preview = vim.g.telescope_no_preview
     nmap('<leader>?', builtin.keymaps, 'Search keymaps')
     nmap('<leader>b', function() builtin.buffers(preview) end, 'buffers')
     nmap('<leader>fc', function() builtin.current_buffer_fuzzy_find(no_preview) end, 'current buffer lines')
@@ -204,9 +201,12 @@ Load.later(function()
         },
     })
     whichkey.add({
-        { '<leader>w', proxy = '<c-w>', group = 'windows' }, -- proxy to window mappings
+        { '<leader>w', proxy = '<c-w>', group = 'windows' },
         { '<leader>d', group = 'Debug' },
         { '<leader>f', group = 'Find' },
+        { '<leader>m', group = 'Mini' },
+        { '<leader>mb', group = 'Bufremove' },
+        { '<leader>ms', group = 'Sessions' },
         { '<leader>v', group = 'Visits' },
         { '<leader>g', group = 'Git' },
         { '<leader>l', group = 'Lsp' },
@@ -248,27 +248,40 @@ Load.later(function()
     nmap('<leader>lo', function() otter.activate() end, 'Otter activate')
 end)
 
-Load.later(
-    function()
-        require('lspsaga').setup({
-            symbol_in_winbar = {
-                enable = false,
-            },
-            code_action = {
-                show_server_name = true,
-            },
-            lightbulb = {
-                enable = false,
-            },
-            implement = {
-                enable = true,
-            },
-            ui = {
-                border = 'none',
-            },
-        })
-    end
-)
+Load.later(function()
+    local lazydev = require('lazydev')
+    lazydev.setup({
+        runtime = vim.env.VIMRUNTIME,
+        integrations = {
+            lspconfig = true,
+            cmp = true,
+        },
+        library = {
+            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        },
+    })
+end)
+
+Load.later(function()
+    local lspsaga = require('lspsaga')
+    lspsaga.setup({
+        symbol_in_winbar = {
+            enable = false,
+        },
+        code_action = {
+            show_server_name = true,
+        },
+        lightbulb = {
+            enable = false,
+        },
+        implement = {
+            enable = true,
+        },
+        ui = {
+            border = 'none',
+        },
+    })
+end)
 
 Load.later(function()
     local dap, dapui = require('dap'), require('dapui')
@@ -278,6 +291,8 @@ Load.later(function()
     dap.listeners.before.launch.dapui_config = function() dapui.open() end
     dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
     dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
+
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'MiniIconsRed' })
 
     nmap('<leader>db', dap.toggle_breakpoint, 'toggle breakpoint')
     nmap('<leader>dc', dap.continue, 'continue')
@@ -310,7 +325,8 @@ Load.later(function()
                 path = '~/Obsidian/Apollo',
             },
         },
-        new_notes_location = 'current_dir', -- NOTE: or "notes_subdir"
+        notes_subdir = 'notes',
+        new_notes_location = 'notes_subdir', -- NOTE: or "notes_subdir"
         completion = {
             nvim_cmp = true,
             min_chars = 2,
@@ -347,3 +363,5 @@ Load.later(function()
     nmap('<leader>ot', vim.cmd.ObsidianTags, 'Open tag list')
     imap('<C-l>', vim.cmd.ObsidianToggleCheckbox, 'Toggle markdown checkbox')
 end)
+
+Load.later(function() require('todo-comments').setup() end)

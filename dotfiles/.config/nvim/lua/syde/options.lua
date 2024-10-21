@@ -107,10 +107,10 @@ vim.o.timeoutlen = 300
 
 vim.opt.completeopt = 'menuone,noselect'
 
-vim.opt.wildmode = 'list:longest'
+-- vim.opt.wildmode = 'list:longest'
 -- when opening a file with a command (like :e),
 -- don't suggest files like there:
-vim.opt.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
+-- vim.opt.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
 
 if vim.fn.has('nvim-0.11') then vim.opt.completeopt:append('fuzzy') end
 
