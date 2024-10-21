@@ -92,10 +92,6 @@
       url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;
     };
-    arc-wtf = {
-      url = "github:KiKaraage/ArcWTF";
-      flake = false;
-    };
     betterfox = {
       url = "github:yokoffing/Betterfox";
       flake = false;
