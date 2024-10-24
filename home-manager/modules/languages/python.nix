@@ -26,9 +26,6 @@ in
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.python
-      ]))
         {
           plugin = nvim-dap-python;
           type = "lua";

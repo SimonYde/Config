@@ -12,11 +12,7 @@
       nixfmt-rfc-style
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.nix
-      ]))
-    ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
   options.syde.programming.nix = {
     enable = lib.mkEnableOption "Nix language tools";

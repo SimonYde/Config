@@ -52,7 +52,24 @@ Load.later(function()
 
     setup_lsp({ name = 'clangd' })
     setup_lsp({ name = 'gleam' })
-    setup_lsp({ name = 'nixd' })
+    setup_lsp({
+        name = 'nixd',
+        settings = {
+            nixd = {
+                nixpkgs = {
+                    expr = 'import <nixpkgs> { }',
+                },
+                options = {
+                    nixos = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.perdix.options',
+                    },
+                    home_manager = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.perdix.options',
+                    },
+                },
+            },
+        },
+    })
     setup_lsp({ name = 'gopls' })
     setup_lsp({ name = 'ocamllsp' })
 
@@ -69,15 +86,15 @@ Load.later(function()
                     -- Don't make workspace diagnostic, as it consumes too much CPU and RAM
                     workspaceDelay = -1,
                 },
-                -- workspace = {
-                --     checkThirdParty = false,
+                workspace = {
+                    checkThirdParty = false,
                 --     library = {
                 --         vim.env.VIMRUNTIME,
                 --         -- '${3rd}/luv/library',
                 --     },
-                --     -- Don't analyze code from submodules
-                --     ignoreSubmodules = true,
-                -- },
+                    -- Don't analyze code from submodules
+                    ignoreSubmodules = true,
+                },
                 telemetry = { enable = false },
             },
         },

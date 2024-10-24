@@ -112,7 +112,7 @@ Load.later(function()
         pickers = {
             find_files = {
                 -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-                find_command = { 'rg', '--files', '--hidden', '--no-ignore', '--glob', '!**/.git/*' },
+                find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
             },
             buffers = {
                 mappings = {
@@ -253,6 +253,7 @@ Load.on_events(function()
 end, 'FileType', 'lua')
 
 Load.later(function()
+    Load.packadd('lspsaga.nvim')
     local lspsaga = require('lspsaga')
     lspsaga.setup({
         symbol_in_winbar = {
@@ -268,7 +269,7 @@ Load.later(function()
             enable = true,
         },
         ui = {
-            border = 'none',
+            border = 'rounded',
         },
     })
 end)

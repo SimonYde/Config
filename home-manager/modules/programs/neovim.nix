@@ -28,7 +28,6 @@ in
         [
           # -----LSP-----
           nvim-lspconfig
-          lspsaga-nvim
           lsp_signature-nvim
           otter-nvim
 
@@ -36,13 +35,14 @@ in
           nvim-cmp
           cmp-git
           cmp-nvim-lsp
-          cmp-cmdline
+          # cmp-cmdline
           cmp-path
           cmp-buffer
           cmp_luasnip
           friendly-snippets
 
           # -----Config writing-----
+          luvit-meta
           lazydev-nvim
 
           # -----Workflow-----
@@ -65,51 +65,19 @@ in
 
           # -----UI-----
           which-key-nvim
-          todo-comments-nvim
-          # nvim-treesitter.withAllGrammars
-          (nvim-treesitter.withPlugins (p: [
-            p.bash
-            p.hyprlang
-            p.kdl
-
-            p.vim
-            p.vimdoc
-            p.query
-            p.markdown
-            p.markdown-inline
-
-            p.csv
-            p.ini
-            p.json
-            p.jsonc
-            p.jq
-            p.yaml
-            p.toml
-
-            p.git_config
-            p.git_rebase
-            p.gitattributes
-            p.gitcommit
-            p.gitignore
-
-            p.just
-            p.make
-
-            p.html
-            p.css
-            p.scss
-            p.javascript
-          ]))
+          nvim-treesitter
         ]
         ++ mapLazy [
+          # ----- Workflow -----
           luasnip
           trouble-nvim
-          luvit-meta
-          indent-blankline-nvim
           diffview-nvim
           neogit
+          todo-comments-nvim
 
-          # -----Highlighting-----
+          # ----- UI -----
+          lspsaga-nvim
+          indent-blankline-nvim
           render-markdown-nvim
           nvim-treesitter-textobjects
           nvim-treesitter-context

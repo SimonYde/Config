@@ -38,7 +38,7 @@ end)
 
 Load.now(function() require('mini.sessions').setup() end)
 
-Load.now(function()
+Load.later(function()
     require('mini.icons').setup({
         lsp = {
             ellipsis_char = { glyph = '…', hl = 'MiniIconsRed' },
@@ -75,7 +75,7 @@ Load.now(function()
             typeParameter = { glyph = '', hl = 'MiniIconsYellow' },
         },
     })
-    Load.later(MiniIcons.tweak_lsp_kind)
+    Load.now(MiniIcons.tweak_lsp_kind)
     MiniIcons.mock_nvim_web_devicons()
 end)
 

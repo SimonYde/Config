@@ -17,11 +17,7 @@ in
       polylux2pdfpc # Converting slides into `.pdfpc` file with speaker notes
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.typst
-      ]))
-    ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
 
   options.syde.programming.typst = {

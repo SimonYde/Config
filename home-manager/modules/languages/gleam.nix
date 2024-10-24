@@ -14,11 +14,7 @@ in
       erlang
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.gleam
-      ]))
-    ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
 
   options.syde.programming.gleam = {
