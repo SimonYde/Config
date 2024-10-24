@@ -51,8 +51,11 @@ in
       dogdns # rust version of `dig`
       du-dust # Histogram of file sizes
       jq # JSON magic
+
       gnumake
       just # alternative to `gnumake`
+      pre-commit
+
       sd # Friendlier `sed`
       trashy # for when `rm -rf` is too scary
       xh # Colorful curl

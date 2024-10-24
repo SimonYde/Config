@@ -76,8 +76,8 @@ in
           tooltip = false;
         };
         clock = {
-          format = " {:%H:%M} ";
-          format-alt = " {:%a. %b. %d, %Y (%R)} ";
+          format = " {:%a. %d/%m, %R} ";
+          format-alt = " {:%a. %b. %d, %Y (%T)} ";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "year";
@@ -121,29 +121,6 @@ in
           "persistent-workspaces" = { };
           "format-icons" = {
             "active" = "";
-            "default" = "";
-          };
-        };
-        "hyprland/workspaces#icons" = {
-          format = " {icon} ";
-          show-special = false;
-          on-click = "activate";
-          on-scroll-up = "hyprctl dispatch workspace e+1";
-          on-scroll-down = "hyprctl dispatch workspace e-1";
-          all-outputs = false;
-          sort-by-number = true;
-          format-icons = {
-            "1" = "󰚸";
-            "2" = "";
-            "3" = "";
-            "4" = "";
-            "5" = "";
-            "6" = "";
-            "7" = "";
-            "8" = "8";
-            "9" = "9";
-            "10" = "10";
-            "focused" = "";
             "default" = "";
           };
         };

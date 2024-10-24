@@ -15,8 +15,8 @@ in
     };
 
     programs = {
-      swaylock.enable = mkForce false;
-      hyprlock.enable = mkForce true;
+      swaylock.enable = mkForce true;
+      hyprlock.enable = mkForce false;
     };
 
     home.packages = with pkgs; [
