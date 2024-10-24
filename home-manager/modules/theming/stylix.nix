@@ -17,6 +17,7 @@ in
       # TODO: remove when this becomes optional... https://github.com/danth/stylix/issues/442
       image = ../../../assets/backgrounds/night_moon.png;
       base16Scheme = config.colorScheme.palette;
+      polarity = config.colorScheme.variant;
       targets = {
         hyprpaper.enable = lib.mkForce false;
         hyprland.enable = false;
