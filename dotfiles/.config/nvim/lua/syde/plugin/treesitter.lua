@@ -8,13 +8,14 @@ Load.later(function()
 
     vim.treesitter.language.register('bash', 'sh')
 
+    vim.opt.runtimepath:prepend('~/.local/state/nvim/treesitter')
+
     local treesitter_opts = {
-        auto_install = false,
+        auto_install = true,
+        ensure_installed = { 'lua', 'nix', 'markdown', 'markdown_inline', 'gitignore', 'gitattributes', 'gitcommit' },
+        parser_install_dir = '~/.local/state/nvim/treesitter',
         highlight = {
             enable = true,
-            disable = {
-                -- "latex",
-            },
             additional_vim_regex_highlighting = false,
         },
         indent = {
@@ -36,8 +37,6 @@ Load.later(function()
         local rainbow_delimiters = require('rainbow-delimiters')
         treesitter_opts.rainbow = {
             enable = true,
-            -- list of languages you want to disable the plugin for
-            disable = {},
             -- Which query to use for finding delimiters
             query = 'rainbow-parens',
             -- Highlight the entire buffer all at once
@@ -50,7 +49,7 @@ Load.later(function()
     Load.now(function()
         Load.packadd('nvim-treesitter-context')
         local context = require('treesitter-context')
-        context.setup({})
+        context.setup()
         local nmap = Keymap.nmap
 
         nmap('<leader><leader>t', context.toggle, 'toggle [t]reesitter context')

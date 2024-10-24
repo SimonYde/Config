@@ -1,10 +1,55 @@
 Load.later(function()
-    local cmp = require('cmp')
-
     Load.packadd('luasnip')
     local luasnip = require('luasnip')
     require('luasnip.loaders.from_vscode').lazy_load() -- load friendly-snippets into luasnip
+    require('luasnip.loaders.from_lua').lazy_load() -- load friendly-snippets into luasnip
     luasnip.config.setup()
+
+    vim.snippet.expand = luasnip.lsp_expand
+
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.snippet.active = function(filter)
+        filter = filter or {}
+        filter.direction = filter.direction or 1
+
+        if filter.direction == 1 then
+            return luasnip.expand_or_jumpable()
+        else
+            return luasnip.jumpable(filter.direction)
+        end
+    end
+
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.snippet.jump = function(direction)
+        if direction == 1 then
+            if luasnip.expandable() then
+                return luasnip.expand_or_jump()
+            else
+                return luasnip.jumpable(1) and luasnip.jump(1)
+            end
+        else
+            return luasnip.jumpable(-1) and luasnip.jump(-1)
+        end
+    end
+
+    vim.snippet.stop = luasnip.unlink_current
+
+    local ismap = Keymap.map({ 'i', 's' })
+    ismap(
+        '<C-.>',
+        function() return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1) end,
+        'Snippet forward'
+    )
+
+    ismap(
+        '<C-,>',
+        function() return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1) end,
+        'snippet backward'
+    )
+end)
+
+Load.later(function()
+    local cmp = require('cmp')
 
     local menu_icon = {
         nvim_lsp = '[LSP]',
@@ -27,9 +72,6 @@ Load.later(function()
         performance = {
             debounce = 150,
         },
-        snippet = {
-            expand = function(args) luasnip.lsp_expand(args.body) end,
-        },
         mapping = cmp.mapping.preset.insert({
             ['<C-n>'] = cmp.mapping(function()
                 if cmp.visible() then
@@ -46,16 +88,16 @@ Load.later(function()
                 select = true,
             }),
             ['<Tab>'] = cmp.mapping(function(fallback)
-                if luasnip.expand_or_locally_jumpable() then
-                    luasnip.expand_or_jump()
+                if require('luasnip').expand_or_locally_jumpable() then
+                    require('luasnip').expand_or_jump()
                 else
                     fallback()
                 end
             end, { 'i', 's' }),
 
             ['<S-Tab>'] = cmp.mapping(function(fallback)
-                if luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
+                if require('luasnip').jumpable(-1) then
+                    require('luasnip').jump(-1)
                 else
                     fallback()
                 end
@@ -74,6 +116,9 @@ Load.later(function()
                 return vim_item
             end,
             fields = { 'kind', 'abbr', 'menu' },
+        },
+        experimental = {
+            ghost_text = true,
         },
     })
 

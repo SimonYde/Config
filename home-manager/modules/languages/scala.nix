@@ -17,13 +17,7 @@ in
       metals
     ];
 
-    programs.neovim = {
-      plugins = with pkgs.vimPlugins; [
-        (nvim-treesitter.withPlugins (p: [
-          p.scala
-        ]))
-      ];
-    };
+    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
 
   options.syde.programming = {

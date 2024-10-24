@@ -112,7 +112,10 @@ vim.opt.completeopt = 'menuone,noselect'
 -- don't suggest files like there:
 -- vim.opt.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
 
-if vim.fn.has('nvim-0.11') then vim.opt.completeopt:append('fuzzy') end
+if vim.fn.has('nvim-0.11') then
+    vim.o.wildoptions = 'fuzzy,pum'
+    vim.opt.completeopt:append('fuzzy')
+end
 
 -- more useful diffs (nvim -d)
 vim.opt.diffopt:append('iwhite')

@@ -5,7 +5,7 @@ Load.later(function()
         formatters_by_ft = {
             typst = { 'typstyle' },
             lua = { 'stylua' },
-            nix = { 'nixfmt', 'alejandra', 'nixpkgs_fmt' },
+            nix = { 'nixfmt' },
         },
     })
 

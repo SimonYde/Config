@@ -22,7 +22,7 @@ vim.g.rustaceanvim = {
 }
 
 local buffer = vim.api.nvim_get_current_buf()
-local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = buffer, silent = true }) end
+local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = buffer }) end
 
 nmap('<leader>la', function()
     vim.cmd.RustLsp('codeAction') -- supports rust-analyzer's grouping

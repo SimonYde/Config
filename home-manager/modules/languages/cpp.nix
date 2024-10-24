@@ -14,12 +14,7 @@ in
       clang-tools
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.cpp
-        p.c
-      ]))
-    ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
 
   options.syde.programming.cpp = {

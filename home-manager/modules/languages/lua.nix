@@ -14,12 +14,7 @@ in
       lua-language-server
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.lua
-        p.luadoc
-      ]))
-    ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
 
   options.syde.programming.lua = {

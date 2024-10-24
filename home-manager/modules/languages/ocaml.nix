@@ -16,13 +16,7 @@ in
       ocaml
     ];
 
-    programs.neovim.plugins = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (p: [
-        p.ocaml
-        p.commonlisp
-        p.ocaml-interface
-      ]))
-    ];
+    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
 
     programs.opam.enable = true;
   };

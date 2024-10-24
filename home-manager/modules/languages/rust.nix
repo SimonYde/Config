@@ -20,11 +20,7 @@ in
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [
-      # Extra rust support
-      rustaceanvim
-      (nvim-treesitter.withPlugins (p: [
-        p.rust
-      ]))
+      rustaceanvim # Extra rust support
     ];
 
     home.sessionVariables = {
