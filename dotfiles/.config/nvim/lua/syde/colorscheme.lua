@@ -1,3 +1,30 @@
+local add_transparency = function()
+    Load.later(function()
+        require('mini.colors')
+            .get_colorscheme()
+            :add_transparency({
+                float = false,
+                general = true,
+                statuscolumn = true,
+                statusline = true,
+                tabline = true,
+                winbar = false,
+            })
+            :apply()
+        -- Remove background for sign column elements
+        vim.cmd([[
+            hi MiniDiffSignAdd guibg=NONE ctermbg=NONE
+            hi MiniDiffSignChange guibg=NONE ctermbg=NONE
+            hi MiniDiffSignDelete guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingOk guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
+        ]])
+    end)
+end
+
 local catppuccin = Load.now(function()
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
@@ -5,7 +32,7 @@ local catppuccin = Load.now(function()
 
     catppuccin.setup({
         flavour = flavour,
-        transparent_background = vim.g.transparent,
+        transparent_background = false,
         integrations = {
             cmp = true,
             gitsigns = true,
@@ -38,6 +65,7 @@ local catppuccin = Load.now(function()
         end,
     })
     vim.cmd.colorscheme('catppuccin')
+    add_transparency()
     return catppuccin
 end)
 if catppuccin then return end
@@ -84,30 +112,9 @@ Load.now(function()
         },
     })
     vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
+    -- vim.cmd(('hi MiniJump2dSpot guifg=%s guibg=%s'):format(PALETTE.base0D, PALETTE.base01))
+    -- vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(PALETTE.base0E, PALETTE.base00))
     if vim.g.transparent then
-        Load.later(function()
-            require('mini.colors')
-                .get_colorscheme()
-                :add_transparency({
-                    float = false,
-                    general = true,
-                    statuscolumn = true,
-                    statusline = true,
-                    tabline = true,
-                    winbar = false,
-                })
-                :apply()
-            -- Remove background for sign column elements
-            vim.cmd([[
-            hi MiniDiffSignAdd guibg=NONE ctermbg=NONE
-            hi MiniDiffSignChange guibg=NONE ctermbg=NONE
-            hi MiniDiffSignDelete guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingOk guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
-        ]])
-        end)
+        add_transparency()
     end
 end)

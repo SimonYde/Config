@@ -86,7 +86,11 @@ nmap('<leader>u', function()
     vim.cmd('UndotreeToggle')
     vim.cmd('UndotreeFocus')
 end, 'Toggle [u]ndo tree')
-nmap('<leader><leader>f', function() vim.opt.foldenable = not vim.opt.foldenable end, 'Toggle fold')
+nmap('<leader><leader>f', function()
+    local flipped = not vim.opt.foldenable
+    print('foldenable', flipped)
+    vim.opt.foldenable = flipped
+end, 'Toggle fold')
 
 -- COLEMAK Remaps
 -- NOTE: is reversed because the function below toggles the value, in order to
