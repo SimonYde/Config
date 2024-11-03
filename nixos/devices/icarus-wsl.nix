@@ -18,11 +18,7 @@
       enable = true;
       packages = [ pkgs.gcr ];
     };
-    languagetool.enable = false;
-    ollama.enable = false;
     syncthing.enable = true;
-    tailscale.enable = true;
-    vscode-server.enable = false;
   };
 
   networking.hostName = "icarus-wsl";

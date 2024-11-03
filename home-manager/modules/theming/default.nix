@@ -29,13 +29,13 @@ in
         name = "Gentium Plus";
         package = pkgs.gentium;
       };
-      packages = [
-        pkgs.newcomputermodern
-        pkgs.gentium
-        pkgs.source-sans-pro
-        pkgs.roboto
-        pkgs.font-awesome
-        pkgs.libertinus
+      packages = with pkgs; [
+        font-awesome
+        gentium
+        libertinus
+        newcomputermodern
+        roboto
+        source-sans-pro
       ];
     };
   };

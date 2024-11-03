@@ -19,6 +19,7 @@
     ./fd.nix
     ./starship.nix
     ./thefuck.nix
+    ./tmux.nix
     ./yazi.nix
     ./zellij
     ./zoxide.nix

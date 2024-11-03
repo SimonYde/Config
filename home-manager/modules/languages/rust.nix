@@ -24,7 +24,7 @@ in
     ];
 
     home.sessionVariables = {
-      CARGO_HOME = "${config.xdg.configHome}/cargo";
+      CARGO_HOME = "${config.xdg.cacheHome}/cargo";
     };
   };
 

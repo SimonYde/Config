@@ -26,6 +26,7 @@ in
 
     programs.fzf = {
       enableBashIntegration = true;
+      tmux.enableShellIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
       changeDirWidgetCommand = "${fd} -H --type directory";

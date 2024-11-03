@@ -9,6 +9,7 @@ let
   inherit (lib)
     mkEnableOption
     mkOption
+    mkForce
     mkIf
     types
     mkDefault
@@ -92,8 +93,12 @@ in
     };
 
     programs.neovim.plugins = mkIf (strings.hasPrefix "catppuccin" slug) [
-      pkgs.catppuccin-nvim
+      pkgs.vimPlugins.catppuccin-nvim
     ];
+    syde.theming.cursor = mkIf (strings.hasPrefix "catppuccin" slug) {
+      name = "catppuccin-mocha-dark-cursors";
+      package = pkgs.catppuccin-cursors.mochaDark;
+    };
   };
 
   options.syde.theming = {
