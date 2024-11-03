@@ -80,7 +80,7 @@ in
         input = {
           kb_layout = "us(colemak_dh),eu";
           kb_options = "caps:escape,grp:rctrl_toggle";
-          # resolve_binds_by_sym = true;
+          resolve_binds_by_sym = true;
           repeat_delay = 400;
           follow_mouse = 2;
           accel_profile = "flat";

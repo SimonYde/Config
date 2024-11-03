@@ -31,6 +31,7 @@ in
       fzf.enable = true;
       fastfetch.enable = true;
       fd.enable = true;
+      tmux.enable = true;
       gh.enable = true;
       git.enable = true;
       lazygit.enable = false;

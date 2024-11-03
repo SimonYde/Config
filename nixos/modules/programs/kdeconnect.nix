@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
   programs.kdeconnect = {
-    package = pkgs.kdePackages.kdeconnect-kde;
+    # package = pkgs.kdePackages.kdeconnect-kde;
   };
 }

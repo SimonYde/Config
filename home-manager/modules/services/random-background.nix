@@ -1,7 +1,7 @@
-{ pkgs, slug, homeDirectory, ... }:
+{ pkgs, slug, pictures-dir, ... }:
 
 pkgs.writeShellScriptBin "rand_bg" ''
-  DIRECTORY=${homeDirectory}/Pictures/backgrounds/${slug}
+  DIRECTORY=${pictures-dir}/backgrounds/${slug}
 
   # Check if the provided directory exists
   if [ ! -d "$DIRECTORY" ]; then

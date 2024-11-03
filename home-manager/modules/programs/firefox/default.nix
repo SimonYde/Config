@@ -183,7 +183,7 @@ in
           "extensions.update.enabled" = false;
           "extensions.autoDisableScopes" = 0;
           "general.useragent.locale" = "en-US";
-          "places.history.enabled" = false;
+          "places.history.enabled" = true;
           "privacy.clearOnShutdown.cookies" = false;
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.sessions" = false;

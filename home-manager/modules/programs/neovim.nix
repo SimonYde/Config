@@ -42,7 +42,6 @@ in
           friendly-snippets
 
           # -----Config writing-----
-          luvit-meta
           lazydev-nvim
 
           # -----Workflow-----
@@ -69,6 +68,7 @@ in
         ]
         ++ mapLazy [
           # ----- Workflow -----
+          luvit-meta
           luasnip
           trouble-nvim
           diffview-nvim

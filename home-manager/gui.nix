@@ -77,6 +77,10 @@ in
       ex = lib.getExe file-manager.package;
     };
 
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = false;
+    };
     xdg.mimeApps.enable = true;
     xdg.mimeApps.defaultApplications = {
       "x-scheme-handler/http" = "${browser}.desktop";
@@ -97,6 +101,7 @@ in
       "application/x-lzip" = "${file-manager.mime}.desktop";
       "application/x-compress" = "${file-manager.mime}.desktop";
       "application/gzip" = "${file-manager.mime}.desktop";
+      "application/zip" = "${file-manager.mime}.desktop";
       "application/x-bzip2" = "${file-manager.mime}.desktop";
       "application/x-xz" = "${file-manager.mime}.desktop";
       "application/x-xar" = "${file-manager.mime}.desktop";

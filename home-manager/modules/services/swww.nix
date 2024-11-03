@@ -8,7 +8,7 @@
 let
   inherit (lib) mkIf mkEnableOption;
   random-background = pkgs.callPackage ./random-background.nix {
-    homeDirectory = config.home.homeDirectory;
+    pictures-dir = config.xdg.userDirs.pictures;
     slug = config.colorScheme.slug;
   };
   cfg = config.syde.services.swww;

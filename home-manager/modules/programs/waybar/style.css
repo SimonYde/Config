@@ -19,37 +19,41 @@ window#waybar.hidden {
 
 #workspaces {
   transition: none;
-  color: @base0D;
+  color: @text;
   background: transparent;
 }
 
 #workspaces button {
   transition: none;
-  color: @base0D;
+  color: @text;
   background: transparent;
 }
 
 #workspaces button.persistent {
-  color: @base0D;
+  color: @text;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
   transition: none;
-  box-shadow: inherit;
   text-shadow: inherit;
+  /* box-shadow: inset 0 -3px @base05; */
   color: @background;
   background: @base05;
 }
 
 #workspaces button.focused, #workspaces button.active {
   color: @base01;
-  background: @base0D;
+  background: @text;
+  /* box-shadow: inset 0 -3px @base05; */
+  /* border: 2px solid; */
+  /* border-color: @text; */
 }
 
 #mode, #submap {
   padding-left: 8px;
   padding-right: 8px;
+  /* box-shadow: inset 0 -3px @base05; */
   transition: none;
   color: @base01;
   background: @base0F;
@@ -83,7 +87,7 @@ window#waybar.hidden {
 
 #battery.charging {
   color: @background;
-  background-color: @base0D;
+  background-color: @text;
 }
 
 #battery.warning:not(.charging) {
@@ -103,7 +107,7 @@ window#waybar.hidden {
 
 @keyframes blink {
   to {
-    background-color: @text;
+    background-color: @base05;
     color: @background;
   }
 }
