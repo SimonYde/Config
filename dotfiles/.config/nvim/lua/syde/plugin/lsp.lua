@@ -52,6 +52,9 @@ Load.later(function()
 
     setup_lsp({ name = 'clangd' })
     setup_lsp({ name = 'gleam' })
+    setup_lsp({ name = 'gopls' })
+    setup_lsp({ name = 'ocamllsp' })
+
     setup_lsp({
         name = 'nixd',
         settings = {
@@ -70,8 +73,6 @@ Load.later(function()
             },
         },
     })
-    setup_lsp({ name = 'gopls' })
-    setup_lsp({ name = 'ocamllsp' })
 
     setup_lsp({
         name = 'lua_ls',
@@ -82,16 +83,11 @@ Load.later(function()
                     version = 'LuaJIT',
                 },
                 diagnostics = {
-                    globals = { 'vim' },
                     -- Don't make workspace diagnostic, as it consumes too much CPU and RAM
                     workspaceDelay = -1,
                 },
                 workspace = {
                     checkThirdParty = false,
-                --     library = {
-                --         vim.env.VIMRUNTIME,
-                --         -- '${3rd}/luv/library',
-                --     },
                     -- Don't analyze code from submodules
                     ignoreSubmodules = true,
                 },

@@ -6,8 +6,6 @@ Load.later(function()
     vim.opt.foldlevel = 1 -- Display all folds except top ones
     vim.opt.foldenable = true
 
-    vim.treesitter.language.register('bash', 'sh')
-
     vim.opt.runtimepath:prepend('~/.local/state/nvim/treesitter')
 
     local treesitter_opts = {
@@ -45,13 +43,13 @@ Load.later(function()
     end)
 
     require('nvim-treesitter.configs').setup(treesitter_opts)
+end)
 
-    Load.now(function()
-        Load.packadd('nvim-treesitter-context')
-        local context = require('treesitter-context')
-        context.setup()
-        local nmap = Keymap.nmap
+Load.later(function()
+    Load.packadd('nvim-treesitter-context')
+    local context = require('treesitter-context')
+    context.setup()
+    local nmap = Keymap.nmap
 
-        nmap('<leader><leader>t', context.toggle, 'toggle [t]reesitter context')
-    end)
+    nmap('<leader><leader>t', context.toggle, 'toggle [t]reesitter context')
 end)

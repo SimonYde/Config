@@ -36,13 +36,13 @@ Load.later(function()
 
     local ismap = Keymap.map({ 'i', 's' })
     ismap(
-        '<C-.>',
+        '<C-i>',
         function() return vim.snippet.active({ direction = 1 }) and vim.snippet.jump(1) end,
         'Snippet forward'
     )
 
     ismap(
-        '<C-,>',
+        '<C-m>',
         function() return vim.snippet.active({ direction = -1 }) and vim.snippet.jump(-1) end,
         'snippet backward'
     )
@@ -68,9 +68,6 @@ Load.later(function()
             { name = 'path' },
             { name = 'luasnip' },
             { name = 'buffer', keyword_length = 5 },
-        },
-        performance = {
-            debounce = 150,
         },
         mapping = cmp.mapping.preset.insert({
             ['<C-n>'] = cmp.mapping(function()

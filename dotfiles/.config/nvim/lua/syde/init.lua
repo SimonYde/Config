@@ -76,30 +76,6 @@ Load.later(function()
     local actions = require('telescope.actions')
     local themes = require('telescope.themes')
 
-    local preview = {
-        show_line = false,
-        layout_config = {
-            preview_width = 0.55,
-            prompt_position = 'top',
-            horizontal = {
-                height = 0.9,
-                width = 0.9,
-            },
-        },
-    }
-
-    local no_preview = {
-        layout_config = {
-            prompt_position = 'top',
-            horizontal = {
-                height = 0.9,
-                width = 0.9,
-            },
-        },
-        show_line = false,
-        previewer = false,
-    }
-
     -- Dropdown list theme using a builtin theme definitions :
     local dropdown = themes.get_dropdown({
         width = 0.5,
@@ -141,6 +117,11 @@ Load.later(function()
             prompt_prefix = '  ',
             layout_config = {
                 prompt_position = 'top',
+                preview_width = 0.55,
+                horizontal = {
+                    height = 0.9,
+                    width = 0.9,
+                },
             },
             sorting_strategy = 'ascending',
         },
@@ -162,19 +143,19 @@ Load.later(function()
 
     local builtin = require('telescope.builtin')
     nmap('<leader>?', builtin.keymaps, 'Search keymaps')
-    nmap('<leader>b', function() builtin.buffers(preview) end, 'buffers')
-    nmap('<leader>fc', function() builtin.current_buffer_fuzzy_find(no_preview) end, 'current buffer lines')
-    nmap('<leader>ff', function() builtin.find_files(preview) end, 'Files')
-    nmap('<leader>fh', function() builtin.help_tags(preview) end, 'Help tags')
-    nmap('<leader>fg', function() builtin.git_files(preview) end, 'Git files')
-    nmap('<leader>fb', function() builtin.builtin(preview) end, 'Builtin telescope pickers')
-    nmap('<leader>fs', function() builtin.lsp_document_symbols(preview) end, 'LSP document symbols')
-    nmap('<leader>fw', function() builtin.lsp_dynamic_workspace_symbols(preview) end, 'LSP workspace symbols')
-    nmap('<leader>/', function() builtin.live_grep(preview) end, 'Global search with grep')
-    nmap("<leader>'", function() builtin.resume() end, 'Resume last picker')
-    nmap('gr', function() builtin.lsp_references(preview) end, 'Goto references (telescope)')
-    nmap('gi', function() builtin.lsp_implementations(preview) end, 'Goto implementations (telescope)')
-    nmap('gd', function() builtin.lsp_definitions(preview) end, 'Goto definitions (telescope)')
+    nmap('<leader>fc', builtin.current_buffer_fuzzy_find, 'current buffer lines')
+    nmap('<leader>b', builtin.buffers, 'buffers')
+    nmap('<leader>ff', builtin.find_files, 'Files')
+    nmap('<leader>fh', builtin.help_tags, 'Help tags')
+    nmap('<leader>fg', builtin.git_files, 'Git files')
+    nmap('<leader>fb', builtin.builtin, 'Builtin telescope pickers')
+    nmap('<leader>fs', builtin.lsp_document_symbols, 'LSP document symbols')
+    nmap('<leader>fw', builtin.lsp_dynamic_workspace_symbols, 'LSP workspace symbols')
+    nmap('<leader>/', builtin.live_grep, 'Global search with grep')
+    nmap("<leader>'", builtin.resume, 'Resume last picker')
+    nmap('gr', builtin.lsp_references, 'Goto references (telescope)')
+    nmap('gi', builtin.lsp_implementations, 'Goto implementations (telescope)')
+    nmap('gd', builtin.lsp_definitions, 'Goto definitions (telescope)')
 end)
 
 Load.later(function()
@@ -339,7 +320,7 @@ Load.later(function()
             template = 'templates/daily.md',
         },
 
-        use_advanced_uri = true,
+        use_advanced_uri = false,
         disable_frontmatter = true,
         follow_url_func = function(url) vim.ui.open(url) end,
         follow_img_func = function(img) vim.fn.jobstart({ 'xdg-open', img }) end,
@@ -357,4 +338,7 @@ Load.later(function()
     imap('<C-l>', vim.cmd.ObsidianToggleCheckbox, 'Toggle markdown checkbox')
 end)
 
-Load.later(function() require('todo-comments').setup() end)
+Load.later(function()
+    Load.packadd('todo-comments.nvim')
+    require('todo-comments').setup()
+end)
