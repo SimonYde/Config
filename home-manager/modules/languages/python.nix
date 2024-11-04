@@ -5,7 +5,7 @@
   ...
 }:
 let
-  python-pkgs = pkgs.python311.withPackages (
+  python-pkgs = pkgs.python312.withPackages (
     ps: with ps; [
       python-lsp-server
       python-lsp-ruff
@@ -17,6 +17,7 @@ let
       scipy
       matplotlib
       debugpy
+      randcrack
     ]
   );
 in
