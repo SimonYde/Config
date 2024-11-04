@@ -1930,6 +1930,47 @@
         "type": "github"
       }
     },
+    "randcrack": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "randcrack-src": "randcrack-src"
+      },
+      "locked": {
+        "lastModified": 1730676632,
+        "narHash": "sha256-eeeScMQ1jeiWHY9ltX9zcOGyAfA37+cemOagxvoIZXk=",
+        "owner": "SimonYde",
+        "repo": "randcrack.nix",
+        "rev": "07bb08bde665b0f9a8c8549b1d190e6cccb0af0f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SimonYde",
+        "repo": "randcrack.nix",
+        "type": "github"
+      }
+    },
+    "randcrack-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656104613,
+        "narHash": "sha256-DR6jq0deEqKn5titjzr+HYsZqLGYJcI0gcih32wsNlw=",
+        "owner": "tna0y",
+        "repo": "Python-random-module-cracker",
+        "rev": "2ed391e240e3eff88ab110e15439bda580c653c5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tna0y",
+        "ref": "0.2.0",
+        "repo": "Python-random-module-cracker",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -1954,6 +1995,7 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "pix2tex": "pix2tex",
+        "randcrack": "randcrack",
         "rustaceanvim": "rustaceanvim",
         "split-monitor-workspaces": "split-monitor-workspaces",
         "stable": "stable",
