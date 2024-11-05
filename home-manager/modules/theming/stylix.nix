@@ -29,6 +29,7 @@ in
         waybar.enable = false;
         zellij.enable = false;
         zathura.enable = false;
+        fzf.enable = false;
       };
       cursor = {
         package = cursor.package;

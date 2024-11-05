@@ -28,12 +28,12 @@ in
       ${emulator}.enable = true;
 
       # other GUI programs
-      vscode.enable = false;
-      mangohud.enable = true;
-      qutebrowser.enable = false;
       emacs.enable = false;
+      mangohud.enable = true;
       mpv.enable = true;
       obs-studio.enable = true;
+      qutebrowser.enable = false;
+      vscode.enable = false;
       zathura.enable = true;
     };
 
@@ -50,7 +50,6 @@ in
 
     services = {
       trayscale.enable = true;
-      blanket.enable = false;
       kdeconnect.enable = true;
       gammastep.enable = true;
       redshift.enable = false;

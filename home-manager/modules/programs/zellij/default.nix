@@ -45,7 +45,6 @@ in
           }
           layout_dir "${zellij_path}/layouts"
           default_layout "custom_compact"
-          default_shell "${pkgs.fish}/bin/fish"
           default_mode "locked"
           simplified_ui true
           pane_frames false

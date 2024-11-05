@@ -41,7 +41,7 @@ in
           builtins.concatStringsSep "," [
             "bg:${base00}"
             "bg+:${base01}"
-            "fg:${base04}"
+            "fg:${base05}"
             "fg+:${base06}"
             "header:${base0D}"
             "hl:${base0D}"

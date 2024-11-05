@@ -14,7 +14,7 @@ in
   imports = [ ./module.nix ];
 
   config = mkIf cfg.enable {
-    colorScheme = nix-colors.colorSchemes."gruvbox-dark-hard";
+    colorScheme = nix-colors.colorSchemes."catppuccin-mocha";
 
     syde.theming.fonts = {
       monospace = {
