@@ -22,7 +22,13 @@
 
           kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
           kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
+
           python312 = prev.python312.override {
+            packageOverrides = pyfinal: pyprev: {
+              randcrack = inputs.randcrack.packages.${prev.system}.default;
+            };
+          };
+          python311 = prev.python311.override {
             packageOverrides = pyfinal: pyprev: {
               randcrack = inputs.randcrack.packages.${prev.system}.default;
             };

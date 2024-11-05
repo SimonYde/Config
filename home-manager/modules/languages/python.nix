@@ -17,7 +17,10 @@ let
       scipy
       matplotlib
       debugpy
+
+      # CTF
       randcrack
+      pwntools
     ]
   );
 in
