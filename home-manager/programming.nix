@@ -23,7 +23,7 @@ in
       go.enable     = true;
       java.enable   = false;
       latex.enable  = true;
-      scala.enable  = true;
+      scala.enable  = false;
       lua.enable    = true;
       nix.enable    = true;
       ocaml.enable  = false;
