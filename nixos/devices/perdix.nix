@@ -34,7 +34,7 @@
     };
   };
 
-
+  syde.shell = "nushell";
 
   programs = {
     nix-ld.enable = true;

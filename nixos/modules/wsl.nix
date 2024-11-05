@@ -49,7 +49,7 @@ in
 
     programs = {
       dconf.enable = true;
-      ${shell}.enable = true;
+      # ${shell}.enable = true;
     };
   };
 

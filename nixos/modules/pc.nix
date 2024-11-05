@@ -75,7 +75,7 @@ in
       hashedPasswordFile = config.age.secrets.pc-password.path;
     };
 
-    programs.${shell}.enable = true;
+    # programs.${shell}.enable = true;
 
     environment.systemPackages = with pkgs; [ git ];
 

@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     programs = {
       # Shells
-      fish.enable = true;
+      fish.enable = false;
       bash.enable = true;
       nushell.enable = true;
       zsh.enable = false;
@@ -31,7 +31,7 @@ in
       fzf.enable = true;
       fastfetch.enable = true;
       fd.enable = true;
-      tmux.enable = true;
+      tmux.enable = false;
       gh.enable = true;
       git.enable = true;
       lazygit.enable = false;

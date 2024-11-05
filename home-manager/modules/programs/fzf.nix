@@ -17,7 +17,7 @@ let
           --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
           --bind 'enter:become($EDITOR {1} +{2})'
   '';
-  fd = "${pkgs.fd}/bin/fd";
+  fd = lib.getExe pkgs.fd;
   cfg = config.programs.fzf;
 in
 {
@@ -26,20 +26,25 @@ in
 
     programs.fzf = {
       enableBashIntegration = true;
-      tmux.enableShellIntegration = true;
       enableFishIntegration = true;
       enableZshIntegration = true;
       changeDirWidgetCommand = "${fd} -H --type directory";
       fileWidgetCommand = "${fd} -H --type file";
       defaultCommand = "${fd} -H --type file";
-      colors =
-        with config.syde.theming.palette-hex;
-        lib.mkDefault {
-          bg = "";
-          "bg+" = "";
-          fg = base04;
-          "fg+" = base06;
-        };
+      colors = with config.syde.theming.palette-hex; {
+        bg = base00;
+        "bg+" = base01;
+        fg = base05;
+        "fg+" = base06;
+        header = base0D;
+        hl = base0D;
+        "hl+" = base0D;
+        info = base0A;
+        marker = base0C;
+        pointer = base0C;
+        prompt = base0A;
+        spinner = base0C;
+      };
       defaultOptions = [ ];
     };
   };

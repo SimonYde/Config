@@ -9,6 +9,7 @@
     ./atuin.nix
     ./bat.nix
     ./btop.nix
+    ./carapace.nix
     ./direnv.nix
     ./eza.nix
     ./git.nix
@@ -52,7 +53,7 @@
     # ---Shells---
     ./bash.nix
     ./fish.nix
-    ./nushell.nix
+    ./nushell
     ./zsh.nix
   ];
 
