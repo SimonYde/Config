@@ -15,19 +15,19 @@ in
           dynamic_title = true;
         };
         font = {
-          normal = mkDefault {
+          normal = mkForce {
             family = fontName;
             style = "Regular";
           };
-          bold = mkDefault {
+          bold = mkForce {
             family = fontName;
             style = "Bold";
           };
-          italic = mkDefault {
+          italic = mkForce {
             family = fontName;
             style = "Italic";
           };
-          bold_italic = mkDefault {
+          bold_italic = mkForce {
             family = fontName;
             style = "Bold Italic";
           };
@@ -39,10 +39,6 @@ in
             blinking = "Off";
           };
         };
-        # shell = {
-        #   program = "${pkgs.fish}/bin/fish";
-        #   args = [ "--login" ];
-        # };
         keyboard.bindings = [
           {
             key = "Return";

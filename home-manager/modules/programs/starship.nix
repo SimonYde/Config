@@ -12,7 +12,7 @@ in
       enableBashIntegration = true;
       settings = with config.syde.theming.palette-hex; {
         add_newline = false;
-        format = ''$username$hostname$directory$nix_shell$git_branch$line_break$character'';
+        format = "$username$hostname$directory$nix_shell$git_branch$line_break$character";
         right_format = "$cmd_duration$rust$elm$golang$ocaml$java$scala$lua$typst$direnv$gleam";
         character = {
           success_symbol = "[⟩](normal ${base05})";

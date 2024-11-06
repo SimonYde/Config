@@ -23,8 +23,13 @@ in
 
   options.syde = {
     shell = mkOption {
-      type = types.str;
-      default = "fish";
+      type = types.enum [
+        "fish"
+        "zsh"
+        "nushell"
+        "bash"
+      ];
+      default = "nushell";
     };
     user = mkOption {
       type = types.str;
