@@ -75,7 +75,7 @@ in
       hashedPasswordFile = config.age.secrets.pc-password.path;
     };
 
-    # programs.${shell}.enable = true;
+    programs.fish.enable = true; # NOTE: for fish completions for system programs
 
     environment.systemPackages = with pkgs; [ git ];
 

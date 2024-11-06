@@ -26,6 +26,7 @@ in
         vim.enable = false;
         helix.enable = false;
         neovim.enable = false;
+        nushell.enable = false;
         waybar.enable = false;
         zellij.enable = false;
         zathura.enable = false;

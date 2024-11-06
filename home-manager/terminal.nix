@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     programs = {
       # Shells
-      fish.enable = false;
+      fish.enable = true;
       bash.enable = true;
       nushell.enable = true;
       zsh.enable = false;
