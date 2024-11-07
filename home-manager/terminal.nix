@@ -77,7 +77,7 @@ in
 
       grawlix
       pix2tex
-      nur.repos.jo1gi.audiobook-dl-git
+      audiobook-dl
     ];
 
     home.shellAliases = {
