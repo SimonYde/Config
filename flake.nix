@@ -43,6 +43,10 @@
       url = "github:dedukun/bookmarks.yazi";
       flake = false;
     };
+    zjstatus = {
+      url = "github:dj95/zjstatus";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     helix = {
       url = "github:helix-editor/helix";
@@ -125,6 +129,10 @@
       url = "github:SimonYde/randcrack.nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+    };
+    audiobook-dl = {
+      url = "github:SimonYde/audiobook-dl.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

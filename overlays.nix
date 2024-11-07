@@ -16,6 +16,9 @@
           };
           grawlix = inputs.grawlix.packages.${prev.system}.default;
           pix2tex = inputs.pix2tex.packages.${prev.system}.default;
+          audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
+
+          zjstatus = inputs.zjstatus.packages.${prev.system}.default;
 
           delta = final.stable.delta;
           swaylock-effects = final.stable.swaylock-effects;
