@@ -32,7 +32,7 @@ let
 
     programs.nix-ld = {
       enable = true;
-      libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
+      # libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
     };
 
     hardware = {
