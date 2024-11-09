@@ -70,7 +70,12 @@ nxmap('<M-c>', [["_c]], '[c]hange without yanking')
 
 nmap('gF', '<cmd>:e <cfile><CR>', "Goto [F]ile (even if doesn't exist)")
 
-nmap('<leader>x', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'Search and replace in buffer')
+nmap(
+    '<leader>x',
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    'Search and replace in buffer',
+    { silent = false }
+)
 tmap('<leader><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
 
 vim.lsp.inlay_hint.toggle = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end

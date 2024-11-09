@@ -222,22 +222,22 @@ in
         };
 
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          export-cookies-txt
-          ublock-origin
-          cookie-autodelete
-          istilldontcareaboutcookies
-          user-agent-string-switcher
-          darkreader
-          enhancer-for-youtube
-          sponsorblock
-          multi-account-containers
-          news-feed-eradicator
-          sidebery
-          lastpass-password-manager
-          proton-pass
-          vimium
-          stylus
-          firefox-color
+          # export-cookies-txt
+          # ublock-origin
+          # cookie-autodelete
+          # istilldontcareaboutcookies
+          # user-agent-string-switcher
+          # darkreader
+          # enhancer-for-youtube
+          # sponsorblock
+          # multi-account-containers
+          # news-feed-eradicator
+          # sidebery
+          # lastpass-password-manager
+          # proton-pass
+          # vimium
+          # stylus
+          # firefox-color
 
           # bypass-paywalls-clean
           # readwise-highlighter # doesn't exist yet

@@ -56,6 +56,8 @@ in
           nvim-dap-ui
 
           obsidian-nvim
+          image-nvim
+          neorg
 
           # -----Fuzzy Finder-----
           telescope-nvim
@@ -74,6 +76,7 @@ in
           diffview-nvim
           neogit
           todo-comments-nvim
+          img-clip-nvim
 
           # ----- UI -----
           lspsaga-nvim
@@ -83,7 +86,6 @@ in
           nvim-treesitter-context
           rainbow-delimiters-nvim
         ];
-
       extraLuaConfig =
         with config.syde.theming.palette-hex; # lua
         ''

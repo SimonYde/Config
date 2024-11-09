@@ -1,5 +1,5 @@
 module zellij_extras {
-# Zellij attach helper
+    # Zellij attach helper
     export def za [session?: string@session_completer] {
         zellij attach (
             match $session {
@@ -11,6 +11,18 @@ module zellij_extras {
             _ => $session
             }
         )
+    }
+
+    # Zellij create session (Attach if already exists)
+    export def zc [] {
+        let current = pwd | split words | last
+        let exists = parse_sessions | ansi strip | any {|el| $el == $current }
+
+        if $exists {
+            zellij a $current
+        } else {
+            zellij -s $current
+        }
     }
 
     def parse_sessions [] {

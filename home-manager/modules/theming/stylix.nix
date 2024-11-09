@@ -23,6 +23,7 @@ in
         hyprland.enable = false;
         sway.enable = false;
         swaylock.enable = false;
+        wezterm.enable = false;
         vim.enable = false;
         helix.enable = false;
         neovim.enable = false;

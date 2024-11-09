@@ -74,6 +74,7 @@ in
       nix-output-monitor
       libqalculate
       rclone
+      imagemagick
 
       grawlix
       pix2tex
