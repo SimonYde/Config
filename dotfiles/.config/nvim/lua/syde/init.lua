@@ -5,6 +5,7 @@ require('syde.colorscheme')
 
 require('syde.plugin.mini')
 require('syde.plugin.treesitter')
+require('syde.plugin.snippets')
 require('syde.plugin.completion')
 require('syde.plugin.conform')
 require('syde.plugin.lsp')
@@ -39,21 +40,10 @@ Load.later(function()
 end)
 
 Load.later(function()
-    Load.packadd('render-markdown.nvim')
-    require('render-markdown').setup({
-        callout = {
-            definition = { raw = '[!definition]', rendered = ' Definition', highlight = 'RenderMarkdownInfo' },
-            theorem = { raw = '[!theorem]', rendered = '󰨸 Theorem', highlight = 'RenderMarkdownHint' },
-            proof = { raw = '[!proof]', rendered = '󰌶 Proof', highlight = 'RenderMarkdownWarn' },
-        },
-    })
-end)
-
-Load.later(function()
     Load.packadd('diffview.nvim')
     local diffview = require('diffview')
     diffview.setup()
-    nmap('<leader>gd', function() diffview.open() end, 'git diffview')
+    nmap('<leader>gd', function() diffview.open({}) end, 'git diffview')
 end)
 
 Load.later(function()
@@ -320,7 +310,7 @@ Load.later(function()
             template = 'templates/daily.md',
         },
 
-        use_advanced_uri = false,
+        use_advanced_uri = true,
         disable_frontmatter = true,
         follow_url_func = function(url) vim.ui.open(url) end,
         follow_img_func = function(img) vim.fn.jobstart({ 'xdg-open', img }) end,
@@ -341,4 +331,61 @@ end)
 Load.later(function()
     Load.packadd('todo-comments.nvim')
     require('todo-comments').setup()
+end)
+
+Load.later(function()
+    require('image').setup({
+        backend = 'kitty',
+        kitty_method = 'normal',
+        processor = 'magick_rock',
+        integrations = {
+            markdown = {
+                enabled = true,
+                clear_in_insert_mode = true,
+                download_remote_images = true,
+                only_render_image_at_cursor = true,
+                filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
+                resolve_image_path = function(document_path, image_path, fallback)
+                    local working_dir = vim.fn.getcwd()
+                    local image = image_path
+                    if image_path:find('/') then
+                        -- contains a path, so we handle it normally
+                        return fallback(document_path, image)
+                    end
+
+                    -- Format image path for Obsidian notes
+                    local is_vault = working_dir:find('Obsidian/Apollo')
+
+                    if image_path:find('|') then
+                        -- Split off the image file name
+                        image = vim.split(image_path, '|')[1]
+                    end
+
+                    if is_vault then return working_dir .. '/attachments/' .. image end
+                    -- Fallback to the default behaviour
+                    return fallback(document_path, image)
+                end,
+            },
+        },
+    })
+end)
+
+Load.later(function()
+    Load.packadd('img-clip.nvim')
+    require('img-clip').setup({
+        default = {
+            dir_path = 'attachments',
+        },
+    })
+end)
+
+Load.later(function()
+    Load.packadd('render-markdown.nvim')
+    require('render-markdown').setup({
+        callout = {
+            definition = { raw = '[!definition]', rendered = ' Definition', highlight = 'RenderMarkdownInfo' },
+            theorem = { raw = '[!theorem]', rendered = '󰨸 Theorem', highlight = 'RenderMarkdownHint' },
+            proof = { raw = '[!proof]', rendered = '󰌶 Proof', highlight = 'RenderMarkdownWarn' },
+        },
+    })
 end)

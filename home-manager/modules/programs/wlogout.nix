@@ -84,14 +84,14 @@ in
         "label" = "suspend";
         "action" = "systemctl suspend";
         "text" = "Suspend";
-        "keybind" = "u";
+        "keybind" = "s";
       }
 
       {
-        "label" = "shutdown";
+        "label" = "poweroff";
         "action" = "systemctl poweroff";
-        "text" = "Shutdown";
-        "keybind" = "s";
+        "text" = "Poweroff";
+        "keybind" = "p";
       }
 
       {

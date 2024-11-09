@@ -39,6 +39,8 @@ in
 
     syde.desktop.cosmic.files.enable = false;
 
+    syde.terminal.emulator = "kitty";
+
     # personal program configurations
     syde.programs = {
       discord.enable = true;
@@ -49,6 +51,7 @@ in
     };
 
     services = {
+      emacs.enable = false;
       trayscale.enable = true;
       kdeconnect.enable = true;
       gammastep.enable = true;
@@ -65,7 +68,6 @@ in
 
       qbittorrent # Linux ISOs
       stremio
-      youtube-music
 
       todoist-electron
 

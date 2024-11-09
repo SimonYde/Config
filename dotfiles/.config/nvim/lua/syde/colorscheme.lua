@@ -19,6 +19,7 @@ local add_transparency = function()
             hi DiagnosticFloatingOk guibg=NONE ctermbg=NONE
             hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
             hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
+            hi MiniTabLineFill guibg=NONE ctermbg=NONE
             hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
             hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
         ]])
@@ -35,7 +36,7 @@ local catppuccin = Load.now(function()
         transparent_background = false,
         integrations = {
             cmp = true,
-            gitsigns = true,
+            gitsigns = false,
             harpoon = true,
             indent_blankline = { enabled = true, colored_indent_levels = false },
             lsp_saga = true,
@@ -44,24 +45,24 @@ local catppuccin = Load.now(function()
             rainbow_delimiters = true,
             telescope = {
                 enabled = true,
-                style = 'nvchad',
+                -- style = 'nvchad',
             },
             treesitter = true,
             treesitter_context = true,
             which_key = true,
         },
         custom_highlights = function(colors)
-            return {
-                MiniJump = {
-                    fg = colors.subtext1,
-                    bg = colors.surface2,
-                },
-                MiniStatuslineModeNormal = {
-                    fg = colors.mantle,
-                    bg = colors.lavender,
-                    style = { 'bold' },
-                },
+            local highlights = {}
+            highlights.LineNr = {
+                fg = colors.overlay0,
             }
+            highlights.IblIndent = {
+                fg = colors.overlay0,
+            }
+            highlights.NormalFloat = {
+                bg = colors.mantle,
+            }
+            return highlights
         end,
     })
     vim.cmd.colorscheme('catppuccin')
@@ -112,9 +113,13 @@ Load.now(function()
         },
     })
     vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
-    -- vim.cmd(('hi MiniJump2dSpot guifg=%s guibg=%s'):format(PALETTE.base0D, PALETTE.base01))
-    -- vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(PALETTE.base0E, PALETTE.base00))
-    if vim.g.transparent then
-        add_transparency()
-    end
+    vim.cmd(
+        ('hi MiniJump2dSpot cterm=bold,underline gui=bold,underline guifg=%s guibg=%s'):format(
+            PALETTE.base08,
+            PALETTE.base00
+        )
+    )
+    vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(PALETTE.base0B, PALETTE.base00))
+    vim.cmd(('hi MiniJump2dSpotUnique guifg=%s guibg=%s'):format(PALETTE.base0C, PALETTE.base00))
+    if vim.g.transparent then add_transparency() end
 end)
