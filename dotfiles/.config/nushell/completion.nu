@@ -36,6 +36,7 @@ let external_completer = {|spans|
         tailscale => $fish_completer
         nh => $fish_completer
         zellij => $fish_completer
+        pueue => $fish_completer
         gcc => $fish_completer
         hyprctl => $fish_completer
         # use zoxide completions for zoxide commands

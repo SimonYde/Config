@@ -57,7 +57,6 @@ in
 
           obsidian-nvim
           image-nvim
-          neorg
 
           # -----Fuzzy Finder-----
           telescope-nvim

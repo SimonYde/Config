@@ -6,6 +6,9 @@
 }:
 let
   inherit (lib) mkIf;
+  plugins = with pkgs.nushellPlugins; [
+    skim
+  ];
   cfg = config.programs.nushell;
 in
 {
@@ -13,7 +16,7 @@ in
 
     home.packages = with pkgs; [
       nufmt
-    ];
+    ] ++ plugins;
 
     programs.neovim.plugins = with pkgs.vimPlugins; [
       nvim-nu
@@ -22,6 +25,7 @@ in
     programs.carapace.enable = true;
     programs.starship.settings.character.format = lib.mkForce "\n\n";
     programs.starship.enableFishIntegration = lib.mkForce false;
+    services.pueue.enable = true; # Background jobs
 
     programs.nushell = {
       configFile.source = ./config.nu;
@@ -69,9 +73,6 @@ in
 
     home.file."${config.xdg.configHome}/nushell/plugin.msgpackz" =
       let
-        plugins = with pkgs.nushellPlugins; [
-          skim
-        ];
         pluginExprs = map (plugin: "plugin add ${lib.getExe plugin}") plugins;
       in
       mkIf (plugins != [ ]) {

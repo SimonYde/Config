@@ -228,6 +228,7 @@ Load.later(function()
             imap('<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
 
             Load.now(function()
+                require('lspsaga')
                 nmap('<leader>e', function() vim.cmd.Lspsaga('hover_doc') end, 'hover documentation')
                 nmap('<leader>a', function() vim.cmd.Lspsaga('code_action') end, 'code [a]ctions')
                 nmap('<leader>r', function() vim.cmd.Lspsaga('rename') end, 'LSP [r]ename')
