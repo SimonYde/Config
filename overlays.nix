@@ -20,9 +20,6 @@
 
           zjstatus = inputs.zjstatus.packages.${prev.system}.default;
 
-          delta = final.stable.delta;
-          swaylock-effects = final.stable.swaylock-effects;
-
           kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
           kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
 

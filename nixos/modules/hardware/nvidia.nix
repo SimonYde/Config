@@ -32,6 +32,7 @@ in
       cudaPackages.cudatoolkit
     ];
 
+    hardware.nvidia-container-toolkit.enable = config.virtualisation.docker.enable;
     hardware.graphics = {
       enable = true;
       enable32Bit = true;

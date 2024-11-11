@@ -12,7 +12,7 @@ in
 {
   config = {
     environment.systemPackages = [
-      (inputs.agenix.packages.${pkgs.system}.default.override { inherit ageBin; })
+      inputs.agenix.packages.${pkgs.system}.default
     ];
 
     age.identityPaths = [ "/home/${config.syde.user}/.ssh/id_ed25519" ];
