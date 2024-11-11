@@ -107,7 +107,6 @@ Load.later(function()
             prompt_prefix = '  ',
             layout_config = {
                 prompt_position = 'top',
-                preview_width = 0.55,
                 horizontal = {
                     height = 0.9,
                     width = 0.9,
@@ -346,7 +345,6 @@ Load.later(function()
                 only_render_image_at_cursor = true,
                 filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
                 resolve_image_path = function(document_path, image_path, fallback)
-                    local working_dir = vim.fn.getcwd()
                     local image = image_path
                     if image_path:find('/') then
                         -- contains a path, so we handle it normally
@@ -354,14 +352,18 @@ Load.later(function()
                     end
 
                     -- Format image path for Obsidian notes
-                    local is_vault = working_dir:find('Obsidian/Apollo')
+                    local working_dir = vim.fn.getcwd()
 
                     if image_path:find('|') then
                         -- Split off the image file name
                         image = vim.split(image_path, '|')[1]
                     end
 
-                    if is_vault then return working_dir .. '/attachments/' .. image end
+                    local is_vault = working_dir:find('Obsidian/Apollo')
+                    if is_vault then
+                        -- Special handling of obsidian wiki links
+                        return working_dir .. '/attachments/' .. image
+                    end
                     -- Fallback to the default behaviour
                     return fallback(document_path, image)
                 end,

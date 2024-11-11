@@ -10,7 +10,18 @@ Load.later(function()
 
     local treesitter_opts = {
         auto_install = true,
-        ensure_installed = { 'lua', 'nix', 'markdown', 'markdown_inline', 'gitignore', 'gitattributes', 'gitcommit' },
+        ensure_installed = {
+            'lua',
+            'nix',
+            'markdown',
+            'markdown_inline',
+            'query',
+            'vim',
+            'vimdoc',
+            'gitignore',
+            'gitattributes',
+            'gitcommit',
+        },
         parser_install_dir = '~/.local/state/nvim/treesitter',
         highlight = {
             enable = true,

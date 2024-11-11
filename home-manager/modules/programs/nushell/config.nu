@@ -79,4 +79,4 @@ alias lla = ls -la
 alias lt = eza --tree --level=2 --long --icons --git
 
 source ~/.config/nushell/completion.nu
-source ~/.config/nushell/scripts.nu
+use zellij_extras.nu *

@@ -42,7 +42,7 @@ nmap('U', '<C-r>', 'redo')
 -- xmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
 -- xmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
 
-if vim.fn.has('nvim-0.11') then
+if vim.fn.has('nvim-0.11') == 1 then
     Load.now(function()
         vim.keymap.del('n', 'gri')
         vim.keymap.del('n', 'grr')
