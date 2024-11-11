@@ -87,9 +87,9 @@
     };
 
     agenix = {
-      url = "github:ryantm/agenix";
+      url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     firefox-csshacks = {
