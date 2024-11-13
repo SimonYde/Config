@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
@@ -25,6 +24,7 @@ in
       networkmanagerapplet
 
       pavucontrol # audio control
+      hyprsunset # blue-light filter
 
       grimblast # screenshot tool
       wl-clipboard # clipboard manager
@@ -45,6 +45,7 @@ in
 
     syde.services = {
       hyprland-autoname-workspaces.enable = true;
+      hyprsunset.enable = true;
       swww.enable = true;
     };
 
@@ -66,12 +67,13 @@ in
         general = with palette; {
           gaps_in = 3;
           gaps_out = 6;
+
           border_size = 2;
+          resize_on_border = false;
           "col.active_border" = mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
           "col.inactive_border" = mkForce "transparent";
 
           layout = "dwindle";
-          resize_on_border = true;
           allow_tearing = true; # For gaming. Set windowrule `immediate` for games to enable.
         };
 
@@ -96,7 +98,9 @@ in
 
         decoration = {
           rounding = 10;
-          drop_shadow = false;
+          shadow = {
+            enabled = false;
+          };
           dim_special = 0.2;
           blur = {
             enabled = true;
@@ -153,5 +157,4 @@ in
       ];
     };
   };
-  # imports = [ inputs.hyprland.homeManagerModules.default ];
 }
