@@ -44,6 +44,7 @@ in
     # personal program configurations
     syde.programs = {
       discord.enable = true;
+      discord.package = pkgs.vesktop;
       thunar = {
         defaultFilemanager = true;
         enable = true;
@@ -53,7 +54,7 @@ in
     services = {
       emacs.enable = false;
       trayscale.enable = true;
-      kdeconnect.enable = true;
+      kdeconnect.enable = false;
       gammastep.enable = true;
       redshift.enable = false;
       udiskie.enable = true;
