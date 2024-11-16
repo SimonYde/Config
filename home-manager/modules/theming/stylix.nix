@@ -21,6 +21,7 @@ in
       targets = {
         hyprpaper.enable = lib.mkForce false;
         hyprland.enable = false;
+        hyprlock.enable = false;
         sway.enable = false;
         swaylock.enable = false;
         wezterm.enable = false;

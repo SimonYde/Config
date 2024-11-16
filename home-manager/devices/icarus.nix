@@ -29,7 +29,6 @@ in
         input = {
           kb_layout = mkForce "eu";
           kb_options = mkForce "";
-
         };
       };
       extraConfig = # hyprlang

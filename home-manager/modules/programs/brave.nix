@@ -11,7 +11,7 @@
       { id = "fjcldmjmjhkklehbacihaiopjklihlgg"; } # News Feed Eradicator
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
       { id = "oocalimimngaihdkbihfgmpkcpnmlaoa"; } # Teleparty
-      # { id = "gphhapmejobijbbhgpjhcjognlahblep"; } # GNOME Shell integration
+      { id = "hdokiejnpimakedhajhdlcegeplioahd"; } # Lastpass
     ];
   };
 }
