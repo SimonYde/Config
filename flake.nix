@@ -7,6 +7,10 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat.url = "github:edolstra/flake-compat";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nur.url = "github:nix-community/NUR";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -141,6 +145,7 @@
       self,
       nixpkgs,
       home-manager,
+      pre-commit-hooks,
       flake-utils,
       ...
     }@inputs:
@@ -212,6 +217,14 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
+        checks = {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt.enable = true;
+            };
+          };
+        };
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             just

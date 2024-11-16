@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.programs.zellij;
-  zellij_path = "${config.xdg.configHome}/zellij";
 in
 {
   config = lib.mkIf cfg.enable {
@@ -43,7 +42,7 @@ in
               white "${base05}"
             }
           }
-          layout_dir "${zellij_path}/layouts"
+          layout_dir "${config.xdg.configHome}/zellij/layouts"
           default_layout "compact_zjstatus"
           default_mode "locked"
           simplified_ui true

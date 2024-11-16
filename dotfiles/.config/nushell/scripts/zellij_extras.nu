@@ -1,11 +1,40 @@
+export-env {
+    $env.config = ($env.config | upsert hooks {
+        pre_prompt: [
+            {
+                if $env.ZELLIJ? != null {
+                    let dir = pwd
+                        | str replace '/home/syde' '~'
+                        | path parse
+                        | get parent
+                        | path split
+                        | each { |dir| $dir | split chars | first }
+                    let basename = pwd | path basename
+                    let join = $dir | append $basename | path join
+                    zellij action rename-tab $join
+                }
+            }
+        ]
+        pre_execution: [
+            {
+                if $env.ZELLIJ? != null {
+                    let cmd = commandline | split row ' ' | first
+                    zellij action rename-tab $cmd
+                }
+            }
+        ]
+    })
+}
+
 # Zellij attach helper
 export def za [session?: string@session_completer] {
     zellij attach (
         match $session {
         null => (
             parse_sessions
+            | get value
+            | to text
             | sk
-            | ansi strip
         ),
         _ => $session
         }
@@ -15,7 +44,7 @@ export def za [session?: string@session_completer] {
 # Zellij create session (Attach if already exists)
 export def zc [] {
     let current = pwd | split words | last
-    let exists = parse_sessions | ansi strip | any {|el| $el == $current }
+    let exists = parse_sessions | ansi strip | any {|session| $session == $current }
 
     if $exists {
         zellij a $current
@@ -24,16 +53,10 @@ export def zc [] {
     }
 }
 
-export def zellij_autorename [] {
-    if $nu.is-interactive {
-
-    }
-}
-
 def parse_sessions [] {
-    zellij list-sessions | parse "{session} {other}" | get session
+    zellij list-sessions | parse "{session} {other}" | each {|ses| {value: ($ses.session | ansi strip), description: $ses.other} }
 }
 
 def session_completer [] {
-    parse_sessions | ansi strip
+    parse_sessions
 }

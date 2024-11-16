@@ -45,7 +45,7 @@ in
 
     syde.services = {
       hyprland-autoname-workspaces.enable = true;
-      hyprsunset.enable = true;
+      hyprsunset.enable = false;
       swww.enable = true;
     };
 
