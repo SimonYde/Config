@@ -2,7 +2,8 @@ Load.later(function()
     vim.o.foldtext = '' -- Use underlying text with its highlighting
     vim.o.foldnestmax = 10
     vim.opt.foldmethod = 'expr'
-    vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    -- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     vim.opt.foldlevel = 1 -- Display all folds except top ones
     vim.opt.foldenable = true
 

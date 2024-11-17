@@ -6,9 +6,14 @@ Load.later(function()
     local cmp_nvim_lsp = Load.now(require, 'cmp_nvim_lsp')
     if cmp_nvim_lsp then default_capabilities = cmp_nvim_lsp.default_capabilities(default_capabilities) end
 
-    ---@param LSP { name: string, cmd: string?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
+    ---@param LSP { name: string, cmd: string|table?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
     local function setup_lsp(LSP)
-        if not (vim.fn.executable(LSP.cmd or LSP.name) == 1) then
+        if type(LSP.cmd) == 'table' then
+            -- NOTE: this extra block is necessary
+            if vim.fn.executable(LSP.cmd[1]) ~= 1 then
+                return -- LSP not installed
+            end
+        elseif vim.fn.executable(LSP.cmd or LSP.name) ~= 1 then
             return -- LSP not installed
         end
         local config = {}
@@ -25,7 +30,10 @@ Load.later(function()
         name = 'elmls',
         cmd = 'elm-language-server',
     })
-
+    setup_lsp({
+        name = 'nushell',
+        cmd = { 'nu', '--lsp' },
+    })
     setup_lsp({
         name = 'metals',
         filetypes = { 'java', 'scala', 'sbt' },
