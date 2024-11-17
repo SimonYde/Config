@@ -6,7 +6,7 @@ Load.later(function()
             typst = { 'typstyle' },
             lua = { 'stylua' },
             nix = { 'nixfmt' },
-            nu = { 'nufmt' },
+            -- nu = { 'nufmt' },
         },
     })
 

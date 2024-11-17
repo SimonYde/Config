@@ -309,7 +309,7 @@ Load.later(function()
             template = 'templates/daily.md',
         },
 
-        use_advanced_uri = true,
+        use_advanced_uri = false,
         disable_frontmatter = true,
         follow_url_func = function(url) vim.ui.open(url) end,
         follow_img_func = function(img) vim.fn.jobstart({ 'xdg-open', img }) end,
@@ -367,6 +367,9 @@ Load.later(function()
                     -- Fallback to the default behaviour
                     return fallback(document_path, image)
                 end,
+            },
+            typst = {
+                only_render_image_at_cursor = true,
             },
         },
     })
