@@ -17,7 +17,7 @@ let
   inherit (builtins) mapAttrs;
   nix-colors = inputs.nix-colors;
   colorScheme = config.colorScheme;
-  hexToRGBString = inputs.nix-colors.lib.conversions.hexToRGBString ",";
+  hexToRGBString = nix-colors.lib.conversions.hexToRGBString ",";
   slug = colorScheme.slug;
 
   cfg = config.syde.theming;

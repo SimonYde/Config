@@ -77,23 +77,25 @@ let
   extensionPath = "extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}";
 
   profiles =
-    flip mapAttrs' cfg.profiles (
-      _: profile:
-      nameValuePair "Profile${toString profile.id}" {
-        Name = profile.name;
-        Path = if isDarwin then "Profiles/${profile.path}" else profile.path;
-        IsRelative = 1;
-        # NOTE: hardcoded avatar icon, profile won't launch otherwise
-        ZenAvatarPath = "chrome://browser/content/zen-avatars/avatar-1.svg";
-        Default = if profile.isDefault then 1 else 0;
-      }
-    )
-    // {
-      General = {
-        StartWithLastProfile = 1;
-        Version = 2;
+    cfg.profiles
+    |>
+      mapAttrs' (
+        _: profile:
+        nameValuePair "Profile${toString profile.id}" {
+          Name = profile.name;
+          Path = if isDarwin then "Profiles/${profile.path}" else profile.path;
+          IsRelative = 1;
+          # NOTE: hardcoded avatar icon, profile won't launch otherwise
+          ZenAvatarPath = "chrome://browser/content/zen-avatars/avatar-1.svg";
+          Default = if profile.isDefault then 1 else 0;
+        }
+      )
+      // {
+        General = {
+          StartWithLastProfile = 1;
+          Version = 2;
+        };
       };
-    };
 
   profilesIni = generators.toINI { } profiles;
 
@@ -161,7 +163,7 @@ let
   browserBookmarksFile =
     bookmarks:
     let
-      indent = level: lib.concatStringsSep "" (map (lib.const "  ") (lib.range 1 level));
+      indent = level: (lib.range 1 level) |> map (lib.const "  ") |> lib.concatStringsSep "";
 
       bookmarkToHTML =
         indentLevel: bookmark:
