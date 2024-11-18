@@ -49,3 +49,4 @@ let external_completer = {|spans|
 
 $env.config.completions.external.completer = $external_completer
 use zellij_extras.nu *
+use tailscale.nu
