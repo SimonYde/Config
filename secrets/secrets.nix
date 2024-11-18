@@ -9,4 +9,5 @@ in
 {
   "wireguard.age".publicKeys = users;
   "pc-password.age".publicKeys = users;
+  "tailscale.age".publicKeys = users;
 }
