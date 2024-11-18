@@ -58,6 +58,8 @@
     kanata.enable = true;
   };
 
+  services.tailscale.authKeyFile = config.age.secrets.tailscale.path;
+
   networking.hostName = "perdix";
   networking.wireguard.enable = true;
 

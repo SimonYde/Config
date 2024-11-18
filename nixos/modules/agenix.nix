@@ -21,6 +21,7 @@ in
     age.secrets = {
       wireguard.file = ../../secrets/wireguard.age;
       pc-password.file = ../../secrets/pc-password.age;
+      tailscale.file = ../../secrets/tailscale.age;
     };
   };
 
