@@ -35,8 +35,8 @@ in
           type = "lua";
           config = # lua
             ''
-            _G.PYTHON_PATH = '${python-pkgs}/bin/python'
-          '';
+              _G.PYTHON_PATH = '${python-pkgs}/bin/python'
+            '';
         }
       ];
     };

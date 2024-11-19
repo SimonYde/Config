@@ -93,99 +93,101 @@ in
             action = "ToggleViMode";
           }
         ];
-        colors = with palettes; lib.mkForce {
-          primary = {
-            background = base00;
-            foreground = base05;
-            # Bright and dim foreground colors
-            dim_foreground = base05;
-            bright_foreground = base05;
-          };
-          # Cursor colors
-          cursor = {
-            text = base00;
-            cursor = base06;
-            #     text = "CellBackground";
-            #     cursor = "CellForeground";
-          };
-          vi_mode_cursor = {
-            text = base00;
-            cursor = base07;
-          };
-          # Search colors
-          search = {
-            matches = {
-              foreground = base00;
-              background = base05;
+        colors =
+          with palettes;
+          lib.mkForce {
+            primary = {
+              background = base00;
+              foreground = base05;
+              # Bright and dim foreground colors
+              dim_foreground = base05;
+              bright_foreground = base05;
             };
-            focused_match = {
-              foreground = base00;
-              background = base0B;
+            # Cursor colors
+            cursor = {
+              text = base00;
+              cursor = base06;
+              #     text = "CellBackground";
+              #     cursor = "CellForeground";
             };
-          };
+            vi_mode_cursor = {
+              text = base00;
+              cursor = base07;
+            };
+            # Search colors
+            search = {
+              matches = {
+                foreground = base00;
+                background = base05;
+              };
+              focused_match = {
+                foreground = base00;
+                background = base0B;
+              };
+            };
 
-          # Keyboard regex hints
-          hints = {
-            start = {
-              foreground = base00;
-              background = base0A;
+            # Keyboard regex hints
+            hints = {
+              start = {
+                foreground = base00;
+                background = base0A;
+              };
+              end = {
+                foreground = base00;
+                background = base05;
+              };
             };
-            end = {
-              foreground = base00;
-              background = base05;
+            # Selection colors
+            selection = {
+              text = base00;
+              background = base06;
             };
-          };
-          # Selection colors
-          selection = {
-            text = base00;
-            background = base06;
-          };
-          # Normal colors
-          normal = {
-            black = base03;
-            red = base08;
-            green = base0B;
-            yellow = base0A;
-            blue = base0D;
-            magenta = base0E;
-            cyan = base0C;
-            white = base05;
-          };
-          # Bright colors
-          bright = {
-            black = base04;
-            red = base08;
-            green = base0B;
-            yellow = base0A;
-            blue = base0D;
-            magenta = base0E;
-            cyan = base0C;
-            white = base05;
-          };
+            # Normal colors
+            normal = {
+              black = base03;
+              red = base08;
+              green = base0B;
+              yellow = base0A;
+              blue = base0D;
+              magenta = base0E;
+              cyan = base0C;
+              white = base05;
+            };
+            # Bright colors
+            bright = {
+              black = base04;
+              red = base08;
+              green = base0B;
+              yellow = base0A;
+              blue = base0D;
+              magenta = base0E;
+              cyan = base0C;
+              white = base05;
+            };
 
-          # Dim colors
-          dim = {
-            black = base03;
-            red = base08;
-            green = base0B;
-            yellow = base0A;
-            blue = base0D;
-            magenta = base0E;
-            cyan = base0C;
-            white = base05;
-          };
+            # Dim colors
+            dim = {
+              black = base03;
+              red = base08;
+              green = base0B;
+              yellow = base0A;
+              blue = base0D;
+              magenta = base0E;
+              cyan = base0C;
+              white = base05;
+            };
 
-          indexed_colors = [
-            {
-              index = 16;
-              color = base09;
-            }
-            {
-              index = 17;
-              color = base06;
-            }
-          ];
-        };
+            indexed_colors = [
+              {
+                index = 16;
+                color = base09;
+              }
+              {
+                index = 17;
+                color = base06;
+              }
+            ];
+          };
       };
     };
   };

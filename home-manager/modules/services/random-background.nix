@@ -1,4 +1,9 @@
-{ pkgs, slug, pictures-dir, ... }:
+{
+  pkgs,
+  slug,
+  pictures-dir,
+  ...
+}:
 
 pkgs.writeShellScriptBin "rand_bg" ''
   DIRECTORY=${pictures-dir}/backgrounds/${slug}

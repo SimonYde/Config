@@ -55,7 +55,6 @@ in
       swaync.enable = true;
     };
 
-
     wayland.windowManager.hyprland = {
       settings = {
         "$browser" = browser;
@@ -137,7 +136,7 @@ in
         };
 
         exec-once = [
-          "discord"
+          "vesktop"
           "nm-applet"
           "blueman-applet"
           "obsidian"

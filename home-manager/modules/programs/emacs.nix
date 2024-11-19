@@ -1,7 +1,7 @@
-{config, lib, ...}:
+{ config, lib, ... }:
 
 let
-cfg = config.programs.emacs;
+  cfg = config.programs.emacs;
 in
 {
   config = lib.mkIf cfg.enable {

@@ -45,7 +45,6 @@
     syncthing.enable = true;
   };
 
-
   powerManagement.cpuFreqGovernor = "performance";
 
   networking.hostName = "icarus";
