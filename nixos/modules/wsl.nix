@@ -15,7 +15,7 @@ in
     system.stateVersion = "24.05";
     time.timeZone = "Europe/Copenhagen";
 
-    xdg.portal ={
+    xdg.portal = {
       enable = true;
       config = {
         common.default = [

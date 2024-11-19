@@ -1,4 +1,5 @@
 .stignore
 .stfolder
+.pre-commit-config.yaml
 .direnv
 **/nvim/init.lua

@@ -13,7 +13,6 @@ in
     services.gammastep = {
       temperature = {
         day = 6500;
-        # night = 1900;
         night = 2200;
       };
       tray = true;
@@ -33,12 +32,12 @@ in
     xdg.configFile."gammastep/hooks/notify" = {
       text = # bash
         ''
-        #!/usr/bin/env bash
-        case $1 in
-            period-changed)
-                exec notify-send "Gammastep" "Period changed to $3"
-        esac
-      '';
+          #!/usr/bin/env bash
+          case $1 in
+              period-changed)
+                  exec notify-send "Gammastep" "Period changed to $3"
+          esac
+        '';
       executable = true;
     };
   };

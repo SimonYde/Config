@@ -1,4 +1,10 @@
-{ inputs, config, lib, pkgs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   config = lib.mkIf config.programs.nix-index.enable {
     programs.nix-index-database = {

@@ -1,4 +1,4 @@
-{lib, config, ...}:
+{ lib, config, ... }:
 let
   user = config.syde.user;
   cfg = config.virtualisation.docker;

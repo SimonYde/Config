@@ -1,7 +1,12 @@
-{lib, pkgs, config, ...}:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 let
-cfg = config.syde.programming.bash;
+  cfg = config.syde.programming.bash;
 in
 {
   config = lib.mkIf cfg.enable {

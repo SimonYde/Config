@@ -12,6 +12,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ libnotify ];
     services.swaync = {
       settings = {
         positionX = "right";

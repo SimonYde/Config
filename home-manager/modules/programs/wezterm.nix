@@ -7,6 +7,5 @@ let
   fontSize = config.syde.terminal.fontSize;
 in
 {
-  programs.wezterm = {
-  };
+  programs.wezterm = { };
 }

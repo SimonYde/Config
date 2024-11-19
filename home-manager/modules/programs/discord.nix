@@ -23,7 +23,6 @@ in
       xwaylandvideobridge
     ];
 
-
     xdg.configFile."BetterDiscord/themes/base16.theme.css" = {
       enable = theming.enable;
       text =
