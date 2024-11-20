@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   inputs,
   lib,
   ...
@@ -16,7 +17,7 @@ in
     stylix = {
       enable = true;
       # TODO: remove when this becomes optional... https://github.com/danth/stylix/issues/442
-      image = ../../../assets/backgrounds/night_moon.png;
+      image = config.lib.stylix.pixel "base00";
       base16Scheme = config.colorScheme.palette;
       polarity = config.colorScheme.variant;
       targets = {

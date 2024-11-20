@@ -5,26 +5,25 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf getExe;
   plugins = with pkgs.nushellPlugins; [
     # skim
     formats
     gstat
     query
+    formats
   ];
-  homeDirectory = config.home.homeDirectory;
   cfg = config.programs.nushell;
 in
 {
   config = mkIf cfg.enable {
 
     home.packages =
-      with pkgs;
-      [
+      plugins
+      ++ (with pkgs; [
         nufmt
         nu_scripts
-      ]
-      ++ plugins;
+      ]);
 
     programs.neovim.plugins = with pkgs.vimPlugins; [ ];
 
@@ -36,7 +35,7 @@ in
         ll = "ls -l";
         la = "ls -a";
         lla = "ls -la";
-        lt = "eza --tree --level=2 --long --icons --git";
+        lt = "${getExe pkgs.eza} --tree --level=2 --long --icons --git";
       };
       environmentVariables = {
         PROMPT_INDICATOR = "";
@@ -155,19 +154,19 @@ in
 
     home.file."${config.xdg.configHome}/nushell/plugin.msgpackz" =
       let
-        pluginExprs = map (plugin: "plugin add ${lib.getExe plugin}") plugins;
+        pluginExprs = plugins |> map (plugin: "plugin add ${getExe plugin}") |> lib.concatStringsSep ";";
       in
       mkIf (plugins != [ ]) {
         source = pkgs.runCommandLocal "plugin.msgpackz" { } ''
           touch $out {config,env}.nu
 
-          ${lib.getExe cfg.package} \
-          --config config.nu \
-          --env-config env.nu \
-          --plugin-config plugin.msgpackz \
-          --no-history \
-          --no-std-lib \
-          --commands '${lib.concatStringsSep ";" pluginExprs};'
+          ${getExe cfg.package} \
+            --config config.nu \
+            --env-config env.nu \
+            --plugin-config plugin.msgpackz \
+            --no-history \
+            --no-std-lib \
+            --commands '${pluginExprs};'
 
           cp plugin.msgpackz $out
         '';

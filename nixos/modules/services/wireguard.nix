@@ -7,7 +7,7 @@
 {
   config = lib.mkIf config.networking.wireguard.enable {
     networking.wg-quick.interfaces = {
-      proton-wg = {
+      proton = {
         autostart = false;
         address = [ "10.2.0.2/32" ];
         dns = [ "10.2.0.1" ];
