@@ -7,7 +7,6 @@
         inputs.nur.overlay
         # inputs.helix.overlays.default
         inputs.neovim-nightly.overlays.default
-        inputs.rustaceanvim.overlays.default
         # inputs.hyprland.overlays.default
 
         (final: prev: {

@@ -8,5 +8,5 @@ local fmt = require('luasnip.extras.fmt').fmt
 
 ls.add_snippets('typst', {
     s('bb', fmt('[|{}|]{}', { i(1), i(0) })),
-    s('sum', fmt('sum_({i=1})^({n}){}', { i(1), i(2), i(0) })),
+    s('sum', fmt('sum_({})^({}){}', { i(1), i(2), i(0) })),
 })

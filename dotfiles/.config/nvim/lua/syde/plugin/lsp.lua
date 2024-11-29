@@ -6,6 +6,12 @@ Load.later(function()
     local cmp_nvim_lsp = Load.now(require, 'cmp_nvim_lsp')
     if cmp_nvim_lsp then default_capabilities = cmp_nvim_lsp.default_capabilities(default_capabilities) end
 
+    -- NOTE: for nvim-ufo
+    default_capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+    }
+
     ---@param LSP { name: string, cmd: string|table?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
     local function setup_lsp(LSP)
         if type(LSP.cmd) == 'table' then
@@ -102,6 +108,45 @@ Load.later(function()
                 telemetry = { enable = false },
             },
         },
+        on_attach = function(client, bufnr)
+            -- Deal with the fact that LuaLS in case of `local a = function()` style
+            -- treats both `a` and `function()` as definitions of `a`.
+            local filter_line_locations = function(locations)
+                add_to_log(locations)
+                local present, res = {}, {}
+                for _, l in ipairs(locations) do
+                    local t = present[l.filename] or {}
+                    if not t[l.lnum] then
+                        table.insert(res, l)
+                        t[l.lnum] = true
+                    end
+                    present[l.filename] = t
+                end
+                return res
+            end
+
+            local show_location = function(location)
+                local buf_id = location.bufnr or vim.fn.bufadd(location.filename)
+                vim.bo[buf_id].buflisted = true
+                vim.api.nvim_win_set_buf(0, buf_id)
+                vim.api.nvim_win_set_cursor(0, { location.lnum, location.col - 1 })
+                vim.cmd('normal! zv')
+            end
+
+            local unique_definition = function()
+                local on_list = function(args)
+                    local items = filter_line_locations(args.items)
+                    if #items > 1 then
+                        vim.fn.setqflist({}, ' ', { title = 'LSP locations', items = items })
+                        vim.cmd('botright copen')
+                        return
+                    end
+                    show_location(items[1])
+                end
+                vim.lsp.buf.definition({ on_list = on_list })
+            end
+            vim.keymap.set('n', '<Leader>ls', unique_definition, { buffer = bufnr, desc = 'Lua source definition' })
+        end,
     })
 
     setup_lsp({
@@ -175,7 +220,7 @@ Load.later(function()
         settings = {
             exportPdf = 'onSave', -- Choose `onType`, `onSave` or `never`.
         },
-        on_attach = function(_, bufnr)
+        on_attach = function(client, bufnr)
             local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = bufnr }) end
             nmap('<leader>lp', function()
                 local file = vim.fn.expand('%')
@@ -184,7 +229,7 @@ Load.later(function()
             end, 'open [p]df')
             nmap('<leader>lw', function()
                 local main_file = vim.api.nvim_buf_get_name(bufnr)
-                vim.lsp.buf.execute_command({ command = 'tinymist.pinMain', arguments = { main_file } })
+                client:exec_cmd({ command = 'tinymist.pinMain', arguments = { main_file } })
                 vim.notify('Pinned to ' .. main_file, vim.log.levels.INFO)
                 local pdf = main_file:gsub('%.typ$', '.pdf')
                 vim.system({ 'xdg-open', pdf })

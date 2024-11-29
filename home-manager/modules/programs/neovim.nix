@@ -49,6 +49,8 @@ in
           nvim-autopairs
           rustaceanvim
 
+          nvim-ufo
+
           mini-nvim
           vim-sleuth
           undotree

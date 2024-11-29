@@ -38,10 +38,6 @@
       url = "github:echasnovski/mini.nvim";
       flake = false;
     };
-    rustaceanvim = {
-      url = "github:mrcjkb/rustaceanvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     bookmarks-yazi = {
       url = "github:dedukun/bookmarks.yazi";
