@@ -76,7 +76,7 @@ nmap(
     'Search and replace in buffer',
     { silent = false }
 )
-tmap('<leader><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
+tmap('<Esc><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
 
 vim.lsp.inlay_hint.toggle = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
 nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle [i]nlay hints')

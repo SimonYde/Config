@@ -95,7 +95,7 @@ Load.now(function()
             ['hrsh7th/nvim-cmp'] = true,
             ['justinmk/vim-sneak'] = false,
             ['kevinhwang91/nvim-bqf'] = false,
-            ['kevinhwang91/nvim-ufo'] = false,
+            ['kevinhwang91/nvim-ufo'] = true,
             ['lewis6991/gitsigns.nvim'] = true,
             ['lukas-reineke/indent-blankline.nvim'] = true,
             ['neoclide/coc.nvim'] = false,

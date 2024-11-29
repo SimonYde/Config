@@ -1,10 +1,9 @@
-Load.now(function ()
-    require('nu').setup()
-end)
-local opt = vim.opt_local
+local o = vim.opt_local
 local tabwidth = 4
-opt.shiftwidth = tabwidth
-opt.tabstop = tabwidth
-opt.softtabstop = tabwidth
-opt.expandtab = true
-
+o.shiftwidth = tabwidth
+o.tabstop = tabwidth
+o.softtabstop = tabwidth
+o.expandtab = true
+Load.now(function ()
+    o.indentexpr = require('nvim-treesitter').indentexpr()
+end)

@@ -1,12 +1,5 @@
-local bo = vim.bo
-local tabwidth = 2
-bo.shiftwidth = tabwidth
-bo.tabstop = tabwidth
-bo.softtabstop = tabwidth
-bo.expandtab = true
-
-vim.opt_local.wrap = true
-vim.opt_local.spell = true
+vim.cmd('setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab')
+vim.cmd('setlocal wrap spell')
 
 -- Customize 'mini.nvim'
 local has_mini_ai, mini_ai = pcall(require, 'mini.ai')
@@ -26,15 +19,6 @@ if has_mini_surround then
         custom_surroundings = {
             -- Bold
             B = { input = { '%*%*().-()%*%*' }, output = { left = '**', right = '**' } },
-
-            -- Link
-            L = {
-                input = { '%[().-()%]%(.-%)' },
-                output = function()
-                    local link = mini_surround.user_input('Link: ')
-                    return { left = '[', right = '](' .. link .. ')' }
-                end,
-            },
         },
     }
 end
