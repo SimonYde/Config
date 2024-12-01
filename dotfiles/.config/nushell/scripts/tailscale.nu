@@ -8,26 +8,31 @@ def statuses [] {
 
 def exit-nodes [] {
     tailscale exit-node list
-    | lines -s
+    | lines
     | drop 4
-    | split column -c --regex '\s\s+' ip exit-node country city status
-    | skip 2
-    | each {|node| {value: $node.exit-node, description: $"($node.country) - ($node.city)"}}
+    | skip 1
+    | to text
+    | detect columns --guess
+    | rename --block {str downcase}
+    | each {|node| {value: $node.hostname, description: $"($node.country) - ($node.city)"}}
 }
 
-# Set tailscale exit node for mullvad vpn.
-export def vpn [status: string@statuses, exit_node?: string@exit-nodes] {
+def vpn-handler [status: string, exit_node?: string] {
     match $status {
-        "on" => {
-            let suggestion = tailscale exit-node suggest | parse --regex "node: (.*)" | first | get capture0
+        on => {
+            let suggestion = (
+                tailscale exit-node suggest
+                | parse --regex "node: (?<node>.*)"
+                | $in.0.node
+            )
             tailscale set --exit-node=($suggestion)
             print $"Connected to `($suggestion)`."
         },
-        "off" => {
+        off => {
             tailscale set --exit-node=
             print "Disconnected."
         },
-        "set" => {
+        set => {
             if $exit_node == null {
                 error make {
                     msg: "Did not provide an exit node."
@@ -51,4 +56,21 @@ export def vpn [status: string@statuses, exit_node?: string@exit-nodes] {
             }
         }
     }
+}
+
+# Set tailscale exit node for mullvad vpn.
+export def vpn [
+    status: string@statuses, # Status to set.
+    exit_node?: string@exit-nodes # exit node to connect to.
+] {
+    vpn-handler $status $exit_node
+}
+
+# Punch a hole through AU's cringe bad DNS ;)
+export def hole-punch [] {
+    systemctl start wg-quick-proton.service
+    tailscale down
+    tailscale up --ssh --operator=($env.USER)
+    vpn-handler on
+    systemctl stop wg-quick-proton.service
 }

@@ -37,7 +37,6 @@ let external_completer = {|spans|
         nix => $fish_completer
         nu => $fish_completer
         pueue => $fish_completer
-        systemctl => $fish_completer
         tailscale => $fish_completer
         typst => $fish_completer
         zellij => $fish_completer

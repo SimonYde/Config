@@ -27,11 +27,11 @@ export-env {
 }
 
 # Zellij attach helper
-export def za [session?: string@session_completer] {
+export def za [session?: string@sessions] {
     zellij attach (
         match $session {
         null => (
-            parse_sessions
+            sessions
             | get value
             | to text
             | sk
@@ -44,7 +44,7 @@ export def za [session?: string@session_completer] {
 # Zellij create session (Attach if already exists)
 export def zc [] {
     let current = pwd | split words | last
-    let exists = parse_sessions | ansi strip | any {|session| $session == $current }
+    let exists = sessions | ansi strip | any {|session| $session == $current }
 
     if $exists {
         zellij a $current
@@ -53,10 +53,8 @@ export def zc [] {
     }
 }
 
-def parse_sessions [] {
-    zellij list-sessions | parse "{session} {other}" | each {|ses| {value: ($ses.session | ansi strip), description: $ses.other} }
-}
-
-def session_completer [] {
-    parse_sessions
+def sessions [] {
+    zellij list-sessions 
+    | parse "{session} {other}" 
+    | each {|ses| {value: ($ses.session | ansi strip), description: $ses.other} }
 }
