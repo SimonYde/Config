@@ -5,19 +5,30 @@
   ...
 }:
 let
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    mkIf
+    types
+    ;
   cfg = config.syde.programming.gleam;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       gleam
-      erlang
+      beam.interpreters.${cfg.erlangVersion}
+      beam.packages.${cfg.erlangVersion}.rebar3
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
 
   options.syde.programming.gleam = {
-    enable = lib.mkEnableOption "gleam language tools";
+    enable = mkEnableOption "gleam language tools";
+    erlangVersion = mkOption {
+      type = types.str;
+      default = "erlang_25";
+    };
   };
 }
