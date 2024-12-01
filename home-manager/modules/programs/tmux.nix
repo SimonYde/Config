@@ -30,7 +30,11 @@ in
         }
       ];
       extraConfig = ''
+        set-option -g terminal-overrides ',xterm-256color:RGB'
         set -g status-position top
+        set -gq allow-passthrough on
+        set -g visual-activity off
+        set -sg escape-time 5
       '';
     };
   };
