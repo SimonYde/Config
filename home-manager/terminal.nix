@@ -31,7 +31,7 @@ in
       fzf.enable = true;
       fastfetch.enable = true;
       fd.enable = true;
-      tmux.enable = false;
+      tmux.enable = true;
       gh.enable = true;
       git.enable = true;
       lazygit.enable = false;
@@ -66,7 +66,7 @@ in
       unzip
 
       tokei # Counting lines of code
-      tldr # Quick hits on programs
+      tealdeer # Quick hits on programs
 
       entr
       pandoc
