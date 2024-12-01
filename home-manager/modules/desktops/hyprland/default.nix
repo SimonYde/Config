@@ -82,11 +82,12 @@ in
           kb_layout = "us(colemak_dh),eu";
           kb_options = "caps:escape,grp:rctrl_toggle";
           resolve_binds_by_sym = true;
-          repeat_delay = 400;
+          repeat_delay = 300;
           follow_mouse = 2;
           accel_profile = "flat";
           touchpad = {
             # scroll_factor = 0.7;
+            tap-to-click = true;
             natural_scroll = true;
           };
           special_fallthrough = true;
