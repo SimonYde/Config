@@ -21,6 +21,7 @@ in
 
     programs.neovim.plugins = with pkgs.vimPlugins; [
       rustaceanvim # Extra rust support
+      crates-nvim
     ];
 
     home.sessionVariables = {

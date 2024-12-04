@@ -15,7 +15,7 @@ in
 {
   config = mkIf cfg.enable {
     programs.neovim = {
-      package = pkgs.neovim;
+      # package = pkgs.neovim;
       defaultEditor = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -47,7 +47,6 @@ in
           # -----Workflow-----
           conform-nvim
           nvim-autopairs
-          rustaceanvim
 
           nvim-ufo
 

@@ -32,9 +32,11 @@ in
       extraConfig = ''
         set-option -g terminal-overrides ',xterm-256color:RGB'
         set -g status-position top
-        set -gq allow-passthrough on
+        set -gq allow-passthrough all
         set -g visual-activity off
         set -sg escape-time 5
+        set -ga update-environment TERM
+        set -ga update-environment TERM_PROGRAM
       '';
     };
   };

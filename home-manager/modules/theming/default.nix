@@ -19,11 +19,11 @@ in
     syde.theming.fonts = {
       monospace = {
         name = "JetBrainsMono Nerd Font Mono";
-        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
+        package = pkgs.nerd-fonts.jetbrains-mono;
       };
       sansSerif = {
         name = "JetBrainsMono Nerd Font Propo";
-        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
+        package = pkgs.nerd-fonts.jetbrains-mono;
       };
       serif = {
         name = "Gentium Plus";
@@ -32,6 +32,8 @@ in
       packages = with pkgs; [
         font-awesome
         gentium
+        atkinson-hyperlegible
+        atkinson-monolegible
         libertinus
         newcomputermodern
         roboto

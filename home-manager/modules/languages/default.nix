@@ -14,5 +14,6 @@
     ./scala.nix
     ./rust.nix
     ./typst.nix
+    ./zig.nix
   ];
 }
