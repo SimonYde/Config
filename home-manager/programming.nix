@@ -23,13 +23,14 @@ in
       go.enable = true;
       java.enable = false;
       latex.enable = true;
-      scala.enable = false;
       lua.enable = true;
       nix.enable = true;
       ocaml.enable = false;
       python.enable = true;
       rust.enable = true;
+      scala.enable = false;
       typst.enable = true;
+      zig.enable = false;
     };
 
     home.packages = with pkgs; [
