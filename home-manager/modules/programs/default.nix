@@ -48,7 +48,6 @@
     ./waybar
     ./wlogout.nix
     ./zathura.nix
-    ./zen
 
     # ---Shells---
     ./bash.nix

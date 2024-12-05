@@ -22,7 +22,6 @@ in
       # Browsers
       brave.enable = true;
       firefox.enable = true;
-      zen.enable = false;
 
       # Terminal emulators
       ${emulator}.enable = true;
