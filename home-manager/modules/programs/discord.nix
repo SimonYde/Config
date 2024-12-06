@@ -20,7 +20,6 @@ in
     home.packages = with pkgs; [
       cfg.package
       cfg.betterDiscordCtlPackage
-      xwaylandvideobridge
     ];
 
     xdg.configFile."BetterDiscord/themes/base16.theme.css" = {

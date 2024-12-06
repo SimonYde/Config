@@ -12,7 +12,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    system.stateVersion = "24.05";
+    system.stateVersion = "24.11";
     time.timeZone = "Europe/Copenhagen";
 
     xdg.portal = {

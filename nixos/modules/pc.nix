@@ -18,7 +18,7 @@ let
 in
 {
   config = mkIf cfg.enable {
-    system.stateVersion = "24.05";
+    system.stateVersion = "24.11";
     # time.timeZone = "Europe/Copenhagen";
 
     i18n.defaultLocale = "en_GB.UTF-8";
