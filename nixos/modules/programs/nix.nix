@@ -22,10 +22,13 @@
         "https://cuda-maintainers.cachix.org"
         "https://helix.cachix.org"
         "https://hyprland.cachix.org"
-        "https://cosmic.cachix.org/"
+        "https://cosmic.cachix.org"
         "https://nix-community.cachix.org"
+        "https://ghostty.cachix.org"
       ];
+
       trusted-public-keys = [
+        "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
         "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
         "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
         "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="

@@ -12,12 +12,14 @@
     ./carapace.nix
     ./direnv.nix
     ./eza.nix
+    ./fd.nix
+    ./fzf.nix
     ./git.nix
+    ./jujutsu.nix
     ./lazygit.nix
+    ./pay-respects.nix
     ./ripgrep.nix
     ./skim.nix
-    ./fzf.nix
-    ./fd.nix
     ./starship.nix
     ./thefuck.nix
     ./tmux.nix
@@ -27,6 +29,7 @@
 
     # ---Terminals---
     ./alacritty.nix
+    ./ghostty.nix
     ./kitty.nix
     ./wezterm.nix
 

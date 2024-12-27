@@ -38,6 +38,10 @@
       url = "github:echasnovski/mini.nvim";
       flake = false;
     };
+    tip-vim = {
+      url = "github:SimonYde/tip.vim";
+      flake = false;
+    };
 
     bookmarks-yazi = {
       url = "github:dedukun/bookmarks.yazi";
@@ -52,6 +56,18 @@
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+    };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty/v1.0.0";
+      inputs.nixpkgs-stable.follows = "stable";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+    };
+
+    pay-respects = {
+      url = "github:iffse/pay-respects";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-wsl = {
