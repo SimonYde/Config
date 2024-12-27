@@ -45,6 +45,9 @@
     syncthing.enable = true;
   };
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
   powerManagement.cpuFreqGovernor = "performance";
 
   networking.hostName = "icarus";
@@ -58,7 +61,8 @@
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device = "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
+  boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
+    "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/157E-B4A5";
