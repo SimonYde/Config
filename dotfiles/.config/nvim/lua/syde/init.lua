@@ -5,10 +5,10 @@ require('syde.colorscheme')
 
 require('syde.plugin.mini')
 require('syde.plugin.treesitter')
-require('syde.plugin.snippets')
-require('syde.plugin.completion')
-require('syde.plugin.conform')
 require('syde.plugin.lsp')
+require('syde.plugin.completion')
+require('syde.plugin.snippets')
+require('syde.plugin.conform')
 
 local nmap = Keymap.nmap
 local imap = Keymap.imap
@@ -20,7 +20,10 @@ Load.later(function()
     nmap('<leader>td', function() vim.cmd('Trouble diagnostics toggle') end, 'Toggle trouble diagnostics')
 end)
 
+Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
+
 Load.now(function()
+    local ufo = require('ufo')
     local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
         local suffix = (' 󰁂 %d '):format(endLnum - lnum)
@@ -49,17 +52,27 @@ Load.now(function()
         return newVirtText
     end
 
-    require('ufo').setup({
+    ufo.setup({
         fold_virt_text_handler = handler,
         provider_selector = function(bufnr, filetype, buftype) return { 'treesitter', 'indent' } end,
     })
-    -- nmap('zR', require('ufo').openAllFolds, 'Open all folds (nvim-ufo)')
-    -- nmap('zM', function() require('ufo').closeAllFolds() end, 'Close all folds (nvim-ufo)')
+    nmap('zR', ufo.openAllFolds, 'Open all folds (nvim-ufo)')
+    nmap('zM', ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
+    vim.o.foldlevel = 500 -- NOTE: must be set high as to avoid auto-closing
+    vim.g.ufo_foldlevel = 0
+    nmap('zr', function()
+        vim.g.ufo_foldlevel = vim.g.ufo_foldlevel + 1
+        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
+    end, 'Open one fold level')
+    nmap('zm', function()
+        vim.g.ufo_foldlevel = math.max(vim.g.ufo_foldlevel - 1, 0)
+        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
+    end, 'Close one fold level')
 end)
 
 Load.on_events(function()
     require('nvim-autopairs').setup()
-    require('cmp').event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
+    -- require('cmp').event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
 end, 'InsertEnter')
 
 Load.later(function()
@@ -173,7 +186,8 @@ Load.later(function()
     nmap('<leader>b', builtin.buffers, 'buffers')
     nmap('<leader>ff', builtin.find_files, 'Files')
     nmap('<leader>fh', builtin.help_tags, 'Help tags')
-    nmap('<leader>fg', builtin.git_files, 'Git files')
+    -- nmap('<leader>fg', builtin.git_files, 'Git files')
+    nmap('<leader>fg', require('syde.plugin.telescope.multigrep').live_multigrep, 'Live Multigrep')
     nmap('<leader>fb', builtin.builtin, 'Builtin telescope pickers')
     nmap('<leader>fs', builtin.lsp_document_symbols, 'LSP document symbols')
     nmap('<leader>fw', builtin.lsp_dynamic_workspace_symbols, 'LSP workspace symbols')
@@ -192,7 +206,7 @@ Load.later(function()
             buftypes = { 'nofile', 'prompt', 'quickfix', 'terminal' }, -- nofile is for `cmdwin`. see `:h cmdwin`
         },
         triggers = {
-            { '<auto>', mode = 'nixsotc' },
+            { '<auto>', mode = 'nisotc' },
             { 's', mode = { 'n', 'v' } },
             { 'S', mode = { 'n', 'v' } },
         },
@@ -208,17 +222,6 @@ Load.later(function()
         { '<leader>g', group = 'Git' },
         { '<leader>l', group = 'Lsp' },
         { '<leader>o', group = 'Obsidian' },
-    })
-end)
-
-Load.later(function()
-    require('lsp_signature').setup({
-        doc_lines = 0,
-        hint_enable = false,
-        hint_inline = function() return false end, -- should the hint be inline(nvim 0.10 only)?  default false
-        handler_opts = {
-            border = 'none',
-        },
     })
 end)
 
@@ -251,7 +254,7 @@ Load.on_events(function()
         runtime = vim.env.VIMRUNTIME,
         integrations = {
             lspconfig = true,
-            cmp = true,
+            cmp = false,
         },
         library = {
             { path = 'luvit-meta/library', words = { 'vim%.uv' } },
@@ -310,7 +313,7 @@ end)
 Load.later(function() require('dap-go').setup() end)
 
 Load.later(function()
-    require('dap-python').setup(PYTHON_PATH) -- PYTHON_PATH set by nix
+    require('dap-python').setup(PYTHON_PATH) -- NOTE: PYTHON_PATH set by nix
 end)
 
 Load.later(function()
@@ -325,9 +328,9 @@ Load.later(function()
             },
         },
         notes_subdir = 'notes',
-        new_notes_location = 'notes_subdir', -- NOTE: or "notes_subdir"
+        new_notes_location = 'notes_subdir',
         completion = {
-            nvim_cmp = true,
+            nvim_cmp = false,
             min_chars = 2,
         },
         templates = {
@@ -374,6 +377,7 @@ Load.later(function()
         backend = 'kitty',
         kitty_method = 'normal',
         processor = 'magick_rock',
+        tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
         integrations = {
             markdown = {
                 enabled = true,

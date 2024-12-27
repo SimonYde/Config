@@ -61,7 +61,7 @@ vim.o.termguicolors = true
 vim.o.breakindent = true
 vim.o.breakindentopt = 'list:-1' -- Add padding for lists when 'wrap' is on
 
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.o.fillchars = [[eob: ]]
 vim.o.listchars = 'tab:▸ ,nbsp:␣,extends:❯,precedes:❮'
 vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50'
 
@@ -75,13 +75,12 @@ vim.o.wrapmargin = 0
 vim.o.textwidth = 0
 vim.o.conceallevel = 2
 
--- vim.o.foldtext = '' -- Use underlying text with its highlighting
+vim.o.foldtext = '' -- Use underlying text with its highlighting
 -- vim.o.foldnestmax = 5
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldcolumn = '0'
-vim.o.foldlevel = 99 -- Fold everything except top-most folds
-vim.o.foldlevelstart = 1
+vim.o.foldlevel = 1 -- Fold everything except top-most folds
 vim.o.foldenable = true
 
 -- Colors =====================================================================

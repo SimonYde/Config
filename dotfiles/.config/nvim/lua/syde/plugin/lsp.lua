@@ -1,36 +1,66 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
 
-    -- Cmp Setup
-    local default_capabilities = vim.lsp.protocol.make_client_capabilities()
-    local cmp_nvim_lsp = Load.now(require, 'cmp_nvim_lsp')
-    if cmp_nvim_lsp then default_capabilities = cmp_nvim_lsp.default_capabilities(default_capabilities) end
 
-    -- NOTE: for nvim-ufo
-    default_capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-    }
-
-    ---@param LSP { name: string, cmd: string|table?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
-    local function setup_lsp(LSP)
-        if type(LSP.cmd) == 'table' then
+    ---@param lsp { name: string, cmd: string|table?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
+    local function setup_lsp(lsp)
+        if type(lsp.cmd) == 'table' then
             -- NOTE: this extra block is necessary
-            if vim.fn.executable(LSP.cmd[1]) ~= 1 then
+            if vim.fn.executable(lsp.cmd[1]) ~= 1 then
                 return -- LSP not installed
             end
-        elseif vim.fn.executable(LSP.cmd or LSP.name) ~= 1 then
+        elseif vim.fn.executable(lsp.cmd or lsp.name) ~= 1 then
             return -- LSP not installed
         end
         local config = {}
-        local extra_capabilities = LSP.capabilities or {}
-        config.capabilities = vim.tbl_deep_extend('force', default_capabilities, extra_capabilities)
-        if LSP.settings then config.settings = LSP.settings end
-        if LSP.on_attach then config.on_attach = LSP.on_attach end
-        if LSP.filetypes then config.filetypes = LSP.filetypes end
+        local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+        -- NOTE: for nvim-ufo
+        local capabilities = vim.tbl_deep_extend('force', default_capabilities, lsp.capabilities or {})
 
-        lspconfig[LSP.name].setup(config)
+        local blink = Load.now(require, 'blink.cmp')
+        if blink then capabilities = blink.get_lsp_capabilities(capabilities) end
+
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+        }
+        config.capabilities = capabilities
+        if lsp.settings then config.settings = lsp.settings end
+        if lsp.on_attach then config.on_attach = lsp.on_attach end
+        if lsp.filetypes then config.filetypes = lsp.filetypes end
+
+        lspconfig[lsp.name].setup(config)
     end
+
+    vim.g.rustaceanvim = {
+        -- Plugin configuration
+        tools = {
+            enable_clippy = true,
+        },
+        -- LSP configuration
+        server = {
+            default_settings = {
+                -- rust-analyzer language server configuration
+                ['rust-analyzer'] = {
+                    cargo = {
+                        features = 'all',
+                    },
+                    -- completion = {
+                    --     autoimport = true,
+                    -- },
+                    imports = {
+                        group = {
+                            enable = false,
+                        },
+                    },
+                },
+            },
+        },
+        -- DAP configuration
+        dap = {},
+    }
+
+    setup_lsp({ name = 'clojure_lsp' })
 
     setup_lsp({
         name = 'elmls',
@@ -112,7 +142,6 @@ Load.later(function()
             -- Deal with the fact that LuaLS in case of `local a = function()` style
             -- treats both `a` and `function()` as definitions of `a`.
             local filter_line_locations = function(locations)
-                add_to_log(locations)
                 local present, res = {}, {}
                 for _, l in ipairs(locations) do
                     local t = present[l.filename] or {}
@@ -181,38 +210,6 @@ Load.later(function()
     setup_lsp({
         name = 'nil_ls',
         cmd = 'nil',
-    })
-
-    setup_lsp({
-        name = 'typst_lsp',
-        cmd = 'typst-lsp',
-        settings = {
-            exportPdf = 'onSave', -- Choose `onType`, `onSave` or `never`.
-        },
-        on_attach = function(_, bufnr)
-            local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = bufnr }) end
-            nmap('<leader>lp', function()
-                local file = vim.fn.expand('%')
-                local pdf = file:gsub('%.typ$', '.pdf')
-                vim.system({ 'xdg-open', pdf })
-            end, 'open [p]df')
-            nmap('<leader>lw', function()
-                -- local main_file = vim.fs.find("main.typ", { path = vim.fn.getcwd(), type = "file" })[1]
-                local main_file = vim.fn.expand('%')
-                local path = vim.uri_from_fname(main_file)
-                if main_file ~= nil then
-                    vim.lsp.buf.execute_command({
-                        command = 'typst-lsp.doPinMain',
-                        arguments = { path },
-                    })
-                    vim.notify('Pinned to ' .. path, vim.log.levels.INFO)
-                    local pdf = main_file:gsub('%.typ$', '.pdf')
-                    vim.system({ 'xdg-open', pdf })
-                else
-                    vim.notify('Did not find a main file to pin at ' .. vim.fn.getcwd(), vim.log.levels.ERROR)
-                end
-            end, 'Pin main file to current, run typst [w]atch')
-        end,
     })
 
     setup_lsp({

@@ -27,6 +27,7 @@ local add_transparency = function()
 end
 
 local catppuccin = Load.now(function()
+    do return end
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
     if VARIANT ~= 'dark' then flavour = 'latte' end
