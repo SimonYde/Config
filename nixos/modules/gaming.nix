@@ -40,8 +40,16 @@ let
       graphics = {
         enable32Bit = true;
         enable = true;
+        extraPackages = with pkgs; [
+          vulkan-tools
+          vulkan-loader
+          mesa
+          libva
+        ];
         extraPackages32 = with pkgs.pkgsi686Linux; [
-          mesa.drivers
+          vulkan-tools
+          vulkan-loader
+          mesa
           libva
         ];
       };
@@ -66,33 +74,21 @@ let
       wineWowPackages.staging
       wineWowPackages.fonts
       winetricks
-
-      # ---Graphics Libraries---
-      vulkan-tools
-      vulkan-loader
-      mesa
-      mesa.drivers
-
-      # ---32 bit---
-      pkgsi686Linux.vulkan-tools
-      pkgsi686Linux.vulkan-loader
-      pkgsi686Linux.mesa
-      pkgsi686Linux.mesa.drivers
     ];
 
     powerManagement.cpuFreqGovernor = mkForce "performance";
   };
 in
 {
-  config = mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.specialisation {
-      specialisation."gaming".configuration = mkIf (cfg.enable && cfg.specialisation) (mkMerge [
+      specialisation."gaming".configuration = mkMerge [
         { environment.etc."gaming".text = "gaming"; }
         gamingConfig
-      ]);
+      ];
     })
-    (mkIf (cfg.enable && !cfg.specialisation) gamingConfig)
-  ];
+    (mkIf (!cfg.specialisation) gamingConfig)
+  ]);
 
   options.syde.gaming = {
     enable = mkEnableOption "gaming configuration";
