@@ -15,7 +15,7 @@ in
 {
   config = mkIf cfg.enable {
     programs.neovim = {
-      # package = pkgs.neovim;
+      package = pkgs.neovim;
       defaultEditor = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -28,17 +28,19 @@ in
         [
           # -----LSP-----
           nvim-lspconfig
-          lsp_signature-nvim
+          # lsp_signature-nvim
           otter-nvim
+          tip-vim
 
           # -----Completion-----
-          nvim-cmp
-          cmp-git
-          cmp-nvim-lsp
+          # nvim-cmp
+          # cmp-git
+          # cmp-nvim-lsp
           # cmp-cmdline
-          cmp-path
-          cmp-buffer
-          cmp_luasnip
+          # cmp-path
+          # cmp-buffer
+          # cmp_luasnip
+          blink-cmp
           friendly-snippets
 
           # -----Config writing-----

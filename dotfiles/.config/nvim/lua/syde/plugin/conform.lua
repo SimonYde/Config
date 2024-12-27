@@ -6,6 +6,7 @@ Load.later(function()
             typst = { 'typstyle' },
             lua = { 'stylua' },
             nix = { 'nixfmt' },
+            clojure = { 'cljfmt' },
             -- nu = { 'nufmt' },
         },
     })
