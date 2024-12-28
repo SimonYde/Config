@@ -21,19 +21,9 @@ in
         };
         listener = [
           {
-            timeout = 180;
-            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s s 50%-";
-            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
-          }
-          {
             timeout = 360;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
-          }
-          {
-            timeout = 360;
-            on-timeout = "loginctl lock-session";
-            on-resume = "";
           }
         ];
       };

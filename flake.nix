@@ -59,7 +59,7 @@
     };
 
     ghostty = {
-      url = "github:ghostty-org/ghostty/v1.0.0";
+      url = "github:ghostty-org/ghostty";
       inputs.nixpkgs-stable.follows = "stable";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
@@ -225,17 +225,17 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt-rfc-style.enable = true;
-            };
-          };
-        };
+        # checks = {
+        #   pre-commit-check = pre-commit-hooks.lib.${system}.run {
+        #     src = ./.;
+        #     hooks = {
+        #       nixfmt-rfc-style.enable = true;
+        #     };
+        #   };
+        # };
         devShells.default = pkgs.mkShell {
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+          # inherit (self.checks.${system}.pre-commit-check) shellHook;
+          # buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
           packages = with pkgs; [
             just
           ];

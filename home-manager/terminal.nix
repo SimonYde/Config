@@ -26,20 +26,23 @@ in
       atuin.enable = true;
       bat.enable = true;
       btop.enable = true;
+      comodoro.enable = true;
       direnv.enable = true;
       eza.enable = true;
-      fzf.enable = true;
       fastfetch.enable = true;
       fd.enable = true;
-      tmux.enable = true;
+      fzf.enable = true;
       gh.enable = true;
       git.enable = true;
+      jq.enable = true;
+      jujutsu.enable = true;
       lazygit.enable = false;
       nix-index.enable = true;
+      pay-respects.enable = true;
       ripgrep.enable = true;
       skim.enable = true;
       starship.enable = true;
-      thefuck.enable = false;
+      tmux.enable = true;
       yazi.enable = true;
       zellij.enable = true;
       zoxide.enable = true;
@@ -51,7 +54,6 @@ in
       # CLI Tools
       dogdns # rust version of `dig`
       du-dust # Histogram of file sizes
-      jq # JSON magic
 
       gnumake
       just # alternative to `gnumake`
@@ -66,7 +68,7 @@ in
       unzip
 
       tokei # Counting lines of code
-      tealdeer # Quick hits on programs
+      tealdeer # Quick hits on programs (rust alternative to `tldr`)
 
       entr
       pandoc
@@ -99,8 +101,9 @@ in
         "kitty"
         "wezterm"
         "foot"
+        "ghostty"
       ];
-      default = "kitty";
+      default = "ghostty";
     };
     opacity = mkOption {
       type = types.float;

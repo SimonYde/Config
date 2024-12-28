@@ -14,8 +14,9 @@ in
       configPath = "${config.home.homeDirectory}/Config";
       mkMutableSymlink =
         path:
-        config.lib.meta.configPath + removePrefix (toString inputs.self) (toString path)
-        |> config.lib.file.mkOutOfStoreSymlink;
+        config.lib.file.mkOutOfStoreSymlink (
+          config.lib.meta.configPath + removePrefix (toString inputs.self) (toString path)
+        );
     };
 
     nix = {

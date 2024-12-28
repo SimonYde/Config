@@ -70,7 +70,7 @@ in
           border_size = 2;
           resize_on_border = false;
           "col.active_border" = mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
-          "col.inactive_border" = mkForce "transparent";
+          "col.inactive_border" = mkForce "rgba(00000000)";
 
           layout = "dwindle";
           allow_tearing = true; # For gaming. Set windowrule `immediate` for games to enable.

@@ -27,8 +27,10 @@ in
       man = "batman";
     };
 
-    # home.sessionVariables = {
-    #   MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    # };
+    programs.nushell.extraConfig = # nu
+      ''
+        alias cat = bat
+        alias man = batman
+      '';
   };
 }
