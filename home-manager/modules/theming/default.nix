@@ -18,7 +18,7 @@ in
 
     syde.theming.fonts = {
       monospace = {
-        name = "JetBrainsMono Nerd Font Mono";
+        name = "JetBrainsMono Nerd Font";
         package = pkgs.nerd-fonts.jetbrains-mono;
       };
       sansSerif = {

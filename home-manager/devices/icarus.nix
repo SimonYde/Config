@@ -14,6 +14,7 @@ in
       theming.enable = true;
     };
 
+    services.blanket.enable = true;
     programs = {
       swaylock.enable = mkForce true;
       hyprlock.enable = mkForce false;

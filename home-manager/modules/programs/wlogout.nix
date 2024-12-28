@@ -56,7 +56,7 @@ in
             background-image: image(url("${icon_path}/hibernate.png"));
         }
 
-        #shutdown {
+        #poweroff {
             background-image: image(url("${icon_path}/shutdown.png"));
         }
 

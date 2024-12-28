@@ -30,7 +30,7 @@ client_fullscreen = "[{icon}]"
 # use double quote the key and the value
 # take class name from 'hyprctl clients'
 "DEFAULT" = "({title})"
-"(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)" = ""
+"(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)|com.mitchellh.ghostty" = ""
 "[Ff]irefox" = ""
 "(?i)imv" = ""
 "(?i)waydroid.*" = "droid"
@@ -67,7 +67,7 @@ client_fullscreen = "[{icon}]"
 # [initial_class_active]
 # "(?i)Kitty" = "*TERM*"
 
-[title_in_class."(?i)Kitty|(?i)Alacritty"]
+[title_in_class."(?i)Kitty|(?i)Alacritty|com.mitchellh.ghostty"]
 "(?i)neomutt" = "neomutt"
 "(?i)nvim" = ""
 "(?i)vim" = ""

@@ -201,7 +201,7 @@ in
           }
         ];
 
-        select.prepend_keymap = [
+        pick.prepend_keymap = [
           {
             on = [ "e" ];
             run = "arrow -1";

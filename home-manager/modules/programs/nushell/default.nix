@@ -6,26 +6,15 @@
 }:
 let
   inherit (lib) mkIf getExe;
-  plugins = with pkgs.nushellPlugins; [
-    # skim
-    formats
-    gstat
-    query
-    formats
-  ];
   cfg = config.programs.nushell;
 in
 {
   config = mkIf cfg.enable {
 
-    home.packages =
-      plugins
-      ++ (with pkgs; [
-        nufmt
-        nu_scripts
-      ]);
-
-    programs.neovim.plugins = with pkgs.vimPlugins; [ ];
+    home.packages = with pkgs; [
+      nufmt
+      nu_scripts
+    ];
 
     programs.carapace.enable = true;
     services.pueue.enable = true; # Background jobs
@@ -44,6 +33,13 @@ in
         PROMPT_MULTILINE_INDICATOR = "";
         PROMPT_COMMAND = lib.hm.nushell.mkNushellInline ''{|| "> "}'';
       };
+      plugins = with pkgs.nushellPlugins; [
+        # skim
+        formats
+        gstat
+        query
+        formats
+      ];
       configFile.source = ./config.nu;
       extraConfig =
         with config.syde.theming.palette-hex;
@@ -151,25 +147,5 @@ in
           use ${nu_scripts}/modules/background_task/task.nu
         '';
     };
-
-    home.file."${config.xdg.configHome}/nushell/plugin.msgpackz" =
-      let
-        pluginExprs = plugins |> map (plugin: "plugin add ${getExe plugin}") |> lib.concatStringsSep ";";
-      in
-      mkIf (plugins != [ ]) {
-        source = pkgs.runCommandLocal "plugin.msgpackz" { } ''
-          touch $out {config,env}.nu
-
-          ${getExe cfg.package} \
-            --config config.nu \
-            --env-config env.nu \
-            --plugin-config plugin.msgpackz \
-            --no-history \
-            --no-std-lib \
-            --commands '${pluginExprs};'
-
-          cp plugin.msgpackz $out
-        '';
-      };
   };
 }

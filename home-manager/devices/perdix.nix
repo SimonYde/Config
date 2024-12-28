@@ -27,6 +27,16 @@
             on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -rd platform::kbd_backlight";
           }
           {
+            timeout = 180;
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s s 50%-";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
+          }
+          {
+            timeout = 360;
+            on-timeout = "loginctl lock-session";
+            on-resume = "";
+          }
+          {
             timeout = 900;
             on-timeout = "systemctl suspend";
             on-resume = "hyprctl dispatch dpms on";

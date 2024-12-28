@@ -38,7 +38,7 @@ in
 
     syde.desktop.cosmic.files.enable = false;
 
-    syde.terminal.emulator = "kitty";
+    syde.terminal.emulator = "ghostty";
 
     # personal program configurations
     syde.programs = {
@@ -70,6 +70,7 @@ in
       stremio
 
       todoist-electron
+      geogebra6
 
       file-manager.package
     ];
