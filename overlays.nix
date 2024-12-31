@@ -8,6 +8,7 @@
         # inputs.helix.overlays.default
         inputs.neovim-nightly.overlays.default
         # inputs.hyprland.overlays.default
+        inputs.hyprland-qtutils.overlays.default
 
         (final: prev: {
           stable = import inputs.stable {
@@ -46,12 +47,6 @@
               version = "nightly";
               pname = "mini-nvim";
               src = inputs.mini-nvim;
-            };
-
-            neogit = prev.vimUtils.buildVimPlugin {
-              version = "nightly";
-              pname = "neogit";
-              src = inputs.neogit;
             };
           };
         })

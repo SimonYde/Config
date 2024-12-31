@@ -30,10 +30,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
-    neogit = {
-      url = "github:NeogitOrg/neogit/master";
-      flake = false;
-    };
     mini-nvim = {
       url = "github:echasnovski/mini.nvim";
       flake = false;
@@ -84,6 +80,10 @@
 
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprland-qtutils = {
+      url = "github:hyprwm/hyprland-qtutils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     waybar = {
