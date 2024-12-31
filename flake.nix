@@ -82,10 +82,6 @@
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland-qtutils = {
-      url = "github:hyprwm/hyprland-qtutils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     waybar = {
       url = "github:alexays/waybar";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -225,17 +221,17 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        # checks = {
-        #   pre-commit-check = pre-commit-hooks.lib.${system}.run {
-        #     src = ./.;
-        #     hooks = {
-        #       nixfmt-rfc-style.enable = true;
-        #     };
-        #   };
-        # };
+        checks = {
+          pre-commit-check = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt-rfc-style.enable = true;
+            };
+          };
+        };
         devShells.default = pkgs.mkShell {
-          # inherit (self.checks.${system}.pre-commit-check) shellHook;
-          # buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
           packages = with pkgs; [
             just
           ];

@@ -144,7 +144,7 @@ in
               separator: '${base03}'
           }
 
-          use ${nu_scripts}/modules/background_task/task.nu
+          # use ${nu_scripts}/modules/background_task/task.nu
         '';
     };
   };
