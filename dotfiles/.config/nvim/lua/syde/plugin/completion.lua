@@ -6,6 +6,11 @@ Load.later(function()
             nerd_font_variant = 'mono',
         },
         signature = { enabled = true },
+        fuzzy = {
+            prebuilt_binaries = {
+                force_version = "",
+            },
+        },
         completion = {
             ghost_text = {
                 enabled = false,

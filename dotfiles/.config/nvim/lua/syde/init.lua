@@ -22,7 +22,7 @@ end)
 
 Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
 
-Load.now(function()
+Load.later(function()
     local ufo = require('ufo')
     local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
@@ -217,6 +217,7 @@ Load.later(function()
         { '<leader>f', group = 'Find' },
         { '<leader>m', group = 'Mini' },
         { '<leader>mb', group = 'Bufremove' },
+        { '<leader>mn', group = 'Notify' },
         { '<leader>ms', group = 'Sessions' },
         { '<leader>v', group = 'Visits' },
         { '<leader>g', group = 'Git' },

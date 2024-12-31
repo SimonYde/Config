@@ -1,8 +1,9 @@
 Load.later(function()
     vim.opt.runtimepath:prepend('~/.local/state/nvim/treesitter')
-
-    local treesitter_opts = {
+    require('nvim-treesitter.configs').setup({
         auto_install = true,
+        ignore_install = {},
+        sync_install = false,
         ensure_installed = {
             'lua',
             'nix',
@@ -32,21 +33,36 @@ Load.later(function()
                 scope_incremental = '<M-s>', -- increment to the upper scope (as defined in locals.scm)
             },
         },
+    })
+end)
+
+Load.later(function()
+    Load.packadd('rainbow-delimiters.nvim')
+    local rainbow_delimiters = require('rainbow-delimiters')
+    ---@type rainbow_delimiters.config
+    vim.g.rainbow_delimiters = {
+        strategy = {
+            [''] = rainbow_delimiters.strategy['global'],
+            vim = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+            [''] = 'rainbow-delimiters',
+            lua = 'rainbow-blocks',
+        },
+        priority = {
+            [''] = 110,
+            lua = 210,
+        },
+        highlight = {
+            'RainbowDelimiterRed',
+            'RainbowDelimiterYellow',
+            'RainbowDelimiterBlue',
+            'RainbowDelimiterOrange',
+            'RainbowDelimiterGreen',
+            'RainbowDelimiterViolet',
+            'RainbowDelimiterCyan',
+        },
     }
-
-    Load.now(function()
-        Load.packadd('rainbow-delimiters.nvim')
-        local rainbow_delimiters = require('rainbow-delimiters')
-        treesitter_opts.rainbow = {
-            enable = true,
-            -- Which query to use for finding delimiters
-            query = 'rainbow-parens',
-            -- Highlight the entire buffer all at once
-            strategy = rainbow_delimiters.strategy.global,
-        }
-    end)
-
-    require('nvim-treesitter.configs').setup(treesitter_opts)
 end)
 
 Load.later(function()
