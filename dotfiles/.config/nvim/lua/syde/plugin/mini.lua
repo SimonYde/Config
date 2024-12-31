@@ -103,7 +103,7 @@ Load.later(function()
         if vim.uv.fs_stat(file_name) then
             MiniFiles.open(file_name)
         else
-            vim.notify('Current buffer is not a file... opening mini.files in CWD', vim.log.levels.WARN)
+            vim.notify('Current buffer is not a file... opening mini.files in CWD', vim.log.levels.INFO)
             MiniFiles.open()
         end
     end, 'Show current [F]ile in explorer')
@@ -334,6 +334,7 @@ Load.later(function()
         },
     })
     vim.notify = MiniNotify.make_notify({ ERROR = { duration = 10000 } })
+    nmap('<leader>mnh', MiniNotify.show_history, 'Show mini.notify history')
 end)
 
 Load.later(function()
