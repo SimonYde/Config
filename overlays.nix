@@ -8,7 +8,6 @@
         # inputs.helix.overlays.default
         inputs.neovim-nightly.overlays.default
         # inputs.hyprland.overlays.default
-        inputs.hyprland-qtutils.overlays.default
 
         (final: prev: {
           stable = import inputs.stable {
@@ -25,6 +24,12 @@
 
           kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
           kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
+
+          # TODO: Because unstable is cringe
+          hyprlock = final.stable.hyprlock;
+          bottles = final.stable.bottles;
+          rocmPackages = final.stable.rocmPackages;
+          heroic = final.stable.heroic;
 
           python312 = prev.python312.override {
             packageOverrides = pyfinal: pyprev: {
