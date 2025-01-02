@@ -28,22 +28,13 @@ in
         [
           # -----LSP-----
           nvim-lspconfig
-          # lsp_signature-nvim
           otter-nvim
           tip-vim
 
           # -----Completion-----
-          # nvim-cmp
-          # cmp-git
-          # cmp-nvim-lsp
-          # cmp-cmdline
-          # cmp-path
-          # cmp-buffer
-          # cmp_luasnip
           blink-cmp
+          blink-compat
           friendly-snippets
-
-          # -----Config writing-----
           lazydev-nvim
 
           # -----Workflow-----
@@ -73,7 +64,6 @@ in
         ++ mapLazy [
           # ----- Workflow -----
           luvit-meta
-          luasnip
           trouble-nvim
           diffview-nvim
           neogit

@@ -7,8 +7,8 @@ require('syde.plugin.mini')
 require('syde.plugin.treesitter')
 require('syde.plugin.lsp')
 require('syde.plugin.completion')
-require('syde.plugin.snippets')
 require('syde.plugin.conform')
+-- DEBUG = true
 
 local nmap = Keymap.nmap
 local imap = Keymap.imap
@@ -331,7 +331,7 @@ Load.later(function()
         notes_subdir = 'notes',
         new_notes_location = 'notes_subdir',
         completion = {
-            nvim_cmp = false,
+            nvim_cmp = true,
             min_chars = 2,
         },
         templates = {

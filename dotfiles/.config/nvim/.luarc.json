@@ -9,6 +9,7 @@
         "MiniExtra",
         "MiniGit",
         "MiniMisc",
-        "MiniTrailspace"
+        "MiniTrailspace",
+        "MiniSnippets"
     ]
 }
