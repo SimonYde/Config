@@ -39,6 +39,22 @@ end)
 Load.now(function() require('mini.sessions').setup() end)
 
 Load.later(function()
+    local gen_loader = require('mini.snippets').gen_loader
+    require('mini.snippets').setup({
+        snippets = {
+            gen_loader.from_file('~/.config/nvim/snippets/global.json'),
+            gen_loader.from_lang(),
+        },
+        mappings = {
+            expand = '<C-h>',
+            jump_next = '<C-i>',
+            jump_prev = '<C-e>',
+            stop = '<C-c>',
+        },
+    })
+end)
+
+Load.later(function()
     require('mini.icons').setup({
         lsp = {
             ellipsis_char = { glyph = '…', hl = 'MiniIconsRed' },
