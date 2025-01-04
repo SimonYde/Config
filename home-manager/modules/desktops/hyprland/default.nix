@@ -37,9 +37,9 @@ in
       imv.enable = true;
       mpv.enable = true;
       rofi.enable = true;
-      swaylock.enable = false;
+      swaylock.enable = true;
       wlogout.enable = true;
-      hyprlock.enable = true;
+      hyprlock.enable = false;
       waybar.enable = true;
     };
 
@@ -76,7 +76,10 @@ in
           allow_tearing = true; # For gaming. Set windowrule `immediate` for games to enable.
         };
 
-        misc.disable_hyprland_logo = true;
+        misc = {
+          disable_hyprland_logo = true;
+          allow_session_lock_restore = true;
+        };
 
         input = {
           kb_layout = "us(colemak_dh),eu";
@@ -94,6 +97,16 @@ in
         };
         cursor = {
           no_hardware_cursors = true;
+        };
+
+        group = with palette; {
+          "col.border_active" = "rgba(${base0B}ff) rgba(${base0B}aa) 45deg";
+          "col.border_inactive" = "rgba(${base0B}ff) rgba(${base0B}99) 45deg";
+          groupbar = {
+            text_color = "rgba(${base00}ff)";
+            "col.active" = "rgba(${base0B}ff)";
+            "col.inactive" = "rgba(${base0B}aa)";
+          };
         };
 
         decoration = {

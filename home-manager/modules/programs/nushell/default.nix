@@ -34,7 +34,7 @@ in
         PROMPT_COMMAND = lib.hm.nushell.mkNushellInline ''{|| "> "}'';
       };
       plugins = with pkgs.nushellPlugins; [
-        # skim
+        skim
         formats
         gstat
         query

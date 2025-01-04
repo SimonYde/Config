@@ -30,7 +30,7 @@ $env.config = {
             wrapping_try_keep_words: true # A strategy used by the 'wrapping' methodology
             truncating_suffix: "…" # A suffix used by the 'truncating' methodology
         }
-        header_on_separator: false # show header text on separator/border line
+        header_on_separator: true # show header text on separator/border line
         # abbreviated_row_count: 10 # limit data rows from top and bottom after reaching a set point
     }
 

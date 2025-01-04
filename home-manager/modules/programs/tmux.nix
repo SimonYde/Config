@@ -19,25 +19,30 @@ in
       plugins = with pkgs.tmuxPlugins; [
         {
           plugin = resurrect;
-          extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+          extraConfig = # tmux
+            "set -g @resurrect-strategy-nvim 'session'";
         }
         {
           plugin = continuum;
-          extraConfig = ''
-            set -g @continuum-restorn 'on'
-            set -g @continuum-save-interval '60' # minutes
-          '';
+          extraConfig = # tmux
+            ''
+              set -g @continuum-restore 'on'
+              set -g @continuum-save-interval '60' # minutes
+            '';
         }
       ];
-      extraConfig = ''
-        set-option -g terminal-overrides ',xterm-256color:RGB'
-        set -g status-position top
-        set -gq allow-passthrough all
-        set -g visual-activity off
-        set -sg escape-time 5
-        set -ga update-environment TERM
-        set -ga update-environment TERM_PROGRAM
-      '';
+      extraConfig = # tmux
+        ''
+          # For Image.nvim
+          set -gq allow-passthrough on
+          set -g visual-activity off
+
+          set -g status-position top
+          set -sg escape-time 5
+          set-option -g terminal-overrides 'xterm-256color:RGB'
+          set -ga update-environment TERM
+          set -ga update-environment TERM_PROGRAM
+        '';
     };
   };
 }

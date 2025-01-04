@@ -33,8 +33,7 @@ export def za [session?: string@sessions] {
         null => (
             sessions
             | get value
-            | to text
-            | sk
+            | sk --format={$in}
         ),
         _ => $session
         }

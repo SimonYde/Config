@@ -8,13 +8,18 @@
 let
   inherit (lib) mkIf;
   nix-colors = inputs.nix-colors;
+  scheme = nix-colors.colorSchemes."gruvbox-dark-hard";
   cfg = config.syde.theming;
 in
 {
   imports = [ ./module.nix ];
 
   config = mkIf cfg.enable {
-    colorScheme = nix-colors.colorSchemes."gruvbox-dark-hard";
+    colorScheme = scheme // {
+      palette = scheme.palette // {
+        base00 = "1b1b1b";
+      };
+    };
 
     syde.theming.fonts = {
       monospace = {

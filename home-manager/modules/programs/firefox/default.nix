@@ -190,7 +190,10 @@ in
           "privacy.fingerprintingProtection" = true;
           "privacy.history.custom" = true;
           "privacy.resistFingerprinting" = false;
-          "privacy.sanitize.pending" = ''[{"id":"shutdown","itemsToClear":["cache","formdata","downloads"],"options":{}}]'';
+          "privacy.sanitize.pending" = # json
+            ''
+              [{"id":"shutdown","itemsToClear":["cache","formdata","downloads"],"options":{}}]
+            '';
           "privacy.sanitize.sanitizeOnShutdown" = true;
           "privacy.trackingprotection.enabled" = true;
           "privacy.trackingprotection.socialtracking.enabled" = true;

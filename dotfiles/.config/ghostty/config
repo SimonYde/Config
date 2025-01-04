@@ -8,3 +8,7 @@ font-family-bold-italic = "JetBrainsMono NF Bold Italic"
 
 background-opacity = 0.85
 window-decoration = false
+gtk-titlebar = false
+gtk-adwaita = true
+
+keybind = ctrl+alt+tab=toggle_tab_overview
