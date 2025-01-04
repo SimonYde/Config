@@ -44,8 +44,10 @@ in
           nvim-ufo
 
           mini-nvim
+          snacks-nvim
           vim-sleuth
           undotree
+
           nvim-dap
           nvim-dap-ui
 

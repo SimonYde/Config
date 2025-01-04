@@ -332,28 +332,6 @@ Load.later(function()
 end)
 
 Load.later(function()
-    local MiniNotify = require('mini.notify')
-
-    local filterout_lua_diagnosing = function(notif_arr)
-        local not_diagnosing = function(notif) return not vim.startswith(notif.msg, 'lua_ls: Diagnosing') end
-        notif_arr = vim.tbl_filter(not_diagnosing, notif_arr)
-        return MiniNotify.default_sort(notif_arr)
-    end
-
-    MiniNotify.setup({
-        content = { sort = filterout_lua_diagnosing },
-        window = {
-            config = {
-                border = 'rounded',
-            },
-            winblend = 0,
-        },
-    })
-    vim.notify = MiniNotify.make_notify({ ERROR = { duration = 10000 } })
-    nmap('<leader>mnh', MiniNotify.show_history, 'Show mini.notify history')
-end)
-
-Load.later(function()
     require('mini.trailspace').setup()
     nmap('<M-t>', function()
         MiniTrailspace.trim()

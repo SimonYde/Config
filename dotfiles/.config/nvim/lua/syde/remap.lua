@@ -83,6 +83,7 @@ nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle [i]nlay hints')
 nmap('<leader>lf', vim.lsp.buf.format, 'LSP format')
 
 nmap('<leader>q', Config.toggle_quickfix, 'Toggle [q]uickfix list')
+nmap('<leader>h', vim.cmd('nohlsearch'), 'clear search highlight')
 nmap('<leader>=', vim.lsp.buf.format, 'Format with LSP')
 nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
 nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')

@@ -4,10 +4,10 @@ require('syde.remap')
 require('syde.colorscheme')
 
 require('syde.plugin.mini')
+require('syde.plugin.snacks')
 require('syde.plugin.treesitter')
 require('syde.plugin.lsp')
 require('syde.plugin.completion')
-require('syde.plugin.conform')
 -- DEBUG = true
 
 local nmap = Keymap.nmap
@@ -21,6 +21,26 @@ Load.later(function()
 end)
 
 Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
+
+Load.later(function()
+    local nmap = Keymap.nmap
+    local conform = require('conform')
+    conform.setup({
+        formatters_by_ft = {
+            typst = { 'typstyle' },
+            lua = { 'stylua' },
+            nix = { 'nixfmt' },
+            clojure = { 'cljfmt' },
+            -- nu = { 'nufmt' },
+        },
+    })
+
+    nmap(
+        '<leader>=',
+        function() conform.format({ stop_after_first = true, lsp_fallback = true }) end,
+        'Format with conform'
+    )
+end)
 
 Load.later(function()
     local ufo = require('ufo')
@@ -72,7 +92,6 @@ end)
 
 Load.on_events(function()
     require('nvim-autopairs').setup()
-    -- require('cmp').event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
 end, 'InsertEnter')
 
 Load.later(function()
@@ -86,7 +105,6 @@ Load.later(function()
             enabled = false,
         },
     })
-    return ibl
 end)
 
 Load.later(function()
@@ -317,7 +335,7 @@ Load.later(function()
     require('dap-python').setup(PYTHON_PATH) -- NOTE: PYTHON_PATH set by nix
 end)
 
-Load.later(function()
+Load.on_events(function()
     require('obsidian').setup({
         ui = {
             enable = false,
@@ -366,7 +384,7 @@ Load.later(function()
     nmap('<leader>ot', vim.cmd.ObsidianTags, 'Open tag list')
     nmap('<leader>op', vim.cmd.ObsidianPasteImg, 'Paste image')
     imap('<C-l>', vim.cmd.ObsidianToggleCheckbox, 'Toggle markdown checkbox')
-end)
+end, 'FileType', 'markdown')
 
 Load.later(function()
     Load.packadd('todo-comments.nvim')
@@ -374,6 +392,9 @@ Load.later(function()
 end)
 
 Load.later(function()
+    do
+        return
+    end
     require('image').setup({
         backend = 'kitty',
         kitty_method = 'normal',
