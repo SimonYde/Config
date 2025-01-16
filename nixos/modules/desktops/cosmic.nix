@@ -16,12 +16,11 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ ];
 
-    hardware.system76.enableAll = true;
+    # hardware.system76.enableAll = true;
 
     environment.cosmic.excludePackages = with pkgs; [
       cosmic-edit
       cosmic-term
-      cosmic-files
     ];
 
     users.users.${user}.extraGroups = [ "adm" ];

@@ -35,8 +35,9 @@ let
       # libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs;
     };
 
+    services.pulseaudio.support32Bit = true;
+
     hardware = {
-      pulseaudio.support32Bit = true;
       graphics = {
         enable32Bit = true;
         enable = true;

@@ -39,7 +39,7 @@ in
         "--tabstop=4"
         "--color=${
           builtins.concatStringsSep "," [
-            "bg:${base00}"
+            "bg:\"\""
             "bg+:${base01}"
             "fg:${base05}"
             "fg+:${base06}"

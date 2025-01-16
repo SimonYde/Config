@@ -32,7 +32,7 @@ in
       fileWidgetCommand = "${fd} -H --type file";
       defaultCommand = "${fd} -H --type file";
       colors = with config.syde.theming.palette-hex; {
-        bg = base00;
+        bg = "";
         "bg+" = base01;
         fg = base05;
         "fg+" = base06;

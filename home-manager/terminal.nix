@@ -26,7 +26,6 @@ in
       atuin.enable = true;
       bat.enable = true;
       btop.enable = true;
-      comodoro.enable = true;
       direnv.enable = true;
       eza.enable = true;
       fastfetch.enable = true;
@@ -36,13 +35,11 @@ in
       git.enable = true;
       jq.enable = true;
       jujutsu.enable = true;
-      lazygit.enable = false;
       nix-index.enable = true;
-      pay-respects.enable = true;
       ripgrep.enable = true;
-      skim.enable = true;
+      skim.enable = false;
       starship.enable = true;
-      tmux.enable = true;
+      tmux.enable = false;
       yazi.enable = true;
       zellij.enable = true;
       zoxide.enable = true;

@@ -57,7 +57,7 @@ in
         effect-blur = "7x5";
         effect-vignette = "1:1";
 
-        grace = 1.5;
+        grace = 0;
         grace-no-mouse = true;
         grace-no-touch = true;
         fade-in = 0.5;

@@ -13,7 +13,7 @@ in
     services.gammastep = {
       temperature = {
         day = 6500;
-        night = 1900;
+        night = 2200;
       };
       tray = true;
       duskTime = "18:45-20:30";

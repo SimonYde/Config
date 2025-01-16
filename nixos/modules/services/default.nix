@@ -14,7 +14,6 @@
     ./ssh.nix
     ./syncthing.nix
     ./tailscale.nix
-    ./vscode-server.nix
     ./wireguard.nix
   ];
 }

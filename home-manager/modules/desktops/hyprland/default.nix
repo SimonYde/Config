@@ -37,9 +37,9 @@ in
       imv.enable = true;
       mpv.enable = true;
       rofi.enable = true;
-      swaylock.enable = true;
+      swaylock.enable = false;
       wlogout.enable = true;
-      hyprlock.enable = false;
+      hyprlock.enable = true;
       waybar.enable = true;
     };
 
@@ -56,6 +56,10 @@ in
     };
 
     wayland.windowManager.hyprland = {
+      plugins = with pkgs.hyprlandPlugins; [
+        hyprsplit
+        hyprspace
+      ];
       settings = {
         "$browser" = browser;
         "$file-manager" = lib.getExe file-manager.package;
@@ -164,10 +168,6 @@ in
           source = ~/.config/hypr/keybindings.conf
           source = ~/.config/hypr/windowrules.conf
         '';
-
-      plugins = [
-        # inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-      ];
     };
   };
 }

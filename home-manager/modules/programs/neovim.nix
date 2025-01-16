@@ -41,8 +41,6 @@ in
           conform-nvim
           nvim-autopairs
 
-          nvim-ufo
-
           mini-nvim
           snacks-nvim
           vim-sleuth

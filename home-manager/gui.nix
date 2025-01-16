@@ -43,7 +43,7 @@ in
     # personal program configurations
     syde.programs = {
       discord.enable = true;
-      discord.package = pkgs.vesktop;
+      discord.package = pkgs.discord;
       thunar = {
         defaultFilemanager = true;
         enable = true;
@@ -71,6 +71,7 @@ in
 
       todoist-electron
       geogebra6
+      zotero
 
       file-manager.package
     ];

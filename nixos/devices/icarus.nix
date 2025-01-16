@@ -29,6 +29,9 @@
     };
   };
 
+  services.displayManager.cosmic-greeter.enable = false;
+  services.desktopManager.cosmic.enable = false;
+
   programs = {
     nh.enable = true;
     kdeconnect.enable = false;
@@ -75,7 +78,7 @@
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = 32 * 1024;
+      size = 48 * 1024;
     }
   ];
 }

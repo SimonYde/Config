@@ -6,15 +6,25 @@
 }:
 let
   inherit (lib) mkIf getExe;
+  plugins = with pkgs.nushellPlugins; [
+    skim
+    formats
+    gstat
+    query
+    formats
+  ];
   cfg = config.programs.nushell;
 in
 {
   config = mkIf cfg.enable {
 
-    home.packages = with pkgs; [
-      nufmt
-      nu_scripts
-    ];
+    home.packages =
+      with pkgs;
+      [
+        nufmt
+        nu_scripts
+      ]
+      ++ plugins;
 
     programs.carapace.enable = true;
     services.pueue.enable = true; # Background jobs
@@ -33,13 +43,7 @@ in
         PROMPT_MULTILINE_INDICATOR = "";
         PROMPT_COMMAND = lib.hm.nushell.mkNushellInline ''{|| "> "}'';
       };
-      plugins = with pkgs.nushellPlugins; [
-        skim
-        formats
-        gstat
-        query
-        formats
-      ];
+      plugins = plugins;
       configFile.source = ./config.nu;
       extraConfig =
         with config.syde.theming.palette-hex;

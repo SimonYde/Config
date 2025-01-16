@@ -43,39 +43,11 @@
       url = "github:dedukun/bookmarks.yazi";
       flake = false;
     };
-    zjstatus = {
-      url = "github:dj95/zjstatus";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    helix = {
-      url = "github:helix-editor/helix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-      inputs.nixpkgs-stable.follows = "stable";
-      inputs.nixpkgs-unstable.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
-    };
-
-    pay-respects = {
-      url = "github:iffse/pay-respects";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
-    };
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     hyprland = {
@@ -86,10 +58,6 @@
       url = "github:alexays/waybar";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
-    };
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
     };
 
     nixos-cosmic = {

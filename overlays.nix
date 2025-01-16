@@ -5,7 +5,6 @@
     nixpkgs = {
       overlays = [
         inputs.nur.overlays.default
-        # inputs.helix.overlays.default
         inputs.neovim-nightly.overlays.default
         # inputs.hyprland.overlays.default
 
@@ -20,16 +19,13 @@
 
           zjstatus = inputs.zjstatus.packages.${prev.system}.default;
           pay-respects = inputs.pay-respects.packages.${prev.system}.default;
-          ghostty = inputs.ghostty.packages.${prev.system}.default;
 
           kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
           kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
 
           # TODO: Because unstable is cringe
-          hyprlock = final.stable.hyprlock;
-          bottles = final.stable.bottles;
-          rocmPackages = final.stable.rocmPackages;
-          heroic = final.stable.heroic;
+          # rocmPackages = final.stable.rocmPackages;
+          bat-extras = final.stable.bat-extras;
 
           python312 = prev.python312.override {
             packageOverrides = pyfinal: pyprev: {
