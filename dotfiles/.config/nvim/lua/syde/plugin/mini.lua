@@ -95,7 +95,7 @@ Load.later(function()
     MiniIcons.mock_nvim_web_devicons()
 end)
 
-Load.later(function()
+Load.now(function()
     require('mini.files').setup({
         mappings = {
             close = 'q',

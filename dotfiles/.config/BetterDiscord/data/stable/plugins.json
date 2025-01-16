@@ -1,0 +1,9 @@
+{
+    "ZeresPluginLibrary": true,
+    "GameActivityToggle": true,
+    "PluginRepo": true,
+    "BDFDB": true,
+    "ThemeRepo": false,
+    "NotificationSounds": true,
+    "Hide Channels": true
+}

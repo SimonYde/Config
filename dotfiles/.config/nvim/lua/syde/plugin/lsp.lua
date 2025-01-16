@@ -217,6 +217,7 @@ Load.later(function()
         settings = {
             exportPdf = 'onSave', -- Choose `onType`, `onSave` or `never`.
         },
+        ---@param client vim.lsp.Client
         on_attach = function(client, bufnr)
             local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = bufnr }) end
             nmap('<leader>lp', function()
@@ -229,7 +230,7 @@ Load.later(function()
                 client:exec_cmd({ command = 'tinymist.pinMain', arguments = { main_file } })
                 vim.notify('Pinned to ' .. main_file, vim.log.levels.INFO)
                 local pdf = main_file:gsub('%.typ$', '.pdf')
-                vim.system({ 'xdg-open', pdf })
+                vim.system({ 'xdg-open', pdf }, {}, function (_) end)
             end, 'Pin main file to current')
         end,
     })

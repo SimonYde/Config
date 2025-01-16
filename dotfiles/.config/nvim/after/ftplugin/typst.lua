@@ -18,7 +18,8 @@ if has_mini_surround then
     vim.b.minisurround_config = {
         custom_surroundings = {
             -- Bold
-            B = { input = { '%*%*().-()%*%*' }, output = { left = '**', right = '**' } },
+            B = { input = { '%*().-()%*' }, output = { left = '*', right = '*' } },
+            m = { input = { '%$().-()%$' }, output = { left = '$', right = '$' } },
         },
     }
 end

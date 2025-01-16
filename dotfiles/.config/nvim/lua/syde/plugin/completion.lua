@@ -18,6 +18,7 @@ Load.later(function()
         signature = { enabled = true },
         fuzzy = {
             prebuilt_binaries = {
+                download = false,
                 force_version = '',
             },
         },
@@ -34,15 +35,29 @@ Load.later(function()
         },
         sources = {
             default = {
-                'lazydev',
                 'lsp',
                 'path',
-                'obsidian',
-                'obsidian_new',
-                'obsidian_tags',
 
                 'snippets',
                 'buffer',
+            },
+            per_filetype = {
+                lua = {
+                    'lazydev',
+                    'lsp',
+                    'path',
+                    'snippets',
+                    'buffer',
+                },
+                markdown = {
+                    'obsidian',
+                    'obsidian_new',
+                    'obsidian_tags',
+                    'path',
+
+                    'snippets',
+                    'buffer',
+                },
             },
             providers = {
                 lazydev = {

@@ -23,7 +23,6 @@ end)
 Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
 
 Load.later(function()
-    local nmap = Keymap.nmap
     local conform = require('conform')
     conform.setup({
         formatters_by_ft = {
@@ -74,7 +73,7 @@ Load.later(function()
 
     ufo.setup({
         fold_virt_text_handler = handler,
-        provider_selector = function(bufnr, filetype, buftype) return { 'treesitter', 'indent' } end,
+        provider_selector = function(_, _, _) return { 'treesitter', 'indent' } end,
     })
     nmap('zR', ufo.openAllFolds, 'Open all folds (nvim-ufo)')
     nmap('zM', ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
@@ -90,9 +89,7 @@ Load.later(function()
     end, 'Close one fold level')
 end)
 
-Load.on_events(function()
-    require('nvim-autopairs').setup()
-end, 'InsertEnter')
+Load.on_events(function() require('nvim-autopairs').setup() end, 'InsertEnter')
 
 Load.later(function()
     Load.packadd('indent-blankline.nvim')
@@ -111,7 +108,16 @@ Load.later(function()
     Load.packadd('diffview.nvim')
     local diffview = require('diffview')
     diffview.setup()
-    nmap('<leader>gd', function() diffview.open({}) end, 'git diffview')
+    local diffview_is_open = false
+    nmap('<leader>gd', function()
+        if diffview_is_open then
+            vim.cmd.DiffviewClose()
+            diffview_is_open = not diffview_is_open
+        else
+            vim.cmd.DiffviewOpen()
+            diffview_is_open = not diffview_is_open
+        end
+    end, 'Toggle git diffview')
 end)
 
 Load.later(function()
@@ -457,3 +463,5 @@ Load.later(function()
         },
     })
 end)
+
+-- vim.cmd([[redraw]])

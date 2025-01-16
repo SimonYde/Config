@@ -1,0 +1,136 @@
+{
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "l",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "j",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "j",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "h",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "space",
+    ): System(Launcher),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "f",
+    ): Maximize,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "h",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "m",
+    ): Move(Left),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "n",
+    ): Focus(Down),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "m",
+    ): Focus(Left),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "e",
+    ): Move(Up),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "slash",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "n",
+    ): Move(Down),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "l",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "k",
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "i",
+    ): Focus(Right),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "e",
+    ): Focus(Up),
+    (
+        modifiers: [
+            Super,
+            Shift,
+        ],
+        key: "i",
+    ): Move(Right),
+    (
+        modifiers: [
+            Super,
+        ],
+    ): Disable,
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "t",
+        description: Some("Open Terminal"),
+    ): Spawn("kitty"),
+    (
+        modifiers: [
+            Super,
+        ],
+        key: "k",
+    ): Disable,
+}
