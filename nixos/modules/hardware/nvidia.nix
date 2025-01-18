@@ -25,7 +25,7 @@ in
       modesetting.enable = true;
       nvidiaSettings = true;
       open = mkDefault true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
 
     environment.systemPackages = with pkgs; [
