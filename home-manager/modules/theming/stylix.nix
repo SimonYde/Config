@@ -28,7 +28,7 @@ in
         swaylock.enable = false;
         wezterm.enable = false;
         vim.enable = false;
-        helix.enable = false;
+        helix.enable = true;
         neovim.enable = false;
         nushell.enable = false;
         waybar.enable = false;

@@ -39,7 +39,7 @@ in
       ripgrep.enable = true;
       skim.enable = false;
       starship.enable = true;
-      tmux.enable = false;
+      tmux.enable = true;
       yazi.enable = true;
       zellij.enable = true;
       zoxide.enable = true;

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ lib, config, ... }:
 let
   colors = config.syde.theming.palette-hex;
   cursorline = "#2a2b3c";
@@ -13,6 +13,7 @@ in
 {
   programs.helix = {
     defaultEditor = false;
+    settings = lib.mkForce { };
     themes.base16 = with colors; {
       "type" = "${base0A}";
 

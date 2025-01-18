@@ -67,10 +67,8 @@ in
       gimp # Image editor
 
       qbittorrent # Linux ISOs
-      stremio
 
       todoist-electron
-      geogebra6
       zotero
 
       file-manager.package
