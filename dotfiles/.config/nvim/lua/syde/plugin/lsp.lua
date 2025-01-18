@@ -1,7 +1,6 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
 
-
     ---@param lsp { name: string, cmd: string|table?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
     local function setup_lsp(lsp)
         if type(lsp.cmd) == 'table' then
@@ -230,37 +229,23 @@ Load.later(function()
                 client:exec_cmd({ command = 'tinymist.pinMain', arguments = { main_file } })
                 vim.notify('Pinned to ' .. main_file, vim.log.levels.INFO)
                 local pdf = main_file:gsub('%.typ$', '.pdf')
-                vim.system({ 'xdg-open', pdf }, {}, function (_) end)
+                vim.system({ 'xdg-open', pdf }, {}, function(_) end)
             end, 'Pin main file to current')
         end,
     })
 
     setup_lsp({
-        name = 'ltex',
-        cmd = 'ltex-ls',
+        name = 'harper_ls',
+        cmd = 'harper-ls',
         settings = {
-            ltex = {
-                -- language = "en-GB",
+            ['harper-ls'] = {
+                userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
+                markdown = {
+                    ignore_link_title = true,
+                },
             },
         },
-        on_attach = function()
-            Load.now(
-                function()
-                    require('ltex_extra').setup({
-                        load_langs = { 'en-GB', 'da-DK' },
-                        init_check = true,
-                        path = vim.fn.stdpath('data') .. '/ltex',
-                        log_level = 'HINT',
-                    })
-                end
-            )
-        end,
-        filetypes = {
-            'typst',
-            'latex',
-            'tex',
-            'markdown',
-        },
+        filetypes = { 'markdown', 'gitcommit', 'jjdescription', 'typst' },
     })
 
     vim.api.nvim_create_autocmd('LspAttach', {

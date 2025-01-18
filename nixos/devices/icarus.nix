@@ -42,7 +42,7 @@
   services = {
     ratbagd.enable = true;
     blueman.enable = true;
-    languagetool.enable = true;
+    languagetool.enable = false;
     ollama.enable = true;
     tailscale.enable = true;
     syncthing.enable = true;

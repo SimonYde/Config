@@ -1,4 +1,5 @@
 Load.later(function()
+    Load.packadd('blink.compat')
     require('blink.compat').setup({
         impersonate_nvim_cmp = false,
     })
@@ -6,6 +7,7 @@ Load.later(function()
 end)
 
 Load.later(function()
+    Load.packadd('blink.cmp')
     require('blink.cmp').setup({
         keymap = {
             preset = 'default',

@@ -27,7 +27,6 @@ local add_transparency = function()
 end
 
 local catppuccin = Load.now(function()
-    do return end
     local catppuccin = require('catppuccin')
     local flavour = 'mocha'
     if VARIANT ~= 'dark' then flavour = 'latte' end
@@ -96,8 +95,8 @@ Load.now(function()
             ['hrsh7th/nvim-cmp'] = true,
             ['justinmk/vim-sneak'] = false,
             ['kevinhwang91/nvim-bqf'] = false,
-            ['kevinhwang91/nvim-ufo'] = true,
-            ['lewis6991/gitsigns.nvim'] = true,
+            ['kevinhwang91/nvim-ufo'] = false,
+            ['lewis6991/gitsigns.nvim'] = false,
             ['lukas-reineke/indent-blankline.nvim'] = true,
             ['neoclide/coc.nvim'] = false,
             ['nvim-lualine/lualine.nvim'] = false,
@@ -122,5 +121,5 @@ Load.now(function()
     )
     vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(PALETTE.base0B, PALETTE.base00))
     vim.cmd(('hi MiniJump2dSpotUnique guifg=%s guibg=%s'):format(PALETTE.base0C, PALETTE.base00))
-    if vim.g.transparent then add_transparency() end
+    add_transparency()
 end)

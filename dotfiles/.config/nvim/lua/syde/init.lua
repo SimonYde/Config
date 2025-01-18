@@ -152,7 +152,7 @@ Load.later(function()
         pickers = {
             find_files = {
                 -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-                find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*' },
+                find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '--glob', '!**/*.png' },
             },
             buffers = {
                 mappings = {
@@ -310,6 +310,8 @@ Load.later(function()
 end)
 
 Load.later(function()
+    Load.packadd('nvim-dap')
+    Load.packadd('nvim-dap-ui')
     local dap, dapui = require('dap'), require('dapui')
     local widgets = require('dap.ui.widgets')
     dapui.setup()
@@ -398,9 +400,7 @@ Load.later(function()
 end)
 
 Load.later(function()
-    do
-        return
-    end
+    do return end
     require('image').setup({
         backend = 'kitty',
         kitty_method = 'normal',
@@ -412,7 +412,7 @@ Load.later(function()
                 clear_in_insert_mode = true,
                 download_remote_images = true,
                 only_render_image_at_cursor = true,
-                filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
+                filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (i.e. quarto) can go here
                 resolve_image_path = function(document_path, image_path, fallback)
                     local image = image_path
                     if image_path:find('/') then

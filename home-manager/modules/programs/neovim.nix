@@ -32,8 +32,6 @@ in
           tip-vim
 
           # -----Completion-----
-          blink-cmp
-          blink-compat
           friendly-snippets
           lazydev-nvim
 
@@ -45,9 +43,6 @@ in
           snacks-nvim
           vim-sleuth
           undotree
-
-          nvim-dap
-          nvim-dap-ui
 
           obsidian-nvim
           image-nvim
@@ -62,6 +57,10 @@ in
           nvim-treesitter
         ]
         ++ mapLazy [
+          # ----- Completion -----
+          blink-cmp
+          blink-compat
+
           # ----- Workflow -----
           luvit-meta
           trouble-nvim
@@ -69,6 +68,9 @@ in
           neogit
           todo-comments-nvim
           img-clip-nvim
+
+          nvim-dap
+          nvim-dap-ui
 
           # ----- UI -----
           lspsaga-nvim
@@ -89,7 +91,6 @@ in
             base08 = "${base08}", base09 = "${base09}", base0A = "${base0A}", base0B = "${base0B}",
             base0C = "${base0C}", base0D = "${base0D}", base0E = "${base0E}", base0F = "${base0F}",
           }
-          vim.g.transparent = ${if config.syde.terminal.opacity != 1.0 then "true" else "false"}
           _G.Config = { }
           require('syde')
         '';

@@ -10,6 +10,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
+      harper
       typst
       tinymist
       # typst-lsp

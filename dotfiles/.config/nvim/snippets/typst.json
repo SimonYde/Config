@@ -1,0 +1,10 @@
+{
+    "summation from i=1 to n": {
+        "prefix": "sum",
+        "body": ["sum_(${1|i = 1,j = 1|})^(${2|n,m|}) $0"]
+    },
+    "limit n to infinity": {
+        "prefix": "lim",
+        "body": ["lim_(${1:n |-> infinity}) $0"]
+    }
+}
