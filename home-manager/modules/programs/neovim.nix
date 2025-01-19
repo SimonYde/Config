@@ -36,7 +36,6 @@ in
           lazydev-nvim
 
           # -----Workflow-----
-          conform-nvim
           nvim-autopairs
 
           mini-nvim
@@ -62,6 +61,7 @@ in
           blink-compat
 
           # ----- Workflow -----
+          conform-nvim
           luvit-meta
           trouble-nvim
           diffview-nvim

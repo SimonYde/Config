@@ -8,6 +8,6 @@
     ./desktops
     ./theming
     ./services
-    ./languages
+    ./programming
   ];
 }

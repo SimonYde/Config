@@ -23,6 +23,7 @@ end)
 Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
 
 Load.later(function()
+    Load.packadd('conform.nvim')
     local conform = require('conform')
     conform.setup({
         formatters_by_ft = {
@@ -225,7 +226,7 @@ end)
 Load.later(function()
     local whichkey = require('which-key')
     whichkey.setup({
-        preset = 'classic',
+        preset = 'modern',
         disable = {
             buftypes = { 'nofile', 'prompt', 'quickfix', 'terminal' }, -- nofile is for `cmdwin`. see `:h cmdwin`
         },
@@ -400,7 +401,9 @@ Load.later(function()
 end)
 
 Load.later(function()
-    do return end
+    do
+        return
+    end
     require('image').setup({
         backend = 'kitty',
         kitty_method = 'normal',

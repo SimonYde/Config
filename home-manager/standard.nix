@@ -33,7 +33,6 @@ in
 
   imports = [
     ./home.nix
-    ./programming.nix
     ./terminal.nix
     ./gui.nix
     ./modules
