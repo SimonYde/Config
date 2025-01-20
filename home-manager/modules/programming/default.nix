@@ -18,9 +18,9 @@ in
 
     syde.programming = {
       bash.enable = true;
-      cpp.enable = true;
-      gleam.enable = true;
-      go.enable = true;
+      cpp.enable = false;
+      gleam.enable = false;
+      go.enable = false;
       java.enable = false;
       latex.enable = true;
       lua.enable = true;
@@ -30,7 +30,7 @@ in
       rust.enable = true;
       scala.enable = false;
       typst.enable = true;
-      zig.enable = false;
+      zig.enable = true;
     };
 
     home.packages = with pkgs; [

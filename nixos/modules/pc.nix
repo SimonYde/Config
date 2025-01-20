@@ -104,6 +104,7 @@ in
     hardware = {
       enableAllFirmware = true;
       enableRedistributableFirmware = true;
+      enableAllHardware = true;
     };
 
     syde.sound.enable = mkDefault true;

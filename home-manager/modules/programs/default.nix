@@ -8,7 +8,6 @@
     # ---CLI Tools---
     ./atuin.nix
     ./bat.nix
-    ./btop.nix
     ./carapace.nix
     ./direnv.nix
     ./eza.nix
@@ -16,12 +15,10 @@
     ./fzf.nix
     ./git.nix
     ./jujutsu.nix
-    ./lazygit.nix
     ./pay-respects.nix
     ./ripgrep.nix
     ./skim.nix
     ./starship.nix
-    ./thefuck.nix
     ./tmux.nix
     ./yazi.nix
     ./zellij
@@ -36,7 +33,6 @@
     # ---GUI programs---
     ./brave.nix
     ./discord.nix
-    ./emacs.nix
     ./firefox
     ./hyprlock.nix
     ./i3status-rust.nix
@@ -47,7 +43,6 @@
     ./rofi
     ./swaylock.nix
     ./thunar.nix
-    ./vscode.nix
     ./waybar
     ./wlogout.nix
     ./zathura.nix
@@ -56,7 +51,6 @@
     ./bash.nix
     ./fish.nix
     ./nushell
-    ./zsh.nix
   ];
 
 }

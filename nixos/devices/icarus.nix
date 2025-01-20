@@ -34,7 +34,6 @@
 
   programs = {
     nh.enable = true;
-    kdeconnect.enable = false;
     sway.enable = false;
     hyprland.enable = true;
   };
