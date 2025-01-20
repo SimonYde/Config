@@ -27,12 +27,18 @@ in
       '';
     };
 
+    home = {
+      username = "syde";
+      homeDirectory = "/home/syde";
+      stateVersion = "24.11";
+      preferXdgDirectories = true;
+    };
+
     xdg.enable = true;
-    home.preferXdgDirectories = true;
+    programs.home-manager.enable = true;
   };
 
   imports = [
-    ./home.nix
     ./terminal.nix
     ./gui.nix
     ./modules
