@@ -22,8 +22,8 @@ in
         control-center-height = 860;
         control-center-margin-top = 2;
         control-center-margin-bottom = 2;
-        control-center-margin-right = 1;
-        control-center-margin-left = 0;
+        control-center-margin-right = 0;
+        control-center-margin-left = 20;
 
         notification-window-width = 400;
         notification-icon-size = 48;
@@ -100,6 +100,10 @@ in
               {
                 label = "";
                 command = "blueman-manager";
+              }
+              {
+                label = "";
+                command = "rand_bg";
               }
             ];
           };

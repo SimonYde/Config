@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./dunst.nix
     ./gammastep.nix
     ./hyprland-autoname-workspaces.nix
     ./hyprsunset.nix

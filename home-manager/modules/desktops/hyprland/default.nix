@@ -154,7 +154,7 @@ in
         };
 
         exec-once = [
-          "vesktop"
+          "discord"
           "nm-applet"
           "blueman-applet"
           "obsidian"

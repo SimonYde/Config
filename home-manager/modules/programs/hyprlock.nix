@@ -14,7 +14,7 @@ in
     programs.hyprlock = {
       settings = with palette; {
         general = {
-          disable_loading_bar = true;
+          disable_loading_bar = false;
           ignore_empty_input = true;
           grace = 2;
           hide_cursor = true;

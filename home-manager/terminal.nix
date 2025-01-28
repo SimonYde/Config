@@ -76,7 +76,7 @@ in
       imagemagick
 
       grawlix
-      # pix2tex # NOTE: Currently takes 10 years to build because of LLVM 🙄
+      pix2tex
       audiobook-dl
     ];
 

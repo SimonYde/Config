@@ -17,7 +17,7 @@ let
 in
 {
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home.packages = [
       cfg.package
       cfg.betterDiscordCtlPackage
     ];
@@ -51,36 +51,36 @@ in
               --base0E: ${base0E}; /* Purple */
               --base0F: ${base0F}; /* Magenta */
 
-              --primary-630: var(--base00); /* Autocomplete background */
-              --primary-660: var(--base00); /* Search input background */
+              --primary-630: ${base00}; /* Autocomplete background */
+              --primary-660: ${base00}; /* Search input background */
           }
 
           .theme-light, .theme-dark {
               --search-popout-option-fade: none; /* Disable fade for search popout */
-              --bg-overlay-2: var(--base00); /* These 2 are needed for proper threads coloring */
-              --home-background: var(--base00);
-              --bg-overlay-chat : var(--base00); /* Recolor forum channels */
-              --background-primary: var(--base00);
-              --background-secondary: var(--base01);
-              --background-secondary-alt: var(--base01);
-              --channeltextarea-background: var(--base01);
-              --background-tertiary: var(--base00);
-              --background-accent: var(--base0E);
-              --background-floating: var(--base01);
-              --background-modifier-hover: #1d20214c; /* 30% of base00 */
-              --background-modifier-selected: var(--base00);
-              --text-normal: var(--base05);
-              --text-secondary: var(--base03);
-              --text-muted: var(--base04);
-              --text-link: var(--base0C);
-              --interactive-normal: var(--base05);
-              --interactive-hover: var(--base05);
-              --interactive-active: var(--base07);
-              --interactive-muted: var(--base03);
-              --channels-default: var(--base04);
-              --channel-icon: var(--base04);
-              --header-primary: var(--base06);
-              --header-secondary: var(--base04);
+              --bg-overlay-2: ${base00}; /* These 2 are needed for proper threads coloring */
+              --home-background: ${base00};
+              --bg-overlay-chat : ${base00}; /* Recolor forum channels */
+              --background-primary: ${base00};
+              --background-secondary: ${base01};
+              --background-secondary-alt: ${base01};
+              --channeltextarea-background: ${base01};
+              --background-tertiary: ${base00};
+              --background-accent: ${base0E};
+              --background-floating: ${base01};
+              --background-modifier-hover: ${base00}4c;
+              --background-modifier-selected: ${base00};
+              --text-normal: ${base05};
+              --text-secondary: ${base03};
+              --text-muted: ${base04};
+              --text-link: ${base0C};
+              --interactive-normal: ${base05};
+              --interactive-hover: ${base05};
+              --interactive-active: ${base07};
+              --interactive-muted: ${base03};
+              --channels-default: ${base04};
+              --channel-icon: ${base04};
+              --header-primary: ${base06};
+              --header-secondary: ${base04};
               --scrollbar-thin-track: transparent;
               --scrollbar-auto-track: transparent;
           }
