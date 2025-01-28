@@ -10,6 +10,8 @@
     ../standard.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   # home-manager = {
   #   useUserPackages = true;
   #   useGlobalPkgs = true;
@@ -38,6 +40,7 @@
 
   programs = {
     nix-ld.enable = true;
+    wireshark.enable = true;
     nh.enable = true;
     sway.enable = false;
     hyprland = {
