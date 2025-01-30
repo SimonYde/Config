@@ -22,7 +22,6 @@
     ./tmux.nix
     ./yazi.nix
     ./zellij
-    ./zoxide.nix
 
     # ---Terminals---
     ./alacritty.nix
@@ -35,7 +34,6 @@
     ./discord.nix
     ./firefox
     ./hyprlock.nix
-    ./i3status-rust.nix
     ./imv.nix
     ./mangohud.nix
     ./mpv.nix

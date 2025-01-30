@@ -12,7 +12,6 @@
   };
 
   syde = {
-    email.enable = false;
     programming.enable = true;
     ssh.enable = true;
     terminal.enable = true;

@@ -51,8 +51,10 @@ in
           "mod1+Space" = "exec ${menu}";
 
           # Sound
-          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -i ${toString volumeChange}";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -d ${toString volumeChange}";
+          "XF86AudioRaiseVolume" =
+            "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -i ${toString volumeChange}";
+          "XF86AudioLowerVolume" =
+            "exec ${pkgs.pamixer}/bin/pamixer --allow-boost -d ${toString volumeChange}";
           "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
 
           # Brightness
@@ -176,34 +178,6 @@ in
             command = "waybar";
           }
         ];
-        # bars = [{
-        #   position = "top";
-        #   fonts = {
-        #     names = [ font "FontAwesome" ];
-        #     size = 8.0;
-        #   };
-        #   statusCommand = "i3status-rs config-top";
-        #   colors = with colors; {
-        #     background = base01;
-        #     statusline = base05;
-        #     focusedWorkspace = {
-        #       background = base07;
-        #       border = base07;
-        #       text = base00;
-        #     };
-        #     inactiveWorkspace = {
-        #       background = base02;
-        #       border = base02;
-        #       text = base04;
-        #     };
-        #     urgentWorkspace = {
-        #       background = base08;
-        #       border = base08;
-        #       text = base02;
-        #     };
-        #   };
-        # }];
-
         gaps = {
           smartGaps = false;
           inner = 5;

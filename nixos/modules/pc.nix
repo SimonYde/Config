@@ -19,7 +19,7 @@ in
 {
   config = mkIf cfg.enable {
     system.stateVersion = "24.11";
-    # time.timeZone = "Europe/Copenhagen";
+    time.timeZone = "Europe/Copenhagen";
 
     i18n.defaultLocale = "en_GB.UTF-8";
     i18n.extraLocaleSettings = {
@@ -107,7 +107,7 @@ in
       enableAllHardware = true;
     };
 
-    syde.sound.enable = mkDefault true;
+    syde.sound.enable = true;
   };
 
   options.syde.pc = {

@@ -12,25 +12,6 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
-      # wireplumber.extraConfig = {
-      #   "jbl-reflect-aero" = {
-      #     "monitor.bluez.rules" = [
-      #       {
-      #         matches = [
-      #           {
-      #             # Match any bluetooth device with ids equal to that of a WH-1000XM3
-      #             "device.name" = "bluez_input.68:D6:ED:BD:E6:E6";
-      #           }
-      #         ];
-      #         actions = {
-      #           update-props = {
-      #             "device.disabled" = true;
-      #           };
-      #         };
-      #       }
-      #     ];
-      #   };
-      # };
     };
 
   };

@@ -20,20 +20,19 @@ in
       fish.enable = true;
       bash.enable = true;
       nushell.enable = true;
-      zsh.enable = false;
 
       # CLI tools
       atuin.enable = true;
       bat.enable = true;
       btop.enable = true;
       direnv.enable = true;
-      eza.enable = true;
+      eza.enable = false;
       fastfetch.enable = true;
       fd.enable = true;
       fzf.enable = true;
       gh.enable = true;
       git.enable = true;
-      jq.enable = true;
+      jq.enable = false;
       jujutsu.enable = true;
       nix-index.enable = true;
       ripgrep.enable = true;
@@ -52,14 +51,10 @@ in
       dogdns # rust version of `dig`
       du-dust # Histogram of file sizes
 
-      gnumake
+      gnumake # for Makefiles
       just # alternative to `gnumake`
-      pre-commit
 
-      sd # Friendlier `sed`
       trashy # for when `rm -rf` is too scary
-      xh # Colorful curl
-      yt-dlp
 
       zip
       unzip
@@ -67,14 +62,12 @@ in
       tokei # Counting lines of code
       tealdeer # Quick hits on programs (rust alternative to `tldr`)
 
-      entr
       pandoc
 
-      nix-output-monitor
       libqalculate
       rclone
       imagemagick
-
+      yt-dlp
       grawlix
       pix2tex
       audiobook-dl

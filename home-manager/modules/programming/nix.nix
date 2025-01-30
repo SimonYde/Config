@@ -10,6 +10,7 @@
       # nil
       nixd
       nixfmt-rfc-style
+      nix-output-monitor
     ];
 
     programs.neovim.plugins = with pkgs.vimPlugins; [ ];

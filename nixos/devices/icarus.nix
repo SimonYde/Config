@@ -36,6 +36,7 @@
     nh.enable = true;
     sway.enable = false;
     hyprland.enable = true;
+    partition-manager.enable = true;
   };
 
   services = {
@@ -65,6 +66,15 @@
 
   boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
     "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
+
+  # boot.loader.systemd-boot.windows = {
+  #   "11-home" = {
+  #     title = "Windows 11 Home";
+  #     efiDeviceHandle = "FS1";
+  #     sortKey = "z_windows";
+  #   };
+  # }
+  # ;
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/157E-B4A5";

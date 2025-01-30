@@ -23,16 +23,7 @@
           kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
           kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
 
-          # TODO: Because unstable is cringe
-          # rocmPackages = final.stable.rocmPackages;
-          bat-extras = final.stable.bat-extras;
-
           python312 = prev.python312.override {
-            packageOverrides = pyfinal: pyprev: {
-              randcrack = inputs.randcrack.packages.${prev.system}.default;
-            };
-          };
-          python311 = prev.python311.override {
             packageOverrides = pyfinal: pyprev: {
               randcrack = inputs.randcrack.packages.${prev.system}.default;
             };

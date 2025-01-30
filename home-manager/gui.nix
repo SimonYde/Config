@@ -22,17 +22,15 @@ in
       # Browsers
       brave.enable = true;
       firefox.enable = true;
+      qutebrowser.enable = false;
 
       # Terminal emulators
       ${emulator}.enable = true;
 
       # other GUI programs
-      emacs.enable = false;
       mangohud.enable = true;
       mpv.enable = true;
-      obs-studio.enable = true;
-      qutebrowser.enable = false;
-      vscode.enable = false;
+      obs-studio.enable = false;
       zathura.enable = true;
     };
 
@@ -51,11 +49,8 @@ in
     };
 
     services = {
-      emacs.enable = false;
       trayscale.enable = true;
-      kdeconnect.enable = false;
       gammastep.enable = true;
-      redshift.enable = false;
       udiskie.enable = true;
     };
 

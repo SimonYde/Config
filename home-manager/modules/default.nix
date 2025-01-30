@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./email.nix
     ./ssh.nix
 
     ./programs

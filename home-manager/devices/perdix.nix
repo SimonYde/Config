@@ -3,7 +3,6 @@
   config = {
     # Personal modules
     syde = {
-      email.enable = false;
       gui.enable = true;
       programming.enable = true;
       ssh.enable = true;
