@@ -1,9 +1,13 @@
 {
     "ZeresPluginLibrary": true,
     "GameActivityToggle": true,
-    "PluginRepo": true,
+    "PluginRepo": false,
     "BDFDB": true,
     "ThemeRepo": false,
     "NotificationSounds": true,
-    "Hide Channels": true
+    "Hide Channels": true,
+    "ReadAllNotificationsButton": true,
+    "BetterVolume": false,
+    "InvisibleTyping": true,
+    "HideDisabledEmojis": true
 }
