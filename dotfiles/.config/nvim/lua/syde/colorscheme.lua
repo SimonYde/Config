@@ -113,12 +113,7 @@ Load.now(function()
         },
     })
     vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
-    vim.cmd(
-        ('hi MiniJump2dSpot cterm=bold,underline gui=bold,underline guifg=%s guibg=%s'):format(
-            PALETTE.base08,
-            PALETTE.base00
-        )
-    )
+    vim.cmd(('hi MiniJump2dSpot cterm=bold gui=bold guifg=%s guibg=%s'):format(PALETTE.base08, PALETTE.base00))
     vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(PALETTE.base0B, PALETTE.base00))
     vim.cmd(('hi MiniJump2dSpotUnique guifg=%s guibg=%s'):format(PALETTE.base0C, PALETTE.base00))
     add_transparency()

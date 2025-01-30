@@ -1,0 +1,10 @@
+{
+    "idea callout": {
+        "prefix": "idea",
+        "body": ["> [!idea]$1\n> $0"]
+    },
+    "definition callout": {
+        "prefix": "def",
+        "body": ["> [!definition]$1\n> $0"]
+    }
+}

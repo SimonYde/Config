@@ -8,7 +8,6 @@ require('syde.plugin.snacks')
 require('syde.plugin.treesitter')
 require('syde.plugin.lsp')
 require('syde.plugin.completion')
--- DEBUG = true
 
 local nmap = Keymap.nmap
 local imap = Keymap.imap
@@ -43,6 +42,7 @@ Load.later(function()
 end)
 
 Load.later(function()
+    Load.packadd('nvim-ufo')
     local ufo = require('ufo')
     local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
@@ -137,90 +137,21 @@ Load.later(function()
 end)
 
 Load.later(function()
-    local telescope = require('telescope')
-    local actions = require('telescope.actions')
-    local themes = require('telescope.themes')
-
-    -- Dropdown list theme using a builtin theme definitions :
-    local dropdown = themes.get_dropdown({
-        width = 0.5,
-        prompt = ' ',
-        results_height = 15,
-        previewer = false,
-    })
-
-    telescope.setup({
-        pickers = {
-            find_files = {
-                -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
-                find_command = { 'rg', '--files', '--hidden', '--glob', '!**/.git/*', '--glob', '!**/*.png' },
-            },
-            buffers = {
-                mappings = {
-                    i = {
-                        ['<c-x>'] = actions.delete_buffer, --+ actions.move_to_top,
-                    },
-                },
-            },
-        },
-        defaults = {
-            mappings = {
-                i = {
-                    ['<C-s>'] = actions.select_horizontal,
-                },
-            },
-            -- `hidden = true` is not supported in text grep commands.
-            file_ignore_patterns = {
-                '__pycache__',
-                'target',
-                '.direnv',
-                '.mypy_cache',
-                '.ruff_cache',
-                'node_modules',
-                'undodir',
-            },
-            prompt_prefix = '  ',
-            layout_config = {
-                prompt_position = 'top',
-                horizontal = {
-                    height = 0.9,
-                    width = 0.9,
-                },
-            },
-            sorting_strategy = 'ascending',
-        },
-        extensions = {
-            fzf = {
-                fuzzy = true,
-                override_generic_sorter = true, -- override the generic sorter
-                override_file_sorter = true, -- override the file sorter
-                case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
-            },
-            ['ui-select'] = {
-                dropdown,
-            },
-        },
-    })
-
-    Load.now(function() telescope.load_extension('fzf') end)
-    Load.now(function() telescope.load_extension('ui-select') end)
-
-    local builtin = require('telescope.builtin')
-    nmap('<leader>?', builtin.keymaps, 'Search keymaps')
-    nmap('<leader>fc', builtin.current_buffer_fuzzy_find, 'current buffer lines')
-    nmap('<leader>b', builtin.buffers, 'buffers')
-    nmap('<leader>ff', builtin.find_files, 'Files')
-    nmap('<leader>fh', builtin.help_tags, 'Help tags')
-    -- nmap('<leader>fg', builtin.git_files, 'Git files')
-    nmap('<leader>fg', require('syde.plugin.telescope.multigrep').live_multigrep, 'Live Multigrep')
-    nmap('<leader>fb', builtin.builtin, 'Builtin telescope pickers')
-    nmap('<leader>fs', builtin.lsp_document_symbols, 'LSP document symbols')
-    nmap('<leader>fw', builtin.lsp_dynamic_workspace_symbols, 'LSP workspace symbols')
-    nmap('<leader>/', builtin.live_grep, 'Global search with grep')
-    nmap("<leader>'", builtin.resume, 'Resume last picker')
-    nmap('gr', builtin.lsp_references, 'Goto references (telescope)')
-    nmap('gi', builtin.lsp_implementations, 'Goto implementations (telescope)')
-    nmap('gd', builtin.lsp_definitions, 'Goto definitions (telescope)')
+    local fzf = require('fzf-lua')
+    nmap('<leader>?', fzf.keymaps, 'Search keymaps')
+    nmap('<leader>fc', fzf.grep_curbuf, 'current buffer lines')
+    nmap('<leader>b', fzf.buffers, 'buffers')
+    nmap('<leader>ff', fzf.files, 'Files')
+    nmap('<leader>fh', fzf.help_tags, 'Help tags')
+    nmap('<leader>fg', fzf.git_files, 'Git files')
+    nmap('<leader>fb', fzf.builtin, 'Builtin pickers')
+    nmap('<leader>fs', fzf.lsp_document_symbols, 'LSP document symbols')
+    nmap('<leader>fw', fzf.lsp_workspace_symbols, 'LSP workspace symbols')
+    nmap('<leader>/', fzf.live_grep, 'Global search with grep')
+    nmap("<leader>'", fzf.resume, 'Resume last picker')
+    nmap('gr', fzf.lsp_references, 'Goto references (telescope)')
+    nmap('gi', fzf.lsp_implementations, 'Goto implementations (telescope)')
+    nmap('gd', fzf.lsp_definitions, 'Goto definitions (telescope)')
 end)
 
 Load.later(function()
@@ -466,5 +397,3 @@ Load.later(function()
         },
     })
 end)
-
--- vim.cmd([[redraw]])

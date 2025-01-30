@@ -45,11 +45,7 @@ in
 
           obsidian-nvim
           image-nvim
-
-          # -----Fuzzy Finder-----
-          telescope-nvim
-          telescope-fzf-native-nvim
-          telescope-ui-select-nvim
+          fzf-lua
 
           # -----UI-----
           which-key-nvim
@@ -69,6 +65,7 @@ in
           todo-comments-nvim
           img-clip-nvim
 
+          nvim-ufo
           nvim-dap
           nvim-dap-ui
 
