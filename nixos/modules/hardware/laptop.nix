@@ -16,7 +16,7 @@ in
 
     hardware.nvidia = {
       powerManagement.enable = mkForce true;
-      powerManagement.finegrained = mkForce true;
+      powerManagement.finegrained = true;
     };
 
     services.libinput = {

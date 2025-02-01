@@ -21,9 +21,9 @@ in
 
     hardware.nvidia = {
       powerManagement.enable = true;
-      powerManagement.finegrained = false;
+      powerManagement.finegrained = mkDefault false;
       modesetting.enable = true;
-      nvidiaSettings = true;
+      nvidiaSettings = false;
       open = mkDefault true;
       package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
