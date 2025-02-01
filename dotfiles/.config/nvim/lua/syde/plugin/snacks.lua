@@ -1,4 +1,20 @@
 Load.now(function()
+    _G.dd = function(...) require('snacks.debug').inspect(...) end
+    _G.bt = function() require('snacks.debug').backtrace() end
+    _G.p = function(...) require('snacks.debug').profile(...) end
+    vim.print = _G.dd
+end)
+
+if vim.env.NVIM_PROFILE then
+    require('snacks.profiler').startup({
+        startup = {
+            -- event = "UIEnter"
+        },
+        runtime = vim.env.VIMRUNTIME,
+    })
+end
+
+Load.now(function()
     require('snacks').setup({
         notifier = {
             enabled = true,
@@ -7,11 +23,12 @@ Load.now(function()
             enabled = false,
         },
         quickfile = {},
+        picker = {},
         toggle = {},
         zen = {},
         bigfile = {
             notify = true, -- show notification when big file detected
-            size = 1.5 * 1024 * 1024, -- 1.5MB
+            size = 1024 * 1024, -- 1MB
             -- Enable or disable features when big file detected
             ---@param ctx {buf: number, ft:string}
             setup = function(ctx)
@@ -22,6 +39,26 @@ Load.now(function()
             end,
         },
     })
+end)
+
+Load.later(function()
+    local nmap = Keymap.nmap
+
+    local picker = Snacks.picker
+    nmap('<leader>?', picker.keymaps, 'Search keymaps')
+    nmap('<leader>fc', picker.grep_buffers, 'current buffer lines')
+    nmap('<leader>b', picker.buffers, 'buffers')
+    nmap('<leader>ff', function() picker.files({ hidden = true }) end, 'Files')
+    nmap('<leader>fh', picker.help, 'Help tags')
+    nmap('<leader>fg', picker.git_files, 'Git files')
+    nmap('<leader>fb', picker.pickers, 'Builtin pickers')
+    nmap('<leader>fs', picker.lsp_symbols, 'LSP document symbols')
+    nmap('<leader>fw', picker.lsp_workspace_symbols, 'LSP workspace symbols')
+    nmap('<leader>/', picker.grep, 'Global search with grep')
+    nmap("<leader>'", picker.resume, 'Resume last picker')
+    nmap('gr', picker.lsp_references, 'Goto references (telescope)')
+    nmap('gi', picker.lsp_implementations, 'Goto implementations (telescope)')
+    nmap('gd', picker.lsp_definitions, 'Goto definitions (telescope)')
 end)
 
 Load.later(function()
@@ -64,7 +101,7 @@ Load.later(function()
                 id = 'lsp_progress',
                 title = client.name,
                 opts = function(notif)
-                    notif.icon = #progress[client.id] == 0 and ' '
+                    notif.icon = #progress[client.id] == 0 and ''
                         or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
                 end,
             })

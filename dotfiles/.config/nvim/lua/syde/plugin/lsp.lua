@@ -13,12 +13,12 @@ Load.later(function()
         end
         local config = {}
         local default_capabilities = vim.lsp.protocol.make_client_capabilities()
-        -- NOTE: for nvim-ufo
         local capabilities = vim.tbl_deep_extend('force', default_capabilities, lsp.capabilities or {})
 
         local blink = Load.now(require, 'blink.cmp')
         if blink then capabilities = blink.get_lsp_capabilities(capabilities) end
 
+        -- NOTE: for nvim-ufo
         capabilities.textDocument.foldingRange = {
             dynamicRegistration = false,
             lineFoldingOnly = true,
@@ -85,6 +85,10 @@ Load.later(function()
                 },
             },
         },
+    })
+
+    setup_lsp({
+        name = 'basedpyright',
     })
 
     setup_lsp({

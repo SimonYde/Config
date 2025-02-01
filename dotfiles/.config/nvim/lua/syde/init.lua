@@ -17,6 +17,7 @@ Load.later(function()
     require('trouble').setup()
 
     nmap('<leader>td', function() vim.cmd('Trouble diagnostics toggle') end, 'Toggle trouble diagnostics')
+    nmap('<leader>tt', function() vim.cmd('Trouble todo toggle') end, 'Toggle trouble todos')
 end)
 
 Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
@@ -30,7 +31,6 @@ Load.later(function()
             lua = { 'stylua' },
             nix = { 'nixfmt' },
             clojure = { 'cljfmt' },
-            -- nu = { 'nufmt' },
         },
     })
 
@@ -134,24 +134,6 @@ Load.later(function()
     nmap('<leader>gs', function() neogit.open() end, 'Neogit status')
     nmap('<leader>gw', function() neogit.open({ 'worktree' }) end, 'Neogit worktree')
     nmap('<leader>gc', function() neogit.open({ 'commit' }) end, 'Neogit commit')
-end)
-
-Load.later(function()
-    local fzf = require('fzf-lua')
-    nmap('<leader>?', fzf.keymaps, 'Search keymaps')
-    nmap('<leader>fc', fzf.grep_curbuf, 'current buffer lines')
-    nmap('<leader>b', fzf.buffers, 'buffers')
-    nmap('<leader>ff', fzf.files, 'Files')
-    nmap('<leader>fh', fzf.help_tags, 'Help tags')
-    nmap('<leader>fg', fzf.git_files, 'Git files')
-    nmap('<leader>fb', fzf.builtin, 'Builtin pickers')
-    nmap('<leader>fs', fzf.lsp_document_symbols, 'LSP document symbols')
-    nmap('<leader>fw', fzf.lsp_workspace_symbols, 'LSP workspace symbols')
-    nmap('<leader>/', fzf.live_grep, 'Global search with grep')
-    nmap("<leader>'", fzf.resume, 'Resume last picker')
-    nmap('gr', fzf.lsp_references, 'Goto references (telescope)')
-    nmap('gi', fzf.lsp_implementations, 'Goto implementations (telescope)')
-    nmap('gd', fzf.lsp_definitions, 'Goto definitions (telescope)')
 end)
 
 Load.later(function()

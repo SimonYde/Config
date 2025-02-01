@@ -3,7 +3,7 @@ local add_transparency = function()
         require('mini.colors')
             .get_colorscheme()
             :add_transparency({
-                float = false,
+                float = true,
                 general = true,
                 statuscolumn = true,
                 statusline = true,
@@ -13,63 +13,19 @@ local add_transparency = function()
             :apply()
         -- Remove background for sign column elements
         vim.cmd([[
-            hi MiniDiffSignAdd guibg=NONE ctermbg=NONE
-            hi MiniDiffSignChange guibg=NONE ctermbg=NONE
-            hi MiniDiffSignDelete guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingOk guibg=NONE ctermbg=NONE
+            hi MiniDiffSignAdd         guibg=NONE ctermbg=NONE
+            hi MiniDiffSignChange      guibg=NONE ctermbg=NONE
+            hi MiniDiffSignDelete      guibg=NONE ctermbg=NONE
+            hi MiniTabLineFill         guibg=NONE ctermbg=NONE
+            hi WhichKeySeparator       guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingOk    guibg=NONE ctermbg=NONE
             hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingWarn guibg=NONE ctermbg=NONE
-            hi MiniTabLineFill guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingInfo guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingHint guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingWarn  guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingInfo  guibg=NONE ctermbg=NONE
+            hi DiagnosticFloatingHint  guibg=NONE ctermbg=NONE
         ]])
     end)
 end
-
-local catppuccin = Load.now(function()
-    local catppuccin = require('catppuccin')
-    local flavour = 'mocha'
-    if VARIANT ~= 'dark' then flavour = 'latte' end
-
-    catppuccin.setup({
-        flavour = flavour,
-        transparent_background = false,
-        integrations = {
-            cmp = true,
-            gitsigns = false,
-            harpoon = true,
-            indent_blankline = { enabled = true, colored_indent_levels = false },
-            lsp_saga = true,
-            mini = true,
-            nvimtree = false,
-            rainbow_delimiters = true,
-            telescope = {
-                enabled = true,
-                -- style = 'nvchad',
-            },
-            treesitter = true,
-            treesitter_context = true,
-            which_key = true,
-        },
-        custom_highlights = function(colors)
-            local highlights = {}
-            highlights.LineNr = {
-                fg = colors.overlay0,
-            }
-            highlights.IblIndent = {
-                fg = colors.overlay0,
-            }
-            highlights.NormalFloat = {
-                bg = colors.mantle,
-            }
-            return highlights
-        end,
-    })
-    vim.cmd.colorscheme('catppuccin')
-    add_transparency()
-    return catppuccin
-end)
-if catppuccin then return end
 
 Load.now(function()
     require('mini.base16').setup({
@@ -95,7 +51,7 @@ Load.now(function()
             ['hrsh7th/nvim-cmp'] = true,
             ['justinmk/vim-sneak'] = false,
             ['kevinhwang91/nvim-bqf'] = false,
-            ['kevinhwang91/nvim-ufo'] = false,
+            ['kevinhwang91/nvim-ufo'] = true,
             ['lewis6991/gitsigns.nvim'] = false,
             ['lukas-reineke/indent-blankline.nvim'] = true,
             ['neoclide/coc.nvim'] = false,
@@ -112,9 +68,11 @@ Load.now(function()
             ['williamboman/mason.nvim'] = false,
         },
     })
+    add_transparency()
     vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
     vim.cmd(('hi MiniJump2dSpot cterm=bold gui=bold guifg=%s guibg=%s'):format(PALETTE.base08, PALETTE.base00))
     vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(PALETTE.base0B, PALETTE.base00))
     vim.cmd(('hi MiniJump2dSpotUnique guifg=%s guibg=%s'):format(PALETTE.base0C, PALETTE.base00))
-    add_transparency()
+    vim.cmd(('hi SnacksPickerDir guifg=%s'):format(PALETTE.base04))
+    vim.cmd(('hi BlinkCmpSignatureHelp guibg=%s'):format(PALETTE.base01))
 end)

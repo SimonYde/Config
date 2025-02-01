@@ -26,7 +26,11 @@ let
 in
 {
   config = lib.mkIf config.syde.programming.python.enable {
-    home.packages = [ python-pkgs ];
+    home.packages = with pkgs; [
+      basedpyright
+      ruff
+      python-pkgs
+    ];
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [

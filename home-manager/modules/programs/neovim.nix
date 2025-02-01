@@ -45,7 +45,6 @@ in
 
           obsidian-nvim
           image-nvim
-          fzf-lua
 
           # -----UI-----
           which-key-nvim

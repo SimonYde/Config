@@ -55,10 +55,10 @@ in
         ".direnv"
         ".env"
         ".envrc"
-        ".mypy_cache"
-        ".ruff_cache"
-        ".stfolder"
-        ".stignore"
+        "**/.mypy_cache"
+        "**/.ruff_cache"
+        "**/.stfolder"
+        "**/.stignore"
         ".vscode"
       ];
       delta = {

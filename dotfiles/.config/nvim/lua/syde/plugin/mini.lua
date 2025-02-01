@@ -136,7 +136,8 @@ Load.later(function()
         },
         autocommands = {
             -- Basic autocommands (highlight on yank, start Insert in terminal, ...)
-            basic = false,
+            basic = true,
+            relnum_in_visual_mode = false,
         },
     })
 end)
@@ -372,7 +373,6 @@ Load.later(function()
         local get_filetype_icon = function()
             if not MiniStatusline.config.use_icons then return '' end
             local MiniIcons = Load.now(require, 'mini.icons')
-            -- NOTE: Make sure setup is called
             local file_name = vim.fn.expand('%:t')
             local icon, _, is_default = MiniIcons.get('file', file_name)
             if is_default then return '' end
