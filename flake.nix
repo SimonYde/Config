@@ -75,10 +75,12 @@
     };
 
     nix-colors.url = "github:misterio77/nix-colors";
+    base16.url = "github:SenchoPens/base16.nix";
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
+      inputs.base16.follows = "base16";
     };
 
     # My flakes
