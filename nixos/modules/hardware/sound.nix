@@ -1,9 +1,18 @@
-{ config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.syde.sound;
 in
 {
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      qjackctl
+      qpwgraph
+    ];
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {

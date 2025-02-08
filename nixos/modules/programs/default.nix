@@ -5,5 +5,6 @@
     ./nix.nix
     ./nh.nix
     ./wireshark.nix
+    ./virt-manager.nix
   ];
 }

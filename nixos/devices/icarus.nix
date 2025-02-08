@@ -36,13 +36,12 @@
     nh.enable = true;
     sway.enable = false;
     hyprland.enable = true;
-    partition-manager.enable = true;
+    virt-manager.enable = true;
   };
 
   services = {
     ratbagd.enable = true;
     blueman.enable = true;
-    languagetool.enable = false;
     ollama.enable = true;
     tailscale.enable = true;
     syncthing.enable = true;
@@ -57,15 +56,6 @@
   networking.wireguard.enable = true;
 
   virtualisation.docker.enable = false;
-  # Filesystems
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e37c4644-2a85-4cfd-adaf-87961ad57a72";
-    fsType = "ext4";
-  };
-
-  boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
-    "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
 
   boot.loader.systemd-boot.windows = {
     "11-home" = {
@@ -73,6 +63,15 @@
       efiDeviceHandle = "HD0b";
     };
   };
+
+  # Filesystems
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/e37c4644-2a85-4cfd-adaf-87961ad57a72";
+    fsType = "ext4";
+  };
+
+  boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
+    "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/157E-B4A5";
