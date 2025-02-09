@@ -18,6 +18,10 @@ Load.later(function()
 
     nmap('<leader>td', function() vim.cmd('Trouble diagnostics toggle') end, 'Toggle trouble diagnostics')
     nmap('<leader>tt', function() vim.cmd('Trouble todo toggle') end, 'Toggle trouble todos')
+    nmap('<leader>tq', function() vim.cmd('Trouble qflist toggle') end)
+    vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+        callback = function() vim.cmd([[Trouble qflist open]]) end,
+    })
 end)
 
 Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
@@ -43,7 +47,7 @@ end)
 
 Load.later(function()
     Load.packadd('nvim-ufo')
-    local ufo = require('ufo')
+    _G.Ufo = require('ufo')
     local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
         local suffix = (' 󰁂 %d '):format(endLnum - lnum)
@@ -72,25 +76,33 @@ Load.later(function()
         return newVirtText
     end
 
-    ufo.setup({
+    Ufo.setup({
+        open_fold_hl_timeout = 0,
         fold_virt_text_handler = handler,
         provider_selector = function(_, _, _) return { 'treesitter', 'indent' } end,
     })
-    nmap('zR', ufo.openAllFolds, 'Open all folds (nvim-ufo)')
-    nmap('zM', ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
+    nmap('zR', Ufo.openAllFolds, 'Open all folds (nvim-ufo)')
+    nmap('zM', Ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
     vim.o.foldlevel = 500 -- NOTE: must be set high as to avoid auto-closing
     vim.g.ufo_foldlevel = 0
     nmap('zr', function()
         vim.g.ufo_foldlevel = vim.g.ufo_foldlevel + 1
-        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
+        Ufo.closeFoldsWith(vim.g.ufo_foldlevel)
     end, 'Open one fold level')
     nmap('zm', function()
         vim.g.ufo_foldlevel = math.max(vim.g.ufo_foldlevel - 1, 0)
-        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
+        Ufo.closeFoldsWith(vim.g.ufo_foldlevel)
     end, 'Close one fold level')
 end)
 
-Load.on_events(function() require('nvim-autopairs').setup() end, 'InsertEnter')
+Load.on_events(
+    function()
+        require('nvim-autopairs').setup({
+            disable_filetype = { 'snacks_picker_input' },
+        })
+    end,
+    'InsertEnter'
+)
 
 Load.later(function()
     Load.packadd('indent-blankline.nvim')
@@ -159,32 +171,10 @@ Load.later(function()
         { '<leader>ms', group = 'Sessions' },
         { '<leader>v', group = 'Visits' },
         { '<leader>g', group = 'Git' },
+        { '<leader>s', group = 'Snacks' },
         { '<leader>l', group = 'Lsp' },
         { '<leader>o', group = 'Obsidian' },
     })
-end)
-
-Load.later(function()
-    local otter = require('otter')
-    otter.setup({
-        lsp = {
-            diagnostic_update_events = { 'BufWritePost' },
-            root_dir = function(_) return vim.fn.getcwd(0) end,
-        },
-        buffers = {
-            set_filetype = false,
-            -- write <path>.otter.<embedded language extension> files to
-            -- disk on save of main buffer.
-            -- useful for some linters that require actual files
-            -- otter files are deleted on quit or main buffer close
-            write_to_disk = false,
-        },
-        strip_wrapping_quote_characters = { "'", '"', '`' },
-        -- otter may not work the way you expect when entire code blocks are indented (eg. in Org files)
-        -- When true, otter handles these cases fully.
-        handle_leading_whitespace = true,
-    })
-    nmap('<leader>lo', function() otter.activate() end, 'Otter activate')
 end)
 
 Load.on_events(function()

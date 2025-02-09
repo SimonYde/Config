@@ -1467,7 +1467,6 @@
         "pix2tex": "pix2tex",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "randcrack": "randcrack",
-        "snacks-nvim": "snacks-nvim",
         "stable": "stable",
         "stylix": "stylix",
         "tip-vim": "tip-vim"
@@ -1491,22 +1490,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "snacks-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1738866344,
-        "narHash": "sha256-x/KJCesP3Sc77H9sRDT66Nv4j1v/odG4IWIcJgITeew=",
-        "owner": "folke",
-        "repo": "snacks.nvim",
-        "rev": "270250cf4646dbb16c3d1a453257a3f024b8f362",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "snacks.nvim",
         "type": "github"
       }
     },

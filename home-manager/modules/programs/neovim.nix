@@ -28,7 +28,6 @@ in
         [
           # -----LSP-----
           nvim-lspconfig
-          otter-nvim
           tip-vim
 
           # -----Completion-----
@@ -37,7 +36,6 @@ in
 
           # -----Workflow-----
           nvim-autopairs
-
           mini-nvim
           snacks-nvim
           vim-sleuth

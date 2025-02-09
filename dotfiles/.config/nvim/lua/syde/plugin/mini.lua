@@ -55,42 +55,7 @@ Load.later(function()
 end)
 
 Load.later(function()
-    require('mini.icons').setup({
-        lsp = {
-            ellipsis_char = { glyph = '…', hl = 'MiniIconsRed' },
-            copilot = { glyph = '', hl = 'MiniIconsOrange' },
-            codeium = { glyph = '', hl = 'MiniIconsGreen' },
-            cody = { glyph = '', hl = 'MiniIconsAzure' },
-            supermaven = { glyph = '', hl = 'MiniIconsYellow' },
-            otter = { glyph = '🦦', hl = 'MiniIconsCyan' },
-
-            ['function'] = { glyph = '󰊕', hl = 'MiniIconsAzure' },
-            class = { glyph = '󰠱', hl = 'MiniIconsYellow' },
-            color = { glyph = '󰏘', hl = 'MiniIconsCyan' },
-            constant = { glyph = '󰏿', hl = 'MiniIconsOrange' },
-            constructor = { glyph = '', hl = 'MiniIconsYellow' },
-            enum = { glyph = '', hl = 'MiniIconsPurple' },
-            enumMember = { glyph = '', hl = 'MiniIconsPurple' },
-            event = { glyph = '', hl = 'MiniIconsRed' },
-            field = { glyph = '󰜢', hl = 'MiniIconsPurple' },
-            file = { glyph = '󰈙', hl = 'MiniIconsYellow' },
-            folder = { glyph = '󰉋', hl = 'MiniIconsAzure' },
-            interface = { glyph = '', hl = 'MiniIconsPurple' },
-            keyword = { glyph = '󰌋', hl = 'MiniIconsPurple' },
-            method = { glyph = '󰆧', hl = 'MiniIconsAzure' },
-            module = { glyph = '', hl = 'MiniIconsPurple' },
-            operator = { glyph = '󰆕', hl = 'Normal' },
-            property = { glyph = '󰜢', hl = 'MiniIconsPurple' },
-            reference = { glyph = '󰈇', hl = 'MiniIconsYellow' },
-            snippet = { glyph = '', hl = 'MiniIconsCyan' },
-            struct = { glyph = '󰙅', hl = 'MiniIconsPurple' },
-            text = { glyph = '󰉿', hl = 'MiniIconsRed' },
-            typeParameter = { glyph = '', hl = 'MiniIconsYellow' },
-            unit = { glyph = '󰑭', hl = 'MiniIconsCyan' },
-            value = { glyph = '󰎠', hl = 'MiniIconsRed' },
-            variable = { glyph = '󰀫', hl = 'MiniIconsBlue' },
-        },
-    })
+    require('mini.icons').setup()
     Load.now(MiniIcons.tweak_lsp_kind)
     MiniIcons.mock_nvim_web_devicons()
 end)
@@ -132,7 +97,7 @@ Load.later(function()
         },
         mappings = {
             basic = true,
-            option_toggle_prefix = [[<leader><leader>]],
+            option_toggle_prefix = [[]],
         },
         autocommands = {
             -- Basic autocommands (highlight on yank, start Insert in terminal, ...)

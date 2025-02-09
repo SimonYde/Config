@@ -141,6 +141,10 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.INFO] = '',
         },
     },
+    -- virtual_lines = {
+    --     current_line = true,
+    -- },
+    virtual_text = {},
     float = {
         border = 'rounded',
     },

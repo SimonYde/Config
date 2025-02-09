@@ -34,6 +34,7 @@ local tmap = Keymap.map('t')
 local nmap = Keymap.nmap
 local xmap = Keymap.map('x')
 local nxmap = Keymap.map({ 'n', 'x' })
+local nvmap = Keymap.map({ 'n', 'v' })
 
 vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -83,7 +84,6 @@ nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle [i]nlay hints')
 nmap('<leader>lf', vim.lsp.buf.format, 'LSP format')
 
 nmap('<leader>q', Config.toggle_quickfix, 'Toggle [q]uickfix list')
-nmap('<leader>h', vim.cmd('nohlsearch'), 'clear search highlight')
 nmap('<leader>=', vim.lsp.buf.format, 'Format with LSP')
 nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
 nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
@@ -101,9 +101,8 @@ end, 'Toggle fold')
 -- COLEMAK Remaps
 -- NOTE: is reversed because the function below toggles the value, in order to
 -- enable appropriate options.
-COLEMAK = false
-Colemak_toggle = function()
-    if not COLEMAK then
+Config.colemak_toggle = function()
+    if not Config._colemak_enabled then
         nxmap('n', [[v:count == 0 ? 'gj' : 'j']], '', { expr = true, noremap = true })
         nxmap('e', [[v:count == 0 ? 'gk' : 'k']], '', { expr = true, noremap = true })
         nxmap('m', 'h', '', { noremap = true })
@@ -132,7 +131,7 @@ Colemak_toggle = function()
         nxmap('M', '^', 'Goto first non-empty cell in line')
         nxmap('S', '0', 'Goto line start')
         nxmap('I', '$', 'Goto line end')
-        COLEMAK = true
+        Config._colemak_enabled = true
     else
         nxmap('j', [[v:count == 0 ? 'gj' : 'j']], '', { expr = true, noremap = true })
         nxmap('k', [[v:count == 0 ? 'gk' : 'k']], '', { expr = true, noremap = true })
@@ -154,12 +153,12 @@ Colemak_toggle = function()
         nxmap('H', '^', 'Goto first non-empty cell in line')
         nxmap('S', '0', 'Goto line start')
         nxmap('L', '$', 'Goto line end')
-        COLEMAK = false
+        Config._colemak_enabled = false
     end
 end
-Colemak_toggle()
+Config.colemak_toggle()
 
 nmap('<leader><leader>k', function()
-    Colemak_toggle()
-    print('COLEMAK', COLEMAK)
+    Config.colemak_toggle()
+    print('COLEMAK', Config._colemak_enabled)
 end, 'Toggle keymap')
