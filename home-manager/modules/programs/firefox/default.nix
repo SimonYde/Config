@@ -237,8 +237,7 @@ in
           ublock-origin
           cookie-autodelete
           istilldontcareaboutcookies
-          # user-agent-string-switcher
-          # bypass-paywalls-clean
+          noscript
 
           # ---Workflow---
           sponsorblock
@@ -256,7 +255,6 @@ in
           sidebery
           stylus
           firefox-color
-          # userchrome-toggle
         ];
         userChrome =
           readFile "${csshacks}/window_control_placeholder_support.css"

@@ -5,14 +5,14 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkForce;
+  inherit (lib) getExe mkIf mkForce;
   palette = config.colorScheme.palette;
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
   browser = config.syde.gui.browser;
   file-manager = config.syde.gui.file-manager;
   lock = config.syde.gui.lock;
-  menu = "${pkgs.rofi-wayland}/bin/rofi -show drun";
+  menu = "${getExe pkgs.rofi-wayland} -show drun";
   cfg = config.wayland.windowManager.hyprland;
 in
 {
@@ -31,7 +31,7 @@ in
       hyprpicker # color picker
     ];
 
-    home.sessionVariables.NIXOS_OZONE_WL = 1;
+    # home.sessionVariables.NIXOS_OZONE_WL = 1;
 
     programs = {
       imv.enable = true;
@@ -57,8 +57,8 @@ in
 
     wayland.windowManager.hyprland = {
       plugins = with pkgs.hyprlandPlugins; [
-        hyprsplit
-        hyprspace
+        # hyprsplit
+        # hyprspace
       ];
       settings = {
         "$browser" = browser;

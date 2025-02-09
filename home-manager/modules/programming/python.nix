@@ -10,6 +10,7 @@ let
       python-lsp-server
       python-lsp-ruff
       pylsp-mypy
+      types-requests
 
       numpy
       pandas
