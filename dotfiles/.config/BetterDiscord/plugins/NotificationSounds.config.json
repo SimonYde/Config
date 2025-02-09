@@ -432,6 +432,46 @@
 				"sound": "---",
 				"streamMute": false,
 				"volume": 100
+			},
+			"voice_filter_loopback_off": {
+				"category": "---",
+				"invisibleMute": false,
+				"mute": false,
+				"sound": "---",
+				"streamMute": false,
+				"volume": 100
+			},
+			"voice_filter_loopback_on": {
+				"category": "---",
+				"invisibleMute": false,
+				"mute": false,
+				"sound": "---",
+				"streamMute": false,
+				"volume": 100
+			},
+			"voice_filter_off": {
+				"category": "---",
+				"invisibleMute": false,
+				"mute": false,
+				"sound": "---",
+				"streamMute": false,
+				"volume": 100
+			},
+			"voice_filter_on": {
+				"category": "---",
+				"invisibleMute": false,
+				"mute": false,
+				"sound": "---",
+				"streamMute": false,
+				"volume": 100
+			},
+			"voice_filter_swap": {
+				"category": "---",
+				"invisibleMute": false,
+				"mute": false,
+				"sound": "---",
+				"streamMute": false,
+				"volume": 100
 			}
 		},
 		"volumes": {
