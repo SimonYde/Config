@@ -42,10 +42,6 @@ in
     syde.programs = {
       discord.enable = true;
       discord.package = pkgs.discord;
-      thunar = {
-        defaultFilemanager = true;
-        enable = true;
-      };
     };
 
     services = {
@@ -120,11 +116,11 @@ in
     file-manager = {
       mime = mkOption {
         type = types.str;
-        default = "thunar";
+        default = "pcmanfm";
       };
       package = mkOption {
         type = types.package;
-        default = pkgs.xfce.thunar;
+        default = pkgs.pcmanfm;
       };
     };
     lock = mkOption {

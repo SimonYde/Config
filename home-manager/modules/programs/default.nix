@@ -40,7 +40,6 @@
     ./nix-index.nix
     ./rofi
     ./swaylock.nix
-    ./thunar.nix
     ./waybar
     ./wlogout.nix
     ./zathura.nix

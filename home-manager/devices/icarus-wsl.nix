@@ -4,13 +4,6 @@
     zathura.enable = true;
   };
 
-  syde.programs = {
-    thunar = {
-      defaultFilemanager = false;
-      enable = false;
-    };
-  };
-
   syde = {
     programming.enable = true;
     ssh.enable = true;
