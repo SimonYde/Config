@@ -3,3 +3,4 @@
 .pre-commit-config.yaml
 .direnv
 **/nvim/init.lua
+**/BetterDiscord/data/stable/addon-store.json
