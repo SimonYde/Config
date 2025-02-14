@@ -20,6 +20,7 @@ in
     ];
 
     hardware.nvidia = {
+      videoAcceleration = true;
       powerManagement.enable = true;
       powerManagement.finegrained = mkDefault false;
       modesetting.enable = true;
@@ -36,8 +37,6 @@ in
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [ nvidia-vaapi-driver ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [ nvidia-vaapi-driver ];
     };
 
     environment.sessionVariables = mkIf cfg.dedicated {

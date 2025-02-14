@@ -36,7 +36,6 @@
     nh.enable = true;
     sway.enable = false;
     hyprland.enable = true;
-    virt-manager.enable = true;
   };
 
   services = {
