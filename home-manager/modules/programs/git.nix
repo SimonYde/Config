@@ -56,6 +56,7 @@ in
         ".env"
         ".envrc"
         "**/.mypy_cache"
+        "**/__pycache__"
         "**/.ruff_cache"
         "**/.stfolder"
         "**/.stignore"
