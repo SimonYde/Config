@@ -16,6 +16,7 @@ Load.now(function()
         quickfile = {},
         picker = {},
         toggle = {},
+        terminal = {},
         zen = {},
         bigfile = {
             notify = true, -- show notification when big file detected
@@ -39,12 +40,14 @@ Load.later(function()
     nmap('<leader>?', picker.keymaps, 'Search keymaps')
     nmap('<leader>fc', picker.grep_buffers, 'current buffer lines')
     nmap('<leader>b', picker.buffers, 'buffers')
+    ---@diagnostic disable-next-line: missing-fields
     nmap('<leader>ff', function() picker.files({ hidden = true }) end, 'Files')
     nmap('<leader>fh', picker.help, 'Help tags')
     nmap('<leader>fg', picker.git_files, 'Git files')
     nmap('<leader>fb', picker.pickers, 'Builtin pickers')
     nmap('<leader>fs', picker.lsp_symbols, 'LSP document symbols')
     nmap('<leader>fw', picker.lsp_workspace_symbols, 'LSP workspace symbols')
+    ---@diagnostic disable-next-line: missing-fields
     nmap('<leader>/', function() picker.grep({ hidden = true }) end, 'Global search with grep')
     nmap("<leader>'", picker.resume, 'Resume last picker')
     nmap('gr', picker.lsp_references, 'Goto references')
@@ -100,6 +103,9 @@ Load.later(function()
     })
 
     nmap('<leader>sn', Snacks.notifier.show_history, 'Show notifier history')
+
+    nmap('<leader>st', Snacks.terminal.toggle, 'Toggle terminal')
+
     nmap('<leader>gb', Snacks.git.blame_line, 'Show blame line')
     nmap('<leader>go', Snacks.gitbrowse.open, 'Open current position on remote repo')
 

@@ -6,8 +6,8 @@ require('syde.colorscheme')
 require('syde.plugin.mini')
 require('syde.plugin.snacks')
 require('syde.plugin.treesitter')
-require('syde.plugin.lsp')
 require('syde.plugin.completion')
+require('syde.plugin.lsp')
 
 local nmap = Keymap.nmap
 local imap = Keymap.imap
@@ -18,12 +18,13 @@ Load.later(function()
 
     nmap('<leader>td', function() vim.cmd('Trouble diagnostics toggle') end, 'Toggle trouble diagnostics')
     nmap('<leader>tt', function() vim.cmd('Trouble todo toggle') end, 'Toggle trouble todos')
-    nmap('<leader>tq', function() vim.cmd('Trouble qflist toggle') end)
+    nmap('<leader>tq', function() vim.cmd('Trouble qflist toggle') end, 'Toggle trouble quickfix')
     vim.api.nvim_create_autocmd('QuickFixCmdPost', {
         callback = function() vim.cmd([[Trouble qflist open]]) end,
     })
 end)
 
+--- @diagnostic disable-next-line: missing-parameter
 Load.on_events(function() require('crates').setup() end, 'BufRead', 'Cargo.toml')
 
 Load.later(function()
@@ -48,38 +49,17 @@ end)
 Load.later(function()
     Load.packadd('nvim-ufo')
     _G.Ufo = require('ufo')
-    local handler = function(virtText, lnum, endLnum, width, truncate)
-        local newVirtText = {}
-        local suffix = (' 󰁂 %d '):format(endLnum - lnum)
-        local sufWidth = vim.fn.strdisplaywidth(suffix)
-        local targetWidth = width - sufWidth
-        local curWidth = 0
-        for _, chunk in ipairs(virtText) do
-            local chunkText = chunk[1]
-            local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            if targetWidth > curWidth + chunkWidth then
-                table.insert(newVirtText, chunk)
-            else
-                chunkText = truncate(chunkText, targetWidth - curWidth)
-                local hlGroup = chunk[2]
-                table.insert(newVirtText, { chunkText, hlGroup })
-                chunkWidth = vim.fn.strdisplaywidth(chunkText)
-                -- str width returned from truncate() may less than 2nd argument, need padding
-                if curWidth + chunkWidth < targetWidth then
-                    suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-                end
-                break
-            end
-            curWidth = curWidth + chunkWidth
-        end
-        table.insert(newVirtText, { suffix, 'MoreMsg' })
-        return newVirtText
-    end
 
+    --- @diagnostic disable: missing-fields
     Ufo.setup({
         open_fold_hl_timeout = 0,
-        fold_virt_text_handler = handler,
         provider_selector = function(_, _, _) return { 'treesitter', 'indent' } end,
+        --- @diagnostic disable: assign-type-mismatch
+        close_fold_kinds_for_ft = {
+            rust = {
+                'function_item',
+            },
+        },
     })
     nmap('zR', Ufo.openAllFolds, 'Open all folds (nvim-ufo)')
     nmap('zM', Ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
@@ -139,7 +119,7 @@ Load.later(function()
     neogit.setup({
         integrations = {
             diffview = true,
-            telescope = true,
+            telescope = false,
             mini_pick = true,
         },
     })
@@ -179,6 +159,7 @@ end)
 
 Load.on_events(function()
     local lazydev = require('lazydev')
+    --- @diagnostic disable: missing-fields
     lazydev.setup({
         runtime = vim.env.VIMRUNTIME,
         integrations = {
@@ -247,7 +228,7 @@ Load.later(function()
     require('dap-python').setup(PYTHON_PATH) -- NOTE: PYTHON_PATH set by nix
 end)
 
-Load.on_events(function()
+Load.later(function()
     require('obsidian').setup({
         ui = {
             enable = false,
@@ -296,7 +277,7 @@ Load.on_events(function()
     nmap('<leader>ot', vim.cmd.ObsidianTags, 'Open tag list')
     nmap('<leader>op', vim.cmd.ObsidianPasteImg, 'Paste image')
     imap('<C-l>', vim.cmd.ObsidianToggleCheckbox, 'Toggle markdown checkbox')
-end, 'FileType', 'markdown')
+end)
 
 Load.later(function()
     Load.packadd('todo-comments.nvim')
@@ -366,6 +347,7 @@ Load.later(function()
             definition = { raw = '[!definition]', rendered = ' Definition', highlight = 'RenderMarkdownInfo' },
             theorem = { raw = '[!theorem]', rendered = '󰨸 Theorem', highlight = 'RenderMarkdownHint' },
             proof = { raw = '[!proof]', rendered = '󰌶 Proof', highlight = 'RenderMarkdownWarn' },
+            idea = { raw = '[!idea]', rendered = '󰌶 Idea', highlight = 'RenderMarkdownWarn' },
         },
     })
 end)

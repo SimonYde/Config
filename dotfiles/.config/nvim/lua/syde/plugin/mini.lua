@@ -270,8 +270,9 @@ Load.later(function()
         return function()
             local cwd = select_global and '' or vim.fn.getcwd()
             local sort = MiniVisits.gen_sort.default({ recency_weight = recency_weight })
-            local select_opts = { sort = sort }
-            MiniVisits.select_path(cwd, select_opts)
+            MiniVisits.select_path(cwd, {
+                sort = sort,
+            })
             -- MiniExtra.pickers.visit_paths({
             --     cwd = cwd,
             --     -- sort = sort,
@@ -307,15 +308,6 @@ end)
 
 Load.later(function()
     local MiniStatusline = require('mini.statusline')
-    local section_macro_recording = function()
-        local recording_register = vim.fn.reg_recording()
-
-        if recording_register == '' then
-            return ''
-        else
-            return ('rec @%s'):format(recording_register)
-        end
-    end
 
     local diagnostic_level = function(level)
         local n = #vim.diagnostic.get(0, { severity = level })
@@ -387,7 +379,6 @@ Load.later(function()
                 local warnings = diagnostic_level(vim.diagnostic.severity.WARN) -- alternative symbol ""
                 local info = diagnostic_level(vim.diagnostic.severity.INFO)
                 local hints = diagnostic_level(vim.diagnostic.severity.HINT)
-                local macro = section_macro_recording()
                 local filename = MiniStatusline.section_filename({ trunc_width = 140 })
                 local searchcount = MiniStatusline.section_searchcount({ trunc_width = 75 })
                 local fileinfo = section_fileinfo({ trunc_width = 120 })
@@ -405,7 +396,7 @@ Load.later(function()
                     { hl = 'DiagnosticInfo', strings = { info } },
                     '%=', -- End left alignment
                     --
-                    { hl = 'MiniStatuslineFilename', strings = { macro, searchcount } },
+                    { hl = 'MiniStatuslineFilename', strings = { searchcount } },
                     { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
                     { hl = mode_hl, strings = { location } },
                 })
