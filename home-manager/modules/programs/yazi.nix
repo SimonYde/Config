@@ -12,10 +12,6 @@ in
 {
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      # poppler
-      # ueberzugpp
-    ];
     programs.yazi = {
       enableBashIntegration = true;
       enableFishIntegration = true;

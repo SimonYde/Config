@@ -18,6 +18,9 @@ let
       scipy
       matplotlib
       debugpy
+      pycryptodome
+
+      flask
 
       # CTF
       randcrack

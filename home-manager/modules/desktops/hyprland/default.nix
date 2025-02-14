@@ -58,7 +58,7 @@ in
     wayland.windowManager.hyprland = {
       plugins = with pkgs.hyprlandPlugins; [
         # hyprsplit
-        # hyprspace
+        hyprspace
       ];
       settings = {
         "$browser" = browser;

@@ -7,7 +7,7 @@
 let
   inherit (lib) mkIf getExe;
   plugins = with pkgs.nushellPlugins; [
-    skim
+    # skim
     formats
     gstat
     query
