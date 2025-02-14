@@ -20,6 +20,8 @@ Load.now(function()
             ['ibhagwan/fzf-lua'] = false,
             ['rcarriga/nvim-dap-ui'] = true,
             ['MeanderingProgrammer/render-markdown.nvim'] = true,
+            ['OXY2DEV/helpview.nvim'] = true,
+            ['OXY2DEV/markview.nvim'] = true,
         },
     })
     vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
@@ -56,5 +58,5 @@ Load.later(function()
             hi DiagnosticFloatingHint  guibg=NONE ctermbg=NONE
         ]])
     -- Add a line to distinguish between context and current position
-    vim.cmd(('hi TreesitterContextBottom gui=underline sp=%s'):format(PALETTE.base04))
+    vim.cmd(('hi TreesitterContextBottom gui=underline'):format(PALETTE.base04))
 end)

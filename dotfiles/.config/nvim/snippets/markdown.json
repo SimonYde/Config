@@ -6,5 +6,17 @@
     "definition callout": {
         "prefix": "def",
         "body": ["> [!definition]$1\n> $0"]
+    },
+    "lemma callout": {
+        "prefix": "lemma",
+        "body": ["> [!lemma]$1\n> $0"]
+    },
+    "callout": {
+        "prefix": "callout",
+        "body": ["> [!${1|idea,lemma,theorem,definition,warning,example,success|}]$2\n> $0"]
+    },
+    "theorem callout": {
+        "prefix": "theo",
+        "body": ["> [!theorem]$1\n> $0"]
     }
 }
