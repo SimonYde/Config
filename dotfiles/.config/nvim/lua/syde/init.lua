@@ -224,9 +224,7 @@ end)
 
 Load.later(function() require('dap-go').setup() end)
 
-Load.later(function()
-    require('dap-python').setup(PYTHON_PATH) -- NOTE: PYTHON_PATH set by nix
-end)
+Load.later(function() require('dap-python').setup('python') end)
 
 Load.later(function()
     require('obsidian').setup({
