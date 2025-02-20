@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkForce getExe;
   cfg = config.programs.hyprland;
 in
 {
@@ -29,21 +29,17 @@ in
 
     services = {
       blueman.enable = true;
-      xserver = {
-        enable = false;
-        displayManager.lightdm.enable = false;
-        displayManager.gdm.enable = false;
-      };
+      xserver.enable = mkForce false;
     };
 
     services.greetd = {
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${lib.getExe pkgs.hyprland}";
+          command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${getExe pkgs.hyprland}";
         };
         initial_session = {
-          command = lib.getExe pkgs.hyprland;
+          command = getExe pkgs.hyprland;
           user = config.syde.user;
         };
       };

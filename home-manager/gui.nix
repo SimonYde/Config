@@ -37,6 +37,9 @@ in
     syde.desktop.cosmic.files.enable = false;
 
     syde.terminal.emulator = "ghostty";
+    home.sessionVariables = {
+      TERMINAL = config.syde.terminal.emulator;
+    };
 
     # personal program configurations
     syde.programs = {
@@ -56,6 +59,8 @@ in
       anki # Flash cards
       obsidian # Second brain
       gimp # Image editor
+      stremio
+      rclone-browser
 
       qbittorrent # Linux ISOs
 

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (builtins) readFile;
+  inherit (lib) mkIf readFile;
   csshacks = inputs.firefox-csshacks + "/chrome";
   firefox-addons = pkgs.nur.repos.rycee.firefox-addons;
   readwise-highlighter = firefox-addons.buildFirefoxXpiAddon {
@@ -22,7 +22,7 @@ let
   profile = "syde";
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     syde.gui.browser = "firefox";
     programs.firefox = {
       profiles.${profile} = {
@@ -50,21 +50,6 @@ in
               ];
               iconUpdateURL = "https://wiki.archlinux.org/favicon.ico";
               definedAliases = [ "@aw" ];
-            };
-            "Brave Search" = {
-              urls = [
-                {
-                  template = "https://search.brave.com/search";
-                  params = [
-                    {
-                      name = "q";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }
-              ];
-              iconUpdateURL = "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-16x16.341beadf.png";
-              definedAliases = [ "@b" ];
             };
             "Kagi" = {
               urls = [
@@ -225,37 +210,40 @@ in
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "svg.context-properties.content.enabled" = true;
 
-          "widget.use-xdg-desktop-portal.file-picker" = 1;
-          "widget.use-xdg-desktop-portal.location" = 1;
-          "widget.use-xdg-desktop-portal.mime-handler" = 1;
-          "widget.use-xdg-desktop-portal.open-uri" = 1;
-          "widget.use-xdg-desktop-portal.settings" = 1;
+          "widget.use-xdg-desktop-portal.file-picker" = 0;
+          "widget.use-xdg-desktop-portal.location" = 0;
+          "widget.use-xdg-desktop-portal.mime-handler" = 0;
+          "widget.use-xdg-desktop-portal.open-uri" = 0;
+          "widget.use-xdg-desktop-portal.settings" = 0;
+          "widget.use-xdg-desktop-portal.native-messaging" = 0;
         };
 
-        extensions = with firefox-addons; [
-          # ---Privacy---
-          ublock-origin
-          cookie-autodelete
-          istilldontcareaboutcookies
-          noscript
+        extensions = {
+          packages = with firefox-addons; [
+            # ---Privacy---
+            ublock-origin
+            cookie-autodelete
+            istilldontcareaboutcookies
+            noscript
 
-          # ---Workflow---
-          sponsorblock
-          export-cookies-txt
-          multi-account-containers
-          news-feed-eradicator
-          lastpass-password-manager
-          proton-pass
-          vimium
-          kagi-search
-          readwise-highlighter
+            # ---Workflow---
+            sponsorblock
+            export-cookies-txt
+            multi-account-containers
+            news-feed-eradicator
+            lastpass-password-manager
+            proton-pass
+            vimium
+            kagi-search
+            readwise-highlighter
 
-          # ---UI---
-          darkreader
-          sidebery
-          stylus
-          firefox-color
-        ];
+            # ---UI---
+            darkreader
+            sidebery
+            # stylus
+            # firefox-color
+          ];
+        };
         userChrome =
           readFile "${csshacks}/window_control_placeholder_support.css"
           + readFile "${csshacks}/hide_tabs_toolbar.css"

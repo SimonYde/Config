@@ -12,7 +12,8 @@ in
   config = lib.mkIf cfg.enable {
     programs.mpv = {
       config = with palette; {
-        background = base00;
+        background = "color";
+        background-color = base00;
         osd-back-color = base04;
         osd-border-color = base01;
         osd-color = base05;

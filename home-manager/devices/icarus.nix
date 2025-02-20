@@ -14,14 +14,23 @@ in
       desktop.cosmic.enable = false;
     };
 
-    services.blanket.enable = true;
+    services = {
+      blanket.enable = true;
+    };
+
     programs = {
       swaylock.enable = mkForce false;
-      hyprlock.enable = mkForce true;
+      hyprlock = {
+        enable = mkForce true;
+        settings = {
+          general = {
+            screencopy_mode = 1;
+          };
+        };
+      };
     };
 
     home.packages = with pkgs; [
-      keymapp
     ];
 
     wayland.windowManager.hyprland = {

@@ -39,6 +39,7 @@ let external_completer = {|spans|
         pueue => $fish_completer
         tailscale => $fish_completer
         typst => $fish_completer
+        tinymist => $fish_completer
         zellij => $fish_completer
         # use zoxide completions for zoxide commands
         __zoxide_z | __zoxide_zi => $zoxide_completer
@@ -47,5 +48,3 @@ let external_completer = {|spans|
 }
 
 $env.config.completions.external.completer = $external_completer
-use zellij_extras.nu *
-use tailscale.nu
