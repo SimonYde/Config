@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.programs.zellij;
+  palette = config.syde.theming.palette-hex;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -18,39 +19,29 @@ in
     home.shellAliases = {
       zs = "zellij --session";
       zp = "zellij --session $(basename $PWD)";
-      za = "zellij attach $(zellij list-sessions | ${pkgs.skim}/bin/sk --ansi | awk '{ print $1 }')";
+      za = "zellij attach $(zellij list-sessions | ${pkgs.fzf}/bin/fzf --ansi | awk '{ print $1 }')";
     };
-    xdg.configFile."zellij/config.kdl" = {
-      text =
-        with config.syde.theming.palette-hex;
-        # kdl
-        ''
-          theme "base16-custom"
-          themes {
-            base16-custom {
-              bg "${base02}"
-              fg "${base05}"
-              red "${base08}"
-              green "${base0D}"
-              blue "${base0D}"
-              yellow "${base0A}"
-              magenta "${base0E}"
-              orange "${base09}"
-              cyan "${base0C}"
-              black "${base01}"
-              white "${base05}"
-            }
+    xdg.configFile."zellij/themes/base16-custom.kdl".text =
+      with palette; # kdl
+      ''
+        themes {
+          base16-custom {
+            bg "${base02}"
+            fg "${base05}"
+            red "${base08}"
+            green "${base0D}"
+            blue "${base0D}"
+            yellow "${base0A}"
+            magenta "${base0E}"
+            orange "${base09}"
+            cyan "${base0C}"
+            black "${base01}"
+            white "${base05}"
           }
-          layout_dir "${config.xdg.configHome}/zellij/layouts"
-          default_layout "default"
-          default_mode "locked"
-          simplified_ui true
-          pane_frames false
-          mouse_mode true
-        '';
-    };
+        }
+      '';
 
-    xdg.configFile."zellij/layouts/custom_compact.kdl".text = # kdl
+    xdg.configFile."zellij/layouts/compact_top.kdl".text = # kdl
       ''
         layout {
           pane size=1 borderless=true {

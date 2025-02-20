@@ -28,6 +28,7 @@ in
       direnv.enable = true;
       eza.enable = false;
       fastfetch.enable = true;
+      lazygit.enable = true;
       fd.enable = true;
       fzf.enable = true;
       gh.enable = true;

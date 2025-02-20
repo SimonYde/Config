@@ -21,7 +21,7 @@
     ./starship.nix
     ./tmux.nix
     ./yazi.nix
-    ./zellij
+    ./zellij.nix
 
     # ---Terminals---
     ./alacritty.nix

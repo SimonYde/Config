@@ -790,6 +790,3 @@ $env.config = {
         }
     ]
 }
-
-source ~/.config/nushell/completion.nu
-use zellij_extras.nu *

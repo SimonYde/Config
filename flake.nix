@@ -4,7 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     stable.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat.url = "github:edolstra/flake-compat";
@@ -27,6 +30,7 @@
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "stable";
       inputs.flake-compat.follows = "flake-compat";
     };
     agenix = {
@@ -76,11 +80,16 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
     base16.url = "github:SenchoPens/base16.nix";
+    tinted-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
       inputs.base16.follows = "base16";
+      inputs.tinted-schemes.follows = "tinted-schemes";
     };
 
     # My flakes
