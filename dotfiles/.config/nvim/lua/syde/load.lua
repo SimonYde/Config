@@ -125,7 +125,7 @@ H.notify = vim.schedule_wrap(function(msg, level)
     if not DEBUG then return end
     level = level or 'INFO'
     if type(msg) == 'table' then msg = table.concat(msg, '\n') end
-    vim.notify(string.format('(mini.deps) %s', msg), vim.log.levels[level])
+    dd(msg)
     vim.cmd('redraw')
 end)
 

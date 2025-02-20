@@ -38,14 +38,7 @@ in
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [
-        {
-          plugin = nvim-dap-python;
-          type = "lua";
-          config = # lua
-            ''
-              _G.PYTHON_PATH = '${python-pkgs}/bin/python'
-            '';
-        }
+        nvim-dap-python
       ];
     };
   };

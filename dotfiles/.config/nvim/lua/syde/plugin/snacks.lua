@@ -35,28 +35,6 @@ end)
 
 Load.later(function()
     local nmap = Keymap.nmap
-
-    local picker = Snacks.picker
-    nmap('<leader>?', picker.keymaps, 'Search keymaps')
-    nmap('<leader>fc', picker.grep_buffers, 'current buffer lines')
-    nmap('<leader>b', picker.buffers, 'buffers')
-    ---@diagnostic disable-next-line: missing-fields
-    nmap('<leader>ff', function() picker.files({ hidden = true }) end, 'Files')
-    nmap('<leader>fh', picker.help, 'Help tags')
-    nmap('<leader>fg', picker.git_files, 'Git files')
-    nmap('<leader>fb', picker.pickers, 'Builtin pickers')
-    nmap('<leader>fs', picker.lsp_symbols, 'LSP document symbols')
-    nmap('<leader>fw', picker.lsp_workspace_symbols, 'LSP workspace symbols')
-    ---@diagnostic disable-next-line: missing-fields
-    nmap('<leader>/', function() picker.grep({ hidden = true }) end, 'Global search with grep')
-    nmap("<leader>'", picker.resume, 'Resume last picker')
-    nmap('gr', picker.lsp_references, 'Goto references')
-    nmap('gi', picker.lsp_implementations, 'Goto implementations')
-    nmap('gd', picker.lsp_definitions, 'Goto definitions')
-end)
-
-Load.later(function()
-    local nmap = Keymap.nmap
     vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesActionRename',
         callback = function(event) Snacks.rename.on_rename_file(event.data.from, event.data.to) end,
@@ -139,4 +117,24 @@ Load.later(function()
     Snacks.toggle.zen():map('<leader><leader>z')
     Snacks.toggle.option('ignorecase'):map('<leader><leader>c')
     Snacks.toggle.zoom():map('<leader>z')
+
+    local picker = Snacks.picker
+    nmap('<leader>?', picker.keymaps, 'Search keymaps')
+    nmap('<leader>fc', picker.grep_buffers, 'current buffer lines')
+    nmap('<leader>b', picker.buffers, 'buffers')
+    ---@diagnostic disable-next-line: missing-fields
+    nmap('<leader>ff', function() picker.files({ hidden = true }) end, 'Files')
+    nmap('<leader>fh', picker.help, 'Help tags')
+    nmap('<leader>fg', picker.git_files, 'Git files')
+    nmap('<leader>fb', picker.pickers, 'Builtin pickers')
+    nmap('<leader>fs', picker.lsp_symbols, 'LSP document symbols')
+    nmap('<leader>fw', picker.lsp_workspace_symbols, 'LSP workspace symbols')
+    ---@diagnostic disable-next-line: missing-fields
+    nmap('<leader>/', function() picker.grep({ hidden = true }) end, 'Global search with grep')
+    nmap("<leader>'", picker.resume, 'Resume last picker')
+    nmap('gr', picker.lsp_references, 'Goto references')
+    nmap('gi', picker.lsp_implementations, 'Goto implementations')
+    nmap('gd', picker.lsp_definitions, 'Goto definitions')
+
+    nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')
 end)
