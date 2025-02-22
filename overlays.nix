@@ -35,9 +35,45 @@
               pname = "tip.vim";
               src = inputs.tip-vim;
             };
+            snacks-nvim =
+              (prev.vimUtils.buildVimPlugin {
+                version = "nightly";
+                pname = "snacks.nvim";
+                src = inputs.snacks-nvim;
+              }).overrideAttrs
+                {
+                  nvimSkipModule = [
+                    # Requires setup call first
+                    "snacks.dashboard"
+                    "snacks.debug"
+                    "snacks.dim"
+                    "snacks.git"
+                    "snacks.image.image"
+                    "snacks.image.init"
+                    "snacks.image.placement"
+                    "snacks.image.convert"
+                    "snacks.indent"
+                    "snacks.input"
+                    "snacks.lazygit"
+                    "snacks.notifier"
+                    "snacks.picker.actions"
+                    "snacks.picker.config.highlights"
+                    "snacks.picker.core.list"
+                    "snacks.scratch"
+                    "snacks.scroll"
+                    "snacks.terminal"
+                    "snacks.win"
+                    "snacks.words"
+                    "snacks.zen"
+                    # Optional trouble integration
+                    "trouble.sources.profiler"
+                    # TODO: Plugin requires libsqlite available, create a test for it
+                    "snacks.picker.util.db"
+                  ];
+                };
             mini-nvim = prev.vimUtils.buildVimPlugin {
               version = "nightly";
-              pname = "mini-nvim";
+              pname = "mini.nvim";
               src = inputs.mini-nvim;
             };
           };

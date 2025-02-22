@@ -59,6 +59,10 @@
       url = "github:echasnovski/mini.nvim";
       flake = false;
     };
+    snacks-nvim = {
+      url = "github:folke/snacks.nvim";
+      flake = false;
+    };
     tip-vim = {
       url = "github:SimonYde/tip.vim";
       flake = false;
