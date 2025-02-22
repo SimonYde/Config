@@ -38,7 +38,6 @@ Load.later(function()
             clojure = { 'cljfmt' },
         },
     })
-
     nmap(
         '<leader>=',
         function() conform.format({ stop_after_first = true, lsp_fallback = true }) end,
@@ -104,12 +103,11 @@ Load.later(function()
     local diffview_is_open = false
     nmap('<leader>gd', function()
         if diffview_is_open then
-            vim.cmd.DiffviewClose()
-            diffview_is_open = not diffview_is_open
+            diffview.close()
         else
-            vim.cmd.DiffviewOpen()
-            diffview_is_open = not diffview_is_open
+            diffview.open()
         end
+        diffview_is_open = not diffview_is_open
     end, 'Toggle git diffview')
 end)
 
@@ -120,7 +118,7 @@ Load.later(function()
         integrations = {
             diffview = true,
             telescope = false,
-            mini_pick = true,
+            mini_pick = false,
         },
     })
     nmap('<leader>gs', function() neogit.open() end, 'Neogit status')
@@ -205,7 +203,7 @@ Load.later(function()
     dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
     dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
-    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'MiniIconsRed' })
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'MiniIconsRed' })
 
     nmap('<leader>db', dap.toggle_breakpoint, 'toggle breakpoint')
     nmap('<leader>dc', dap.continue, 'continue')
@@ -280,53 +278,6 @@ end)
 Load.later(function()
     Load.packadd('todo-comments.nvim')
     require('todo-comments').setup()
-end)
-
-Load.later(function()
-    do
-        return
-    end
-    require('image').setup({
-        backend = 'kitty',
-        kitty_method = 'normal',
-        processor = 'magick_rock',
-        tmux_show_only_in_active_window = true, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
-        integrations = {
-            markdown = {
-                enabled = true,
-                clear_in_insert_mode = true,
-                download_remote_images = true,
-                only_render_image_at_cursor = true,
-                filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (i.e. quarto) can go here
-                resolve_image_path = function(document_path, image_path, fallback)
-                    local image = image_path
-                    if image_path:find('/') then
-                        -- contains a path, so we handle it normally
-                        return fallback(document_path, image)
-                    end
-
-                    -- Format image path for Obsidian notes
-                    local working_dir = vim.fn.getcwd()
-
-                    if image_path:find('|') then
-                        -- Split off the image file name
-                        image = vim.split(image_path, '|')[1]
-                    end
-
-                    local is_vault = working_dir:find('Obsidian/Apollo')
-                    if is_vault then
-                        -- Special handling of obsidian wiki links
-                        return working_dir .. '/attachments/' .. image
-                    end
-                    -- Fallback to the default behaviour
-                    return fallback(document_path, image)
-                end,
-            },
-            typst = {
-                only_render_image_at_cursor = true,
-            },
-        },
-    })
 end)
 
 Load.later(function()

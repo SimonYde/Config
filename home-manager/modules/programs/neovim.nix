@@ -14,6 +14,9 @@ let
 in
 {
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      ghostscript
+    ];
     programs.neovim = {
       package = pkgs.neovim;
       defaultEditor = true;
@@ -42,7 +45,6 @@ in
           undotree
 
           obsidian-nvim
-          image-nvim
 
           # -----UI-----
           which-key-nvim

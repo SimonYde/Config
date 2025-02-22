@@ -1,41 +1,6 @@
 local nmap = Keymap.nmap
 local nxmap = Keymap.map({ 'x', 'n' })
 
-Load.now(function()
-    local greeting = function()
-        local hour = tonumber(vim.fn.strftime('%H'))
-        -- [04:00, 12:00) - morning, [12:00, 20:00) - day, [20:00, 04:00) - evening
-        local part_id = math.floor((hour + 4) / 8) + 1
-        local day_part = ({ 'evening', 'morning', 'afternoon', 'evening' })[part_id]
-        local username = vim.uv.os_get_passwd()['username'] or 'USERNAME'
-
-        return ('Good %s, %s'):format(day_part, username)
-    end
-
-    require('mini.starter').setup({
-        header = function()
-            local banner = [[
-
-    /\__\         /\  \         /\  \         /\__\          ___        /\__\
-   /::|  |       /::\  \       /::\  \       /:/  /         /\  \      /::|  |
-  /:|:|  |      /:/\:\  \     /:/\:\  \     /:/  /          \:\  \    /:|:|  |
- /:/|:|  |__   /::\~\:\  \   /:/  \:\  \   /:/__/  ___      /::\__\  /:/|:|__|__
-/:/ |:| /\__\ /:/\:\ \:\__\ /:/__/ \:\__\  |:|  | /\__\  __/:/\/__/ /:/ |::::\__\
-\/__|:|/:/  / \:\~\:\ \/__/ \:\  \ /:/  /  |:|  |/:/  / /\/:/  /    \/__/~~/:/  /
-    |:/:/  /   \:\ \:\__\    \:\  /:/  /   |:|__/:/  /  \::/__/           /:/  /
-    |::/  /     \:\ \/__/     \:\/:/  /     \::::/__/    \:\__\          /:/  /
-    /:/  /       \:\__\        \::/  /       ~~~~         \/__/         /:/  /
-    \/__/         \/__/         \/__/                                   \/__/
-
-]]
-            local msg = greeting()
-            local n = math.floor((70 - msg:len()) / 2)
-            local padding = (' '):rep(n)
-            return banner .. padding .. msg
-        end,
-    })
-end)
-
 Load.now(function() require('mini.sessions').setup() end)
 
 Load.later(function()

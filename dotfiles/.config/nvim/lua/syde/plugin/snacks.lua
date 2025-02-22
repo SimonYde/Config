@@ -10,13 +10,33 @@ Load.now(function()
         notifier = {
             enabled = true,
         },
-        statuscolumn = {
-            enabled = false,
-        },
         quickfile = {},
         picker = {},
         toggle = {},
         terminal = {},
+        indent = {
+            enabled = false,
+            indent = {
+                char = '▏',
+            },
+            scope = {
+                enabled = false,
+                char = '▏',
+            },
+        },
+        image = {
+            doc = {
+                inline = false,
+                conceal = false,
+            },
+        },
+        dashboard = {
+            sections = {
+                { section = 'header' },
+                { section = 'keys', gap = 1, padding = 1 },
+                { section = 'session' },
+            },
+        },
         zen = {},
         bigfile = {
             notify = true, -- show notification when big file detected
@@ -31,6 +51,8 @@ Load.now(function()
             end,
         },
     })
+    -- Override plugin check, as the built-in version is `lazy.nvim` only. Assume no lazy loading
+    Snacks.dashboard.have_plugin = function(name) return package.loaded[name] ~= nil end
 end)
 
 Load.later(function()
@@ -120,7 +142,7 @@ Load.later(function()
 
     local picker = Snacks.picker
     nmap('<leader>?', picker.keymaps, 'Search keymaps')
-    nmap('<leader>fc', picker.grep_buffers, 'current buffer lines')
+    nmap('<leader>fc', picker.lines, 'current buffer lines')
     nmap('<leader>b', picker.buffers, 'buffers')
     ---@diagnostic disable-next-line: missing-fields
     nmap('<leader>ff', function() picker.files({ hidden = true }) end, 'Files')

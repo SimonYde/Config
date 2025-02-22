@@ -80,10 +80,10 @@ nmap(
 tmap('<Esc><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
 
 vim.lsp.inlay_hint.toggle = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
-nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle [i]nlay hints')
+nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle inlay hints')
 nmap('<leader>lf', vim.lsp.buf.format, 'LSP format')
 
-nmap('<leader>q', Config.toggle_quickfix, 'Toggle [q]uickfix list')
+nmap('<leader>q', Config.toggle_quickfix, 'Toggle quickfix list')
 nmap('<leader>=', vim.lsp.buf.format, 'Format with LSP')
 nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
 nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
