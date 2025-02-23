@@ -33,67 +33,31 @@ client_fullscreen = "[{icon}]"
 "(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)|com.mitchellh.ghostty" = ""
 "[Ff]irefox" = ""
 "(?i)imv" = ""
-"(?i)waydroid.*" = "droid"
 "(?i)obsidian" = "󱓧"
-"(?i)todoist" = ""
-"(?i)mpv"        = ""
-"(?i)slack"      = "󰒱"
+"(?i)todoist"  = ""
+"(?i)mpv"      = ""
+"(?i)slack"    = "󰒱"
 "(xwaylandvideobridge)" = ""
-"(?i)(discord)"    = ""
-"(?i)(vesktop)"    = ""
+"(?i)discord|(?i)(vesktop)" = ""
 "(?i)spotify"    = ""
 "(?i)chromium|(?i)brave" = ""
-"(?i)emacs"      = ""
-"(stremio)" = "󱇒"
-"(?i)thunar" = ""
-"(?i)pcmanfm" = ""
-"(?i)steam"      = ""
-"(?i)lutris"      = "󰊴"
+"(?i)emacs"   = ""
+"(stremio)"   = "󱇒"
+"(?i)thunar|pcmanfm" = ""
+"(?i)steam"   = ""
+"(?i)lutris"  = "󰊴"
 "(?i)zathura"    = ""
 "(?i)Anki"       = ""
 "(?i)virtualbox" = ""
 "(?i)Gimp"       = ""
 "(?i)libreoffice-writer" = "󰷈"
 "(?i)blueman-manager" = ""
-"(?i)pavucontrol" = "󱡫"
-
-# [class_active]
-# DEFAULT = "{icon}"
-# "(?i)ExampleOneTerm" = "<span foreground='red'>{icon}</span>"
-
-# [initial_class]
-# "DEFAULT" = " {class}: {title}"
-# "(?i)Kitty" = "term"
-
-# [initial_class_active]
-# "(?i)Kitty" = "*TERM*"
+"pavucontrol|pwvucontrol" = "󱡫"
 
 [title_in_class."(?i)Kitty|(?i)Alacritty|com.mitchellh.ghostty"]
 "(?i)neomutt" = "neomutt"
-"(?i)nvim" = ""
-"(?i)vim" = ""
+"(?i)nvim|vim|vi" = ""
 "(?i)yazi" = ""
-
-# regex captures support is supported
-# "emerge: (.+?/.+?)-.*" = "{match1}"
-
-# [title_in_class_active."(?i)firefox"]
-# "(?i)twitch" = "<span color='purple'>{icon}</span>"
-
-# [title_in_initial_class."(?i)kitty"]
-# "(?i)neomutt" = "neomutt"
-
-# [initial_title_in_class."(?i)kitty"]
-# "(?i)neomutt" = "neomutt"
-
-# [initial_title_in_initial_class."(?i)kitty"]
-# "(?i)neomutt" = "neomutt"
-
-# [initial_title."(?i)kitty"]
-# "zsh" = "Zsh"
-
-# [initial_title_active."(?i)kitty"]
-# "zsh" = "*Zsh*"
 
 # Add your applications that need to be exclude
 # The key is the class, the value is the title.

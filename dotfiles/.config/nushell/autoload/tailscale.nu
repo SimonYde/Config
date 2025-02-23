@@ -59,7 +59,7 @@ def vpn-handler [status: string, exit_node?: string] {
 }
 
 # Set tailscale exit node for mullvad vpn.
-export def vpn [
+export def "tailscale vpn" [
     status: string@statuses, # Status to set.
     exit_node?: string@exit-nodes # exit node to connect to.
 ] {
@@ -67,7 +67,7 @@ export def vpn [
 }
 
 # Punch a hole through AU's cringe bad DNS ;)
-export def hole-punch [] {
+export def "tailscale hole-punch" [] {
     systemctl start wg-quick-proton.service
     tailscale down
     tailscale up --ssh --operator=($env.USER)
