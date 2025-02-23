@@ -2,7 +2,6 @@
 let
   cfg = config.programs.starship;
 in
-
 {
   config = lib.mkIf cfg.enable {
     programs.starship = {
@@ -23,7 +22,7 @@ in
           fish_style_pwd_dir_length = 1;
         };
         git_branch = {
-          symbol = " ";
+          symbol = " ";
           style = "bold ${base0E}";
         };
         git_status = {
@@ -54,6 +53,13 @@ in
           disabled = true;
         };
       };
+    };
+    programs.nushell.environmentVariables = {
+      PROMPT_INDICATOR = "";
+      PROMPT_INDICATOR_VI_INSERT = "";
+      PROMPT_INDICATOR_VI_NORMAL = "";
+      PROMPT_MULTILINE_INDICATOR = "";
+      PROMPT_COMMAND = lib.hm.nushell.mkNushellInline ''{|| "> "}'';
     };
   };
 }

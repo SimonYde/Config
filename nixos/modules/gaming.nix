@@ -20,8 +20,7 @@ let
 
     programs.steam = {
       extraCompatPackages = with pkgs; [
-        # glorious eggroll
-        proton-ge-bin
+        proton-ge-bin # glorious eggroll
       ];
       gamescopeSession.enable = true;
       fontPackages = with pkgs; [

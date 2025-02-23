@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   config = {
     # Personal modules
@@ -14,6 +14,14 @@
     home.packages = with pkgs; [
       brightnessctl
     ];
+
+    home.keyboard = {
+      layout = "us(colemak_dh),dk";
+      options = [
+        "caps:escape"
+        "grp:rctrl_toggle"
+      ];
+    };
 
     # TODO: laptop module?
     services.hypridle = {
@@ -46,9 +54,6 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
-      settings = {
-        general.allow_tearing = lib.mkForce false; # NOTE: freezes and doesn't tear
-      };
     };
   };
 

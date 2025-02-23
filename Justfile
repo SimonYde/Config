@@ -12,3 +12,6 @@ boot:
 
 home:
 	nh home switch
+
+gaming:
+	nh os switch -s gaming

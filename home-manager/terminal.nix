@@ -28,14 +28,15 @@ in
       direnv.enable = true;
       eza.enable = false;
       fastfetch.enable = true;
-      lazygit.enable = true;
       fd.enable = true;
       fzf.enable = true;
       gh.enable = true;
       git.enable = true;
       jq.enable = false;
       jujutsu.enable = true;
+      lazygit.enable = true;
       nix-index.enable = true;
+      pandoc.enable = true;
       ripgrep.enable = true;
       skim.enable = false;
       starship.enable = true;
@@ -62,8 +63,6 @@ in
 
       tokei # Counting lines of code
       tealdeer # Quick hits on programs (rust alternative to `tldr`)
-
-      pandoc
 
       libqalculate
       rclone

@@ -1,7 +1,4 @@
-{ lib, pkgs, ... }:
-let
-  inherit (lib) mkForce;
-in
+{ ... }:
 {
   config = {
     # Personal modules
@@ -18,10 +15,13 @@ in
       blanket.enable = true;
     };
 
+    home.keyboard = {
+      layout = "eu";
+      options = "";
+    };
+
     programs = {
-      swaylock.enable = mkForce false;
       hyprlock = {
-        enable = mkForce true;
         settings = {
           general = {
             screencopy_mode = 1;
@@ -30,17 +30,8 @@ in
       };
     };
 
-    home.packages = with pkgs; [
-    ];
-
     wayland.windowManager.hyprland = {
       enable = true;
-      settings = {
-        input = {
-          kb_layout = mkForce "eu";
-          kb_options = mkForce "";
-        };
-      };
       extraConfig = # hyprlang
         ''
           workspace=1, monitor:DP-1, default:true
@@ -52,6 +43,7 @@ in
 
           workspace=7, monitor:HDMI-A-1, default:true
           workspace=8, monitor:HDMI-A-1
+
           workspace=9, monitor:DP-3, default:true
           workspace=10, monitor:DP-3
         '';

@@ -87,11 +87,11 @@ in
             actions = [
               {
                 label = "";
-                command = "amixer set Master toggle";
+                command = "swayosd-client --output-volume mute-toggle --max-volume 200";
               }
               {
                 label = "";
-                command = "amixer set Capture toggle";
+                command = "swayosd-client --input-volume mute-toggle";
               }
               {
                 label = "";
@@ -103,7 +103,7 @@ in
               }
               {
                 label = "";
-                command = "rand_bg";
+                command = "random-bg";
               }
             ];
           };

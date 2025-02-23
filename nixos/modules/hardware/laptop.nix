@@ -3,19 +3,14 @@
 let
   inherit (lib)
     mkIf
-    mkForce
     mkEnableOption
     ;
   cfg = config.syde.laptop;
 in
 {
   config = mkIf cfg.enable {
-    powerManagement = {
-      powertop.enable = false;
-    };
-
     hardware.nvidia = {
-      powerManagement.enable = mkForce true;
+      powerManagement.enable = true;
       powerManagement.finegrained = true;
     };
 
@@ -29,7 +24,6 @@ in
       };
     };
 
-    programs.light.enable = true;
     hardware.bluetooth.enable = true;
     hardware.bluetooth.powerOnBoot = false;
   };

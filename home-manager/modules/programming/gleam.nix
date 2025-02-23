@@ -28,7 +28,7 @@ in
     enable = mkEnableOption "gleam language tools";
     erlangVersion = mkOption {
       type = types.str;
-      default = "erlang_25";
+      default = "erlang";
     };
   };
 }

@@ -38,6 +38,7 @@ let external_completer = {|spans|
         nu => $fish_completer
         pueue => $fish_completer
         tailscale => $fish_completer
+        swayosd-client => $fish_completer
         typst => $fish_completer
         tinymist => $fish_completer
         zellij => $fish_completer

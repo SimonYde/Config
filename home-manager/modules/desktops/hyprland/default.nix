@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (lib) getExe mkIf mkForce;
+  inherit (lib)
+    concatStringsSep
+    getExe
+    mkForce
+    mkIf
+    ;
   palette = config.colorScheme.palette;
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
@@ -20,10 +25,9 @@ in
     home.packages = with pkgs; [
       hyprland-gamemode # disable hyprland animations for games
       playerctl # media keys
-      pamixer # volume keys
       networkmanagerapplet
 
-      pavucontrol # audio control
+      pwvucontrol # audio control
       hyprsunset # blue-light filter
 
       grimblast # screenshot tool
@@ -31,13 +35,10 @@ in
       hyprpicker # color picker
     ];
 
-    # home.sessionVariables.NIXOS_OZONE_WL = 1;
-
     programs = {
       imv.enable = true;
       mpv.enable = true;
       rofi.enable = true;
-      swaylock.enable = false;
       wlogout.enable = true;
       hyprlock.enable = true;
       waybar.enable = true;
@@ -45,14 +46,14 @@ in
 
     syde.services = {
       hyprland-autoname-workspaces.enable = true;
-      hyprsunset.enable = false;
+      hyprsunset.enable = true;
       swww.enable = true;
     };
 
     services = {
-      dunst.enable = false;
       hypridle.enable = true;
       swaync.enable = true;
+      swayosd.enable = true;
     };
 
     wayland.windowManager.hyprland = {
@@ -86,21 +87,20 @@ in
         };
 
         input = {
-          kb_layout = "us(colemak_dh),eu";
-          kb_options = "caps:escape,grp:rctrl_toggle";
+          kb_layout = config.home.keyboard.layout;
+          kb_options = concatStringsSep "," config.home.keyboard.options;
           resolve_binds_by_sym = true;
           repeat_delay = 300;
           follow_mouse = 2;
           accel_profile = "flat";
           touchpad = {
-            # scroll_factor = 0.7;
             tap-to-click = true;
             natural_scroll = true;
           };
           special_fallthrough = true;
         };
         cursor = {
-          no_hardware_cursors = true;
+          no_hardware_cursors = 2;
         };
 
         group = with palette; {
@@ -147,7 +147,6 @@ in
             "windowsOut, 1, 2, winOut, slide"
             "windowsMove, 1, 2, wind, slide"
             "border, 1, 1, liner"
-            "borderangle, 1, 30, liner, loop"
             "fade, 1, 7, default"
             "workspaces, 0, 4, wind"
           ];

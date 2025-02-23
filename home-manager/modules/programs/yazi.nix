@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  pkgs,
-  inputs,
   ...
 }:
 let
@@ -23,27 +21,6 @@ in
           show_hidden = true;
         };
       };
-      plugins = {
-        bookmarks = inputs.bookmarks-yazi;
-      };
-      initLua = # lua
-        ''
-          require("bookmarks"):setup({
-              last_directory = { enable = true, persist = true },
-              persist = "vim",
-              desc_format = "parent",
-              file_pick_mode = "hover",
-              notify = {
-                  enable = true,
-                  timeout = 1,
-                  message = {
-                      new = "New bookmark '<key>' -> '<folder>'",
-                      delete = "Deleted bookmark in '<key>'",
-                      delete_all = "Deleted all bookmarks",
-                  },
-              },
-          })
-        '';
       keymap = {
         manager.prepend_keymap = [
           # Navigation (colemak-dh)
@@ -101,32 +78,6 @@ in
             on = [ "Z" ];
             run = "plugin fzf";
             desc = "Jump to a directory, or reveal a file using fzf";
-          }
-          {
-            on = [ "h" ];
-            run = "plugin bookmarks --args=save";
-            desc = "Save current position as a bookmark";
-          }
-          {
-            on = [ "'" ];
-            run = "plugin bookmarks --args=jump";
-            desc = "Jump to a bookmark";
-          }
-          {
-            on = [
-              "b"
-              "d"
-            ];
-            run = "plugin bookmarks --args=delete";
-            desc = "Delete a bookmark";
-          }
-          {
-            on = [
-              "b"
-              "D"
-            ];
-            run = "plugin bookmarks --args=delete_all";
-            desc = "Delete all bookmarks";
           }
 
           # Linemode (colemak-dh)

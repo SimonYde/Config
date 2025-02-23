@@ -22,7 +22,6 @@ in
       # Browsers
       brave.enable = true;
       firefox.enable = true;
-      qutebrowser.enable = false;
 
       # Terminal emulators
       ${emulator}.enable = true;
@@ -49,7 +48,7 @@ in
 
     services = {
       trayscale.enable = true;
-      gammastep.enable = true;
+      gammastep.enable = false;
       udiskie.enable = true;
     };
 

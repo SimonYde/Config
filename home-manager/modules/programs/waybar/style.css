@@ -59,11 +59,16 @@ window#waybar.hidden {
   background: @base0F;
 }
 
+#wireplumber.muted {
+  color: @base09;
+}
+
 #pulseaudio.muted {
   color: @base09;
 }
 
 #pulseaudio,
+#wireplumber,
 #language,
 #keyboard-state,
 #tray,

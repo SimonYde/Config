@@ -5,7 +5,7 @@
   ...
 }:
 
-pkgs.writeShellScriptBin "rand_bg" ''
+pkgs.writeShellScriptBin "random-bg" ''
   DIRECTORY=${pictures-dir}/backgrounds/${slug}
 
   # Check if the provided directory exists
