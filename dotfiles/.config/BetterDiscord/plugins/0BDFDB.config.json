@@ -1,9 +1,9 @@
 {
 	"all": {
 		"changeLogs": {
-			"BDFDB": "3.9.3",
-			"GameActivityToggle": "1.2.9",
-			"NotificationSounds": "4.0.1",
+			"BDFDB": "3.9.5",
+			"GameActivityToggle": "1.3.0",
+			"NotificationSounds": "4.0.2",
 			"PluginRepo": "2.6.0",
 			"ReadAllNotificationsButton": "1.7.8",
 			"ThemeRepo": "2.5.8"
@@ -19,8 +19,8 @@
 			"useChromium": false
 		},
 		"hashes": {
-			"0BDFDB.data.json": "ae915249aa0bc6babc2ae6fca4db9ba7478f8bae",
-			"0BDFDB.raw.css": "498113a3e8ad38c97fabe36388f244f17b55223d"
+			"0BDFDB.data.json": "95a2959580b2d1be9117c79e3546d1c0b34dffae",
+			"0BDFDB.raw.css": "ed83227434cef2fb8b72fb0c2fb79fc5e7c65402"
 		}
 	}
 }

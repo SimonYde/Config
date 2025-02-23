@@ -474,6 +474,9 @@
 				"volume": 100
 			}
 		},
+		"toggles": {
+			"playIfMuted": false
+		},
 		"volumes": {
 			"globalVolume": 100
 		}
