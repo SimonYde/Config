@@ -6,27 +6,11 @@
 }:
 
 let
-  skp = pkgs.writeShellScriptBin "skp" ''
-    # 1. Search for text in files using Ripgrep
-    # 2. Interactively narrow down the list using skim
-    # 3. Open the file in Vim
-    ${pkgs.skim}/bin/sk \
-        --ansi \
-        --delimiter : \
-        --preview '${pkgs.bat}/bin/bat --color=always --highlight-line {2} {1}' \
-        --preview-window +{2}-/2 \
-        --bind 'enter:execute($EDITOR {1} +{2})' \
-        --reverse \
-        --interactive \
-        --cmd \
-        '${pkgs.ripgrep}/bin/rg --color=always --line-number --no-heading --smart-case "{}"'
-  '';
-  fd = "${pkgs.fd}/bin/fd";
+  fd = lib.getExe pkgs.fd;
   cfg = config.programs.skim;
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = [ skp ];
     programs.skim = {
       enableBashIntegration = true;
       enableFishIntegration = true;

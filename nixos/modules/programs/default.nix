@@ -1,10 +1,9 @@
 { ... }:
 {
   imports = [
-    ./gamemode.nix
-    ./nix.nix
     ./nh.nix
-    ./wireshark.nix
+    ./nix.nix
     ./virt-manager.nix
+    ./wireshark.nix
   ];
 }

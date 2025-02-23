@@ -4,9 +4,9 @@
     ./gammastep.nix
     ./hypridle.nix
     ./hyprland-autoname-workspaces.nix
+    ./hyprpaper.nix
     ./hyprsunset.nix
     ./swaync.nix
-    ./swww.nix
     ./udiskie.nix
   ];
 }

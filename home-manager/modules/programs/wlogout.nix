@@ -3,17 +3,14 @@
 let
   icon_path = "${pkgs.wlogout}/share/wlogout/icons";
   theming = config.syde.theming;
-  lock = config.syde.gui.lock;
   palette = theming.palette-hex;
   font = theming.fonts.sansSerif;
 in
 {
   programs.wlogout = {
-
     style =
       with palette; # css
       ''
-
         window {
           font-family: ${font.name} Medium;
           background-color: transparent;
@@ -68,7 +65,7 @@ in
     layout = [
       {
         label = "lock";
-        action = "${lock}";
+        action = "loginctl lock-session";
         text = "Lock";
         keybind = "l";
       }

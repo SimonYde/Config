@@ -6,7 +6,6 @@
 }:
 
 let
-  stylix = inputs.stylix;
   theming = config.syde.theming;
   fonts = theming.fonts;
   cursor = theming.cursor;
@@ -20,7 +19,7 @@ in
       base16Scheme = config.colorScheme.palette;
       polarity = config.colorScheme.variant;
       targets = {
-        hyprpaper.enable = lib.mkForce false;
+        hyprpaper.enable = true;
         hyprland.enable = false;
         hyprlock.enable = false;
         sway.enable = false;
@@ -33,7 +32,7 @@ in
         waybar.enable = false;
         zellij.enable = false;
         zathura.enable = false;
-        fzf.enable = false;
+        fzf.enable = true;
       };
       cursor = {
         package = cursor.package;
@@ -47,15 +46,15 @@ in
         emoji = fonts.emoji;
         sizes = {
           terminal = 12;
-          # popups = 12;
         };
       };
 
       opacity = {
         terminal = config.syde.terminal.opacity;
+        popups = 0.80;
       };
     };
   };
 
-  imports = [ stylix.homeManagerModules.stylix ];
+  imports = [ inputs.stylix.homeManagerModules.stylix ];
 }

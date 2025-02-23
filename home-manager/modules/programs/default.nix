@@ -24,10 +24,8 @@
     ./zellij.nix
 
     # ---Terminals---
-    ./alacritty.nix
     ./ghostty.nix
     ./kitty.nix
-    ./wezterm.nix
 
     # ---GUI programs---
     ./brave.nix
