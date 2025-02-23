@@ -31,7 +31,6 @@ $env.config = {
             truncating_suffix: "…" # A suffix used by the 'truncating' methodology
         }
         header_on_separator: true # show header text on separator/border line
-        # abbreviated_row_count: 10 # limit data rows from top and bottom after reaching a set point
     }
 
     error_style: "fancy" # "fancy" or "plain" for screen reader-friendly error messages
@@ -44,17 +43,9 @@ $env.config = {
         termination_signal: true
     }
 
-    # datetime_format determines what a datetime rendered in the shell would look like.
-    # Behavior without this configuration point will be to "humanize" the datetime display,
-    # showing something like "a day ago."
-    datetime_format: {
-        # normal: '%a, %d %b %Y %H:%M:%S %z'    # shows up in displays of variables or other datetime's outside of tables
-        # table: '%m/%d/%y %I:%M:%S%p'          # generally shows up in tabular outputs such as ls. commenting this out will change it to the default human readable datetime format
-    }
-
     explore: {
-        status_bar_background: { fg: "#1D1F21", bg: "#C4C9C6" },
-        command_bar_text: { fg: "#C4C9C6" },
+        status_bar_background: { fg: "black", bg: "white" },
+        command_bar_text: { fg: "white" },
         highlight: { fg: "black", bg: "yellow" },
         status: {
             error: { fg: "white", bg: "red" },
@@ -750,9 +741,8 @@ $env.config = {
             name: copy_selection
             modifier: control_shift
             keycode: char_c
-            mode: emacs
+            mode: [emacs vi_normal vi_insert]
             event: { edit: copyselection }
-            # event: { edit: copyselectionsystem }
         }
         {
             name: cut_selection
@@ -760,15 +750,7 @@ $env.config = {
             keycode: char_x
             mode: emacs
             event: { edit: cutselection }
-            # event: { edit: cutselectionsystem }
         }
-        # {
-        #     name: paste_system
-        #     modifier: control_shift
-        #     keycode: char_v
-        #     mode: emacs
-        #     event: { edit: pastesystem }
-        # }
         {
             name: select_all
             modifier: control_shift

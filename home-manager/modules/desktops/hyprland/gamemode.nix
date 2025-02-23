@@ -13,13 +13,11 @@ pkgs.writeShellScriptBin "hyprland-gamemode" ''
           keyword general:gaps_out 0;\
           keyword general:border_size 1;\
           keyword decoration:rounding 0"
-      systemctl --user stop waybar.service
-      systemctl --user stop hyprland-autoname-workspaces.service
+      systemctl --user stop waybar.service hyprland-autoname-workspaces.service
       exit
   else
       hyprctl reload
-      systemctl --user start waybar.service
-      systemctl --user start hyprland-autoname-workspaces.service
+      systemctl --user start waybar.service hyprland-autoname-workspaces.service
       exit
   fi
 ''

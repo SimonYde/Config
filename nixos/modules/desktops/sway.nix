@@ -9,18 +9,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    xdg.portal = {
-      xdgOpenUsePortal = false;
-      enable = true;
-      wlr.enable = lib.mkForce true;
-      config = {
-        common.default = [
-          "gtk"
-          "*"
-        ];
-      };
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    };
     programs.sway = {
       wrapperFeatures.gtk = true;
       wrapperFeatures.base = true;
@@ -29,7 +17,6 @@ in
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = 1;
-      MOZ_ENABLE_WAYLAND = 1;
     };
 
     services.dbus.enable = true;

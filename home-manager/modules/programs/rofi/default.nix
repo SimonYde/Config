@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (lib) mkDefault mkForce mkIf;
+  inherit (lib)
+    getExe
+    mkDefault
+    mkForce
+    mkIf
+    ;
   cfg = config.programs.rofi;
   palette = config.syde.theming.palette-hex;
   terminal = config.syde.terminal;
@@ -16,7 +21,7 @@ in
     programs.rofi = {
       package = mkDefault pkgs.rofi-wayland;
       font = mkForce font.name;
-      terminal = "${pkgs.${terminal.emulator}}/bin/${terminal.emulator}";
+      terminal = getExe pkgs.${terminal.emulator};
       theme = mkForce "custom_base16";
       extraConfig = {
         modi = "run,drun";

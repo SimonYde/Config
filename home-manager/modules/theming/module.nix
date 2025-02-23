@@ -7,12 +7,13 @@
 }:
 let
   inherit (lib)
-    mkEnableOption
-    mkOption
-    mkIf
-    types
     mkDefault
+    mkEnableOption
+    mkForce
+    mkIf
+    mkOption
     strings
+    types
     ;
   inherit (builtins) mapAttrs;
   nix-colors = inputs.nix-colors;
@@ -60,14 +61,18 @@ in
 
     qt = {
       enable = true;
-      platformTheme.name = lib.mkDefault "gtk3";
+      platformTheme.name = mkDefault "gtk3";
     };
 
-    home.pointerCursor = mkDefault {
+    home.pointerCursor = mkForce {
       package = cfg.cursor.package;
       name = cfg.cursor.name;
       size = 24;
       gtk.enable = true;
+      hyprcursor = {
+        enable = true;
+        size = 24;
+      };
     };
 
     syde.theming.fonts = {
@@ -89,14 +94,6 @@ in
         sansSerif = [ cfg.fonts.sansSerif.name ];
         emoji = [ cfg.fonts.emoji.name ];
       };
-    };
-
-    programs.neovim.plugins = mkIf (strings.hasPrefix "catppuccin" slug) [
-      pkgs.vimPlugins.catppuccin-nvim
-    ];
-    syde.theming.cursor = mkIf (strings.hasPrefix "catppuccin" slug) {
-      name = "catppuccin-mocha-dark-cursors";
-      package = pkgs.catppuccin-cursors.mochaDark;
     };
   };
 

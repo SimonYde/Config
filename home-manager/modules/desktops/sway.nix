@@ -207,8 +207,8 @@ in
 
         input = {
           "type:keyboard" = {
-            xkb_layout = "us(colemak_dh),dk";
-            xkb_options = "caps:escape,grp:rctrl_toggle";
+            xkb_layout = config.home.keyboard.layout;
+            xkb_options = lib.concatStringsSeq "," config.home.keyboard.options;
           };
           "type:pointer" = {
             accel_profile = "flat";

@@ -63,7 +63,7 @@ in
                   ];
                 }
               ];
-              iconUpdateURL = "https://assets.kagi.com/v1/favicon-16x16.png";
+              iconUpdateURL = "https://kagi.com/asset/v2/favicon-16x16.png";
               definedAliases = [ "@k" ];
             };
             "Nix Packages" = {

@@ -6,8 +6,6 @@
 }:
 let
   inherit (lib)
-    mkOption
-    types
     mkEnableOption
     mkPackageOption
     mkIf
@@ -90,15 +88,7 @@ in
 
   options.syde.programs.discord = {
     enable = mkEnableOption "Discord";
-
     package = mkPackageOption pkgs "discord" { };
-
     betterDiscordCtlPackage = mkPackageOption pkgs "betterdiscordctl" { };
-    plugins = mkOption {
-      default = [ ];
-      description = "Optional BetterDiscord plugins.";
-      type = types.listOf types.package;
-    };
-
   };
 }

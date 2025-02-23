@@ -16,8 +16,6 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ ];
 
-    # hardware.system76.enableAll = true;
-
     environment.cosmic.excludePackages = with pkgs; [
       cosmic-edit
       cosmic-term
@@ -27,10 +25,9 @@ in
     programs.light.enable = mkForce false;
     services.blueman.enable = mkForce false;
     services.greetd.settings = {
-      # auto-login support
       initial_session = {
-        user = "${config.syde.user}";
         command = "start-cosmic --in-login-shell";
+        user = config.syde.user;
       };
     };
   };

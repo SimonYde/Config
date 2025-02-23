@@ -13,16 +13,15 @@ in
     home.packages = with pkgs; [
       scala
       scalafmt
-      sbt
       metals
     ];
+
+    programs.sbt.enable = true;
 
     programs.neovim.plugins = with pkgs.vimPlugins; [ ];
   };
 
-  options.syde.programming = {
-    scala = {
-      enable = mkEnableOption "scala language tooling";
-    };
+  options.syde.programming.scala = {
+    enable = mkEnableOption "scala language tooling";
   };
 }

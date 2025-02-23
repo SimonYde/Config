@@ -29,7 +29,6 @@ in
             ; (tap-hold $tap-time $hold-time ; rmet)
           )
 
-
           (deflayer default-layer
             esc @a @s @d @f @j @k @l @;
           )

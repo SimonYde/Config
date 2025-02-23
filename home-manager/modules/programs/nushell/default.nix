@@ -34,14 +34,6 @@ in
         ll = "ls -l";
         la = "ls -a";
         lla = "ls -la";
-        lt = "${getExe pkgs.eza} --tree --level=2 --long --icons --git";
-      };
-      environmentVariables = {
-        PROMPT_INDICATOR = "";
-        PROMPT_INDICATOR_VI_INSERT = "";
-        PROMPT_INDICATOR_VI_NORMAL = "";
-        PROMPT_MULTILINE_INDICATOR = "";
-        PROMPT_COMMAND = lib.hm.nushell.mkNushellInline ''{|| "> "}'';
       };
       plugins = plugins;
       configFile.source = ./config.nu;

@@ -32,9 +32,15 @@ in
   config = lib.mkIf config.syde.programming.python.enable {
     home.packages = with pkgs; [
       basedpyright
-      ruff
       python-pkgs
     ];
+
+    programs.ruff = {
+      enable = true;
+      settings = {
+        line-length = 100;
+      };
+    };
 
     programs.neovim = {
       plugins = with pkgs.vimPlugins; [

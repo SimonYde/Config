@@ -5,31 +5,13 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkForce getExe;
+  inherit (lib) mkIf getExe;
   cfg = config.programs.hyprland;
 in
 {
   config = mkIf cfg.enable {
-    xdg.portal = {
-      xdgOpenUsePortal = false;
-      enable = true;
-      config = {
-        common.default = [
-          "hyprland"
-          "gtk"
-        ];
-      };
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    };
-
-    programs = {
-      hyprland.xwayland.enable = true;
-      dconf.enable = true;
-    };
-
     services = {
-      blueman.enable = true;
-      xserver.enable = mkForce false;
+      blueman.enable = config.hardware.bluetooth.enable;
     };
 
     services.greetd = {
@@ -45,8 +27,7 @@ in
       };
     };
 
-    security.pam.services.swaylock = { }; # swaylock cannot unlock otherwise, see nixpkgs#89019
-    security.pam.services.hyprlock = { }; # NOTE: Could alternatively use the NixOS module for hyprlock
+    security.pam.services.hyprlock = { };
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = 1;
@@ -59,7 +40,6 @@ in
     environment.systemPackages = with pkgs; [
       hyprland-qtutils
       qt6.qtwayland
-      libsForQt5.qt5.qtwayland
     ];
 
     systemd.user.services = {

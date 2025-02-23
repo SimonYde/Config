@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   palette = config.syde.theming.palette-hex;
   terminal = config.syde.terminal;
@@ -209,7 +214,7 @@ in
               ""
             ];
           };
-          on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+          on-click = "${lib.getExe pkgs.pwvucontrol}";
         };
       };
     };

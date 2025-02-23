@@ -2,24 +2,26 @@
 {
   imports = [ ../standard.nix ];
 
-  syde = {
-    ssh.enable = true;
-    wsl.enable = true;
-  };
+  config = {
+    networking.hostName = "icarus-wsl";
 
-  programs = {
-    nh.enable = true;
-  };
-
-  security.polkit.enable = true;
-
-  services = {
-    dbus = {
-      enable = true;
-      packages = [ pkgs.gcr ];
+    syde = {
+      ssh.enable = true;
+      wsl.enable = true;
     };
-    syncthing.enable = true;
-  };
 
-  networking.hostName = "icarus-wsl";
+    programs = {
+      nh.enable = true;
+    };
+
+    security.polkit.enable = true;
+
+    services = {
+      dbus = {
+        enable = true;
+        packages = [ pkgs.gcr ];
+      };
+      syncthing.enable = true;
+    };
+  };
 }
