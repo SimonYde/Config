@@ -25,7 +25,6 @@ in
     home.packages = with pkgs; [
       hyprland-gamemode # disable hyprland animations for games
       playerctl # media keys
-      networkmanagerapplet
 
       pwvucontrol # audio control
       hyprsunset # blue-light filter
@@ -47,15 +46,18 @@ in
     syde.services = {
       hyprland-autoname-workspaces.enable = true;
       hyprsunset.enable = true;
-      swww.enable = true;
     };
 
     services = {
+      blueman-applet.enable = true;
       hypridle.enable = true;
+      hyprpaper.enable = true;
+      network-manager-applet.enable = true;
       swaync.enable = true;
       swayosd.enable = true;
     };
 
+    wayland.systemd.target = "hyprland-session.target";
     wayland.windowManager.hyprland = {
       plugins = with pkgs.hyprlandPlugins; [
         # hyprsplit
@@ -63,10 +65,11 @@ in
       ];
       settings = {
         "$browser" = browser;
-        "$file-manager" = lib.getExe file-manager.package;
+        "$file-manager" = getExe file-manager.package;
         "$menu" = menu;
         "$terminal" = terminal.emulator;
         "$lock" = lock;
+        "$mod" = "SUPER";
 
         general = with palette; {
           gaps_in = 3;

@@ -7,8 +7,7 @@
 }:
 
 let
-  inherit (lib) mkIf mkForce;
-  user = config.syde.user;
+  inherit (lib) mkIf;
   cfg = config.services.desktopManager.cosmic;
 in
 
@@ -21,9 +20,8 @@ in
       cosmic-term
     ];
 
-    users.users.${user}.extraGroups = [ "adm" ];
-    programs.light.enable = mkForce false;
-    services.blueman.enable = mkForce false;
+    users.extraGroups.adm.members = [ config.syde.user ];
+
     services.greetd.settings = {
       initial_session = {
         command = "start-cosmic --in-login-shell";

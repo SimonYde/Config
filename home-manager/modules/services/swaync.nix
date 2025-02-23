@@ -7,8 +7,6 @@
 
 let
   cfg = config.services.swaync;
-  theming = config.syde.theming;
-  font = theming.fonts.sansSerif;
 in
 {
   config = lib.mkIf cfg.enable {

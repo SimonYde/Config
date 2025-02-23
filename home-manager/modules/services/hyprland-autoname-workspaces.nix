@@ -6,22 +6,25 @@
 }:
 
 let
-  inherit (lib) mkEnableOption;
+  inherit (lib) getExe mkEnableOption mkIf;
   cfg = config.syde.services.hyprland-autoname-workspaces;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     systemd.user.services.hyprland-autoname-workspaces = {
       Unit = {
-        Description = "Random Background";
+        Description = "hyprland-autoname-workspaces";
         PartOf = [ "hyprland-session.target" ];
-        After = [ "hyprland-session.target" ];
+        After = [
+          "hyprland-session.target"
+          (mkIf config.programs.waybar.enable "waybar.service")
+        ];
       };
       Install = {
         WantedBy = [ "hyprland-session.target" ];
       };
       Service = {
-        ExecStart = lib.getExe pkgs.hyprland-autoname-workspaces;
+        ExecStart = getExe pkgs.hyprland-autoname-workspaces;
         Restart = "always";
         RestartSec = "1";
       };
@@ -29,6 +32,6 @@ in
   };
 
   options.syde.services.hyprland-autoname-workspaces = {
-    enable = mkEnableOption "enable hyprland-autoname-workspaces";
+    enable = mkEnableOption "hyprland-autoname-workspaces service.";
   };
 }

@@ -17,7 +17,7 @@
 
     home.keyboard = {
       layout = "eu";
-      options = "";
+      options = [ ];
     };
 
     programs = {
