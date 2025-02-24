@@ -81,10 +81,6 @@ in
 
   options.syde.terminal = {
     enable = mkEnableOption "terminal configuration";
-    fontSize = mkOption {
-      type = types.float;
-      default = 11.5;
-    };
     emulator = mkOption {
       type = types.enum [
         "alacritty"

@@ -23,6 +23,8 @@
           kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
           kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
 
+          tectonic = final.stable.tectonic;
+
           python312 = prev.python312.override {
             packageOverrides = pyfinal: pyprev: {
               randcrack = inputs.randcrack.packages.${prev.system}.default;

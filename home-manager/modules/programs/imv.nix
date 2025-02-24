@@ -6,7 +6,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.imv = {
-      settings = with config.colorScheme.palette; {
+      settings = with config.lib.stylix.colors; {
         options = {
           background = base00;
           overlay_background_color = base01;

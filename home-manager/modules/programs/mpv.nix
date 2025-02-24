@@ -5,13 +5,13 @@
   ...
 }:
 let
-  palette = config.syde.theming.palette-hex;
+  colors = config.lib.stylix.colors.withHashtag;
   cfg = config.programs.mpv;
 in
 {
   config = lib.mkIf cfg.enable {
     programs.mpv = {
-      config = with palette; {
+      config = with colors; {
         background = "color";
         background-color = base00;
         osd-back-color = base04;

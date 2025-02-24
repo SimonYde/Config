@@ -5,17 +5,13 @@
 }:
 
 let
-  inherit (lib)
-    mkForce
-    mkIf
-    ;
+  inherit (lib) mkIf;
   cfg = config.programs.ghostty;
 in
 {
   config = mkIf cfg.enable {
     programs.ghostty = {
       settings = {
-        font-size = mkForce config.syde.terminal.fontSize;
         gtk-titlebar = false;
         gtk-adwaita = true;
         gtk-single-instance = true;

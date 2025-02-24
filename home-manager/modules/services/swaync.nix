@@ -101,7 +101,7 @@ in
               }
               {
                 label = "";
-                command = "random-bg";
+                command = "random-wallpaper";
               }
             ];
           };

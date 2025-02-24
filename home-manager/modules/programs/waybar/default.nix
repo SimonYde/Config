@@ -5,23 +5,18 @@
   ...
 }:
 let
-  palette = config.syde.theming.palette-hex;
-  terminal = config.syde.terminal;
-  emulator = terminal.emulator;
-  font = config.syde.theming.fonts.sansSerif;
+  inherit (lib) getExe;
+  colors = config.lib.stylix.colors.withHashtag;
+  emulator = config.syde.terminal.emulator;
+  font = config.stylix.fonts.sansSerif;
 in
 {
   programs.waybar = {
-    # package = inputs.waybar.packages.${pkgs.system}.default;
     systemd.enable = true;
     settings = {
       mainBar = {
         layer = "top";
         position = "top";
-        # height = 25;
-        # margin-left = 12;
-        # margin-right = 12;
-        ipc = true;
         passthrough = false;
         exclusive = true;
         fixed-center = true;
@@ -40,23 +35,16 @@ in
         ];
         modules-right = [
           "pulseaudio"
-          # "custom/separator#blank"
           "disk"
-          # "custom/separator#blank"
           "memory"
-          # "custom/separator#blank"
           "cpu"
-          # "custom/separator#blank"
           "battery"
           "custom/separator#blank"
           "tray"
           "custom/separator#blank"
           "clock"
-          # "custom/separator#blank"
           "idle_inhibitor"
-          # "custom/separator#blank"
           "custom/swaync"
-          # "custom/separator#blank"
         ];
 
         idle_inhibitor = {
@@ -74,7 +62,7 @@ in
         };
         memory = {
           format = " {}% 󰍛 ";
-          on-click = "${emulator} -e ${pkgs.btop}/bin/btop";
+          on-click = "${emulator} -e ${getExe pkgs.btop}";
         };
         cpu = {
           format = " {usage}% 󰾆 ";
@@ -89,7 +77,7 @@ in
             mode-mon-col = 3;
             weeks-pos = "right";
             on-scroll = 1;
-            format = with palette; {
+            format = with colors; {
               months = "<span color='${base0F}'><b>{}</b></span>";
               days = "<span color='${base0E}'><b>{}</b></span>";
               weeks = "<span color='${base0C}'><b>W{}</b></span>";
@@ -106,7 +94,6 @@ in
           };
         };
         tray = {
-          # icon-size = 20;
           spacing = 10;
         };
         "sway/mode" = {
@@ -130,17 +117,17 @@ in
           };
         };
 
-        "custom/swaync" = {
+        "custom/swaync" = with colors; {
           tooltip = true;
           format = " {icon} {} ";
           format-icons = {
-            notification = "<span foreground='red'><sup></sup></span>";
+            notification = "<span foreground='${base08}'><sup></sup></span>";
             none = "";
-            dnd-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-notification = "<span foreground='${base08}'><sup></sup></span>";
             dnd-none = "";
-            inhibited-notification = "<span foreground='red'><sup></sup></span>";
+            inhibited-notification = "<span foreground='${base08}'><sup></sup></span>";
             inhibited-none = "";
-            dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+            dnd-inhibited-notification = "<span foreground='${base08}'><sup></sup></span>";
             dnd-inhibited-none = "";
           };
           return-type = "json";
@@ -170,7 +157,6 @@ in
           format-charging = " {capacity}%  ";
           format-plugged = " {capacity}%  ";
           format-alt = " {time} {icon} ";
-          # format-icons = [ "" "" "" "" "" ];
           format-icons = [
             "󰂎"
             "󰁺"
@@ -214,13 +200,13 @@ in
               ""
             ];
           };
-          on-click = "${lib.getExe pkgs.pwvucontrol}";
+          on-click = getExe pkgs.pwvucontrol;
         };
       };
     };
 
     style =
-      with palette; # css
+      with colors; # css
       ''
         @define-color base00 ${base00}; @define-color base01 ${base01}; @define-color base02 ${base02}; @define-color base03 ${base03};
         @define-color base04 ${base04}; @define-color base05 ${base05}; @define-color base06 ${base06}; @define-color base07 ${base07};

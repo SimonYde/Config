@@ -11,12 +11,12 @@ let
     mkForce
     mkIf
     ;
-  palette = config.colorScheme.palette;
+  colors = config.lib.stylix.colors;
+  rgb = color: "rgb(${color})";
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   terminal = config.syde.terminal;
   browser = config.syde.gui.browser;
   file-manager = config.syde.gui.file-manager;
-  lock = config.syde.gui.lock;
   menu = "${getExe pkgs.rofi-wayland} -show drun";
   cfg = config.wayland.windowManager.hyprland;
 in
@@ -49,10 +49,12 @@ in
     };
 
     services = {
+      # Tray applets
       blueman-applet.enable = true;
+      network-manager-applet.enable = true;
+
       hypridle.enable = true;
       hyprpaper.enable = true;
-      network-manager-applet.enable = true;
       swaync.enable = true;
       swayosd.enable = true;
     };
@@ -68,16 +70,15 @@ in
         "$file-manager" = getExe file-manager.package;
         "$menu" = menu;
         "$terminal" = terminal.emulator;
-        "$lock" = lock;
         "$mod" = "SUPER";
 
-        general = with palette; {
+        general = with colors; {
           gaps_in = 3;
           gaps_out = 6;
 
           border_size = 2;
           resize_on_border = false;
-          "col.active_border" = mkForce "rgba(${base0D}ff) rgba(${base0E}ff) 45deg";
+          "col.active_border" = mkForce "${rgb base0D} ${rgb base0E} 45deg";
           "col.inactive_border" = mkForce "rgba(00000000)";
 
           layout = "dwindle";
@@ -106,14 +107,8 @@ in
           no_hardware_cursors = 2;
         };
 
-        group = with palette; {
-          "col.border_active" = "rgba(${base0B}ff) rgba(${base0B}aa) 45deg";
-          "col.border_inactive" = "rgba(${base0B}ff) rgba(${base0B}99) 45deg";
-          groupbar = {
-            text_color = "rgba(${base00}ff)";
-            "col.active" = "rgba(${base0B}ff)";
-            "col.inactive" = "rgba(${base0B}aa)";
-          };
+        group = with colors; {
+          groupbar.text_color = mkForce "rgb(${base00})";
         };
 
         decoration = {
@@ -157,8 +152,6 @@ in
 
         exec-once = [
           "discord"
-          "nm-applet"
-          "blueman-applet"
           "obsidian"
           "todoist-electron"
         ];

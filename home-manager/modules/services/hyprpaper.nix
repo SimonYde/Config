@@ -10,7 +10,7 @@ let
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" ''
     CURRENT=$(${hyprctl} hyprpaper listloaded)
-    WALLPAPER_DIR=${config.xdg.userDirs.pictures}/wallpapers/${config.colorScheme.slug}
+    WALLPAPER_DIR=${config.xdg.userDirs.pictures}/wallpapers/${config.lib.stylix.colors.slug}
 
     # Get a random wallpaper that is not the current one
     WALLPAPER=$(${getExe pkgs.fd} . "$WALLPAPER_DIR" -t f -E "$CURRENT" | shuf -n 1)

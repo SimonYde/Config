@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf getExe;
+  inherit (lib) mkIf;
   plugins = with pkgs.nushellPlugins; [
     # skim
     formats
@@ -38,7 +38,7 @@ in
       plugins = plugins;
       configFile.source = ./config.nu;
       extraConfig =
-        with config.syde.theming.palette-hex;
+        with config.lib.stylix.colors.withHashtag;
         let
           nu_scripts = "${pkgs.nu_scripts}/share/nu_scripts";
         in

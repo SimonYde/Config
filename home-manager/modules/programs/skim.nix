@@ -18,7 +18,7 @@ in
       changeDirWidgetCommand = "${fd} -H --type directory";
       fileWidgetCommand = "${fd} -H --type file";
       defaultCommand = "${fd} -H --type file";
-      defaultOptions = with config.syde.theming.palette-hex; [
+      defaultOptions = with config.lib.stylix.colors.withHashtag; [
         "--multi"
         "--tabstop=4"
         "--color=${

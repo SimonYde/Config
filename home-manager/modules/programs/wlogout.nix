@@ -2,14 +2,13 @@
 
 let
   icon_path = "${pkgs.wlogout}/share/wlogout/icons";
-  theming = config.syde.theming;
-  palette = theming.palette-hex;
-  font = theming.fonts.sansSerif;
+  colors = config.lib.stylix.colors.withHashtag;
+  font = config.stylix.fonts.sansSerif;
 in
 {
   programs.wlogout = {
     style =
-      with palette; # css
+      with colors; # css
       ''
         window {
           font-family: ${font.name} Medium;
@@ -71,38 +70,38 @@ in
       }
 
       {
-        "label" = "logout";
-        "action" = "hyprctl dispatch exit 0";
-        "text" = "Logout";
-        "keybind" = "e";
+        label = "logout";
+        action = "hyprctl dispatch exit 0";
+        text = "Logout";
+        keybind = "e";
       }
 
       {
-        "label" = "suspend";
-        "action" = "systemctl suspend";
-        "text" = "Suspend";
-        "keybind" = "s";
+        label = "suspend";
+        action = "systemctl suspend";
+        text = "Suspend";
+        keybind = "s";
       }
 
       {
-        "label" = "poweroff";
-        "action" = "systemctl poweroff";
-        "text" = "Poweroff";
-        "keybind" = "p";
+        label = "poweroff";
+        action = "systemctl poweroff";
+        text = "Poweroff";
+        keybind = "p";
       }
 
       {
-        "label" = "hibernate";
-        "action" = "systemctl hibernate";
-        "text" = "Hibernate";
-        "keybind" = "h";
+        label = "hibernate";
+        action = "systemctl hibernate";
+        text = "Hibernate";
+        keybind = "h";
       }
 
       {
-        "label" = "reboot";
-        "action" = "systemctl reboot";
-        "text" = "Reboot";
-        "keybind" = "r";
+        label = "reboot";
+        action = "systemctl reboot";
+        text = "Reboot";
+        keybind = "r";
       }
     ];
   };
