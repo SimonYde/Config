@@ -12,16 +12,15 @@ let
     mkIf
     ;
   cfg = config.programs.rofi;
-  palette = config.syde.theming.palette-hex;
-  terminal = config.syde.terminal;
-  font = config.syde.theming.fonts.sansSerif;
+  colors = config.lib.stylix.colors.withHashtag;
+  font = config.stylix.fonts.sansSerif;
 in
 {
   config = mkIf cfg.enable {
     programs.rofi = {
       package = mkDefault pkgs.rofi-wayland;
-      font = mkForce font.name;
-      terminal = getExe pkgs.${terminal.emulator};
+      font = mkForce "${font.name} 14";
+      terminal = getExe pkgs.${config.syde.terminal.emulator};
       theme = mkForce "custom_base16";
       extraConfig = {
         modi = "run,drun";
@@ -31,8 +30,8 @@ in
         disable-history = false;
         hide-scrollbar = true;
         sidebar-mode = false;
-        display-drun = "   Apps ";
-        display-run = "   Run ";
+        display-drun = "  Apps ";
+        display-run = "  Run ";
       };
       plugins = with pkgs; [
         (if cfg.package == pkgs.rofi-wayland then rofi-emoji-wayland else rofi-emoji)
@@ -40,7 +39,7 @@ in
     };
 
     xdg.configFile."rofi/custom_base16.rasi".text =
-      with palette;
+      with colors;
       ''
         * {
             bg: ${base00}b2;
@@ -52,9 +51,7 @@ in
             fg-col: ${base05};
             fg-col2: ${base08};
             grey: ${base04};
-
             width: 600;
-            font: "${font.name} 14";
         }
       ''
       + builtins.readFile ./rofi-theme.rasi;

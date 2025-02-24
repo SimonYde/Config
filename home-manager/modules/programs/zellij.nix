@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.programs.zellij;
-  palette = config.syde.theming.palette-hex;
+  colors = config.lib.stylix.colors.withHashtag;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -22,7 +22,7 @@ in
       za = "zellij attach $(zellij list-sessions | ${pkgs.fzf}/bin/fzf --ansi | awk '{ print $1 }')";
     };
     xdg.configFile."zellij/themes/base16-custom.kdl".text =
-      with palette; # kdl
+      with colors; # kdl
       ''
         themes {
           base16-custom {
@@ -51,7 +51,7 @@ in
         }
       '';
     xdg.configFile."zellij/layouts/compact_zjstatus.kdl".text =
-      with config.syde.theming.palette-hex; # kdl
+      with config.lib.stylix.colors.withHashtag; # kdl
       ''
         layout {
           default_tab_template {

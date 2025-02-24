@@ -20,8 +20,6 @@ let
       debugpy
       pycryptodome
 
-      flask
-
       # CTF
       randcrack
       pwntools

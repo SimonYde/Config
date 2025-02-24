@@ -65,7 +65,7 @@ in
       delta = {
         enable = true;
         options = {
-          dark = config.colorScheme.variant == "dark";
+          dark = config.lib.stylix.colors.variant == "dark";
           navigate = true;
           line-numbers = true;
           side-by-side = true;

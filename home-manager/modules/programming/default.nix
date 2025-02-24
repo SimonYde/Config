@@ -26,6 +26,7 @@ in
       lua.enable = true;
       nix.enable = true;
       ocaml.enable = false;
+      odin.enable = true;
       python.enable = true;
       rust.enable = true;
       scala.enable = false;
@@ -53,6 +54,7 @@ in
     ./lua.nix
     ./nix.nix
     ./ocaml.nix
+    ./odin.nix
     ./python.nix
     ./scala.nix
     ./rust.nix

@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 pkgs.writeShellScriptBin "hyprland-gamemode" ''
   HYPRGAMEMODE=$(hyprctl getoption animations:enabled | sed -n '1p' | awk '{print $2}')
 
@@ -14,10 +13,8 @@ pkgs.writeShellScriptBin "hyprland-gamemode" ''
           keyword general:border_size 1;\
           keyword decoration:rounding 0"
       systemctl --user stop waybar.service hyprland-autoname-workspaces.service
-      exit
   else
       hyprctl reload
       systemctl --user start waybar.service hyprland-autoname-workspaces.service
-      exit
   fi
 ''

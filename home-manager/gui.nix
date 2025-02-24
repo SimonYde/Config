@@ -29,26 +29,21 @@ in
       # other GUI programs
       mangohud.enable = true;
       mpv.enable = true;
-      obs-studio.enable = false;
       zathura.enable = true;
     };
 
     syde.desktop.cosmic.files.enable = false;
 
     syde.terminal.emulator = "ghostty";
-    home.sessionVariables = {
-      TERMINAL = config.syde.terminal.emulator;
-    };
+    home.sessionVariables.TERMINAL = emulator;
 
     # personal program configurations
     syde.programs = {
       discord.enable = true;
-      discord.package = pkgs.discord;
     };
 
     services = {
       trayscale.enable = true;
-      gammastep.enable = false;
       udiskie.enable = true;
     };
 
@@ -79,6 +74,9 @@ in
     };
     xdg.mimeApps.enable = true;
     xdg.mimeApps.defaultApplications = {
+      "x-scheme-handler/magnet" = "org.qbittorrent.qBittorrent.desktop";
+      "application/x-bittorrent" = "org.qbittorrent.qBittorrent.desktop";
+
       "x-scheme-handler/http" = "${browser}.desktop";
       "x-scheme-handler/https" = "${browser}.desktop";
       "x-scheme-handler/chrome" = "${browser}.desktop";
@@ -126,10 +124,6 @@ in
         type = types.package;
         default = pkgs.pcmanfm;
       };
-    };
-    lock = mkOption {
-      type = types.str;
-      default = "${pkgs.swaylock}/bin/swaylock -f";
     };
   };
 }

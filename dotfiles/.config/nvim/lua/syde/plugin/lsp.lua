@@ -69,6 +69,11 @@ Load.later(function()
         name = 'nushell',
         cmd = { 'nu', '--lsp' },
     })
+
+    setup_lsp({
+        name = 'ols',
+    })
+
     setup_lsp({
         name = 'metals',
         filetypes = { 'java', 'scala', 'sbt' },

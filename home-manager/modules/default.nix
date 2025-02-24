@@ -2,10 +2,10 @@
 {
   imports = [
     ./ssh.nix
+    ./theming.nix
 
     ./programs
     ./desktops
-    ./theming
     ./services
     ./programming
   ];
