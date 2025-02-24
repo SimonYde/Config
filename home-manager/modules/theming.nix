@@ -17,7 +17,6 @@ in
   config = mkIf config.syde.theming.enable {
     stylix = {
       enable = true;
-      # TODO: remove when this becomes optional... https://github.com/danth/stylix/issues/442
       image = config.lib.stylix.pixel "base00";
       base16Scheme = "${inputs.tinted-schemes}/base16/gruvbox-dark-hard.yaml";
       override = {
