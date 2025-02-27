@@ -1,6 +1,5 @@
 { config, lib, ... }:
 let
-  terminal = config.syde.terminal;
   cfg = config.programs.kitty;
 in
 {
@@ -8,7 +7,7 @@ in
     programs.kitty = {
       settings = {
         disable_ligatures = "never";
-        cursor_shape = terminal.cursor;
+        cursor_shape = "beam";
         cursor_blink_interval = 0;
       };
     };

@@ -35,12 +35,9 @@ in
     };
 
     xdg.enable = true;
-    programs.home-manager.enable = true;
   };
 
   imports = [
-    ./terminal.nix
-    ./gui.nix
     ./modules
   ];
 }

@@ -11,7 +11,8 @@ let
     mkForce
     mkIf
     ;
-  colors = config.lib.stylix.colors;
+  inherit (config.lib.stylix) colors;
+  inherit (config.syde.gui) file-manager terminal browser;
   rgb = color: "rgb(${color})";
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
   menu = "${getExe config.programs.rofi.package} -show drun";
@@ -64,10 +65,10 @@ in
         hyprspace
       ];
       settings = {
-        "$browser" = config.syde.gui.browser;
-        "$file-manager" = getExe config.syde.gui.file-manager.package;
+        "$browser" = browser;
+        "$file-manager" = getExe file-manager.package;
         "$menu" = menu;
-        "$terminal" = config.syde.terminal.emulator;
+        "$terminal" = terminal;
         "$mod" = "SUPER";
 
         general = with colors; {

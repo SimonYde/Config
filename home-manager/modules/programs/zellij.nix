@@ -12,7 +12,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.zellij = {
       enableBashIntegration = false;
-      enableZshIntegration = false;
       enableFishIntegration = false;
     };
 

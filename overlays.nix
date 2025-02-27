@@ -18,7 +18,6 @@
           audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
 
           zjstatus = inputs.zjstatus.packages.${prev.system}.default;
-          pay-respects = inputs.pay-respects.packages.${prev.system}.default;
 
           kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
           kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;

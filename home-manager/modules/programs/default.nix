@@ -15,7 +15,6 @@
     ./fzf.nix
     ./git.nix
     ./jujutsu.nix
-    ./pay-respects.nix
     ./ripgrep.nix
     ./skim.nix
     ./starship.nix

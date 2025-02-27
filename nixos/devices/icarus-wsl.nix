@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [ ../standard.nix ];
+  imports = [ ../common.nix ];
 
   config = {
     networking.hostName = "icarus-wsl";

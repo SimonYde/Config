@@ -13,13 +13,10 @@ in
     programs.fzf = {
       enableBashIntegration = true;
       enableFishIntegration = true;
-      enableZshIntegration = true;
       changeDirWidgetCommand = "${fd} -H --type directory";
       fileWidgetCommand = "${fd} -H --type file";
       defaultCommand = "${fd} -H --type file";
-      colors = {
-        bg = lib.mkForce "";
-      };
+      colors.bg = lib.mkForce "";
       defaultOptions = [ ];
     };
   };

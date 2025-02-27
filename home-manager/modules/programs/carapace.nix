@@ -7,7 +7,6 @@ in
   config = lib.mkIf cfg.enable {
     programs.carapace = {
       enableFishIntegration = false;
-      enableZshIntegration = true;
       enableBashIntegration = true;
       enableNushellIntegration = true;
     };
