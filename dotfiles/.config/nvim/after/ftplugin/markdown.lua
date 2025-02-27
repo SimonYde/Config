@@ -30,3 +30,7 @@ if has_mini_surround then
         },
     }
 end
+
+Load.now(function()
+    Keymap.nmap('<leader>i', function() require('img-clip').paste_image() end, 'Insert image')
+end)

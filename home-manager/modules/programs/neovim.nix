@@ -15,7 +15,7 @@ in
 {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      ghostscript
+      ghostscript # for snacks.nvim pdf rendering
     ];
     programs.neovim = {
       package = pkgs.neovim;
@@ -31,11 +31,6 @@ in
         [
           # -----LSP-----
           nvim-lspconfig
-          tip-vim
-
-          # -----Completion-----
-          friendly-snippets
-          lazydev-nvim
 
           # -----Workflow-----
           nvim-autopairs
@@ -43,12 +38,14 @@ in
           snacks-nvim
           vim-sleuth
           undotree
+          friendly-snippets
 
           obsidian-nvim
 
           # -----UI-----
           which-key-nvim
           nvim-treesitter
+          tip-vim
         ]
         ++ mapLazy [
           # ----- Completion -----

@@ -177,8 +177,7 @@ end)
 Load.later(function() require('mini.splitjoin').setup() end)
 
 Load.later(function()
-    local MiniMove = require('mini.move')
-    MiniMove.setup({
+    require('mini.move').setup({
         mappings = {
             -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
             left = '<M-m>',
@@ -260,7 +259,7 @@ end)
 Load.later(function()
     require('mini.misc').setup()
     MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
-    MiniMisc.setup_termbg_sync()
+    if not vim.env.WSLPATH then MiniMisc.setup_termbg_sync() end
 end)
 
 Load.later(function()
@@ -294,7 +293,6 @@ Load.later(function()
 
         local get_filetype_icon = function()
             if not MiniStatusline.config.use_icons then return '' end
-            local MiniIcons = Load.now(require, 'mini.icons')
             local file_name = vim.fn.expand('%:t')
             local icon, _, is_default = MiniIcons.get('file', file_name)
             if is_default then return '' end

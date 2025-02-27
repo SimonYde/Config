@@ -1,16 +1,5 @@
 local M = {}
 
--- Toggle quickfix window
-Config.toggle_quickfix = function()
-    local quickfix_wins = vim.tbl_filter(
-        function(win_id) return vim.fn.getwininfo(win_id)[1].quickfix == 1 end,
-        vim.api.nvim_tabpage_list_wins(0)
-    )
-
-    local command = #quickfix_wins == 0 and 'copen' or 'cclose'
-    vim.cmd(command)
-end
-
 ---@param mode string | table single mode string or table of mode strings
 M.map = function(mode)
     ---@param desc string
@@ -34,7 +23,6 @@ local tmap = Keymap.map('t')
 local nmap = Keymap.nmap
 local xmap = Keymap.map('x')
 local nxmap = Keymap.map({ 'n', 'x' })
-local nvmap = Keymap.map({ 'n', 'v' })
 
 vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -70,6 +58,7 @@ nxmap('<M-d>', [["_d]], '[d]elete without yanking')
 nxmap('<M-c>', [["_c]], '[c]hange without yanking')
 
 nmap('gF', '<cmd>:e <cfile><CR>', "Goto [F]ile (even if doesn't exist)")
+nmap('gX', 'gx', 'Open link')
 
 nmap(
     '<leader>x',
@@ -79,15 +68,23 @@ nmap(
 )
 tmap('<Esc><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
 
+-- Toggle quickfix window
+local toggle_quickfix = function()
+    local quickfix_wins = vim.tbl_filter(
+        function(win_id) return vim.fn.getwininfo(win_id)[1].quickfix == 1 end,
+        vim.api.nvim_tabpage_list_wins(0)
+    )
+
+    local command = #quickfix_wins == 0 and 'copen' or 'cclose'
+    vim.cmd(command)
+end
+
+nmap('<leader>q', toggle_quickfix, 'Toggle quickfix list')
+
 vim.lsp.inlay_hint.toggle = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
 nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle inlay hints')
-nmap('<leader>lf', vim.lsp.buf.format, 'LSP format')
+Config.format = function() vim.lsp.buf.format() end
 
-nmap('<leader>q', Config.toggle_quickfix, 'Toggle quickfix list')
-nmap('<leader>=', vim.lsp.buf.format, 'Format with LSP')
-nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
-nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
-nmap('gr', vim.lsp.buf.references, 'Goto [r]eferences')
 nmap('<leader>u', function()
     vim.cmd('UndotreeToggle')
     vim.cmd('UndotreeFocus')
@@ -99,8 +96,6 @@ nmap('<leader><leader>f', function()
 end, 'Toggle fold')
 
 -- COLEMAK Remaps
--- NOTE: is reversed because the function below toggles the value, in order to
--- enable appropriate options.
 Config.colemak_toggle = function()
     if not Config._colemak_enabled then
         nxmap('n', [[v:count == 0 ? 'gj' : 'j']], '', { expr = true, noremap = true })
@@ -160,5 +155,5 @@ Config.colemak_toggle()
 
 nmap('<leader><leader>k', function()
     Config.colemak_toggle()
-    print('COLEMAK', Config._colemak_enabled)
+    vim.notify(string.format('COLEMAK %s', Config._colemak_enabled), vim.log.levels.INFO)
 end, 'Toggle keymap')

@@ -37,6 +37,14 @@
               pname = "tip.vim";
               src = inputs.tip-vim;
             };
+            obsidian-nvim = prev.vimPlugins.obsidian-nvim.overrideAttrs {
+              checkInputs = [ ];
+              nvimSkipModule = [
+                "obsidian.pickers._mini"
+                "obsidian.pickers._fzf"
+                "obsidian.pickers._telescope"
+              ];
+            };
             snacks-nvim =
               (prev.vimUtils.buildVimPlugin {
                 version = "nightly";

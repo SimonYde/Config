@@ -71,7 +71,7 @@ in
       };
 
       opacity = {
-        terminal = config.syde.terminal.opacity;
+        terminal = 0.85;
         popups = 0.80;
       };
     };
@@ -108,9 +108,7 @@ in
       };
     };
 
-    home.sessionVariables = {
-      GTK_THEME = config.gtk.theme.name;
-    };
+    home.sessionVariables.GTK_THEME = config.gtk.theme.name;
   };
 
   options.syde.theming = {

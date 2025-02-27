@@ -1,34 +1,21 @@
 Load.later(function()
     local lspconfig = require('lspconfig')
 
-    ---@param lsp { name: string, cmd: string|table?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }
-    local function setup_lsp(lsp)
-        if type(lsp.cmd) == 'table' then
-            -- NOTE: this extra block is necessary
-            if vim.fn.executable(lsp.cmd[1]) ~= 1 then
-                return -- LSP not installed
-            end
-        elseif vim.fn.executable(lsp.cmd or lsp.name) ~= 1 then
+    ---@param name string
+    ---@param config { cmd: string[]?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }?
+    local setup_lsp = function(name, config)
+        config = config or {}
+        if vim.fn.executable(config.cmd and config.cmd[1] or name) ~= 1 then
             return -- LSP not installed
         end
-        local config = {}
         local default_capabilities = vim.lsp.protocol.make_client_capabilities()
-        local capabilities = vim.tbl_deep_extend('force', default_capabilities, lsp.capabilities or {})
+        local capabilities = vim.tbl_deep_extend('force', default_capabilities, config.capabilities or {})
 
         local blink = Load.now(require, 'blink.cmp')
         if blink then capabilities = blink.get_lsp_capabilities(capabilities) end
 
-        -- NOTE: for nvim-ufo
-        capabilities.textDocument.foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
-        }
         config.capabilities = capabilities
-        if lsp.settings then config.settings = lsp.settings end
-        if lsp.on_attach then config.on_attach = lsp.on_attach end
-        if lsp.filetypes then config.filetypes = lsp.filetypes end
-
-        lspconfig[lsp.name].setup(config)
+        lspconfig[name].setup(config)
     end
 
     vim.g.rustaceanvim = {
@@ -59,76 +46,8 @@ Load.later(function()
         dap = {},
     }
 
-    setup_lsp({ name = 'clojure_lsp' })
-
-    setup_lsp({
-        name = 'elmls',
-        cmd = 'elm-language-server',
-    })
-    setup_lsp({
-        name = 'nushell',
-        cmd = { 'nu', '--lsp' },
-    })
-
-    setup_lsp({
-        name = 'ols',
-    })
-
-    setup_lsp({
-        name = 'metals',
-        filetypes = { 'java', 'scala', 'sbt' },
-    })
-
-    setup_lsp({
-        name = 'pylsp',
-        settings = {
-            pylsp = {
-                plugins = {
-                    -- black = { enabled = true },
-                    mypy = { enabled = true },
-                    ruff = { enabled = true },
-                },
-            },
-        },
-    })
-
-    setup_lsp({
-        name = 'basedpyright',
-    })
-
-    setup_lsp({
-        name = 'bashls',
-        cmd = 'bash-language-server',
-        filetypes = { 'bash', 'sh' },
-    })
-
-    setup_lsp({ name = 'clangd' })
-    setup_lsp({ name = 'gleam' })
-    setup_lsp({ name = 'gopls' })
-    setup_lsp({ name = 'ocamllsp' })
-
-    setup_lsp({
-        name = 'nixd',
-        settings = {
-            nixd = {
-                nixpkgs = {
-                    expr = 'import <nixpkgs> { }',
-                },
-                options = {
-                    nixos = {
-                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.perdix.options',
-                    },
-                    home_manager = {
-                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.perdix.options',
-                    },
-                },
-            },
-        },
-    })
-
-    setup_lsp({
-        name = 'lua_ls',
-        cmd = 'lua-language-server',
+    setup_lsp('lua_ls', {
+        cmd = { 'lua-language-server' },
         settings = {
             Lua = {
                 runtime = {
@@ -186,8 +105,66 @@ Load.later(function()
         end,
     })
 
-    setup_lsp({
-        name = 'texlab',
+    setup_lsp('clojure_lsp')
+    setup_lsp('basedpyright')
+    setup_lsp('elmls', {
+        cmd = { 'elm-language-server' },
+    })
+    setup_lsp('nushell', {
+        cmd = { 'nu', '--lsp' },
+    })
+
+    setup_lsp('ols', {
+        init_options = {
+            checker_args = '-debug',
+        },
+    })
+
+    setup_lsp('metals', {
+        filetypes = { 'java', 'scala', 'sbt' },
+    })
+
+    setup_lsp('pylsp', {
+        settings = {
+            pylsp = {
+                plugins = {
+                    -- black = { enabled = true },
+                    mypy = { enabled = true },
+                    ruff = { enabled = true },
+                },
+            },
+        },
+    })
+
+    setup_lsp('bashls', {
+        cmd = { 'bash-language-server' },
+        filetypes = { 'bash', 'sh' },
+    })
+
+    setup_lsp('clangd')
+    setup_lsp('gleam')
+    setup_lsp('gopls')
+    setup_lsp('ocamllsp')
+
+    setup_lsp('nixd', {
+        settings = {
+            nixd = {
+                nixpkgs = {
+                    expr = 'import <nixpkgs> { }',
+                },
+                options = {
+                    nixos = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.perdix.options',
+                    },
+                    home_manager = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.perdix.options',
+                    },
+                },
+            },
+        },
+    })
+
+    setup_lsp('texlab', {
         settings = {
             texlab = {
                 build = {
@@ -215,13 +192,11 @@ Load.later(function()
         },
     })
 
-    setup_lsp({
-        name = 'nil_ls',
-        cmd = 'nil',
+    setup_lsp('nil_ls', {
+        cmd = { 'nil' },
     })
 
-    setup_lsp({
-        name = 'tinymist',
+    setup_lsp('tinymist', {
         settings = {
             exportPdf = 'onSave', -- Choose `onType`, `onSave` or `never`.
         },
@@ -243,9 +218,8 @@ Load.later(function()
         end,
     })
 
-    setup_lsp({
-        name = 'harper_ls',
-        cmd = 'harper-ls',
+    setup_lsp('harper_ls', {
+        cmd = { 'harper-ls' },
         settings = {
             ['harper-ls'] = {
                 userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
@@ -271,6 +245,11 @@ Load.later(function()
             nmap('<leader>a', vim.lsp.buf.code_action, 'code actions')
             nmap('<C-e>', vim.diagnostic.open_float, 'hover [d]iagnostics')
             imap('<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
+            nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
+            nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
+            nmap('gr', vim.lsp.buf.references, 'Goto [r]eferences')
+            nmap('<leader>lf', vim.lsp.buf.format, 'LSP format')
+            nmap('<leader>=', Config.format, 'Format code')
 
             Load.now(function()
                 require('lspsaga')

@@ -10,38 +10,95 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      git-crypt
+      glab
+    ];
+
+    programs.gh = {
+      settings = {
+        git_protocol = "ssh";
+      };
+    };
+
     programs.git = {
       userName = "Simon Yde";
       userEmail = "git@simonyde.com";
+      aliases = {
+        a = "add";
+        br = "branch";
+        cc = "commit -v";
+        ci = "commit -a -v";
+        co = "checkout";
+        d = "diff";
+        st = "status -s";
+
+        ls = ''log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate'';
+        ll = ''log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate --numstat'';
+
+        filelog = "log -u";
+        fl = "log -u";
+
+        dl = "!git ll -1";
+
+        dr = ''!f() { git diff "$1"^.."$1"; }; f'';
+
+        fixup = "commit --fixup HEAD";
+        fix = "rebase -i --autosquash";
+
+        rhh = "reset --hard HEAD";
+        alias = "config --get-regexp ^alias\\.";
+      };
       extraConfig = {
-        init = {
-          defaultBranch = "master";
-        };
-        pull = {
-          rebase = false;
-        };
+        init.defaultBranch = "master";
+
+        diff.colorMoved = "default";
+        diff.algorithm = "histogram";
+        merge.conflictStyle = "zdiff3";
         push = {
+          default = "current";
           autoSetupRemote = true;
         };
-        merge = {
-          conflictStyle = "diff3";
-        };
-        rebase = {
-          updateRefs = true;
-        };
-        diff = {
-          colorMoved = "default";
-        };
-        rerere = {
-          enabled = true;
-        };
+
+        # Rebase
+        branch.autosetuprebase = "always";
+        pull.rebase = "merges";
+        rebase.autostash = true;
+        rebase.updateRefs = true;
+
+        commit.verbose = true;
+        rerere.enabled = true;
+
         column.ui = "auto";
+        color.ui = "auto";
+
         branch.sort = "-committerdate";
+        tag.sort = "-taggerdate";
+        log.date = "iso";
 
         # Signing commits
         gpg.format = "ssh";
         commit.gpgsign = true;
         user.signingkey = "~/.ssh/id_ed25519.pub";
+
+        fetch = {
+          prune = true;
+          recurseSubmodules = true;
+        };
+
+        # Submodules
+        submodule.recurse = true;
+        push.recurseSubmodules = false;
+        status.submoduleSummary = true;
+        diff.submodule = "log";
+
+        url = {
+          "ssh://git@codeberg.org/".insteadOf = "cb:";
+          "ssh://git@github.com/".insteadOf = "gh:";
+          "ssh://git@gitlab.com/".insteadOf = "gl:";
+          "ssh://git@gitlab.au.dk/".insteadOf = "au:";
+        };
+
       };
       ignores = [
         "**/.idea"
@@ -62,29 +119,7 @@ in
         "**/.stignore"
         ".vscode"
       ];
-      delta = {
-        enable = true;
-        options = {
-          dark = config.lib.stylix.colors.variant == "dark";
-          navigate = true;
-          line-numbers = true;
-          side-by-side = true;
-          features = builtins.concatStringsSep " " [
-            "base16-stylix"
-          ];
-        };
-      };
     };
 
-    programs.gh = {
-      settings = {
-        git_protocol = "ssh";
-      };
-    };
-
-    home.packages = with pkgs; [
-      git-crypt
-      glab
-    ];
   };
 }
