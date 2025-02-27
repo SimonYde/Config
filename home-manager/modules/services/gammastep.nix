@@ -16,7 +16,7 @@ in
         night = 2200;
       };
       tray = true;
-      duskTime = "18:45-20:30";
+      duskTime = "18:45-21:00";
       dawnTime = "6:00-7:45";
       provider = "manual";
       latitude = 56.3;

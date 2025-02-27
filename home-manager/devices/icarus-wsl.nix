@@ -16,6 +16,10 @@
     ex = "explorer.exe";
     poweroff = "wsl.exe --shutdown NixOS";
   };
+  programs.nushell.shellAliases = {
+    ex = "explorer.exe";
+    poweroff = "wsl.exe --shutdown NixOS";
+  };
 
   home.packages = with pkgs; [
     libqalculate

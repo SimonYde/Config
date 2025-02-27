@@ -40,7 +40,7 @@ Load.now(function()
         zen = {},
         bigfile = {
             notify = true, -- show notification when big file detected
-            size = 1024 * 1024, -- 1MB
+            size = 1024 * 1024, -- 1 MiB
             -- Enable or disable features when big file detected
             ---@param ctx {buf: number, ft:string}
             setup = function(ctx)
@@ -51,7 +51,7 @@ Load.now(function()
             end,
         },
     })
-    -- Override plugin check, as the built-in version is `lazy.nvim` only. Assume no lazy loading
+    -- Override plugin check, as the built-in version is `lazy.nvim` only. Assumes no lazy loading
     Snacks.dashboard.have_plugin = function(name) return package.loaded[name] ~= nil end
 end)
 

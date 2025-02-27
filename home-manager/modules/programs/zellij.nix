@@ -19,7 +19,7 @@ in
     home.shellAliases = {
       zs = "zellij --session";
       zp = "zellij --session $(basename $PWD)";
-      za = "zellij attach $(zellij list-sessions | ${pkgs.fzf}/bin/fzf --ansi | awk '{ print $1 }')";
+      za = "zellij attach $(zellij list-sessions | ${lib.getExe pkgs.fzf} --ansi | awk '{ print $1 }')";
     };
     xdg.configFile."zellij/themes/base16-custom.kdl".text =
       with colors; # kdl

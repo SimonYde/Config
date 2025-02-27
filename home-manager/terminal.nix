@@ -6,10 +6,11 @@
 }:
 let
   inherit (lib)
+    getExe
+    mkEnableOption
+    mkIf
     mkOption
     types
-    mkIf
-    mkEnableOption
     ;
   cfg = config.syde.terminal;
 in
@@ -52,12 +53,17 @@ in
       # CLI Tools
       dogdns # rust version of `dig`
       du-dust # Histogram of file sizes
+      erdtree # Tree file view
+
+      lurk # strace alternative
+      trippy # network diagnostics
 
       gnumake # for Makefiles
       just # alternative to `gnumake`
 
       trashy # for when `rm -rf` is too scary
 
+      isd # Interactive systemd utility
       zip
       unzip
 
@@ -75,7 +81,7 @@ in
 
     home.shellAliases = {
       c = "clear";
-      tp = "${pkgs.trashy}/bin/trash put";
+      tp = "${getExe pkgs.trashy} put";
     };
   };
 
@@ -90,10 +96,6 @@ in
         "ghostty"
       ];
       default = "ghostty";
-    };
-    opacity = mkOption {
-      type = types.float;
-      default = 0.85;
     };
     cursor = mkOption {
       type = types.enum [

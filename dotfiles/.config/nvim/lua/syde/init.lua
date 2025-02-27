@@ -1,3 +1,4 @@
+-- _G.DEBUG = true
 require('syde.load')
 require('syde.options')
 require('syde.remap')
@@ -19,9 +20,6 @@ Load.later(function()
     nmap('<leader>td', function() vim.cmd('Trouble diagnostics toggle') end, 'Toggle trouble diagnostics')
     nmap('<leader>tt', function() vim.cmd('Trouble todo toggle') end, 'Toggle trouble todos')
     nmap('<leader>tq', function() vim.cmd('Trouble qflist toggle') end, 'Toggle trouble quickfix')
-    vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-        callback = function() vim.cmd([[Trouble qflist open]]) end,
-    })
 end)
 
 --- @diagnostic disable-next-line: missing-parameter
@@ -38,11 +36,7 @@ Load.later(function()
             clojure = { 'cljfmt' },
         },
     })
-    nmap(
-        '<leader>=',
-        function() conform.format({ stop_after_first = true, lsp_fallback = true }) end,
-        'Format with conform'
-    )
+    Config.format = function() conform.format({ stop_after_first = true, lsp_fallback = true }) end
 end)
 
 Load.later(function()
@@ -260,7 +254,7 @@ Load.later(function()
         use_advanced_uri = false,
         disable_frontmatter = true,
         follow_url_func = function(url) vim.ui.open(url) end,
-        follow_img_func = function(img) vim.fn.jobstart({ 'xdg-open', img }) end,
+        follow_img_func = function(img) vim.ui.open(img) end,
 
         attachments = {
             img_folder = 'attachments',
@@ -282,11 +276,7 @@ end)
 
 Load.later(function()
     Load.packadd('img-clip.nvim')
-    require('img-clip').setup({
-        default = {
-            dir_path = 'attachments',
-        },
-    })
+    require('img-clip').setup()
 end)
 
 Load.later(function()

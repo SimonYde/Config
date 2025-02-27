@@ -37,7 +37,6 @@ in
       mime = "com.system76.CosmicFiles";
       package = pkgs.cosmic-files;
     };
-    syde.terminal.opacity = mkForce 1.0;
   };
 
   options.syde.desktop.cosmic = {

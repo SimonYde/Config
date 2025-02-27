@@ -14,10 +14,7 @@ let
   colors = config.lib.stylix.colors;
   rgb = color: "rgb(${color})";
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
-  terminal = config.syde.terminal;
-  browser = config.syde.gui.browser;
-  file-manager = config.syde.gui.file-manager;
-  menu = "${getExe pkgs.rofi-wayland} -show drun";
+  menu = "${getExe config.programs.rofi.package} -show drun";
   cfg = config.wayland.windowManager.hyprland;
 in
 {
@@ -45,7 +42,7 @@ in
 
     syde.services = {
       hyprland-autoname-workspaces.enable = true;
-      hyprsunset.enable = true;
+      hyprsunset.enable = false;
     };
 
     services = {
@@ -53,23 +50,24 @@ in
       blueman-applet.enable = true;
       network-manager-applet.enable = true;
 
+      gammastep.enable = true;
       hypridle.enable = true;
       hyprpaper.enable = true;
       swaync.enable = true;
       swayosd.enable = true;
     };
 
-    wayland.systemd.target = "hyprland-session.target";
     wayland.windowManager.hyprland = {
+      # package = null;
       plugins = with pkgs.hyprlandPlugins; [
         # hyprsplit
         hyprspace
       ];
       settings = {
-        "$browser" = browser;
-        "$file-manager" = getExe file-manager.package;
+        "$browser" = config.syde.gui.browser;
+        "$file-manager" = getExe config.syde.gui.file-manager.package;
         "$menu" = menu;
-        "$terminal" = terminal.emulator;
+        "$terminal" = config.syde.terminal.emulator;
         "$mod" = "SUPER";
 
         general = with colors; {
