@@ -18,7 +18,11 @@ let
 in
 {
   config = mkIf cfg.enable {
-    system.stateVersion = "24.11";
+    environment.systemPackages = with pkgs; [
+      git
+
+      helvum
+    ];
     time.timeZone = "Europe/Copenhagen";
 
     i18n.defaultLocale = "en_GB.UTF-8";
@@ -85,8 +89,6 @@ in
 
     programs.fish.enable = true; # NOTE: for fish completions for system programs
 
-    environment.systemPackages = with pkgs; [ git ];
-
     services.udisks2.enable = true;
 
     boot.initrd.availableKernelModules = [
@@ -107,7 +109,16 @@ in
       enableAllHardware = true;
     };
 
-    syde.sound.enable = true;
+    services.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      wireplumber.enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
   };
 
   options.syde.pc = {

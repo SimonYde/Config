@@ -1,7 +1,6 @@
 { ... }:
 {
   services.ollama = {
-    acceleration = "cuda";
     openFirewall = true;
     host = "[::]";
     loadModels = [
