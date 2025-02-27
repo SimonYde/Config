@@ -12,8 +12,7 @@ let
     types
     mkOption
     ;
-  shell = config.syde.shell;
-  user = config.syde.user;
+  inherit (config.syde) shell user;
   cfg = config.syde.pc;
 in
 {

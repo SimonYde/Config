@@ -6,8 +6,8 @@
 }:
 let
   inherit (lib) getExe;
+  inherit (config.syde.gui) terminal;
   colors = config.lib.stylix.colors.withHashtag;
-  emulator = config.syde.terminal.emulator;
   font = config.stylix.fonts.sansSerif;
 in
 {
@@ -62,7 +62,7 @@ in
         };
         memory = {
           format = " {}% 󰍛 ";
-          on-click = "${emulator} -e ${getExe pkgs.btop}";
+          on-click = "${terminal} -e ${getExe pkgs.btop}";
         };
         cpu = {
           format = " {usage}% 󰾆 ";

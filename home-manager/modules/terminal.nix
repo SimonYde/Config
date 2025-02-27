@@ -9,8 +9,6 @@ let
     getExe
     mkEnableOption
     mkIf
-    mkOption
-    types
     ;
   cfg = config.syde.terminal;
 in
@@ -87,23 +85,5 @@ in
 
   options.syde.terminal = {
     enable = mkEnableOption "terminal configuration";
-    emulator = mkOption {
-      type = types.enum [
-        "alacritty"
-        "kitty"
-        "wezterm"
-        "foot"
-        "ghostty"
-      ];
-      default = "ghostty";
-    };
-    cursor = mkOption {
-      type = types.enum [
-        "block"
-        "beam"
-        "underline"
-      ];
-      default = "beam";
-    };
   };
 }

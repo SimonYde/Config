@@ -28,5 +28,5 @@
     xdg-utils
   ];
 
-  imports = [ ../standard.nix ];
+  imports = [ ../common.nix ];
 }

@@ -7,7 +7,6 @@ in
     programs.starship = {
       enableNushellIntegration = true;
       enableFishIntegration = true;
-      enableZshIntegration = true;
       enableBashIntegration = true;
       settings = with config.lib.stylix.colors.withHashtag; {
         add_newline = false;

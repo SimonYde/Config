@@ -25,10 +25,10 @@ in
   options.syde = {
     shell = mkOption {
       type = types.enum [
-        "fish"
-        "zsh"
-        "nushell"
         "bash"
+        "fish"
+        "nushell"
+        "zsh"
       ];
       default = "nushell";
     };

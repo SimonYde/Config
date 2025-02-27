@@ -1,9 +1,11 @@
 { ... }:
 {
   imports = [
-    ./ssh.nix
-    ./theming.nix
+    ./gui.nix
     ./programming.nix
+    ./ssh.nix
+    ./terminal.nix
+    ./theming.nix
 
     ./programs
     ./desktops

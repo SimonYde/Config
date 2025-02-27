@@ -57,5 +57,5 @@
     };
   };
 
-  imports = [ ../standard.nix ];
+  imports = [ ../common.nix ];
 }

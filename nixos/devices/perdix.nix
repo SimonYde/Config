@@ -7,7 +7,7 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
-    ../standard.nix
+    ../common.nix
   ];
   config = {
     networking.hostName = "perdix";

@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.programs.tmux;
-  terminal = config.syde.terminal.emulator;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -15,7 +14,7 @@ in
       clock24 = true;
       baseIndex = 1;
       prefix = "C-l";
-      terminal = terminal;
+      terminal = config.syde.gui.terminal;
       plugins = with pkgs.tmuxPlugins; [
         {
           plugin = resurrect;

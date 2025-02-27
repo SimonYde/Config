@@ -11,16 +11,16 @@ let
     mkForce
     mkIf
     ;
-  cfg = config.programs.rofi;
   colors = config.lib.stylix.colors.withHashtag;
   font = config.stylix.fonts.sansSerif;
+  cfg = config.programs.rofi;
 in
 {
   config = mkIf cfg.enable {
     programs.rofi = {
       package = mkDefault pkgs.rofi-wayland;
       font = mkForce "${font.name} 14";
-      terminal = getExe pkgs.${config.syde.terminal.emulator};
+      terminal = getExe pkgs.${config.syde.gui.terminal};
       theme = mkForce "custom_base16";
       extraConfig = {
         modi = "run,drun";
