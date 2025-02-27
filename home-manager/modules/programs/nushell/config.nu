@@ -150,7 +150,21 @@ $env.config = {
             PWD: [{|before, after| null }] # run if the PWD environment is different since the last repl input
         }
         display_output: "if (term size).columns >= 100 { table -e } else { table }" # run to display the output of a pipeline
-        command_not_found: { null } # return an error message when a command is not found
+        command_not_found: {|cmd|
+            if (which nix-locate | is-empty) {
+                return null
+            }
+
+            let pkgs = (nix-locate $"/bin/($cmd)" --whole-name --at-root --top-level --minimal)
+            if ($pkgs | is-empty) {
+                return null
+            }
+
+            return (
+                $"(ansi $env.config.color_config.shape_external)($cmd)(ansi reset) " +
+                $"may be found in the following packages:\n($pkgs)"
+            )
+        } 
     }
 
     menus: [
