@@ -31,9 +31,8 @@
       inputs.flake-compat.follows = "flake-compat";
     };
     agenix = {
-      url = "github:yaxitech/ragenix";
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     # home-manager modules
@@ -62,11 +61,6 @@
     };
     tip-vim = {
       url = "github:SimonYde/tip.vim";
-      flake = false;
-    };
-
-    bookmarks-yazi = {
-      url = "github:dedukun/bookmarks.yazi";
       flake = false;
     };
 
@@ -201,10 +195,11 @@
             };
           };
         };
-        devShells.default = pkgs.mkShell {
+        devShells.default = pkgs.mkShellNoCC {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
           packages = with pkgs; [
+            (inputs.agenix.packages.${system}.default.override { ageBin = pkgs.lib.getExe pkgs.rage; })
             just
             stow
           ];
