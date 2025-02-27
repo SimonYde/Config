@@ -1,3 +1,3 @@
-export def weather [city?: string] {
-    http get https://wttr.in/($city | default "")
+export def weather [ ...city: string ] {
+    [...$city] | str join "," | http get https://wttr.in/($in)
 }

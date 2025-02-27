@@ -13,5 +13,7 @@ boot:
 home:
 	nh home switch
 
+full: (update) (home) (os)
+
 gaming:
 	nh os switch -s gaming

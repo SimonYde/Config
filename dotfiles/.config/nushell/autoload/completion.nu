@@ -31,14 +31,12 @@ let external_completer = {|spans|
     match $spans.0 {
         # carapace completions are worse for the following:
         gcc => $fish_completer
-        git => $fish_completer
         hyprctl => $fish_completer
         nh => $fish_completer
         nix => $fish_completer
         nu => $fish_completer
         pueue => $fish_completer
         tailscale => $fish_completer
-        swayosd-client => $fish_completer
         typst => $fish_completer
         tinymist => $fish_completer
         zellij => $fish_completer
