@@ -110,100 +110,42 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      pre-commit-hooks,
-      flake-utils,
-      ...
-    }@inputs:
-    {
+    inputs:
+    with import ./utils/mkConfig.nix {
+      hostSystem = "x86_64-linux";
+      inherit inputs;
+    }; {
+      legacyPackages = nixpkgsBySystem;
       nixosConfigurations = {
-        icarus-wsl = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [ ./nixos/devices/icarus-wsl.nix ];
+        icarus-wsl = mkWslSystem {
+          hostname = "icarus";
         };
-        icarus = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [ ./nixos/devices/icarus.nix ];
+        icarus = mkSystem {
+          hostname = "icarus";
         };
-        perdix = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [ ./nixos/devices/perdix.nix ];
+        perdix = mkSystem {
+          hostname = "perdix";
         };
       };
-
-      homeConfigurations = rec {
-        # NOTE: These are here in order to use `nix repl` to check options
-        "syde@icarus-wsl" = icarus-wsl;
-        "syde@icarus" = icarus;
-        "syde@perdix" = perdix;
-        icarus = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = {
-            inherit inputs;
+      checks.x86_64-linux = {
+        pre-commit-check = inputs.pre-commit-hooks.lib.x86_64-linux.run {
+          src = ./.;
+          hooks = {
+            nixfmt-rfc-style.enable = true;
+            stylua.enable = true;
+            deadnix.enable = true;
+            # statix.enable = true;
           };
-          modules = [
-            ./home-manager/standalone.nix
-            ./home-manager/devices/icarus.nix
-          ];
-        };
-        icarus-wsl = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./home-manager/standalone.nix
-            ./home-manager/devices/icarus-wsl.nix
-          ];
-        };
-        perdix = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./home-manager/standalone.nix
-            ./home-manager/devices/perdix.nix
-          ];
         };
       };
-    }
-    // flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        checks = {
-          pre-commit-check = pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt-rfc-style.enable = true;
-              stylua.enable = true;
-            };
-          };
-        };
-        devShells.default = pkgs.mkShellNoCC {
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
-          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
-          packages = with pkgs; [
-            (inputs.agenix.packages.${system}.default.override { ageBin = pkgs.lib.getExe pkgs.rage; })
-            just
-            stow
-          ];
-        };
-      }
-    );
+      devShells.x86_64-linux.default = pkgs.mkShellNoCC {
+        inherit (inputs.self.checks.x86_64-linux.pre-commit-check) shellHook;
+        # buildInputs = self.checks.x86_64-linux.pre-commit-check.enabledPackages;
+        packages = with pkgs; [
+          (inputs.agenix.packages.x86_64-linux.default.override { ageBin = pkgs.lib.getExe pkgs.rage; })
+          just
+          stow
+        ];
+      };
+    };
 }

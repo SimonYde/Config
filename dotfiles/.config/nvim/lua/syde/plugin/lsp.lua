@@ -6,13 +6,13 @@ Load.later(function()
     local setup_lsp = function(name, config)
         config = config or {}
         if vim.fn.executable(config.cmd and config.cmd[1] or name) ~= 1 then
-            return -- LSP not installed
+            return -- LSP not installed, do not bother setting up
         end
         local default_capabilities = vim.lsp.protocol.make_client_capabilities()
         local capabilities = vim.tbl_deep_extend('force', default_capabilities, config.capabilities or {})
 
-        local blink = Load.now(require, 'blink.cmp')
-        if blink then capabilities = blink.get_lsp_capabilities(capabilities) end
+        local has_blink, blink = pcall(require, 'blink.cmp')
+        if has_blink then capabilities = blink.get_lsp_capabilities(capabilities) end
 
         config.capabilities = capabilities
         lspconfig[name].setup(config)
@@ -245,9 +245,6 @@ Load.later(function()
             nmap('<leader>a', vim.lsp.buf.code_action, 'code actions')
             nmap('<C-e>', vim.diagnostic.open_float, 'hover [d]iagnostics')
             imap('<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
-            nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
-            nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
-            nmap('gr', vim.lsp.buf.references, 'Goto [r]eferences')
             nmap('<leader>lf', vim.lsp.buf.format, 'LSP format')
             nmap('<leader>=', Config.format, 'Format code')
 

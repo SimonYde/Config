@@ -78,19 +78,6 @@ Load.on_events(
 )
 
 Load.later(function()
-    Load.packadd('indent-blankline.nvim')
-    local ibl = require('ibl')
-    ibl.setup({
-        indent = {
-            char = '▏',
-        },
-        scope = {
-            enabled = false,
-        },
-    })
-end)
-
-Load.later(function()
     Load.packadd('diffview.nvim')
     local diffview = require('diffview')
     diffview.setup()
@@ -134,13 +121,9 @@ Load.later(function()
         },
     })
     whichkey.add({
-        { '<leader>w', proxy = '<c-w>', group = 'windows' },
         { '<leader>d', group = 'Debug' },
         { '<leader>f', group = 'Find' },
-        { '<leader>m', group = 'Mini' },
-        { '<leader>mb', group = 'Bufremove' },
-        { '<leader>mn', group = 'Notify' },
-        { '<leader>ms', group = 'Sessions' },
+        { '<leader>b', group = 'Buffers' },
         { '<leader>v', group = 'Visits' },
         { '<leader>g', group = 'Git' },
         { '<leader>s', group = 'Snacks' },

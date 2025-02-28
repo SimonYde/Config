@@ -16,144 +16,146 @@ end
 
 M.nmap = M.map('n')
 M.imap = M.map('i')
+M.vmap = M.map('v')
+M.xmap = M.map('x')
+M.nxmap = M.map({ 'n', 'x' })
 
 _G.Keymap = M
 
-local tmap = Keymap.map('t')
-local nmap = Keymap.nmap
-local xmap = Keymap.map('x')
-local nxmap = Keymap.map({ 'n', 'x' })
+Load.later(function()
+    local nmap, xmap, nxmap = Keymap.nmap, Keymap.xmap, Keymap.nxmap
+    local tmap = Keymap.map('t')
 
-vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-nmap('U', '<C-r>', 'redo')
+    vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
+    vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+    nmap('U', '<C-r>', 'redo')
 
--- xmap("<M-k>", ":m'<-2<CR>gv=gv", "Move selection up") -- using mini.move instead
--- xmap("<M-j>", ":m'>+1<CR>gv=gv", "Move selection down")
-
-if vim.fn.has('nvim-0.11') == 1 then
-    Load.now(function()
-        vim.keymap.del('n', 'gri')
-        vim.keymap.del('n', 'grr')
-        vim.keymap.del('n', 'gra')
-        vim.keymap.del('x', 'gra')
-        vim.keymap.del('n', 'grn')
-    end)
-end
-
-nmap('<C-d>', '<C-d>zz', 'Move down half page')
-nmap('<C-u>', '<C-u>zz', 'Move up half page')
-nmap('n', 'nzz', 'Move to next search match')
-nmap('N', 'Nzz', 'Move to previous search match')
-nmap('*', '*zz', 'Find next occurrence under cursor')
-nmap('#', '#zz', 'Find previous occurrence under cursor')
-
-nxmap('<leader>y', [["+y]], 'yank to system clipboard')
-nmap('<leader>Y', [["+Y]], 'yank end-of-line to system clipboard')
-
-nmap('<leader>w', '<C-w>', 'Window')
-
-xmap('<leader>p', [["_dP]], '[p]aste without yanking')
-nxmap('<M-d>', [["_d]], '[d]elete without yanking')
-nxmap('<M-c>', [["_c]], '[c]hange without yanking')
-
-nmap('gF', '<cmd>:e <cfile><CR>', "Goto [F]ile (even if doesn't exist)")
-nmap('gX', 'gx', 'Open link')
-
-nmap(
-    '<leader>x',
-    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    'Search and replace in buffer',
-    { silent = false }
-)
-tmap('<Esc><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
-
--- Toggle quickfix window
-local toggle_quickfix = function()
-    local quickfix_wins = vim.tbl_filter(
-        function(win_id) return vim.fn.getwininfo(win_id)[1].quickfix == 1 end,
-        vim.api.nvim_tabpage_list_wins(0)
-    )
-
-    local command = #quickfix_wins == 0 and 'copen' or 'cclose'
-    vim.cmd(command)
-end
-
-nmap('<leader>q', toggle_quickfix, 'Toggle quickfix list')
-
-vim.lsp.inlay_hint.toggle = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
-nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle inlay hints')
-Config.format = function() vim.lsp.buf.format() end
-
-nmap('<leader>u', function()
-    vim.cmd('UndotreeToggle')
-    vim.cmd('UndotreeFocus')
-end, 'Toggle [u]ndo tree')
-nmap('<leader><leader>f', function()
-    local flipped = not vim.opt.foldenable
-    print('foldenable', flipped)
-    vim.opt.foldenable = flipped
-end, 'Toggle fold')
-
--- COLEMAK Remaps
-Config.colemak_toggle = function()
-    if not Config._colemak_enabled then
-        nxmap('n', [[v:count == 0 ? 'gj' : 'j']], '', { expr = true, noremap = true })
-        nxmap('e', [[v:count == 0 ? 'gk' : 'k']], '', { expr = true, noremap = true })
-        nxmap('m', 'h', '', { noremap = true })
-        nxmap('i', 'l', '', { noremap = true })
-        -- nxmap('I', 'L', '', { noremap = true })
-        nxmap('h', 'm', '', { noremap = true })
-        nxmap('j', 'e', '', { noremap = true })
-        nxmap('k', 'nzz', '', { noremap = true })
-        nxmap('l', 'i', '', { noremap = true })
-        -- nxmap('M', 'H', '', { noremap = true })
-        nxmap('N', 'mzJ`z', 'Join following line with current (preserve cursor position)', { noremap = true })
-        nxmap('E', 'K', '', { noremap = true })
-        nxmap('H', 'M', '', { noremap = true })
-        nxmap('J', 'E', '', { noremap = true })
-        nxmap('K', 'Nzz', '', { noremap = true })
-        nxmap('L', 'I', '', { noremap = true })
-        nxmap('<C-w>m', '<C-w>h', '', { noremap = true })
-        nxmap('<C-w>n', '<C-w>j', '', { noremap = true })
-        nxmap('<C-w>e', '<C-w>k', '', { noremap = true })
-        nxmap('<C-w>i', '<C-w>l', '', { noremap = true })
-        nxmap('<C-w>M', '<C-w>H', '', { noremap = true })
-        nxmap('<C-w>N', '<C-w>J', '', { noremap = true })
-        nxmap('<C-w>E', '<C-w>K', '', { noremap = true })
-        nxmap('<C-w>I', '<C-w>L', '', { noremap = true })
-
-        nxmap('M', '^', 'Goto first non-empty cell in line')
-        nxmap('S', '0', 'Goto line start')
-        nxmap('I', '$', 'Goto line end')
-        Config._colemak_enabled = true
-    else
-        nxmap('j', [[v:count == 0 ? 'gj' : 'j']], '', { expr = true, noremap = true })
-        nxmap('k', [[v:count == 0 ? 'gk' : 'k']], '', { expr = true, noremap = true })
-        nxmap('h', 'h', '', { noremap = true })
-        nxmap('l', 'l', '', { noremap = true })
-        nxmap('L', 'L', '', { noremap = true })
-        nxmap('m', 'm', '', { noremap = true })
-        nxmap('e', 'e', '', { noremap = true })
-        nxmap('n', 'nzz', '', { noremap = true })
-        nxmap('i', 'i', '', { noremap = true })
-        nxmap('H', 'H', '', { noremap = true })
-        nxmap('J', 'mzJ`z', 'Join following line with current (preserve cursor position)', { noremap = true })
-        nxmap('K', 'K', '', { noremap = true })
-        nxmap('M', 'M', '', { noremap = true })
-        nxmap('E', 'E', '', { noremap = true })
-        nxmap('N', 'Nzz', '', { noremap = true })
-        nxmap('I', 'I', '', { noremap = true })
-
-        nxmap('H', '^', 'Goto first non-empty cell in line')
-        nxmap('S', '0', 'Goto line start')
-        nxmap('L', '$', 'Goto line end')
-        Config._colemak_enabled = false
+    if vim.fn.has('nvim-0.11') == 1 then
+        Load.now(function()
+            vim.keymap.del('n', 'gri')
+            vim.keymap.del('n', 'grr')
+            vim.keymap.del('n', 'gra')
+            vim.keymap.del('x', 'gra')
+            vim.keymap.del('n', 'grn')
+        end)
     end
-end
-Config.colemak_toggle()
 
-nmap('<leader><leader>k', function()
-    Config.colemak_toggle()
-    vim.notify(string.format('COLEMAK %s', Config._colemak_enabled), vim.log.levels.INFO)
-end, 'Toggle keymap')
+    nmap('<C-d>', '<C-d>zz', 'Move down half page')
+    nmap('<C-u>', '<C-u>zz', 'Move up half page')
+    nmap('n', 'nzz', 'Move to next search match')
+    nmap('N', 'Nzz', 'Move to previous search match')
+    nmap('*', '*zz', 'Find next occurrence under cursor')
+    nmap('#', '#zz', 'Find previous occurrence under cursor')
+    nxmap('S', '0', 'Goto line start')
+
+    nxmap('<leader>y', [["+y]], 'yank to system clipboard')
+    nmap('<leader>Y', [["+Y]], 'yank end-of-line to system clipboard')
+
+    xmap('<leader>p', [["_dP]], '[p]aste without yanking')
+    nxmap('<M-d>', [["_d]], '[d]elete without yanking')
+    nxmap('<M-c>', [["_c]], '[c]hange without yanking')
+
+    nmap('gF', '<cmd>:e <cfile><CR>', "Goto [F]ile (even if doesn't exist)")
+    nmap('gX', 'gx', 'Open link')
+
+    nmap(
+        '<leader>x',
+        [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+        'Search and replace in buffer',
+        { silent = false }
+    )
+    tmap('<Esc><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
+
+    -- Toggle quickfix window
+    local toggle_quickfix = function()
+        local quickfix_wins = vim.tbl_filter(
+            function(win_id) return vim.fn.getwininfo(win_id)[1].quickfix == 1 end,
+            vim.api.nvim_tabpage_list_wins(0)
+        )
+
+        local command = #quickfix_wins == 0 and 'copen' or 'cclose'
+        vim.cmd(command)
+    end
+
+    nmap('<leader>q', toggle_quickfix, 'Toggle quickfix list')
+
+    vim.lsp.inlay_hint.toggle = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
+    nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle inlay hints')
+    Config.format = vim.lsp.buf.format
+    nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
+    nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
+    nmap('gr', vim.lsp.buf.references, 'Goto [r]eferences')
+
+    nmap('<leader>u', function()
+        vim.cmd('UndotreeToggle')
+        vim.cmd('UndotreeFocus')
+    end, 'Toggle [u]ndo tree')
+    nmap('<leader><leader>f', function()
+        local flipped = not vim.opt.foldenable
+        print('foldenable', flipped)
+        vim.opt.foldenable = flipped
+    end, 'Toggle fold')
+
+    -- COLEMAK Remaps
+    local colemak_map = function(keys, cmd, opts)
+        opts = opts or {}
+        opts.noremap = true
+        opts.silent = true
+        vim.keymap.set({ 'n', 'x' }, keys, cmd, opts)
+    end
+    Config.colemak_toggle = function(state)
+        if not state then
+            colemak_map('n', [[v:count == 0 ? 'gj' : 'j']], { expr = true })
+            colemak_map('e', [[v:count == 0 ? 'gk' : 'k']], { expr = true })
+            colemak_map('m', 'h')
+            colemak_map('i', 'l')
+            colemak_map('h', 'm')
+            colemak_map('j', 'e')
+            colemak_map('k', 'nzz')
+            colemak_map('l', 'i')
+            colemak_map('N', 'mzJ`z')
+            colemak_map('E', 'K')
+            colemak_map('H', 'M')
+            colemak_map('J', 'E')
+            colemak_map('K', 'Nzz')
+            colemak_map('L', 'I')
+            colemak_map('<C-w>m', '<C-w>h')
+            colemak_map('<C-w>n', '<C-w>j')
+            colemak_map('<C-w>e', '<C-w>k')
+            colemak_map('<C-w>i', '<C-w>l')
+            colemak_map('<C-w>M', '<C-w>H')
+            colemak_map('<C-w>N', '<C-w>J')
+            colemak_map('<C-w>E', '<C-w>K')
+            colemak_map('<C-w>I', '<C-w>L')
+
+            colemak_map('M', '^', { desc = 'Goto first non-empty cell in line' })
+            colemak_map('I', '$', { desc = 'Goto line end' })
+            vim.g.colemak = true
+        else
+            colemak_map('j', [[v:count == 0 ? 'gj' : 'j']], { expr = true })
+            colemak_map('k', [[v:count == 0 ? 'gk' : 'k']], { expr = true })
+            colemak_map('h', 'h')
+            colemak_map('l', 'l')
+            colemak_map('m', 'm')
+            colemak_map('e', 'e')
+            colemak_map('n', 'nzz')
+            colemak_map('i', 'i')
+            colemak_map('J', 'mzJ`z')
+            colemak_map('K', 'K')
+            colemak_map('M', 'M')
+            colemak_map('E', 'E')
+            colemak_map('N', 'Nzz')
+            colemak_map('I', 'I')
+
+            colemak_map('H', '^', { desc = 'Goto first non-empty cell in line' })
+            colemak_map('L', '$', { desc = 'Goto line end' })
+            vim.g.colemak = false
+        end
+    end
+    Config.colemak_toggle(false)
+
+    nmap('<leader><leader>k', function()
+        Config.colemak_toggle(vim.g.colemak)
+        vim.notify(string.format('COLEMAK %s', vim.g.colemak), vim.log.levels.INFO)
+    end, 'Toggle keymap')
+end)
