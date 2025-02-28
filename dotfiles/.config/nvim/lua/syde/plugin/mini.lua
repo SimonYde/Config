@@ -1,5 +1,4 @@
-local nmap = Keymap.nmap
-local nxmap = Keymap.map({ 'x', 'n' })
+local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 
 Load.now(function() require('mini.sessions').setup() end)
 
@@ -118,7 +117,7 @@ end)
 Load.later(function()
     local MiniBufremove = require('mini.bufremove')
     MiniBufremove.setup()
-    nmap('<leader>mbd', function() MiniBufremove.delete() end, 'Delete current buffer')
+    nmap('<leader>bd', function() MiniBufremove.delete() end, 'Delete current buffer')
 end)
 
 Load.later(function() require('mini.comment').setup() end)
