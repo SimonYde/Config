@@ -6,6 +6,13 @@
   xdg.enable = true;
 
   imports = [
-    ./modules
+    ./gui.nix
+    ./programming.nix
+    ./ssh.nix
+    ./terminal.nix
+
+    ./programs
+    ./desktops
+    ./services
   ];
 }

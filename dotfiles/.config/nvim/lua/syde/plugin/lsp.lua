@@ -156,9 +156,9 @@ Load.later(function()
                     nixos = {
                         expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.perdix.options',
                     },
-                    home_manager = {
-                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.perdix.options',
-                    },
+                    -- home_manager = {
+                    --     expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.perdix.options',
+                    -- },
                 },
             },
         },

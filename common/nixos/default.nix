@@ -9,29 +9,61 @@
 let
   inherit (lib)
     getExe
+    mkDefault
     mkOption
     types
+    mapAttrs
     ;
   inherit (config.syde) user;
+  keys = import ../../keys.nix;
 in
 {
   config = {
+    boot = {
+      tmp = {
+        useTmpfs = true;
+        tmpfsSize = "100%";
+      };
+
+      initrd.systemd = {
+        enable = true;
+        emergencyAccess = true;
+      };
+    };
+
+    services = {
+      openssh = {
+        enable = true;
+        settings = {
+          PasswordAuthentication = false;
+        };
+      };
+
+      journald.extraConfig = "SystemMaxUse=100M";
+    };
+    i18n.defaultLocale = "en_GB.UTF-8";
 
     system.stateVersion = "24.11";
 
-    nixpkgs.flake = {
-      setNixPath = true;
+    nix = {
+      nixPath = [ "nixpkgs=flake:nixpkgs" ];
+      channel.enable = false;
+      package = pkgs.lix;
+      settings.trusted-users = [ user ];
     };
-
-    nix.channel.enable = false;
-    nix.package = pkgs.lix;
-    nix.settings.trusted-users = [ user ];
 
     documentation.nixos.enable = false;
 
     programs.command-not-found.enable = false;
-    security.sudo.enable = false;
-    security.sudo-rs.enable = true;
+    programs.ssh.knownHosts = mapAttrs (_: key: { publicKey = key; }) keys;
+
+    # Use Rust implementation of `sudo`
+    security = {
+      sudo.enable = false;
+      sudo-rs.enable = true;
+    };
+
+    environment.shells = [ pkgs.nushell-wrapped ];
 
     users = {
       mutableUsers = false;
@@ -39,26 +71,26 @@ in
       users = {
         root = {
           shell = pkgs.nushell-wrapped;
+
+          openssh.authorizedKeys.keys = [
+            keys.icarus
+            keys.perdix
+          ];
         };
 
         ${user} = {
-          shell = pkgs.nushell-wrapped;
           isNormalUser = true;
-          description = "Simon Yde";
+          shell = pkgs.nushell-wrapped;
           extraGroups = [ "wheel" ];
           hashedPasswordFile = config.age.secrets.pc-password.path;
+          description = "Simon Yde";
+
+          openssh.authorizedKeys.keys = [
+            keys.icarus
+            keys.perdix
+          ];
         };
       };
-    };
-
-    environment.shells = [ pkgs.nushell-wrapped ];
-
-    age.identityPaths = [ "/home/${config.syde.user}/.ssh/id_ed25519" ];
-    age.ageBin = getExe pkgs.rage;
-    age.secrets = {
-      wireguard.file = ../../secrets/wireguard.age;
-      pc-password.file = ../../secrets/pc-password.age;
-      tailscale.file = ../../secrets/tailscale.age;
     };
 
     home-manager = {
@@ -68,6 +100,19 @@ in
         inherit inputs;
       };
     };
+
+    age = {
+      identityPaths = [ "/home/${user}/.ssh/id_ed25519" ];
+      ageBin = getExe pkgs.rage;
+      secrets = {
+        wireguard.file = ../../secrets/wireguard.age;
+        pc-password.file = ../../secrets/pc-password.age;
+        tailscale.file = ../../secrets/tailscale.age;
+      };
+    };
+
+    time.timeZone = mkDefault "Europe/Copenhagen";
+
   };
 
   imports = [
@@ -77,12 +122,11 @@ in
     ../magic-gc/nixos.nix
     ../../overlays.nix
 
-    ./modules/gaming.nix
-    ./modules/pc.nix
-    ./modules/desktops
-    ./modules/programs
-    ./modules/hardware
-    ./modules/services
+    ./gaming.nix
+    ./desktops
+    ./programs
+    ./hardware
+    ./services
   ];
 
   options.syde = {

@@ -4,21 +4,20 @@
   config,
   ...
 }:
+let
+  inherit (config.syde) user;
+in
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
-    ../common/nixos
+    ../common/desktop.nix
   ];
-
-  networking.hostName = "perdix";
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Personal configurations
   syde = {
-    ssh.enable = true;
     laptop.enable = true;
-    pc.enable = true;
     gaming.enable = true;
     gaming.specialisation = true;
     hardware = {
@@ -64,62 +63,58 @@
 
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
-  home-manager.users.syde =
-    { pkgs, ... }:
-    {
+  home-manager.users.${user} = {
 
-      # Personal modules
-      syde = {
-        gui.enable = true;
-        programming.enable = true;
-        ssh.enable = true;
-        terminal.enable = true;
-        desktop.cosmic.enable = false;
-        theming.enable = true;
-      };
+    # Personal modules
+    syde = {
+      gui.enable = true;
+      programming.enable = true;
+      ssh.enable = true;
+      terminal.enable = true;
+    };
 
-      home.packages = with pkgs; [
-        brightnessctl
+    home.packages = with pkgs; [
+      brightnessctl
+    ];
+
+    home.keyboard = {
+      layout = "us(colemak_dh),dk";
+      options = [
+        "caps:escape"
+        "grp:rctrl_toggle"
       ];
+    };
 
-      home.keyboard = {
-        layout = "us(colemak_dh),dk";
-        options = [
-          "caps:escape"
-          "grp:rctrl_toggle"
+    services.hypridle = {
+      settings = {
+        listener = [
+          {
+            timeout = 60;
+            # NOTE: name of device is specific for this device
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -sd platform::kbd_backlight set 0";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -rd platform::kbd_backlight";
+          }
+          {
+            timeout = 180;
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s s 50%-";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
+          }
+          {
+            timeout = 360;
+            on-timeout = "loginctl lock-session";
+            on-resume = "";
+          }
+          {
+            timeout = 900;
+            on-timeout = "systemctl suspend";
+            on-resume = "hyprctl dispatch dpms on";
+          }
         ];
       };
-
-      services.hypridle = {
-        settings = {
-          listener = [
-            {
-              timeout = 60;
-              # NOTE: name of device is specific for this device
-              on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -sd platform::kbd_backlight set 0";
-              on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -rd platform::kbd_backlight";
-            }
-            {
-              timeout = 180;
-              on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s s 50%-";
-              on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
-            }
-            {
-              timeout = 360;
-              on-timeout = "loginctl lock-session";
-              on-resume = "";
-            }
-            {
-              timeout = 900;
-              on-timeout = "systemctl suspend";
-              on-resume = "hyprctl dispatch dpms on";
-            }
-          ];
-        };
-      };
-
-      wayland.windowManager.hyprland = {
-        enable = true;
-      };
     };
+
+    wayland.windowManager.hyprland = {
+      enable = true;
+    };
+  };
 }

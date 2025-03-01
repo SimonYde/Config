@@ -8,8 +8,7 @@
 
     (final: prev: {
       stable = import inputs.stable {
-        config = prev.config;
-        system = prev.system;
+        inherit (prev) system config;
       };
       nushell-wrapped =
         (final.writeTextFile {
@@ -30,10 +29,7 @@
       pix2tex = inputs.pix2tex.packages.${prev.system}.default;
       audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
 
-      kattis-cli = inputs.kattis-cli.packages.${prev.system}.kattis-cli;
-      kattis-test = inputs.kattis-cli.packages.${prev.system}.kattis-test;
-
-      tectonic = final.stable.tectonic;
+      inherit (inputs.kattis-cli.packages.${prev.system}) kattis-test kattis-cli;
 
       python3 = prev.python3.override {
         packageOverrides = _: _: {

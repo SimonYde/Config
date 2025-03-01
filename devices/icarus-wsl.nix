@@ -1,9 +1,13 @@
-{ ... }:
 {
-  imports = [ ../common/nixos ];
-
-  syde.ssh.enable = true;
-
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  inherit (config.syde) user;
+in
+{
   programs = {
     nh.enable = true;
   };
@@ -15,35 +19,34 @@
     syncthing.enable = true;
   };
 
-  home-manager.users.syde =
-    { pkgs, ... }:
-    {
-      programs = {
-        zathura.enable = true;
-      };
+  systemd.oomd.enable = lib.mkForce true;
 
-      syde = {
-        programming.enable = true;
-        ssh.enable = true;
-        terminal.enable = true;
-        theming.enable = true;
-      };
-
-      xdg.mimeApps.enable = true;
-      home.shellAliases = {
-        ex = "explorer.exe";
-        poweroff = "wsl.exe --shutdown NixOS";
-      };
-      programs.nushell.shellAliases = {
-        ex = "explorer.exe";
-        poweroff = "wsl.exe --shutdown NixOS";
-      };
-
-      home.packages = with pkgs; [
-        libqalculate
-        rclone
-        wl-clipboard
-        xdg-utils
-      ];
+  home-manager.users.${user} = {
+    programs = {
+      zathura.enable = true;
     };
+
+    syde = {
+      programming.enable = true;
+      ssh.enable = true;
+      terminal.enable = true;
+    };
+
+    xdg.mimeApps.enable = true;
+    home.shellAliases = {
+      ex = "explorer.exe";
+      poweroff = "wsl.exe --shutdown NixOS";
+    };
+    programs.nushell.shellAliases = {
+      ex = "explorer.exe";
+      poweroff = "wsl.exe --shutdown NixOS";
+    };
+
+    home.packages = with pkgs; [
+      libqalculate
+      rclone
+      wl-clipboard
+      xdg-utils
+    ];
+  };
 }
