@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -15,6 +16,9 @@
   ];
 
   imports = [
+    inputs.stylix.homeManagerModules.stylix
+    ../base/theming/stylix-home.nix
+    ../base/theming/stylix-shared.nix
     ../base/nix-settings.nix
     ../magic-gc/home.nix
     ./default.nix
