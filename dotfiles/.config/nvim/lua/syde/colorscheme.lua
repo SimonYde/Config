@@ -1,4 +1,24 @@
 Load.now(function()
+    if not PALETTE then
+        PALETTE = {
+            base00 = '1b1b1b',
+            base01 = '3c3836',
+            base02 = '504945',
+            base03 = '665c54',
+            base04 = 'bdae93',
+            base05 = 'd5c4a1',
+            base06 = 'ebdbb2',
+            base07 = 'fbf1c7',
+            base08 = 'fb4934',
+            base09 = 'fe8019',
+            base0A = 'fabd2f',
+            base0B = 'b8bb26',
+            base0C = '8ec07c',
+            base0D = '83a598',
+            base0E = 'd3869b',
+            base0F = 'd65d0e',
+        }
+    end
     require('mini.base16').setup({
         palette = PALETTE,
         use_cterm = true,
@@ -13,15 +33,10 @@ Load.now(function()
             ['folke/which-key.nvim'] = true,
             ['glepnir/lspsaga.nvim'] = true,
             ['hrsh7th/nvim-cmp'] = true,
-            ['kevinhwang91/nvim-bqf'] = false,
             ['kevinhwang91/nvim-ufo'] = true,
             ['lukas-reineke/indent-blankline.nvim'] = true,
-            ['nvim-telescope/telescope.nvim'] = false,
-            ['ibhagwan/fzf-lua'] = false,
             ['rcarriga/nvim-dap-ui'] = true,
             ['MeanderingProgrammer/render-markdown.nvim'] = true,
-            ['OXY2DEV/helpview.nvim'] = true,
-            ['OXY2DEV/markview.nvim'] = true,
         },
     })
     vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))

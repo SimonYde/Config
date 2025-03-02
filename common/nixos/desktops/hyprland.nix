@@ -6,6 +6,7 @@
 }:
 let
   inherit (lib) mkIf getExe;
+  inherit (config.syde) user;
   cfg = config.programs.hyprland;
 in
 {
@@ -50,5 +51,7 @@ in
         TimeoutStopSec = 10;
       };
     };
+
+    home-manager.users.${user}.imports = [ ../../home-manager/gui/hyprland ];
   };
 }

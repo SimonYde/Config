@@ -9,15 +9,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    systems.url = "github:nix-systems/default";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
     flake-compat.url = "github:edolstra/flake-compat";
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
     };
 
     # NixOS modules
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
       inputs = {
@@ -25,7 +33,16 @@
         flake-compat.follows = "flake-compat";
       };
     };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
+
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs = {
@@ -34,9 +51,14 @@
         flake-compat.follows = "flake-compat";
       };
     };
+
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        systems.follows = "systems";
+      };
     };
 
     # home-manager modules
@@ -48,6 +70,14 @@
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
 
     neovim-nightly = {
@@ -120,17 +150,13 @@
       inherit inputs;
     }; {
       legacyPackages = nixpkgsBySystem;
+
       nixosConfigurations = {
-        icarus-wsl = mkWslSystem {
-          hostname = "icarus";
-        };
-        icarus = mkSystem {
-          hostname = "icarus";
-        };
-        perdix = mkSystem {
-          hostname = "perdix";
-        };
+        icarus-wsl = mkWslSystem { hostname = "icarus"; };
+        icarus = mkSystem { hostname = "icarus"; };
+        perdix = mkSystem { hostname = "perdix"; };
       };
+
       checks.x86_64-linux = {
         pre-commit-check = inputs.pre-commit-hooks.lib.x86_64-linux.run {
           src = ./.;
@@ -142,9 +168,10 @@
           };
         };
       };
+
       devShells.x86_64-linux.default = pkgs.mkShellNoCC {
         inherit (inputs.self.checks.x86_64-linux.pre-commit-check) shellHook;
-        # buildInputs = self.checks.x86_64-linux.pre-commit-check.enabledPackages;
+        buildInputs = inputs.self.checks.x86_64-linux.pre-commit-check.enabledPackages;
         packages = with pkgs; [
           (inputs.agenix.packages.x86_64-linux.default.override { ageBin = pkgs.lib.getExe pkgs.rage; })
           just

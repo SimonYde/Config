@@ -11,8 +11,6 @@ in
     ../common/desktop.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
   # Personal configurations
   syde = {
     gaming.enable = true;
@@ -26,6 +24,25 @@ in
         gpu.enable = false;
       };
     };
+  };
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_zen;
+
+    loader.systemd-boot.windows = {
+      "11-home" = {
+        title = "Windows 11 Home";
+        efiDeviceHandle = "HD0b";
+      };
+    };
+
+    initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
+      "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
+  };
+
+  console = {
+    font = "ter-i32b";
+    earlySetup = true;
   };
 
   programs = {
@@ -51,16 +68,7 @@ in
 
   networking.wireguard.enable = true;
 
-  boot.loader.systemd-boot.windows = {
-    "11-home" = {
-      title = "Windows 11 Home";
-      efiDeviceHandle = "HD0b";
-    };
-  };
-
   # Filesystems
-  boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
-    "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/157E-B4A5";
     fsType = "vfat";
@@ -83,13 +91,6 @@ in
   ];
 
   home-manager.users.${user} = {
-    # Personal modules
-    syde = {
-      gui.enable = true;
-      programming.enable = true;
-      ssh.enable = true;
-      terminal.enable = true;
-    };
 
     services = {
       blanket.enable = true;

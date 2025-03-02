@@ -86,6 +86,8 @@ let
     ];
 
     powerManagement.cpuFreqGovernor = mkForce "performance";
+
+    home-manager.users.${config.syde.user}.imports = [ ../home-manager/gaming.nix ];
   };
 in
 {

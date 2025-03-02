@@ -18,6 +18,20 @@ let
   keys = import ../../keys.nix;
 in
 {
+  imports = [
+    inputs.agenix.nixosModules.default
+    inputs.home-manager.nixosModules.default
+    ../base/nix-settings.nix
+    ../magic-gc/nixos.nix
+    ../../overlays.nix
+
+    ./gaming.nix
+    ./desktops
+    ./programs
+    ./hardware
+    ./services
+  ];
+
   config = {
     boot = {
       tmp = {
@@ -114,20 +128,6 @@ in
     time.timeZone = mkDefault "Europe/Copenhagen";
 
   };
-
-  imports = [
-    inputs.agenix.nixosModules.default
-    inputs.home-manager.nixosModules.default
-    ../base/nix-settings.nix
-    ../magic-gc/nixos.nix
-    ../../overlays.nix
-
-    ./gaming.nix
-    ./desktops
-    ./programs
-    ./hardware
-    ./services
-  ];
 
   options.syde = {
     user = mkOption {
