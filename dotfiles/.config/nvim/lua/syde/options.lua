@@ -56,7 +56,7 @@ vim.o.foldtext = '' -- Use underlying text with its highlighting
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldcolumn = '0'
-vim.o.foldlevel = 1 -- Fold everything except top-most folds
+vim.o.foldlevel = 500 -- Fold everything except top-most folds
 vim.o.foldenable = true
 
 -- Colors =====================================================================

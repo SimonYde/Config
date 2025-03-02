@@ -12,10 +12,7 @@ in
     nh.enable = true;
   };
 
-  security.polkit.enable = true;
-
   services = {
-    dbus.enable = true;
     syncthing.enable = true;
   };
 
@@ -24,12 +21,6 @@ in
   home-manager.users.${user} = {
     programs = {
       zathura.enable = true;
-    };
-
-    syde = {
-      programming.enable = true;
-      ssh.enable = true;
-      terminal.enable = true;
     };
 
     xdg.mimeApps.enable = true;

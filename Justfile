@@ -1,12 +1,10 @@
-news:
-	home-manager --flake .#$(hostname) news
+default: update os
 
 update:
 	nix flake update --commit-lock-file
-	nh os switch --ask
 
 os:
-	nh os switch
+	nh os switch --ask
 
 boot:
 	nh os boot

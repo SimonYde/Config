@@ -1,5 +1,4 @@
 { inputs, ... }:
-
 {
   config.nixpkgs.overlays = [
     inputs.nur.overlays.default
@@ -17,10 +16,11 @@
           executable = true;
           destination = "/bin/nu";
 
-          text = ''
-            #!/usr/bin/env -S bash --login
-            exec ${final.nushell}/bin/nu "$@"
-          '';
+          text = # bash
+            ''
+              #!/usr/bin/env -S bash --login
+              exec ${final.nushell}/bin/nu "$@"
+            '';
         })
         // {
           shellPath = "/bin/nu";
@@ -83,7 +83,6 @@
                 "snacks.zen"
                 # Optional trouble integration
                 "trouble.sources.profiler"
-                # TODO: Plugin requires libsqlite available, create a test for it
                 "snacks.picker.util.db"
               ];
             };

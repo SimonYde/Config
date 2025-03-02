@@ -1,30 +1,8 @@
 local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 
-Load.now(function() require('mini.sessions').setup() end)
-
-Load.later(function()
-    local gen_loader = require('mini.snippets').gen_loader
-    require('mini.snippets').setup({
-        snippets = {
-            gen_loader.from_file('~/.config/nvim/snippets/global.json'),
-            gen_loader.from_lang(),
-        },
-        mappings = {
-            expand = '<C-h>',
-            jump_next = '<C-i>',
-            jump_prev = '<C-e>',
-            stop = '<C-c>',
-        },
-    })
-end)
-
-Load.later(function()
-    require('mini.icons').setup()
-    Load.now(MiniIcons.tweak_lsp_kind)
-    MiniIcons.mock_nvim_web_devicons()
-end)
-
 Load.now(function()
+    require('mini.sessions').setup()
+
     require('mini.files').setup({
         mappings = {
             close = 'q',
@@ -42,38 +20,80 @@ Load.now(function()
             trim_right = '>',
         },
     })
-    nmap('<M-f>', function() MiniFiles.open() end, 'Show [f]ile-tree')
+
+    nmap('<M-f>', function() MiniFiles.open() end, 'Show `mini.files`')
     nmap('<M-F>', function()
         local file_name = vim.api.nvim_buf_get_name(0)
         if vim.uv.fs_stat(file_name) then
             MiniFiles.open(file_name)
         else
-            vim.notify('Current buffer is not a file... opening mini.files in CWD', vim.log.levels.INFO)
+            vim.notify('Current buffer is not a file... opening mini.files in CWD', vim.log.levels.WARN)
             MiniFiles.open()
         end
-    end, 'Show current [F]ile in explorer')
+    end, 'Show current file in `mini.files`')
 end)
 
 Load.later(function()
+    require('mini.align').setup()
+    require('mini.bracketed').setup({ n_lines = 500 })
+    require('mini.bufremove').setup()
+    require('mini.cursorword').setup({ delay = 100 })
+    require('mini.comment').setup()
+    require('mini.extra').setup()
+    require('mini.surround').setup({ search_method = 'cover_or_next' })
+    require('mini.tabline').setup()
+    require('mini.git').setup()
+    require('mini.jump').setup()
+    require('mini.splitjoin').setup()
+    require('mini.trailspace').setup()
+    require('mini.operators').setup({ replace = { prefix = 'cr' } })
+
+    require('mini.icons').setup()
+    MiniIcons.tweak_lsp_kind()
+    MiniIcons.mock_nvim_web_devicons()
+
+    require('mini.misc').setup()
+    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
+
     require('mini.basics').setup({
         options = {
             basic = false,
         },
         mappings = {
             basic = true,
-            option_toggle_prefix = [[]],
+            option_toggle_prefix = '',
         },
         autocommands = {
-            -- Basic autocommands (highlight on yank, start Insert in terminal, ...)
-            basic = true,
+            basic = true, -- Basic autocommands (highlight on yank, start Insert in terminal, ...)
             relnum_in_visual_mode = false,
         },
     })
+
+    nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
+    nmap('<leader>bd', function() MiniBufremove.delete() end, 'Delete current buffer')
+    nmap('<M-t>', function()
+        MiniTrailspace.trim()
+        MiniTrailspace.trim_last_lines()
+    end, 'Clean [t]railing whitespace')
+
+    nxmap('<leader>gg', MiniGit.show_at_cursor, 'Show git info at cursor')
 end)
 
-Load.later(function() require('mini.tabline').setup() end)
-
-Load.later(function() require('mini.extra').setup() end)
+Load.later(function()
+    local gen_loader = require('mini.snippets').gen_loader
+    require('mini.snippets').setup({
+        snippets = {
+            gen_loader.from_file('~/.config/nvim/snippets/global.json'),
+            gen_loader.from_lang(),
+        },
+        mappings = {
+            expand = '<C-h>',
+            jump_next = '<C-i>',
+            jump_prev = '<C-e>',
+            stop = '<C-c>',
+        },
+    })
+end)
 
 Load.later(function()
     Load.packadd('nvim-treesitter-textobjects')
@@ -107,57 +127,15 @@ Load.later(function()
     })
 end)
 
-Load.later(function() require('mini.align').setup() end)
-
-Load.later(function()
-    require('mini.bracketed').setup({ n_lines = 500 })
-    nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
-end)
-
-Load.later(function()
-    local MiniBufremove = require('mini.bufremove')
-    MiniBufremove.setup()
-    nmap('<leader>bd', function() MiniBufremove.delete() end, 'Delete current buffer')
-end)
-
-Load.later(function() require('mini.comment').setup() end)
-
-Load.later(
-    function()
-        require('mini.operators').setup({
-            replace = {
-                prefix = 'cr',
-            },
-        })
-    end
-)
-
-Load.later(function()
-    require('mini.surround').setup({
-        search_method = 'cover_or_next',
-    })
-end)
-
-Load.later(function() require('mini.cursorword').setup({ delay = 100 }) end)
-
 Load.later(function()
     local hipatterns = require('mini.hipatterns')
-    -- local hi_words = MiniExtra.gen_highlighter.words
     hipatterns.setup({
         highlighters = {
-            -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-            -- fixme     = hi_words({ 'FIX', 'FIXME' }, 'MiniHipatternsFixme'),
-            -- note      = hi_words({ 'NOTE' }, 'MiniHipatternsNote'),
-            -- hack      = hi_words({ 'HACK' }, 'MiniHipatternsHack'),
-            -- todo      = hi_words({ 'TODO' }, 'MiniHipatternsTodo'),
-
             -- Highlight hex color strings (`#9436FF`) using that color
             hex_color = hipatterns.gen_highlighter.hex_color(),
         },
     })
 end)
-
-Load.later(function() require('mini.jump').setup() end)
 
 Load.later(function()
     local MiniJump2d = require('mini.jump2d')
@@ -173,22 +151,20 @@ Load.later(function()
     })
 end)
 
-Load.later(function() require('mini.splitjoin').setup() end)
-
 Load.later(function()
     require('mini.move').setup({
         mappings = {
             -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
             left = '<M-m>',
-            right = '<M-i>',
             down = '<M-n>',
             up = '<M-e>',
+            right = '<M-i>',
 
             -- Move current line in Normal mode
             line_left = '<M-m>',
-            line_right = '<M-i>',
             line_down = '<M-n>',
             line_up = '<M-e>',
+            line_right = '<M-i>',
         },
 
         -- Options which control moving behavior
@@ -222,25 +198,12 @@ Load.later(function()
 end)
 
 Load.later(function()
-    require('mini.git').setup()
-    nxmap('<leader>gg', MiniGit.show_at_cursor, 'Show git info at cursor')
-end)
-
-Load.later(function()
-    local MiniVisits = require('mini.visits')
-    MiniVisits.setup()
+    require('mini.visits').setup()
     local make_select_path = function(select_global, recency_weight)
         return function()
             local cwd = select_global and '' or vim.fn.getcwd()
             local sort = MiniVisits.gen_sort.default({ recency_weight = recency_weight })
-            MiniVisits.select_path(cwd, {
-                sort = sort,
-            })
-            -- MiniExtra.pickers.visit_paths({
-            --     cwd = cwd,
-            --     -- sort = sort,
-            --     recency_weight = recency_weight,
-            -- })
+            MiniVisits.select_path(cwd, { sort = sort })
         end
     end
 
@@ -256,20 +219,6 @@ Load.later(function()
 end)
 
 Load.later(function()
-    require('mini.misc').setup()
-    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
-    if not vim.env.WSLPATH then MiniMisc.setup_termbg_sync() end
-end)
-
-Load.later(function()
-    require('mini.trailspace').setup()
-    nmap('<M-t>', function()
-        MiniTrailspace.trim()
-        MiniTrailspace.trim_last_lines()
-    end, 'Clean [t]railing whitespace')
-end)
-
-Load.later(function()
     local MiniStatusline = require('mini.statusline')
 
     local diagnostic_level = function(level)
@@ -281,12 +230,12 @@ Load.later(function()
     local section_fileinfo = function(args)
         local get_filesize = function()
             local size = vim.fn.getfsize(vim.fn.getreg('%'))
-            if size < 1024 then
+            if size < 1000 then
                 return ('%dB'):format(size)
-            elseif size < 1048576 then
-                return ('%.2fKiB'):format(size / 1024)
+            elseif size < 1000000 then
+                return ('%.2fkB'):format(size / 1000)
             else
-                return ('%.2fMiB'):format(size / 1048576)
+                return ('%.2fMB'):format(size / 1000000)
             end
         end
 
@@ -301,7 +250,7 @@ Load.later(function()
         local filetype = vim.bo.filetype
 
         -- Don't show anything if can't detect file type or not inside a "normal buffer"
-        if (filetype == '') or vim.bo.buftype ~= '' then return '' end
+        if filetype == '' or vim.bo.buftype ~= '' then return '' end
 
         -- Add filetype icon
         local icon = get_filetype_icon()
@@ -312,11 +261,7 @@ Load.later(function()
 
         -- Construct output string with extra file info
         local encoding = vim.bo.fileencoding or vim.bo.encoding
-        if encoding == 'utf-8' then
-            encoding = ''
-        else
-            encoding = ('[%s]'):format(encoding)
-        end
+        encoding = encoding == 'utf-8' and '' or ('[%s]'):format(encoding)
 
         local format = vim.bo.fileformat
         local format_icon = ''
@@ -337,15 +282,14 @@ Load.later(function()
                 local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 120 })
                 local git = MiniStatusline.section_git({ trunc_width = 75 })
                 local diff = MiniStatusline.section_diff({ trunc_width = 75 })
-                local errors = diagnostic_level(vim.diagnostic.severity.ERROR) -- alternative symbol "⬤ "
-                local warnings = diagnostic_level(vim.diagnostic.severity.WARN) -- alternative symbol ""
+                local errors = diagnostic_level(vim.diagnostic.severity.ERROR)
+                local warnings = diagnostic_level(vim.diagnostic.severity.WARN)
                 local info = diagnostic_level(vim.diagnostic.severity.INFO)
                 local hints = diagnostic_level(vim.diagnostic.severity.HINT)
                 local filename = MiniStatusline.section_filename({ trunc_width = 140 })
                 local searchcount = MiniStatusline.section_searchcount({ trunc_width = 75 })
                 local fileinfo = section_fileinfo({ trunc_width = 120 })
                 local location = MiniStatusline.section_location({ trunc_width = 75 })
-                -- local lsp           = MiniStatusline.section_lsp({ trunc_width = 60 })
 
                 return MiniStatusline.combine_groups({
                     { hl = mode_hl, strings = { mode } },
@@ -357,7 +301,6 @@ Load.later(function()
                     { hl = 'DiagnosticHint', strings = { hints } },
                     { hl = 'DiagnosticInfo', strings = { info } },
                     '%=', -- End left alignment
-                    --
                     { hl = 'MiniStatuslineFilename', strings = { searchcount } },
                     { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
                     { hl = mode_hl, strings = { location } },

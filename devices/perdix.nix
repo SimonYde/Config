@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   config,
+  lib,
   ...
 }:
 let
@@ -14,16 +15,23 @@ in
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
+  console.earlySetup = true;
 
   # Personal configurations
   syde = {
     laptop.enable = true;
-    gaming.enable = true;
-    gaming.specialisation = true;
+
+    gaming = {
+      enable = true;
+      specialisation = true;
+    };
+
     hardware = {
       nvidia.enable = true;
-      amd.cpu.enable = true;
-      amd.gpu.enable = true;
+      amd = {
+        cpu.enable = true;
+        gpu.enable = true;
+      };
     };
   };
 
@@ -34,15 +42,17 @@ in
     hyprland.enable = true;
   };
 
-  services.desktopManager.cosmic.enable = false;
-  services.displayManager.cosmic-greeter.enable = false;
-
   services = {
+    desktopManager.cosmic.enable = false;
+    displayManager.cosmic-greeter.enable = false;
+
     tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscale.path;
     };
+
     syncthing.enable = true;
+
     kanata.enable = true;
   };
 
@@ -65,18 +75,6 @@ in
 
   home-manager.users.${user} = {
 
-    # Personal modules
-    syde = {
-      gui.enable = true;
-      programming.enable = true;
-      ssh.enable = true;
-      terminal.enable = true;
-    };
-
-    home.packages = with pkgs; [
-      brightnessctl
-    ];
-
     home.keyboard = {
       layout = "us(colemak_dh),dk";
       options = [
@@ -85,36 +83,39 @@ in
       ];
     };
 
-    services.hypridle = {
-      settings = {
-        listener = [
-          {
-            timeout = 60;
-            # NOTE: name of device is specific for this device
-            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -sd platform::kbd_backlight set 0";
-            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -rd platform::kbd_backlight";
-          }
-          {
-            timeout = 180;
-            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s s 50%-";
-            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
-          }
-          {
-            timeout = 360;
-            on-timeout = "loginctl lock-session";
-            on-resume = "";
-          }
-          {
-            timeout = 900;
-            on-timeout = "systemctl suspend";
-            on-resume = "hyprctl dispatch dpms on";
-          }
-        ];
-      };
-    };
+    wayland.windowManager.hyprland.enable = true;
 
-    wayland.windowManager.hyprland = {
-      enable = true;
-    };
+    services.hypridle =
+      let
+        brightnessctl = lib.getExe pkgs.brightnessctl;
+      in
+      {
+        settings = {
+          listener = [
+            {
+              timeout = 60;
+              # NOTE: name of device is specific for this device
+              on-timeout = "${brightnessctl} -sd platform::kbd_backlight set 0";
+              on-resume = "${brightnessctl} -rd platform::kbd_backlight";
+            }
+            {
+              timeout = 180;
+              on-timeout = "${brightnessctl} -s s 50%-";
+              on-resume = "${brightnessctl} -r";
+            }
+            {
+              timeout = 360;
+              on-timeout = "loginctl lock-session";
+              on-resume = "";
+            }
+            {
+              timeout = 900;
+              on-timeout = "systemctl suspend";
+              on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+            }
+          ];
+        };
+      };
+
   };
 }

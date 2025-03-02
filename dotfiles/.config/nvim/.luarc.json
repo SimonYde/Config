@@ -1,7 +1,6 @@
 {
     "diagnostics.globals": [
         "VARIANT",
-        "PALETTE",
         "Config",
         "MiniIcons",
         "MiniFiles",
