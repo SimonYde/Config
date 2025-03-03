@@ -11,8 +11,8 @@
     ../base/theming/home.nix
     ../base/theming/shared.nix
     ../base/nix-settings.nix
-    ../magic-gc/home.nix
     ./default.nix
+    ./magic-gc.nix
   ];
 
   programs.home-manager.enable = true;

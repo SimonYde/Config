@@ -11,6 +11,7 @@ let
     getExe
     mkDefault
     mkOption
+    mkIf
     types
     mapAttrs
     ;
@@ -22,17 +23,20 @@ in
     inputs.agenix.nixosModules.default
     inputs.home-manager.nixosModules.default
     ../base/nix-settings.nix
-    ../magic-gc/nixos.nix
     ../../overlays.nix
 
     ./gaming.nix
-    ./desktops
-    ./programs
+    ./syncthing.nix
     ./hardware
-    ./services
   ];
 
   config = {
+    system.stateVersion = "24.11";
+
+    i18n.defaultLocale = "en_GB.UTF-8";
+
+    time.timeZone = mkDefault "Europe/Copenhagen";
+
     boot = {
       tmp = {
         useTmpfs = true;
@@ -54,10 +58,22 @@ in
       };
 
       journald.extraConfig = "SystemMaxUse=100M";
-    };
-    i18n.defaultLocale = "en_GB.UTF-8";
 
-    system.stateVersion = "24.11";
+      ollama = {
+        openFirewall = true;
+        host = "[::]";
+      };
+
+      tailscale = {
+        extraUpFlags = [
+          "--ssh"
+          "--operator=${user}"
+        ];
+        useRoutingFeatures = "both";
+        openFirewall = true;
+        extraDaemonFlags = [ "--no-logs-no-support" ];
+      };
+    };
 
     nix = {
       nixPath = [ "nixpkgs=flake:nixpkgs" ];
@@ -68,8 +84,38 @@ in
 
     documentation.nixos.enable = false;
 
-    programs.command-not-found.enable = false;
-    programs.ssh.knownHosts = mapAttrs (_: key: { publicKey = key; }) keys;
+    programs = {
+      command-not-found.enable = false;
+
+      ssh.knownHosts = mapAttrs (_: key: { publicKey = key; }) keys;
+
+      nh = {
+        enable = true;
+
+        flake = "/home/${user}/Config";
+        clean = {
+          enable = true;
+          extraArgs = "--keep 2 --keep-since 1d";
+          dates = "daily";
+        };
+      };
+    };
+
+    networking.wg-quick.interfaces = mkIf config.networking.wireguard.enable {
+      proton = {
+        autostart = false;
+        address = [ "10.2.0.2/32" ];
+        dns = [ "10.2.0.1" ];
+        privateKeyFile = config.age.secrets.wireguard.path;
+        peers = [
+          {
+            publicKey = "XPVCz7LndzqWe7y3+WSo51hvNOX8nX5CTwVTWhzg8g8=";
+            allowedIPs = [ "0.0.0.0/0" ];
+            endpoint = "149.88.27.234:51820";
+          }
+        ];
+      };
+    };
 
     # Use Rust implementation of `sudo`
     security = {
@@ -95,9 +141,14 @@ in
         ${user} = {
           isNormalUser = true;
           shell = pkgs.nushell-wrapped;
-          extraGroups = [ "wheel" ];
           hashedPasswordFile = config.age.secrets.pc-password.path;
           description = "Simon Yde";
+
+          extraGroups = [
+            (mkIf config.virtualisation.docker.enable "docker")
+            (mkIf config.services.syncthing.enable "syncthing")
+            "wheel"
+          ];
 
           openssh.authorizedKeys.keys = [
             keys.icarus
@@ -109,6 +160,7 @@ in
 
     home-manager = {
       useGlobalPkgs = true;
+      useUserPackages = true;
       users.${user}.imports = [ ../home-manager ];
       extraSpecialArgs = {
         inherit inputs;
@@ -125,8 +177,13 @@ in
       };
     };
 
-    time.timeZone = mkDefault "Europe/Copenhagen";
-
+    systemd = {
+      oomd = {
+        enableUserSlices = true;
+        enableRootSlice = true;
+      };
+      services.sshd.serviceConfig.MemoryMin = "100M";
+    };
   };
 
   options.syde = {

@@ -65,7 +65,7 @@ Load.later(function()
                 telemetry = { enable = false },
             },
         },
-        on_attach = function(client, bufnr)
+        on_attach = function(_, bufnr)
             -- Deal with the fact that LuaLS in case of `local a = function()` style
             -- treats both `a` and `function()` as definitions of `a`.
             local filter_line_locations = function(locations)
@@ -210,6 +210,7 @@ Load.later(function()
             end, 'open [p]df')
             nmap('<leader>lw', function()
                 local main_file = vim.api.nvim_buf_get_name(bufnr)
+                ---@diagnostic disable-next-line: missing-fields the `title` argument is in fact not necessary.
                 client:exec_cmd({ command = 'tinymist.pinMain', arguments = { main_file } })
                 vim.notify('Pinned to ' .. main_file, vim.log.levels.INFO)
                 local pdf = main_file:gsub('%.typ$', '.pdf')
@@ -243,7 +244,7 @@ Load.later(function()
             nmap('<leader>r', vim.lsp.buf.rename, 'Rename')
             nmap('<leader>e', vim.lsp.buf.hover, 'hover documentation')
             nmap('<leader>a', vim.lsp.buf.code_action, 'code actions')
-            nmap('<C-e>', vim.diagnostic.open_float, 'hover [d]iagnostics')
+            nmap('<C-e>', vim.diagnostic.open_float, 'hover diagnostics')
             imap('<C-s>', vim.lsp.buf.signature_help, 'Signature Help')
             nmap('<leader>lf', vim.lsp.buf.format, 'LSP format')
             nmap('<leader>=', Config.format, 'Format code')
@@ -251,8 +252,8 @@ Load.later(function()
             Load.now(function()
                 require('lspsaga')
                 nmap('<leader>e', function() vim.cmd.Lspsaga('hover_doc') end, 'hover documentation')
-                nmap('<leader>a', function() vim.cmd.Lspsaga('code_action') end, 'code [a]ctions')
-                nmap('<leader>r', function() vim.cmd.Lspsaga('rename') end, 'LSP [r]ename')
+                nmap('<leader>a', function() vim.cmd.Lspsaga('code_action') end, 'code actions')
+                nmap('<leader>r', function() vim.cmd.Lspsaga('rename') end, 'LSP rename')
             end)
         end,
     })

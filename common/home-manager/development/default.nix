@@ -12,11 +12,26 @@ let
     mkMerge
     mkIf
     ;
-  cfg = config.syde.programming;
+  cfg = config.syde.development;
 in
 {
   config = mkMerge [
     {
+      home = {
+        packages = with pkgs; [
+          gnumake # for Makefiles
+          just # alternative to `gnumake`
+
+          git-crypt
+          glab
+
+          kattis-cli
+          kattis-test
+        ];
+
+        sessionVariables.DIRENV_LOG_FORMAT = "";
+      };
+
       programs = {
         # Terminal Editors
         helix.enable = false;
@@ -29,7 +44,7 @@ in
         };
       };
 
-      syde.programming = {
+      syde.development = {
         bash.enable = true;
         cpp.enable = false;
         gleam.enable = false;
@@ -46,15 +61,6 @@ in
         typst.enable = true;
         zig.enable = true;
       };
-      home.sessionVariables.DIRENV_LOG_FORMAT = "";
-
-      home.packages = with pkgs; [
-        gnumake # for Makefiles
-        just # alternative to `gnumake`
-
-        kattis-cli
-        kattis-test
-      ];
     }
 
     (mkIf cfg.bash.enable {
@@ -242,7 +248,7 @@ in
     })
   ];
 
-  options.syde.programming = {
+  options.syde.development = {
     bash.enable = mkEnableOption "Bash tools";
 
     cpp.enable = mkEnableOption "C++ tools";

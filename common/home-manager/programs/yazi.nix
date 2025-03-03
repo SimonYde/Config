@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -10,6 +11,12 @@ in
 {
 
   config = mkIf cfg.enable {
+    programs.neovim.plugins = [
+      {
+        plugin = pkgs.vimPlugins.yazi-nvim;
+        optional = true;
+      }
+    ];
     programs.yazi = {
       enableBashIntegration = true;
       enableFishIntegration = true;

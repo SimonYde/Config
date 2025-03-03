@@ -1,37 +1,48 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkIf mkDefault mkEnableOption;
-  cfg = config.syde.laptop;
+  inherit (lib) getExe mkDefault;
+  inherit (config.syde) user;
 in
 {
-  config = mkIf cfg.enable {
-    # services.libinput = {
-    #   enable = true;
-    #   touchpad = {
-    #     disableWhileTyping = true;
-    #     naturalScrolling = true;
-    #     middleEmulation = true;
-    #     tapping = true;
-    #   };
-    # };
+  hardware = {
+    bluetooth = {
+      enable = mkDefault true;
+      powerOnBoot = mkDefault false;
+    };
 
-    powerManagement.cpuFreqGovernor = "powersave";
-
-    hardware = {
-      bluetooth = {
-        enable = mkDefault true;
-        powerOnBoot = mkDefault false;
-      };
-
-      nvidia = {
-        powerManagement.enable = true;
-        powerManagement.finegrained = true;
-      };
+    nvidia = {
+      powerManagement.enable = true;
+      powerManagement.finegrained = true;
     };
   };
 
-  options.syde.laptop = {
-    enable = mkEnableOption "laptop hardware configuration.";
+  home-manager.users.${user} = {
+    services.hypridle.settings.listener =
+      let
+        brightnessctl = getExe pkgs.brightnessctl;
+      in
+      [
+        {
+          timeout = 180;
+          on-timeout = "${brightnessctl} -s s 50%-";
+          on-resume = "${brightnessctl} -r";
+        }
+        {
+          timeout = 360;
+          on-timeout = "loginctl lock-session";
+          on-resume = "";
+        }
+        {
+          timeout = 900;
+          on-timeout = "systemctl suspend";
+          on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
+        }
+      ];
   };
 }

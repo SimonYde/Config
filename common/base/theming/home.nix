@@ -49,6 +49,7 @@ in
   home.sessionVariables.GTK_THEME = config.gtk.theme.name;
 
   programs = {
+    helix.settings = lib.mkForce { }; # NOTE: This is here so stylix does not mess with my settings
 
     git.difftastic.background = colors.variant;
 

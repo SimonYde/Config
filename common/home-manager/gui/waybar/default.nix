@@ -28,11 +28,13 @@ in
 
           "sway/workspaces"
           "sway/mode"
-        ];
-        modules-center = [
+
+          "custom/separator#blank"
+          "custom/separator#blank"
           "hyprland/window"
           "sway/window"
         ];
+        modules-center = [ ];
         modules-right = [
           "pulseaudio"
           "disk"

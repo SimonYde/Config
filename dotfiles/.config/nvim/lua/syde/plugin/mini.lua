@@ -1,38 +1,5 @@
 local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 
-Load.now(function()
-    require('mini.sessions').setup()
-
-    require('mini.files').setup({
-        mappings = {
-            close = 'q',
-            go_in = 'i',
-            go_in_plus = 'I',
-            go_out = 'm',
-            go_out_plus = 'M',
-            mark_goto = "'",
-            mark_set = 'h',
-            reset = '<BS>',
-            reveal_cwd = '@',
-            show_help = 'g?',
-            synchronize = '=',
-            trim_left = '<',
-            trim_right = '>',
-        },
-    })
-
-    nmap('<M-f>', function() MiniFiles.open() end, 'Show `mini.files`')
-    nmap('<M-F>', function()
-        local file_name = vim.api.nvim_buf_get_name(0)
-        if vim.uv.fs_stat(file_name) then
-            MiniFiles.open(file_name)
-        else
-            vim.notify('Current buffer is not a file... opening mini.files in CWD', vim.log.levels.WARN)
-            MiniFiles.open()
-        end
-    end, 'Show current file in `mini.files`')
-end)
-
 Load.later(function()
     require('mini.align').setup()
     require('mini.bracketed').setup({ n_lines = 500 })
@@ -74,7 +41,7 @@ Load.later(function()
     nmap('<M-t>', function()
         MiniTrailspace.trim()
         MiniTrailspace.trim_last_lines()
-    end, 'Clean [t]railing whitespace')
+    end, 'Clean trailing whitespace')
 
     nxmap('<leader>gg', MiniGit.show_at_cursor, 'Show git info at cursor')
 end)
