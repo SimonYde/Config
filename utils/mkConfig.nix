@@ -63,6 +63,7 @@ let
       hostname = "${hostname}-wsl";
       extraModules = [ ../common/wsl.nix ];
     };
+
   mkHome =
     {
       username,

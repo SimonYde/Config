@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib) mkDefault mkIf;
   inherit (config.syde) user;
 in
 {
@@ -43,9 +43,20 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    git
-    helvum
+  environment.systemPackages =
+    with pkgs;
+    [
+      git
+      helvum
+    ]
+    ++ lib.optionals config.services.ratbagd.enable [
+      piper
+    ];
+
+  programs.wireshark.package = pkgs.wireshark;
+
+  users.users.${user}.extraGroups = [
+    (mkIf config.programs.wireshark.enable "wireshark")
   ];
 
   i18n.extraLocaleSettings = {
@@ -100,13 +111,17 @@ in
 
     # Sound
     pulseaudio.enable = false;
+
     pipewire = {
       enable = true;
       wireplumber.enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
+
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
     };
   };
 

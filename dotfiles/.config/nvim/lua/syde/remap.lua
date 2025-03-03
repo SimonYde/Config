@@ -51,11 +51,10 @@ Load.later(function()
     nxmap('<leader>y', [["+y]], 'yank to system clipboard')
     nmap('<leader>Y', [["+Y]], 'yank end-of-line to system clipboard')
 
-    xmap('<leader>p', [["_dP]], '[p]aste without yanking')
-    nxmap('<M-d>', [["_d]], '[d]elete without yanking')
-    nxmap('<M-c>', [["_c]], '[c]hange without yanking')
+    xmap('<leader>p', [["_dP]], 'Paste without yanking')
+    nxmap('<M-d>', [["_d]], 'Delete without yanking')
+    nxmap('<M-c>', [["_c]], 'Change without yanking')
 
-    nmap('gF', '<cmd>:e <cfile><CR>', "Goto [F]ile (even if doesn't exist)")
     nmap('gX', 'gx', 'Open link')
 
     nmap(

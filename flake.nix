@@ -34,6 +34,11 @@
       };
     };
 
+    zen-browser = {
+      url = "https://github.com/zen-browser/desktop/releases/latest/download/zen-x86_64.AppImage";
+      flake = false;
+    };
+
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs = {
@@ -82,8 +87,10 @@
 
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
     };
     mini-nvim = {
       url = "github:echasnovski/mini.nvim";
@@ -113,10 +120,12 @@
     };
     stylix = {
       url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-      inputs.tinted-schemes.follows = "tinted-schemes";
-      inputs.nur.follows = "nur";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        tinted-schemes.follows = "tinted-schemes";
+        nur.follows = "nur";
+      };
     };
 
     # My flakes

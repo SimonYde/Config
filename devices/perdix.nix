@@ -12,6 +12,8 @@ in
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../common/desktop.nix
+    ../common/nixos/hardware/laptop.nix
+    ../common/nixos/hyprland.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -19,8 +21,6 @@ in
 
   # Personal configurations
   syde = {
-    laptop.enable = true;
-
     gaming = {
       enable = true;
       specialisation = true;
@@ -38,14 +38,10 @@ in
   programs = {
     nix-ld.enable = true;
     wireshark.enable = true;
-    nh.enable = true;
     hyprland.enable = true;
   };
 
   services = {
-    desktopManager.cosmic.enable = false;
-    displayManager.cosmic-greeter.enable = false;
-
     tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscale.path;
@@ -53,7 +49,48 @@ in
 
     syncthing.enable = true;
 
-    kanata.enable = true;
+    kanata = {
+      enable = true;
+
+      keyboards.laptop-keyboard = {
+        config = # lisp
+          ''
+            (defsrc
+              caps a s d f j k l ;
+            )
+            (defvar
+              tap-time 250
+              hold-time 250
+              shift-time 180
+            )
+
+            (defalias
+              a (tap-hold $tap-time $hold-time a lmet)
+              s (tap-hold $tap-time $hold-time s lalt)
+              d (tap-hold $tap-time $hold-time d lctl)
+              f (tap-hold $shift-time $shift-time f lsft)
+
+              j (tap-hold $shift-time $shift-time j rsft)
+              k (tap-hold $tap-time $hold-time k lctl)
+              l (tap-hold $tap-time $hold-time l lalt)
+              ; (tap-hold $tap-time $hold-time ; rmet)
+            )
+
+            (deflayer default-layer
+              esc @a @s @d @f @j @k @l @;
+            )
+          '';
+        extraDefCfg = "process-unmapped-keys yes";
+        devices = [
+          "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+        ];
+      };
+    };
+
+    xserver.xkb = {
+      layout = "us(colemak_dh),dk";
+      options = "caps:escape,grp:rctrl_toggle";
+    };
   };
 
   networking.wireguard.enable = true;
@@ -74,48 +111,18 @@ in
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   home-manager.users.${user} = {
-
-    home.keyboard = {
-      layout = "us(colemak_dh),dk";
-      options = [
-        "caps:escape"
-        "grp:rctrl_toggle"
-      ];
-    };
-
-    wayland.windowManager.hyprland.enable = true;
-
-    services.hypridle =
+    services.hypridle.settings.listener =
       let
         brightnessctl = lib.getExe pkgs.brightnessctl;
       in
-      {
-        settings = {
-          listener = [
-            {
-              timeout = 60;
-              # NOTE: name of device is specific for this device
-              on-timeout = "${brightnessctl} -sd platform::kbd_backlight set 0";
-              on-resume = "${brightnessctl} -rd platform::kbd_backlight";
-            }
-            {
-              timeout = 180;
-              on-timeout = "${brightnessctl} -s s 50%-";
-              on-resume = "${brightnessctl} -r";
-            }
-            {
-              timeout = 360;
-              on-timeout = "loginctl lock-session";
-              on-resume = "";
-            }
-            {
-              timeout = 900;
-              on-timeout = "systemctl suspend";
-              on-resume = "${pkgs.hyprland}/bin/hyprctl dispatch dpms on";
-            }
-          ];
-        };
-      };
-
+      [
+        # Turn off keyboard backlight on idle.
+        {
+          timeout = 60;
+          # NOTE: name of device is specific for this device
+          on-timeout = "${brightnessctl} -sd platform::kbd_backlight set 0";
+          on-resume = "${brightnessctl} -rd platform::kbd_backlight";
+        }
+      ];
   };
 }

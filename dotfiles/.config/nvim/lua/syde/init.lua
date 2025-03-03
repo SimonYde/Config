@@ -1,8 +1,9 @@
--- _G.DEBUG = true
+_G.Config = {}
+
 require('syde.load')
+require('syde.colorscheme')
 require('syde.options')
 require('syde.remap')
-require('syde.colorscheme')
 
 require('syde.plugin.mini')
 require('syde.plugin.snacks')
@@ -17,9 +18,17 @@ Load.later(function()
     Load.packadd('trouble.nvim')
     require('trouble').setup()
 
-    nmap('<leader>td', function() vim.cmd('Trouble diagnostics toggle') end, 'Toggle trouble diagnostics')
-    nmap('<leader>tt', function() vim.cmd('Trouble todo toggle') end, 'Toggle trouble todos')
-    nmap('<leader>tq', function() vim.cmd('Trouble qflist toggle') end, 'Toggle trouble quickfix')
+    nmap('<leader>td', function() vim.cmd.Trouble('diagnostics toggle') end, 'Toggle trouble diagnostics')
+    nmap('<leader>tt', function() vim.cmd.Trouble('todo toggle') end, 'Toggle trouble todos')
+    nmap('<leader>tq', function() vim.cmd.Trouble('qflist toggle') end, 'Toggle trouble quickfix')
+end)
+
+Load.later(function()
+    Load.packadd('yazi.nvim')
+    local yazi = require('yazi')
+    yazi.setup()
+    nmap('<M-f>', function() vim.cmd.Yazi('cwd') end, 'Show `cwd` in Yazi')
+    nmap('<M-F>', function() vim.cmd.Yazi() end, 'Show current file in Yazi')
 end)
 
 --- @diagnostic disable-next-line: missing-parameter
@@ -43,17 +52,17 @@ Load.later(function()
     Load.packadd('nvim-ufo')
     _G.Ufo = require('ufo')
 
-    --- @diagnostic disable: missing-fields
+    --- @diagnostic disable-next-line: missing-fields
     Ufo.setup({
         open_fold_hl_timeout = 0,
         provider_selector = function(_, _, _) return { 'treesitter', 'indent' } end,
-        --- @diagnostic disable: assign-type-mismatch
         close_fold_kinds_for_ft = {
             rust = {
-                'function_item',
+                'function_item', --- @diagnostic disable-line: assign-type-mismatch
             },
         },
     })
+
     nmap('zR', Ufo.openAllFolds, 'Open all folds (nvim-ufo)')
     nmap('zM', Ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
     vim.o.foldlevel = 500 -- NOTE: must be set high as to avoid auto-closing
@@ -86,6 +95,7 @@ Load.later(function()
         if diffview_is_open then
             diffview.close()
         else
+            ---@diagnostic disable-next-line: missing-parameter
             diffview.open()
         end
         diffview_is_open = not diffview_is_open
@@ -95,6 +105,7 @@ end)
 Load.later(function()
     Load.packadd('neogit')
     local neogit = require('neogit')
+
     neogit.setup({
         integrations = {
             diffview = true,
@@ -102,6 +113,7 @@ Load.later(function()
             mini_pick = false,
         },
     })
+
     nmap('<leader>gs', function() neogit.open() end, 'Neogit status')
     nmap('<leader>gw', function() neogit.open({ 'worktree' }) end, 'Neogit worktree')
     nmap('<leader>gc', function() neogit.open({ 'commit' }) end, 'Neogit commit')
@@ -109,6 +121,7 @@ end)
 
 Load.later(function()
     local whichkey = require('which-key')
+
     whichkey.setup({
         preset = 'modern',
         disable = {
@@ -117,9 +130,11 @@ Load.later(function()
         triggers = {
             { '<auto>', mode = 'nisotc' },
             { 's', mode = { 'n', 'v' } },
+            { 'c', mode = { 'n', 'v' } },
             { 'S', mode = { 'n', 'v' } },
         },
     })
+
     whichkey.add({
         { '<leader>d', group = 'Debug' },
         { '<leader>f', group = 'Find' },
@@ -134,7 +149,7 @@ end)
 
 Load.on_events(function()
     local lazydev = require('lazydev')
-    --- @diagnostic disable: missing-fields
+    --- @diagnostic disable-next-line: missing-fields
     lazydev.setup({
         runtime = vim.env.VIMRUNTIME,
         integrations = {
@@ -172,9 +187,12 @@ end)
 Load.later(function()
     Load.packadd('nvim-dap')
     Load.packadd('nvim-dap-ui')
+
     local dap, dapui = require('dap'), require('dapui')
     local widgets = require('dap.ui.widgets')
+
     dapui.setup()
+
     dap.listeners.before.attach.dapui_config = function() dapui.open() end
     dap.listeners.before.launch.dapui_config = function() dapui.open() end
     dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
@@ -214,15 +232,18 @@ Load.later(function()
         },
         notes_subdir = 'notes',
         new_notes_location = 'notes_subdir',
+        --- @diagnostic disable-next-line: missing-fields
         completion = {
             nvim_cmp = true,
             min_chars = 2,
         },
+        --- @diagnostic disable-next-line: missing-fields
         templates = {
             subdir = 'templates',
             date_format = '%Y-%m-%d-%a',
             time_format = '%H:%M',
         },
+        --- @diagnostic disable-next-line: missing-fields
         daily_notes = {
             -- Optional, if you keep daily notes in a separate directory.
             folder = 'reviews/Daily Notes',
@@ -239,6 +260,7 @@ Load.later(function()
         follow_url_func = function(url) vim.ui.open(url) end,
         follow_img_func = function(img) vim.ui.open(img) end,
 
+        --- @diagnostic disable-next-line: missing-fields
         attachments = {
             img_folder = 'attachments',
         },

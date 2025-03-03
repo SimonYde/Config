@@ -25,10 +25,10 @@ Load.now(function()
             },
         },
         image = {
-            doc = {
-                inline = false,
-                conceal = false,
-            },
+            -- doc = {
+            --     inline = false,
+            --     conceal = false,
+            -- },
         },
         dashboard = {
             preset = {
@@ -186,6 +186,7 @@ Load.later(function()
     ---@diagnostic disable-next-line: missing-fields
     nmap('<leader>/', function() picker.grep({ hidden = true }) end, 'Global search with grep')
     nmap("<leader>'", picker.resume, 'Resume last picker')
+    nmap('<leader>*', function() picker.grep_word({ hidden = true }) end, 'Grep word across files')
     nmap('gr', picker.lsp_references, 'Goto references')
     nmap('gi', picker.lsp_implementations, 'Goto implementations')
     nmap('gd', picker.lsp_definitions, 'Goto definitions')

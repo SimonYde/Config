@@ -64,27 +64,6 @@ let
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      # Applications
-      (lutris.override {
-        extraPkgs = pkgs: [
-          pkgs.wineWowPackages.staging
-          pkgs.wineWowPackages.fonts
-          pkgs.winetricks
-        ];
-      })
-      mangohud
-      r2modman
-      heroic
-      bottles
-      prismlauncher
-
-      # ---Wine and Wine Dependencies---
-      wineWowPackages.staging
-      wineWowPackages.fonts
-      winetricks
-    ];
-
     powerManagement.cpuFreqGovernor = mkForce "performance";
 
     home-manager.users.${config.syde.user}.imports = [ ../home-manager/gaming.nix ];

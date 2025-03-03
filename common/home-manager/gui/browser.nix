@@ -22,9 +22,13 @@ let
     meta = { };
   };
 
+  zen-browser = pkgs.callPackage ./zen-browser.nix { src = inputs.zen-browser; };
+
   inherit (config.home) username;
 in
 {
+  home.packages = [ zen-browser ];
+
   xdg.mimeApps.defaultApplications = {
     "x-scheme-handler/http" = "${browser}.desktop";
     "x-scheme-handler/https" = "${browser}.desktop";
@@ -140,8 +144,12 @@ in
           "NixOS Wiki" = {
             urls = [
               {
-                template = "https://nixos.wiki/index.php";
+                template = "https://wiki.nixos.org/w/index.php";
                 params = [
+                  {
+                    name = "title";
+                    value = "Special:Search";
+                  }
                   {
                     name = "search";
                     value = "{searchTerms}";
@@ -149,8 +157,7 @@ in
                 ];
               }
             ];
-            iconUpdateURL = "https://nixos.wiki/favicon.png";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@nw" ];
           };
           "Youtube" = {
@@ -251,15 +258,12 @@ in
         packages = with firefox-addons; [
           # ---Privacy---
           ublock-origin
-          cookie-autodelete
           istilldontcareaboutcookies
           noscript
 
           # ---Workflow---
           sponsorblock
-          export-cookies-txt
           multi-account-containers
-          news-feed-eradicator
           lastpass-password-manager
           proton-pass
           vimium

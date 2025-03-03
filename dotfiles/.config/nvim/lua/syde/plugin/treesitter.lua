@@ -71,13 +71,13 @@ Load.later(function()
     context.setup()
     local nmap = Keymap.nmap
 
-    nmap('<leader><leader>t', context.toggle, 'toggle [t]reesitter context')
+    nmap('<leader><leader>t', context.toggle, 'Toggle treesitter context')
 
     Snacks.toggle
         .new({
             name = 'Treesitter context',
             get = function() return context.enabled() end,
-            set = function(state) context.toggle() end,
+            set = function(_) context.toggle() end,
         })
         :map('<leader><leader>t')
 end)

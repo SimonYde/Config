@@ -19,10 +19,10 @@ Load.later(function()
         },
         signature = { enabled = true },
         fuzzy = {
-            prebuilt_binaries = {
-                download = false,
-                force_version = '',
-            },
+            -- prebuilt_binaries = {
+            --     download = false,
+            --     force_version = '',
+            -- },
         },
         snippets = {
             expand = function(snippet)

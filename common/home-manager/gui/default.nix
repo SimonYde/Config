@@ -1,12 +1,14 @@
 {
   lib,
-  config,
   pkgs,
+  config,
   ...
-}:
+}@args:
+
 let
   inherit (lib)
     mkDefault
+    mkIf
     mkOption
     types
     ;
@@ -19,6 +21,7 @@ in
     ./terminal.nix
 
     ./discord.nix
+    ./gammastep.nix
     ./mpv.nix
     ./rofi
     ./spicetify.nix
@@ -68,6 +71,16 @@ in
         todoist-electron
         zotero
       ];
+
+      keyboard = mkIf (args ? osConfig) (
+        let
+          inherit (args.osConfig.services.xserver.xkb) layout variant options;
+        in
+        {
+          inherit layout variant;
+          options = lib.splitString "," options;
+        }
+      );
 
       sessionVariables.TERMINAL = terminal;
     };
