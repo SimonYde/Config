@@ -65,7 +65,7 @@ in
       "$browser" = browser;
       "$file-manager" = getExe file-manager.package;
       "$menu" = "${getExe config.programs.rofi.package} -show drun";
-      "$terminal" = terminal;
+      "$terminal" = terminal.name;
       "$mod" = "SUPER";
 
       general = with colors; {

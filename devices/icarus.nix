@@ -1,6 +1,7 @@
 {
   pkgs,
   username,
+  lib,
   ...
 }:
 {
@@ -29,25 +30,15 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
-    loader.systemd-boot.windows = {
-      "11-home" = {
-        title = "Windows 11 Home";
-        efiDeviceHandle = "HD0b";
-      };
+    loader.systemd-boot.windows."11-home" = {
+      title = "Windows 11 Home";
+      efiDeviceHandle = "HD0b";
     };
-
-    initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
-      "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
   };
 
   console = {
-    font = "ter-i32b";
+    font = lib.mkForce "ter-i32b";
     earlySetup = true;
-  };
-
-  programs = {
-    nh.enable = true;
-    hyprland.enable = true;
   };
 
   services = {
@@ -61,6 +52,8 @@
   networking.wireguard.enable = true;
 
   # Filesystems
+  boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
+    "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/157E-B4A5";
     fsType = "vfat";
@@ -75,12 +68,12 @@
     fsType = "ext4";
   };
 
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 48 * 1024;
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     device = "/var/lib/swapfile";
+  #     size = 48 * 1024;
+  #   }
+  # ];
 
   home-manager.users.${username} = {
 

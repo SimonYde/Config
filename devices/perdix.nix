@@ -35,9 +35,7 @@
   };
 
   programs = {
-    nix-ld.enable = true;
     wireshark.enable = true;
-    hyprland.enable = true;
     partition-manager.enable = true;
   };
 

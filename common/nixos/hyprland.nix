@@ -12,6 +12,12 @@ in
 {
   home-manager.users.${username}.imports = [ ../home-manager/gui/hyprland ];
 
+  programs.hyprland.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    hyprland-qtutils
+  ];
+
   services.blueman.enable = config.hardware.bluetooth.enable;
 
   services.greetd = {
@@ -35,10 +41,6 @@ in
     QT_AUTO_SCREEN_SCALE_FACTOR = 1;
     NIXOS_OZONE_WL = 1;
   };
-
-  environment.systemPackages = with pkgs; [
-    hyprland-qtutils
-  ];
 
   systemd.user.services.hyprpolkitagent = mkIf config.security.polkit.enable {
     description = "hyprpolkitagent";
