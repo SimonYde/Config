@@ -2,6 +2,7 @@
   config,
   inputs,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -43,6 +44,14 @@
     opacity = {
       terminal = 0.85;
       popups = 0.70;
+    };
+  };
+
+  specialisation."light-theme".configuration = {
+    environment.etc."light-theme".text = "light-theme";
+    stylix = {
+      base16Scheme = lib.mkForce "${inputs.tinted-schemes}/base16/gruvbox-light-hard.yaml";
+      override = lib.mkForce { };
     };
   };
 }

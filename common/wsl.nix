@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  username,
   ...
 }:
 {
@@ -14,7 +15,7 @@
 
   wsl = {
     enable = true;
-    defaultUser = config.syde.user;
+    defaultUser = username;
     startMenuLaunchers = false;
     useWindowsDriver = true;
 

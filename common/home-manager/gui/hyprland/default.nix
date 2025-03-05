@@ -17,10 +17,7 @@ let
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
 in
 {
-  imports = [
-    ./hyprlock.nix
-    ./hyprpaper.nix
-  ];
+  imports = [ ./random-wallpaper.nix ];
 
   home.packages = with pkgs; [
     hyprland-gamemode # disable hyprland animations for games
@@ -50,25 +47,7 @@ in
 
     gammastep.enable = true;
 
-    hypridle = {
-      enable = true;
-
-      settings = {
-        general = {
-          after_sleep_cmd = "hyprctl dispatch dpms on";
-          before_sleep_cmd = "loginctl lock-session";
-          ignore_dbus_inhibit = false;
-        };
-        listener = [
-          {
-            timeout = 360;
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
-          }
-        ];
-      };
-    };
-
+    hypridle.enable = true;
     hyprpaper.enable = true;
     swaync.enable = true;
     swayosd.enable = true;
@@ -107,55 +86,63 @@ in
     '';
   };
 
-  systemd.user = {
-    timers = {
-      hyprsunset-night = {
-        Unit = {
-          Description = "Enable Hyprsunset blue-light filter";
-          PartOf = [ "hyprland-session.target" ];
-          After = [ "hyprland-session.target" ];
-        };
-        Timer = {
-          OnCalendar = "21:00:00";
-          Unit = "hyprsunset-night.service";
-          Persistent = true;
-        };
-        Install.WantedBy = [ "hyprland-session.target" ];
-      };
-      hyprsunset-day = {
-        Unit = {
-          Description = "Disable Hyprsunset blue-light filter";
-          PartOf = [ "hyprland-session.target" ];
-          After = [ "hyprland-session.target" ];
-        };
-        Timer = {
-          OnCalendar = "06:00:00";
-          Unit = "hyprsunset-day.service";
-          Persistent = true;
-        };
-        Install.WantedBy = [ "hyprland-session.target" ];
-      };
+  programs.hyprlock.settings = {
+    general = {
+      disable_loading_bar = false;
+      ignore_empty_input = true;
+      grace = 2;
+      hide_cursor = true;
+      no_fade_in = false;
     };
+    background = mkForce {
+      monitor = "";
+      path = "screenshot";
+      blur_passes = 3;
+      blur_size = 8;
+    };
+    input-field = {
+      monitor = "";
+      size = "200, 50";
+      outline_thickness = 2;
+      dots_center = true;
+      fade_on_empty = true;
+      placeholder_text = "<i>Password...</i>";
+      position = "0, -80";
+      shadow_passes = 2;
+    };
+    label = {
+      monitor = "";
+      text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
+      text_align = "center";
+      color = "rgb(${colors.base05})";
+      font_size = 45;
+      font_family = config.stylix.fonts.sansSerif.name;
+      rotate = 0;
+      position = "0, 80";
+      halign = "center";
+      valign = "center";
+      shadow_passes = 2;
+    };
+  };
 
+  services.hypridle.settings = {
+    general = {
+      lock_cmd = "pidof hyprlock || hyprlock";
+      after_sleep_cmd = "hyprctl dispatch dpms on";
+      before_sleep_cmd = "loginctl lock-session";
+      ignore_dbus_inhibit = false;
+    };
+    listener = [
+      {
+        timeout = 360;
+        on-timeout = "hyprctl dispatch dpms off";
+        on-resume = "hyprctl dispatch dpms on";
+      }
+    ];
+  };
+
+  systemd.user = {
     services = {
-      hyprsunset-night = {
-        Unit.Description = "Hyprsunset - nighttime";
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${getExe pkgs.hyprsunset} -t 1800";
-        };
-      };
-
-      hyprsunset-day = {
-        Unit = {
-          Description = "Hyprsunset - daytime";
-        };
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${getExe pkgs.hyprsunset} --identity";
-        };
-      };
-
       hyprland-autoname-workspaces = {
         Unit = {
           Description = "hyprland-autoname-workspaces";

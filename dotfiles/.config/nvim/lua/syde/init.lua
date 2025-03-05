@@ -58,7 +58,10 @@ Load.later(function()
         provider_selector = function(_, _, _) return { 'treesitter', 'indent' } end,
         close_fold_kinds_for_ft = {
             rust = {
-                'function_item', --- @diagnostic disable-line: assign-type-mismatch
+                'function_item',
+            },
+            nix = {
+                'indented_string_expression',
             },
         },
     })
@@ -130,7 +133,6 @@ Load.later(function()
         triggers = {
             { '<auto>', mode = 'nisotc' },
             { 's', mode = { 'n', 'v' } },
-            { 'c', mode = { 'n', 'v' } },
             { 'S', mode = { 'n', 'v' } },
         },
     })

@@ -1,13 +1,12 @@
 {
   lib,
-  config,
   pkgs,
+  username,
   ...
 }:
 
 let
   inherit (lib) getExe mkDefault;
-  inherit (config.syde) user;
 in
 {
   hardware = {
@@ -22,7 +21,7 @@ in
     };
   };
 
-  home-manager.users.${user} = {
+  home-manager.users.${username} = {
     services.hypridle.settings.listener =
       let
         brightnessctl = getExe pkgs.brightnessctl;

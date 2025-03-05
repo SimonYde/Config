@@ -2,15 +2,15 @@
   config,
   lib,
   pkgs,
+  username,
   ...
 }:
 let
   inherit (lib) mkIf getExe;
-  inherit (config.syde) user;
   command = getExe config.programs.hyprland.package;
 in
 {
-  home-manager.users.${user}.imports = [ ../home-manager/gui/hyprland ];
+  home-manager.users.${username}.imports = [ ../home-manager/gui/hyprland ];
 
   services.blueman.enable = config.hardware.bluetooth.enable;
 
@@ -21,7 +21,8 @@ in
       default_session.command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${command}";
 
       initial_session = {
-        inherit command user;
+        inherit command;
+        user = username;
       };
     };
   };
@@ -32,6 +33,7 @@ in
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
     QT_AUTO_SCREEN_SCALE_FACTOR = 1;
+    NIXOS_OZONE_WL = 1;
   };
 
   environment.systemPackages = with pkgs; [

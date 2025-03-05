@@ -33,14 +33,32 @@ in
       };
 
       programs = {
-        # Terminal Editors
-        helix.enable = false;
-        neovim.enable = true;
-
-        gh.enable = true;
         direnv = {
           enable = true;
           nix-direnv.enable = true;
+        };
+
+        gh = {
+          enable = true;
+          settings.git_protocol = "ssh";
+        };
+
+        git.difftastic = {
+          enable = true;
+          display = "inline";
+        };
+
+        lazygit.enable = true;
+
+        jujutsu = {
+          enable = true;
+
+          settings = {
+            user = {
+              name = "Simon Yde";
+              email = "git@simonyde.com";
+            };
+          };
         };
       };
 
@@ -180,11 +198,6 @@ in
             scipy
             matplotlib
             debugpy
-            pycryptodome
-
-            # CTF
-            randcrack
-            pwntools
           ]
         ))
       ];

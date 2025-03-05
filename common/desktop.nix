@@ -1,28 +1,27 @@
 {
   pkgs,
   lib,
-  inputs,
   config,
+  username,
   ...
 }:
 let
   inherit (lib) mkDefault mkIf;
-  inherit (config.syde) user;
 in
 {
 
   imports = [
     ./base/theming/nixos.nix
     ./nixos
-    inputs.stylix.nixosModules.stylix
   ];
 
-  home-manager.users.${user}.imports = [ ./home-manager/gui ];
+  home-manager.users.${username}.imports = [ ./home-manager/gui ];
 
   boot = {
     plymouth.enable = true;
     consoleLogLevel = 3;
     kernelParams = [ "quiet" ];
+    supportedFilesystems = [ "ntfs" ];
 
     initrd.availableKernelModules = [
       "nvme"
@@ -32,8 +31,6 @@ in
       "sd_mod"
     ];
 
-    supportedFilesystems = [ "ntfs" ];
-
     loader = {
       systemd-boot = {
         enable = true;
@@ -41,6 +38,12 @@ in
       };
       efi.canTouchEfiVariables = true;
     };
+  };
+
+  console = {
+    useXkbConfig = true;
+    font = mkDefault "ter-i28b";
+    packages = [ pkgs.terminus_font ];
   };
 
   environment.systemPackages =
@@ -55,7 +58,7 @@ in
 
   programs.wireshark.package = pkgs.wireshark;
 
-  users.users.${user}.extraGroups = [
+  users.users.${username}.extraGroups = [
     (mkIf config.programs.wireshark.enable "wireshark")
   ];
 
@@ -71,13 +74,9 @@ in
     LC_TIME = "da_DK.UTF-8";
   };
 
-  console = {
-    useXkbConfig = true;
-    font = mkDefault "ter-i24b";
-    packages = [ pkgs.terminus_font ];
-  };
-
   networking = {
+    useDHCP = mkDefault true;
+
     firewall = {
       enable = true;
       allowedTCPPorts = [
@@ -85,11 +84,10 @@ in
         443 # HTTPS
       ];
     };
-    useDHCP = mkDefault true;
+
     networkmanager = {
       enable = true;
       wifi = {
-        powersave = false;
         macAddress = "random";
       };
     };
@@ -108,9 +106,6 @@ in
 
   services = {
     udisks2.enable = true;
-
-    # Sound
-    pulseaudio.enable = false;
 
     pipewire = {
       enable = true;
