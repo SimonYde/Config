@@ -12,6 +12,7 @@ let
     mkIf
     mkMerge
     mkOption
+    mkPackageOption
     types
     ;
   inherit (config.syde.gui) file-manager terminal;
@@ -119,10 +120,12 @@ in
           pkgs.libnotify
 
           file-manager.package
+          terminal.package
         ];
 
+        sessionVariables.TERMINAL = terminal.name;
+
         shellAliases.ex = getExe file-manager.package;
-        sessionVariables.TERMINAL = terminal;
       };
 
       programs.nushell.shellAliases.ex = getExe file-manager.package;
@@ -171,7 +174,8 @@ in
 
         rofi = {
           package = pkgs.rofi-wayland;
-          terminal = getExe pkgs.${terminal};
+          terminal = getExe terminal.package;
+
           extraConfig = {
             modi = "run,drun";
             icon-theme = "Oranchelo";
@@ -183,6 +187,7 @@ in
             display-drun = "  Apps ";
             display-run = "  Run ";
           };
+
           plugins = with pkgs; [
             rofi-emoji-wayland
           ];
@@ -248,196 +253,209 @@ in
 
         waybar = {
           systemd.enable = true;
-          settings = {
-            mainBar = {
-              layer = "top";
-              position = "top";
-              passthrough = false;
-              exclusive = true;
-              fixed-center = true;
-              spacing = 0;
-              output = [ "*" ];
-              modules-left = [
-                "hyprland/workspaces"
-                "hyprland/submap"
 
-                "sway/workspaces"
-                "sway/mode"
+          settings.mainBar = {
+            layer = "top";
+            position = "top";
+            passthrough = false;
+            exclusive = true;
+            fixed-center = true;
+            spacing = 0;
+            output = [ "*" ];
 
-                "custom/separator#blank"
-                "custom/separator#blank"
-                "hyprland/window"
-                "sway/window"
+            modules-left = [
+              "hyprland/workspaces"
+              "hyprland/submap"
+
+              "sway/workspaces"
+              "sway/mode"
+
+              "custom/separator#blank"
+              "custom/separator#blank"
+              "hyprland/window"
+              "sway/window"
+            ];
+
+            modules-center = [ ];
+
+            modules-right = [
+              "pulseaudio"
+              "disk"
+              "memory"
+              "cpu"
+              "battery"
+              "custom/separator#blank"
+              "tray"
+              "custom/separator#blank"
+              "clock"
+              "idle_inhibitor"
+              "custom/swaync"
+            ];
+
+            idle_inhibitor = {
+              format = " {icon} ";
+              format-icons = {
+                deactivated = "󰌶";
+                activated = "󰛨";
+              };
+            };
+
+            # module definitions
+            disk = {
+              format = " {free} 󰋊 ";
+              path = "/";
+            };
+
+            memory = {
+              format = " {}% 󰍛 ";
+            };
+
+            cpu = {
+              format = " {usage}% 󰾆 ";
+              tooltip = false;
+            };
+
+            clock = {
+              format = " {:%a. %d/%m, %R} ";
+              format-alt = " {:%a. %b. %d, %Y (%T)} ";
+              tooltip-format = "<tt><small>{calendar}</small></tt>";
+
+              calendar = {
+                mode = "year";
+                mode-mon-col = 3;
+                weeks-pos = "right";
+                on-scroll = 1;
+                format = with config.stylix.colors; {
+                  months = "<span color='${base0D}'><b>{}</b></span>";
+                  days = "<span color='${base05}'><b>{}</b></span>";
+                  weeks = "<span color='${base05}'><b>W{}</b></span>";
+                  weekdays = "<span color='${base05}'><b>{}</b></span>";
+                  today = "<span color='${base05}'><b><u>{}</u></b></span>";
+                };
+              };
+
+              actions = {
+                on-click-right = "mode";
+                on-click-forward = "tz_up";
+                on-click-backward = "tz_down";
+                on-scroll-up = "shift_up";
+                on-scroll-down = "shift_down";
+              };
+            };
+
+            tray = {
+              spacing = 10;
+            };
+
+            "sway/mode" = {
+              format = "<span style='italic'>{}</span>";
+            };
+
+            "hyprland/submap" = {
+              format = "<span style='italic'>{}</span>";
+            };
+
+            "hyprland/workspaces" = {
+              artive-only = false;
+              all-outputs = false;
+              format = "{name}";
+              show-special = false;
+              on-click = "activate";
+              on-scroll-up = "hyprctl dispatch workspace e+1";
+              on-scroll-down = "hyprctl dispatch workspace e-1";
+              "persistent-workspaces" = { };
+              "format-icons" = {
+                "active" = "";
+                "default" = "";
+              };
+            };
+
+            "custom/swaync" = {
+              tooltip = true;
+              return-type = "json";
+              exec-if = "which swaync-client";
+              exec = "swaync-client -swb";
+              on-click = "sleep 0.1 && swaync-client -t -sw";
+              on-click-right = "swaync-client -d -sw";
+              escape = true;
+
+              format = " {icon} {} ";
+              format-icons = {
+                notification = "<span foreground='red'><sup></sup></span>";
+                none = "";
+                dnd-notification = "<span foreground='red'><sup></sup></span>";
+                dnd-none = "";
+                inhibited-notification = "<span foreground='red'><sup></sup></span>";
+                inhibited-none = "";
+                dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+                dnd-inhibited-none = "";
+              };
+            };
+
+            network = {
+              format-wifi = "{essid} ({signalStrength}%) ";
+              format-ethernet = "{ipaddr}/{cidr} 󰈀";
+              tooltip-format = "{ifname} via {gwaddr} 󰈀";
+              format-linked = "{ifname} (No IP) 󰈀";
+              format-disconnected = "Disconnected ⚠";
+              format-alt = "{ifname}: {ipaddr}/{cidr}";
+            };
+
+            battery = {
+              states = {
+                good = 80;
+                warning = 30;
+                critical = 15;
+              };
+
+              format = " {capacity}% {icon} ";
+              format-charging = " {capacity}%  ";
+              format-plugged = " {capacity}%  ";
+              format-alt = " {time} {icon} ";
+              format-icons = [
+                "󰂎"
+                "󰁺"
+                "󰁻"
+                "󰁼"
+                "󰁽"
+                "󰁾"
+                "󰁿"
+                "󰂀"
+                "󰂁"
+                "󰂂"
+                "󰁹"
               ];
-              modules-center = [ ];
-              modules-right = [
-                "pulseaudio"
-                "disk"
-                "memory"
-                "cpu"
-                "battery"
-                "custom/separator#blank"
-                "tray"
-                "custom/separator#blank"
-                "clock"
-                "idle_inhibitor"
-                "custom/swaync"
-              ];
+            };
 
-              idle_inhibitor = {
-                format = " {icon} ";
-                format-icons = {
-                  deactivated = "󰌶";
-                  activated = "󰛨";
-                };
-              };
+            "custom/separator#blank" = {
+              format = " ";
+              interval = "once";
+              tooltip = false;
+            };
 
-              # module definitions
-              disk = {
-                format = " {free} 󰋊 ";
-                path = "/";
-              };
-              memory = {
-                format = " {}% 󰍛 ";
-              };
-              cpu = {
-                format = " {usage}% 󰾆 ";
-                tooltip = false;
-              };
-              clock = {
-                format = " {:%a. %d/%m, %R} ";
-                format-alt = " {:%a. %b. %d, %Y (%T)} ";
-                tooltip-format = "<tt><small>{calendar}</small></tt>";
-                calendar = {
-                  mode = "year";
-                  mode-mon-col = 3;
-                  weeks-pos = "right";
-                  on-scroll = 1;
-                  # format = with colors; {
-                  #   months = "<span color='${base0F}'><b>{}</b></span>";
-                  #   days = "<span color='${base0E}'><b>{}</b></span>";
-                  #   weeks = "<span color='${base0C}'><b>W{}</b></span>";
-                  #   weekdays = "<span color='${base09}'><b>{}</b></span>";
-                  #   today = "<span color='${base08}'><b><u>{}</u></b></span>";
-                  # };
-                };
-                actions = {
-                  on-click-right = "mode";
-                  on-click-forward = "tz_up";
-                  on-click-backward = "tz_down";
-                  on-scroll-up = "shift_up";
-                  on-scroll-down = "shift_down";
-                };
-              };
-              tray = {
-                spacing = 10;
-              };
-              "sway/mode" = {
-                format = "<span style='italic'>{}</span>";
-              };
-              "hyprland/submap" = {
-                format = "<span style='italic'>{}</span>";
-              };
-              "hyprland/workspaces" = {
-                artive-only = false;
-                all-outputs = false;
-                format = "{name}";
-                show-special = false;
-                on-click = "activate";
-                on-scroll-up = "hyprctl dispatch workspace e+1";
-                on-scroll-down = "hyprctl dispatch workspace e-1";
-                "persistent-workspaces" = { };
-                "format-icons" = {
-                  "active" = "";
-                  "default" = "";
-                };
-              };
+            pulseaudio = {
+              scroll-step = 10; # %, can be a float
+              format = " {volume}% {icon} {format_source} ";
+              format-muted = "  {format_source} ";
+              format-bluetooth = " {volume}% {icon} {format_source} ";
+              format-bluetooth-muted = "  {icon} {format_source} ";
+              format-source = " {volume}%  ";
+              format-source-muted = "";
 
-              "custom/swaync" = {
-                tooltip = true;
-                format = " {icon} {} ";
-                format-icons = {
-                  notification = "<span foreground='red'><sup></sup></span>";
-                  none = "";
-                  dnd-notification = "<span foreground='red'><sup></sup></span>";
-                  dnd-none = "";
-                  inhibited-notification = "<span foreground='red'><sup></sup></span>";
-                  inhibited-none = "";
-                  dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
-                  dnd-inhibited-none = "";
-                };
-                return-type = "json";
-                exec-if = "which swaync-client";
-                exec = "swaync-client -swb";
-                on-click = "sleep 0.1 && swaync-client -t -sw";
-                on-click-right = "swaync-client -d -sw";
-                escape = true;
-              };
-
-              network = {
-                format-wifi = "{essid} ({signalStrength}%) ";
-                format-ethernet = "{ipaddr}/{cidr} 󰈀";
-                tooltip-format = "{ifname} via {gwaddr} 󰈀";
-                format-linked = "{ifname} (No IP) 󰈀";
-                format-disconnected = "Disconnected ⚠";
-                format-alt = "{ifname}: {ipaddr}/{cidr}";
-              };
-              battery = {
-                states = {
-                  good = 80;
-                  warning = 30;
-                  critical = 15;
-                };
-
-                format = " {capacity}% {icon} ";
-                format-charging = " {capacity}%  ";
-                format-plugged = " {capacity}%  ";
-                format-alt = " {time} {icon} ";
-                format-icons = [
-                  "󰂎"
-                  "󰁺"
-                  "󰁻"
-                  "󰁼"
-                  "󰁽"
-                  "󰁾"
-                  "󰁿"
-                  "󰂀"
-                  "󰂁"
-                  "󰂂"
-                  "󰁹"
+              format-icons = {
+                headphone = "";
+                hands-free = "";
+                headset = "";
+                phone = "";
+                portable = "";
+                car = "";
+                default = [
+                  ""
+                  ""
+                  ""
                 ];
               };
-
-              "custom/separator#blank" = {
-                format = " ";
-                interval = "once";
-                tooltip = false;
-              };
-
-              pulseaudio = {
-                scroll-step = 10; # %, can be a float
-                format = " {volume}% {icon} {format_source} ";
-                format-muted = "  {format_source} ";
-                format-bluetooth = " {volume}% {icon} {format_source} ";
-                format-bluetooth-muted = "  {icon} {format_source} ";
-                format-source = " {volume}%  ";
-                format-source-muted = "";
-
-                format-icons = {
-                  headphone = "";
-                  hands-free = "";
-                  headset = "";
-                  phone = "";
-                  portable = "";
-                  car = "";
-                  default = [
-                    ""
-                    ""
-                    ""
-                  ];
-                };
-                on-click = getExe pkgs.pwvucontrol;
-              };
+              on-click = getExe pkgs.pwvucontrol;
             };
           };
         };
@@ -582,15 +600,19 @@ in
       default = "zen";
     };
 
-    terminal = mkOption {
-      type = types.enum [
-        "alacritty"
-        "kitty"
-        "wezterm"
-        "foot"
-        "ghostty"
-      ];
-      default = "ghostty";
+    terminal = {
+      name = mkOption {
+        type = types.enum [
+          "alacritty"
+          "kitty"
+          "wezterm"
+          "foot"
+          "ghostty"
+        ];
+        default = "ghostty";
+      };
+
+      package = mkPackageOption pkgs "ghostty" { };
     };
 
     file-manager = {
@@ -598,10 +620,8 @@ in
         type = types.str;
         default = "pcmanfm";
       };
-      package = mkOption {
-        type = types.package;
-        default = pkgs.pcmanfm;
-      };
+
+      package = mkPackageOption pkgs "pcmanfm" { };
     };
   };
 }

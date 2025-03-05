@@ -42,7 +42,7 @@ in
 
   console = {
     useXkbConfig = true;
-    font = mkDefault "ter-i28b";
+    font = "ter-i32b";
     packages = [ pkgs.terminus_font ];
   };
 
