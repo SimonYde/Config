@@ -182,14 +182,12 @@ in
     })
 
     (mkIf cfg.python.enable {
-      home.packages = with pkgs; [
-        basedpyright
+      home.packages = [
+        pkgs.basedpyright
+        pkgs.basedmypy
 
-        (python3.withPackages (
+        (pkgs.python3.withPackages (
           ps: with ps; [
-            python-lsp-server
-            python-lsp-ruff
-            pylsp-mypy
             types-requests
 
             numpy

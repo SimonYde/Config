@@ -106,7 +106,6 @@ Load.later(function()
     })
 
     setup_lsp('clojure_lsp')
-    setup_lsp('basedpyright')
     setup_lsp('elmls', {
         cmd = { 'elm-language-server' },
     })
@@ -124,6 +123,8 @@ Load.later(function()
         filetypes = { 'java', 'scala', 'sbt' },
     })
 
+    setup_lsp('basedpyright')
+    setup_lsp('ruff')
     setup_lsp('pylsp', {
         settings = {
             pylsp = {

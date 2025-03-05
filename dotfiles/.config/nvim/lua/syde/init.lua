@@ -40,6 +40,7 @@ Load.later(function()
     conform.setup({
         formatters_by_ft = {
             typst = { 'typstyle' },
+            python = { 'ruff_format' },
             lua = { 'stylua' },
             nix = { 'nixfmt' },
             clojure = { 'cljfmt' },

@@ -87,7 +87,7 @@ in
           };
 
           defaultApplications = {
-            "inode/directory" = "${file-manager.mime}.desktop";
+            "inode/directory" = "${file-manager.name}.desktop";
 
             "application/pdf" = "org.pwmt.zathura.desktop";
 
@@ -594,7 +594,7 @@ in
     };
 
     file-manager = {
-      mime = mkOption {
+      name = mkOption {
         type = types.str;
         default = "pcmanfm";
       };
