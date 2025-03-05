@@ -3,29 +3,28 @@
   inputs,
   config,
   lib,
+  username,
   ...
 }:
-let
-  inherit (config.syde) user;
-in
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../common/desktop.nix
-    ../common/nixos/hardware/laptop.nix
+    ../common/nixos/laptop.nix
     ../common/nixos/hyprland.nix
   ];
 
+  specialisation."gaming".configuration = {
+    imports = [ ../common/nixos/gaming.nix ];
+    environment.etc."gaming".text = "gaming";
+  };
+
   boot.kernelPackages = pkgs.linuxPackages_zen;
+
   console.earlySetup = true;
 
   # Personal configurations
   syde = {
-    gaming = {
-      enable = true;
-      specialisation = true;
-    };
-
     hardware = {
       nvidia.enable = true;
       amd = {
@@ -39,6 +38,7 @@ in
     nix-ld.enable = true;
     wireshark.enable = true;
     hyprland.enable = true;
+    partition-manager.enable = true;
   };
 
   services = {
@@ -108,9 +108,7 @@ in
     fsType = "ext4";
   };
 
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-
-  home-manager.users.${user} = {
+  home-manager.users.${username} = {
     services.hypridle.settings.listener =
       let
         brightnessctl = lib.getExe pkgs.brightnessctl;

@@ -1,9 +1,11 @@
-{ pkgs, lib, ... }:
 {
-  home.packages = with pkgs; [
-    ghostscript # for snacks.nvim pdf rendering
-  ];
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
+{
   programs.neovim = lib.mkMerge [
     {
       package = pkgs.neovim;
@@ -62,6 +64,8 @@
           nvim-dap
           nvim-dap-ui
 
+          (lib.mkIf config.programs.yazi.enable yazi-nvim)
+
           # ----- UI -----
           lspsaga-nvim
           render-markdown-nvim
@@ -71,7 +75,7 @@
         ];
 
       # Always enable the luac loader first.
-      extraLuaConfig = lib.mkOrder 10 ''
+      extraLuaConfig = lib.mkOrder 0 ''
         vim.loader.enable()
       '';
     }
@@ -81,5 +85,9 @@
         require('syde')
       '';
     }
+  ];
+
+  home.packages = with pkgs; [
+    ghostscript # for snacks.nvim pdf rendering
   ];
 }

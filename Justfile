@@ -9,6 +9,8 @@ os:
 boot:
 	nh os boot .
 
+light:
+	nh os switch -s light-theme
 
 gaming:
 	nh os switch -s gaming

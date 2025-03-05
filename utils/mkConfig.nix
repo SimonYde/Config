@@ -11,11 +11,12 @@
 let
   pkgs = import inputs.nixpkgs { system = hostSystem; };
   nixpkgs = import inputs.nixpkgs;
+  overlays = import ../overlays.nix { inherit inputs; };
 
   nixpkgsBySystem = pkgs.lib.attrsets.genAttrs targetSystems (
     system:
     nixpkgs {
-      inherit system;
+      inherit system overlays;
       config = config // {
         allowUnfree = true;
         cudaSupport = true;
@@ -29,6 +30,7 @@ let
   mkSystem =
     {
       hostname,
+      username ? "syde",
       extraModules ? [ ],
       system ? "x86_64-linux",
     }:
@@ -45,7 +47,10 @@ let
       pkgs = nixpkgsBySystem.${system};
     in
     inputs.nixpkgs.lib.nixosSystem {
-      inherit system specialArgs;
+      inherit system;
+      specialArgs = specialArgs // {
+        inherit username;
+      };
       modules =
         [
           {
@@ -58,8 +63,12 @@ let
     };
 
   mkWslSystem =
-    { hostname }:
+    {
+      hostname,
+      username ? "syde",
+    }:
     mkSystem {
+      inherit username;
       hostname = "${hostname}-wsl";
       extraModules = [ ../common/wsl.nix ];
     };

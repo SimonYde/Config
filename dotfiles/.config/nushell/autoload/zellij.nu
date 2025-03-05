@@ -1,7 +1,7 @@
 $env.config.hooks.pre_prompt = (
     $env.config.hooks.pre_prompt
     | append {
-        if $env.ZELLIJ? != null {
+        if "ZELLIJ" in $env {
             let dir = pwd
             | str replace '/home/syde' '~'
             | path parse
@@ -14,7 +14,7 @@ $env.config.hooks.pre_prompt = (
     }
 )
 $env.config.hooks.pre_execution = ($env.config.hooks.pre_execution | append {
-    if $env.ZELLIJ? != null {
+    if "ZELLIJ" in $env {
         let cmd = commandline | split row ' ' | first
         zellij action rename-tab $cmd
     }
@@ -37,7 +37,7 @@ export def za [session?: string@sessions] {
 
 # Zellij create session (Attach if already exists)
 export def zc [] {
-    let current = pwd | split words | last
+    let current = basename
     let exists = sessions | ansi strip | any {|session| $session == $current }
 
     if $exists {

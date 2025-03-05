@@ -1,27 +1,3 @@
--- Disable unused built-in plugins ============================================
-vim.g.loaded_gzip = 1
-vim.g.loaded_zip = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_tar = 1
-vim.g.loaded_tarPlugin = 1
-
-vim.g.loaded_getscript = 1
-vim.g.loaded_getscriptPlugin = 1
-vim.g.loaded_vimball = 1
-vim.g.loaded_vimballPlugin = 1
-vim.g.loaded_2html_plugin = 1
-
-vim.g.loaded_matchit = 1
-vim.g.loaded_matchparen = 1
-vim.g.loaded_logiPat = 1
-vim.g.loaded_rrhelper = 1
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrwSettings = 1
-vim.g.loaded_netrwFileHandlers = 1
-vim.g.loaded_fzf = 1
-
 local M = {}
 local H = {}
 -- Various cache
@@ -97,7 +73,7 @@ H.schedule_finish = function()
 end
 
 H.finish = function()
-    local timer, step_delay = vim.loop.new_timer(), 1
+    local timer, step_delay = vim.uv.new_timer(), 1
     local f = nil
     f = vim.schedule_wrap(function()
         local callback = H.cache.later_callback_queue[1]
@@ -109,7 +85,7 @@ H.finish = function()
 
         table.remove(H.cache.later_callback_queue, 1)
         M.now(callback)
-        timer:start(step_delay, 0, f)
+        timer:start(step_delay, 0, f) ---@diagnostic disable-line: param-type-mismatch is never nil
     end)
     timer:start(step_delay, 0, f)
 end
@@ -118,15 +94,38 @@ H.report_errors = function()
     if #H.cache.exec_errors == 0 then return end
     local error_lines = table.concat(H.cache.exec_errors, '\n\n')
     H.cache.exec_errors = {}
-    H.notify('There were errors during two-stage execution:\n\n' .. error_lines, 'ERROR')
+    H.notify('There were errors during two-stage execution:\n\n' .. error_lines)
 end
 
-H.notify = vim.schedule_wrap(function(msg, level)
+H.notify = vim.schedule_wrap(function(msg)
     if not DEBUG then return end
-    level = level or 'INFO'
     if type(msg) == 'table' then msg = table.concat(msg, '\n') end
     dd(msg)
     vim.cmd('redraw')
 end)
 
 _G.Load = M -- export module
+
+-- Disable unused built-in plugins ============================================
+vim.g.loaded_gzip = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_vimball = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_2html_plugin = 1
+
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_logiPat = 1
+vim.g.loaded_rrhelper = 1
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_netrwFileHandlers = 1
+vim.g.loaded_fzf = 1

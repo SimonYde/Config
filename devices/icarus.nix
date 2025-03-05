@@ -1,20 +1,17 @@
 {
   pkgs,
-  config,
+  username,
   ...
 }:
-let
-  inherit (config.syde) user;
-in
 {
   imports = [
     ../common/desktop.nix
     ../common/nixos/hyprland.nix
+    ../common/nixos/gaming.nix
   ];
 
   # Personal configurations
   syde = {
-    gaming.enable = true;
     hardware = {
       nvidia = {
         enable = true;
@@ -55,14 +52,9 @@ in
 
   services = {
     ratbagd.enable = true;
-    blueman.enable = true;
-    ollama.enable = true;
     tailscale.enable = true;
     syncthing.enable = true;
   };
-
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
 
   powerManagement.cpuFreqGovernor = "performance";
 
@@ -90,7 +82,7 @@ in
     }
   ];
 
-  home-manager.users.${user} = {
+  home-manager.users.${username} = {
 
     services = {
       blanket.enable = true;

@@ -6,9 +6,12 @@
 }:
 {
   imports = [
-    ./programs
-    ./development
+    ./programs.nix
+    ./neovim.nix
+    ./development.nix
   ];
+
+  xdg.enable = true;
 
   home = {
     stateVersion = "24.11";
@@ -25,11 +28,7 @@
       lurk # strace alternative
       trippy # network diagnostics
 
-      trashy # for when `rm -rf` is too scary
-
       isd # Interactive systemd utility
-      zip
-      unzip
 
       tokei # Counting lines of code
       tealdeer # Quick hits on programs (rust alternative to `tldr`)
@@ -38,42 +37,44 @@
       rclone
       imagemagick
       yt-dlp
+
       grawlix
       pix2tex
       audiobook-dl
+
+      nix-your-shell
     ];
 
-    shellAliases = {
-      c = "clear";
-      tp = "${lib.getExe pkgs.trashy} put";
-    };
+    # FIXME: hack to reload dbus activated things
+    activation.reloadDbus = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
+      if [[ -v DBUS_SESSION_BUS_ADDRESS ]]; then
+        run ${pkgs.systemd}/bin/busctl --user call org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus ReloadConfig
+      fi
+    '';
   };
-
-  xdg.enable = true;
 
   programs = {
     # Shells
     bash.enable = true;
     nushell.enable = true;
 
+    carapace.enable = true;
+
+    neovim.enable = true;
+
     # CLI tools
     atuin.enable = true;
     bat.enable = true;
     btop.enable = true;
-    direnv.enable = true;
-    eza.enable = false;
+
     fastfetch.enable = true;
     fd.enable = true;
     fzf.enable = true;
-    gh.enable = true;
     git.enable = true;
 
-    jujutsu.enable = true;
-    lazygit.enable = true;
     nix-index.enable = true;
     pandoc.enable = true;
     ripgrep.enable = true;
-    skim.enable = false;
     starship.enable = true;
     tmux.enable = false;
     yazi.enable = true;
@@ -97,4 +98,5 @@
     '';
   };
 
+  manual.manpages.enable = false;
 }

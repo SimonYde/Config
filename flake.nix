@@ -141,11 +141,6 @@
       url = "github:SimonYde/grawlix.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    randcrack = {
-      url = "github:SimonYde/randcrack.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     audiobook-dl = {
       url = "github:SimonYde/audiobook-dl.nix";
       inputs.nixpkgs.follows = "nixpkgs";

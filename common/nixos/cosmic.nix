@@ -1,14 +1,13 @@
 {
   inputs,
-  config,
   lib,
   pkgs,
+  username,
   ...
 }:
 
 let
   inherit (lib) mkDefault;
-  inherit (config.syde) user;
 in
 {
   imports = [ inputs.nixos-cosmic.nixosModules.default ];
@@ -18,7 +17,7 @@ in
     cosmic-term
   ];
 
-  users.extraGroups.adm.members = [ user ];
+  users.extraGroups.adm.members = [ username ];
 
   services = {
     desktopManager.cosmic.enable = true;
@@ -26,13 +25,13 @@ in
 
     greetd.settings = {
       initial_session = {
-        inherit user;
+        user = username;
         command = "start-cosmic --in-login-shell";
       };
     };
   };
 
-  home-manager.users.${user} = {
+  home-manager.users.${username} = {
     home.packages = with pkgs; [
       wl-clipboard # clipboard manager
     ];
