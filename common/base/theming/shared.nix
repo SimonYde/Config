@@ -47,11 +47,4 @@
     };
   };
 
-  specialisation."light-theme".configuration = {
-    environment.etc."light-theme".text = "light-theme";
-    stylix = {
-      base16Scheme = lib.mkForce "${inputs.tinted-schemes}/base16/gruvbox-light-hard.yaml";
-      override = lib.mkForce { };
-    };
-  };
 }

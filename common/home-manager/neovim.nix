@@ -53,7 +53,6 @@
 
           # ----- Workflow -----
           conform-nvim
-          luvit-meta
           trouble-nvim
           diffview-nvim
           neogit
