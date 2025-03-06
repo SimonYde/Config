@@ -13,6 +13,7 @@ in
   imports = [
     ./base/theming/nixos.nix
     ./nixos
+    ./nixos/development.nix
   ];
 
   home-manager.users.${username}.imports = [ ./home-manager/gui ];
@@ -32,11 +33,12 @@ in
     ];
 
     loader = {
+      efi.canTouchEfiVariables = true;
+
       systemd-boot = {
         enable = true;
         editor = false;
       };
-      efi.canTouchEfiVariables = true;
     };
   };
 
@@ -94,7 +96,11 @@ in
   };
 
   hardware = {
-    bluetooth.enable = mkDefault true;
+    bluetooth = {
+      enable = mkDefault true;
+      settings.General.Experimental = true;
+    };
+
     steam-hardware.enable = true;
     uinput.enable = true;
 

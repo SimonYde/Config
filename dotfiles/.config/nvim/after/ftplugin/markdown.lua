@@ -1,5 +1,4 @@
-vim.opt_local.wrap = true
-vim.opt_local.spell = true
+vim.cmd('setlocal wrap spell')
 
 -- Customize 'mini.nvim'
 local has_mini_ai, mini_ai = pcall(require, 'mini.ai')
@@ -31,6 +30,5 @@ if has_mini_surround then
     }
 end
 
-Load.now(function()
-    Keymap.nmap('<leader>i', function() require('img-clip').paste_image() end, 'Insert image')
-end)
+Keymap.nmap('<leader>i', function() require('img-clip').paste_image() end, 'Insert image')
+Keymap.imap('<C-l>', vim.cmd.ObsidianToggleCheckbox, 'Toggle markdown checkbox')

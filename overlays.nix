@@ -1,6 +1,5 @@
 { inputs }:
 [
-  inputs.nur.overlays.default
   inputs.neovim-nightly.overlays.default
 
   (final: prev: {

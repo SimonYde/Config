@@ -63,7 +63,7 @@ Load.later(function()
         'Search and replace in buffer',
         { silent = false }
     )
-    tmap('<Esc><Esc>', [[<C-\><C-n>]], 'Exit terminal mode')
+    tmap('<C-q>', [[<C-\><C-n>]], 'Exit terminal mode')
 
     -- Toggle quickfix window
     local toggle_quickfix = function()

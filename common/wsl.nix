@@ -9,6 +9,7 @@
   imports = [
     inputs.nixos-wsl.nixosModules.default
     ./nixos
+    ./nixos/development.nix
   ];
 
   boot.bootspec.enable = false;

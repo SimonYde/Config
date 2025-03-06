@@ -11,9 +11,7 @@ let
 in
 
 {
-  imports = [
-    inputs.nix-index-database.hmModules.nix-index
-  ];
+  imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
   config = mkMerge [
     {
@@ -50,6 +48,7 @@ in
         git = {
           userName = "Simon Yde";
           userEmail = "git@simonyde.com";
+
           aliases = {
             a = "add";
             br = "branch";
@@ -75,6 +74,7 @@ in
             rhh = "reset --hard HEAD";
             alias = "config --get-regexp ^alias\\.";
           };
+
           extraConfig = {
             init.defaultBranch = "master";
 
@@ -128,6 +128,7 @@ in
               "ssh://git@gitlab.au.dk/".insteadOf = "au:";
             };
           };
+
           ignores = [
             "**/.idea"
             "**/.metals"

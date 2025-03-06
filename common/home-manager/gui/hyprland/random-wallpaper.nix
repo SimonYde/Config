@@ -5,47 +5,43 @@
   ...
 }:
 let
-  inherit (lib) getExe mkIf;
-  cfg = config.services.hyprpaper;
+  hyprland = config.wayland.windowManager.hyprland.package;
+
   random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" ''
-    CURRENT=$(${pkgs.hyprland}/bin/hyprctl hyprpaper listloaded)
+    CURRENT=$(${hyprland}/bin/hyprctl hyprpaper listloaded)
     WALLPAPER_DIR=${config.xdg.userDirs.pictures}/wallpapers/${config.lib.stylix.colors.slug}
 
     # Get a random wallpaper that is not the current one
-    WALLPAPER=$(${getExe pkgs.fd} . "$WALLPAPER_DIR" -t f -E "$CURRENT" | shuf -n 1)
+    WALLPAPER=$(${pkgs.fd}/bin/fd . "$WALLPAPER_DIR" -t f -E "$CURRENT" | shuf -n 1)
 
     # Apply the selected wallpaper
-    ${pkgs.hyprland}/bin/hyprctl hyprpaper reload ,"$WALLPAPER"
+    ${hyprland}/bin/hyprctl hyprpaper reload ,"$WALLPAPER"
   '';
 in
 {
-  config = mkIf cfg.enable {
-    home.packages = [ random-wallpaper ];
+  home.packages = [ random-wallpaper ];
 
-    systemd.user.services.random-wallpaper = {
-      Unit = {
-        Description = "Cycle hyprpaper to new wallpaper at random.";
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = getExe random-wallpaper;
-      };
+  systemd.user.services.random-wallpaper = {
+    Unit = {
+      Description = "Cycle hyprpaper to new wallpaper at random.";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ config.wayland.systemd.target ];
     };
 
-    systemd.user.timers.random-wallpaper = {
-      Unit = {
-        Description = "Cycle hyprpaper to new wallpaper at random.";
-        PartOf = [ config.wayland.systemd.target ];
-        After = [ "hyprpaper.service" ];
-      };
-      Timer = {
-        OnStartupSec = "5sec";
-        OnUnitActiveSec = "15min";
-        Unit = "random-wallpaper.service";
-      };
-      Install = {
-        WantedBy = [ "hyprpaper.service" ];
-      };
+    Service = {
+      Type = "oneshot";
+      ExecStart = lib.getExe random-wallpaper;
+      IOSchedulingClass = "idle";
     };
+
+    Install.WantedBy = [ config.wayland.systemd.target ];
+  };
+
+  systemd.user.timers.random-wallpaper = {
+    Unit.Description = "Cycle hyprpaper to new wallpaper at random.";
+
+    Timer.OnUnitActiveSec = "15min";
+
+    Install.WantedBy = [ "timers.target" ];
   };
 }

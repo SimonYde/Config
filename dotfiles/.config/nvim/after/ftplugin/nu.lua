@@ -1,9 +1,2 @@
-local o = vim.opt_local
-local tabwidth = 4
-o.shiftwidth = tabwidth
-o.tabstop = tabwidth
-o.softtabstop = tabwidth
-o.expandtab = true
-Load.now(function ()
-    o.indentexpr = require('nvim-treesitter').indentexpr()
-end)
+vim.cmd('setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab')
+Load.now(function() vim.opt_local.indentexpr = require('nvim-treesitter').indentexpr() end)
