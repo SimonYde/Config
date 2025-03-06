@@ -2,16 +2,20 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
   imports = [
     ./programs.nix
     ./neovim.nix
-    ./development.nix
+
+    inputs.agenix.homeManagerModules.default
   ];
 
   xdg.enable = true;
+
+  age.package = pkgs.rage;
 
   home = {
     stateVersion = "24.11";
@@ -27,20 +31,9 @@
 
       lurk # strace alternative
       trippy # network diagnostics
+      rsync
 
       isd # Interactive systemd utility
-
-      tokei # Counting lines of code
-      tealdeer # Quick hits on programs (rust alternative to `tldr`)
-
-      libqalculate
-      rclone
-      imagemagick
-      yt-dlp
-
-      grawlix
-      pix2tex
-      audiobook-dl
 
       nix-your-shell
     ];
@@ -84,13 +77,12 @@
 
   programs.gpg = {
     enable = true;
-    homedir = "${config.xdg.configHome}/gpg";
+    homedir = "${config.xdg.dataHome}/gpg";
   };
 
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    enableFishIntegration = true;
     enableNushellIntegration = true;
     pinentryPackage = pkgs.pinentry-tty;
     extraConfig = ''

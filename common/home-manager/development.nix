@@ -17,20 +17,49 @@ in
 {
   config = mkMerge [
     {
-      home = {
-        packages = with pkgs; [
-          gnumake # for Makefiles
-          just # alternative to `gnumake`
-
-          git-crypt
-          glab
-
-          kattis-cli
-          kattis-test
-        ];
-
-        sessionVariables.DIRENV_LOG_FORMAT = "";
+      syde.development = {
+        bash.enable = true;
+        cpp.enable = false;
+        gleam.enable = false;
+        go.enable = false;
+        java.enable = false;
+        latex.enable = true;
+        lua.enable = true;
+        nix.enable = true;
+        ocaml.enable = false;
+        odin.enable = true;
+        python.enable = true;
+        rust.enable = true;
+        scala.enable = false;
+        typst.enable = true;
+        zig.enable = true;
       };
+
+      home.packages = with pkgs; [
+        gnumake # for Makefiles
+        just # alternative to `gnumake`
+
+        dua
+        lls
+        libarchive
+
+        ast-grep
+
+        gitoxide
+        git-revise
+        git-absorb
+        git-gr
+        git-crypt
+        glab
+
+        kattis-cli
+        kattis-test
+
+        tokei # Counting lines of code
+        tlrc
+
+        libqalculate
+      ];
 
       programs = {
         direnv = {
@@ -62,22 +91,9 @@ in
         };
       };
 
-      syde.development = {
-        bash.enable = true;
-        cpp.enable = false;
-        gleam.enable = false;
-        go.enable = false;
-        java.enable = false;
-        latex.enable = true;
-        lua.enable = true;
-        nix.enable = true;
-        ocaml.enable = false;
-        odin.enable = true;
-        python.enable = true;
-        rust.enable = true;
-        scala.enable = false;
-        typst.enable = true;
-        zig.enable = true;
+      services.tldr-update = {
+        enable = true;
+        package = pkgs.tlrc;
       };
     }
 
@@ -116,12 +132,23 @@ in
 
     (mkIf cfg.java.enable {
       home.packages = with pkgs; [
-        gradle
-        gradle-completion
         jdt-language-server
         maven
+
         cfg.java.jdk
       ];
+
+      programs.gradle = {
+        enable = true;
+        home = ".config/gradle";
+
+        settings = {
+          "org.gradle.caching" = true;
+          "org.gradle.parallel" = true;
+          "org.gradle.jvmargs" = "-XX:MaxMetaspaceSize=384m";
+          "org.gradle.home" = cfg.java.jdk;
+        };
+      };
 
       home.sessionVariables.JAVA_HOME = cfg.java.jdk;
 
@@ -156,11 +183,15 @@ in
     (mkIf cfg.nix.enable {
       home.packages = with pkgs; [
         nil
-        nixd
 
+        hydra-check
+        nix-diff
         nix-init
-        nixfmt-rfc-style
         nix-output-monitor
+        nix-tree
+        nix-update
+        nixfmt-rfc-style
+        nixpkgs-review
       ];
     })
 
@@ -214,12 +245,16 @@ in
 
     (mkIf cfg.scala.enable {
       home.packages = with pkgs; [
-        scala
+        cfg.scala.package
+
         scalafmt
         metals
       ];
 
-      programs.sbt.enable = true;
+      programs.sbt = {
+        enable = true;
+        baseUserConfigPath = ".config/sbt";
+      };
     })
 
     (mkIf cfg.rust.enable {
@@ -284,6 +319,7 @@ in
     python.enable = mkEnableOption "Python tools";
 
     scala.enable = mkEnableOption "Scala tools";
+    scala.package = mkPackageOption pkgs "scala" { };
 
     rust.enable = mkEnableOption "Rust tools";
 

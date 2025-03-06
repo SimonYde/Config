@@ -1,6 +1,5 @@
 # For available options run:
-
-# config nu --doc | nu-highlight | bat
+#   config nu --doc | nu-highlight | bat
 
 $env.config = {
     show_banner: false # true or false to enable or disable the welcome banner at startup
@@ -68,15 +67,18 @@ alias la = ls -a
 alias lla = ls -la
 
 let maybe_nom = if (which nom | is-not-empty) {
-  ["--nom"]
+    ["--nom"]
 } else {
-  []
+    []
 }
 
 def --wrapped nix-shell (...args) {
-  nix-your-shell nu ...$maybe_nom nix-shell -- ...$args
+    nix-your-shell nu ...$maybe_nom nix-shell -- ...$args
 }
 
 def --wrapped nix (...args) {
-  nix-your-shell nu ...$maybe_nom nix -- ...$args
+    nix-your-shell nu ...$maybe_nom nix -- ...$args
 }
+
+$env.NIXPKGS_ALLOW_UNFREE = 1
+$env.DIRENV_LOG_FORMAT = ""

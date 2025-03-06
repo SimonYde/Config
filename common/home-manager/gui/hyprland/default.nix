@@ -11,7 +11,6 @@ let
     mkOrder
     mkForce
     ;
-  inherit (config.lib.stylix) colors;
   inherit (config.syde.gui) file-manager terminal browser;
 
   hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
@@ -68,13 +67,6 @@ in
       "$terminal" = terminal.name;
       "$mod" = "SUPER";
 
-      general = with colors; {
-        "col.active_border" = mkForce "rgb(${base0D}) rgb(${base0E}) 45deg";
-        "col.inactive_border" = mkForce "rgba(00000000)";
-      };
-
-      group.groupbar.text_color = mkForce "rgb(${colors.base00})";
-
       input = {
         kb_layout = config.home.keyboard.layout;
         kb_options = concatStringsSep "," config.home.keyboard.options;
@@ -114,7 +106,6 @@ in
       monitor = "";
       text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
       text_align = "center";
-      color = "rgb(${colors.base05})";
       font_size = 45;
       font_family = config.stylix.fonts.sansSerif.name;
       rotate = 0;

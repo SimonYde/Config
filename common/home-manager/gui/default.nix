@@ -31,7 +31,6 @@ in
       programs = {
         # Terminals
         ghostty.enable = true;
-        kitty.enable = false;
 
         # Browsers
         brave.enable = true;
@@ -46,6 +45,7 @@ in
       };
 
       services = {
+        safeeyes.enable = true;
         trayscale.enable = true;
 
         udiskie = {
@@ -61,14 +61,24 @@ in
         libreoffice # Office365 replacement
         anki # Flash cards
         obsidian # Second brain
-        # gimp # Image editor
+        gimp # Image editor
         stremio
-        rclone-browser
 
         qbittorrent # Linux ISOs
 
         todoist-electron
         zotero
+
+        rclone-browser
+        rclone # Remote files
+
+        imagemagick
+
+        yt-dlp
+
+        grawlix
+        pix2tex
+        audiobook-dl
       ];
 
       xdg = {
@@ -80,17 +90,10 @@ in
         mimeApps = {
           enable = true;
 
-          associations.added = {
-            "application/pdf" = [
-              "org.pwmt.zathura-pdf-mupdf.desktop"
-              "org.pwmt.zathura.desktop"
-            ];
-          };
-
           defaultApplications = {
             "inode/directory" = "${file-manager.name}.desktop";
 
-            "application/pdf" = "org.pwmt.zathura.desktop";
+            "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
 
             "x-scheme-handler/magnet" = "org.qbittorrent.qBittorrent.desktop";
             "application/x-bittorrent" = "org.qbittorrent.qBittorrent.desktop";
@@ -130,6 +133,12 @@ in
 
       programs.nushell.shellAliases.ex = getExe file-manager.package;
 
+      age.secrets."rclone".file = ../../../secrets/rclone.age;
+
+      # FIXME: 2025-03-06 Simon Yde, would be nice if it could be determined at build time
+      xdg.configFile."rclone/rclone.conf".source =
+        config.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/rclone";
+
       programs = {
         ghostty.settings = {
           gtk-titlebar = false;
@@ -145,12 +154,6 @@ in
             "ctrl+alt+i=goto_split:right"
             "ctrl+alt+tab=toggle_tab_overview"
           ];
-        };
-
-        kitty.settings = {
-          disable_ligatures = "never";
-          cursor_shape = "beam";
-          cursor_blink_interval = 0;
         };
 
         mpv = {
@@ -325,7 +328,7 @@ in
                 mode-mon-col = 3;
                 weeks-pos = "right";
                 on-scroll = 1;
-                format = with config.stylix.colors; {
+                format = with config.lib.stylix.colors.withHashtag; {
                   months = "<span color='${base0D}'><b>{}</b></span>";
                   days = "<span color='${base05}'><b>{}</b></span>";
                   weeks = "<span color='${base05}'><b>W{}</b></span>";
@@ -488,12 +491,14 @@ in
         hide-on-clear = true;
         hide-on-action = false;
         script-fail-notify = true;
+
         scripts = {
           example-script = {
             exec = "echo 'Do something...'";
             urgency = "Normal";
           };
         };
+
         notification-visibility = {
           example-name = {
             state = "muted";
@@ -501,6 +506,7 @@ in
             app-name = "Spotify";
           };
         };
+
         widgets = [
           "label"
           "buttons-grid"
@@ -509,6 +515,7 @@ in
           "dnd"
           "notifications"
         ];
+
         widget-config = {
           title = {
             text = "Notifications";

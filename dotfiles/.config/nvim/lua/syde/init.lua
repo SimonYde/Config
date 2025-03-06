@@ -274,7 +274,6 @@ Load.later(function()
     nmap('<leader>on', vim.cmd.ObsidianTemplate, 'Insert Obsidian template')
     nmap('<leader>ot', vim.cmd.ObsidianTags, 'Open tag list')
     nmap('<leader>op', vim.cmd.ObsidianPasteImg, 'Paste image')
-    imap('<C-l>', vim.cmd.ObsidianToggleCheckbox, 'Toggle markdown checkbox')
 end)
 
 Load.later(function()

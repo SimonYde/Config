@@ -44,6 +44,9 @@ in
       enable = true;
       emergencyAccess = true;
     };
+
+    # enable TCP BBR for hopefully better utilization
+    kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
   };
 
   zramSwap = {
@@ -55,8 +58,9 @@ in
   documentation.nixos.enable = false;
 
   nix = {
-    nixPath = [ "nixpkgs=flake:nixpkgs" ];
     package = pkgs.lix;
+    channel.enable = false;
+    nixPath = [ "nixpkgs=flake:nixpkgs" ];
     settings.trusted-users = [ username ];
   };
 
@@ -69,6 +73,7 @@ in
       enable = true;
 
       flake = "/home/${username}/Config";
+
       clean = {
         enable = true;
         extraArgs = "--keep 2 --keep-since 1d";
@@ -83,6 +88,7 @@ in
       address = [ "10.2.0.2/32" ];
       dns = [ "10.2.0.1" ];
       privateKeyFile = config.age.secrets.wireguard.path;
+
       peers = [
         {
           publicKey = "XPVCz7LndzqWe7y3+WSo51hvNOX8nX5CTwVTWhzg8g8=";
@@ -102,7 +108,9 @@ in
   services = {
     openssh = {
       enable = true;
+
       settings = {
+        KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
       };
     };
@@ -112,12 +120,14 @@ in
     journald.extraConfig = "SystemMaxUse=100M";
 
     tailscale = {
+      openFirewall = true;
+      useRoutingFeatures = "both";
+
       extraUpFlags = [
         "--ssh"
         "--operator=${username}"
       ];
-      useRoutingFeatures = "both";
-      openFirewall = true;
+
       extraDaemonFlags = [ "--no-logs-no-support" ];
     };
   };
@@ -170,6 +180,7 @@ in
   age = {
     identityPaths = [ "/home/${username}/.ssh/id_ed25519" ];
     ageBin = getExe pkgs.rage;
+
     secrets = {
       wireguard.file = ../../secrets/wireguard.age;
       pc-password.file = ../../secrets/pc-password.age;
@@ -182,6 +193,7 @@ in
       enableUserSlices = true;
       enableRootSlice = true;
     };
+
     services.sshd.serviceConfig.MemoryMin = "100M";
   };
 

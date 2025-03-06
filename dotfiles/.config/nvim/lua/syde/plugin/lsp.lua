@@ -123,19 +123,14 @@ Load.later(function()
         filetypes = { 'java', 'scala', 'sbt' },
     })
 
-    setup_lsp('basedpyright')
-    setup_lsp('ruff')
-    setup_lsp('pylsp', {
+    setup_lsp('basedpyright', {
         settings = {
-            pylsp = {
-                plugins = {
-                    -- black = { enabled = true },
-                    mypy = { enabled = true },
-                    ruff = { enabled = true },
-                },
+            basedpyright = {
+                disableOrganizeImports = true,
             },
         },
     })
+    setup_lsp('ruff')
 
     setup_lsp('bashls', {
         cmd = { 'bash-language-server' },

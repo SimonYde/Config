@@ -30,6 +30,7 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
+    loader.systemd-boot.consoleMode = "max";
     loader.systemd-boot.windows."11-home" = {
       title = "Windows 11 Home";
       efiDeviceHandle = "HD0b";
@@ -40,6 +41,8 @@
     font = lib.mkForce "ter-i32b";
     earlySetup = true;
   };
+
+  programs.partition-manager.enable = true;
 
   services = {
     ratbagd.enable = true;
@@ -54,6 +57,7 @@
   # Filesystems
   boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
     "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/157E-B4A5";
     fsType = "vfat";
@@ -67,13 +71,6 @@
     device = "/dev/disk/by-uuid/e37c4644-2a85-4cfd-adaf-87961ad57a72";
     fsType = "ext4";
   };
-
-  # swapDevices = [
-  #   {
-  #     device = "/var/lib/swapfile";
-  #     size = 48 * 1024;
-  #   }
-  # ];
 
   home-manager.users.${username} = {
 
