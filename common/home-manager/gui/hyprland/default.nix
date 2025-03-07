@@ -13,13 +13,31 @@ let
     ;
   inherit (config.syde.gui) file-manager terminal browser;
 
-  hyprland-gamemode = pkgs.callPackage ./gamemode.nix { };
+  hyprland-gamemode = pkgs.writeShellScriptBin "hyprland-gamemode" ''
+    HYPRGAMEMODE=$(hyprctl getoption animations:enabled | sed -n '1p' | awk '{print $2}')
+
+    # Hyprland performance
+    if [ $HYPRGAMEMODE = 1 ]; then
+        hyprctl --batch "\
+            keyword animations:enabled 0;\
+            keyword decoration:drop_shadow 0;\
+            keyword decoration:blur:enabled 0;\
+            keyword general:gaps_in 0;\
+            keyword general:gaps_out 0;\
+            keyword general:border_size 1;\
+            keyword decoration:rounding 0"
+        systemctl --user stop waybar.service hyprland-autoname-workspaces.service
+    else
+        hyprctl reload
+        systemctl --user start waybar.service hyprland-autoname-workspaces.service
+    fi
+  '';
 in
 {
   imports = [ ./random-wallpaper.nix ];
 
   home.packages = with pkgs; [
-    hyprland-gamemode # disable hyprland animations for games
+    hyprland-gamemode
     playerctl # media keys
 
     pwvucontrol # audio control
@@ -65,14 +83,13 @@ in
       "$file-manager" = getExe file-manager.package;
       "$menu" = "${getExe config.programs.rofi.package} -show drun";
       "$terminal" = terminal.name;
-      "$mod" = "SUPER";
 
       input = {
         kb_layout = config.home.keyboard.layout;
         kb_options = concatStringsSep "," config.home.keyboard.options;
       };
     };
-    # Delegate other options to a normal hyprland config.
+    # NOTE: Delegate other options to a normal hyprland config.
     extraConfig = mkOrder 1000 ''
       source = ~/.config/hypr/my-hyprland.conf
     '';
@@ -137,17 +154,17 @@ in
       hyprland-autoname-workspaces = {
         Unit = {
           Description = "hyprland-autoname-workspaces";
-          PartOf = [ "hyprland-session.target" ];
-          After = [
-            "hyprland-session.target"
-          ];
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ config.wayland.systemd.target ];
         };
-        Install.WantedBy = [ "hyprland-session.target" ];
+
         Service = {
           ExecStart = getExe pkgs.hyprland-autoname-workspaces;
           Restart = "always";
           RestartSec = "2";
         };
+
+        Install.WantedBy = [ "hyprland-session.target" ];
       };
     };
   };

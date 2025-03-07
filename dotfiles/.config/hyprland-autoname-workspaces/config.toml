@@ -29,12 +29,12 @@ client_fullscreen = "[{icon}]"
 # Add your icons mapping
 # use double quote the key and the value
 # take class name from 'hyprctl clients'
-"DEFAULT" = "({title})"
+"DEFAULT" = ""
 "(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)|com.mitchellh.ghostty" = ""
 "[Ff]irefox|zen" = "󰈹"
 "(?i)imv" = ""
+"(?i)rclone-browser" = ""
 "(?i)obsidian" = "󱓧"
-"(?i)todoist"  = ""
 "(?i)mpv"      = ""
 "(?i)slack"    = "󰒱"
 "(?i)discord|(?i)(vesktop)" = ""

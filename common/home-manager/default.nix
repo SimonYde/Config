@@ -77,7 +77,7 @@
 
   programs.gpg = {
     enable = true;
-    homedir = "${config.xdg.dataHome}/gpg";
+    homedir = "${config.xdg.configHome}/gpg";
   };
 
   services.gpg-agent = {

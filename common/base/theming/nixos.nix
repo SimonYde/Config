@@ -11,6 +11,11 @@
     ./shared.nix
   ];
 
+  stylix.targets = {
+    nixos-icons.enable = false;
+    gnome-text-editor.enable = false;
+  };
+
   specialisation."light-theme".configuration = {
     environment.etc."light-theme".text = "light-theme";
     stylix = {

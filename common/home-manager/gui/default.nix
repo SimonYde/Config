@@ -15,13 +15,12 @@ let
     mkPackageOption
     types
     ;
-  inherit (config.syde.gui) file-manager terminal;
+  inherit (config.syde.gui) file-manager terminal image-viewer;
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
     ./browser.nix
-    ./discord.nix
 
     inputs.spicetify-nix.homeManagerModules.default
   ];
@@ -37,7 +36,6 @@ in
         firefox.enable = false;
 
         # other GUI programs
-        discord.enable = true;
         mpv.enable = true;
         imv.enable = true;
         spicetify.enable = true;
@@ -66,8 +64,10 @@ in
 
         qbittorrent # Linux ISOs
 
-        todoist-electron
         zotero
+
+        discord
+        betterdiscordctl
 
         rclone-browser
         rclone # Remote files
@@ -98,11 +98,11 @@ in
             "x-scheme-handler/magnet" = "org.qbittorrent.qBittorrent.desktop";
             "application/x-bittorrent" = "org.qbittorrent.qBittorrent.desktop";
 
-            "image/apng" = "imv.desktop";
-            "image/gif" = "imv.desktop";
-            "image/jpeg" = "imv.desktop";
-            "image/png" = "imv.desktop";
-            "image/webp" = "imv.desktop";
+            "image/apng" = "${image-viewer.name}.desktop";
+            "image/gif" = "${image-viewer.name}.desktop";
+            "image/jpeg" = "${image-viewer.name}.desktop";
+            "image/png" = "${image-viewer.name}.desktop";
+            "image/webp" = "${image-viewer.name}.desktop";
 
             "video/mp4" = "mpv.desktop";
             "video/mpv" = "mpv.desktop";
@@ -607,6 +607,15 @@ in
       default = "zen";
     };
 
+    file-manager = {
+      name = mkOption {
+        type = types.str;
+        default = "pcmanfm";
+      };
+
+      package = mkPackageOption pkgs "pcmanfm" { };
+    };
+
     terminal = {
       name = mkOption {
         type = types.enum [
@@ -622,13 +631,13 @@ in
       package = mkPackageOption pkgs "ghostty" { };
     };
 
-    file-manager = {
+    image-viewer = {
       name = mkOption {
         type = types.str;
-        default = "pcmanfm";
+        default = "imv";
       };
 
-      package = mkPackageOption pkgs "pcmanfm" { };
+      package = mkPackageOption pkgs "imv" { };
     };
   };
 }
