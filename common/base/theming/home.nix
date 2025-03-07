@@ -29,6 +29,7 @@ in
       zathura.enable = true;
       spicetify.enable = false;
       fzf.enable = true;
+      gnome-text-editor.enable = false;
     };
   };
 

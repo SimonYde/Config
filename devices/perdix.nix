@@ -36,7 +36,6 @@
 
   programs = {
     wireshark.enable = true;
-    partition-manager.enable = true;
   };
 
   services = {

@@ -172,6 +172,7 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     users.${username}.imports = [ ../home-manager ];
+    users.root.imports = [ ../home-manager ];
     extraSpecialArgs = {
       inherit inputs;
     };

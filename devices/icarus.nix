@@ -30,7 +30,6 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
-    loader.systemd-boot.consoleMode = "max";
     loader.systemd-boot.windows."11-home" = {
       title = "Windows 11 Home";
       efiDeviceHandle = "HD0b";
@@ -41,8 +40,6 @@
     font = lib.mkForce "ter-i32b";
     earlySetup = true;
   };
-
-  programs.partition-manager.enable = true;
 
   services = {
     ratbagd.enable = true;
