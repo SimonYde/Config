@@ -333,7 +333,7 @@ in
                   days = "<span color='${base05}'><b>{}</b></span>";
                   weeks = "<span color='${base05}'><b>W{}</b></span>";
                   weekdays = "<span color='${base05}'><b>{}</b></span>";
-                  today = "<span color='${base05}'><b><u>{}</u></b></span>";
+                  today = "<span color='${base08}'><b><u>{}</u></b></span>";
                 };
               };
 

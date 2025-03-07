@@ -20,6 +20,7 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
+  networking.firewall.enable = lib.mkForce true;
 
   console.earlySetup = true;
 

@@ -27,6 +27,7 @@
     grawlix = inputs.grawlix.packages.${prev.system}.default;
     pix2tex = inputs.pix2tex.packages.${prev.system}.default;
     audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
+    zen-browser = inputs.zen-browser.packages.${prev.system}.default;
 
     inherit (inputs.kattis-cli.packages.${prev.system}) kattis-test kattis-cli;
 

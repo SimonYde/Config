@@ -9,11 +9,9 @@ let
   inherit (config.syde.gui) browser;
   inherit (lib) readFile;
   inherit (inputs) betterfox;
-
-  zen-browser = pkgs.callPackage ./zen-browser.nix { src = inputs.zen-browser; };
 in
 {
-  home.packages = [ zen-browser ];
+  home.packages = [ pkgs.zen-browser ];
 
   xdg.mimeApps.defaultApplications = {
     "x-scheme-handler/http" = "${browser}.desktop";
