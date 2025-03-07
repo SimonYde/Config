@@ -35,8 +35,8 @@
     };
 
     zen-browser = {
-      url = "https://github.com/zen-browser/desktop/releases/latest/download/zen-x86_64.AppImage";
-      flake = false;
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland = {
