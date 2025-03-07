@@ -1,8 +1,12 @@
 # For available options run:
 #   config nu --doc | nu-highlight | bat
 
+export def banner [] {
+    fastfetch
+}
+
 $env.config = {
-    show_banner: false # true or false to enable or disable the welcome banner at startup
+    show_banner: true # true or false to enable or disable the welcome banner at startup
     footer_mode: auto
     use_kitty_protocol: true # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
     edit_mode: vi # emacs, vi
