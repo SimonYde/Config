@@ -24,7 +24,6 @@
     sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
     packages = with pkgs; [
-      # CLI Tools
       dogdns # rust version of `dig`
       du-dust # Histogram of file sizes
       erdtree # Tree file view

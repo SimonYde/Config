@@ -24,10 +24,7 @@ in
   systemd.user.services.random-wallpaper = {
     Unit = {
       Description = "Cycle hyprpaper to new wallpaper at random.";
-      After = [
-        "graphical-session-pre.target"
-        "hyprpaper.service"
-      ];
+      After = [ "hyprpaper.target" ];
       PartOf = [ config.wayland.systemd.target ];
     };
 
