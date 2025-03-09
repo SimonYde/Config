@@ -8,7 +8,8 @@
 let
   inherit (config.syde.gui) browser;
   inherit (lib) readFile;
-  inherit (inputs) betterfox;
+
+  csshacks = inputs.firefox-csshacks + "/chrome";
 in
 {
   home.packages = [ pkgs.zen-browser ];
@@ -29,11 +30,9 @@ in
 
   programs.brave = {
     extensions = [
-      { id = "fhcgjolkccmbidfldomjliifgaodjagh"; } # Cookie AutoDelete
       { id = "jjhefcfhmnkfeepcpnilbbkaadhngkbi"; } # Readwise Highlighter
       { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium
       { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # Stylus
-      { id = "fjcldmjmjhkklehbacihaiopjklihlgg"; } # News Feed Eradicator
       { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
       { id = "oocalimimngaihdkbihfgmpkcpnmlaoa"; } # Teleparty
       { id = "hdokiejnpimakedhajhdlcegeplioahd"; } # Lastpass
@@ -47,28 +46,6 @@ in
       force = true;
 
       engines = {
-        "Google".metaData.alias = "@g";
-        "Bing".metaData.hidden = true;
-        "Wikipedia (en)".metaData.hidden = true;
-        "Amazon.com".metaData.hidden = true;
-        "Twitter.com".metaData.hidden = true;
-
-        "Arch Wiki" = {
-          urls = [
-            {
-              template = "https://wiki.archlinux.org/index.php";
-              params = [
-                {
-                  name = "search";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-          iconUpdateURL = "https://wiki.archlinux.org/favicon.ico";
-          definedAliases = [ "@aw" ];
-        };
-
         "Kagi" = {
           urls = [
             {
@@ -84,79 +61,11 @@ in
           iconUpdateURL = "https://kagi.com/asset/v2/favicon-16x16.png";
           definedAliases = [ "@k" ];
         };
-
-        "Nix Packages" = {
-          urls = [
-            {
-              template = "https://search.nixos.org/packages";
-              params = [
-                {
-                  name = "channel";
-                  value = "unstable";
-                }
-                {
-                  name = "type";
-                  value = "packages";
-                }
-                {
-                  name = "query";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@np" ];
-        };
-
-        "NixOS Options" = {
-          urls = [
-            {
-              template = "https://search.nixos.org/options";
-              params = [
-                {
-                  name = "channel";
-                  value = "unstable";
-                }
-                {
-                  name = "query";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@no" ];
-        };
-
-        "NixOS Wiki" = {
-          urls = [
-            {
-              template = "https://wiki.nixos.org/w/index.php";
-              params = [
-                {
-                  name = "title";
-                  value = "Special:Search";
-                }
-                {
-                  name = "search";
-                  value = "{searchTerms}";
-                }
-              ];
-            }
-          ];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@nw" ];
-        };
       };
     };
 
     settings = {
-      # Searching
-      "browser.search.region" = "DK";
-      "browser.search.suggest.enabled" = false;
       # Privacy
-      "app.shield.optoutstudies.enabled" = false;
       "browser.contentblocking.category" = "strict";
       "browser.formfill.enable" = false;
       "browser.laterrun.enabled" = true;
@@ -195,7 +104,6 @@ in
       "network.dns.disablePrefetch" = true;
       "network.http.referer.disallowCrossSiteRelaxingDefault.top_navigation" = true;
       "network.trr.uri" = "https://base.dns.mullvad.net/dns-query";
-      # "network.trr.mode" = 3;
       "network.predictor.enabled" = false;
       "network.prefetch-next" = false;
 
@@ -216,14 +124,11 @@ in
     };
 
     userChrome =
-      let
-        csshacks = inputs.firefox-csshacks + "/chrome";
-      in
       readFile "${csshacks}/window_control_placeholder_support.css"
       + readFile "${csshacks}/hide_tabs_toolbar.css"
       + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
       + readFile "${csshacks}/window_control_force_linux_system_style.css"
       + readFile "${csshacks}/overlay_sidebar_header.css";
-    extraConfig = readFile "${betterfox}/Fastfox.js";
+    extraConfig = readFile "${inputs.betterfox}/Fastfox.js";
   };
 }

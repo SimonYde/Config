@@ -154,11 +154,6 @@ Load.later(function()
                             .. vim.uv.os_gethostname()
                             .. '.options',
                     },
-                    home_manager = {
-                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.'
-                            .. vim.uv.os_gethostname()
-                            .. '.config.home-manager.users.syde',
-                    },
                 },
             },
         },
