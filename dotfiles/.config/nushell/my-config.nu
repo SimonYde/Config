@@ -6,10 +6,10 @@ export def banner [] {
 }
 
 $env.config = {
-    show_banner: true # true or false to enable or disable the welcome banner at startup
-    footer_mode: auto
-    use_kitty_protocol: true # enables keyboard enhancement protocol implemented by kitty console, only if your terminal support this.
+    show_banner: false
     edit_mode: vi # emacs, vi
+    footer_mode: auto
+    use_kitty_protocol: true
 
     cursor_shape: {
         vi_insert: line
@@ -22,11 +22,6 @@ $env.config = {
         partial: true
         algorithm: "fuzzy"
         sort: "smart"
-        external: {
-            enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
-            max_results: 50
-            completer: null # check 'carapace_completer' above as an example
-        }
     }
 
     table: {

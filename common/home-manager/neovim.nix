@@ -12,7 +12,6 @@
       defaultEditor = true;
 
       vimAlias = true;
-      vimdiffAlias = true;
       viAlias = true;
 
       withRuby = false;
@@ -58,8 +57,8 @@
           neogit
           todo-comments-nvim
           img-clip-nvim
-
           nvim-ufo
+
           nvim-dap
           nvim-dap-ui
 
@@ -74,19 +73,11 @@
         ];
 
       # Always enable the luac loader first.
-      extraLuaConfig = lib.mkOrder 0 ''
-        vim.loader.enable()
-      '';
+      extraLuaConfig = lib.mkOrder 0 "vim.loader.enable()";
     }
     {
       # Always place `require('syde')` at the end.
-      extraLuaConfig = lib.mkOrder 1000 ''
-        require('syde')
-      '';
+      extraLuaConfig = lib.mkOrder 1000 "require('syde')";
     }
-  ];
-
-  home.packages = with pkgs; [
-    ghostscript # for snacks.nvim pdf rendering
   ];
 }

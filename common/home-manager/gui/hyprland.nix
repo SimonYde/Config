@@ -13,6 +13,15 @@ let
     ;
   inherit (config.syde.gui) file-manager terminal browser;
 
+  random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" ''
+    CURRENT=$(hyprctl hyprpaper listloaded)
+    # Get a random wallpaper that is not the current one
+    WALLPAPER=$(${pkgs.fd}/bin/fd . "$WALLPAPER_DIR" -t f -E "$CURRENT" | shuf -n 1)
+
+    # Apply the selected wallpaper
+    hyprctl hyprpaper reload ,"$WALLPAPER"
+  '';
+
   hyprland-gamemode = pkgs.writeShellScriptBin "hyprland-gamemode" ''
     HYPRGAMEMODE=$(hyprctl getoption animations:enabled | sed -n '1p' | awk '{print $2}')
 
@@ -34,10 +43,12 @@ let
   '';
 in
 {
-  imports = [ ./random-wallpaper.nix ];
-
   home.packages = with pkgs; [
+    # My scripts
+    random-wallpaper
     hyprland-gamemode
+
+    # Extra utilities
     playerctl # media keys
 
     pwvucontrol # audio control
@@ -124,7 +135,6 @@ in
       text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
       text_align = "center";
       font_size = 45;
-      font_family = config.stylix.fonts.sansSerif.name;
       rotate = 0;
       position = "0, 80";
       halign = "center";
@@ -164,8 +174,34 @@ in
           RestartSec = "2";
         };
 
-        Install.WantedBy = [ "hyprland-session.target" ];
+        Install.WantedBy = [ config.wayland.systemd.target ];
       };
+
+      random-wallpaper = {
+        Unit = {
+          Description = "Cycle hyprpaper to new wallpaper at random.";
+          After = [ "hyprpaper.target" ];
+          Restart = "on-failure";
+          RestartSec = "10";
+          PartOf = [ config.wayland.systemd.target ];
+        };
+
+        Service = {
+          Type = "oneshot";
+          ExecStart = lib.getExe random-wallpaper;
+          IOSchedulingClass = "idle";
+        };
+
+        Install.WantedBy = [ config.wayland.systemd.target ];
+      };
+    };
+
+    timers.random-wallpaper = {
+      Unit.Description = "Cycle hyprpaper to new wallpaper at random.";
+
+      Timer.OnUnitActiveSec = "15min";
+
+      Install.WantedBy = [ "timers.target" ];
     };
   };
 }

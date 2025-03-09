@@ -17,6 +17,7 @@
   specialisation."gaming".configuration = {
     imports = [ ../common/nixos/gaming.nix ];
     environment.etc."specialisation".text = "gaming";
+    environment.etc."gaming".text = "gaming";
   };
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
