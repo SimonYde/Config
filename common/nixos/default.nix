@@ -34,6 +34,8 @@ in
 
   time.timeZone = mkDefault "Europe/Copenhagen";
 
+  documentation.nixos.enable = false;
+
   boot = {
     tmp = {
       useTmpfs = true;
@@ -55,8 +57,6 @@ in
     algorithm = "zstd";
   };
 
-  documentation.nixos.enable = false;
-
   nix = {
     package = pkgs.lix;
     channel.enable = false;
@@ -76,7 +76,7 @@ in
 
       clean = {
         enable = true;
-        extraArgs = "--keep 2 --keep-since 1d";
+        extraArgs = "--keep 2 --nogcroots";
         dates = "daily";
       };
     };

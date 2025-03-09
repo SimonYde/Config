@@ -51,10 +51,10 @@ end)
 
 Load.later(function()
     Load.packadd('nvim-ufo')
-    _G.Ufo = require('ufo')
+    local ufo = require('ufo')
 
     --- @diagnostic disable-next-line: missing-fields
-    Ufo.setup({
+    ufo.setup({
         open_fold_hl_timeout = 0,
         provider_selector = function(_, _, _) return { 'treesitter', 'indent' } end,
         close_fold_kinds_for_ft = {
@@ -67,17 +67,17 @@ Load.later(function()
         },
     })
 
-    nmap('zR', Ufo.openAllFolds, 'Open all folds (nvim-ufo)')
-    nmap('zM', Ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
+    nmap('zR', ufo.openAllFolds, 'Open all folds (nvim-ufo)')
+    nmap('zM', ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
     vim.o.foldlevel = 500 -- NOTE: must be set high as to avoid auto-closing
     vim.g.ufo_foldlevel = 0
     nmap('zr', function()
         vim.g.ufo_foldlevel = vim.g.ufo_foldlevel + 1
-        Ufo.closeFoldsWith(vim.g.ufo_foldlevel)
+        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
     end, 'Open one fold level')
     nmap('zm', function()
         vim.g.ufo_foldlevel = math.max(vim.g.ufo_foldlevel - 1, 0)
-        Ufo.closeFoldsWith(vim.g.ufo_foldlevel)
+        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
     end, 'Close one fold level')
 end)
 

@@ -74,11 +74,6 @@ in
           nix-direnv.enable = true;
         };
 
-        gpg = {
-          enable = true;
-          homedir = "${config.xdg.configHome}/gpg";
-        };
-
         gh = {
           enable = true;
           settings.git_protocol = "ssh";
@@ -89,9 +84,10 @@ in
           display = "inline";
         };
 
-        lazygit.enable = true;
-
-        man.enable = true;
+        gpg = {
+          enable = true;
+          homedir = "${config.xdg.configHome}/gpg";
+        };
 
         jujutsu = {
           enable = true;
@@ -103,6 +99,11 @@ in
             };
           };
         };
+
+        lazygit.enable = true;
+
+        man.enable = true;
+
       };
 
       services = {
