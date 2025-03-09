@@ -1,1 +1,0 @@
-nixos/modules/services/syncthing.nix filter=git-crypt diff=git-crypt
