@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -22,11 +21,7 @@ in
         };
       };
 
-      hardware.graphics = {
-        enable = true;
-        extraPackages = with pkgs; [ ];
-        extraPackages32 = [ ];
-      };
+      hardware.graphics.enable = true;
     })
 
     (mkIf cfg.cpu.enable {
@@ -37,11 +32,8 @@ in
   ];
 
   options.syde.hardware.amd = {
-    gpu = {
-      enable = mkEnableOption "AMD GPU driver";
-    };
-    cpu = {
-      enable = mkEnableOption "AMD CPU configuration";
-    };
+    gpu.enable = mkEnableOption "AMD GPU driver";
+
+    cpu.enable = mkEnableOption "AMD CPU configuration";
   };
 }

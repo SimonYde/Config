@@ -150,11 +150,15 @@ Load.later(function()
                 },
                 options = {
                     nixos = {
-                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.perdix.options',
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.'
+                            .. vim.uv.os_gethostname()
+                            .. '.options',
                     },
-                    -- home_manager = {
-                    --     expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.perdix.options',
-                    -- },
+                    home_manager = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.'
+                            .. vim.uv.os_gethostname()
+                            .. '.config.home-manager.users.syde',
+                    },
                 },
             },
         },

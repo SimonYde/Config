@@ -62,9 +62,21 @@ in
       ];
 
       programs = {
+        bat.extraPackages = with pkgs.bat-extras; [
+          batdiff
+          batman
+          batgrep
+          batwatch
+        ];
+
         direnv = {
           enable = true;
           nix-direnv.enable = true;
+        };
+
+        gpg = {
+          enable = true;
+          homedir = "${config.xdg.configHome}/gpg";
         };
 
         gh = {
@@ -79,6 +91,8 @@ in
 
         lazygit.enable = true;
 
+        man.enable = true;
+
         jujutsu = {
           enable = true;
 
@@ -91,14 +105,28 @@ in
         };
       };
 
-      services.tldr-update = {
-        enable = true;
-        package = pkgs.tlrc;
+      services = {
+        gpg-agent = {
+          enable = true;
+          enableSshSupport = true;
+          enableNushellIntegration = true;
+          pinentryPackage = pkgs.pinentry-tty;
+          extraConfig = ''
+            allow-loopback-pinentry
+          '';
+        };
+
+        tldr-update = {
+          enable = true;
+          package = pkgs.tlrc;
+        };
       };
     }
 
     (mkIf cfg.bash.enable {
-      home.packages = with pkgs; [ bash-language-server ];
+      home.packages = with pkgs; [
+        bash-language-server
+      ];
     })
 
     (mkIf cfg.cpp.enable {
@@ -183,6 +211,7 @@ in
     (mkIf cfg.nix.enable {
       home.packages = with pkgs; [
         nil
+        nixd
 
         hydra-check
         nix-diff

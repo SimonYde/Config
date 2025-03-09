@@ -45,7 +45,10 @@ in
     source-sans-pro
   ];
 
-  home.sessionVariables.GTK_THEME = config.gtk.theme.name;
+  home.sessionVariables = {
+    GTK_THEME = config.gtk.theme.name;
+    WALLPAPER_DIR = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
+  };
 
   gtk = {
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -61,7 +64,10 @@ in
     # NOTE: Stylix shouldn't set settings, but generate the theme
     helix.settings = mkForce { };
 
-    hyprlock.settings.label.color = "rgb(${colors.base05})";
+    hyprlock.settings.label = {
+      color = "rgb(${colors.base05})";
+      font_family = fonts.sansSerif.name;
+    };
 
     imv.settings.options = with colors; {
       background = base00;

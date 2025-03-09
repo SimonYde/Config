@@ -10,7 +10,7 @@ let
   command = getExe config.programs.hyprland.package;
 in
 {
-  home-manager.users.${username}.imports = [ ../home-manager/gui/hyprland ];
+  home-manager.users.${username}.imports = [ ../home-manager/gui/hyprland.nix ];
 
   programs.hyprland.enable = true;
 

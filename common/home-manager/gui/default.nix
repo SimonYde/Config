@@ -73,6 +73,7 @@ in
         rclone # Remote files
 
         imagemagick
+        ghostscript # PDF renderer (snacks.nvim)
 
         yt-dlp
 
@@ -140,6 +141,11 @@ in
         config.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/rclone";
 
       programs = {
+        fastfetch.settings.logo = {
+          source = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
+          type = "kitty-direct";
+        };
+
         ghostty.settings = {
           gtk-titlebar = false;
           gtk-adwaita = true;
