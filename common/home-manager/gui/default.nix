@@ -327,21 +327,7 @@ in
             clock = {
               format = " {:%a. %d/%m, %R} ";
               format-alt = " {:%a. %b. %d, %Y (%T)} ";
-              tooltip-format = "<tt><small>{calendar}</small></tt>";
-
-              calendar = {
-                mode = "year";
-                mode-mon-col = 3;
-                weeks-pos = "right";
-                on-scroll = 1;
-                format = with config.lib.stylix.colors.withHashtag; {
-                  months = "<span color='${base0D}'><b>{}</b></span>";
-                  days = "<span color='${base05}'><b>{}</b></span>";
-                  weeks = "<span color='${base05}'><b>W{}</b></span>";
-                  weekdays = "<span color='${base05}'><b>{}</b></span>";
-                  today = "<span color='${base08}'><b><u>{}</u></b></span>";
-                };
-              };
+              tooltip = false;
 
               actions = {
                 on-click-right = "mode";

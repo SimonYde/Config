@@ -96,6 +96,10 @@
       url = "github:echasnovski/mini.nvim";
       flake = false;
     };
+    obsidian-nvim = {
+      url = "github:obsidian-nvim/obsidian.nvim";
+      flake = false;
+    };
     snacks-nvim = {
       url = "github:folke/snacks.nvim";
       flake = false;

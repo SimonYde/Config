@@ -41,10 +41,12 @@
 
         obsidian-nvim = prev.vimPlugins.obsidian-nvim.overrideAttrs {
           checkInputs = [ ];
+          src = inputs.obsidian-nvim;
           nvimSkipModule = [
             "obsidian.pickers._mini"
             "obsidian.pickers._fzf"
             "obsidian.pickers._telescope"
+            "obsidian.pickers._snacks"
           ];
         };
 

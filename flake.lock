@@ -1114,6 +1114,22 @@
         "type": "github"
       }
     },
+    "obsidian-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741441431,
+        "narHash": "sha256-fm2N5dog2AD1xxPb/13S6IQW/RRn8G+Irybhyl0B4Rk=",
+        "owner": "obsidian-nvim",
+        "repo": "obsidian.nvim",
+        "rev": "5eea5d2b32719d6b5064af8cd26a49409d564b16",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obsidian-nvim",
+        "repo": "obsidian.nvim",
+        "type": "github"
+      }
+    },
     "pix2tex": {
       "inputs": {
         "nixpkgs": [
@@ -1195,6 +1211,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
+        "obsidian-nvim": "obsidian-nvim",
         "pix2tex": "pix2tex",
         "pre-commit-hooks": "pre-commit-hooks",
         "snacks-nvim": "snacks-nvim",
