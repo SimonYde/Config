@@ -11,6 +11,8 @@ in
 {
   config = mkIf cfg.enable {
     services.xserver.videoDrivers = [ "nvidia" ];
+
+    # FIXME: 2025-03-10 Simon Yde, currently doesn't get set because of a dependency on `services.xserver`...
     boot.kernelModules = [
       "nvidia"
       "nvidia_modeset"
@@ -22,14 +24,14 @@ in
       nvidia = {
         videoAcceleration = true;
         powerManagement.enable = true;
-        powerManagement.finegrained = mkDefault false;
         modesetting.enable = true;
-        nvidiaSettings = false;
+        nvidiaSettings = mkDefault false;
         open = mkDefault true;
         package = config.boot.kernelPackages.nvidiaPackages.latest;
       };
 
-      nvidia-container-toolkit.enable = config.virtualisation.docker.enable;
+      nvidia-container-toolkit.enable =
+        config.virtualisation.docker.enable || config.virtualisation.podman.enable;
 
       graphics = {
         enable = true;

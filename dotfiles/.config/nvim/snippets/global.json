@@ -1,7 +1,7 @@
 {
   "Todo comment": {
     "prefix": "todo",
-    "body": ["${1|TODO,NOTE,FIXME,HACK,BUG|}: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE Simon Yde, $0"],
+    "body": ["$LINE_COMMENT ${1|TODO,NOTE,FIXME,HACK,BUG|}: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE Simon Yde, $0"],
     "description": "Insert current date (YYYY-mm-dd)"
   },
 

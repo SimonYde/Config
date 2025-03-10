@@ -233,23 +233,23 @@ Load.later(function()
                 path = '~/Obsidian/Apollo',
             },
         },
-        notes_subdir = 'notes',
-        new_notes_location = 'notes_subdir',
+        new_notes_location = 'current_dir',
         --- @diagnostic disable-next-line: missing-fields
         completion = {
-            nvim_cmp = true,
+            blink = true,
+            nvim_cmp = false,
             min_chars = 2,
         },
         --- @diagnostic disable-next-line: missing-fields
         templates = {
             subdir = 'templates',
-            date_format = '%Y-%m-%d-%a',
+            date_format = '%Y-%m-%d',
             time_format = '%H:%M',
         },
         --- @diagnostic disable-next-line: missing-fields
         daily_notes = {
             -- Optional, if you keep daily notes in a separate directory.
-            folder = 'reviews/Daily Notes',
+            folder = '0. Periodic Notes/Daily',
             -- Optional, if you want to change the date format for the ID of daily notes.
             date_format = '%Y-%m-%d',
             -- Optional, if you want to change the date format of the default alias of daily notes.
@@ -257,8 +257,10 @@ Load.later(function()
             -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
             template = 'templates/daily.md',
         },
+        picker = {
+            name = 'snacks.pick',
+        },
 
-        use_advanced_uri = false,
         disable_frontmatter = true,
         follow_url_func = function(url) vim.ui.open(url) end,
         follow_img_func = function(img) vim.ui.open(img) end,
@@ -283,7 +285,11 @@ end)
 
 Load.later(function()
     Load.packadd('img-clip.nvim')
-    require('img-clip').setup()
+    require('img-clip').setup({
+        default = {
+            dir_path = 'attachments',
+        },
+    })
 end)
 
 Load.later(function()
