@@ -30,7 +30,7 @@ in
       manual.manpages.enable = false;
 
       lib.meta = {
-        configPath = "${config.home.homeDirectory}/Config";
+        configPath = "/home/syde/Config"; # Should be the location of the config repo.
         mkMutableSymlink =
           path:
           config.lib.file.mkOutOfStoreSymlink (
