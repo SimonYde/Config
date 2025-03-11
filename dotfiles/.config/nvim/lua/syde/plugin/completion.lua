@@ -1,14 +1,4 @@
 Load.later(function()
-    Load.packadd('blink.compat')
-
-    require('blink.compat').setup({
-        impersonate_nvim_cmp = false,
-    })
-
-    package.loaded['nvim-cmp'] = package.loaded['blink.compat']
-end)
-
-Load.later(function()
     Load.packadd('blink.cmp')
 
     require('blink.cmp').setup({
@@ -54,16 +44,6 @@ Load.later(function()
                     'snippets',
                     'buffer',
                 },
-
-                markdown = {
-                    'obsidian',
-                    'obsidian_new',
-                    'obsidian_tags',
-                    'path',
-
-                    'snippets',
-                    'buffer',
-                },
             },
 
             providers = {
@@ -72,21 +52,6 @@ Load.later(function()
                     module = 'lazydev.integrations.blink',
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
-                },
-
-                obsidian = {
-                    name = 'obsidian',
-                    module = 'blink.compat.source',
-                },
-
-                obsidian_new = {
-                    name = 'obsidian_new',
-                    module = 'blink.compat.source',
-                },
-
-                obsidian_tags = {
-                    name = 'obsidian_tags',
-                    module = 'blink.compat.source',
                 },
             },
         },

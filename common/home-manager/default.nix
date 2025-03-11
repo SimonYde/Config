@@ -287,7 +287,6 @@ in
               ++ config.lib.meta.lazyNeovimPlugins [
                 # ----- Completion -----
                 blink-cmp
-                blink-compat
 
                 # ----- Workflow -----
                 conform-nvim
