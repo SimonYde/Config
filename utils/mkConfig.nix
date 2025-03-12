@@ -19,7 +19,6 @@ let
       inherit system overlays;
       config = config // {
         allowUnfree = true;
-        cudaSupport = true;
       };
     }
   );

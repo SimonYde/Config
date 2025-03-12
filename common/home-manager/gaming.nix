@@ -9,9 +9,8 @@
         pkgs.winetricks
       ];
     })
-    r2modman
+
     heroic
-    bottles
     prismlauncher
 
     # ---Wine and Wine Dependencies---

@@ -33,16 +33,17 @@ in
       enable = true;
       gamescopeSession.enable = true;
 
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin # glorious eggroll
-      ];
-
-      fontPackages = with pkgs; [
-        wineWowPackages.fonts
-        source-han-sans
-      ];
+      # with Glorious Eggroll Proton
+      extraCompatPackages = with pkgs; [ proton-ge-bin ];
     };
   };
+
+  users.users.${username}.extraGroups = [ "gamemode" ];
+
+  fonts.packages = with pkgs; [
+    wineWowPackages.fonts
+    source-han-sans
+  ];
 
   hardware.graphics = {
     enable = true;

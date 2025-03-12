@@ -1,6 +1,28 @@
+@define-color background     alpha(@base00,   .7);
+@define-color background-alt alpha(@base01,   .7);
+@define-color text           @base0D;
+@define-color selected       @base04;
+@define-color hover          alpha(@selected, .4);
+@define-color urgent         @base08;
+
+* {
+  border-radius: 10px;
+  border: none;
+  min-height: 12px;
+}
+
 window#waybar {
   border-radius: 0px;
   background: @background;
+}
+
+window#waybar, tooltip {
+  background: @background;
+  color: @base05;
+}
+
+tooltip {
+  border-color: @base0D;
 }
 
 window#waybar.hidden {

@@ -36,3 +36,5 @@ let external_completer = {|spans|
 }
 
 $env.config.completions.external.completer = $external_completer
+
+use nu_scripts/typst/typst-completions.nu *
