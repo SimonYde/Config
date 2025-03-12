@@ -24,7 +24,12 @@ in
       helix.enable = true;
       neovim.enable = false;
       nushell.enable = false;
-      waybar.enable = false;
+      waybar = {
+        enable = true;
+        font = "sansSerif";
+        addCss = false;
+      };
+      rofi.enable = false;
       zellij.enable = false;
       zathura.enable = true;
       spicetify.enable = false;
@@ -86,15 +91,6 @@ in
         }
       '';
 
-    mpv.config = with colors; {
-      background = "color";
-      background-color = base00;
-      osd-back-color = base04;
-      osd-border-color = base01;
-      osd-color = base05;
-      osd-shadow-color = base00;
-    };
-
     # NOTE: 2025-03-06 Simon Yde, because stylix uses bad colors.
     spicetify = {
       theme = {
@@ -132,8 +128,8 @@ in
     };
 
     rofi = {
-      font = mkForce "${fonts.sansSerif.name} 14";
-      theme = mkForce "custom_base16";
+      font = "${fonts.sansSerif.name} ${toString fonts.sizes.popups}";
+      theme = "custom_base16";
     };
 
     nushell.extraConfig = with colors.withHashtag; ''
@@ -234,27 +230,7 @@ in
       }
     '';
 
-    waybar.style =
-      with colors.withHashtag;
-      ''
-        @define-color base00 ${base00}; @define-color base01 ${base01}; @define-color base02 ${base02}; @define-color base03 ${base03};
-        @define-color base04 ${base04}; @define-color base05 ${base05}; @define-color base06 ${base06}; @define-color base07 ${base07};
-        @define-color base08 ${base08}; @define-color base09 ${base09}; @define-color base0A ${base0A}; @define-color base0B ${base0B};
-        @define-color base0C ${base0C}; @define-color base0D ${base0D}; @define-color base0E ${base0E}; @define-color base0F ${base0F};
-
-        @define-color background alpha(${base00}, .7); @define-color background-alt  alpha(${base01}, .7);
-        @define-color text       ${base0D};            @define-color selected        ${base04};
-        @define-color hover      alpha(@selected, .4); @define-color urgent          ${base08};
-
-        * {
-          font-family: ${fonts.sansSerif.name};
-          font-size: 14px;
-          border-radius: 10px;
-          border: none;
-          min-height: 12px;
-        }
-      ''
-      + builtins.readFile ./waybar.css;
+    waybar.style = builtins.readFile ./waybar.css;
 
     wlogout.style =
       with colors.withHashtag;

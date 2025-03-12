@@ -61,7 +61,6 @@ in
 
   programs = {
     imv.enable = true;
-    mpv.enable = true;
     rofi.enable = true;
     wlogout.enable = true;
     hyprlock.enable = true;

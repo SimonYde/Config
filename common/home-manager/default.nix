@@ -618,6 +618,9 @@ in
 
         zellij.enableBashIntegration = false;
       };
+
+      xdg.dataFile."nushell/completions/nu_scripts".source =
+        pkgs.nu_scripts + "/share/nu_scripts/custom-completions";
     }
 
     (mkIf config.programs.fzf.enable {

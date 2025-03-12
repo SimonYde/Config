@@ -43,6 +43,8 @@
     earlySetup = true;
   };
 
+  programs.partition-manager.enable = true;
+
   services = {
     ratbagd.enable = true;
     tailscale.enable = true;
