@@ -1,9 +1,10 @@
 Load.later(function()
     vim.opt.runtimepath:prepend('~/.local/state/nvim/treesitter')
+
     require('nvim-treesitter.configs').setup({
         auto_install = true,
-        ignore_install = {},
         sync_install = false,
+        ignore_install = {},
         ensure_installed = {
             'lua',
             'nix',
@@ -21,24 +22,14 @@ Load.later(function()
             enable = true,
             additional_vim_regex_highlighting = false,
         },
-        indent = {
-            enable = true,
-        },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = '<M-w>', -- maps in normal mode to init the node/scope selection
-                node_incremental = '<M-w>', -- increment to the upper named parent
-                node_decremental = '<M-C-w>', -- decrement to the previous node
-                scope_incremental = '<M-s>', -- increment to the upper scope (as defined in locals.scm)
-            },
-        },
+        indent = { enable = true },
     })
 end)
 
 Load.later(function()
     Load.packadd('rainbow-delimiters.nvim')
     local rainbow_delimiters = require('rainbow-delimiters')
+
     ---@type rainbow_delimiters.config
     vim.g.rainbow_delimiters = {
         strategy = {
@@ -69,9 +60,6 @@ Load.later(function()
     Load.packadd('nvim-treesitter-context')
     local context = require('treesitter-context')
     context.setup()
-    local nmap = Keymap.nmap
-
-    nmap('<leader><leader>t', context.toggle, 'Toggle treesitter context')
 
     Snacks.toggle
         .new({

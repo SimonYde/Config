@@ -7,29 +7,19 @@ end)
 
 Load.now(function()
     require('snacks').setup({
-        notifier = {
-            enabled = true,
-        },
+        notifier = {},
         quickfile = {},
         picker = {},
         toggle = {},
         terminal = {},
+        zen = {},
+        image = {},
+
         indent = {
-            enabled = true,
-            indent = {
-                char = '▏',
-            },
-            scope = {
-                enabled = false,
-                char = '▏',
-            },
+            indent = { char = '▏' },
+            scope = { enabled = false },
         },
-        image = {
-            -- doc = {
-            --     inline = false,
-            --     conceal = false,
-            -- },
-        },
+
         dashboard = {
             preset = {
                 keys = {
@@ -58,10 +48,12 @@ Load.now(function()
                         desc = 'Config',
                         action = ":lua Snacks.dashboard.pick('files', {cwd = vim.env.HOME .. '/Config', hidden = true})",
                     },
+
                     { icon = ' ', key = 's', desc = 'Restore Session', section = 'session' },
                     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
                 },
             },
+
             sections = {
                 { section = 'header' },
                 { section = 'keys', gap = 1, padding = 2 },
@@ -69,9 +61,9 @@ Load.now(function()
                 { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 2 },
             },
         },
-        zen = {},
+
         bigfile = {
-            notify = true, -- show notification when big file detected
+            notify = true, -- Show notification when big file detected
             size = 1024 * 1024, -- 1 MiB
             -- Enable or disable features when big file detected
             ---@param ctx {buf: number, ft:string}

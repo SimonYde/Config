@@ -34,31 +34,18 @@ M.later = function(func_to_lazy_load)
     H.schedule_finish()
 end
 
-M.once = function(func_to_load)
-    local has_loaded = false
-    local result = nil
-    return function(...)
-        if has_loaded then return result end
-        has_loaded = true
-        result = M.now(func_to_load, ...)
-        return result
-    end
-end
-
 local defer_group = vim.api.nvim_create_augroup('DeferFunction', {})
 
----@param cb function function that will be called once event fires
----@param events string | table that will be called once event fires
----@param pattern string? that will be called once event fires
-M.on_events = function(cb, events, pattern)
+---@param callback function function that will be called once event fires
+---@param params { pattern: string?, events: string[] | string } table of event types, with an optional pattern
+M.on_events = function(params, callback)
     local opts = {
         group = defer_group,
-        desc = 'DeferFunction',
         once = true,
-        callback = function(ev) Load.now(cb, ev) end,
+        callback = function(ev) Load.now(callback, ev) end,
     }
-    if pattern then opts['pattern'] = pattern end
-    vim.api.nvim_create_autocmd(events, opts)
+    if params.pattern then opts.pattern = params.pattern end
+    vim.api.nvim_create_autocmd(params.events, opts)
 end
 
 M.packadd = function(package_name)

@@ -1,124 +1,62 @@
--- Leader key =================================================================
-vim.g.maplocalleader = ' '
-vim.g.mapleader = ' '
-
 -- General ====================================================================
-vim.o.backup = false
-vim.o.writebackup = false
-vim.o.mouse = 'a'
-vim.o.mousescroll = 'ver:6,hor:6'
-vim.o.switchbuf = 'usetab'
-vim.o.undofile = true
+vim.o.mousescroll = 'ver:5,hor:6'
 vim.o.swapfile = false
-
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
 
-vim.cmd('filetype plugin indent on')
-
 -- UI =========================================================================
-vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = false
-vim.o.colorcolumn = ''
 vim.o.laststatus = 3 -- global statusline
-vim.o.linebreak = true
-vim.o.cmdheight = 1
 vim.o.hlsearch = true
-vim.o.list = true
 vim.o.pumblend = 0
 vim.o.winblend = 0
-vim.o.pumheight = 10 -- slightly smaller built-in menus
-vim.o.ruler = false
-vim.o.shortmess = 'aoOWFcSC'
-vim.o.showmode = false
-vim.o.signcolumn = 'yes'
-vim.o.scrolloff = 8
-vim.o.termguicolors = true
-vim.o.breakindent = true
+vim.o.shortmess = 'CFOSWaco'
 vim.o.breakindentopt = 'list:-1' -- Add padding for lists when 'wrap' is on
 
-vim.o.fillchars = [[eob: ]]
+vim.o.list = true
 vim.o.listchars = 'tab:▸ ,nbsp:␣,extends:❯,precedes:❮'
-vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50'
 
-vim.o.splitkeep = 'screen' -- Reduce scoll during window split
-vim.o.splitright = true
-vim.o.splitbelow = true
-vim.o.incsearch = true
+vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50' -- Change cursor shape in certain models
 
-vim.o.wrap = false
-vim.o.wrapmargin = 0
-vim.o.textwidth = 0
 vim.o.conceallevel = 2
 
 vim.o.foldtext = '' -- Use underlying text with its highlighting
--- vim.o.foldnestmax = 5
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.o.foldcolumn = '0'
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldlevel = 500 -- Fold everything except top-most folds
-vim.o.foldenable = true
-
--- Colors =====================================================================
--- Enable syntax highlighing if it wasn't already (as it is time consuming)
-if vim.fn.exists('syntax_on') ~= 1 then vim.cmd('syntax enable') end
 
 -- Editing ====================================================================
-local tabwidth = 4
-vim.o.shiftwidth = tabwidth
-vim.o.tabstop = tabwidth
-vim.o.softtabstop = tabwidth
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
 vim.o.expandtab = true
 
 vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
 vim.o.formatlistpat = [[^\s*[0-9\-\+\*]\+[\.\)]*\s\+]] -- `gw` wrapping (don't think about it)
 
-vim.o.ignorecase = true
-vim.o.infercase = true
-vim.o.smartcase = true
-
-vim.o.smartindent = true
-vim.o.autoindent = true
-
 vim.o.inccommand = 'split'
-vim.o.virtualedit = 'block'
 
-vim.opt.isfname:append('@-@')
-
-vim.opt.iskeyword:append('-') -- Treat dash separated words as a word text object
+vim.o.iskeyword = '@,48-57,_,192-255,-' -- Treat dash separated words as a word text object
 
 vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
-vim.opt.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,fuzzy'
 
--- vim.opt.wildmode = 'list:longest'
--- when opening a file with a command (like :e),
--- don't suggest files like there:
--- vim.opt.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
+vim.opt.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
 
-if vim.fn.has('nvim-0.11') == 1 then
-    vim.o.wildoptions = 'fuzzy,pum'
-    vim.opt.completeopt:append('fuzzy')
-end
-
--- more useful diffs (nvim -d)
-vim.opt.diffopt:append('iwhite')
--- and using a smarter algorithm
+-- more useful diffs (nvim -d) and using a smarter algorithm
 -- https://vimways.org/2018/the-power-of-diff/
 -- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
 -- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
-vim.opt.diffopt:append('algorithm:histogram')
-vim.opt.diffopt:append('indent-heuristic')
+vim.o.diffopt = 'internal,filler,closeoff,linematch:40,iwhite,algorithm:histogram,indent-heuristic'
 
 -- Spelling ===================================================================
 vim.o.spelllang = 'en,da'
-vim.o.spelloptions = 'camel' -- Treat parts of camelCase words as seprate words
+vim.o.spelloptions = 'camel' -- Treat parts of camelCase words as separate words
 vim.opt.complete:append('kspell') -- Add spellcheck options for autocomplete
 vim.opt.complete:remove('t') -- Don't use tags for completion
 
 -- Custom autocommands ========================================================
-
 local augroup = vim.api.nvim_create_augroup('CustomSettings', {})
 vim.api.nvim_create_autocmd('FileType', {
     group = augroup,
@@ -134,57 +72,29 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Diagnostics ================================================================
 vim.diagnostic.config({
     signs = {
+        priority = 9999,
         text = {
             [vim.diagnostic.severity.ERROR] = '',
             [vim.diagnostic.severity.WARN] = '',
-            [vim.diagnostic.severity.HINT] = '',
+            [vim.diagnostic.severity.HINT] = '',
             [vim.diagnostic.severity.INFO] = '',
         },
     },
-    -- virtual_lines = {
-    --     current_line = true,
-    -- },
+    -- virtual_lines = { current_line = true },
     virtual_text = {
         current_line = false,
+        severity = { min = 'ERROR', max = 'ERROR' },
     },
-    float = {
-        border = 'rounded',
-    },
+    float = { border = 'rounded' },
+    update_in_insert = false,
 })
 
-if vim.env.SSH_CONNECTION then
-    local function vim_paste()
-        local content = vim.fn.getreg('"')
-        return vim.split(content, '\n')
+-- Use mini.basics for most things
+Load.now(
+    function()
+        require('mini.basics').setup({
+            options = { extra_ui = true },
+            mappings = { option_toggle_prefix = '' },
+        })
     end
-
-    vim.g.clipboard = {
-        name = 'OSC 52',
-        copy = {
-            ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-            ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-        },
-        paste = {
-            ['+'] = vim_paste,
-            ['*'] = vim_paste,
-        },
-    }
-end
-
-vim.filetype.add({
-    extension = {
-        mll = 'ocamllex',
-        mly = 'menhir',
-        ll = 'llvm',
-        tex = 'tex',
-        rasi = 'css',
-        conf = function(path, _)
-            -- For hyprland config files
-            if path:find('hypr') then return 'hyprlang' end
-            return 'conf'
-        end,
-    },
-    filename = {
-        ['flake.lock'] = 'json',
-    },
-})
+)
