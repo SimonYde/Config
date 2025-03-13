@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -38,10 +37,6 @@ in
         enable32Bit = true;
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      cudaPackages.cudatoolkit
-    ];
 
     environment.sessionVariables = mkIf cfg.dedicated {
       NVD_BACKEND = "direct";

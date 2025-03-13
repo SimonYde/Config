@@ -39,6 +39,8 @@ in
         gnumake # for Makefiles
         just # alternative to `gnumake`
 
+        devpod
+
         dua
         lls
         libarchive

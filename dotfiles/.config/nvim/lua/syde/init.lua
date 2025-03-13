@@ -26,7 +26,12 @@ end)
 Load.later(function()
     Load.packadd('yazi.nvim')
     local yazi = require('yazi')
-    yazi.setup()
+    yazi.setup({
+        integrations = {
+            grep_in_selected_files = 'snacks.picker',
+            grep_in_directory = 'snacks.picker',
+        },
+    })
     nmap('<M-f>', function() vim.cmd.Yazi('cwd') end, 'Show `cwd` in Yazi')
     nmap('<M-F>', function() vim.cmd.Yazi() end, 'Show current file in Yazi')
 end)
