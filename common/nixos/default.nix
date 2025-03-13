@@ -57,10 +57,11 @@ in
     algorithm = "zstd";
   };
 
+  nixpkgs.flake.setNixPath = true;
+
   nix = {
     package = pkgs.lix;
     channel.enable = false;
-    nixPath = [ "nixpkgs=flake:nixpkgs" ];
     settings.trusted-users = [ username ];
   };
 
@@ -156,7 +157,6 @@ in
         extraGroups = [
           "wheel"
 
-          (mkIf config.virtualisation.docker.enable "docker")
           (mkIf config.services.syncthing.enable "syncthing")
         ];
 
@@ -171,11 +171,11 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+
+    extraSpecialArgs = { inherit inputs; };
+
     users.${username}.imports = [ ../home-manager ];
     users.root.imports = [ ../home-manager ];
-    extraSpecialArgs = {
-      inherit inputs;
-    };
   };
 
   age = {

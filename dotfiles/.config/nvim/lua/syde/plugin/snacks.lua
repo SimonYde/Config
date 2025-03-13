@@ -134,13 +134,6 @@ Load.later(function()
         end,
     })
 
-    nmap('<leader>sn', Snacks.notifier.show_history, 'Show notifier history')
-
-    nmap('<leader>st', Snacks.terminal.toggle, 'Toggle terminal')
-
-    nmap('<leader>gb', Snacks.git.blame_line, 'Show blame line')
-    nmap('<leader>go', Snacks.gitbrowse.open, 'Open current position on remote repo')
-
     Snacks.toggle
         .new({
             name = 'Folds',
@@ -152,7 +145,7 @@ Load.later(function()
         .new({
             name = 'hlsearch',
             get = function() return vim.v.hlsearch == 1 end,
-            set = function(state) vim.cmd('let v:hlsearch = 1 - v:hlsearch') end,
+            set = function(_) vim.cmd('let v:hlsearch = 1 - v:hlsearch') end,
         })
         :map('<leader><leader>h')
     Snacks.toggle
@@ -172,24 +165,29 @@ Load.later(function()
     Snacks.toggle.option('ignorecase'):map('<leader><leader>c')
     Snacks.toggle.zoom():map('<leader>z')
 
-    local picker = Snacks.picker
-    nmap('<leader>?', picker.keymaps, 'Search keymaps')
-    nmap('<leader>fc', picker.lines, 'current buffer lines')
-    nmap('<leader>bb', picker.buffers, 'Pick buffers')
+    nmap('<leader>sn', Snacks.notifier.show_history, 'Show notifier history')
+    nmap('<leader>st', Snacks.terminal.toggle, 'Toggle terminal')
+
+    nmap('<leader>gb', Snacks.git.blame_line, 'Show blame line')
+    nmap('<leader>go', Snacks.gitbrowse.open, 'Open current position on remote repo')
+
+    nmap('<leader>?', Snacks.picker.keymaps, 'Search keymaps')
+    nmap('<leader>fc', Snacks.picker.lines, 'current buffer lines')
+    nmap('<leader>bb', Snacks.picker.buffers, 'Pick buffers')
     ---@diagnostic disable-next-line: missing-fields
-    nmap('<leader>ff', function() picker.files({ hidden = true }) end, 'Files')
-    nmap('<leader>fh', picker.help, 'Help tags')
-    nmap('<leader>fg', picker.git_files, 'Git files')
-    nmap('<leader>fb', picker.pickers, 'Builtin pickers')
-    nmap('<leader>fs', picker.lsp_symbols, 'LSP document symbols')
-    nmap('<leader>fw', picker.lsp_workspace_symbols, 'LSP workspace symbols')
+    nmap('<leader>ff', function() Snacks.picker.files({ hidden = true }) end, 'Files')
+    nmap('<leader>fh', Snacks.picker.help, 'Help tags')
+    nmap('<leader>fg', Snacks.picker.git_files, 'Git files')
+    nmap('<leader>fb', Snacks.picker.pickers, 'Builtin pickers')
+    nmap('<leader>fs', Snacks.picker.lsp_symbols, 'LSP document symbols')
+    nmap('<leader>fw', Snacks.picker.lsp_workspace_symbols, 'LSP workspace symbols')
     ---@diagnostic disable-next-line: missing-fields
-    nmap('<leader>/', function() picker.grep({ hidden = true }) end, 'Global search with grep')
-    nmap("<leader>'", picker.resume, 'Resume last picker')
-    nmap('<leader>*', function() picker.grep_word({ hidden = true }) end, 'Grep word across files')
-    nmap('gr', picker.lsp_references, 'Goto references')
-    nmap('gi', picker.lsp_implementations, 'Goto implementations')
-    nmap('gd', picker.lsp_definitions, 'Goto definitions')
+    nmap('<leader>/', function() Snacks.picker.grep({ hidden = true }) end, 'Global search with grep')
+    nmap("<leader>'", Snacks.picker.resume, 'Resume last picker')
+    nmap('<leader>*', function() Snacks.picker.grep_word({ hidden = true }) end, 'Grep word across files')
+    nmap('gr', Snacks.picker.lsp_references, 'Goto references')
+    nmap('gi', Snacks.picker.lsp_implementations, 'Goto implementations')
+    nmap('gd', Snacks.picker.lsp_definitions, 'Goto definitions')
 
     nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')
 end)
