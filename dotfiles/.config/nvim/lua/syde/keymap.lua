@@ -2,9 +2,9 @@ local M = {}
 
 ---@param mode string | table single mode string or table of mode strings
 M.map = function(mode)
-    ---@param desc string
     ---@param keys string
     ---@param cmd function|string
+    ---@param desc string
     ---@param opts? table
     return function(keys, cmd, desc, opts)
         opts = opts or {}
@@ -18,44 +18,30 @@ M.nmap = M.map('n')
 M.imap = M.map('i')
 M.vmap = M.map('v')
 M.xmap = M.map('x')
+M.tmap = M.map('t')
 M.nxmap = M.map({ 'n', 'x' })
 
+-- Export module
 _G.Keymap = M
 
 Load.later(function()
-    local nmap, xmap, nxmap = Keymap.nmap, Keymap.xmap, Keymap.nxmap
-    local tmap = Keymap.map('t')
+    local nmap, tmap, nxmap = Keymap.nmap, Keymap.tmap, Keymap.nxmap
 
     vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
     vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-    nmap('U', '<C-r>', 'redo')
 
-    if vim.fn.has('nvim-0.11') == 1 then
-        Load.now(function()
-            vim.keymap.del('n', 'gri')
-            vim.keymap.del('n', 'grr')
-            vim.keymap.del('n', 'gra')
-            vim.keymap.del('x', 'gra')
-            vim.keymap.del('n', 'grn')
-        end)
-    end
+    vim.keymap.del('n', 'gri')
+    vim.keymap.del('n', 'grr')
+    vim.keymap.del({ 'n', 'x' }, 'gra')
+    vim.keymap.del('n', 'grn')
+
+    nmap('U', '<C-r>', 'Redo')
+    tmap('<C-q>', [[<C-\><C-n>]], 'Exit terminal mode')
 
     nmap('<C-d>', '<C-d>zz', 'Move down half page')
     nmap('<C-u>', '<C-u>zz', 'Move up half page')
-    nmap('n', 'nzz', 'Move to next search match')
-    nmap('N', 'Nzz', 'Move to previous search match')
     nmap('*', '*zz', 'Find next occurrence under cursor')
     nmap('#', '#zz', 'Find previous occurrence under cursor')
-    nxmap('S', '0', 'Goto line start')
-
-    nxmap('<leader>y', [["+y]], 'yank to system clipboard')
-    nmap('<leader>Y', [["+Y]], 'yank end-of-line to system clipboard')
-
-    xmap('<leader>p', [["_dP]], 'Paste without yanking')
-    nxmap('<M-d>', [["_d]], 'Delete without yanking')
-    nxmap('<M-c>', [["_c]], 'Change without yanking')
-
-    nmap('gX', 'gx', 'Open link')
 
     nmap(
         '<leader>x',
@@ -63,7 +49,6 @@ Load.later(function()
         'Search and replace in buffer',
         { silent = false }
     )
-    tmap('<C-q>', [[<C-\><C-n>]], 'Exit terminal mode')
 
     -- Toggle quickfix window
     local toggle_quickfix = function()
@@ -78,22 +63,10 @@ Load.later(function()
 
     nmap('<leader>q', toggle_quickfix, 'Toggle quickfix list')
 
-    vim.lsp.inlay_hint.toggle = function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end
-    nmap('<leader>li', vim.lsp.inlay_hint.toggle, 'Toggle inlay hints')
-    Config.format = vim.lsp.buf.format
-    nmap('gd', vim.lsp.buf.definition, 'Goto [d]efinition')
-    nmap('gD', vim.lsp.buf.declaration, 'Goto [D]eclaration')
-    nmap('gr', vim.lsp.buf.references, 'Goto [r]eferences')
-
     nmap('<leader>u', function()
         vim.cmd('UndotreeToggle')
         vim.cmd('UndotreeFocus')
     end, 'Toggle [u]ndo tree')
-    nmap('<leader><leader>f', function()
-        local flipped = not vim.opt.foldenable
-        print('foldenable', flipped)
-        vim.opt.foldenable = flipped
-    end, 'Toggle fold')
 
     -- COLEMAK Remaps
     local colemak_map = function(keys, cmd, opts)
@@ -102,8 +75,9 @@ Load.later(function()
         opts.silent = true
         vim.keymap.set({ 'n', 'x' }, keys, cmd, opts)
     end
+
     Config.colemak_toggle = function(state)
-        if not state then
+        if state then
             colemak_map('n', [[v:count == 0 ? 'gj' : 'j']], { expr = true })
             colemak_map('e', [[v:count == 0 ? 'gk' : 'k']], { expr = true })
             colemak_map('m', 'h')
@@ -129,7 +103,6 @@ Load.later(function()
 
             colemak_map('M', '^', { desc = 'Goto first non-empty cell in line' })
             colemak_map('I', '$', { desc = 'Goto line end' })
-            vim.g.colemak = true
         else
             colemak_map('j', [[v:count == 0 ? 'gj' : 'j']], { expr = true })
             colemak_map('k', [[v:count == 0 ? 'gk' : 'k']], { expr = true })
@@ -148,13 +121,10 @@ Load.later(function()
 
             colemak_map('H', '^', { desc = 'Goto first non-empty cell in line' })
             colemak_map('L', '$', { desc = 'Goto line end' })
-            vim.g.colemak = false
         end
-    end
-    Config.colemak_toggle(false)
 
-    nmap('<leader><leader>k', function()
-        Config.colemak_toggle(vim.g.colemak)
-        vim.notify(string.format('COLEMAK %s', vim.g.colemak), vim.log.levels.INFO)
-    end, 'Toggle keymap')
+        vim.g.colemak = state
+    end
+
+    Config.colemak_toggle(true)
 end)

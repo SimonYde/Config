@@ -88,11 +88,6 @@ in
       "privacy.fingerprintingProtection" = true;
       "privacy.history.custom" = true;
       "privacy.resistFingerprinting" = false;
-      "privacy.sanitize.pending" = # json
-        ''
-          [{"id":"shutdown","itemsToClear":["cache","formdata","downloads"],"options":{}}]
-        '';
-      "privacy.sanitize.sanitizeOnShutdown" = true;
       "privacy.trackingprotection.enabled" = true;
       "privacy.trackingprotection.socialtracking.enabled" = true;
       "media.peerconnection.enabled" = false; # remove WebRTC IP leak
@@ -117,7 +112,6 @@ in
       "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
       "browser.startup.page" = 3;
       "browser.newtabpage.pinned" = "[]";
-      "browser.aboutConfig.showWarning" = false;
       "browser.uidensity" = 1;
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       "svg.context-properties.content.enabled" = true;
