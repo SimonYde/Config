@@ -4,10 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     stable.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     systems.url = "github:nix-systems/default";
     flake-utils = {
@@ -109,6 +105,11 @@
       flake = false;
     };
 
+    sudo-yazi = {
+      url = "github:TD-Sky/sudo.yazi";
+      flake = false;
+    };
+
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;
@@ -128,7 +129,6 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         tinted-schemes.follows = "tinted-schemes";
-        nur.follows = "nur";
       };
     };
 
@@ -157,13 +157,7 @@
       hostSystem = "x86_64-linux";
       inherit inputs;
     }; {
-      legacyPackages = nixpkgsBySystem;
-
-      nixosConfigurations = {
-        icarus-wsl = mkWslSystem { hostname = "icarus"; };
-        icarus = mkSystem { hostname = "icarus"; };
-        perdix = mkSystem { hostname = "perdix"; };
-      };
+      legacyPackages.x86_64-linux = pkgs;
 
       checks.x86_64-linux = {
         pre-commit-check = inputs.pre-commit-hooks.lib.x86_64-linux.run {
@@ -172,7 +166,7 @@
             nixfmt-rfc-style.enable = true;
             stylua.enable = true;
             deadnix.enable = true;
-            # statix.enable = true;
+            statix.enable = true;
           };
         };
       };
@@ -185,6 +179,12 @@
           just
           stow
         ];
+      };
+
+      nixosConfigurations = {
+        icarus-wsl = mkWslSystem { hostname = "icarus"; };
+        icarus = mkSystem { hostname = "icarus"; };
+        perdix = mkSystem { hostname = "perdix"; };
       };
     };
 }

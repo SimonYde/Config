@@ -3,7 +3,6 @@ local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 Load.later(function()
     require('mini.align').setup()
     require('mini.bracketed').setup({ n_lines = 500 })
-    require('mini.bufremove').setup()
     require('mini.comment').setup()
     require('mini.cursorword').setup()
     require('mini.diff').setup()
@@ -135,8 +134,7 @@ Load.later(function()
         },
     })
 
-    -- nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
-    nmap('<leader>bd', function() MiniBufremove.delete() end, 'Delete current buffer')
+    nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
     nmap('<M-t>', function()
         MiniTrailspace.trim()
         MiniTrailspace.trim_last_lines()

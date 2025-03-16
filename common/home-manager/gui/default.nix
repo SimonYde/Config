@@ -43,7 +43,6 @@ in
       };
 
       services = {
-        safeeyes.enable = true;
         trayscale.enable = true;
 
         udiskie = {
@@ -74,8 +73,10 @@ in
 
         imagemagick
         ghostscript # PDF renderer (snacks.nvim)
+        kdePackages.ark
 
         yt-dlp
+        trashy
 
         grawlix
         pix2tex

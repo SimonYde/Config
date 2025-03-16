@@ -46,6 +46,7 @@
   programs.partition-manager.enable = true;
 
   services = {
+    safeeyes.enable = true;
     ratbagd.enable = true;
     tailscale.enable = true;
     syncthing.enable = true;

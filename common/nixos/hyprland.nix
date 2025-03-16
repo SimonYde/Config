@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib) mkIf getExe;
-  command = getExe config.programs.hyprland.package;
+  command = "${getExe config.programs.hyprland.package} &> /dev/null";
 in
 {
   home-manager.users.${username}.imports = [ ../home-manager/gui/hyprland.nix ];

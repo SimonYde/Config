@@ -71,6 +71,7 @@ in
       programs = {
         # Shells
         bash.enable = true;
+        fish.enable = true;
         nushell.enable = true;
         carapace.enable = true;
 
@@ -251,70 +252,66 @@ in
           ];
         };
 
-        neovim = mkMerge [
-          {
-            package = pkgs.neovim;
-            defaultEditor = true;
+        neovim = {
+          package = pkgs.neovim;
+          defaultEditor = true;
 
-            vimAlias = true;
-            viAlias = true;
+          vimAlias = true;
+          viAlias = true;
 
-            withRuby = false;
-            withNodeJs = false;
-            withPython3 = false;
+          withRuby = false;
+          withNodeJs = false;
+          withPython3 = false;
 
-            plugins =
-              with pkgs.vimPlugins;
-              [
-                # -----LSP-----
-                nvim-lspconfig
+          plugins =
+            with pkgs.vimPlugins;
+            [
+              # -----LSP-----
+              nvim-lspconfig
 
-                # -----Workflow-----
-                nvim-autopairs
-                mini-nvim
-                snacks-nvim
-                vim-sleuth
-                undotree
-                friendly-snippets
+              # -----Workflow-----
+              nvim-autopairs
+              mini-nvim
+              snacks-nvim
+              vim-sleuth
+              undotree
+              friendly-snippets
 
-                obsidian-nvim
+              obsidian-nvim
 
-                # -----UI-----
-                which-key-nvim
-                nvim-treesitter
-                tip-vim
-              ]
-              ++ config.lib.meta.lazyNeovimPlugins [
-                # ----- Completion -----
-                blink-cmp
+              # -----UI-----
+              which-key-nvim
+              nvim-treesitter
+              tip-vim
+            ]
+            ++ config.lib.meta.lazyNeovimPlugins [
+              # ----- Completion -----
+              blink-cmp
 
-                # ----- Workflow -----
-                conform-nvim
-                trouble-nvim
-                diffview-nvim
-                neogit
-                todo-comments-nvim
-                img-clip-nvim
-                nvim-ufo
+              # ----- Workflow -----
+              conform-nvim
+              trouble-nvim
+              diffview-nvim
+              neogit
+              todo-comments-nvim
+              img-clip-nvim
+              nvim-ufo
 
-                nvim-dap
-                nvim-dap-ui
+              nvim-dap
+              nvim-dap-ui
 
-                (lib.mkIf config.programs.yazi.enable yazi-nvim)
+              yazi-nvim
 
-                # ----- UI -----
-                lspsaga-nvim
-                render-markdown-nvim
-                nvim-treesitter-textobjects
-                nvim-treesitter-context
-                rainbow-delimiters-nvim
-              ];
-            # Always enable the luac loader first.
-            extraLuaConfig = lib.mkOrder 0 "vim.loader.enable()";
-          }
-          # Always place `require('syde')` at the end.
-          { extraLuaConfig = lib.mkOrder 1000 "require('syde')"; }
-        ];
+              # ----- UI -----
+              lspsaga-nvim
+              render-markdown-nvim
+              nvim-treesitter-textobjects
+              nvim-treesitter-context
+              rainbow-delimiters-nvim
+            ];
+          # Always enable the luac loader first.
+          extraLuaConfig = lib.mkOrder 0 "vim.loader.enable()";
+        };
 
         nix-index-database.comma.enable = true;
 
@@ -346,6 +343,10 @@ in
             manager = {
               show_hidden = true;
             };
+          };
+
+          plugins = {
+            sudo = inputs.sudo-yazi;
           };
 
           keymap = {
@@ -458,6 +459,92 @@ in
                 ];
                 run = "cd /tmp";
                 desc = "Go to the temporary directory";
+              }
+
+              # NOTE: plugin: sudo.yazi
+              {
+                on = [
+                  "R"
+                  "p"
+                  "p"
+                ];
+                run = "plugin sudo -- paste";
+                desc = "sudo paste";
+              }
+
+              {
+                on = [
+                  "R"
+                  "P"
+                ];
+                run = "plugin sudo -- paste --force";
+                desc = "sudo paste";
+              }
+
+              {
+                on = [
+                  "R"
+                  "r"
+                ];
+                run = "plugin sudo -- rename";
+                desc = "sudo rename";
+              }
+
+              {
+                on = [
+                  "R"
+                  "p"
+                  "l"
+                ];
+                run = "plugin sudo -- link";
+                desc = "sudo link";
+              }
+
+              {
+                on = [
+                  "R"
+                  "p"
+                  "r"
+                ];
+                run = "plugin sudo -- link --relative";
+                desc = "sudo link relative path";
+              }
+
+              {
+                on = [
+                  "R"
+                  "p"
+                  "L"
+                ];
+                run = "plugin sudo -- hardlink";
+                desc = "sudo hardlink";
+              }
+
+              {
+                on = [
+                  "R"
+                  "a"
+                ];
+                run = "plugin sudo -- create";
+                desc = "sudo create";
+              }
+
+              {
+                on = [
+                  "R"
+                  "d"
+                ];
+                run = "plugin sudo -- remove";
+                desc = "sudo trash";
+              }
+
+              {
+                on = [
+                  "R"
+                  "D"
+                ];
+                run = "plugin sudo -- remove --permanently";
+                desc = "sudo delete";
               }
             ];
 
@@ -616,7 +703,10 @@ in
           };
         };
 
-        zellij.enableBashIntegration = false;
+        zellij = {
+          enableBashIntegration = false;
+          enableFishIntegration = false;
+        };
       };
 
       xdg.dataFile."nushell/completions/nu_scripts".source =
