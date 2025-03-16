@@ -1,30 +1,19 @@
 {
   inputs,
   hostSystem ? builtins.currentSystem,
-  targetSystems ? [
-    "x86_64-linux"
-    "aarch64-linux"
-  ],
-  config ? { },
 }:
 
 let
-  pkgs = import inputs.nixpkgs { system = hostSystem; };
   nixpkgs = import inputs.nixpkgs;
   overlays = import ../overlays.nix { inherit inputs; };
 
-  nixpkgsBySystem = pkgs.lib.attrsets.genAttrs targetSystems (
-    system:
-    nixpkgs {
-      inherit system overlays;
-      config = config // {
-        allowUnfree = true;
-      };
-    }
-  );
-  nixpkgsHost = nixpkgsBySystem.${hostSystem};
-
   specialArgs = { inherit inputs; };
+
+  nixpkgsHost = nixpkgs {
+    system = hostSystem;
+    inherit overlays;
+    config.allowUnfree = true;
+  };
 
   mkSystem =
     {
@@ -43,7 +32,6 @@ let
           [ deviceSpecificConfigDir ]
         else
           [ ];
-      pkgs = nixpkgsBySystem.${system};
     in
     inputs.nixpkgs.lib.nixosSystem {
       inherit system;
@@ -53,8 +41,14 @@ let
       modules =
         [
           {
+            nixpkgs = {
+              inherit overlays;
+              hostPlatform = system;
+
+              config.allowUnfree = true;
+            };
+
             networking.hostName = hostname;
-            nixpkgs.pkgs = pkgs;
           }
         ]
         ++ deviceSpecificModules
@@ -80,13 +74,11 @@ let
       system ? "x86_64-linux",
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgsBySystem.${system};
+      pkgs = nixpkgs { inherit system overlays; };
       modules = [
         ../shared/home/standalone.nix
         {
-          home = {
-            inherit username homeDirectory;
-          };
+          home = { inherit username homeDirectory; };
         }
       ] ++ extraModules;
       extraSpecialArgs = specialArgs;
@@ -97,7 +89,6 @@ in
     mkSystem
     mkWslSystem
     mkHome
-    nixpkgsBySystem
     ;
   pkgs = nixpkgsHost;
 }

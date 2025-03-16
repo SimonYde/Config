@@ -30,20 +30,23 @@ in
         odin.enable = true;
         python.enable = true;
         rust.enable = true;
-        scala.enable = false;
+        scala.enable = true;
+        scala.package = pkgs.scala_2_12;
         typst.enable = true;
         zig.enable = true;
       };
 
       home.packages = with pkgs; [
-        gnumake # for Makefiles
-        just # alternative to `gnumake`
+        gnumake
+        just
 
-        devpod
+        devcontainer
 
         dua
         lls
-        libarchive
+        ouch
+
+        libqalculate
 
         ast-grep
 
@@ -57,10 +60,8 @@ in
         kattis-cli
         kattis-test
 
-        tokei # Counting lines of code
+        tokei
         tlrc
-
-        libqalculate
       ];
 
       programs = {
@@ -202,13 +203,12 @@ in
         lua-language-server
       ];
 
-      programs.neovim.plugins = with pkgs.vimPlugins; [
-        lazydev-nvim
-        {
-          plugin = luvit-meta;
-          optional = true;
-        }
-      ];
+      programs.neovim.plugins =
+        with pkgs.vimPlugins;
+        [
+          lazydev-nvim
+        ]
+        ++ config.lib.meta.lazyNeovimPlugins [ luvit-meta ];
     })
 
     (mkIf cfg.nix.enable {

@@ -3,9 +3,7 @@
   inputs.neovim-nightly.overlays.default
 
   (final: prev: {
-    stable = import inputs.stable {
-      inherit (prev) system config;
-    };
+    stable = import inputs.stable { inherit (prev) system config; };
 
     nushell-wrapped =
       (final.writeTextFile {
@@ -29,7 +27,7 @@
     audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
     zen-browser = inputs.zen-browser.packages.${prev.system}.default;
 
-    pwvucontrol = final.stable.pwvucontrol;
+    inherit (final.stable) pwvucontrol;
 
     inherit (inputs.kattis-cli.packages.${prev.system}) kattis-test kattis-cli;
 

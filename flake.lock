@@ -325,6 +325,7 @@
     "flake-parts_3": {
       "inputs": {
         "nixpkgs-lib": [
+          "stylix",
           "nur",
           "nixpkgs"
         ]
@@ -1096,16 +1097,17 @@
       "inputs": {
         "flake-parts": "flake-parts_3",
         "nixpkgs": [
+          "stylix",
           "nixpkgs"
         ],
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1741958284,
-        "narHash": "sha256-2ZyHKa3eVejc8eSPYjK2gu0lOEwcA+ZMufnuKwLoGSY=",
+        "lastModified": 1742149371,
+        "narHash": "sha256-ondHZWH8YRIv5itRDhaXd5Jtscprma6hE+SnkNdFzxk=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "ab2805a39f35fb09a0980368eb0202796c3c2120",
+        "rev": "14825ea222c88060fae8704e56446c9aed71a47e",
         "type": "github"
       },
       "original": {
@@ -1210,7 +1212,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
-        "nur": "nur",
         "obsidian-nvim": "obsidian-nvim",
         "pix2tex": "pix2tex",
         "pre-commit-hooks": "pre-commit-hooks",
@@ -1218,6 +1219,7 @@
         "spicetify-nix": "spicetify-nix",
         "stable": "stable",
         "stylix": "stylix",
+        "sudo-yazi": "sudo-yazi",
         "systems": "systems_2",
         "tinted-schemes": "tinted-schemes",
         "tip-vim": "tip-vim",
@@ -1296,9 +1298,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nur": [
-          "nur"
-        ],
+        "nur": "nur",
         "systems": "systems",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",
@@ -1319,6 +1319,22 @@
       "original": {
         "owner": "danth",
         "repo": "stylix",
+        "type": "github"
+      }
+    },
+    "sudo-yazi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739035136,
+        "narHash": "sha256-IvTBAhZrbrNJ5nsLxr35V0ntQw89yXUdoU9ashbflYY=",
+        "owner": "TD-Sky",
+        "repo": "sudo.yazi",
+        "rev": "af70636fbcf30ef17f77c5ffcfcbf1342c554be1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "TD-Sky",
+        "repo": "sudo.yazi",
         "type": "github"
       }
     },
@@ -1474,6 +1490,7 @@
     "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
+          "stylix",
           "nur",
           "nixpkgs"
         ]

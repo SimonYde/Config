@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -9,6 +10,8 @@ let
 in
 {
   config = mkIf cfg.enable {
+    nixpkgs.config.cudaSupport = true;
+
     services.xserver.videoDrivers = [ "nvidia" ];
 
     # FIXME: 2025-03-10 Simon Yde, currently doesn't get set because of a dependency on `services.xserver`...
@@ -37,6 +40,8 @@ in
         enable32Bit = true;
       };
     };
+
+    environment.systemPackages = [ pkgs.cudaPackages.cudatoolkit ];
 
     environment.sessionVariables = mkIf cfg.dedicated {
       NVD_BACKEND = "direct";

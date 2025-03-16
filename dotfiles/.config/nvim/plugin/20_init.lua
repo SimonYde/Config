@@ -1,16 +1,3 @@
-_G.Config = {}
-
-require('syde.load')
-require('syde.colorscheme')
-require('syde.options')
-require('syde.keymap')
-
-require('syde.plugin.mini')
-require('syde.plugin.snacks')
-require('syde.plugin.treesitter')
-require('syde.plugin.completion')
-require('syde.plugin.lsp')
-
 local nmap, imap = Keymap.nmap, Keymap.imap
 
 Load.later(function()
@@ -27,6 +14,8 @@ Load.later(function()
     local yazi = require('yazi')
 
     yazi.setup({
+        open_for_directories = true,
+        open_multiple_tabs = true,
         integrations = {
             grep_in_selected_files = 'snacks.picker',
             grep_in_directory = 'snacks.picker',

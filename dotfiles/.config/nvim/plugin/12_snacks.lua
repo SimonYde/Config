@@ -3,13 +3,12 @@ Load.now(function()
     _G.bt = function() require('snacks.debug').backtrace() end
     _G.p = function(...) require('snacks.debug').profile(...) end
     vim.print = _G.dd
-end)
 
-Load.now(function()
     require('snacks').setup({
         notifier = {},
         quickfile = {},
         picker = {},
+        bufremove = {},
         toggle = {},
         terminal = {},
         zen = {},
@@ -159,6 +158,7 @@ Load.later(function()
 
     nmap('<leader>sn', Snacks.notifier.show_history, 'Show notifier history')
     nmap('<leader>st', Snacks.terminal.toggle, 'Toggle terminal')
+    nmap('<leader>bd', Snacks.bufdelete.delete, 'Delete current buffer')
 
     nmap('<leader>gb', Snacks.git.blame_line, 'Show blame line')
     nmap('<leader>go', Snacks.gitbrowse.open, 'Open current position on remote repo')
