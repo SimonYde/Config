@@ -20,13 +20,15 @@ let
 
   onlyForThisDevice = filterAttrs (_: v: any (name: name == hostName) v.devices);
 
-  removeThisDeviceFromFolders =
+  # TODO: 2025-03-17 Simon Yde, figure out if this is actually necessary still
+  removeThisDeviceFromFolders = mapAttrs (
     _:
     { path, devices, ... }:
     {
       inherit path;
       devices = filter (name: hostName != name) devices;
-    };
+    }
+  );
 in
 {
   services.syncthing = {
@@ -34,7 +36,7 @@ in
     openDefaultPorts = true;
 
     configDir = "${home}/.config/syncthing";
-    dataDir = "${home}/.local/share/syncthing";
+    dataDir = home;
 
     overrideDevices = true;
     overrideFolders = true;
@@ -80,7 +82,7 @@ in
         };
       };
 
-      folders = mapAttrs removeThisDeviceFromFolders (onlyForThisDevice {
+      folders = removeThisDeviceFromFolders (onlyForThisDevice {
         "Audiobooks" = {
           path = "${home}/Audiobooks";
           devices = [

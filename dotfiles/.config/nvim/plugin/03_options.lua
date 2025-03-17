@@ -29,7 +29,7 @@ vim.o.foldlevel = 500 -- Fold everything except top-most folds
 
 -- Editing ====================================================================
 vim.o.shiftwidth = 4
-vim.o.tabstop = 4
+vim.o.tabstop = vim.o.shiftwidth
 vim.o.expandtab = true
 
 vim.o.formatoptions = 'rqnl1j' -- Improve comment editing

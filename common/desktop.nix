@@ -22,7 +22,6 @@ in
     plymouth.enable = true;
     consoleLogLevel = 3;
     kernelParams = [ "quiet" ];
-    supportedFilesystems = [ "ntfs" ];
 
     initrd.availableKernelModules = [
       "nvme"

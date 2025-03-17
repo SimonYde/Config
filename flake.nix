@@ -152,11 +152,7 @@
   };
 
   outputs =
-    inputs:
-    with import ./utils/mkConfig.nix {
-      hostSystem = "x86_64-linux";
-      inherit inputs;
-    }; {
+    inputs: with import ./utils/mkConfig.nix { inherit inputs; }; {
       legacyPackages.x86_64-linux = pkgs;
 
       checks.x86_64-linux = {
@@ -175,9 +171,9 @@
         inherit (inputs.self.checks.x86_64-linux.pre-commit-check) shellHook;
         buildInputs = inputs.self.checks.x86_64-linux.pre-commit-check.enabledPackages;
         packages = with pkgs; [
-          (inputs.agenix.packages.x86_64-linux.default.override { ageBin = pkgs.lib.getExe pkgs.rage; })
           just
           stow
+          agenix
         ];
       };
 
