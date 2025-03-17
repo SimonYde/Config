@@ -32,10 +32,9 @@ let external_completer = {|spans|
         # use zoxide completions for zoxide commands
         __zoxide_z | __zoxide_zi => $zoxide_completer
         hyprctl => $fish_completer
+        typst => $fish_completer
         _ => $carapace_completer
     } | do $in $spans
 }
 
 $env.config.completions.external.completer = $external_completer
-
-use nu_scripts/typst/typst-completions.nu *

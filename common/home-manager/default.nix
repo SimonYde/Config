@@ -143,6 +143,7 @@ in
           hidden = true;
           ignores = [
             ".git/"
+            ".jj/"
             ".direnv/"
           ];
         };
@@ -316,9 +317,11 @@ in
         nix-index-database.comma.enable = true;
 
         nushell = {
-          configFile.text = ''
-            source ${config.lib.meta.mkMutableSymlink ../../dotfiles/.config/nushell/my-config.nu}
-          '';
+          configFile.text = # nu
+            ''
+              $env.NU_LIB_DIRS ++= [ '${pkgs.nu_scripts}/share/nu_scripts' ]
+              source ${config.lib.meta.mkMutableSymlink ../../dotfiles/.config/nushell/my-config.nu}
+            '';
 
           plugins = with pkgs.nushellPlugins; [
             gstat
@@ -584,17 +587,6 @@ in
                 run = "arrow 5";
                 desc = "Move cursor down 5 lines";
               }
-
-              {
-                on = [ "<S-Up>" ];
-                run = "arrow -5";
-                desc = "Move cursor up 5 lines";
-              }
-              {
-                on = [ "<S-Down>" ];
-                run = "arrow 5";
-                desc = "Move cursor down 5 lines";
-              }
             ];
 
             input.prepend_keymap = [
@@ -682,17 +674,6 @@ in
                 desc = "Move cursor down 5 lines";
               }
 
-              {
-                on = [ "<S-Up>" ];
-                run = "arrow -5";
-                desc = "Move cursor up 5 lines";
-              }
-              {
-                on = [ "<S-Down>" ];
-                run = "arrow 5";
-                desc = "Move cursor down 5 lines";
-              }
-
               # Filtering
               {
                 on = [ "/" ];
@@ -708,9 +689,6 @@ in
           enableFishIntegration = false;
         };
       };
-
-      xdg.dataFile."nushell/completions/nu_scripts".source =
-        pkgs.nu_scripts + "/share/nu_scripts/custom-completions";
     }
 
     (mkIf config.programs.fzf.enable {

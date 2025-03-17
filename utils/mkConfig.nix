@@ -1,11 +1,11 @@
 {
   inputs,
-  hostSystem ? builtins.currentSystem,
+  hostSystem ? "x86_64-linux", # FIXME: 2025-03-17 Simon Yde, replace with `builtins.currentSystem` if it's ever allowed in flakes
 }:
 
 let
   nixpkgs = import inputs.nixpkgs;
-  overlays = import ../overlays.nix { inherit inputs; };
+  overlays = import ../overlays.nix inputs;
 
   specialArgs = { inherit inputs; };
 
