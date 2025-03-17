@@ -27,8 +27,6 @@
     audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
     zen-browser = inputs.zen-browser.packages.${prev.system}.default;
 
-    inherit (final.stable) pwvucontrol;
-
     inherit (inputs.kattis-cli.packages.${prev.system}) kattis-test kattis-cli;
 
     vimPlugins = prev.vimPlugins.extend (
