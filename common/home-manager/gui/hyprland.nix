@@ -16,7 +16,7 @@ let
   random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" ''
     CURRENT=$(hyprctl hyprpaper listloaded)
     # Get a random wallpaper that is not the current one
-    WALLPAPER=$(${pkgs.fd}/bin/fd . "$WALLPAPER_DIR" -t f -E "$CURRENT" | shuf -n 1)
+    WALLPAPER=$(${pkgs.fd}/bin/fd . "${config.home.sessionVariables.WALLPAPER_DIR}" -t f -E "$CURRENT" | shuf -n 1)
 
     # Apply the selected wallpaper
     hyprctl hyprpaper reload ,"$WALLPAPER"
@@ -92,7 +92,7 @@ in
       "$browser" = browser;
       "$file-manager" = getExe file-manager.package;
       "$menu" = "${getExe config.programs.rofi.package} -show drun";
-      "$terminal" = terminal.name;
+      "$terminal" = getExe terminal.package;
 
       input = {
         kb_layout = config.home.keyboard.layout;
@@ -113,12 +113,14 @@ in
       hide_cursor = true;
       no_fade_in = false;
     };
+
     background = mkForce {
       monitor = "";
       path = "screenshot";
       blur_passes = 3;
       blur_size = 8;
     };
+
     input-field = {
       monitor = "";
       size = "200, 50";
@@ -129,6 +131,7 @@ in
       position = "0, -80";
       shadow_passes = 2;
     };
+
     label = {
       monitor = "";
       text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
@@ -149,6 +152,7 @@ in
       before_sleep_cmd = "loginctl lock-session";
       ignore_dbus_inhibit = false;
     };
+
     listener = [
       {
         timeout = 360;
@@ -187,7 +191,7 @@ in
 
         Service = {
           Type = "oneshot";
-          ExecStart = lib.getExe random-wallpaper;
+          ExecStart = getExe random-wallpaper;
           IOSchedulingClass = "idle";
         };
 

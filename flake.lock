@@ -1324,6 +1324,7 @@
         "systems": "systems_2",
         "tinted-schemes": "tinted-schemes",
         "tip-vim": "tip-vim",
+        "topiary-nushell": "topiary-nushell",
         "zen-browser": "zen-browser"
       }
     },
@@ -1585,6 +1586,22 @@
       "original": {
         "owner": "SimonYde",
         "repo": "tip.vim",
+        "type": "github"
+      }
+    },
+    "topiary-nushell": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1741755688,
+        "narHash": "sha256-lpZAdntp5RP0a6jrrpma81KsZNzQ3/fgu5pU0JNFUJA=",
+        "owner": "blindFS",
+        "repo": "topiary-nushell",
+        "rev": "d0b5734b40d32e1d409483f5599ac7da99ce8c7d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "blindFS",
+        "repo": "topiary-nushell",
         "type": "github"
       }
     },

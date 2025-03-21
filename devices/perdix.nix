@@ -45,6 +45,10 @@
     partition-manager.enable = true;
   };
 
+  users.users.${username}.extraGroups = [ "libvirtd" ];
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
   services = {
     tailscale = {
       enable = true;

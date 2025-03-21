@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 
@@ -47,6 +48,7 @@ in
         ouch
 
         libqalculate
+        topiary
 
         ast-grep
 
@@ -125,6 +127,8 @@ in
           package = pkgs.tlrc;
         };
       };
+
+      xdg.configFile."topiary/languages/nu.scm".source = inputs.topiary-nushell + "/languages/nu.scm";
     }
 
     (mkIf cfg.bash.enable {
