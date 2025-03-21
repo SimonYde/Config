@@ -81,3 +81,61 @@ def --wrapped nix (...args) {
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
 $env.DIRENV_LOG_FORMAT = ""
+
+# set environment variables
+# $env.TOPIARY_CONFIG_FILE = ($env.XDG_CONFIG_HOME | path join topiary languages.ncl)
+# $env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary languages)
+
+let prompt = {||
+    if $env.LAST_EXIT_CODE != 0 {
+        $"(ansi red)⟩ (ansi reset)"
+    } else {
+        $"(ansi white)⟩ (ansi reset)"
+    }
+}
+$env.PROMPT_INDICATOR = $prompt
+$env.PROMPT_INDICATOR_VI_INSERT = $prompt
+$env.PROMPT_INDICATOR_VI_NORMAL = ": ";
+$env.PROMPT_MULTILINE_INDICATOR = "::: ";
+
+let fish_completer = {|spans: list<string>|
+    fish --command $'complete "--do-complete=($spans | str join " ")"'
+    | from tsv --flexible --noheaders --no-infer
+    | rename value description
+}
+
+let carapace_completer = {|spans: list<string>|
+    carapace $spans.0 nushell ...$spans
+    | from json
+    | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
+}
+
+let zoxide_completer = {|spans: list<string>|
+    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD }
+}
+
+# This completer will use carapace by default
+let external_completer = {|spans: list<string>|
+    let expanded_alias = scope aliases
+    | where name == $spans.0
+    | get -i 0.expansion
+
+    let spans = if $expanded_alias != null {
+        $spans
+        | skip 1
+        | prepend ($expanded_alias | split row ' ' | take 1)
+    } else {
+        $spans
+    }
+
+    match $spans.0 {
+        # use zoxide completions for zoxide commands
+        __zoxide_z|__zoxide_zi => $zoxide_completer
+        hyprctl => $fish_completer
+        typst => $fish_completer
+        topiary => $fish_completer
+        _ => $carapace_completer
+    } | do $in $spans
+}
+
+$env.config.completions.external.completer = $external_completer

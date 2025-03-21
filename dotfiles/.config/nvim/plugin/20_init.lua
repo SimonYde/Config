@@ -35,11 +35,22 @@ Load.later(function()
 
     conform.setup({
         formatters_by_ft = {
-            typst = { 'typstyle' },
-            python = { 'ruff_format' },
+            nu = { 'topiary_nu' },
+            clojure = { 'cljfmt' },
             lua = { 'stylua' },
             nix = { 'nixfmt' },
-            clojure = { 'cljfmt' },
+            python = { 'ruff_format' },
+            typst = { 'typstyle' },
+        },
+
+        formatters = {
+            topiary_nu = {
+                command = 'topiary',
+                args = { 'format', '--language', 'nu' },
+                env = {
+                    TOPIARY_LANGUAGE_DIR = vim.env.HOME .. '/.config/topiary/languages',
+                },
+            },
         },
     })
 
@@ -62,7 +73,10 @@ Load.later(function()
     })
 
     nmap('zR', ufo.openAllFolds, 'Open all folds (nvim-ufo)')
-    nmap('zM', ufo.closeAllFolds, 'Close all folds (nvim-ufo)')
+    nmap('zM', function()
+        vim.g.ufo_foldlevel = 0
+        ufo.closeAllFolds()
+    end, 'Close all folds (nvim-ufo)')
 
     nmap('zr', function()
         vim.g.ufo_foldlevel = (vim.g.ufo_foldlevel or 0) + 1

@@ -36,6 +36,7 @@ client_fullscreen = "[{icon}]"
 "org.kde.partitionmanager" = ""
 "(?i)rclone-browser" = ""
 "(?i)obsidian" = "󱓧"
+"(?i)wireshark" = "󱙳"
 "(?i)mpv"      = ""
 "(?i)slack"    = "󰒱"
 "(?i)discord|(?i)(vesktop)" = ""
@@ -49,15 +50,15 @@ client_fullscreen = "[{icon}]"
 "(?i)lutris"  = "󰊴"
 "(?i)zathura"    = ""
 "(?i)Anki"       = ""
-"(?i)virtualbox" = ""
+"(?i)virtualbox|virt-manager" = ""
 "(?i)Gimp"       = ""
 "(?i)libreoffice-writer" = "󰷈"
 "(?i)blueman-manager" = ""
 "pavucontrol|pwvucontrol" = "󱡫"
 
 [title_in_class."(?i)Kitty|(?i)Alacritty|com.mitchellh.ghostty"]
-"(?i)nvim|vim|vi" = ""
-"(?i)yazi" = ""
+"nvim|vim|vi" = ""
+"yazi" = ""
 
 # Add your applications that need to be exclude
 # The key is the class, the value is the title.

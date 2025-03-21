@@ -20,7 +20,7 @@
   fonts.packages = with pkgs; [
     font-awesome
     gentium
-    atkinson-hyperlegible
+    atkinson-hyperlegible-next
     atkinson-monolegible
     libertinus
     newcomputermodern

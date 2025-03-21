@@ -38,7 +38,7 @@
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        # nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         pre-commit-hooks.follows = "pre-commit-hooks";
       };
@@ -110,6 +110,11 @@
       flake = false;
     };
 
+    topiary-nushell = {
+      url = "github:blindFS/topiary-nushell";
+      flake = false;
+    };
+
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;
@@ -133,18 +138,29 @@
     };
 
     # My flakes
+    etilbudsavis-cli = {
+      url = "github:SimonYde/etilbudsavis-cli";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
     pix2tex = {
       url = "github:SimonYde/pix2tex.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     kattis-cli = {
       url = "github:SimonYde/kattis-cli.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     grawlix = {
       url = "github:SimonYde/grawlix.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     audiobook-dl = {
       url = "github:SimonYde/audiobook-dl.nix";
       inputs.nixpkgs.follows = "nixpkgs";

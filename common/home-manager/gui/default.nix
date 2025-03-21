@@ -74,6 +74,7 @@ in
         imagemagick
         ghostscript # PDF renderer (snacks.nvim)
         kdePackages.ark
+        networkmanagerapplet
 
         yt-dlp
         trashy
@@ -81,6 +82,7 @@ in
         grawlix
         pix2tex
         audiobook-dl
+        etilbudsavis-cli
       ];
 
       xdg = {
@@ -289,6 +291,7 @@ in
             modules-center = [ ];
 
             modules-right = [
+              "gamemode"
               "pulseaudio"
               "disk"
               "memory"
@@ -301,6 +304,19 @@ in
               "idle_inhibitor"
               "custom/swaync"
             ];
+
+            gamemode = {
+              format = "{glyph}";
+              format-alt = "{glyph} {count}";
+              glyph = "";
+              hide-not-running = true;
+              use-icon = true;
+              icon-name = "input-gaming-symbolic";
+              icon-spacing = 4;
+              icon-size = 20;
+              tooltip = true;
+              tooltip-format = "Games running: {count}";
+            };
 
             idle_inhibitor = {
               format = " {icon} ";

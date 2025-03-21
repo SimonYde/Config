@@ -92,9 +92,7 @@ in
         man.enable = mkDefault false;
         pandoc.enable = true;
         ripgrep.enable = true;
-        starship.enable = true;
         yazi.enable = true;
-        zellij.enable = true;
         zoxide.enable = true;
       };
     }
@@ -335,6 +333,90 @@ in
           "--smart-case"
           "--pretty"
         ];
+
+        starship = {
+          enable = true;
+          enableBashIntegration = false;
+
+          settings = {
+            add_newline = false;
+
+            format = lib.concatStrings [
+              "$username"
+              "$hostname"
+              "$directory"
+              "$nix_shell"
+              "$git_branch"
+              "$line_break"
+              "$character"
+            ];
+
+            right_format = lib.concatStrings [
+              "$cmd_duration"
+              "$rust"
+              "$elm"
+              "$golang"
+              "$ocaml"
+              "$java"
+              "$scala"
+              "$lua"
+              "$typst"
+              "$direnv"
+              "$gleam"
+            ];
+
+            # Modules
+            character = {
+              # success_symbol = "[⟩](normal white)";
+              # error_symbol = "[⟩](bold red)";
+              success_symbol = "";
+              error_symbol = "";
+            };
+
+            direnv = {
+              format = "[($loaded/$allowed)]($style)";
+              disabled = false;
+              loaded_msg = "";
+              allowed_msg = "";
+            };
+
+            directory = {
+              style = "bold green";
+              fish_style_pwd_dir_length = 1;
+            };
+
+            git_branch = {
+              symbol = " ";
+              style = "bold purple";
+            };
+
+            git_status = {
+              style = "bold purple";
+            };
+
+            hostname = {
+              ssh_symbol = "🌐";
+            };
+
+            nix_shell = {
+              symbol = " ";
+              style = "bold blue";
+              heuristic = false;
+            };
+
+            golang = {
+              symbol = " ";
+            };
+
+            elm = {
+              symbol = " ";
+            };
+
+            scala = {
+              symbol = " ";
+            };
+          };
+        };
 
         yazi = {
           enableBashIntegration = true;
@@ -685,6 +767,7 @@ in
         };
 
         zellij = {
+          enable = true;
           enableBashIntegration = false;
           enableFishIntegration = false;
         };
@@ -697,72 +780,5 @@ in
       home.sessionVariables.COMMA_PICKER = "fzf";
     })
 
-    (mkIf config.programs.starship.enable {
-      programs.starship.settings = {
-        add_newline = false;
-        format = "$username$hostname$directory$nix_shell$git_branch$line_break$character";
-        right_format = "$cmd_duration$rust$elm$golang$ocaml$java$scala$lua$typst$direnv$gleam";
-
-        character = {
-          success_symbol = "[⟩](normal white)";
-          error_symbol = "[⟩](bold red)";
-        };
-
-        direnv = {
-          format = "[($loaded/$allowed)]($style)";
-          disabled = false;
-          loaded_msg = "";
-          allowed_msg = "";
-        };
-
-        directory = {
-          style = "bold green";
-          fish_style_pwd_dir_length = 1;
-        };
-
-        git_branch = {
-          symbol = " ";
-          style = "bold purple";
-        };
-
-        git_status = {
-          style = "bold purple";
-        };
-
-        hostname = {
-          ssh_symbol = "🌐";
-        };
-
-        username = {
-          format = "[$user]($style)";
-        };
-
-        nix_shell = {
-          symbol = " ";
-          style = "bold blue";
-          heuristic = false;
-        };
-
-        golang = {
-          symbol = " ";
-        };
-
-        elm = {
-          symbol = " ";
-        };
-
-        scala = {
-          symbol = " ";
-          disabled = true;
-        };
-      };
-
-      programs.nushell.environmentVariables = {
-        PROMPT_INDICATOR = "";
-        PROMPT_INDICATOR_VI_INSERT = "";
-        PROMPT_INDICATOR_VI_NORMAL = "";
-        PROMPT_MULTILINE_INDICATOR = "";
-      };
-    })
   ];
 }
