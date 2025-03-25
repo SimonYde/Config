@@ -131,3 +131,9 @@ Load.now(
         })
     end
 )
+
+vim.filetype.add({
+    extension = {
+        trp = 'sml',
+    },
+})

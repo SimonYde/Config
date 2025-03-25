@@ -58,7 +58,7 @@ in
         libreoffice # Office365 replacement
         anki # Flash cards
         obsidian # Second brain
-        gimp # Image editor
+        # gimp # Image editor
         stremio
 
         qbittorrent # Linux ISOs

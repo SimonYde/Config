@@ -3,6 +3,7 @@ stdin
 NixOS
 plaintext
 pointwise
+formatter
 ciphertext
 plaintexts
 concretization

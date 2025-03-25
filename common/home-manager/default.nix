@@ -325,7 +325,7 @@ in
             gstat
             query
             formats
-            skim
+            # skim
           ];
         };
 
