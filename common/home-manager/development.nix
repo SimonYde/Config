@@ -20,20 +20,38 @@ in
     {
       syde.development = {
         bash.enable = true;
+
         cpp.enable = false;
+
+        clojure.enable = false;
+
         gleam.enable = false;
+
         go.enable = false;
+
         java.enable = false;
+
         latex.enable = true;
+
         lua.enable = true;
+
         nix.enable = true;
+
         ocaml.enable = false;
+
         odin.enable = true;
+
         python.enable = true;
+
         rust.enable = true;
-        scala.enable = true;
-        scala.package = pkgs.scala_2_12;
+
+        scala = {
+          enable = true;
+          package = pkgs.scala_2_12;
+        };
+
         typst.enable = true;
+
         zig.enable = true;
       };
 
@@ -45,14 +63,15 @@ in
 
         dua
         lls
-        ouch
+        ouch # archive tool
 
-        libqalculate
-        topiary
+        libqalculate # Math tool
+
+        topiary # Tree-sitter based formatter.
 
         ast-grep
 
-        gitoxide
+        gitoxide # Rust git implementation.
         git-revise
         git-absorb
         git-gr
@@ -141,6 +160,13 @@ in
       home.packages = with pkgs; [
         libgcc
         clang-tools
+      ];
+    })
+
+    (mkIf cfg.clojure.enable {
+      home.packages = with pkgs; [
+        clojure
+        cljfmt
       ];
     })
 
@@ -334,6 +360,8 @@ in
     bash.enable = mkEnableOption "Bash tools";
 
     cpp.enable = mkEnableOption "C++ tools";
+
+    clojure.enable = mkEnableOption "Clojure tools";
 
     gleam.enable = mkEnableOption "Gleam tools";
 
