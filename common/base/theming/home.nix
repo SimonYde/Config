@@ -49,6 +49,7 @@ in
     atkinson-hyperlegible-next
     atkinson-monolegible
     libertinus
+    junicode
     newcomputermodern
     roboto
     source-sans-pro

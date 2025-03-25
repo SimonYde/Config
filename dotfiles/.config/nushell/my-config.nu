@@ -64,6 +64,7 @@ $env.config = {
 alias ll = ls -l
 alias la = ls -a
 alias lla = ls -la
+alias fg = job unfreeze
 
 let maybe_nom = if (which nom | is-not-empty) {
     ["--nom"]

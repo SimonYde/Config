@@ -32,6 +32,8 @@ inputs: [
 
     inherit (inputs.kattis-cli.packages.${prev.system}) kattis-test kattis-cli;
 
+    inherit (final.stable) tectonic;
+
     vimPlugins = prev.vimPlugins.extend (
       _: _: {
         tip-vim = prev.vimUtils.buildVimPlugin {
@@ -50,42 +52,6 @@ inputs: [
             "obsidian.pickers._snacks"
           ];
         };
-
-        snacks-nvim =
-          (prev.vimUtils.buildVimPlugin {
-            version = "nightly";
-            pname = "snacks.nvim";
-            src = inputs.snacks-nvim;
-          }).overrideAttrs
-            {
-              nvimSkipModule = [
-                # Requires setup call first
-                "snacks.dashboard"
-                "snacks.debug"
-                "snacks.dim"
-                "snacks.git"
-                "snacks.image.image"
-                "snacks.image.init"
-                "snacks.image.placement"
-                "snacks.image.convert"
-                "snacks.indent"
-                "snacks.input"
-                "snacks.lazygit"
-                "snacks.notifier"
-                "snacks.picker.actions"
-                "snacks.picker.config.highlights"
-                "snacks.picker.core.list"
-                "snacks.scratch"
-                "snacks.scroll"
-                "snacks.terminal"
-                "snacks.win"
-                "snacks.words"
-                "snacks.zen"
-                # Optional trouble integration
-                "trouble.sources.profiler"
-                "snacks.picker.util.db"
-              ];
-            };
 
         mini-nvim = prev.vimUtils.buildVimPlugin {
           version = "nightly";
