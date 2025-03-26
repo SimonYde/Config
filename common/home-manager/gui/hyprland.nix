@@ -71,9 +71,6 @@ in
     # Tray applets
     blueman-applet.enable = true;
     network-manager-applet.enable = true;
-
-    gammastep.enable = true;
-
     hypridle.enable = true;
     hyprpaper.enable = true;
     swaync.enable = true;
@@ -164,6 +161,22 @@ in
 
   systemd.user = {
     services = {
+      hyprsunset = {
+        Unit = {
+          Description = "hyprsunset";
+          After = [ "graphical-session-pre.target" ];
+          PartOf = [ config.wayland.systemd.target ];
+        };
+
+        Service = {
+          ExecStart = "${getExe pkgs.hyprsunset} --max_gamma 150 identity";
+          Restart = "always";
+          RestartSec = "2";
+        };
+
+        Install.WantedBy = [ config.wayland.systemd.target ];
+      };
+
       hyprland-autoname-workspaces = {
         Unit = {
           Description = "hyprland-autoname-workspaces";

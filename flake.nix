@@ -35,15 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs = {
-        # nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-      };
-    };
-
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs = {
