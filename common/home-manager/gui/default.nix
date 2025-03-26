@@ -572,35 +572,6 @@ in
           };
         };
       };
-
-      services.gammastep = {
-        tray = true;
-        provider = "manual";
-
-        duskTime = "18:45-21:00";
-        dawnTime = "6:00-7:45";
-
-        latitude = 56.3;
-        longitude = 9.5;
-
-        temperature = {
-          day = 6500;
-          night = 2200;
-        };
-      };
-
-      xdg.configFile."gammastep/hooks/notify" = {
-        inherit (config.services.gammastep) enable;
-        executable = true;
-        text = # bash
-          ''
-            #!/usr/bin/env bash
-            case $1 in
-                period-changed)
-                    exec ${lib.getExe pkgs.libnotify} "Gammastep" "Period changed to $3"
-            esac
-          '';
-      };
     }
   ];
 
