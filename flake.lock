@@ -883,16 +883,17 @@
     "obsidian-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1741906229,
-        "narHash": "sha256-7hXMNKIbXK2Bw2VQEjSu/YUvOfME34AEi9yb83zwVQE=",
+        "lastModified": 1742736829,
+        "narHash": "sha256-m2cwl64V3eWJKQ3nH+scTFJP7ObJBDXdcVmxTX++2bo=",
         "owner": "obsidian-nvim",
         "repo": "obsidian.nvim",
-        "rev": "15b8c5fc730625a3f162817b13db144c5bba3a9f",
+        "rev": "66d7fc0c5a063213415e88f4cf989fffece6f90e",
         "type": "github"
       },
       "original": {
         "owner": "obsidian-nvim",
         "repo": "obsidian.nvim",
+        "rev": "66d7fc0c5a063213415e88f4cf989fffece6f90e",
         "type": "github"
       }
     },
