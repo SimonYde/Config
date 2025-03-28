@@ -1,5 +1,6 @@
 local M = {}
 local H = {}
+
 -- Various cache
 H.cache = {
     -- Whether finish of `now()` or `later()` is already scheduled
@@ -87,7 +88,7 @@ end
 H.notify = vim.schedule_wrap(function(msg)
     if not DEBUG then return end
     if type(msg) == 'table' then msg = table.concat(msg, '\n') end
-    dd(msg)
+    vim.print(msg)
     vim.cmd('redraw')
 end)
 
