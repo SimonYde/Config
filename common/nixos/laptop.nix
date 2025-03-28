@@ -4,7 +4,6 @@
   username,
   ...
 }:
-
 let
   inherit (lib) getExe mkDefault;
 in
@@ -28,11 +27,13 @@ in
         on-timeout = "${getExe pkgs.brightnessctl} -s s 50%-";
         on-resume = "${getExe pkgs.brightnessctl} -r";
       }
+
       {
         timeout = 360;
         on-timeout = "loginctl lock-session";
         on-resume = "";
       }
+
       {
         timeout = 900;
         on-timeout = "systemctl suspend";

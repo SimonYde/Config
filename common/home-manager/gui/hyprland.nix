@@ -169,7 +169,7 @@ in
         };
 
         Service = {
-          ExecStart = "${getExe pkgs.hyprsunset} --max_gamma 150 identity";
+          ExecStart = "${getExe pkgs.hyprsunset} --gamma_max 200";
           Restart = "always";
           RestartSec = "2";
         };

@@ -269,20 +269,13 @@ in
           settings.mainBar = {
             layer = "top";
             position = "top";
-            passthrough = false;
-            exclusive = true;
-            fixed-center = true;
             spacing = 0;
             output = [ "*" ];
 
             modules-left = [
               "hyprland/workspaces"
-              "hyprland/submap"
-
-              "sway/workspaces"
-              "sway/mode"
-
               "custom/separator#blank"
+              "hyprland/submap"
               "custom/separator#blank"
               "hyprland/window"
               "sway/window"
