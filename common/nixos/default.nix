@@ -155,12 +155,7 @@ in
         shell = pkgs.nushell-wrapped;
         hashedPasswordFile = config.age.secrets.pc-password.path;
         description = "Simon Yde";
-
-        extraGroups = [
-          "wheel"
-
-          (mkIf config.services.syncthing.enable "syncthing")
-        ];
+        extraGroups = [ "wheel" ];
 
         openssh.authorizedKeys.keys = [
           keys.icarus

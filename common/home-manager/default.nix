@@ -73,7 +73,6 @@ in
         bash.enable = true;
         fish.enable = true;
         nushell.enable = true;
-        carapace.enable = true;
 
         # Editor
         neovim.enable = true;
@@ -82,17 +81,18 @@ in
         atuin.enable = true;
         bat.enable = true;
         btop.enable = true;
-
+        carapace.enable = true;
         fastfetch.enable = true;
         fd.enable = true;
         fzf.enable = true;
         git.enable = true;
-
         nix-index.enable = true;
         man.enable = mkDefault false;
         pandoc.enable = true;
         ripgrep.enable = true;
+        starship.enable = true;
         yazi.enable = true;
+        zellij.enable = true;
         zoxide.enable = true;
       };
     }
@@ -335,7 +335,6 @@ in
         ];
 
         starship = {
-          enable = true;
           enableBashIntegration = false;
 
           settings = {
@@ -500,7 +499,7 @@ in
                   "s"
                 ];
                 run = "linemode size";
-                desc = "Set linemode to size";
+                desc = "Linemode: size";
               }
               {
                 on = [
@@ -508,7 +507,7 @@ in
                   "p"
                 ];
                 run = "linemode permissions";
-                desc = "Set linemode to permissions";
+                desc = "Linemode: permissions";
               }
               {
                 on = [
@@ -516,7 +515,23 @@ in
                   "m"
                 ];
                 run = "linemode mtime";
-                desc = "Set linemode to mtime";
+                desc = "Linemode: mtime";
+              }
+              {
+                on = [
+                  "j"
+                  "b"
+                ];
+                run = "linemode btime";
+                desc = "Linemode: btime";
+              }
+              {
+                on = [
+                  "j"
+                  "o"
+                ];
+                run = "linemode owner";
+                desc = "Linemode: owner";
               }
               {
                 on = [
@@ -524,7 +539,7 @@ in
                   "n"
                 ];
                 run = "linemode none";
-                desc = "Set linemode to none";
+                desc = "Linemode: none";
               }
 
               {
@@ -767,7 +782,6 @@ in
         };
 
         zellij = {
-          enable = true;
           enableBashIntegration = false;
           enableFishIntegration = false;
         };
