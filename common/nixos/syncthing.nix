@@ -31,6 +31,7 @@ let
   );
 in
 {
+  users.users.${username}.extraGroups = [ "syncthing" ];
   services.syncthing = {
     user = username;
     openDefaultPorts = true;

@@ -3,7 +3,7 @@ def "blue-light enable" [ ] {
         error make {msg: "`hyprsunset` is not installed" }
     }
     hyprctl hyprsunset temperature 2200
-    hyprctl hyprsunset gamma 90
+    hyprctl hyprsunset gamma 80
 }
 
 def "blue-light disable" [ ] {
