@@ -45,7 +45,7 @@ Load.now(function()
                         icon = ' ',
                         key = 'c',
                         desc = 'Config',
-                        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.env.HOME .. '/Config', hidden = true})",
+                        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.env.FLAKE, hidden = true})",
                     },
 
                     { icon = ' ', key = 's', desc = 'Restore Session', section = 'session' },
@@ -65,7 +65,7 @@ Load.now(function()
             notify = true, -- Show notification when big file detected
             size = 1024 * 1024, -- 1 MiB
             -- Enable or disable features when big file detected
-            ---@param ctx {buf: number, ft:string}
+            ---@param ctx { buf: number, ft:string }
             setup = function(ctx)
                 Snacks.util.wo(0, { foldmethod = 'manual', statuscolumn = '', conceallevel = 0 })
                 vim.b.minianimate_disable = true
@@ -74,7 +74,7 @@ Load.now(function()
             end,
         },
     })
-    -- Override plugin check, as the built-in version is `lazy.nvim` only. Assumes no lazy loading
+    -- Override plugin check, as the built-in version is `lazy.nvim` only. Assumes no lazy loading of the given plugin.
     Snacks.dashboard.have_plugin = function(name) return package.loaded[name] ~= nil end
 end)
 
@@ -127,18 +127,12 @@ Load.later(function()
 
     Snacks.toggle
         .new({
-            name = 'Folds',
-            get = function() return vim.o.foldenable end,
-            set = function(state) vim.o.foldenable = state end,
-        })
-        :map('<leader><leader>f')
-    Snacks.toggle
-        .new({
             name = 'hlsearch',
             get = function() return vim.v.hlsearch == 1 end,
             set = function(_) vim.cmd('let v:hlsearch = 1 - v:hlsearch') end,
         })
         :map('<leader><leader>h')
+
     Snacks.toggle
         .new({
             name = 'Colemak Keymap',
@@ -154,32 +148,33 @@ Load.later(function()
     Snacks.toggle.option('wrap'):map('<leader><leader>w')
     Snacks.toggle.zen():map('<leader><leader>z')
     Snacks.toggle.option('ignorecase'):map('<leader><leader>c')
+    Snacks.toggle.option('foldenable'):map('<leader><leader>f')
     Snacks.toggle.zoom():map('<leader>z')
 
-    nmap('<leader>sn', Snacks.notifier.show_history, 'Show notifier history')
-    nmap('<leader>st', Snacks.terminal.toggle, 'Toggle terminal')
-    nmap('<leader>bd', Snacks.bufdelete.delete, 'Delete current buffer')
+    -- stylua: ignore start
+    nmap('<leader>sn', function() Snacks.notifier.show_history() end,             'Show notifier history')
+    nmap('<leader>st', function() Snacks.terminal.toggle() end,                   'Toggle terminal')
+    nmap('<leader>bd', function() Snacks.bufdelete.delete() end,                  'Delete current buffer')
 
-    nmap('<leader>gb', Snacks.git.blame_line, 'Show blame line')
-    nmap('<leader>go', Snacks.gitbrowse.open, 'Open current position on remote repo')
+    nmap('<leader>gb', function() Snacks.git.blame_line() end,                    'Show blame line')
+    nmap('<leader>go', function() Snacks.gitbrowse.open() end,                    'Open current position on remote repo')
 
-    nmap('<leader>?', Snacks.picker.keymaps, 'Search keymaps')
-    nmap('<leader>fc', Snacks.picker.lines, 'current buffer lines')
-    nmap('<leader>bb', Snacks.picker.buffers, 'Pick buffers')
-    ---@diagnostic disable-next-line: missing-fields
-    nmap('<leader>ff', function() Snacks.picker.files({ hidden = true }) end, 'Files')
-    nmap('<leader>fh', Snacks.picker.help, 'Help tags')
-    nmap('<leader>fg', Snacks.picker.git_files, 'Git files')
-    nmap('<leader>fb', Snacks.picker.pickers, 'Builtin pickers')
-    nmap('<leader>fs', Snacks.picker.lsp_symbols, 'LSP document symbols')
-    nmap('<leader>fw', Snacks.picker.lsp_workspace_symbols, 'LSP workspace symbols')
-    ---@diagnostic disable-next-line: missing-fields
-    nmap('<leader>/', function() Snacks.picker.grep({ hidden = true }) end, 'Global search with grep')
-    nmap("<leader>'", Snacks.picker.resume, 'Resume last picker')
-    nmap('<leader>*', function() Snacks.picker.grep_word({ hidden = true }) end, 'Grep word across files')
-    nmap('gr', Snacks.picker.lsp_references, 'Goto references')
-    nmap('gi', Snacks.picker.lsp_implementations, 'Goto implementations')
-    nmap('gd', Snacks.picker.lsp_definitions, 'Goto definitions')
+    nmap('<leader>?',  function() Snacks.picker.keymaps() end,                    'Search keymaps')
+    nmap('<leader>fc', function() Snacks.picker.lines() end,                      'current buffer lines')
+    nmap('<leader>bb', function() Snacks.picker.buffers() end,                    'Pick buffers')
+    nmap('<leader>ff', function() Snacks.picker.files({ hidden = true }) end,     'Files')
+    nmap('<leader>fh', function() Snacks.picker.help() end,                       'Help tags')
+    nmap('<leader>fg', function() Snacks.picker.git_files() end,                  'Git files')
+    nmap('<leader>fb', function() Snacks.picker.pickers() end,                    'Builtin pickers')
+    nmap('<leader>fs', function() Snacks.picker.lsp_symbols() end,                'LSP document symbols')
+    nmap('<leader>fw', function() Snacks.picker.lsp_workspace_symbols() end,      'LSP workspace symbols')
+    nmap('<leader>/',  function() Snacks.picker.grep({ hidden = true }) end,      'Global search with grep')
+    nmap("<leader>'",  function() Snacks.picker.resume() end,                     'Resume last picker')
+    nmap('<leader>*',  function() Snacks.picker.grep_word({ hidden = true }) end, 'Grep word across files')
+    nmap('gr',         function() Snacks.picker.lsp_references() end,             'Goto references')
+    nmap('gi',         function() Snacks.picker.lsp_implementations() end,        'Goto implementations')
+    nmap('gd',         function() Snacks.picker.lsp_definitions() end,            'Goto definitions')
+    -- stylua: ignore end
 
     nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')
 end)
