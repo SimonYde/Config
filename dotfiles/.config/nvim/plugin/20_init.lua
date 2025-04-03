@@ -165,12 +165,12 @@ Load.on_events({ events = 'FileType', pattern = 'lua' }, function()
         runtime = vim.env.VIMRUNTIME,
 
         integrations = {
-            lspconfig = true,
+            lspconfig = false,
             cmp = false,
         },
 
         library = {
-            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+            { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
         },
     })
 end)

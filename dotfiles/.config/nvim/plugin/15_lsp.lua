@@ -1,19 +1,8 @@
 Load.later(function()
-    local lspconfig = require('lspconfig')
-
-    ---@param name string
-    ---@param config { cmd: string[]?, settings: table?, on_attach: function?, filetypes: string[]?, capabilities: table? }?
-    local setup_lsp = function(name, config)
-        config = config or {}
-
-        if vim.fn.executable(config.cmd and config.cmd[1] or name) ~= 1 then
-            return -- LSP not installed, do not bother setting up
-        end
-
-        config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities, true)
-
-        lspconfig[name].setup(config)
-    end
+    vim.lsp.config('*', {
+        capabilities = Load.now(function() return require('blink.cmp').get_lsp_capabilities({}, true) end) or {},
+        root_markers = { '.git', '.jj', 'flake.nix' },
+    })
 
     vim.g.rustaceanvim = {
         -- Plugin configuration
@@ -40,15 +29,17 @@ Load.later(function()
         dap = {},
     }
 
-    setup_lsp('lua_ls', {
+    vim.lsp.config.lua_ls = {
         cmd = { 'lua-language-server' },
-
+        filetypes = { 'lua' },
+        root_markers = {
+            '.luarc.json',
+            '.luarc.jsonc',
+        },
         settings = {
             Lua = {
                 telemetry = { enable = false },
                 runtime = { version = 'LuaJIT' },
-
-                diagnostics = { workspaceDelay = -1 }, -- Don't make workspace diagnostic, as it consumes too much CPU and RAM
 
                 workspace = {
                     checkThirdParty = false,
@@ -56,45 +47,97 @@ Load.later(function()
                 },
             },
         },
-    })
+    }
 
-    setup_lsp('ols', {
-        init_options = { checker_args = '-debug' },
-    })
-
-    setup_lsp('metals', {
-        filetypes = { 'java', 'scala', 'sbt' },
-    })
-
-    setup_lsp('basedpyright', {
-        settings = {
-            basedpyright = { disableOrganizeImports = true },
+    vim.lsp.config.basedpyright = {
+        cmd = { 'basedpyright-langserver', '--stdio' },
+        filetypes = { 'python' },
+        root_markers = {
+            'pyproject.toml',
+            'setup.py',
+            'setup.cfg',
+            'requirements.txt',
+            'Pipfile',
+            'pyrightconfig.json',
         },
-    })
-    setup_lsp('ruff')
+        settings = {
+            basedpyright = {
+                disableOrganizeImports = true,
+                analysis = {
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = true,
+                    diagnosticMode = 'openFilesOnly',
+                },
+            },
+        },
+    }
 
-    setup_lsp('bashls', {
+    vim.lsp.config.bashls = {
         cmd = { 'bash-language-server' },
         filetypes = { 'bash', 'sh' },
-    })
+    }
 
-    setup_lsp('clojure_lsp')
+    vim.lsp.config.harper_ls = {
+        cmd = { 'harper-ls', '--stdio' },
+        filetypes = {
+            'c',
+            'cpp',
+            'cs',
+            'gitcommit',
+            'go',
+            'html',
+            'java',
+            'javascript',
+            'lua',
+            'markdown',
+            'nix',
+            'python',
+            'ruby',
+            'rust',
+            'swift',
+            'toml',
+            'typescript',
+            'typescriptreact',
+            'haskell',
+            'cmake',
+            'typst',
+            'php',
+            'dart',
+        },
+        settings = {
+            ['harper-ls'] = {
+                userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
+                markdown = { ignore_link_title = true },
+            },
+        },
+    }
 
-    setup_lsp('elmls', { cmd = { 'elm-language-server' } })
+    vim.lsp.config.metals = {
+        cmd = { 'metals' },
+        filetypes = { 'java', 'scala', 'sbt' },
+        root_markers = { 'build.sbt', 'build.gradle' },
+        init_options = {
+            statusBarProvider = 'show-message',
+            isHttpEnabled = true,
+            compilerOptions = {
+                snippetAutoIndent = false,
+            },
+        },
+        capabilities = {
+            workspace = {
+                configuration = false,
+            },
+        },
+    }
 
-    setup_lsp('nushell', { cmd = { 'nu', '--lsp' } })
+    vim.lsp.config.nil_ls = {
+        cmd = { 'nil' },
+        filetypes = { 'nix' },
+    }
 
-    setup_lsp('clangd')
-
-    setup_lsp('gleam')
-
-    setup_lsp('gopls')
-
-    setup_lsp('ocamllsp')
-
-    setup_lsp('nil_ls', { cmd = { 'nil' } })
-
-    setup_lsp('nixd', {
+    vim.lsp.config.nixd = {
+        cmd = { 'nixd' },
+        filetypes = { 'nix' },
         settings = {
             nixd = {
                 nixpkgs = { expr = 'import <nixpkgs> { }' },
@@ -108,31 +151,28 @@ Load.later(function()
                 },
             },
         },
-    })
+    }
 
-    setup_lsp('texlab', {
-        settings = {
-            texlab = {
-                build = {
-                    cmd = 'tectonic',
-                    args = { '-X', 'compile', '%f' },
-                    onSave = true,
-                    forwardSearchAfter = true,
-                },
+    vim.lsp.config.nushell = {
+        cmd = { 'nu', '--lsp' },
+        filetypes = { 'nu' },
+    }
 
-                forwardSearch = {
-                    cmd = 'zathura',
-                    args = {
-                        '--synctex-forward',
-                        '%l:%c:%f',
-                        '%p',
-                    },
-                },
-            },
-        },
-    })
+    vim.lsp.config.ols = {
+        cmd = { 'ols' },
+        filetypes = { 'odin' },
+        root_markers = { 'ols.json' },
+        init_options = { checker_args = '-debug' },
+    }
 
-    setup_lsp('tinymist', {
+    vim.lsp.config.ruff = {
+        cmd = { 'ruff', 'server' },
+        filetypes = { 'python' },
+    }
+
+    vim.lsp.config.tinymist = {
+        cmd = { 'tinymist' },
+        filetypes = { 'typst' },
         settings = { exportPdf = 'onSave' }, -- Choose `onType`, `onSave` or `never`.
 
         ---@param client vim.lsp.Client
@@ -154,18 +194,7 @@ Load.later(function()
                 vim.system({ 'xdg-open', pdf })
             end, 'Pin main file to current')
         end,
-    })
-
-    setup_lsp('harper_ls', {
-        cmd = { 'harper-ls', '--stdio' },
-
-        settings = {
-            ['harper-ls'] = {
-                userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
-                markdown = { ignore_link_title = true },
-            },
-        },
-    })
+    }
 
     vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
@@ -189,5 +218,16 @@ Load.later(function()
         end,
     })
 
-    vim.defer_fn(function() vim.cmd('LspStart') end, 100)
+    vim.lsp.enable({
+        'basedpyright',
+        'bashls',
+        'harper_ls',
+        'lua_ls',
+        'metals',
+        'nil_ls',
+        'nixd',
+        'nushell',
+        'ruff',
+        'tinymist',
+    })
 end)
