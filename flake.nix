@@ -190,5 +190,9 @@
         icarus = mkSystem { hostname = "icarus"; };
         perdix = mkSystem { hostname = "perdix"; };
       };
+
+      homeConfigurations = {
+        stub = mkHome { username = "syde"; };
+      };
     };
 }

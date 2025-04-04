@@ -76,7 +76,7 @@ let
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs { inherit system overlays; };
       modules = [
-        ../shared/home/standalone.nix
+        ../common/home-manager/standalone.nix
         {
           home = { inherit username homeDirectory; };
         }

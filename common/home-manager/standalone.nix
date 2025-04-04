@@ -45,6 +45,7 @@ in
     ../base/theming/home.nix
     ../base/theming/shared.nix
     ../base/nix-settings.nix
+    ./gui
     ./default.nix
   ];
 

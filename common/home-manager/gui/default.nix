@@ -576,6 +576,7 @@ in
         "floorp"
         "qutebrowser"
         "zen"
+        "zen-beta"
       ];
       default = "zen";
     };
