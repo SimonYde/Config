@@ -5,7 +5,6 @@
   inputs,
   ...
 }:
-
 let
   inherit (lib)
     getExe
@@ -30,6 +29,17 @@ in
       manual.manpages.enable = false;
 
       lib.meta = {
+        writeNushellScriptBin =
+          name: text:
+          pkgs.writeTextFile {
+            name = "nuscript-${name}";
+            text = ''
+              #!${getExe pkgs.nushell} --no-config-file
+              ${text}
+            '';
+            destination = "/bin/${name}";
+            executable = true;
+          };
         configPath = "/home/syde/Config"; # Should be the location of the config repo.
         mkMutableSymlink =
           path:

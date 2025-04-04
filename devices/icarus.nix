@@ -28,8 +28,6 @@
   services.xserver.xkb.layout = "eu";
 
   boot = {
-    plymouth.enable = lib.mkForce false;
-    consoleLogLevel = 3;
     kernelPackages = pkgs.linuxPackages_zen;
 
     loader.systemd-boot.windows."11-home" = {
