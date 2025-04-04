@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 
@@ -16,6 +15,8 @@ let
   cfg = config.syde.development;
 in
 {
+  imports = [ ./topiary.nix ];
+
   config = mkMerge [
     {
       syde.development = {
@@ -66,8 +67,6 @@ in
         ouch # archive tool
 
         libqalculate # Math tool
-
-        topiary # Tree-sitter based formatter.
 
         ast-grep
 
@@ -128,6 +127,7 @@ in
 
         man.enable = true;
 
+        topiary.enable = true;
       };
 
       services = {
@@ -147,7 +147,6 @@ in
         };
       };
 
-      xdg.configFile."topiary/languages/nu.scm".source = inputs.topiary-nushell + "/languages/nu.scm";
     }
 
     (mkIf cfg.bash.enable {

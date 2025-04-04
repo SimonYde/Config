@@ -49,14 +49,14 @@ Load.later(function()
                 command = 'topiary',
                 args = { 'format', '--language', 'bash' },
                 env = {
-                    TOPIARY_LANGUAGE_DIR = vim.env.HOME .. '/.config/topiary/languages',
+                    TOPIARY_LANGUAGE_DIR = vim.env.TOPIARY_LANGUAGE_DIR,
                 },
             },
             topiary_nu = {
                 command = 'topiary',
                 args = { 'format', '--language', 'nu' },
                 env = {
-                    TOPIARY_LANGUAGE_DIR = vim.env.HOME .. '/.config/topiary/languages',
+                    TOPIARY_LANGUAGE_DIR = vim.env.TOPIARY_LANGUAGE_DIR,
                 },
             },
         },
