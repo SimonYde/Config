@@ -275,10 +275,8 @@ in
           plugins =
             with pkgs.vimPlugins;
             [
-              # -----LSP-----
-              nvim-lspconfig
-
               # -----Workflow-----
+              # nvim-lspconfig # TODO: reenable when lspconfig uses the new api: https://github.com/neovim/nvim-lspconfig/issues/3494
               nvim-autopairs
               mini-nvim
               snacks-nvim
@@ -422,6 +420,7 @@ in
             };
 
             scala = {
+              disabled = true;
               symbol = " ";
             };
           };
@@ -789,11 +788,6 @@ in
               }
             ];
           };
-        };
-
-        zellij = {
-          enableBashIntegration = false;
-          enableFishIntegration = false;
         };
       };
     }

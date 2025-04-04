@@ -30,7 +30,7 @@ in
 
         go.enable = false;
 
-        java.enable = false;
+        java.enable = true;
 
         latex.enable = true;
 
@@ -178,44 +178,50 @@ in
     })
 
     (mkIf cfg.go.enable {
-      home.packages = with pkgs; [
-        go # CLI
-        delve # Debugger
-        gopls # LSP
-      ];
+      home = {
+        packages = with pkgs; [
+          go # CLI
+          delve # Debugger
+          gopls # LSP
+        ];
+
+        sessionVariables.GOPATH = "${config.xdg.dataHome}/go";
+      };
 
       programs.neovim.plugins = with pkgs.vimPlugins; [
         nvim-dap-go # debugging support
       ];
-
-      home.sessionVariables.GOPATH = "${config.xdg.dataHome}/go";
     })
 
     (mkIf cfg.java.enable {
-      home.packages = with pkgs; [
-        jdt-language-server
-        maven
+      home = {
+        packages = with pkgs; [
+          jdt-language-server
+          maven
 
-        cfg.java.jdk
-      ];
+          cfg.java.jdk
+        ];
 
-      programs.gradle = {
-        enable = true;
-        home = ".config/gradle";
-
-        settings = {
-          "org.gradle.caching" = true;
-          "org.gradle.parallel" = true;
-          "org.gradle.jvmargs" = "-XX:MaxMetaspaceSize=384m";
-          "org.gradle.home" = cfg.java.jdk;
-        };
+        sessionVariables.JAVA_HOME = cfg.java.jdk;
       };
 
-      home.sessionVariables.JAVA_HOME = cfg.java.jdk;
+      programs = {
+        gradle = {
+          enable = true;
+          home = ".config/gradle";
 
-      programs.neovim.plugins = with pkgs.vimPlugins; [
-        nvim-jdtls
-      ];
+          settings = {
+            "org.gradle.caching" = true;
+            "org.gradle.parallel" = true;
+            "org.gradle.jvmargs" = "-XX:MaxMetaspaceSize=384m";
+            "org.gradle.home" = cfg.java.jdk;
+          };
+        };
+
+        neovim.plugins = with pkgs.vimPlugins; [
+          nvim-jdtls
+        ];
+      };
     })
 
     (mkIf cfg.latex.enable {
