@@ -1,6 +1,6 @@
 Load.later(function()
     vim.lsp.config('*', {
-        capabilities = Load.now(function() return require('blink.cmp').get_lsp_capabilities({}, true) end) or {},
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
         root_markers = { '.git', '.jj', 'flake.nix' },
     })
 

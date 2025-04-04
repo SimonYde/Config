@@ -134,6 +134,7 @@ let external_completer = {|spans: list<string>|
         __zoxide_z|__zoxide_zi => $zoxide_completer
         hyprctl => $fish_completer
         typst => $fish_completer
+        tailscale => $fish_completer
         topiary => $fish_completer
         _ => $carapace_completer
     } | do $in $spans
