@@ -5,13 +5,18 @@ module blue-light {
     export def main [] {
         let current_time = date now | format date "%H" | into int
         if $current_time >= 20 {
-            blue-light enable
+            try {
+                enable
+            } catch {
+                systemctl --user restart hyprsunset.service
+                enable
+            }
         } else if $current_time >= 5 {
-            blue-light disable
+            disable
         }
     }
 
-    export def "blue-light enable" [] {
+    export def "enable" [] {
         if (which hyprsunset | is-empty) {
             error make {msg: "`hyprsunset` is not installed"}
         }
@@ -19,11 +24,12 @@ module blue-light {
         hyprctl hyprsunset gamma 80
     }
 
-    export def "blue-light disable" [] {
+    export def "disable" [] {
         if (which hyprsunset | is-empty) {
             error make {msg: "`hyprsunset` is not installed"}
         }
         hyprctl hyprsunset identity
     }
 }
-use blue-light *
+
+use blue-light

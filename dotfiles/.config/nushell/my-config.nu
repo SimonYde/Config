@@ -7,7 +7,7 @@ export def banner [] {
 
 $env.config = {
     show_banner: false
-    edit_mode: vi # emacs, vi
+    edit_mode: vi
     footer_mode: auto
     use_kitty_protocol: true
 
@@ -25,7 +25,7 @@ $env.config = {
     }
 
     table: {
-        header_on_separator: true # show header text on separator/border line
+        header_on_separator: true
 
         trim: {
             methodology: wrapping
@@ -34,10 +34,10 @@ $env.config = {
     }
 
     history: {
-        max_size: 100_000 # Session has to be reloaded for this to take effect
-        sync_on_enter: true # Enable to share history between multiple sessions, else you have to close the session to write history to file
-        file_format: "plaintext" # "sqlite" or "plaintext"
-        isolation: false # only available with sqlite file_format. true enables history isolation, false disables it. true will allow the history to be isolated to the current session using up/down arrows. false will allow the history to be shared across all sessions.
+        max_size: 1_000_000
+        sync_on_enter: true
+        file_format: "plaintext"
+        isolation: false
     }
 
     hooks: {
@@ -136,8 +136,11 @@ let external_completer = {|spans: list<string>|
         typst => $fish_completer
         tailscale => $fish_completer
         topiary => $fish_completer
+        nix => $fish_completer
         _ => $carapace_completer
     } | do $in $spans
 }
 
 $env.config.completions.external.completer = $external_completer
+
+use std-rfc/tables [ aggregate ]
