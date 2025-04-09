@@ -85,7 +85,7 @@
     };
     # FIXME: 2025-03-26 Simon Yde, replace with master when pr is merged.
     obsidian-nvim = {
-      url = "github:obsidian-nvim/obsidian.nvim/66d7fc0c5a063213415e88f4cf989fffece6f90e";
+      url = "github:obsidian-nvim/obsidian.nvim";
       flake = false;
     };
     snacks-nvim = {

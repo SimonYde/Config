@@ -904,17 +904,16 @@
     "obsidian-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1742736829,
-        "narHash": "sha256-m2cwl64V3eWJKQ3nH+scTFJP7ObJBDXdcVmxTX++2bo=",
+        "lastModified": 1743952285,
+        "narHash": "sha256-aEHgqbh0xSCx3y5/JTyQhd0RewX8d/rzXdZNF39+5mg=",
         "owner": "obsidian-nvim",
         "repo": "obsidian.nvim",
-        "rev": "66d7fc0c5a063213415e88f4cf989fffece6f90e",
+        "rev": "57742368ed0995d370e2ab1bb3a29ed247223deb",
         "type": "github"
       },
       "original": {
         "owner": "obsidian-nvim",
         "repo": "obsidian.nvim",
-        "rev": "66d7fc0c5a063213415e88f4cf989fffece6f90e",
         "type": "github"
       }
     },
