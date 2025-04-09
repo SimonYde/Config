@@ -1,6 +1,7 @@
 Load.later(function()
     vim.opt.runtimepath:prepend('~/.local/state/nvim/treesitter')
 
+    ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup({
         auto_install = true,
         sync_install = false,
