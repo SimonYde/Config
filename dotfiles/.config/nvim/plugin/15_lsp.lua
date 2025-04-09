@@ -1,14 +1,12 @@
 Load.later(function()
+    Load.packadd('nvim-lspconfig')
+
     vim.lsp.config('*', {
         capabilities = vim.lsp.protocol.make_client_capabilities(),
         root_markers = { '.git', '.jj', 'flake.nix' },
     })
 
     vim.g.rustaceanvim = {
-        -- Plugin configuration
-        tools = {
-            enable_clippy = true,
-        },
         -- LSP configuration
         server = {
             default_settings = {
@@ -25,13 +23,12 @@ Load.later(function()
                 },
             },
         },
-        -- DAP configuration
-        dap = {},
     }
 
     vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
             local client = vim.lsp.get_client_by_id(args.data.client_id)
+            -- Disable semantic token highlighting, in favour of treesitter.
             if client then client.server_capabilities.semanticTokensProvider = nil end
 
             local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = args.buf }) end

@@ -276,7 +276,6 @@ in
             with pkgs.vimPlugins;
             [
               # -----Workflow-----
-              # nvim-lspconfig # TODO: reenable when lspconfig uses the new api: https://github.com/neovim/nvim-lspconfig/issues/3494
               nvim-autopairs
               mini-nvim
               snacks-nvim
@@ -296,6 +295,7 @@ in
               blink-cmp
 
               # ----- Workflow -----
+              nvim-lspconfig
               conform-nvim
               trouble-nvim
               diffview-nvim

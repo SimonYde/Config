@@ -59,6 +59,8 @@ vim.o.complete = '.,w,b,u,kspell' -- Add spellcheck options for autocomplete and
 
 -- Shell ======================================================================
 
+vim.o.shell = 'nu'
+
 -- WARN: disable the usage of temp files for shell commands
 -- because Nu doesn't support `input redirection` which Neovim uses to send buffer content to a command:
 --      `{shell_command} < {temp_file_with_selected_buffer_content}`
