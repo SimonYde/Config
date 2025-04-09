@@ -30,6 +30,8 @@
 
   environment.systemPackages = with pkgs; [
     git
+    wl-clipboard
+    xdg-utils
     wget
     wslu
   ];
