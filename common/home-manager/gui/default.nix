@@ -135,8 +135,6 @@ in
         shellAliases.ex = getExe file-manager.package;
       };
 
-      programs.nushell.shellAliases.ex = getExe file-manager.package;
-
       age.secrets."rclone".file = ../../../secrets/rclone.age;
 
       # FIXME: 2025-03-06 Simon Yde, would be nice if it could be determined at build time
