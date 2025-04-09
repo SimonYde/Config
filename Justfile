@@ -1,5 +1,8 @@
 default: update os
 
+news:
+	nix run nixpkgs#home-manager -- news --flake .#stub
+
 update:
 	@nix flake update --commit-lock-file
 
