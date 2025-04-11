@@ -131,7 +131,7 @@ in
 
     label = {
       monitor = "";
-      text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M:%S") </big></b>"'';
+      text = ''cmd[update:1000] echo "<b><big>$TIME</big></b>"'';
       text_align = "center";
       font_size = 45;
       rotate = 0;
@@ -196,7 +196,7 @@ in
       random-wallpaper = {
         Unit = {
           Description = "Cycle hyprpaper to new wallpaper at random.";
-          After = [ "hyprpaper.target" ];
+          After = [ "hyprpaper.service" ];
           Restart = "on-failure";
           RestartSec = "10";
           PartOf = [ config.wayland.systemd.target ];

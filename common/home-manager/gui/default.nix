@@ -34,6 +34,7 @@ in
         # Browsers
         brave.enable = true;
         firefox.enable = false;
+        zen-browser.enable = true;
 
         # other GUI programs
         mpv.enable = true;

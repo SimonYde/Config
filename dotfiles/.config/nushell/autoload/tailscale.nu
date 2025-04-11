@@ -2,9 +2,9 @@ module tailscale {
     def vpn-handler [status: string, exit_node?: string] {
         match $status {
             on => {
-                # let suggestion = (tailscale exit-node suggest) | parse --regex 'node: (?<node>.*)' | first | get node
-                # tailscale set --exit-node=($suggestion)
-                # print $"Connected to `($suggestion)`."
+                let suggestion = (tailscale exit-node suggest) | parse --regex 'node: (?<node>.*)' | first | get node
+                tailscale set --exit-node=($suggestion)
+                print $"Connected to `($suggestion)`."
             },
             off => {
                 tailscale set --exit-node=""

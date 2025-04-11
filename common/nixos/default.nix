@@ -166,10 +166,12 @@ in
   };
 
   home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
+    backupFileExtension = "backup";
 
     extraSpecialArgs = { inherit inputs; };
+
+    useGlobalPkgs = true;
+    useUserPackages = true;
 
     users.${username}.imports = [ ../home-manager ];
     users.root.imports = [ ../home-manager ];
