@@ -20,7 +20,7 @@ module blue-light {
         if (which hyprsunset | is-empty) {
             error make {msg: "`hyprsunset` is not installed"}
         }
-        hyprctl hyprsunset temperature 2200
+        hyprctl hyprsunset temperature $NIGHT_TEMP
         hyprctl hyprsunset gamma 80
     }
 
@@ -28,7 +28,8 @@ module blue-light {
         if (which hyprsunset | is-empty) {
             error make {msg: "`hyprsunset` is not installed"}
         }
-        hyprctl hyprsunset identity
+        hyprctl hyprsunset temperature $DAY_TEMP
+        hyprctl hyprsunset gamma 100
     }
 }
 

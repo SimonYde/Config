@@ -29,6 +29,7 @@ in
       package = pkgs.papirus-icon-theme;
     };
     targets = {
+      firefox.enable = false;
       neovim.enable = false;
       nushell.enable = false;
       waybar = {
@@ -83,6 +84,13 @@ in
       background = base00;
       overlay_background_color = base01;
       overlay_text_color = base05;
+    };
+
+    firefox.profiles.${config.home.username}.settings = {
+      "font.default.x-western" = "sans-serif";
+      "font.name.monospace.x-western" = fonts.monospace.name;
+      "font.name.sans-serif.x-western" = fonts.sansSerif.name;
+      "font.name.serif.x-western" = fonts.serif.name;
     };
 
     neovim.extraLuaConfig =
