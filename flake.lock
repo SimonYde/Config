@@ -720,11 +720,11 @@
     "mini-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1744374616,
-        "narHash": "sha256-smPqHMwA499bWbuZUOsX7XfZI6L6d6P6PDoiVRg87+c=",
+        "lastModified": 1744459004,
+        "narHash": "sha256-y4AVcdxnQFKxdHDJ+hdK9MtYUuIm2Du1d+PKQ5AjeTs=",
         "owner": "echasnovski",
         "repo": "mini.nvim",
-        "rev": "bddfbfc4c1dbca6b852f512e554cf2e05c2960a8",
+        "rev": "b418d585d99bd1c1a4b04dc8b2c585471665173a",
         "type": "github"
       },
       "original": {
@@ -748,11 +748,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1744333010,
-        "narHash": "sha256-VBaAreKB9fsgh5fjyK62UA03aPLDL2KhmLvOEbWT8q4=",
+        "lastModified": 1744447706,
+        "narHash": "sha256-8bkAMTy5A6IEEBrr8fGyBrpRNvHMBttsjmTS3IHO/3w=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "c6f8c36e22e0f41dd17e91734f0e748cf267dd1f",
+        "rev": "8479d0e1c0b9274c25001432169c0056633bf63a",
         "type": "github"
       },
       "original": {
@@ -764,11 +764,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1744273222,
-        "narHash": "sha256-NWh4+o36VxbGxa8EG6fESZYRIvBy86rD7SOXNPjDR6k=",
+        "lastModified": 1744372015,
+        "narHash": "sha256-Aith8tgE4jRYDpFa9JqPsA4beTimLmqgwl6PLNlJHyU=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "dc00b379658ff7d545bd49161a7e81d83474b194",
+        "rev": "4a706a70928231643e1a3f3fcf785de7aa930f8b",
         "type": "github"
       },
       "original": {
@@ -811,11 +811,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1744369853,
-        "narHash": "sha256-rVW9J8gMUFj8PsFV2TgNiNuJd8+O+FUizEQgl1ooQFY=",
+        "lastModified": 1744456153,
+        "narHash": "sha256-xTaAboh9p0Mz0UEgcKe+B1zVKoRFG7RQR+gf7ypMQVA=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "c2b4dd2f85d558c7147bc06c6417f87aa1775ad5",
+        "rev": "a76a451a2c97aa37a7741bdf8244ad91205776b8",
         "type": "github"
       },
       "original": {
@@ -904,11 +904,11 @@
     "obsidian-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1744397266,
-        "narHash": "sha256-3a8pAWIpdbQzL/A4eLP+//hpumnygoBcB2JAocLI8zU=",
+        "lastModified": 1744471322,
+        "narHash": "sha256-0uAYa6WTQRXEhUcLEsXcuiq7c/8a2W25miq8VvHU1Vc=",
         "owner": "obsidian-nvim",
         "repo": "obsidian.nvim",
-        "rev": "80a483c2eebac1afa6e40c4a46ffae2cc538e1cc",
+        "rev": "e0eb92c5afcacf5bf11e4735079a538fd1486ea9",
         "type": "github"
       },
       "original": {
@@ -1064,11 +1064,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744338850,
-        "narHash": "sha256-pwMIVmsb8fjjT92n5XFDqCsplcX70qVMMT7NulumPXs=",
+        "lastModified": 1744425163,
+        "narHash": "sha256-iFcqIbyY25uhtRrQal5vFTxt0q59vDf++nY8du5hof4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "5e64aecc018e6f775572609e7d7485fdba6985a7",
+        "rev": "4bb0b6dfc5bafa8b4e8dbe1170f051c437b2cb79",
         "type": "github"
       },
       "original": {
@@ -1103,11 +1103,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744251450,
-        "narHash": "sha256-4zwkN8aC/B8G48p2R5ptqp4/l8M+SmLN/VddF39DeXM=",
+        "lastModified": 1744423915,
+        "narHash": "sha256-6Hd8VyrOlmjlDBgPpx9NwX4+/uO4gEDIyjqbQLyniwE=",
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
-        "rev": "e1326d6cd66f74595da4707ed7f1928e3d8cbbdd",
+        "rev": "4c4b9611c71d586ea818fa5b8dcbd81129f62560",
         "type": "github"
       },
       "original": {
@@ -1256,11 +1256,11 @@
     "tinted-schemes": {
       "flake": false,
       "locked": {
-        "lastModified": 1742851696,
-        "narHash": "sha256-sR4K+OVFKeUOvNIqcCr5Br7NLxOBEwoAgsIyjsZmb8s=",
+        "lastModified": 1744463779,
+        "narHash": "sha256-FujYwHm/3Z99+i3gCqC+c+VXtjNfUkstY9MZP4OL4A4=",
         "owner": "tinted-theming",
         "repo": "schemes",
-        "rev": "c37771c4ae8ff1667e27ddcf24991ebeb94a4e77",
+        "rev": "186585a5aac077916489ac8af2937cadc95ba7dd",
         "type": "github"
       },
       "original": {
