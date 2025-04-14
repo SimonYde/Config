@@ -36,10 +36,16 @@ inputs: [
 
     vimPlugins = prev.vimPlugins.extend (
       _: _: {
-        tip-vim = prev.vimUtils.buildVimPlugin {
+        mini-nvim = prev.vimUtils.buildVimPlugin {
           version = "nightly";
-          pname = "tip.vim";
-          src = inputs.tip-vim;
+          pname = "mini.nvim";
+          src = inputs.mini-nvim;
+        };
+
+        nvim-lspconfig = prev.vimUtils.buildVimPlugin {
+          version = "nightly";
+          pname = "nvim-lspconfig";
+          src = inputs.nvim-lspconfig;
         };
 
         obsidian-nvim = prev.vimPlugins.obsidian-nvim.overrideAttrs {
@@ -50,13 +56,14 @@ inputs: [
             "obsidian.pickers._fzf"
             "obsidian.pickers._telescope"
             "obsidian.pickers._snacks"
+            "minimal"
           ];
         };
 
-        mini-nvim = prev.vimUtils.buildVimPlugin {
+        tip-vim = prev.vimUtils.buildVimPlugin {
           version = "nightly";
-          pname = "mini.nvim";
-          src = inputs.mini-nvim;
+          pname = "tip.vim";
+          src = inputs.tip-vim;
         };
       }
     );

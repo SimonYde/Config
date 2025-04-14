@@ -83,7 +83,10 @@
       url = "github:echasnovski/mini.nvim";
       flake = false;
     };
-    # FIXME: 2025-03-26 Simon Yde, replace with master when pr is merged.
+    nvim-lspconfig = {
+      url = "github:neovim/nvim-lspconfig";
+      flake = false;
+    };
     obsidian-nvim = {
       url = "github:obsidian-nvim/obsidian.nvim";
       flake = false;

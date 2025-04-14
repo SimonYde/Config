@@ -6,6 +6,84 @@ Load.later(function()
         root_markers = { '.git', '.jj', 'flake.nix' },
     })
 
+    vim.lsp.config('basedpyright', {
+        settings = {
+            basedpyright = {
+                disableOrganizeImports = true,
+                analysis = {
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = true,
+                    diagnosticMode = 'openFilesOnly',
+                },
+            },
+        },
+    })
+
+    vim.lsp.config('harper_ls', {
+        settings = {
+            ['harper-ls'] = {
+                userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
+                markdown = { ignore_link_title = true },
+            },
+        },
+    })
+
+    vim.lsp.config('lua_ls', {
+        settings = {
+            Lua = {
+                telemetry = { enable = false },
+                runtime = { version = 'LuaJIT' },
+
+                workspace = {
+                    checkThirdParty = false,
+                    ignoreSubmodules = true,
+                },
+            },
+        },
+    })
+
+    vim.lsp.config('nixd', {
+        settings = {
+            nixd = {
+                nixpkgs = { expr = 'import <nixpkgs> { }' },
+
+                options = {
+                    nixos = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.'
+                            .. vim.uv.os_gethostname()
+                            .. '.options',
+                    },
+                },
+            },
+        },
+    })
+
+    vim.lsp.config('ols', {
+        init_options = { checker_args = '-debug' },
+    })
+
+    vim.lsp.config('tinymist', {
+        settings = { exportPdf = 'onSave' }, -- `onType`, `onSave` or `never`.
+        on_attach = function(client, bufnr)
+            local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = bufnr }) end
+
+            nmap('<leader>lp', function()
+                local file = vim.api.nvim_buf_get_name(bufnr)
+                local pdf = file:gsub('%.typ$', '.pdf')
+                vim.system({ 'xdg-open', pdf })
+            end, 'open [p]df')
+
+            nmap('<leader>lw', function()
+                local main_file = vim.api.nvim_buf_get_name(bufnr)
+                ---@diagnostic disable-next-line: missing-fields the `title` argument is in fact not necessary.
+                client:exec_cmd({ command = 'tinymist.pinMain', arguments = { main_file } })
+                vim.notify('Pinned to ' .. main_file, vim.log.levels.INFO)
+                local pdf = main_file:gsub('%.typ$', '.pdf')
+                vim.system({ 'xdg-open', pdf })
+            end, 'Pin main file to current')
+        end,
+    })
+
     vim.g.rustaceanvim = {
         -- LSP configuration
         server = {
@@ -56,6 +134,7 @@ Load.later(function()
         'nil_ls',
         'nixd',
         'nushell',
+        'ols',
         'ruff',
         'tinymist',
     })

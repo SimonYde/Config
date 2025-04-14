@@ -133,10 +133,11 @@ let external_completer = {|spans: list<string>|
         # use zoxide completions for zoxide commands
         __zoxide_z|__zoxide_zi => $zoxide_completer
         hyprctl => $fish_completer
-        typst => $fish_completer
+        nix => $fish_completer
         tailscale => $fish_completer
         topiary => $fish_completer
-        nix => $fish_completer
+        trash => $fish_completer
+        typst => $fish_completer
         _ => $carapace_completer
     } | do $in $spans
 }
