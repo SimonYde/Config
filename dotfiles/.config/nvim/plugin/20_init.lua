@@ -281,7 +281,10 @@ end)
 
 Load.later(function()
     Load.packadd('todo-comments.nvim')
-    require('todo-comments').setup()
+    require('todo-comments').setup({
+        search = { pattern = [[\b(KEYWORDS)\b]] },
+        highlight = { pattern = [[.*<(KEYWORDS).{-}:]] },
+    })
 end)
 
 Load.later(function()

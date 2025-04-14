@@ -901,6 +901,22 @@
         "type": "github"
       }
     },
+    "nvim-lspconfig": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744642733,
+        "narHash": "sha256-NaHQLE2q5gKt1TGfRFn/MQJJQZmOcuhrGOEjIvHOvc4=",
+        "owner": "neovim",
+        "repo": "nvim-lspconfig",
+        "rev": "e39da6a820d2a700904117d29f0dd476d64262cf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "nvim-lspconfig",
+        "type": "github"
+      }
+    },
     "obsidian-nvim": {
       "flake": false,
       "locked": {
@@ -1020,6 +1036,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "nvim-lspconfig": "nvim-lspconfig",
         "obsidian-nvim": "obsidian-nvim",
         "pix2tex": "pix2tex",
         "pre-commit-hooks": "pre-commit-hooks_2",
