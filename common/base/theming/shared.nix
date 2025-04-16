@@ -7,7 +7,7 @@
 {
   stylix = {
     enable = true;
-    image = config.lib.stylix.pixel "base00";
+    image = null;
     base16Scheme = "${inputs.tinted-schemes}/base16/gruvbox-dark-hard.yaml";
     override = {
       base00 = "1b1b1b";
@@ -47,8 +47,8 @@
     };
 
     opacity = {
-      terminal = 0.85;
-      popups = 0.85;
+      terminal = 1.0;
+      popups = 1.0;
     };
   };
 }

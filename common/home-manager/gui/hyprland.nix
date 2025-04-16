@@ -49,8 +49,6 @@ in
     hyprland-gamemode
 
     # Extra utilities
-    playerctl # media keys
-
     pwvucontrol # audio control
     hyprsunset # blue-light filter
 
@@ -82,7 +80,6 @@ in
 
     plugins = with pkgs.hyprlandPlugins; [
       # hyprsplit
-      hyprspace
     ];
 
     settings = {
@@ -159,6 +156,8 @@ in
     ];
   };
 
+  services.hyprpaper.settings.ipc = "on";
+
   systemd.user = {
     services = {
       hyprsunset = {
@@ -197,18 +196,17 @@ in
         Unit = {
           Description = "Cycle hyprpaper to new wallpaper at random.";
           After = [ "hyprpaper.service" ];
-          Restart = "on-failure";
-          RestartSec = "10";
-          PartOf = [ config.wayland.systemd.target ];
         };
 
         Service = {
           Type = "oneshot";
           ExecStart = getExe random-wallpaper;
           IOSchedulingClass = "idle";
+          Restart = "on-failure";
+          RestartSec = "10";
         };
 
-        Install.WantedBy = [ config.wayland.systemd.target ];
+        Install.WantedBy = [ "hyprpaper.service" ];
       };
     };
 
