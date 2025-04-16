@@ -53,6 +53,9 @@ Load.later(function()
                             .. vim.uv.os_gethostname()
                             .. '.options',
                     },
+                    home_manager = {
+                        expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.stub.options',
+                    },
                 },
             },
         },

@@ -16,9 +16,14 @@
 */
 
 let
-  inherit (lib) mkForce mkOrder;
+  inherit (lib)
+    mkForce
+    mkOrder
+    toLower
+    toHexString
+    ;
   inherit (config.lib.stylix) colors;
-  inherit (config.stylix) fonts;
+  inherit (config.stylix) opacity fonts;
 in
 {
   stylix = {
@@ -318,26 +323,30 @@ in
   };
 
   xdg.configFile = {
-    "rofi/custom_base16.rasi" = {
-      inherit (config.programs.rofi) enable;
-      text =
-        with colors.withHashtag;
-        ''
-          * {
-              bg: ${base00}b2;
-              bg-col: ${base00}00;
-              bg-col-light: ${base00}00;
-              border-col: ${base00}00;
-              selected-col: ${base00}00;
-              blue: ${base0D};
-              fg-col: ${base05};
-              fg-col2: ${base08};
-              grey: ${base04};
-              width: 600;
-          }
-        ''
-        + builtins.readFile ./rofi.rasi;
-    };
+    "rofi/custom_base16.rasi" =
+      let
+        hexOpacity = opacity: toLower (toHexString (builtins.ceil (255.0 * opacity)));
+      in
+      {
+        inherit (config.programs.rofi) enable;
+        text =
+          with colors.withHashtag;
+          ''
+            * {
+                bg: ${base00}${hexOpacity opacity.popups};
+                bg-col: ${base00}00;
+                bg-col-light: ${base00}00;
+                border-col: ${base00}00;
+                selected-col: ${base00}00;
+                blue: ${base0D};
+                fg-col: ${base05};
+                fg-col2: ${base08};
+                grey: ${base04};
+                width: 600;
+            }
+          ''
+          + builtins.readFile ./rofi.rasi;
+      };
 
     "zellij/themes/base16-custom.kdl" = {
       inherit (config.programs.zellij) enable;
