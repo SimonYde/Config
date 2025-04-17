@@ -1,30 +1,25 @@
 module zellij {
     export-env {
-        $env.config.hooks.pre_prompt = (
-            $env.config.hooks.pre_prompt
-            | append {
-                if "ZELLIJ" in $env {
-                    let dir = pwd
-                    | str replace '/home/syde' '~'
-                    | path parse
-                    | get parent
-                    | path split
-                    | each {|dir| $dir | split chars | first }
+        $env.config.hooks.pre_prompt = $env.config.hooks.pre_prompt | append {
+            if "ZELLIJ" in $env {
+                let dir = pwd
+                | str replace '/home/syde' '~'
+                | path parse
+                | get parent
+                | path split
+                | each {|dir| $dir | split chars | first }
 
-                    let basename = pwd | path basename
-                    zellij action rename-tab ($dir | append $basename | path join)
-                }
+                let basename = pwd | path basename
+                zellij action rename-tab ($dir | append $basename | path join)
             }
-        )
+        }
 
-        $env.config.hooks.pre_execution = (
-            $env.config.hooks.pre_execution | append {
-                if "ZELLIJ" in $env {
-                    let cmd = commandline | split row ' ' | first
-                    zellij action rename-tab $cmd
-                }
+        $env.config.hooks.pre_execution = $env.config.hooks.pre_execution | append {
+            if "ZELLIJ" in $env {
+                let cmd = commandline | split row ' ' | first
+                zellij action rename-tab $cmd
             }
-        )
+        }
     }
 
     # Zellij attach helper

@@ -73,7 +73,6 @@ in
         rclone # Remote files
 
         imagemagick
-        ghostscript # PDF renderer (snacks.nvim)
         kdePackages.ark
         networkmanagerapplet
 
