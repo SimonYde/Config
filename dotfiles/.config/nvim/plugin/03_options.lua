@@ -10,6 +10,7 @@ vim.o.relativenumber = true
 vim.o.cursorline = false
 vim.o.laststatus = 3 -- global statusline
 vim.o.hlsearch = true
+vim.o.pummaxwidth = 100 -- Limit maximum width of popup menu
 vim.o.pumblend = 0
 vim.o.winblend = 0
 vim.o.shortmess = 'CFOSWaco'
@@ -43,6 +44,7 @@ vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
 vim.o.completeopt = 'menuone,noselect,fuzzy'
+vim.o.completefuzzycollect = 'keyword,files,whole_line' -- Use fuzzy matching when collecting candidates
 
 vim.o.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
 
@@ -105,37 +107,41 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Diagnostics ================================================================
-vim.diagnostic.config({
-    signs = {
-        priority = 9999,
-        text = {
-            [vim.diagnostic.severity.ERROR] = '',
-            [vim.diagnostic.severity.WARN] = '',
-            [vim.diagnostic.severity.HINT] = '',
-            [vim.diagnostic.severity.INFO] = '',
+Load.later(function()
+    vim.diagnostic.config({
+        signs = {
+            priority = 9999,
+            text = {
+                [vim.diagnostic.severity.ERROR] = '',
+                [vim.diagnostic.severity.WARN] = '',
+                [vim.diagnostic.severity.HINT] = '',
+                [vim.diagnostic.severity.INFO] = '',
+            },
         },
-    },
-    -- virtual_lines = { current_line = true },
-    virtual_text = {
-        current_line = false,
-        severity = { min = 'ERROR', max = 'ERROR' },
-    },
-    float = { border = 'rounded' },
-    update_in_insert = false,
-})
+        -- virtual_lines = { current_line = true },
+        virtual_text = {
+            current_line = false,
+            severity = { min = 'ERROR', max = 'ERROR' },
+        },
+        float = { border = 'rounded' },
+        update_in_insert = false,
+    })
+end)
 
 -- Use mini.basics for most things
 Load.now(
     function()
         require('mini.basics').setup({
             options = { extra_ui = true },
-            mappings = { option_toggle_prefix = '' },
+            mappings = { option_toggle_prefix = '\\' },
         })
     end
 )
 
-vim.filetype.add({
-    extension = {
-        trp = 'sml',
-    },
-})
+Load.later(function()
+    vim.filetype.add({
+        extension = {
+            trp = 'sml',
+        },
+    })
+end)

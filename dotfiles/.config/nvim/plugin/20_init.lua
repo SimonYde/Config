@@ -97,14 +97,7 @@ Load.later(function()
     end, 'Close one fold level')
 end)
 
-Load.on_events(
-    { events = 'InsertEnter' },
-    function()
-        require('nvim-autopairs').setup({
-            disable_filetype = { 'snacks_picker_input' },
-        })
-    end
-)
+Load.on_events({ events = 'InsertEnter' }, function() require('nvim-autopairs').setup() end)
 
 Load.later(function()
     Load.packadd('diffview.nvim')
@@ -224,10 +217,6 @@ Load.later(function()
         'Keep debugging open'
     )
 end)
-
-Load.later(function() require('dap-go').setup() end)
-
-Load.later(function() require('dap-python').setup('python') end)
 
 Load.later(function()
     require('obsidian').setup({
