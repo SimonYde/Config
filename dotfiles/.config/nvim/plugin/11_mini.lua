@@ -11,7 +11,7 @@ Load.later(function()
     require('mini.icons').setup()
     require('mini.jump').setup()
     require('mini.misc').setup()
-    require('mini.operators').setup({ replace = { prefix = 'cr' } })
+
     require('mini.splitjoin').setup()
     require('mini.surround').setup({ search_method = 'cover_or_next' })
     require('mini.tabline').setup()
@@ -20,6 +20,16 @@ Load.later(function()
 
     MiniIcons.mock_nvim_web_devicons()
     MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
+
+    local remap = function(mode, lhs_from, lhs_to)
+        local keymap = vim.fn.maparg(lhs_from, mode, false, true)
+        local rhs = keymap.callback or keymap.rhs
+        if rhs == nil then error('Could not remap from ' .. lhs_from .. ' to ' .. lhs_to) end
+        vim.keymap.set(mode, lhs_to, rhs)
+    end
+    remap('n', 'gx', 'gX')
+    remap('x', 'gx', 'gX')
+    require('mini.operators').setup({ replace = { prefix = 'cr' } })
 
     require('mini.snippets').setup({
         snippets = {
@@ -133,6 +143,9 @@ Load.later(function()
             }),
         },
     })
+
+    local yank_hunk = function() return MiniDiff.operator('yank') .. 'gh' end
+    nmap('ghy', yank_hunk, "Copy hunk's reference lines", { expr = true, remap = true })
 
     nmap('U', '<C-r><Cmd>lua MiniBracketed.register_undo_state()<CR>', 'Redo')
     nmap('<M-t>', function()

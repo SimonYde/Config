@@ -1,5 +1,8 @@
 default: update os
 
+stow:
+	nu ./stow.nu
+
 news:
 	nix run nixpkgs#home-manager -- news --flake .#stub
 

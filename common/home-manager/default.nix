@@ -70,6 +70,12 @@ in
           nix-your-shell
         ];
 
+        shellAliases = {
+          ll = "ls -l";
+          lla = "ls -la";
+          la = "ls -a";
+        };
+
         # FIXME: hack to reload dbus activated things
         activation.reloadDbus = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
           if [[ -v DBUS_SESSION_BUS_ADDRESS ]]; then
@@ -316,8 +322,6 @@ in
               nvim-treesitter-context
               rainbow-delimiters-nvim
             ];
-          # Always enable the luac loader first.
-          extraLuaConfig = lib.mkOrder 0 "vim.loader.enable()";
         };
 
         nix-index-database.comma.enable = true;
