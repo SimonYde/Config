@@ -5,14 +5,14 @@ Load.now(function()
     vim.print = _G.dd
 
     require('snacks').setup({
-        notifier = {},
-        quickfile = {},
-        picker = {},
         bufremove = {},
-        toggle = {},
-        terminal = {},
-        zen = {},
         image = {},
+        notifier = {},
+        picker = {},
+        quickfile = {},
+        terminal = {},
+        toggle = {},
+        zen = {},
 
         indent = {
             indent = { char = '▏' },
@@ -141,15 +141,17 @@ Load.later(function()
         })
         :map('<leader><leader>k')
 
-    Snacks.toggle.line_number():map('<leader><leader>n')
     Snacks.toggle.diagnostics():map('<leader><leader>d')
+    Snacks.toggle.dim():map('<leader><leader>D')
     Snacks.toggle.inlay_hints():map('<leader>li')
+    Snacks.toggle.line_number():map('<leader><leader>n')
+    Snacks.toggle.zen():map('<leader><leader>z')
+    Snacks.toggle.zoom():map('<leader>z')
+
     Snacks.toggle.option('spell'):map('<leader><leader>s')
     Snacks.toggle.option('wrap'):map('<leader><leader>w')
-    Snacks.toggle.zen():map('<leader><leader>z')
     Snacks.toggle.option('ignorecase'):map('<leader><leader>c')
     Snacks.toggle.option('foldenable'):map('<leader><leader>f')
-    Snacks.toggle.zoom():map('<leader>z')
 
     -- stylua: ignore start
     nmap('<leader>sn', function() Snacks.notifier.show_history() end,             'Show notifier history')

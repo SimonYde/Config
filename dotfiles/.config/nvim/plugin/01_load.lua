@@ -88,7 +88,7 @@ end
 H.notify = vim.schedule_wrap(function(msg)
     if not DEBUG then return end
     if type(msg) == 'table' then msg = table.concat(msg, '\n') end
-    vim.print(msg)
+    vim.notify(msg)
     vim.cmd('redraw')
 end)
 

@@ -1,11 +1,6 @@
 Load.later(function()
     Load.packadd('nvim-lspconfig')
 
-    vim.lsp.config('*', {
-        capabilities = vim.lsp.protocol.make_client_capabilities(),
-        root_markers = { '.git', '.jj', 'flake.nix' },
-    })
-
     vim.lsp.config('basedpyright', {
         settings = {
             basedpyright = {

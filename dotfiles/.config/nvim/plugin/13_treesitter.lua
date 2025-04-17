@@ -45,15 +45,6 @@ Load.later(function()
             [''] = 110,
             lua = 210,
         },
-        highlight = {
-            'RainbowDelimiterRed',
-            'RainbowDelimiterYellow',
-            'RainbowDelimiterBlue',
-            'RainbowDelimiterOrange',
-            'RainbowDelimiterGreen',
-            'RainbowDelimiterViolet',
-            'RainbowDelimiterCyan',
-        },
     }
 end)
 
@@ -63,10 +54,6 @@ Load.later(function()
     context.setup()
 
     Snacks.toggle
-        .new({
-            name = 'Treesitter context',
-            get = function() return context.enabled() end,
-            set = function(_) context.toggle() end,
-        })
+        .new({ name = 'Treesitter context', get = context.enabled, set = context.toggle })
         :map('<leader><leader>t')
 end)
