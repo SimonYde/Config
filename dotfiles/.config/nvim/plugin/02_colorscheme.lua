@@ -1,26 +1,20 @@
-Load.later(function()
-    if not PALETTE then
-        PALETTE = {
-            base00 = '#1d2021',
-            base01 = '#3c3836',
-            base02 = '#504945',
-            base03 = '#665c54',
-            base04 = '#bdae93',
-            base05 = '#d5c4a1',
-            base06 = '#ebdbb2',
-            base07 = '#fbf1c7',
-            base08 = '#fb4934',
-            base09 = '#fe8019',
-            base0A = '#fabd2f',
-            base0B = '#b8bb26',
-            base0C = '#8ec07c',
-            base0D = '#83a598',
-            base0E = '#d3869b',
-            base0F = '#d65d0e',
-        }
+vim.api.nvim_create_user_command('Base16', function()
+    local palette_path = vim.env.XDG_CONFIG_HOME .. '/stylix/palette.json'
+
+    if not vim.uv.fs_stat(palette_path) then
+        vim.notify('`$XDG_CONFIG_HOME/stylix/palette.json` does not exist', vim.log.levels.ERROR)
+        return
     end
+
+    local palette = {}
+    local scheme = vim.json.decode(table.concat(vim.fn.readfile(palette_path)))
+
+    for key, value in pairs(scheme) do
+        if string.sub(key, 1, 4) == 'base' then palette[key] = '#' .. value end
+    end
+
     require('mini.base16').setup({
-        palette = PALETTE,
+        palette = palette,
         use_cterm = true,
         plugins = {
             default = false,
@@ -37,15 +31,14 @@ Load.later(function()
             ['MeanderingProgrammer/render-markdown.nvim'] = true,
         },
     })
-    vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(PALETTE.base04))
-    vim.cmd(('hi MiniJump2dSpot cterm=bold gui=bold guifg=%s guibg=%s'):format(PALETTE.base08, PALETTE.base00))
-    vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(PALETTE.base0B, PALETTE.base00))
-    vim.cmd(('hi MiniJump2dSpotUnique guifg=%s guibg=%s'):format(PALETTE.base0C, PALETTE.base00))
-    vim.cmd(('hi SnacksPickerDir guifg=%s'):format(PALETTE.base04))
-    vim.cmd(('hi BlinkCmpSignatureHelp guibg=%s'):format(PALETTE.base01))
-end)
 
-Load.later(function()
+    vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(palette.base04))
+    vim.cmd(('hi MiniJump2dSpot cterm=bold gui=bold guifg=%s guibg=%s'):format(palette.base08, palette.base00))
+    vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(palette.base0B, palette.base00))
+    vim.cmd(('hi MiniJump2dSpotUnique guifg=%s guibg=%s'):format(palette.base0C, palette.base00))
+    vim.cmd(('hi SnacksPickerDir guifg=%s'):format(palette.base04))
+    vim.cmd(('hi BlinkCmpSignatureHelp guibg=%s'):format(palette.base01))
+
     require('mini.colors')
         .get_colorscheme()
         :add_transparency({
@@ -54,7 +47,7 @@ Load.later(function()
             statuscolumn = true,
             statusline = true,
             tabline = true,
-            winbar = false,
+            winbar = true,
         })
         :apply()
     -- Remove background for sign column elements
@@ -71,5 +64,10 @@ Load.later(function()
             hi DiagnosticFloatingHint  guibg=NONE ctermbg=NONE
         ]])
     -- Add a line to distinguish between context and current position
-    vim.cmd(('hi TreesitterContextBottom gui=underline'):format(PALETTE.base04))
-end)
+    vim.cmd('hi TreesitterContextBottom gui=underline')
+
+    require('mini.colors').get_colorscheme():add_cterm_attributes():write({ name = 'base16' })
+end, {})
+
+local ok, _ = pcall(vim.cmd.colorscheme, 'base16')
+if not ok then Load.later(vim.cmd.Base16) end
