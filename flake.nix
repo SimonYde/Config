@@ -157,8 +157,11 @@
     };
 
     audiobook-dl = {
-      url = "github:SimonYde/audiobook-dl.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:jo1gi/audiobook-dl";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
   };
 
