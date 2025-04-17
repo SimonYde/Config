@@ -15,8 +15,8 @@ Load.now(function()
         zen = {},
 
         indent = {
-            indent = { char = '▏' },
-            scope = { enabled = false },
+            indent = { char = '▏', enabled = true },
+            scope = { char = '▏', enabled = false },
         },
 
         dashboard = {
@@ -80,10 +80,6 @@ end)
 
 Load.later(function()
     local nmap = Keymap.nmap
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'MiniFilesActionRename',
-        callback = function(event) Snacks.rename.on_rename_file(event.data.from, event.data.to) end,
-    })
 
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
     local progress = vim.defaulttable()

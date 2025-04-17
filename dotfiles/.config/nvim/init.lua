@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 local Load = {}
 
 local MiniDeps = require('mini.deps')
@@ -10,12 +12,12 @@ Load.now = function(f) MiniDeps.now(f) end
 ---@param f function function that will be called once Neovim has fully opened.
 Load.later = function(f) MiniDeps.later(f) end
 
-local defer_group = vim.api.nvim_create_augroup('DeferFunction', {})
-
 ---@param package_name string package to load
 Load.packadd = function(package_name)
     Load.now(function() vim.cmd('packadd ' .. package_name) end)
 end
+
+local defer_group = vim.api.nvim_create_augroup('DeferFunction', {})
 
 ---@param callback function function that will be called once event fires
 ---@param params { pattern: string?, events: string[] | string } table of event types, with an optional pattern
@@ -29,8 +31,8 @@ Load.on_events = function(params, callback)
     vim.api.nvim_create_autocmd(params.events, opts)
 end
 
-
 _G.Load = Load -- export module
+_G.Config = {}
 
 -- Disable unused built-in plugins ============================================
 vim.g.loaded_gzip = 1

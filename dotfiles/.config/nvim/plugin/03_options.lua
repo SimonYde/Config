@@ -1,5 +1,3 @@
-_G.Config = {}
-
 -- General ====================================================================
 vim.o.mousescroll = 'ver:5,hor:6'
 vim.o.swapfile = false

@@ -281,7 +281,7 @@ in
           plugins =
             with pkgs.vimPlugins;
             [
-              # -----Workflow-----
+              # ----- Workflow -----
               nvim-autopairs
               mini-nvim
               snacks-nvim
@@ -291,7 +291,7 @@ in
 
               obsidian-nvim
 
-              # -----UI-----
+              # ----- UI -----
               which-key-nvim
               nvim-treesitter
               tip-vim
@@ -322,6 +322,9 @@ in
               nvim-treesitter-context
               rainbow-delimiters-nvim
             ];
+          extraPackages = with pkgs; [
+            ghostscript # snacks.nvim PDF rendering
+          ];
         };
 
         nix-index-database.comma.enable = true;
