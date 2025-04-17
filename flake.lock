@@ -29,33 +29,19 @@
     },
     "audiobook-dl": {
       "inputs": {
-        "audiobook-dl-src": "audiobook-dl-src",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1740415539,
-        "narHash": "sha256-dpnvXVhOYhv68zQ9GuIN0b6UGvdWFth9+TLaZIrEx68=",
-        "owner": "SimonYde",
-        "repo": "audiobook-dl.nix",
-        "rev": "54b148832f3da9f9b5f70cfe9af43ac8e781bd2a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "SimonYde",
-        "repo": "audiobook-dl.nix",
-        "type": "github"
-      }
-    },
-    "audiobook-dl-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1737625510,
-        "narHash": "sha256-02rXgJ63ayBcAryaK0fH3tf/gBDIgGqnUSsjO05sVgM=",
+        "lastModified": 1744922477,
+        "narHash": "sha256-qem7JGNMPK5drdaxKb6/MUg1TDSOMbV9lGl/in2nlC8=",
         "owner": "jo1gi",
         "repo": "audiobook-dl",
-        "rev": "1354049b8f5825e816d7908cf47f85ba37db4a48",
+        "rev": "0ea68a0ea493dab6c173c5b22d5a84508cd98b3d",
         "type": "github"
       },
       "original": {
