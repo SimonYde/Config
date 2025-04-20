@@ -94,7 +94,13 @@ in
 
         direnv = {
           enable = true;
+          enableNushellIntegration = false;
           nix-direnv.enable = true;
+
+          config.global = {
+            log_format = "-";
+            log_filter = "^$";
+          };
         };
 
         gh = {
@@ -282,10 +288,9 @@ in
     (mkIf cfg.python.enable {
       home.packages = [
         pkgs.basedpyright
-        pkgs.basedmypy
 
         (pkgs.python3.withPackages (
-          ps: with ps; [
+          pythonPkgs: with pythonPkgs; [
             types-requests
 
             numpy

@@ -78,7 +78,6 @@ def --wrapped nix (...args) {
 }
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
-$env.DIRENV_LOG_FORMAT = ""
 
 # set environment variables
 # $env.TOPIARY_CONFIG_FILE = ($env.XDG_CONFIG_HOME | path join topiary languages.ncl)
