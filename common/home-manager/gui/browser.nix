@@ -57,7 +57,7 @@ let
       "browser.bookmarks.addedImportButton" = true;
       "browser.bookmarks.restore_default_bookmarks" = false;
       "browser.ml.chat.enabled" = true;
-      "browser.ml.chat.provider" = "https://kagi.com/assistant?profile=claude-3-7-sonnet";
+      "browser.ml.chat.provider" = "https://kagi.com/assistant?profile=gemini-2-5-flash";
       "browser.tabs.groups.enabled" = true;
 
       "browser.newtabpage.pinned" = "[]";

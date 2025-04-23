@@ -36,7 +36,7 @@ Load.later(function()
     vim.keymap.del('n', 'grn')
 
     nmap('U', '<C-r>', 'Redo')
-    tmap('<C-q>', [[<C-\><C-n>]], 'Exit terminal mode')
+    tmap('<C-\\>', [[<C-\><C-n>]], 'Exit terminal mode')
 
     nmap('<C-d>', '<C-d>zz', 'Move down half page')
     nmap('<C-u>', '<C-u>zz', 'Move up half page')
