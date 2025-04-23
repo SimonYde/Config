@@ -19,10 +19,6 @@ in
   home-manager.users.${username}.imports = [ ./home-manager/gui ];
 
   boot = {
-    plymouth.enable = true;
-    consoleLogLevel = 3;
-    kernelParams = [ "quiet" ];
-
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
@@ -43,7 +39,7 @@ in
 
   console = {
     useXkbConfig = true;
-    font = "ter-i32b";
+    font = "ter-i24n";
     packages = [ pkgs.terminus_font ];
   };
 
