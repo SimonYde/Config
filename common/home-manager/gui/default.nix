@@ -148,11 +148,20 @@ in
         };
 
         ghostty.settings = {
+          # Font adjustments
+          adjust-underline-position = 4;
+
+          # Window
           gtk-titlebar = false;
           gtk-adwaita = true;
           gtk-single-instance = true;
-          unfocused-split-opacity = 0.95;
           window-decoration = false;
+          window-theme = "ghostty";
+          window-padding-balance = true;
+
+          # Other
+          mouse-hide-while-typing = true;
+          unfocused-split-opacity = 0.95;
 
           keybind = [
             "ctrl+alt+m=goto_split:left"
@@ -160,6 +169,7 @@ in
             "ctrl+alt+e=goto_split:up"
             "ctrl+alt+i=goto_split:right"
             "ctrl+alt+tab=toggle_tab_overview"
+            "ctrl+alt+s=write_screen_file:open"
           ];
         };
 
