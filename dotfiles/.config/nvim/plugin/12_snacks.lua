@@ -143,6 +143,7 @@ Load.later(function()
     Snacks.toggle.line_number():map('<leader><leader>n')
     Snacks.toggle.zen():map('<leader><leader>z')
     Snacks.toggle.zoom():map('<leader>z')
+    Snacks.toggle.indent():map('<leader><leader>i')
 
     Snacks.toggle.option('spell'):map('<leader><leader>s')
     Snacks.toggle.option('wrap'):map('<leader><leader>w')

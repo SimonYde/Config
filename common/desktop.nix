@@ -80,17 +80,18 @@ in
 
     firewall = {
       enable = true;
+
       allowedTCPPorts = [
         80 # HTTP
         443 # HTTPS
       ];
+
+      trustedInterfaces = [ "tailscale0" ];
     };
 
     networkmanager = {
       enable = true;
-      wifi = {
-        macAddress = "random";
-      };
+      wifi.macAddress = "random";
     };
   };
 
