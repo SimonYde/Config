@@ -35,6 +35,7 @@ let
             keyword general:gaps_out 0;\
             keyword general:border_size 1;\
             keyword decoration:rounding 0"
+
         systemctl --user stop waybar.service hyprland-autoname-workspaces.service
     else
         hyprctl reload
@@ -50,7 +51,6 @@ in
 
     # Extra utilities
     pwvucontrol # audio control
-    hyprsunset # blue-light filter
 
     grimblast # screenshot tool
     wl-clipboard # clipboard manager
@@ -71,6 +71,7 @@ in
     network-manager-applet.enable = true;
     hypridle.enable = true;
     hyprpaper.enable = true;
+    hyprsunset.enable = true;
     swaync.enable = true;
     swayosd.enable = true;
   };
@@ -93,6 +94,7 @@ in
         kb_options = concatStringsSep "," config.home.keyboard.options;
       };
     };
+
     # NOTE: Delegate other options to a normal hyprland config.
     extraConfig = mkOrder 1000 ''
       source = ~/.config/hypr/my-hyprland.conf
@@ -158,24 +160,35 @@ in
 
   services.hyprpaper.settings.ipc = "on";
 
+  services.hyprsunset.extraArgs = [
+    "--gamma_max"
+    "200"
+  ];
+  services.hyprsunset.transitions = {
+    sunrise = {
+      calendar = "*-*-* 06:00:00";
+      requests = [
+        [
+          "temperature"
+          "6000"
+        ]
+        [ "gamma 100" ]
+      ];
+    };
+    sunset = {
+      calendar = "*-*-* 20:00:00";
+      requests = [
+        [
+          "temperature"
+          "2200"
+        ]
+        [ "gamma 80" ]
+      ];
+    };
+  };
+
   systemd.user = {
     services = {
-      hyprsunset = {
-        Unit = {
-          Description = "hyprsunset";
-          After = [ "graphical-session-pre.target" ];
-          PartOf = [ config.wayland.systemd.target ];
-        };
-
-        Service = {
-          ExecStart = "${getExe pkgs.hyprsunset} --gamma_max 200";
-          Restart = "always";
-          RestartSec = "2";
-        };
-
-        Install.WantedBy = [ config.wayland.systemd.target ];
-      };
-
       hyprland-autoname-workspaces = {
         Unit = {
           Description = "hyprland-autoname-workspaces";
@@ -194,7 +207,7 @@ in
 
       random-wallpaper = {
         Unit = {
-          Description = "Cycle hyprpaper to new wallpaper at random.";
+          Description = "Cycle hyprpaper to new wallpaper at random";
           After = [ "hyprpaper.service" ];
         };
 
@@ -210,12 +223,14 @@ in
       };
     };
 
-    timers.random-wallpaper = {
-      Unit.Description = "Cycle hyprpaper to new wallpaper at random.";
+    timers = {
+      random-wallpaper = {
+        Unit.Description = "Cycle hyprpaper to new wallpaper at random";
 
-      Timer.OnUnitActiveSec = "15min";
+        Timer.OnUnitActiveSec = "15min";
 
-      Install.WantedBy = [ "timers.target" ];
+        Install.WantedBy = [ "timers.target" ];
+      };
     };
   };
 }

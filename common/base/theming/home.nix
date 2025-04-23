@@ -18,12 +18,16 @@
 let
   inherit (lib)
     mkForce
+    mkIf
+    mkMerge
     mkOrder
-    toLower
     toHexString
+    toLower
     ;
   inherit (config.lib.stylix) colors;
   inherit (config.stylix) opacity fonts;
+
+  hexOpacity = opacity: toLower (toHexString (builtins.ceil (255.0 * opacity)));
 in
 {
   stylix = {
@@ -72,235 +76,241 @@ in
     gtk4.extraConfig.gtk-application-prefer-dark-theme = colors.variant == "dark";
   };
 
-  programs = {
-    fzf.colors.bg = mkForce "";
+  programs = mkMerge [
+    {
+      fzf.colors.bg = mkForce "";
 
-    git.difftastic.background = colors.variant;
+      git.difftastic.background = colors.variant;
 
-    # NOTE: Stylix shouldn't set settings, but generate the theme
-    helix.settings = mkForce { };
+      # NOTE: Stylix shouldn't set settings, but generate the theme
+      helix.settings = mkForce { };
 
-    hyprlock.settings.label = {
-      color = "rgb(${colors.base05})";
-      font_family = fonts.sansSerif.name;
-    };
-
-    imv.settings.options = with colors; {
-      background = base00;
-      overlay_background_color = base01;
-      overlay_text_color = base05;
-    };
-
-    firefox.profiles.${config.home.username}.settings = {
-      "font.default.x-western" = "sans-serif";
-      "font.name.monospace.x-western" = fonts.monospace.name;
-      "font.name.sans-serif.x-western" = fonts.sansSerif.name;
-      "font.name.serif.x-western" = fonts.serif.name;
-    };
-
-    # NOTE: 2025-03-06 Simon Yde, because stylix uses bad colors.
-    spicetify = {
-      theme = {
-        name = "stylix";
-        src = pkgs.writeTextFile {
-          name = "color.ini";
-          destination = "/color.ini";
-          text = with colors; ''
-            [base]
-            text               = ${base05}
-            subtext            = ${base05}
-            main               = ${base00}
-            main-elevated      = ${base02}
-            highlight          = ${base02}
-            highlight-elevated = ${base03}
-            sidebar            = ${base01}
-            player             = ${base05}
-            card               = ${base01}
-            shadow             = ${base00}
-            selected-row       = ${base05}
-            button             = ${base05}
-            button-active      = ${base05}
-            button-disabled    = ${base01}
-            tab-active         = ${base02}
-            notification       = ${base02}
-            notification-error = ${base08}
-            equalizer          = ${base0B}
-            misc               = ${base02}
-          '';
-        };
-        # Sidebar configuration is incompatible with the default navigation bar
-        sidebarConfig = false;
+      hyprlock.settings.label = {
+        color = "rgb(${colors.base05})";
+        font_family = fonts.sansSerif.name;
       };
-      colorScheme = "base";
-    };
 
-    rofi = {
-      font = "${fonts.sansSerif.name} ${toString fonts.sizes.popups}";
-      theme = "custom_base16";
-    };
+      imv.settings.options = with colors; {
+        background = base00;
+        overlay_background_color = base01;
+        overlay_text_color = base05;
+      };
 
-    nushell.extraConfig =
-      with colors.withHashtag;
-      mkOrder 1000 # nu
+      firefox.profiles.${config.home.username}.settings = {
+        "font.default.x-western" = "sans-serif";
+        "font.name.monospace.x-western" = fonts.monospace.name;
+        "font.name.sans-serif.x-western" = fonts.sansSerif.name;
+        "font.name.serif.x-western" = fonts.serif.name;
+      };
+
+      rofi = {
+        font = "${fonts.sansSerif.name} ${toString fonts.sizes.popups}";
+        theme = "custom_base16";
+      };
+
+      nushell.extraConfig =
+        with colors.withHashtag;
+        mkOrder 1000 # nu
+          ''
+            $env.config.color_config = {
+              binary: '${base0E}'
+              block: '${base0D}'
+              cell-path: '${base05}'
+              closure: '${base0C}'
+              custom: '${base07}'
+              duration: '${base0A}'
+              float: '${base08}'
+              glob: '${base07}'
+              int: '${base09}'
+              list: '${base0C}'
+              nothing: '${base08}'
+              range: '${base0A}'
+              record: '${base0C}'
+              string: '${base0B}'
+
+              bool: {|| if $in { '${base0C}' } else { '${base0A}' } }
+
+              date: {|| (date now) - $in |
+                if $in < 1hr {
+                  { fg: '${base08}' attr: 'b' }
+                } else if $in < 6hr {
+                  '${base08}'
+                } else if $in < 1day {
+                  '${base0A}'
+                } else if $in < 3day {
+                  '${base0B}'
+                } else if $in < 1wk {
+                  { fg: '${base0B}' attr: 'b' }
+                } else if $in < 6wk {
+                  '${base0C}'
+                } else if $in < 52wk {
+                  '${base0D}'
+                } else { 'dark_gray' }
+              }
+
+              filesize: {|e|
+                if $e == 0b {
+                  '${base05}'
+                } else if $e < 1mb {
+                  '${base0C}'
+                } else {{ fg: '${base0D}' }}
+              }
+
+              shape_and: { fg: '${base0E}' attr: 'b' }
+              shape_binary: { fg: '${base0E}' attr: 'b' }
+              shape_block: { fg: '${base0D}' attr: 'b' }
+              shape_bool: '${base0C}'
+              shape_closure: { fg: '${base0C}' attr: 'b' }
+              shape_custom: '${base0B}'
+              shape_datetime: { fg: '${base0C}' attr: 'b' }
+              shape_directory: '${base0C}'
+              shape_external: '${base0C}'
+              shape_external_resolved: '${base0C}'
+              shape_externalarg: { fg: '${base0B}' attr: 'b' }
+              shape_filepath: '${base0C}'
+              shape_flag: { fg: '${base0D}' attr: 'b' }
+              shape_float: { fg: '${base08}' attr: 'b' }
+              shape_garbage: { fg: '${base05}' bg: '${base08}' attr: 'b' }
+              shape_glob_interpolation: { fg: '${base0C}' attr: 'b' }
+              shape_globpattern: { fg: '${base0C}' attr: 'b' }
+              shape_int: { fg: '${base09}' attr: 'b' }
+              shape_internalcall: { fg: '${base0C}' attr: 'b' }
+              shape_keyword: { fg: '${base0E}' attr: 'b' }
+              shape_list: { fg: '${base0C}' attr: 'b' }
+              shape_literal: '${base0D}'
+              shape_match_pattern: '${base0B}'
+              shape_matching_brackets: { attr: 'u' }
+              shape_nothing: '${base08}'
+              shape_operator: '${base0A}'
+              shape_or: { fg: '${base0E}' attr: 'b' }
+              shape_pipe: { fg: '${base0E}' attr: 'b' }
+              shape_range: { fg: '${base0A}' attr: 'b' }
+              shape_raw_string: { fg: '${base07}' attr: 'b' }
+              shape_record: { fg: '${base0C}' attr: 'b' }
+              shape_redirection: { fg: '${base0E}' attr: 'b' }
+              shape_signature: { fg: '${base0B}' attr: 'b' }
+              shape_string: '${base0B}'
+              shape_string_interpolation: { fg: '${base0C}' attr: 'b' }
+              shape_table: { fg: '${base0D}' attr: 'b' }
+              shape_vardecl: { fg: '${base0D}' attr: 'u' }
+              shape_variable: '${base0E}'
+
+              foreground: '${base05}'
+              background: '${base00}'
+              cursor: '${base05}'
+
+              empty: '${base0D}'
+              header: '${base05}'
+              hints: '${base03}'
+              leading_trailing_space_bg: { attr: 'n' }
+              row_index: { fg: '${base0B}' attr: 'b' }
+              search_result: { fg: '${base08}' bg: '${base05}' }
+              separator: '${base03}'
+            }
+          '';
+
+      waybar.style = builtins.readFile ./waybar.css;
+
+      wlogout.style =
+        with colors.withHashtag;
+        let
+          icon_path = "${pkgs.wlogout}/share/wlogout/icons";
+        in
+        # css
         ''
-          $env.config.color_config = {
-            binary: '${base0E}'
-            block: '${base0D}'
-            cell-path: '${base05}'
-            closure: '${base0C}'
-            custom: '${base07}'
-            duration: '${base0A}'
-            float: '${base08}'
-            glob: '${base07}'
-            int: '${base09}'
-            list: '${base0C}'
-            nothing: '${base08}'
-            range: '${base0A}'
-            record: '${base0C}'
-            string: '${base0B}'
-
-            bool: {|| if $in { '${base0C}' } else { '${base0A}' } }
-
-            date: {|| (date now) - $in |
-              if $in < 1hr {
-                { fg: '${base08}' attr: 'b' }
-              } else if $in < 6hr {
-                '${base08}'
-              } else if $in < 1day {
-                '${base0A}'
-              } else if $in < 3day {
-                '${base0B}'
-              } else if $in < 1wk {
-                { fg: '${base0B}' attr: 'b' }
-              } else if $in < 6wk {
-                '${base0C}'
-              } else if $in < 52wk {
-                '${base0D}'
-              } else { 'dark_gray' }
-            }
-
-            filesize: {|e|
-              if $e == 0b {
-                '${base05}'
-              } else if $e < 1mb {
-                '${base0C}'
-              } else {{ fg: '${base0D}' }}
-            }
-
-            shape_and: { fg: '${base0E}' attr: 'b' }
-            shape_binary: { fg: '${base0E}' attr: 'b' }
-            shape_block: { fg: '${base0D}' attr: 'b' }
-            shape_bool: '${base0C}'
-            shape_closure: { fg: '${base0C}' attr: 'b' }
-            shape_custom: '${base0B}'
-            shape_datetime: { fg: '${base0C}' attr: 'b' }
-            shape_directory: '${base0C}'
-            shape_external: '${base0C}'
-            shape_external_resolved: '${base0C}'
-            shape_externalarg: { fg: '${base0B}' attr: 'b' }
-            shape_filepath: '${base0C}'
-            shape_flag: { fg: '${base0D}' attr: 'b' }
-            shape_float: { fg: '${base08}' attr: 'b' }
-            shape_garbage: { fg: '${base05}' bg: '${base08}' attr: 'b' }
-            shape_glob_interpolation: { fg: '${base0C}' attr: 'b' }
-            shape_globpattern: { fg: '${base0C}' attr: 'b' }
-            shape_int: { fg: '${base09}' attr: 'b' }
-            shape_internalcall: { fg: '${base0C}' attr: 'b' }
-            shape_keyword: { fg: '${base0E}' attr: 'b' }
-            shape_list: { fg: '${base0C}' attr: 'b' }
-            shape_literal: '${base0D}'
-            shape_match_pattern: '${base0B}'
-            shape_matching_brackets: { attr: 'u' }
-            shape_nothing: '${base08}'
-            shape_operator: '${base0A}'
-            shape_or: { fg: '${base0E}' attr: 'b' }
-            shape_pipe: { fg: '${base0E}' attr: 'b' }
-            shape_range: { fg: '${base0A}' attr: 'b' }
-            shape_raw_string: { fg: '${base07}' attr: 'b' }
-            shape_record: { fg: '${base0C}' attr: 'b' }
-            shape_redirection: { fg: '${base0E}' attr: 'b' }
-            shape_signature: { fg: '${base0B}' attr: 'b' }
-            shape_string: '${base0B}'
-            shape_string_interpolation: { fg: '${base0C}' attr: 'b' }
-            shape_table: { fg: '${base0D}' attr: 'b' }
-            shape_vardecl: { fg: '${base0D}' attr: 'u' }
-            shape_variable: '${base0E}'
-
-            foreground: '${base05}'
-            background: '${base00}'
-            cursor: '${base05}'
-
-            empty: '${base0D}'
-            header: '${base05}'
-            hints: '${base03}'
-            leading_trailing_space_bg: { attr: 'n' }
-            row_index: { fg: '${base0B}' attr: 'b' }
-            search_result: { fg: '${base08}' bg: '${base05}' }
-            separator: '${base03}'
+          window {
+            font-family: ${fonts.sansSerif.name} Medium;
+            background-color: transparent;
+            color: ${base05};
           }
+
+          button {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 20%;
+            box-shadow: 0 0 0 0;
+            background-color: transparent;
+            border-color: transparent;
+          	text-decoration-color: ${base05};
+            color: ${base05};
+            border-radius: 36px;
+          }
+
+          button:focus, button:active, button:hover {
+            background-size: 50%;
+            box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
+          	background-color: ${base0D};
+            color: transparent;
+            transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
+          }
+
+          #lock {
+              background-image: image(url("${icon_path}/lock.png"));
+          }
+
+          #logout {
+              background-image: image(url("${icon_path}/logout.png"));
+          }
+
+          #suspend {
+              background-image: image(url("${icon_path}/suspend.png"));
+          }
+
+          #hibernate {
+              background-image: image(url("${icon_path}/hibernate.png"));
+          }
+
+          #poweroff {
+              background-image: image(url("${icon_path}/shutdown.png"));
+          }
+
+          #reboot {
+              background-image: image(url("${icon_path}/reboot.png"));
+          }
+
         '';
+    }
 
-    waybar.style = builtins.readFile ./waybar.css;
-
-    wlogout.style =
-      with colors.withHashtag;
-      let
-        icon_path = "${pkgs.wlogout}/share/wlogout/icons";
-      in
-      # css
-      ''
-        window {
-          font-family: ${fonts.sansSerif.name} Medium;
-          background-color: transparent;
-          color: ${base05};
-        }
-
-        button {
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 20%;
-          box-shadow: 0 0 0 0;
-          background-color: transparent;
-          border-color: transparent;
-        	text-decoration-color: ${base05};
-          color: ${base05};
-          border-radius: 36px;
-        }
-
-        button:focus, button:active, button:hover {
-          background-size: 50%;
-          box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
-        	background-color: ${base0D};
-          color: transparent;
-          transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
-        }
-
-        #lock {
-            background-image: image(url("${icon_path}/lock.png"));
-        }
-
-        #logout {
-            background-image: image(url("${icon_path}/logout.png"));
-        }
-
-        #suspend {
-            background-image: image(url("${icon_path}/suspend.png"));
-        }
-
-        #hibernate {
-            background-image: image(url("${icon_path}/hibernate.png"));
-        }
-
-        #poweroff {
-            background-image: image(url("${icon_path}/shutdown.png"));
-        }
-
-        #reboot {
-            background-image: image(url("${icon_path}/reboot.png"));
-        }
-
-      '';
-  };
+    (mkIf (config.programs ? spicetify) {
+      # NOTE: 2025-03-06 Simon Yde, because stylix uses bad colors.
+      spicetify = {
+        theme = {
+          name = "stylix";
+          src = pkgs.writeTextFile {
+            name = "color.ini";
+            destination = "/color.ini";
+            text =
+              with colors; # ini
+              ''
+                [base]
+                text               = ${base05}
+                subtext            = ${base05}
+                main               = ${base00}
+                main-elevated      = ${base02}
+                highlight          = ${base02}
+                highlight-elevated = ${base03}
+                sidebar            = ${base01}
+                player             = ${base05}
+                card               = ${base01}
+                shadow             = ${base00}
+                selected-row       = ${base05}
+                button             = ${base05}
+                button-active      = ${base05}
+                button-disabled    = ${base01}
+                tab-active         = ${base02}
+                notification       = ${base02}
+                notification-error = ${base08}
+                equalizer          = ${base0B}
+                misc               = ${base02}
+              '';
+          };
+          # Sidebar configuration is incompatible with the default navigation bar
+          sidebarConfig = false;
+        };
+        colorScheme = "base";
+      };
+    })
+  ];
 
   wayland.windowManager.hyprland.settings = with colors; {
     general = {
@@ -312,30 +322,26 @@ in
   };
 
   xdg.configFile = {
-    "rofi/custom_base16.rasi" =
-      let
-        hexOpacity = opacity: toLower (toHexString (builtins.ceil (255.0 * opacity)));
-      in
-      {
-        inherit (config.programs.rofi) enable;
-        text =
-          with colors.withHashtag;
-          ''
-            * {
-                bg: ${base00}${hexOpacity opacity.popups};
-                bg-col: ${base00}00;
-                bg-col-light: ${base00}00;
-                border-col: ${base00}00;
-                selected-col: ${base00}00;
-                blue: ${base0D};
-                fg-col: ${base05};
-                fg-col2: ${base08};
-                grey: ${base04};
-                width: 600;
-            }
-          ''
-          + builtins.readFile ./rofi.rasi;
-      };
+    "rofi/custom_base16.rasi" = {
+      inherit (config.programs.rofi) enable;
+      text =
+        with colors.withHashtag;
+        ''
+          * {
+              bg: ${base00}${hexOpacity opacity.popups};
+              bg-col: ${base00}00;
+              bg-col-light: ${base00}00;
+              border-col: ${base00}00;
+              selected-col: ${base00}00;
+              blue: ${base0D};
+              fg-col: ${base05};
+              fg-col2: ${base08};
+              grey: ${base04};
+              width: 600;
+          }
+        ''
+        + builtins.readFile ./rofi.rasi;
+    };
 
     "zellij/themes/base16-custom.kdl" = {
       inherit (config.programs.zellij) enable;

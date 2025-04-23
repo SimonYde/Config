@@ -52,17 +52,17 @@ vim.api.nvim_create_user_command('Base16', function()
         :apply()
     -- Remove background for sign column elements
     vim.cmd([[
-            hi MiniDiffSignAdd         guibg=NONE ctermbg=NONE
-            hi MiniDiffSignChange      guibg=NONE ctermbg=NONE
-            hi MiniDiffSignDelete      guibg=NONE ctermbg=NONE
-            hi MiniTabLineFill         guibg=NONE ctermbg=NONE
-            hi WhichKeySeparator       guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingOk    guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingWarn  guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingInfo  guibg=NONE ctermbg=NONE
-            hi DiagnosticFloatingHint  guibg=NONE ctermbg=NONE
-        ]])
+        hi MiniDiffSignAdd         guibg=NONE ctermbg=NONE
+        hi MiniDiffSignChange      guibg=NONE ctermbg=NONE
+        hi MiniDiffSignDelete      guibg=NONE ctermbg=NONE
+        hi MiniTabLineFill         guibg=NONE ctermbg=NONE
+        hi WhichKeySeparator       guibg=NONE ctermbg=NONE
+        hi DiagnosticFloatingOk    guibg=NONE ctermbg=NONE
+        hi DiagnosticFloatingError guibg=NONE ctermbg=NONE
+        hi DiagnosticFloatingWarn  guibg=NONE ctermbg=NONE
+        hi DiagnosticFloatingInfo  guibg=NONE ctermbg=NONE
+        hi DiagnosticFloatingHint  guibg=NONE ctermbg=NONE
+    ]])
     -- Add a line to distinguish between context and current position
     vim.cmd('hi TreesitterContextBottom gui=underline')
 

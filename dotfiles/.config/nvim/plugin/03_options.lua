@@ -1,10 +1,14 @@
 -- General ====================================================================
+vim.g.mapleader = ' '
 vim.o.mousescroll = 'ver:5,hor:6'
 vim.o.swapfile = false
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
 
 -- UI =========================================================================
+vim.o.number = true
 vim.o.relativenumber = true
+vim.o.signcolumn = 'yes'
+vim.o.ruler = false
 vim.o.cursorline = false
 vim.o.laststatus = 3 -- global statusline
 vim.o.hlsearch = true
@@ -105,6 +109,15 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Diagnostics ================================================================
+
+Load.later(function()
+    -- `mini.basics` handles most options.
+    require('mini.basics').setup({
+        options = { extra_ui = true },
+        mappings = { option_toggle_prefix = '\\' },
+    })
+end)
+
 Load.later(function()
     vim.diagnostic.config({
         signs = {
@@ -125,16 +138,6 @@ Load.later(function()
         update_in_insert = false,
     })
 end)
-
--- Use mini.basics for most things
-Load.now(
-    function()
-        require('mini.basics').setup({
-            options = { extra_ui = true },
-            mappings = { option_toggle_prefix = '\\' },
-        })
-    end
-)
 
 Load.later(function()
     vim.filetype.add({

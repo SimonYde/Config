@@ -22,11 +22,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  networking.firewall = {
-    enable = lib.mkForce false;
-    allowedTCPPorts = [ 8080 ]; # NOTE: 2025-03-11 Simon Yde, for `mitmproxy`
-  };
-
   console.earlySetup = true;
 
   # Personal configurations

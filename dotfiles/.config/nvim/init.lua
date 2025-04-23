@@ -1,5 +1,7 @@
 vim.loader.enable()
 
+if vim.env.PROF then require('snacks.profiler').startup({ startup = { event = 'UIEnter' } }) end
+
 local Load = {}
 
 local MiniDeps = require('mini.deps')
