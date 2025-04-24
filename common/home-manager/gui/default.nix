@@ -142,6 +142,21 @@ in
         config.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/rclone";
 
       programs = {
+        anyrun.config = {
+          showResultsImmediately = false;
+
+          x.fraction = 0.5;
+          y.fraction = 0.3;
+          height.absolute = 200;
+
+          plugins = [
+            "libapplications.so"
+            "librink.so"
+            "libshell.so"
+            "libsymbols.so"
+          ];
+        };
+
         fastfetch.settings.logo = {
           source = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
           type = "kitty-direct";
@@ -190,27 +205,6 @@ in
             osc = "no";
             save-position-on-quit = true;
           };
-        };
-
-        rofi = {
-          package = pkgs.rofi-wayland;
-          terminal = getExe terminal.package;
-
-          extraConfig = {
-            modi = "run,drun";
-            icon-theme = "Oranchelo";
-            show-icons = true;
-            drun-display-format = "{icon} {name}";
-            disable-history = false;
-            hide-scrollbar = true;
-            sidebar-mode = false;
-            display-drun = "  Apps ";
-            display-run = "  Run ";
-          };
-
-          plugins = with pkgs; [
-            rofi-emoji-wayland
-          ];
         };
 
         spicetify = {

@@ -28,6 +28,9 @@ let
   inherit (config.stylix) opacity fonts;
 
   hexOpacity = opacity: toLower (toHexString (builtins.ceil (255.0 * opacity)));
+  mkRgba =
+    opacity: color:
+    "rgba(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"},${hexOpacity opacity})";
 in
 {
   stylix = {
@@ -101,11 +104,6 @@ in
         "font.name.monospace.x-western" = fonts.monospace.name;
         "font.name.sans-serif.x-western" = fonts.sansSerif.name;
         "font.name.serif.x-western" = fonts.serif.name;
-      };
-
-      rofi = {
-        font = "${fonts.sansSerif.name} ${toString fonts.sizes.popups}";
-        theme = "custom_base16";
       };
 
       nushell.extraConfig =
@@ -269,6 +267,59 @@ in
           }
 
         '';
+
+      anyrun.extraCss = # css
+        ''
+          * {
+            all: unset;
+            font-size: ${toString fonts.sizes.popups}pt;
+          }
+
+          #window,
+          #match,
+          #entry,
+          #plugin,
+          #main {
+            background: transparent;
+          }
+
+          #match.activatable {
+            border-radius: 8px;
+            margin: 4px 0;
+            padding: 4px;
+            /* transition: 100ms ease-out; */
+          }
+          #match.activatable:first-child {
+            margin-top: 12px;
+          }
+          #match.activatable:last-child {
+            margin-bottom: 0;
+          }
+
+          #match:hover {
+            background: rgba(255, 255, 255, 0.05);
+          }
+          #match:selected {
+            background: rgba(255, 255, 255, 0.1);
+          }
+
+          #entry {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 4px 8px;
+          }
+
+          box#main {
+            background: ${mkRgba opacity.popups "base00"};
+            box-shadow:
+              inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+              0 30px 30px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            padding: 12px;
+          }
+
+        '';
     }
 
     (mkIf (config.programs ? spicetify) {
@@ -322,27 +373,6 @@ in
   };
 
   xdg.configFile = {
-    "rofi/custom_base16.rasi" = {
-      inherit (config.programs.rofi) enable;
-      text =
-        with colors.withHashtag;
-        ''
-          * {
-              bg: ${base00}${hexOpacity opacity.popups};
-              bg-col: ${base00}00;
-              bg-col-light: ${base00}00;
-              border-col: ${base00}00;
-              selected-col: ${base00}00;
-              blue: ${base0D};
-              fg-col: ${base05};
-              fg-col2: ${base08};
-              grey: ${base04};
-              width: 600;
-          }
-        ''
-        + builtins.readFile ./rofi.rasi;
-    };
-
     "zellij/themes/base16-custom.kdl" = {
       inherit (config.programs.zellij) enable;
       text =
