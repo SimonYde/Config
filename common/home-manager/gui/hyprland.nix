@@ -58,20 +58,21 @@ in
   ];
 
   programs = {
-    imv.enable = true;
-    rofi.enable = true;
-    wlogout.enable = true;
+    anyrun.enable = true;
     hyprlock.enable = true;
+    imv.enable = true;
     waybar.enable = true;
+    wlogout.enable = true;
   };
 
   services = {
-    # Tray applets
-    blueman-applet.enable = true;
+    blueman-applet.enable = true; # Bluetooth applet
     network-manager-applet.enable = true;
+
     hypridle.enable = true;
     hyprpaper.enable = true;
     hyprsunset.enable = true;
+
     swaync.enable = true;
     swayosd.enable = true;
   };
@@ -86,7 +87,6 @@ in
     settings = {
       "$browser" = browser;
       "$file-manager" = getExe file-manager.package;
-      "$menu" = "${getExe config.programs.rofi.package} -show drun";
       "$terminal" = getExe terminal.package;
 
       input = {
