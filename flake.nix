@@ -104,11 +104,6 @@
       flake = false;
     };
 
-    sudo-yazi = {
-      url = "github:TD-Sky/sudo.yazi";
-      flake = false;
-    };
-
     topiary-nushell = {
       url = "github:blindFS/topiary-nushell";
       flake = false;

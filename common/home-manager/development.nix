@@ -98,6 +98,7 @@ in
           nix-direnv.enable = true;
 
           config.global = {
+            warn_timeout = "1m";
             log_format = "-";
             log_filter = "^$";
           };
@@ -224,9 +225,7 @@ in
           };
         };
 
-        neovim.plugins = with pkgs.vimPlugins; [
-          nvim-jdtls
-        ];
+        neovim.plugins = with pkgs.vimPlugins; [ nvim-jdtls ];
       };
     })
 
@@ -244,12 +243,7 @@ in
         lua-language-server
       ];
 
-      programs.neovim.plugins =
-        with pkgs.vimPlugins;
-        [
-          lazydev-nvim
-        ]
-        ++ config.lib.meta.lazyNeovimPlugins [ luvit-meta ];
+      programs.neovim.plugins = with pkgs.vimPlugins; [ lazydev-nvim ];
     })
 
     (mkIf cfg.nix.enable {
