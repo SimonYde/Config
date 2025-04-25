@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
     # Applications
@@ -22,10 +22,13 @@
   programs.mangohud = {
     enable = true;
 
+    settings = {
+      background_alpha = lib.mkForce 0.75;
+      vram = true;
+    };
+
     settingsPerApplication = {
-      mpv = {
-        no_display = true;
-      };
+      mpv.no_display = true;
     };
   };
 }

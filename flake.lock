@@ -1047,7 +1047,6 @@
         "spicetify-nix": "spicetify-nix",
         "stable": "stable",
         "stylix": "stylix",
-        "sudo-yazi": "sudo-yazi",
         "systems": "systems_2",
         "tinted-schemes": "tinted-schemes",
         "tip-vim": "tip-vim",
@@ -1190,22 +1189,6 @@
       "original": {
         "owner": "danth",
         "repo": "stylix",
-        "type": "github"
-      }
-    },
-    "sudo-yazi": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1739035136,
-        "narHash": "sha256-IvTBAhZrbrNJ5nsLxr35V0ntQw89yXUdoU9ashbflYY=",
-        "owner": "TD-Sky",
-        "repo": "sudo.yazi",
-        "rev": "af70636fbcf30ef17f77c5ffcfcbf1342c554be1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TD-Sky",
-        "repo": "sudo.yazi",
         "type": "github"
       }
     },

@@ -157,11 +157,6 @@ in
           ];
         };
 
-        fastfetch.settings.logo = {
-          source = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png";
-          type = "kitty-direct";
-        };
-
         ghostty.settings = {
           # Font adjustments
           adjust-underline-position = 4;
@@ -604,16 +599,18 @@ in
         default = "ghostty";
       };
 
-      package = mkPackageOption pkgs "ghostty" { };
+      package = mkPackageOption pkgs terminal.name { };
     };
 
     image-viewer = {
       name = mkOption {
-        type = types.str;
+        type = types.enum [
+          "imv"
+        ];
         default = "imv";
       };
 
-      package = mkPackageOption pkgs "imv" { };
+      package = mkPackageOption pkgs image-viewer.name { };
     };
   };
 }
