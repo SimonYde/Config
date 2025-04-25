@@ -1003,6 +1003,22 @@
         "type": "github"
       }
     },
+    "rainbow-delimiters-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744834150,
+        "narHash": "sha256-EeJvGtBwZgR7i9PEnGe4NTRiDQCgVKkSh5t8Xy5EYfE=",
+        "owner": "HiPhish",
+        "repo": "rainbow-delimiters.nvim",
+        "rev": "55ad4fb76ab68460f700599b7449385f0c4e858e",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "HiPhish",
+        "repo": "rainbow-delimiters.nvim",
+        "type": "gitlab"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -1026,6 +1042,7 @@
         "obsidian-nvim": "obsidian-nvim",
         "pix2tex": "pix2tex",
         "pre-commit-hooks": "pre-commit-hooks_2",
+        "rainbow-delimiters-nvim": "rainbow-delimiters-nvim",
         "snacks-nvim": "snacks-nvim",
         "spicetify-nix": "spicetify-nix",
         "stable": "stable",

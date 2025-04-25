@@ -31,18 +31,6 @@ Load.later(function()
     Load.packadd('rainbow-delimiters.nvim')
     local rainbow_delimiters = require('rainbow-delimiters')
 
-    ---@type rainbow_delimiters.config
-    vim.g.rainbow_delimiters = {
-        query = {
-            [''] = 'rainbow-delimiters',
-            lua = 'rainbow-blocks',
-        },
-        priority = {
-            [''] = 110,
-            lua = 210,
-        },
-    }
-
     Snacks.toggle
         .new({
             name = 'Rainbow delimiters',

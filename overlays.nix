@@ -60,6 +60,14 @@ inputs: [
           ];
         };
 
+        rainbow-delimiters-nvim = prev.vimPlugins.rainbow-delimiters-nvim.overrideAttrs {
+          src = inputs.rainbow-delimiters-nvim;
+          nvimSkipModule = [
+            "rainbow-delimiters._test.highlight"
+            "rainbow-delimiters.types"
+          ];
+        };
+
         tip-vim = prev.vimUtils.buildVimPlugin {
           version = "nightly";
           pname = "tip.vim";

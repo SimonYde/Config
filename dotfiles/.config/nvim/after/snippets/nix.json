@@ -1,0 +1,10 @@
+{
+    "module file defaults": {
+        "prefix": "mod",
+        "body": ["{ $1... }:\n$2\n{\n  $0\n}"]
+    },
+    "multi-line comment": {
+        "prefix": "comment",
+        "body": ["/*\n$0\n*/"]
+    }
+}

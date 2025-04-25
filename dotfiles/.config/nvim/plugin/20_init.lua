@@ -1,6 +1,50 @@
 local nmap, imap = Keymap.nmap, Keymap.imap
 
 Load.later(function()
+    Load.packadd('blink.cmp')
+
+    require('blink.cmp').setup({
+        appearance = {
+            use_nvim_cmp_as_default = true,
+            nerd_font_variant = 'normal',
+        },
+
+        signature = { enabled = true },
+
+        snippets = { preset = 'mini_snippets' },
+
+        sources = {
+            default = {
+                'lsp',
+                'path',
+
+                'snippets',
+                'buffer',
+            },
+
+            per_filetype = {
+                lua = {
+                    'lazydev',
+                    'lsp',
+                    'path',
+                    'snippets',
+                    'buffer',
+                },
+            },
+
+            providers = {
+                lazydev = {
+                    name = 'LazyDev',
+                    module = 'lazydev.integrations.blink',
+                    -- Make lazydev completions top priority (see `:h blink.cmp`)
+                    score_offset = 100,
+                },
+            },
+        },
+    })
+end)
+
+Load.later(function()
     Load.packadd('trouble.nvim')
     require('trouble').setup()
 
@@ -155,8 +199,6 @@ Load.on_events({ events = 'FileType', pattern = 'lua' }, function()
     local lazydev = require('lazydev')
     --- @diagnostic disable-next-line: missing-fields
     lazydev.setup({
-        runtime = vim.env.VIMRUNTIME,
-
         integrations = {
             lspconfig = false,
             cmp = false,
@@ -199,23 +241,35 @@ Load.later(function()
 
     vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'MiniIconsRed' })
 
-    nmap('<leader>db', dap.toggle_breakpoint, 'toggle breakpoint')
-    nmap('<leader>dc', dap.continue, 'continue')
-    nmap('<leader>di', dap.step_into, 'step into')
-    nmap('<leader>do', dap.step_over, 'step over')
-    nmap('<leader>dO', dap.step_out, 'step Out')
-    nmap('<leader>dr', dap.repl.open, 'open repl')
-    nmap('<leader>dl', dap.run_last, 'run last')
-    nmap('<leader>dh', widgets.hover, 'show hover')
-    nmap('<leader>dp', widgets.preview, 'show preview')
+    nmap('<leader>db', function() dap.toggle_breakpoint() end, 'toggle breakpoint')
+    nmap('<leader>dc', function() dap.continue() end, 'continue')
+    nmap('<leader>di', function() dap.step_into() end, 'step into')
+    nmap('<leader>do', function() dap.step_over() end, 'step over')
+    nmap('<leader>dO', function() dap.step_out() end, 'step Out')
+    nmap('<leader>dr', function() dap.repl.open() end, 'open repl')
+    nmap('<leader>dl', function() dap.run_last() end, 'run last')
+    nmap('<leader>dh', function() widgets.hover() end, 'show hover')
+    nmap('<leader>dp', function() widgets.preview() end, 'show preview')
     nmap('<leader>df', function() widgets.centered_float(widgets.frames) end, 'frames')
     nmap('<leader>ds', function() widgets.centered_float(widgets.scopes) end, 'scopes')
-    nmap('<leader>du', dapui.toggle, 'toggle ui')
+    nmap('<leader>du', function() dapui.toggle() end, 'toggle ui')
     nmap(
         '<leader>dd',
         function() require('which-key').show({ keys = '<leader>d', loop = true }) end,
         'Keep debugging open'
     )
+end)
+
+Load.later(function()
+    Load.packadd('render-markdown.nvim')
+    require('render-markdown').setup({
+        callout = {
+            definition = { raw = '[!definition]', rendered = ' Definition', highlight = 'RenderMarkdownH6' },
+            theorem = { raw = '[!theorem]', rendered = '󰨸 Theorem', highlight = 'RenderMarkdownHint' },
+            proof = { raw = '[!proof]', rendered = '󰌶 Proof', highlight = 'RenderMarkdownH2' },
+            idea = { raw = '[!idea]', rendered = '󰌶 Idea', highlight = 'RenderMarkdownWarn' },
+        },
+    })
 end)
 
 Load.later(function()
@@ -226,7 +280,6 @@ Load.later(function()
         follow_url_func = function(url) vim.ui.open(url) end,
         follow_img_func = function(img) vim.ui.open(img) end,
 
-        ui = { enable = false },
         attachments = { img_folder = 'attachments' },
         picker = { name = 'snacks.pick' },
 
@@ -279,16 +332,4 @@ end)
 Load.later(function()
     Load.packadd('img-clip.nvim')
     require('img-clip').setup({ default = { dir_path = 'attachments' } })
-end)
-
-Load.later(function()
-    Load.packadd('render-markdown.nvim')
-    require('render-markdown').setup({
-        callout = {
-            definition = { raw = '[!definition]', rendered = ' Definition', highlight = 'RenderMarkdownH6' },
-            theorem = { raw = '[!theorem]', rendered = '󰨸 Theorem', highlight = 'RenderMarkdownHint' },
-            proof = { raw = '[!proof]', rendered = '󰌶 Proof', highlight = 'RenderMarkdownH2' },
-            idea = { raw = '[!idea]', rendered = '󰌶 Idea', highlight = 'RenderMarkdownWarn' },
-        },
-    })
 end)
