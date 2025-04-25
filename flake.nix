@@ -95,6 +95,10 @@
       url = "github:folke/snacks.nvim";
       flake = false;
     };
+    rainbow-delimiters-nvim = {
+      url = "gitlab:HiPhish/rainbow-delimiters.nvim";
+      flake = false;
+    };
     tip-vim = {
       url = "github:SimonYde/tip.vim";
       flake = false;
