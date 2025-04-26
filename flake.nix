@@ -78,14 +78,6 @@
       url = "github:neovim/nvim-lspconfig";
       flake = false;
     };
-    obsidian-nvim = {
-      url = "github:obsidian-nvim/obsidian.nvim";
-      flake = false;
-    };
-    snacks-nvim = {
-      url = "github:folke/snacks.nvim";
-      flake = false;
-    };
     rainbow-delimiters-nvim = {
       url = "gitlab:HiPhish/rainbow-delimiters.nvim";
       flake = false;
