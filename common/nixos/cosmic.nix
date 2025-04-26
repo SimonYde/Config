@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   pkgs,
   username,
@@ -10,8 +9,6 @@ let
   inherit (lib) mkDefault;
 in
 {
-  imports = [ inputs.nixos-cosmic.nixosModules.default ];
-
   environment.cosmic.excludePackages = with pkgs; [
     cosmic-edit
     cosmic-term
