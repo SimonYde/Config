@@ -1,0 +1,141 @@
+{
+  pkgs,
+  inputs,
+  lib,
+  config,
+  ...
+}:
+let
+  inherit (lib) getExe;
+in
+{
+  imports = [
+    inputs.nix-index-database.hmModules.nix-index
+
+    ./git.nix
+    ./neovim.nix
+    ./starship.nix
+    ./yazi.nix
+  ];
+
+  home = {
+    packages = with pkgs; [
+      dogdns # rust version of `dig`
+      du-dust # Histogram of file sizes
+      erdtree # Tree file view
+
+      lurk # strace alternative
+      trippy # network diagnostics
+      rsync
+
+      isd # Interactive systemd utility
+    ];
+
+    shellAliases = {
+      ll = "ls -l";
+      lla = "ls -la";
+      la = "ls -a";
+    };
+  };
+
+  programs = {
+    # Shells
+    bash.enable = true;
+    fish.enable = true;
+    nushell.enable = true;
+
+    # Editor
+    neovim.enable = true;
+
+    # Tools
+    atuin.enable = true;
+    bat.enable = true;
+    btop.enable = true;
+    nix-your-shell.enable = true;
+    carapace.enable = true;
+    fastfetch.enable = true;
+    fd.enable = true;
+    fzf.enable = true;
+    git.enable = true;
+    nix-index.enable = true;
+    nix-index-database.comma.enable = true;
+    pandoc.enable = true;
+    ripgrep.enable = true;
+    starship.enable = true;
+    television.enable = true;
+    yazi.enable = true;
+    zellij.enable = true;
+    zoxide.enable = true;
+  };
+
+  programs.atuin.settings = {
+    auto_sync = false;
+    history_filter = [
+      "fg *"
+      "pkill *"
+      "kill *"
+      "rm *"
+      "rmdir *"
+      "mkdir *"
+      "touch *"
+    ];
+    style = "compact";
+    enter_accept = true;
+    filter_mode_shell_up_key_binding = "session";
+  };
+
+  programs.carapace = {
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+  };
+
+  programs.fastfetch.settings = {
+    modules = [
+      "os"
+      "host"
+      "kernel"
+      "uptime"
+      "packages"
+      "shell"
+      "cpu"
+      "gpu"
+      "memory"
+      "swap"
+      "disk"
+      "localip"
+    ];
+  };
+
+  programs.fd = {
+    hidden = true;
+    ignores = [
+      ".git/"
+      ".jj/"
+      ".direnv/"
+    ];
+  };
+
+  programs.fzf.defaultCommand = "${getExe pkgs.fd} -H --type file";
+
+  programs.nushell = {
+    configFile.text = # nu
+      ''
+        $env.NU_LIB_DIRS ++= [ '${pkgs.nu_scripts}/share/nu_scripts' ]
+        source ${config.lib.meta.mkMutableSymlink ./config.nu}
+      '';
+
+    plugins = with pkgs.nushellPlugins; [
+      gstat
+      query
+      formats
+      polars
+      # skim
+    ];
+  };
+
+  programs.ripgrep.arguments = [
+    "--smart-case"
+    "--pretty"
+  ];
+
+}

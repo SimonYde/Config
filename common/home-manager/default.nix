@@ -11,7 +11,7 @@ in
 {
   imports = [
     inputs.agenix.homeManagerModules.default
-    ./shell.nix
+    ./shell
   ];
 
   xdg.enable = true;
