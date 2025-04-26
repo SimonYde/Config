@@ -35,15 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "stable";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
