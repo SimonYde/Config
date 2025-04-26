@@ -876,22 +876,6 @@
         "type": "github"
       }
     },
-    "obsidian-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1745668918,
-        "narHash": "sha256-pnvkOmgbCbkyLyg5HJNJ/vUo0V/DyB55WoqhGBRKy8M=",
-        "owner": "obsidian-nvim",
-        "repo": "obsidian.nvim",
-        "rev": "695f70dc028703bee00cf2ffbaa0f941aafac7c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "obsidian-nvim",
-        "repo": "obsidian.nvim",
-        "type": "github"
-      }
-    },
     "pix2tex": {
       "inputs": {
         "nixpkgs": [
@@ -1011,11 +995,9 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "nvim-lspconfig": "nvim-lspconfig",
-        "obsidian-nvim": "obsidian-nvim",
         "pix2tex": "pix2tex",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "rainbow-delimiters-nvim": "rainbow-delimiters-nvim",
-        "snacks-nvim": "snacks-nvim",
         "spicetify-nix": "spicetify-nix",
         "stable": "stable",
         "stylix": "stylix",
@@ -1044,22 +1026,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "snacks-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740868622,
-        "narHash": "sha256-Gw0Bp2YeoESiBLs3NPnqke3xwEjuiQDDU1CPofrhtig=",
-        "owner": "folke",
-        "repo": "snacks.nvim",
-        "rev": "bc0630e43be5699bb94dadc302c0d21615421d93",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "snacks.nvim",
         "type": "github"
       }
     },
