@@ -50,6 +50,17 @@ inputs: [
           ];
         };
 
+        obsidian-nvim = prev.vimPlugins.obsidian-nvim.overrideAttrs {
+          checkInputs = [ ];
+          nvimSkipModule = [
+            "obsidian.pickers._snacks"
+            "obsidian.pickers._mini"
+            "obsidian.pickers._telescope"
+            "obsidian.pickers._fzf"
+            "minimal"
+          ];
+        };
+
         tip-vim = prev.vimUtils.buildVimPlugin {
           version = "nightly";
           pname = "tip.vim";
