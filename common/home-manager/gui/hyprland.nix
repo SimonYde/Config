@@ -13,6 +13,8 @@ let
     ;
   inherit (config.syde.gui) file-manager terminal browser;
 
+  blue-light = pkgs.writers.writeNuBin "blue-light" (builtins.readFile ./blue-light.nu);
+
   random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" ''
     CURRENT=$(hyprctl hyprpaper listloaded)
     # Get a random wallpaper that is not the current one
@@ -48,6 +50,7 @@ in
     # My scripts
     random-wallpaper
     hyprland-gamemode
+    blue-light
 
     # Extra utilities
     pwvucontrol # audio control
@@ -144,7 +147,7 @@ in
   services.hypridle.settings = {
     general = {
       lock_cmd = "pidof hyprlock || hyprlock";
-      after_sleep_cmd = "hyprctl dispatch dpms on";
+      after_sleep_cmd = "hyprctl dispatch dpms on && ${getExe blue-light}";
       before_sleep_cmd = "loginctl lock-session";
       ignore_dbus_inhibit = false;
     };
@@ -153,7 +156,7 @@ in
       {
         timeout = 360;
         on-timeout = "hyprctl dispatch dpms off";
-        on-resume = "hyprctl dispatch dpms on";
+        on-resume = "hyprctl dispatch dpms on && ${getExe blue-light}";
       }
     ];
   };
@@ -164,28 +167,6 @@ in
     "--gamma_max"
     "200"
   ];
-  services.hyprsunset.transitions = {
-    sunrise = {
-      calendar = "*-*-* 06:00:00";
-      requests = [
-        [
-          "temperature"
-          "6000"
-        ]
-        [ "gamma 100" ]
-      ];
-    };
-    sunset = {
-      calendar = "*-*-* 20:00:00";
-      requests = [
-        [
-          "temperature"
-          "2200"
-        ]
-        [ "gamma 80" ]
-      ];
-    };
-  };
 
   systemd.user = {
     services = {
@@ -203,6 +184,23 @@ in
         };
 
         Install.WantedBy = [ config.wayland.systemd.target ];
+      };
+
+      blue-light = {
+        Unit = {
+          Description = "blue-light control";
+          After = [ "hyprsunset.service" ];
+        };
+
+        Service = {
+          Type = "oneshot";
+          ExecStart = getExe blue-light;
+          IOSchedulingClass = "idle";
+          Restart = "on-failure";
+          RestartSec = "10";
+        };
+
+        Install.WantedBy = [ "hyprsunset.service" ];
       };
 
       random-wallpaper = {
@@ -228,6 +226,14 @@ in
         Unit.Description = "Cycle hyprpaper to new wallpaper at random";
 
         Timer.OnUnitActiveSec = "15min";
+
+        Install.WantedBy = [ "timers.target" ];
+      };
+
+      blue-light = {
+        Unit.Description = "check to change blue-light setting";
+
+        Timer.OnUnitActiveSec = "30min";
 
         Install.WantedBy = [ "timers.target" ];
       };

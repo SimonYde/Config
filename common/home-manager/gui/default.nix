@@ -66,8 +66,7 @@ in
 
         zotero
 
-        discord
-        betterdiscordctl
+        legcord
 
         rclone-browser
         rclone # Remote files
