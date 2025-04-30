@@ -17,6 +17,7 @@ Load.later(function()
     vim.lsp.config('harper_ls', {
         settings = {
             ['harper-ls'] = {
+                dialect = 'British',
                 userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
                 markdown = { ignore_link_title = true },
             },
