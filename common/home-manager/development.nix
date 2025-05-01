@@ -32,7 +32,7 @@ in
 
         java.enable = true;
 
-        latex.enable = true;
+        latex.enable = false;
 
         lua.enable = true;
 
