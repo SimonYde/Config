@@ -46,6 +46,8 @@
 
   programs.virt-manager.enable = true;
 
+  networking.firewall.enable = lib.mkForce false;
+
   services = {
     tailscale = {
       enable = true;
