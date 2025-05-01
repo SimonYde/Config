@@ -1,11 +1,15 @@
-theme = "stylix"
+theme = "gruvbox_dark_hard"
 
 [editor]
 true-color = true
 color-modes = true
-bufferline = "never"
+bufferline = "multiple"
 line-number = "relative"
 scrolloff = 8
+auto-pairs = false
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -15,6 +19,7 @@ select = "underline"
 [editor.indent-guides]
 character = "▏"
 render = true
+skip-levels = 1
 
 [editor.file-picker]
 git-ignore = false
@@ -88,10 +93,6 @@ A-k = [
   "move_line_up",
   "paste_before",
 ]
-
-[keys.normal."space"]
-C = ":config-open" # Open helix config
-L = ":open ~/.config/helix/languages.toml" # Open languages.toml
 
 [keys.select]
 m = "extend_char_left"

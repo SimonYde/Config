@@ -109,67 +109,6 @@ Load.later(function()
     nmap('<leader>=', function() conform.format({ stop_after_first = true, lsp_fallback = true }) end, 'Format code')
 end)
 
-Load.later(function()
-    Load.packadd('nvim-ufo')
-    local ufo = require('ufo')
-
-    local handler = function(virtText, lnum, endLnum, width, truncate)
-        local newVirtText = {}
-        local suffix = (' 󰁂 %d '):format(endLnum - lnum)
-        local sufWidth = vim.fn.strdisplaywidth(suffix)
-        local targetWidth = width - sufWidth
-        local curWidth = 0
-        for _, chunk in ipairs(virtText) do
-            local chunkText = chunk[1]
-            local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            if targetWidth > curWidth + chunkWidth then
-                table.insert(newVirtText, chunk)
-            else
-                chunkText = truncate(chunkText, targetWidth - curWidth)
-                local hlGroup = chunk[2]
-                table.insert(newVirtText, { chunkText, hlGroup })
-                chunkWidth = vim.fn.strdisplaywidth(chunkText)
-                -- str width returned from truncate() may less than 2nd argument, need padding
-                if curWidth + chunkWidth < targetWidth then
-                    suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-                end
-                break
-            end
-            curWidth = curWidth + chunkWidth
-        end
-        table.insert(newVirtText, { suffix, 'MoreMsg' })
-        return newVirtText
-    end
-
-    --- @diagnostic disable-next-line: missing-fields
-    ufo.setup({
-        open_fold_hl_timeout = 0,
-        fold_virt_text_handler = handler,
-        provider_selector = function(_, _, _) return { 'treesitter', 'indent' } end,
-
-        close_fold_kinds_for_ft = {
-            rust = { 'function_item' },
-            nix = { 'indented_string_expression' },
-        },
-    })
-
-    nmap('zR', ufo.openAllFolds, 'Open all folds (nvim-ufo)')
-    nmap('zM', function()
-        vim.g.ufo_foldlevel = 0
-        ufo.closeAllFolds()
-    end, 'Close all folds (nvim-ufo)')
-
-    nmap('zr', function()
-        vim.g.ufo_foldlevel = (vim.g.ufo_foldlevel or 0) + 1
-        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
-    end, 'Open one fold level')
-
-    nmap('zm', function()
-        vim.g.ufo_foldlevel = math.max((vim.g.ufo_foldlevel or 0) - 1, 0)
-        ufo.closeFoldsWith(vim.g.ufo_foldlevel)
-    end, 'Close one fold level')
-end)
-
 Load.on_events({ events = 'InsertEnter' }, function() require('nvim-autopairs').setup() end)
 
 Load.later(function()
