@@ -165,7 +165,6 @@ in
           gtk-adwaita = true;
           gtk-single-instance = true;
           window-decoration = false;
-          window-theme = "ghostty";
           window-padding-balance = true;
 
           # Other
