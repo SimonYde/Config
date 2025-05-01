@@ -28,7 +28,7 @@ vim.o.conceallevel = 2
 vim.o.foldtext = '' -- Use underlying text with its highlighting
 -- vim.o.foldmethod = 'expr'
 -- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.o.foldlevel = 500 -- Fold everything except top-most folds
+-- vim.o.foldlevel = 500 -- Fold everything except top-most folds
 
 -- Editing ====================================================================
 vim.o.shiftwidth = 4

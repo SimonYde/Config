@@ -1,4 +1,6 @@
 vim.api.nvim_create_user_command('Base16', function()
+    pcall(vim.fs.rm, vim.fn.stdpath('config') .. '/colors/base16.lua')
+
     local palette_path = vim.env.XDG_CONFIG_HOME .. '/stylix/palette.json'
 
     if not vim.uv.fs_stat(palette_path) then
@@ -26,7 +28,7 @@ vim.api.nvim_create_user_command('Base16', function()
             ['folke/which-key.nvim'] = true,
             ['glepnir/lspsaga.nvim'] = true,
             ['hrsh7th/nvim-cmp'] = true,
-            ['kevinhwang91/nvim-ufo'] = true,
+            ['kevinhwang91/nvim-ufo'] = false,
             ['rcarriga/nvim-dap-ui'] = true,
             ['MeanderingProgrammer/render-markdown.nvim'] = true,
         },

@@ -42,7 +42,6 @@
         neogit
         todo-comments-nvim
         img-clip-nvim
-        nvim-ufo
 
         nvim-dap
         nvim-dap-ui
