@@ -69,5 +69,7 @@ vim.api.nvim_create_user_command('Base16', function()
     require('mini.colors').get_colorscheme():add_cterm_attributes():write({ name = 'base16' })
 end, {})
 
-local ok, _ = pcall(vim.cmd.colorscheme, 'base16')
-if not ok then Load.later(vim.cmd.Base16) end
+Load.later(function()
+    local ok, _ = pcall(vim.cmd.colorscheme, 'base16')
+    if not ok then vim.cmd.Base16() end
+end)
