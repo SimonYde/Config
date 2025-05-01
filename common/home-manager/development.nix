@@ -142,7 +142,7 @@ in
           enable = true;
           enableSshSupport = true;
           enableNushellIntegration = true;
-          pinentryPackage = pkgs.pinentry-tty;
+          pinentry.package = pkgs.pinentry-tty;
           extraConfig = ''
             allow-loopback-pinentry
           '';
