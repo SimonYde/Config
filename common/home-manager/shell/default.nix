@@ -29,6 +29,8 @@ in
       rsync
 
       isd # Interactive systemd utility
+
+      nix-your-shell
     ];
 
     shellAliases = {
@@ -51,7 +53,6 @@ in
     atuin.enable = true;
     bat.enable = true;
     btop.enable = true;
-    nix-your-shell.enable = true;
     carapace.enable = true;
     fastfetch.enable = true;
     fd.enable = true;
