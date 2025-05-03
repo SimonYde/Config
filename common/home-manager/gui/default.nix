@@ -60,8 +60,6 @@ in
         anki # Flash cards
         obsidian # Second brain
         gimp3 # Image editor
-        krita # Drawing
-        stremio
 
         qbittorrent # Linux ISOs
 
