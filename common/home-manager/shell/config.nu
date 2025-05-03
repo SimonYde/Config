@@ -63,11 +63,7 @@ $env.config = {
 
 alias fg = job unfreeze
 
-let maybe_nom = if (which nom | is-not-empty) {
-    ["--nom"]
-} else {
-    []
-}
+let maybe_nom = which nom | each { "--nom" }
 
 def --wrapped nix-shell (...args) {
     nix-your-shell nu ...$maybe_nom nix-shell -- ...$args
@@ -78,10 +74,6 @@ def --wrapped nix (...args) {
 }
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
-
-# set environment variables
-# $env.TOPIARY_CONFIG_FILE = ($env.XDG_CONFIG_HOME | path join topiary languages.ncl)
-# $env.TOPIARY_LANGUAGE_DIR = ($env.XDG_CONFIG_HOME | path join topiary languages)
 
 let prompt = {||
     if $env.LAST_EXIT_CODE != 0 {

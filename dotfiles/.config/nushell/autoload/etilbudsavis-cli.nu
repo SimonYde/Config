@@ -1,4 +1,4 @@
-module completions {
+module etilbudsavis {
 
   def "nu-complete etilbudsavis-cli format" [] {
     [ "json" "rss" "table" ]
@@ -43,27 +43,6 @@ module completions {
   # Print this message or the help of the given subcommand(s)
   export extern "etilbudsavis-cli help" [
   ]
-
-  # Add a dealer to favorites
-  export extern "etilbudsavis-cli help add" [
-  ]
-
-  # Remove a dealer from favorites
-  export extern "etilbudsavis-cli help remove" [
-  ]
-
-  # List available dealers
-  export extern "etilbudsavis-cli help dealers" [
-  ]
-
-  # List currently set favorites
-  export extern "etilbudsavis-cli help favorites" [
-  ]
-
-  # Print this message or the help of the given subcommand(s)
-  export extern "etilbudsavis-cli help help" [
-  ]
-
 }
 
-export use completions *
+export use etilbudsavis *
