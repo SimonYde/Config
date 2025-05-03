@@ -325,12 +325,8 @@ in
 
     (mkIf cfg.rust.enable {
       home.packages = with pkgs; [
-        cargo
-        rustc
+        rustup
         lldb
-        rust-analyzer
-        rustfmt
-        clippy
         gcc
       ];
 
@@ -339,7 +335,10 @@ in
         crates-nvim
       ];
 
-      home.sessionVariables.CARGO_HOME = "${config.xdg.cacheHome}/cargo";
+      home.sessionVariables = {
+        CARGO_HOME = "${config.xdg.dataHome}/cargo";
+        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+      };
     })
 
     (mkIf cfg.typst.enable {
