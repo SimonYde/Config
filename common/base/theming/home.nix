@@ -128,7 +128,7 @@ in
 
               bool: {|| if $in { '${base0C}' } else { '${base0A}' } }
 
-              date: {|| (date now) - $in |
+              datetime: {|| (date now) - $in |
                 if $in < 1hr {
                   { fg: '${base08}' attr: 'b' }
                 } else if $in < 6hr {
