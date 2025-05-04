@@ -60,7 +60,7 @@ client_fullscreen = "[{icon}]"
 
 [title_in_class."(?i)Kitty|(?i)Alacritty|com.mitchellh.ghostty"]
 "nvim|vim|vi" = ""
-"yazi" = ""
+"(?i)yazi|yy" = ""
 
 # Add your applications that need to be exclude
 # The key is the class, the value is the title.
