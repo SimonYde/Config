@@ -86,6 +86,10 @@
       url = "github:SimonYde/tip.vim";
       flake = false;
     };
+    wezterm-types = {
+      url = "github:gonstoll/wezterm-types";
+      flake = false;
+    };
 
     topiary-nushell = {
       url = "github:blindFS/topiary-nushell";

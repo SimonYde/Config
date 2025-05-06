@@ -1005,6 +1005,7 @@
         "tinted-schemes": "tinted-schemes",
         "tip-vim": "tip-vim",
         "topiary-nushell": "topiary-nushell",
+        "wezterm-types": "wezterm-types",
         "zen-browser": "zen-browser"
       }
     },
@@ -1293,6 +1294,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "wezterm-types": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745147304,
+        "narHash": "sha256-MDzEJY9ughs2rSGAw/WQOqNDeUb3ostFiXOZ5HmkGVM=",
+        "owner": "gonstoll",
+        "repo": "wezterm-types",
+        "rev": "3d59d9ed537ec4b935be3d48e06689ed02adace7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gonstoll",
+        "repo": "wezterm-types",
         "type": "github"
       }
     },

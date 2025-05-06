@@ -48,6 +48,7 @@ in
         font = "sansSerif";
         addCss = false;
       };
+      wezterm.enable = false;
       rofi.enable = false;
       zellij.enable = false;
       spicetify.enable = false;

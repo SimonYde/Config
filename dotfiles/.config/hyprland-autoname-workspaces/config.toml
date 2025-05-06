@@ -30,7 +30,7 @@ client_fullscreen = "[{icon}]"
 # use double quote the key and the value
 # take class name from 'hyprctl clients'
 "DEFAULT" = ""
-"(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)|com.mitchellh.ghostty" = ""
+"(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)|ghostty|wezterm" = ""
 "[Ff]irefox|zen" = "󰈹"
 "(?i)imv" = ""
 "org.kde.partitionmanager" = ""
@@ -58,7 +58,7 @@ client_fullscreen = "[{icon}]"
 "(?i)blueman-manager" = ""
 "pavucontrol|pwvucontrol" = "󱡫"
 
-[title_in_class."(?i)Kitty|(?i)Alacritty|com.mitchellh.ghostty"]
+[title_in_class."(?i)Kitty|(?i)Alacritty|ghostty"]
 "nvim|vim|vi" = ""
 "(?i)yazi|yy" = ""
 
