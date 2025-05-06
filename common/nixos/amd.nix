@@ -13,7 +13,7 @@ in
       # services.xserver.videoDrivers = [ "amdgpu" ];
       hardware.amdgpu = {
         opencl.enable = true;
-        initrd.enable = true;
+        initrd.enable = false;
         amdvlk = {
           enable = true;
           support32Bit.enable = true;
