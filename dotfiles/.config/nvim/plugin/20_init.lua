@@ -174,6 +174,7 @@ Load.on_events({ events = 'FileType', pattern = 'lua' }, function()
 
         library = {
             { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+            { path = 'wezterm-types', mods = { 'wezterm' } },
         },
     })
 end)

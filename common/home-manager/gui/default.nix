@@ -30,6 +30,7 @@ in
       programs = {
         # Terminals
         ghostty.enable = true;
+        wezterm.enable = true;
 
         # Browsers
         brave.enable = true;
@@ -593,7 +594,7 @@ in
           "foot"
           "ghostty"
         ];
-        default = "ghostty";
+        default = "wezterm";
       };
 
       package = mkPackageOption pkgs terminal.name { };

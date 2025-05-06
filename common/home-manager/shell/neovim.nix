@@ -33,6 +33,7 @@
       ++ config.lib.meta.lazyNeovimPlugins [
         # ----- Completion -----
         blink-cmp
+        wezterm-types
 
         # ----- Workflow -----
         nvim-lspconfig
