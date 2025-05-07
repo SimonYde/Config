@@ -29,7 +29,7 @@ in
     {
       programs = {
         # Terminals
-        ghostty.enable = true;
+        ghostty.enable = false;
         wezterm.enable = true;
 
         # Browsers
