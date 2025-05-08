@@ -39,6 +39,8 @@ inputs: [
 
       inherit (inputs.kattis-cli.packages.${prev.system}) kattis-test kattis-cli;
 
+      inherit (final.stable) ols odin;
+
       vimPlugins = prev.vimPlugins.extend (
         _: _: {
           mini-nvim = prev.vimUtils.buildVimPlugin {
