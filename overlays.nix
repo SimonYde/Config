@@ -5,11 +5,11 @@ inputs: [
     final: prev:
     let
       mkDate =
-        longDate:
+        { lastModifiedDate, ... }:
         (final.lib.concatStringsSep "-" [
-          (builtins.substring 0 4 longDate)
-          (builtins.substring 4 2 longDate)
-          (builtins.substring 6 2 longDate)
+          (builtins.substring 0 4 lastModifiedDate)
+          (builtins.substring 4 2 lastModifiedDate)
+          (builtins.substring 6 2 lastModifiedDate)
         ]);
     in
     {
@@ -44,20 +44,20 @@ inputs: [
       vimPlugins = prev.vimPlugins.extend (
         _: _: {
           mini-nvim = prev.vimUtils.buildVimPlugin {
-            version = mkDate inputs.mini-nvim.lastModifiedDate;
+            version = mkDate inputs.mini-nvim;
             pname = "mini.nvim";
             src = inputs.mini-nvim;
           };
 
           nvim-lspconfig = prev.vimUtils.buildVimPlugin {
-            version = mkDate inputs.nvim-lspconfig.lastModifiedDate;
+            version = mkDate inputs.nvim-lspconfig;
             pname = "nvim-lspconfig";
             src = inputs.nvim-lspconfig;
           };
 
           rainbow-delimiters-nvim = prev.vimPlugins.rainbow-delimiters-nvim.overrideAttrs {
             src = inputs.rainbow-delimiters-nvim;
-            version = mkDate inputs.rainbow-delimiters-nvim.lastModifiedDate;
+            version = mkDate inputs.rainbow-delimiters-nvim;
             nvimSkipModule = [
               "rainbow-delimiters._test.highlight"
               "rainbow-delimiters.types"
@@ -77,7 +77,7 @@ inputs: [
 
           wezterm-types =
             (prev.vimUtils.buildVimPlugin {
-              version = mkDate inputs.wezterm-types.lastModifiedDate;
+              version = mkDate inputs.wezterm-types;
               pname = "wezterm-types";
               src = inputs.wezterm-types;
             }).overrideAttrs
@@ -89,7 +89,7 @@ inputs: [
               };
 
           tip-vim = prev.vimUtils.buildVimPlugin {
-            version = mkDate inputs.tip-vim.lastModifiedDate;
+            version = mkDate inputs.tip-vim;
             pname = "tip.vim";
             src = inputs.tip-vim;
           };
