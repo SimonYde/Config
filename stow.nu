@@ -11,16 +11,10 @@ def main [] {
 
     print $"Config directory: ($config_dir)"
 
-    [
-        nvim
-        hypr
-        helix
-        nushell
-        topiary
-        zellij
-    ]
-    | each {|dir|
-        path join $config_dir $dir | mkdir -v $in
+    ls ./dotfiles/.config | where type == dir | each {
+        let name = $in.name | path basename
+
+        $config_dir | path join $name | mkdir -v $in
     }
 
     stow -v --target=$"($env.HOME)" dotfiles
