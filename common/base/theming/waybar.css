@@ -11,13 +11,17 @@
   min-height: 12px;
 }
 
-window#waybar {
-  border-radius: 0px;
+.modules-left, .modules-right, modules-center {
   background: @background;
 }
 
+window#waybar {
+  border-radius: 0px;
+  background: transparent;
+}
+
 window#waybar, tooltip {
-  background: @background;
+  background: transparent;
   color: @base05;
 }
 
@@ -37,6 +41,8 @@ window#waybar.hidden {
 
 #window {
   color: @text;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 #workspaces {
