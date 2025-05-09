@@ -131,4 +131,8 @@ let external_completer = {|spans: list<string>|
 
 $env.config.completions.external.completer = $external_completer
 
+$env.PATH ++= [
+    ($env.HOME | path join '.local/bin')
+]
+
 use std-rfc/tables [ aggregate ]
