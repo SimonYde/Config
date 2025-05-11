@@ -37,9 +37,9 @@ Load.later(function()
             require('mini.snippets').gen_loader.from_lang(),
         },
         mappings = {
-            expand = '<C-h>',
+            expand = '<C-e>',
             jump_next = '<C-i>',
-            jump_prev = '<C-e>',
+            jump_prev = '<C-m>',
             stop = '<C-c>',
         },
     })

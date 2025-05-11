@@ -10,7 +10,6 @@ Load.now(function()
         notifier = {},
         picker = {},
         quickfile = {},
-        terminal = {},
         toggle = {},
         zen = {},
 
@@ -152,7 +151,6 @@ Load.later(function()
 
     -- stylua: ignore start
     nmap('<leader>sn', function() Snacks.notifier.show_history() end,             'Show notifier history')
-    nmap('<leader>st', function() Snacks.terminal.toggle() end,                   'Toggle terminal')
     nmap('<leader>bd', function() Snacks.bufdelete.delete() end,                  'Delete current buffer')
 
     nmap('<leader>gb', function() Snacks.git.blame_line() end,                    'Show blame line')
