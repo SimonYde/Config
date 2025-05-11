@@ -94,7 +94,8 @@
     };
 
     xserver.xkb = {
-      layout = "us(colemak_dh),dk";
+      layout = "us,dk";
+      variant = "colemak_dh,";
       options = "caps:escape,grp:rctrl_toggle";
     };
   };

@@ -8,6 +8,7 @@
   stylix = {
     enable = true;
     image = null;
+    polarity = config.lib.stylix.colors.variant;
     base16Scheme = "${inputs.tinted-schemes}/base16/gruvbox-dark-hard.yaml";
     override = {
       base00 = "1b1b1b";
