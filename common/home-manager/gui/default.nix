@@ -80,7 +80,6 @@ in
         trashy
 
         grawlix
-        pix2tex
         audiobook-dl
         etilbudsavis-cli
       ];
