@@ -23,15 +23,13 @@ in
   services.greetd = {
     enable = true;
 
-    settings = {
-      default_session.command = "${pkgs.greetd.greetd}/bin/agreety --cmd ${command}";
-
-      initial_session = {
-        inherit command;
-        user = username;
-      };
+    settings.initial_session = {
+      inherit command;
+      user = username;
     };
   };
+
+  programs.regreet.enable = true;
 
   security.pam.services.hyprlock = { };
 
@@ -39,7 +37,9 @@ in
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
     QT_AUTO_SCREEN_SCALE_FACTOR = 1;
-    # NIXOS_OZONE_WL = 1;
+    NIXOS_OZONE_WL = 1;
+    XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
+    XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
   };
 
   systemd.user.services.hyprpolkitagent = mkIf config.security.polkit.enable {

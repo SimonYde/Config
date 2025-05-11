@@ -89,6 +89,7 @@ in
 
       input = {
         kb_layout = config.home.keyboard.layout;
+        kb_variant = config.home.keyboard.variant;
         kb_options = concatStringsSep "," config.home.keyboard.options;
       };
     };
@@ -171,7 +172,8 @@ in
       hyprland-autoname-workspaces = {
         Unit = {
           Description = "hyprland-autoname-workspaces";
-          After = [ "graphical-session-pre.target" ];
+          After = [ config.wayland.systemd.target ];
+          Requires = [ "waybar.service" ];
           PartOf = [ config.wayland.systemd.target ];
         };
 
@@ -188,6 +190,7 @@ in
         Unit = {
           Description = "Cycle hyprpaper to new wallpaper at random";
           After = [ "hyprpaper.service" ];
+          Requires = [ "hyprpaper.service" ];
         };
 
         Service = {
