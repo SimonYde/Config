@@ -32,7 +32,6 @@ inputs: [
       agenix = inputs.agenix.packages.${prev.system}.default.override {
         ageBin = prev.lib.getExe final.rage;
       };
-      pix2tex = inputs.pix2tex.packages.${prev.system}.default;
       audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
       zen-browser = inputs.zen-browser.packages.${prev.system}.default;
       etilbudsavis-cli = inputs.etilbudsavis-cli.packages.${prev.system}.default;

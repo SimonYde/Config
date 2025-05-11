@@ -127,11 +127,6 @@
       };
     };
 
-    pix2tex = {
-      url = "github:SimonYde/pix2tex.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     kattis-cli = {
       url = "github:SimonYde/kattis-cli.nix";
       inputs.nixpkgs.follows = "nixpkgs";
