@@ -46,10 +46,7 @@ in
 
         rust.enable = true;
 
-        scala = {
-          enable = true;
-          package = pkgs.scala_2_12;
-        };
+        scala.enable = false;
 
         typst.enable = true;
 
@@ -70,11 +67,7 @@ in
 
         ast-grep
 
-        gitoxide # Rust git implementation.
-        git-revise
-        git-absorb
-        git-gr
-        git-crypt
+        lazyjj
         glab
 
         kattis-cli
@@ -126,6 +119,63 @@ in
             user = {
               name = "Simon Yde";
               email = "git@simonyde.com";
+            };
+
+            ui.default-command = "log-recent";
+
+            aliases = {
+              c = [ "commit" ];
+              ci = [
+                "commit"
+                "--interactive"
+              ];
+              e = [ "edit" ];
+              i = [
+                "git"
+                "init"
+                "--colocate"
+              ];
+
+              log-recent = [
+                "log"
+                "-r"
+                "recent()"
+              ];
+
+              nb = [
+                "bookmark"
+                "create"
+                "-r @-"
+              ]; # "new bookmark"
+              pull = [
+                "git"
+                "fetch"
+              ];
+              push = [
+                "git"
+                "push"
+                "--allow-new"
+              ];
+              r = [ "rebase" ];
+              s = [ "squash" ];
+              si = [
+                "squash"
+                "--interactive"
+              ];
+              tug = [
+                "bookmark"
+                "move"
+                "--from"
+                "closest_bookmark(@-)"
+                "--to"
+                "@-"
+              ];
+            };
+
+            revset-aliases = {
+              "closest_bookmark(to)" = "heads(::to & bookmarks())";
+              "recent()" =
+                ''(present(@) | ancestors(immutable_heads().., 2) | present(trunk())) & committer_date(after:"3 months ago")'';
             };
           };
         };

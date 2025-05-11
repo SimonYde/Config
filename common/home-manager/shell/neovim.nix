@@ -6,6 +6,7 @@
     defaultEditor = true;
 
     vimAlias = true;
+    vimdiffAlias = true;
     viAlias = true;
 
     withRuby = false;
