@@ -24,6 +24,11 @@ config.hide_tab_bar_if_only_one_tab = true
 config.enable_kitty_keyboard = true
 config.term = "wezterm"
 
+config.unix_domains = {
+	{ name = "unix" },
+}
+-- config.default_gui_startup_args = { "connect", "unix" }
+
 config.colors = {
 	tab_bar = {
 		active_tab = {
@@ -53,11 +58,21 @@ config.keys = {
 		mods = "LEADER",
 		action = action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
+	{
+		key = "t",
+		mods = "LEADER",
+		action = action.ActivateTabRelative(1),
+	},
+	{
+		key = "t",
+		mods = "LEADER|SHIFT",
+		action = action.ActivateTabRelative(-1),
+	},
 	-- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
 	{
 		key = "l",
 		mods = "LEADER|CTRL",
-		action = action.SendKey({ key = "a", mods = "CTRL" }),
+		action = action.SendKey({ key = "l", mods = "CTRL" }),
 	},
 }
 

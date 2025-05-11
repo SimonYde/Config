@@ -65,7 +65,7 @@ in
     starship.enable = true;
     television.enable = true;
     yazi.enable = true;
-    zellij.enable = true;
+    zellij.enable = false;
     zoxide.enable = true;
   };
 
