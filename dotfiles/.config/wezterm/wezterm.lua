@@ -64,6 +64,21 @@ config.keys = {
 		action = action.ActivateTabRelative(1),
 	},
 	{
+		key = "w",
+		mods = "LEADER",
+		action = action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+	},
+	{
+		key = "d",
+		mods = "LEADER",
+		action = action.ShowLauncherArgs({ flags = "FUZZY|DOMAINS" }),
+	},
+	{
+		key = "l",
+		mods = "LEADER",
+		action = action.ShowLauncher,
+	},
+	{
 		key = "t",
 		mods = "LEADER|SHIFT",
 		action = action.ActivateTabRelative(-1),
