@@ -44,7 +44,7 @@ Load.now(function()
                         icon = ' ',
                         key = 'c',
                         desc = 'Config',
-                        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.env.FLAKE, hidden = true})",
+                        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.env.NH_FLAKE, hidden = true})",
                     },
 
                     { icon = ' ', key = 's', desc = 'Restore Session', section = 'session' },
