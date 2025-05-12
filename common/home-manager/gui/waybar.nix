@@ -15,8 +15,6 @@ in
       modules-left = [
         "hyprland/workspaces"
         "hyprland/submap"
-        "hyprland/window"
-        "sway/window"
       ];
 
       modules-center = [ ];

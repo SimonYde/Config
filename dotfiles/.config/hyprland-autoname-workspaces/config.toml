@@ -17,7 +17,7 @@ version = "1.1.14"
 # workspace_empty = "{id}" # {id}, {delim} and {clients} are supported
 # client formatter
 client = "{icon}"
-client_active = "{icon}"
+client_active = "⟨{icon}⟩"
 
 # deduplicate client formatter
 client_fullscreen = "[{icon}]"
