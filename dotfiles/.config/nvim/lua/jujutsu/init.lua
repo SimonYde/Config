@@ -26,6 +26,8 @@ H.default_config = {
     executable = 'jj',
 }
 
+H.cache = {}
+
 ---@param config? table optional user configuration.
 H.setup_config = function(config)
     config = vim.tbl_deep_extend('force', vim.deepcopy(H.default_config), config or {})
@@ -39,7 +41,7 @@ H.apply_config = function(config) Jujutsu.config = config end
 ---@param message string message to notify.
 H.notify = function(message, log_level) vim.notify('(Jujutsu) ' .. message, log_level) end
 
-H.error = function(message) error('(Jujutsu) ' .. message, 0) end
+H.error = function(message) error('(Jujutsu) ' .. message) end
 
 H.create_user_commands = function()
     local opts = { bang = true, nargs = '*', complete = H.command_complete, desc = 'Execute Jujutsu command' }
@@ -51,7 +53,8 @@ H.command_impl = function(input)
         return H.notify('There is no `' .. Jujutsu.config.executable .. '` executable', 'ERROR')
     end
 
-    H.run_in_floating({ 'jj', 'log' })
+    H.run_interactive({ 'jj', 'log' })
+    vim.print(input)
 end
 
 H.ensure_jj_subcommands = function()
@@ -121,8 +124,37 @@ H.ensure_jj_subcommands = function()
     H.jj_subcommands = subcommands
 end
 
-H.cli_output = function(args, cwd, env)
+H.cli_output = function(args, cwd, env) end
 
+H.get_jj_cwd = function()
+    local buf_id = vim.api.nvim_get_current_buf()
+    local names = { '.jj', '.jj' }
+
+    if not vim.api.nvim_buf_is_valid(buf_id) then H.error('Current buffer is invalid') end
+
+    -- Compute directory to start search from.
+    -- NOTEs on why not using file path:
+    -- - This has better performance because `vim.fs.find()` is called less.
+    -- - *Needs* to be a directory for callable `names` to work.
+    -- - Later search is done including initial `path` if directory, so this
+    --   should work for detecting buffer directory as root.
+    local path = vim.api.nvim_buf_get_name(buf_id)
+    if path == '' then return end
+    local dir_path = vim.fs.dirname(path)
+
+    -- Find root
+    local root_file = vim.fs.find(names, { path = dir_path, upward = true })[1]
+    local res = nil
+    if root_file ~= nil then
+        res = vim.fs.dirname(root_file)
+    end
+
+    -- Use absolute path to an existing directory
+    if type(res) ~= 'string' then return end
+    res = H.fs_normalize(vim.fn.fnamemodify(res, ':p'))
+    if vim.fn.isdirectory(res) == 0 then return end
+
+    return res
 end
 
 H.run_cli = function(args)
@@ -130,9 +162,7 @@ H.run_cli = function(args)
     vim.list_extend(cmd, args)
 
     vim.system(cmd, {}, function(out)
-        if out.code ~= 0 then
-            H.notify(out.stderr, "ERROR")
-        end
+        if out.code ~= 0 then H.notify(out.stderr, 'ERROR') end
     end)
 end
 

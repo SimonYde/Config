@@ -19,7 +19,7 @@ Load.later(function()
     require('mini.visits').setup()
 
     MiniIcons.mock_nvim_web_devicons()
-    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
+    -- MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
 
     local remap = function(mode, lhs_from, lhs_to)
         local keymap = vim.fn.maparg(lhs_from, mode, false, true)
