@@ -12,7 +12,7 @@ config.font = wezterm.font_with_fallback({
 	"Noto Color Emoji",
 })
 
-config.max_fps = 144
+config.max_fps = 255
 
 config.font_size = 11.5
 config.command_palette_font_size = 13
@@ -23,6 +23,9 @@ config.adjust_window_size_when_changing_font_size = false
 config.hide_tab_bar_if_only_one_tab = true
 config.enable_kitty_keyboard = true
 config.term = "wezterm"
+
+-- config.front_end = "WebGpu"
+-- config.webgpu_power_preference = "HighPerformance"
 
 config.unix_domains = {
 	{ name = "unix" },

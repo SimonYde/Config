@@ -126,5 +126,5 @@ Load.later(function()
         vim.g.colemak = state
     end
 
-    Config.colemak_toggle(true)
+    Config.colemak_toggle(false)
 end)
