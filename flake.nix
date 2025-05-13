@@ -175,6 +175,7 @@
       nixosConfigurations = {
         icarus-wsl = mkWslSystem { hostname = "icarus"; };
         icarus = mkSystem { hostname = "icarus"; };
+        iso = mkSystem { hostname = "iso"; };
         perdix = mkSystem { hostname = "perdix"; };
       };
 

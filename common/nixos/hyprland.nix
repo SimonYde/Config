@@ -37,7 +37,7 @@ in
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
     QT_AUTO_SCREEN_SCALE_FACTOR = 1;
-    NIXOS_OZONE_WL = 1;
+    # NIXOS_OZONE_WL = 1;
     XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
     XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
   };
