@@ -31,6 +31,7 @@ client_fullscreen = "[{icon}]"
 # take class name from 'hyprctl clients'
 "DEFAULT" = ""
 "(?i)(Kitty)|(?i)(Alacritty)|(?i)(foot)|ghostty|wezterm" = ""
+"REAPER" = "󰎇"
 "[Ff]irefox|zen" = "󰈹"
 "(?i)imv" = ""
 "org.kde.partitionmanager" = ""
@@ -72,6 +73,7 @@ client_fullscreen = "[{icon}]"
 "(?i)TestApp" = "" # will match all title for TestApp
 aProgram = "^$" # will match null title for aProgram
 "[Ss]team" = "^(Friends List.*)?$" # will match Steam friends list plus all popups (empty titles)
+REAPER = "(menu)|(FX:)" # will match null title for aProgram
 
 [workspaces_name]
 0 = "zero"

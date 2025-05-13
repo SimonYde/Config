@@ -30,7 +30,9 @@ in
     {
       programs = {
         # Terminals
-        ghostty.enable = false;
+        ghostty.enable = true;
+        kitty.enable = true;
+        alacritty.enable = true;
         wezterm.enable = true;
 
         # Browsers
@@ -62,6 +64,11 @@ in
         anki # Flash cards
         obsidian # Second brain
         gimp3 # Image editor
+
+        reaper
+        reaper-reapack-extension
+        reaper-sws-extension
+        lsp-plugins
 
         qbittorrent # Linux ISOs
 
