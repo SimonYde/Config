@@ -28,8 +28,8 @@ $env.config = {
         header_on_separator: true
 
         trim: {
-            methodology: wrapping
-            wrapping_try_keep_words: true
+            methodology: truncating
+            truncating_suffix: "…"
         }
     }
 
