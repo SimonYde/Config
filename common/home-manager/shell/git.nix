@@ -88,6 +88,7 @@ _:
     };
 
     ignores = [
+      "result"
       "**/.idea"
       "**/.metals"
       "**/_build"
