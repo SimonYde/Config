@@ -76,6 +76,12 @@ in
           introducer = true;
         };
 
+        talos = {
+          name = "Talos";
+          id = "VSU4DLM-AKUKULD-KSG7T3V-I2FUYX5-JMC56UT-E6JFYA2-SQM2F6S-4ZLDXQO";
+          introducer = false;
+        };
+
         theseus = {
           name = "Theseus";
           id = "HZGNXLG-6L4D5SC-6N5DSV6-PKFPD5G-V7NWYGD-SG32FK3-LU6KJPZ-SNKM3AR";
@@ -89,6 +95,7 @@ in
           devices = [
             "icarus"
             "perdix"
+            "talos"
             "daedelus"
             "theseus"
           ];
@@ -100,6 +107,7 @@ in
             "icarus"
             "icarus-wsl"
             "perdix"
+            "talos"
             "daedelus"
             "theseus"
           ];
@@ -110,6 +118,7 @@ in
           devices = [
             "icarus"
             "perdix"
+            "talos"
             "daedelus"
             "theseus"
           ];
@@ -121,6 +130,7 @@ in
             "icarus"
             "icarus-wsl"
             "perdix"
+            "talos"
             "daedelus"
             "theseus"
           ];
@@ -132,6 +142,7 @@ in
             "icarus"
             "icarus-wsl"
             "perdix"
+            "talos"
             "daedelus"
             "theseus"
           ];
@@ -142,6 +153,7 @@ in
           devices = [
             "icarus"
             "perdix"
+            "talos"
             "daedelus"
             "theseus"
           ];
