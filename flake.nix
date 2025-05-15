@@ -177,6 +177,7 @@
         icarus = mkSystem { hostname = "icarus"; };
         iso = mkSystem { hostname = "iso"; };
         perdix = mkSystem { hostname = "perdix"; };
+        talos = mkSystem { hostname = "talos"; };
       };
 
       homeConfigurations = {
