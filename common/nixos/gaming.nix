@@ -6,6 +6,10 @@
 }:
 let
   inherit (lib) mkForce;
+  fontPackages = with pkgs; [
+    wineWow64Packages.fonts
+    source-han-sans
+  ];
 in
 {
   home-manager.users.${username}.imports = [ ../home-manager/gaming.nix ];
@@ -23,8 +27,8 @@ in
         };
 
         custom = {
-          start = "${pkgs.libnotify}/bin/notify-send 'GameMode started' && hyprland-gamemode";
-          end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended' && hyprland-gamemode";
+          start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+          end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
         };
       };
     };
@@ -36,15 +40,11 @@ in
 
       # with Glorious Eggroll Proton
       extraCompatPackages = with pkgs; [ proton-ge-bin ];
+      inherit fontPackages;
     };
   };
 
   users.users.${username}.extraGroups = [ "gamemode" ];
-
-  fonts.packages = with pkgs; [
-    wineWowPackages.fonts
-    source-han-sans
-  ];
 
   hardware.graphics = {
     enable = true;

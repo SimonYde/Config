@@ -2,6 +2,7 @@
   pkgs,
   username,
   lib,
+  inputs,
   ...
 }:
 {
@@ -9,6 +10,8 @@
     ../common/desktop.nix
     ../common/nixos/hyprland.nix
     ../common/nixos/gaming.nix
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
   # Personal configurations
@@ -18,10 +21,8 @@
         enable = true;
         dedicated = true;
       };
-      amd = {
-        cpu.enable = true;
-        gpu.enable = false;
-      };
+
+      amd.cpu.enable = true;
     };
   };
 
@@ -37,6 +38,54 @@
   };
 
   programs.partition-manager.enable = true;
+
+  services.pipewire = {
+    extraConfig = {
+      pipewire."92-low-latency" = {
+        "context.properties" = {
+          "default.clock.rate" = 44100;
+          "default.clock.quantum" = 64;
+          "default.clock.min-quantum" = 64;
+          "default.clock.max-quantum" = 64;
+        };
+      };
+
+      pipewire-pulse."92-low-latency" = {
+        "context.properties" = [
+          {
+            name = "libpipewire-module-protocol-pulse";
+            args = { };
+          }
+        ];
+        "pulse.properties" = {
+          "pulse.min.req" = "64/44100";
+          "pulse.default.req" = "64/44100";
+          "pulse.max.req" = "64/44100";
+          "pulse.min.quantum" = "64/44100";
+          "pulse.max.quantum" = "64/44100";
+        };
+        "stream.properties" = {
+          "node.latency" = "64/44100";
+          "resample.quality" = 1;
+        };
+      };
+    };
+
+    wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/99-audient-id14.conf" ''
+        monitor.alsa.rules = [
+          {
+            matches = [{ node.name = "alsa_output.usb-Audient_Audient_iD14-00.*" }]
+            actions = {
+              update-props = {
+                audio.allowed-rates = [44100, 48000, 88200, 96000, 176400, 192000]
+              }
+            }
+          }
+        ]
+      '')
+    ];
+  };
 
   services = {
     safeeyes.enable = true;
@@ -69,26 +118,8 @@
 
   home-manager.users.${username} = {
 
-    services = {
-      blanket.enable = true;
-    };
+    services.blanket.enable = true;
 
     programs.hyprlock.settings.general.screencopy_mode = 1; # NOTE: nvidia problems
-
-    wayland.windowManager.hyprland.extraConfig = # hyprlang
-      ''
-        workspace=1, monitor:DP-1, default:true
-        workspace=2, monitor:DP-1
-        workspace=3, monitor:DP-1
-        workspace=4, monitor:DP-1
-        workspace=5, monitor:DP-1
-        workspace=6, monitor:DP-1
-
-        workspace=7, monitor:HDMI-A-1, default:true
-        workspace=8, monitor:HDMI-A-1
-
-        workspace=9, monitor:DP-3, default:true
-        workspace=10, monitor:DP-3
-      '';
   };
 }
