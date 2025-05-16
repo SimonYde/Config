@@ -36,11 +36,6 @@
     };
   };
 
-  console = {
-    font = lib.mkForce "ter-i32b";
-    earlySetup = true;
-  };
-
   programs.partition-manager.enable = true;
 
   services = {

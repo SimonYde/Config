@@ -38,6 +38,7 @@ in
   };
 
   console = {
+    earlySetup = true;
     useXkbConfig = true;
     font = "ter-i24n";
     packages = [ pkgs.terminus_font ];

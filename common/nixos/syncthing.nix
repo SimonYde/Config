@@ -22,11 +22,10 @@ let
 
   # TODO: 2025-03-17 Simon Yde, figure out if this is actually necessary still
   removeThisDeviceFromFolders = mapAttrs (
-    _:
-    { path, devices, ... }:
-    {
-      inherit path;
-      devices = filter (name: hostName != name) devices;
+    _: attrs:
+    attrs
+    // {
+      devices = filter (name: hostName != name) attrs.devices;
     }
   );
 in
@@ -90,6 +89,21 @@ in
       };
 
       folders = removeThisDeviceFromFolders (onlyForThisDevice {
+        "Apollo" = {
+          path = "${home}/Documents/Apollo";
+          devices = [
+            "icarus"
+            "talos"
+            "daedelus"
+            "perdix"
+            "theseus"
+          ];
+          versioning = {
+            type = "trashcan";
+            params.cleanoutDays = "1000";
+          };
+        };
+
         "Audiobooks" = {
           path = "${home}/Audiobooks";
           devices = [

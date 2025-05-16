@@ -22,8 +22,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  console.earlySetup = true;
-
   syde.hardware.amd.cpu.enable = true;
   syde.hardware.amd.gpu.enable = true;
 
