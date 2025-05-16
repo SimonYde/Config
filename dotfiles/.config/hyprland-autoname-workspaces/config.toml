@@ -3,7 +3,7 @@ version = "1.1.14"
 [format]
 # Deduplicate icons if enable.
 # A superscripted counter will be added.
-# dedup = false
+dedup = true
 # dedup_inactive_fullscreen = false # dedup more
 # window delimiter
 # delim = " "

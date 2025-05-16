@@ -33,6 +33,8 @@
     partition-manager.enable = true;
   };
 
+  environment.sessionVariables.NIXOS_OZONE_WL = 1;
+
   users.users.${username}.extraGroups = [ "libvirtd" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.waydroid.enable = true;
@@ -43,8 +45,8 @@
 
   services = {
     tailscale = {
-      enable = false;
-      authKeyFile = config.age.secrets.tailscale.path;
+      enable = true;
+      # authKeyFile = config.age.secrets.tailscale.path;
     };
 
     syncthing.enable = true;
@@ -113,6 +115,14 @@
   }];
 
   home-manager.users.${username} = {
+    programs.hyprlock.settings.auth = {
+      fingerprint = {
+        enabled = true;
+      };
+    };
+
+    syde.gui.browser = lib.mkForce "brave";
+
     services.hypridle.settings.listener =
       let
         brightnessctl = lib.getExe pkgs.brightnessctl;

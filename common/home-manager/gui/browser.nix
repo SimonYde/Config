@@ -107,19 +107,23 @@ in
 
   syde.gui.browser = "zen-beta";
 
-  xdg.mimeApps.defaultApplications = {
-    "x-scheme-handler/http" = "${browser}.desktop";
-    "x-scheme-handler/https" = "${browser}.desktop";
-    "x-scheme-handler/chrome" = "${browser}.desktop";
-    "text/html" = "${browser}.desktop";
-    "image/svg" = "${browser}.desktop";
-    "application/x-extension-htm" = "${browser}.desktop";
-    "application/x-extension-html" = "${browser}.desktop";
-    "application/x-extension-shtml" = "${browser}.desktop";
-    "application/xhtml+xml" = "${browser}.desktop";
-    "application/x-extension-xhtml" = "${browser}.desktop";
-    "application/x-extension-xht" = "${browser}.desktop";
-  };
+  xdg.mimeApps.defaultApplications =
+    let
+      browser-mime =  if browser == "brave" then "brave-browser" else browser;
+    in
+    {
+      "x-scheme-handler/http" = "${browser-mime}.desktop";
+      "x-scheme-handler/https" = "${browser-mime}.desktop";
+      "x-scheme-handler/chrome" = "${browser-mime}.desktop";
+      "text/html" = "${browser-mime}.desktop";
+      "image/svg" = "${browser-mime}.desktop";
+      "application/x-extension-htm" = "${browser-mime}.desktop";
+      "application/x-extension-html" = "${browser-mime}.desktop";
+      "application/x-extension-shtml" = "${browser-mime}.desktop";
+      "application/xhtml+xml" = "${browser-mime}.desktop";
+      "application/x-extension-xhtml" = "${browser-mime}.desktop";
+      "application/x-extension-xht" = "${browser-mime}.desktop";
+    };
 
   programs = {
     brave = {
@@ -133,7 +137,9 @@ in
         { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # Stylus
         { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
         { id = "oocalimimngaihdkbihfgmpkcpnmlaoa"; } # Teleparty
-        { id = "hdokiejnpimakedhajhdlcegeplioahd"; } # Lastpass
+        { id = "ghmbeldphafepmbegfdlkpapadhbakde"; } # Proton pass
+        { id = "cdglnehniifkbagbbombnjghhcihifij"; } # Kagi Search
+        { id = "mendokngpagmkejfpmeellpppjgbpdaj"; } # Kagi Privacy Pass
       ];
     };
 

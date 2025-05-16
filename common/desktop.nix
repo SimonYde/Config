@@ -88,6 +88,7 @@ in
     networkmanager = {
       enable = true;
       wifi.macAddress = "random";
+      wifi.powersave = false;
     };
   };
 
