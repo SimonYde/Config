@@ -21,8 +21,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  console.earlySetup = true;
-
   # Personal configurations
   syde = {
     hardware = {
