@@ -21,6 +21,7 @@ in
 {
   imports = [
     ./browser.nix
+    ./daw.nix
     ./waybar.nix
 
     inputs.spicetify-nix.homeManagerModules.default
@@ -64,11 +65,6 @@ in
         anki # Flash cards
         obsidian # Second brain
         gimp3 # Image editor
-
-        reaper
-        reaper-reapack-extension
-        reaper-sws-extension
-        lsp-plugins
 
         qbittorrent # Linux ISOs
 
