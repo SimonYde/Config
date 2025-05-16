@@ -32,6 +32,7 @@ in
     steam = {
       enable = true;
       gamescopeSession.enable = true;
+      protontricks.enable = true;
 
       # with Glorious Eggroll Proton
       extraCompatPackages = with pkgs; [ proton-ge-bin ];

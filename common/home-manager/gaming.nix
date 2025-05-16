@@ -1,23 +1,38 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, ... }@args:
 {
   home.packages = with pkgs; [
     # Applications
-    (lutris.override {
-      extraPkgs = pkgs: [
-        pkgs.wineWowPackages.staging
-        pkgs.wineWowPackages.fonts
-        pkgs.winetricks
-      ];
-    })
-
     heroic
     prismlauncher
+    protontricks
 
     # ---Wine and Wine Dependencies---
-    wineWowPackages.staging
-    wineWowPackages.fonts
+    wineWow64Packages.staging
+    wineWow64Packages.fonts
     winetricks
   ];
+
+  programs.lutris = {
+    enable = true;
+
+    extraPackages = with pkgs; [
+      mangohud
+      winetricks
+      protontricks
+      gamescope
+      gamemode
+      umu-launcher
+    ];
+
+    protonPackages = [ pkgs.proton-ge-bin ];
+
+    steamPackage = if (args ? osConfig) then args.osConfig.programs.steam.package else pkgs.steam;
+
+    winePackages = with pkgs; [
+      wineWow64Packages.fonts
+      wineWow64Packages.staging
+    ];
+  };
 
   programs.mangohud = {
     enable = true;
