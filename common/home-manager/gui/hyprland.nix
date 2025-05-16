@@ -55,6 +55,8 @@ in
     grimblast # screenshot tool
     wl-clipboard # clipboard manager
     hyprpicker # color picker
+
+    nwg-displays # Monitor settings
   ];
 
   programs = {

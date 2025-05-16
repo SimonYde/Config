@@ -105,11 +105,9 @@ in
 {
   imports = [ inputs.zen-browser.homeModules.default ];
 
-  syde.gui.browser = "zen-beta";
-
   xdg.mimeApps.defaultApplications =
     let
-      browser-mime =  if browser == "brave" then "brave-browser" else browser;
+      browser-mime = { brave = "brave-browser"; }.${browser} or browser;
     in
     {
       "x-scheme-handler/http" = "${browser-mime}.desktop";
