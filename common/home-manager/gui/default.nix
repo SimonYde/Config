@@ -113,6 +113,7 @@ in
             "video/mp4" = "mpv.desktop";
             "video/mpv" = "mpv.desktop";
             "video/mpeg" = "mpv.desktop";
+            "video/x-matroska" = "mpv.desktop";
           };
         };
       };
@@ -190,15 +191,14 @@ in
           scripts = with pkgs.mpvScripts; [
             sponsorblock
             uosc
-            thumbnail
+            thumbfast
           ];
 
           config = {
-            vo = "gpu";
             hwdec = "auto";
-            profile = "gpu-hq";
-            ytdl-format = "best[height<=720]";
             osc = "no";
+            osd-bar = "no";
+            ytdl-format = "bestvideo+bestaudio";
             save-position-on-quit = true;
           };
         };
@@ -374,7 +374,7 @@ in
         "zen"
         "zen-beta"
       ];
-      default = "zen";
+      default = "zen-beta";
     };
 
     file-manager = {
@@ -383,7 +383,7 @@ in
         default = "pcmanfm";
       };
 
-      package = mkPackageOption pkgs "pcmanfm" { };
+      package = mkPackageOption pkgs file-manager.name { };
     };
 
     terminal = {
