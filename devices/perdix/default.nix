@@ -9,17 +9,37 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
-    ../common/desktop.nix
-    ../common/nixos/laptop.nix
-    ../common/nixos/hyprland.nix
+    ../../common/server.nix
   ];
 
-  specialisation."gaming".configuration = {
-    imports = [ ../common/nixos/gaming.nix ];
-    environment.etc."specialisation".text = "gaming";
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
+  boot = {
+    initrd.availableKernelModules = [
+      "nvme"
+      "xhci_pci"
+      "ahci"
+      "usb_storage"
+      "sd_mod"
+    ];
+
+    loader = {
+      efi.canTouchEfiVariables = true;
+
+      systemd-boot = {
+        enable = true;
+        editor = false;
+      };
+    };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  services.logind.lidSwitch = "ignore";
+  console = {
+    earlySetup = true;
+    useXkbConfig = true;
+    font = "ter-i24n";
+    packages = [ pkgs.terminus_font ];
+  };
 
   # Personal configurations
   syde = {
@@ -27,23 +47,39 @@
       nvidia.enable = true;
       amd = {
         cpu.enable = true;
-        gpu.enable = true;
       };
     };
   };
 
+  hardware = {
+    enableAllHardware = true;
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+  };
+
   programs = {
-    wireshark.enable = true;
     partition-manager.enable = true;
   };
 
-  users.users.${username}.extraGroups = [ "libvirtd" ];
-  virtualisation.libvirtd.enable = true;
-  virtualisation.waydroid.enable = true;
+  networking = {
+    useDHCP = lib.mkDefault true;
 
-  programs.virt-manager.enable = true;
+    firewall = {
+      enable = true;
 
-  networking.firewall.enable = lib.mkForce false;
+      allowedTCPPorts = [
+        80 # HTTP
+        443 # HTTPS
+      ];
+
+      trustedInterfaces = [ "tailscale0" ];
+    };
+
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
+  };
 
   services = {
     tailscale = {
@@ -111,21 +147,5 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
-  };
-
-  home-manager.users.${username} = {
-    services.hypridle.settings.listener =
-      let
-        brightnessctl = lib.getExe pkgs.brightnessctl;
-      in
-      [
-        # Turn off keyboard backlight on idle.
-        {
-          timeout = 60;
-          # NOTE: name of device is specific for this device
-          on-timeout = "${brightnessctl} -sd platform::kbd_backlight set 0";
-          on-resume = "${brightnessctl} -rd platform::kbd_backlight";
-        }
-      ];
   };
 }

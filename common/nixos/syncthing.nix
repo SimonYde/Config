@@ -95,7 +95,6 @@ in
             "icarus"
             "talos"
             "daedelus"
-            "perdix"
             "theseus"
           ];
           versioning = {
@@ -108,7 +107,6 @@ in
           path = "${home}/Audiobooks";
           devices = [
             "icarus"
-            "perdix"
             "talos"
             "daedelus"
             "theseus"
@@ -131,7 +129,6 @@ in
           path = "${home}/Pictures";
           devices = [
             "icarus"
-            "perdix"
             "talos"
             "daedelus"
             "theseus"
@@ -143,7 +140,6 @@ in
           devices = [
             "icarus"
             "icarus-wsl"
-            "perdix"
             "talos"
             "daedelus"
             "theseus"
@@ -166,7 +162,6 @@ in
           path = "${home}/Ebooks";
           devices = [
             "icarus"
-            "perdix"
             "talos"
             "daedelus"
             "theseus"
