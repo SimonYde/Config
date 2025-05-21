@@ -14,13 +14,13 @@
     ../common/nixos/hyprland.nix
   ];
 
-
   specialisation."gaming".configuration = {
     imports = [ ../common/nixos/gaming.nix ];
     environment.etc."specialisation".text = "gaming";
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "amdgpu.dcdebugmask=0x10" ];
 
   syde.hardware.amd.cpu.enable = true;
   syde.hardware.amd.gpu.enable = true;
@@ -35,11 +35,8 @@
 
   users.users.${username}.extraGroups = [ "libvirtd" ];
   virtualisation.libvirtd.enable = true;
-  virtualisation.waydroid.enable = true;
 
   programs.virt-manager.enable = true;
-
-  networking.firewall.enable = lib.mkForce false;
 
   services = {
     tailscale = {
@@ -90,7 +87,7 @@
     xserver.xkb = {
       layout = "us,dk";
       variant = "colemak_dh,";
-      options = "caps:escape,grp:rctrl_toggle";
+      options = "caps:escape";
     };
   };
 
@@ -100,7 +97,10 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/BOOT";
     fsType = "vfat";
-    options = [ "fmask=0077" "dmask=0077" ];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   fileSystems."/" = {
@@ -108,18 +108,10 @@
     fsType = "ext4";
   };
 
-  swapDevices = [{
-  device = "/dev/disk/by-label/swap";
-  }];
+  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
   home-manager.users.${username} = {
-    programs.hyprlock.settings.auth = {
-      fingerprint = {
-        enabled = true;
-      };
-    };
-
-    syde.gui.browser = lib.mkForce "brave";
+    programs.hyprlock.settings.auth.fingerprint.enabled = true;
 
     services.hypridle.settings.listener =
       let
