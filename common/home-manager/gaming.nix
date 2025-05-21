@@ -2,14 +2,16 @@
 {
   home.packages = with pkgs; [
     # Applications
-    heroic
-    prismlauncher
-    protontricks
+    heroic # Epic / Gog
+    prismlauncher # Minecraft
+    limo # mod manager
+    # nexusmods-app-unfree # WIP official Nexusmods mod manager
 
     # ---Wine and Wine Dependencies---
     wineWow64Packages.staging
     wineWow64Packages.fonts
     winetricks
+    protontricks
   ];
 
   programs.lutris = {
