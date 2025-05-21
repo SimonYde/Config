@@ -23,6 +23,7 @@
         vim-sleuth
         undotree
         friendly-snippets
+        nvim-lspconfig
 
         obsidian-nvim
 
@@ -37,7 +38,6 @@
         wezterm-types
 
         # ----- Workflow -----
-        nvim-lspconfig
         conform-nvim
         trouble-nvim
         diffview-nvim

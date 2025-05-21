@@ -1,6 +1,4 @@
-vim.api.nvim_create_user_command('Base16', function()
-    pcall(vim.fs.rm, vim.fn.stdpath('config') .. '/colors/base16.lua')
-
+Load.later(function()
     local palette_path = vim.env.XDG_CONFIG_HOME .. '/stylix/palette.json'
 
     if not vim.uv.fs_stat(palette_path) then
@@ -67,11 +65,4 @@ vim.api.nvim_create_user_command('Base16', function()
     ]])
     -- Add a line to distinguish between context and current position
     vim.cmd('hi TreesitterContextBottom gui=underline')
-
-    require('mini.colors').get_colorscheme():add_cterm_attributes():write({ name = 'base16' })
-end, {})
-
-Load.later(function()
-    local ok, _ = pcall(vim.cmd.colorscheme, 'base16')
-    if not ok then vim.cmd.Base16() end
 end)

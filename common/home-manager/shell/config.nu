@@ -120,6 +120,7 @@ let external_completer = {|spans: list<string>|
     match $spans.0 {
         # use zoxide completions for zoxide commands
         __zoxide_z|__zoxide_zi => $zoxide_completer
+        z|zi => $zoxide_completer
         hyprctl => $fish_completer
         tailscale => $fish_completer
         topiary => $fish_completer
