@@ -149,7 +149,6 @@ in
         firefox-profile.settings
 
         {
-          "zen.tabs.vertical.right-side" = true;
           "zen.view.compact.animate-sidebar" = false;
           "zen.view.experimental-no-window-controls" = true;
           "zen.view.experimental-rounded-view" = false;
