@@ -28,9 +28,10 @@ vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50' -- Change curso
 vim.o.conceallevel = 2
 
 vim.o.foldtext = '' -- Use underlying text with its highlighting
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
--- vim.o.foldlevel = 500 -- Fold everything except top-most folds
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldlevel = 100 -- Fold everything except top-most folds
+vim.o.foldlevelstart = 100
 
 -- Editing ====================================================================
 vim.o.shiftwidth = 4
