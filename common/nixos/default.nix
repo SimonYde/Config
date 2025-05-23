@@ -28,7 +28,7 @@ in
     ./nvidia.nix
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 
   i18n.defaultLocale = "en_GB.UTF-8";
 
