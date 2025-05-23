@@ -41,7 +41,7 @@ let
 in
 {
   imports = [
-    inputs.stylix.homeManagerModules.stylix
+    inputs.stylix.homeModules.stylix
     ../base/theming/home.nix
     ../base/theming/shared.nix
     ../base/nix-settings.nix
