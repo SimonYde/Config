@@ -43,7 +43,7 @@
     extraConfig = {
       pipewire."92-low-latency" = {
         "context.properties" = {
-          "default.clock.rate" = 44100;
+          "default.clock.rate" = 48000;
           "default.clock.quantum" = 64;
           "default.clock.min-quantum" = 64;
           "default.clock.max-quantum" = 64;
@@ -58,14 +58,14 @@
           }
         ];
         "pulse.properties" = {
-          "pulse.min.req" = "64/44100";
-          "pulse.default.req" = "64/44100";
-          "pulse.max.req" = "64/44100";
-          "pulse.min.quantum" = "64/44100";
-          "pulse.max.quantum" = "64/44100";
+          "pulse.min.req" = "64/48000";
+          "pulse.default.req" = "64/48000";
+          "pulse.max.req" = "64/48000";
+          "pulse.min.quantum" = "64/48000";
+          "pulse.max.quantum" = "64/48000";
         };
         "stream.properties" = {
-          "node.latency" = "64/44100";
+          "node.latency" = "64/48000";
           "resample.quality" = 1;
         };
       };

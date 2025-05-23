@@ -3,7 +3,6 @@
   inputs,
   config,
   lib,
-  username,
   ...
 }:
 {

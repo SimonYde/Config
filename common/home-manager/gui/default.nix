@@ -21,7 +21,7 @@ in
 {
   imports = [
     ./browser.nix
-    ./daw.nix
+    ./audio-production.nix
     ./waybar.nix
 
     inputs.spicetify-nix.homeManagerModules.default
