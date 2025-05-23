@@ -48,6 +48,7 @@ in
 
     # Editor
     neovim.enable = true;
+    helix.enable = false;
 
     # Tools
     atuin.enable = true;
@@ -117,6 +118,8 @@ in
   };
 
   programs.fzf.defaultCommand = "${getExe pkgs.fd} -H --type file";
+
+  programs.helix.package = pkgs.evil-helix;
 
   programs.nushell = {
     configFile.text = # nu

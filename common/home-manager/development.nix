@@ -102,9 +102,12 @@ in
           settings.git_protocol = "ssh";
         };
 
-        git.difftastic = {
+        git.delta = {
           enable = true;
-          display = "inline";
+          options = {
+            features = "decorations";
+            whitespace-error-style = "22 reverse";
+          };
         };
 
         gpg = {
@@ -121,7 +124,11 @@ in
               email = "git@simonyde.com";
             };
 
-            ui.default-command = "log-recent";
+            ui = {
+              default-command = "log-recent";
+              pager = lib.getExe pkgs.delta;
+              diff.format = "git";
+            };
 
             aliases = {
               c = [ "commit" ];
