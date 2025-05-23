@@ -133,7 +133,7 @@ in
       monitor = "";
       text = ''cmd[update:1000] echo "<b><big>$TIME</big></b>"'';
       text_align = "center";
-      font_size = 45;
+      font_size = 110;
       rotate = 0;
       position = "0, 80";
       halign = "center";
