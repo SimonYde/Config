@@ -138,7 +138,7 @@ in
   environment.shells = [ pkgs.nushell-wrapped ];
 
   users = {
-    mutableUsers = false;
+    mutableUsers = true;
 
     users = {
       root = {
