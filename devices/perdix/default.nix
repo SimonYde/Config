@@ -5,13 +5,26 @@
   lib,
   ...
 }:
+let
+  zfsCompatibleKernelPackages = lib.filterAttrs (
+    name: kernelPackages:
+    (builtins.match "linux_[0-9]+_[0-9]+" name) != null
+    && (builtins.tryEval kernelPackages).success
+    && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
+  ) pkgs.linuxKernel.packages;
+  latestKernelPackage = lib.last (
+    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
+      builtins.attrValues zfsCompatibleKernelPackages
+    )
+  );
+in
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = latestKernelPackage;
 
   boot = {
     initrd.availableKernelModules = [
@@ -42,7 +55,7 @@
   # Personal configurations
   syde = {
     hardware = {
-      nvidia.enable = true;
+      nvidia.enable = false;
       amd = {
         cpu.enable = true;
       };
@@ -53,10 +66,6 @@
     enableAllHardware = true;
     enableAllFirmware = true;
     enableRedistributableFirmware = true;
-  };
-
-  programs = {
-    partition-manager.enable = true;
   };
 
   networking = {
@@ -87,26 +96,45 @@
 
     logind.lidSwitch = "ignore";
 
-    tailscale = {
-      enable = true;
-      authKeyFile = config.age.secrets.tailscale.path;
-    };
+    tailscale.enable = true;
 
     syncthing.enable = true;
   };
 
   networking.wireguard.enable = true;
-
-  # Filesystems
-  boot.initrd.luks.devices."luks-8c2b7981-b3e3-470e-aae7-2834b1352fa5".device =
-    "/dev/disk/by-uuid/8c2b7981-b3e3-470e-aae7-2834b1352fa5";
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/SYSTEM_DRV";
-    fsType = "vfat";
-  };
+  # $ head -c 4 /dev/urandom | xxd -p
+  networking.hostId = "d10ef1c6";
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
+    device = "zpool/root";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/nix" = {
+    device = "zpool/nix";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var" = {
+    device = "zpool/var";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/home" = {
+    device = "zpool/home";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/49B2-C8B0";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
   };
 }
