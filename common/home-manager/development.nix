@@ -105,6 +105,8 @@ in
         git.delta = {
           enable = true;
           options = {
+            hyperlinks = true;
+            true-color = "always";
             features = "decorations";
             whitespace-error-style = "22 reverse";
           };
