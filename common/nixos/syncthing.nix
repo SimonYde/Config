@@ -65,7 +65,7 @@ in
 
         perdix = {
           name = "Perdix";
-          id = "6PVHCIQ-EY6Z6P5-B7FCY67-F3R6MZM-CSJON5L-QYBMWVY-TY4FQU6-OHDKJQK";
+          id = "IVWDHBF-LKMNFOG-3XALMVI-HKF2PFC-PP3IPMB-7MQM6VW-7O3OKLI-L5JQEQZ";
           introducer = false;
         };
 
