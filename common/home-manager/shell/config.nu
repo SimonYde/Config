@@ -122,6 +122,7 @@ let external_completer = {|spans: list<string>|
         __zoxide_z|__zoxide_zi => $zoxide_completer
         z|zi => $zoxide_completer
         hyprctl => $fish_completer
+        ncspot => $fish_completer
         tailscale => $fish_completer
         topiary => $fish_completer
         trash => $fish_completer
