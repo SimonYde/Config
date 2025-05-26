@@ -43,6 +43,7 @@ in
 
         # other GUI programs
         mpv.enable = true;
+        ncspot.enable = true;
         imv.enable = true;
         spicetify.enable = true;
         zathura.enable = true;
@@ -183,6 +184,10 @@ in
             "ctrl+alt+tab=toggle_tab_overview"
             "ctrl+alt+s=write_screen_file:open"
           ];
+        };
+
+        ncspot.settings = {
+          use_nerdfont = true;
         };
 
         mpv = {

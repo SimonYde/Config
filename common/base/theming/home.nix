@@ -44,6 +44,7 @@ in
       firefox.enable = false;
       neovim.enable = false;
       nushell.enable = false;
+      ncspot.enable = false;
       waybar = {
         font = "sansSerif";
         addCss = false;
