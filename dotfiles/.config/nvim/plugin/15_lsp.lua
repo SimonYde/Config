@@ -134,5 +134,6 @@ Load.later(function()
         'ols',
         'ruff',
         'tinymist',
+        'typst-languagetool',
     })
 end)

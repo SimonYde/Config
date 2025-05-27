@@ -39,6 +39,7 @@
   programs.virt-manager.enable = true;
 
   services = {
+    languagetool.enable = true;
     tailscale = {
       enable = true;
       # authKeyFile = config.age.secrets.tailscale.path;
