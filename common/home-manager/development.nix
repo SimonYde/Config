@@ -394,6 +394,10 @@ in
         crates-nvim
       ];
 
+      home.sessionPath = [
+        "${config.xdg.dataHome}/cargo/bin"
+      ];
+
       home.sessionVariables = {
         CARGO_HOME = "${config.xdg.dataHome}/cargo";
         RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
