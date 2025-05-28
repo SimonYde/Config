@@ -22,6 +22,11 @@ in
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
+    ./nginx.nix
+    ./acme.nix
+    ./vaultwarden.nix
+    ./jellyfin.nix
+    ./media.nix
   ];
 
   boot.kernelPackages = latestKernelPackage;
@@ -73,12 +78,6 @@ in
 
     firewall = {
       enable = true;
-
-      allowedTCPPorts = [
-        80 # HTTP
-        443 # HTTPS
-      ];
-
       trustedInterfaces = [ "tailscale0" ];
     };
 
@@ -89,16 +88,13 @@ in
   };
 
   services = {
-    jellyfin = {
-      enable = true;
-      openFirewall = true;
-    };
-
     logind.lidSwitch = "ignore";
 
     tailscale.enable = true;
 
     syncthing.enable = true;
+
+    zfs.autoScrub.enable = true;
   };
 
   networking.wireguard.enable = true;
@@ -106,6 +102,7 @@ in
   networking.hostId = "d10ef1c6";
 
   fileSystems."/" = {
+    neededForBoot = true;
     device = "zpool/root";
     fsType = "zfs";
     options = [ "zfsutil" ];
