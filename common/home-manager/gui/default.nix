@@ -23,6 +23,7 @@ in
     ./browser.nix
     ./audio-production.nix
     ./waybar.nix
+    ./swww.nix
 
     inputs.spicetify-nix.homeManagerModules.default
   ];

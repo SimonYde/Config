@@ -13,15 +13,6 @@ let
     ;
   inherit (config.syde.gui) file-manager terminal browser;
 
-  random-wallpaper = pkgs.writeShellScriptBin "random-wallpaper" ''
-    CURRENT=$(hyprctl hyprpaper listloaded)
-    # Get a random wallpaper that is not the current one
-    WALLPAPER=$(${pkgs.fd}/bin/fd . "${config.home.sessionVariables.WALLPAPER_DIR}" -t f -E "$CURRENT" | shuf -n 1)
-
-    # Apply the selected wallpaper
-    hyprctl hyprpaper reload ,"$WALLPAPER"
-  '';
-
   hyprland-gamemode = pkgs.writeShellScriptBin "hyprland-gamemode" ''
     HYPRGAMEMODE=$(hyprctl getoption animations:enabled | sed -n '1p' | awk '{print $2}')
 
@@ -46,7 +37,6 @@ in
 {
   home.packages = with pkgs; [
     # My scripts
-    random-wallpaper
     hyprland-gamemode
 
     # Extra utilities
@@ -73,10 +63,10 @@ in
 
     gammastep.enable = true;
     hypridle.enable = true;
-    hyprpaper.enable = true;
 
     swaync.enable = true;
     swayosd.enable = true;
+    swww.enable = true;
   };
 
   wayland.windowManager.hyprland = {
@@ -186,34 +176,6 @@ in
         };
 
         Install.WantedBy = [ config.wayland.systemd.target ];
-      };
-
-      random-wallpaper = {
-        Unit = {
-          Description = "Cycle hyprpaper to new wallpaper at random";
-          After = [ "hyprpaper.service" ];
-          Requires = [ "hyprpaper.service" ];
-        };
-
-        Service = {
-          Type = "oneshot";
-          ExecStart = getExe random-wallpaper;
-          IOSchedulingClass = "idle";
-          Restart = "on-failure";
-          RestartSec = "10";
-        };
-
-        Install.WantedBy = [ "hyprpaper.service" ];
-      };
-    };
-
-    timers = {
-      random-wallpaper = {
-        Unit.Description = "Cycle hyprpaper to new wallpaper at random";
-
-        Timer.OnUnitActiveSec = "15min";
-
-        Install.WantedBy = [ "timers.target" ];
       };
     };
   };
