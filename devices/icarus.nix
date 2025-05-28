@@ -37,7 +37,10 @@
     };
   };
 
-  programs.partition-manager.enable = true;
+  programs = {
+    partition-manager.enable = true;
+    wireshark.enable = true;
+  };
 
   services.pipewire = {
     extraConfig = {

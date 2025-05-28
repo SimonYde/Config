@@ -1,0 +1,94 @@
+{ lib, ... }:
+{
+  options.services.nginx = {
+    upstreams = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule { config.extraConfig = lib.mkOverride 99 "keepalive 8;"; }
+      );
+    };
+    virtualHosts = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          # Priority slightly above normal explicit values, so it wins against service modules,
+          # but still loses to mkForce
+          config = lib.mkOverride 99 {
+            forceSSL = true;
+            enableACME = true;
+            acmeRoot = null;
+            kTLS = true;
+            http3 = true;
+          };
+
+          options.locations = lib.mkOption {
+            type = lib.types.attrsOf (
+              lib.types.submodule {
+                config.extraConfig = ''
+                  add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+                '';
+              }
+            );
+          };
+        }
+      );
+    };
+  };
+
+  config = {
+    services = {
+      nginx = {
+        enable = true;
+
+        recommendedOptimisation = true;
+        recommendedTlsSettings = true;
+        recommendedGzipSettings = true;
+        recommendedBrotliSettings = true;
+        recommendedZstdSettings = true;
+        recommendedProxySettings = true;
+
+        resolver.addresses = [ "127.0.0.53" ];
+
+        statusPage = true;
+
+        # give Nginx access to our certs
+        group = "acme";
+
+        appendConfig = ''
+          worker_processes auto;
+        '';
+
+        appendHttpConfig = ''
+          access_log syslog:server=unix:/dev/log,severity=debug;
+        '';
+
+        eventsConfig = ''
+          worker_connections 2048;
+        '';
+
+        # Required for QUIC with workers
+        virtualHosts.localhost = {
+          reuseport = true;
+          enableACME = lib.mkForce false;
+          forceSSL = lib.mkForce false;
+        };
+      };
+
+      logrotate.enable = false;
+
+      resolved.enable = true;
+
+      # prometheus.exporters.nginx = {
+      #   enable = true;
+      #   port = 9004;
+      #   sslVerify = false;
+      # };
+    };
+
+    networking.firewall = {
+      allowedTCPPorts = [
+        80
+        443
+      ];
+      allowedUDPPorts = [ 443 ];
+    };
+  };
+}
