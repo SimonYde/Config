@@ -89,6 +89,7 @@ _:
 
     ignores = [
       "result"
+      "**/Session.vim"
       "**/.idea"
       "**/.metals"
       "**/_build"
