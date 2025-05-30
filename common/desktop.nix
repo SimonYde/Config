@@ -75,16 +75,7 @@ in
   networking = {
     useDHCP = mkDefault true;
 
-    firewall = {
-      enable = true;
-
-      allowedTCPPorts = [
-        80 # HTTP
-        443 # HTTPS
-      ];
-
-      trustedInterfaces = [ "tailscale0" ];
-    };
+    firewall.enable = true;
 
     networkmanager = {
       enable = true;

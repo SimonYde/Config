@@ -85,6 +85,7 @@ in
     };
   };
 
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
   networking.wg-quick.interfaces = mkIf config.networking.wireguard.enable {
     proton = {
       autostart = false;
@@ -178,7 +179,10 @@ in
   };
 
   age = {
-    identityPaths = [ "/home/${username}/.ssh/id_ed25519" ];
+    identityPaths = [
+      "/home/${username}/.ssh/id_ed25519"
+      "/etc/ssh/ssh_host_ed25519_key"
+    ];
     ageBin = getExe pkgs.rage;
 
     secrets = {
