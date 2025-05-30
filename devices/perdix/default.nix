@@ -76,15 +76,14 @@ in
   networking = {
     useDHCP = lib.mkDefault true;
 
-    firewall = {
-      enable = true;
-      trustedInterfaces = [ "tailscale0" ];
-    };
+    firewall.enable = true;
 
     networkmanager = {
       enable = true;
       wifi.powersave = false;
     };
+
+    wireguard.enable = true;
   };
 
   services = {
@@ -97,7 +96,6 @@ in
     zfs.autoScrub.enable = true;
   };
 
-  networking.wireguard.enable = true;
   # $ head -c 4 /dev/urandom | xxd -p
   networking.hostId = "d10ef1c6";
 

@@ -75,3 +75,5 @@ module tailscale {
 }
 
 use tailscale *
+
+alias ts = tailscale
