@@ -63,16 +63,6 @@ $env.config = {
 
 alias fg = job unfreeze
 
-let maybe_nom = which nom | each { "--nom" }
-
-def --wrapped nix-shell (...args) {
-    nix-your-shell nu ...$maybe_nom nix-shell -- ...$args
-}
-
-def --wrapped nix (...args) {
-    nix-your-shell nu ...$maybe_nom nix -- ...$args
-}
-
 $env.NIXPKGS_ALLOW_UNFREE = 1
 
 let prompt = {||

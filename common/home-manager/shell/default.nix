@@ -29,8 +29,6 @@ in
       rsync
 
       isd # Interactive systemd utility
-
-      nix-your-shell
     ];
 
     shellAliases = {
@@ -61,6 +59,7 @@ in
     git.enable = true;
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
+    nix-your-shell.enable = true;
     pandoc.enable = true;
     ripgrep.enable = true;
     starship.enable = true;
