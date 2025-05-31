@@ -7,6 +7,7 @@ Load.now(function()
     require('snacks').setup({
         bufremove = {},
         image = {
+            doc = { enabled = false },
             math = { enabled = false },
         },
         notifier = {},

@@ -81,6 +81,14 @@ in
   };
 
   programs = {
+    neovim.plugins = [
+      pkgs.vimPlugins.catppuccin-nvim
+      (pkgs.vimUtils.buildVimPlugin {
+        version = "nightly";
+        pname = "colorscheme.nvim";
+        src = ./catppuccin-colorscheme;
+      })
+    ];
     fzf.colors.bg = mkForce "";
 
     git = {

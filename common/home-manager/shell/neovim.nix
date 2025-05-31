@@ -23,8 +23,6 @@
         vim-sleuth
         undotree
         friendly-snippets
-        nvim-lspconfig
-
         obsidian-nvim
 
         # ----- UI -----
@@ -36,6 +34,7 @@
         # ----- Completion -----
         blink-cmp
         wezterm-types
+        nvim-lspconfig
 
         # ----- Workflow -----
         conform-nvim

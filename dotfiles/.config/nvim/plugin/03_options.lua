@@ -36,6 +36,7 @@ vim.o.foldlevelstart = 100
 -- Editing ====================================================================
 vim.o.shiftwidth = 4
 vim.o.tabstop = vim.o.shiftwidth
+vim.o.softtabstop = vim.o.shiftwidth
 vim.o.expandtab = true
 
 vim.o.formatoptions = 'rqnl1j' -- Improve comment editing
