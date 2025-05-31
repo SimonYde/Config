@@ -1,4 +1,5 @@
 Load.later(function()
+    do return end
     local palette_path = vim.env.XDG_CONFIG_HOME .. '/stylix/palette.json'
 
     if not vim.uv.fs_stat(palette_path) then

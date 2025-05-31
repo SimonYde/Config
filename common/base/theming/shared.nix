@@ -9,9 +9,9 @@
     enable = true;
     image = null;
     polarity = config.lib.stylix.colors.variant;
-    base16Scheme = "${inputs.tinted-schemes}/base16/gruvbox-dark-hard.yaml";
+    base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
     override = {
-      base00 = "1b1b1b";
+      base00 = "181825"; # mantle instead of base
     };
 
     cursor = {
