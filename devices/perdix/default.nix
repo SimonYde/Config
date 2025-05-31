@@ -22,11 +22,12 @@ in
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
-    ./nginx.nix
     ./acme.nix
     ./vaultwarden.nix
     ./jellyfin.nix
     ./media.nix
+    ./nginx.nix
+    ./homepage.nix
   ];
 
   boot.kernelPackages = latestKernelPackage;

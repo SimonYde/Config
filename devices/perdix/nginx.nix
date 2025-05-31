@@ -70,6 +70,11 @@
           enableACME = lib.mkForce false;
           forceSSL = lib.mkForce false;
         };
+
+        virtualHosts."edgeos.ts.simonyde.com".locations."/" = {
+          proxyPass = "https://192.168.1.1:8443";
+          proxyWebsockets = true;
+        };
       };
 
       logrotate.enable = false;
