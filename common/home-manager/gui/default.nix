@@ -16,7 +16,6 @@ let
     types
     ;
   inherit (config.syde.gui) file-manager terminal image-viewer;
-  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
@@ -24,8 +23,6 @@ in
     ./audio-production.nix
     ./waybar.nix
     ./swww.nix
-
-    inputs.spicetify-nix.homeManagerModules.default
   ];
 
   config = mkMerge [
@@ -46,7 +43,6 @@ in
         mpv.enable = true;
         ncspot.enable = true;
         imv.enable = true;
-        spicetify.enable = true;
         zathura.enable = true;
       };
 
@@ -207,20 +203,6 @@ in
             ytdl-format = "bestvideo+bestaudio";
             save-position-on-quit = true;
           };
-        };
-
-        spicetify = {
-          enabledCustomApps = with spicePkgs.apps; [
-            lyricsPlus
-            newReleases
-          ];
-
-          enabledExtensions = with spicePkgs.extensions; [
-            adblock
-            fullAppDisplayMod
-            goToSong
-            history
-          ];
         };
 
         wlogout.layout = [
