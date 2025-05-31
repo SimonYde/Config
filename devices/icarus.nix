@@ -1,7 +1,6 @@
 {
   pkgs,
   username,
-  lib,
   inputs,
   ...
 }:
@@ -26,8 +25,6 @@
     };
   };
 
-  services.xserver.xkb.layout = "eu";
-
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
@@ -42,59 +39,66 @@
     wireshark.enable = true;
   };
 
-  services.pipewire = {
-    extraConfig = {
-      pipewire."92-low-latency" = {
-        "context.properties" = {
-          "default.clock.rate" = 48000;
-          "default.clock.quantum" = 64;
-          "default.clock.min-quantum" = 64;
-          "default.clock.max-quantum" = 64;
-        };
-      };
-
-      pipewire-pulse."92-low-latency" = {
-        "context.properties" = [
-          {
-            name = "libpipewire-module-protocol-pulse";
-            args = { };
-          }
-        ];
-        "pulse.properties" = {
-          "pulse.min.req" = "64/48000";
-          "pulse.default.req" = "64/48000";
-          "pulse.max.req" = "64/48000";
-          "pulse.min.quantum" = "64/48000";
-          "pulse.max.quantum" = "64/48000";
-        };
-        "stream.properties" = {
-          "node.latency" = "64/48000";
-          "resample.quality" = 1;
-        };
-      };
-    };
-
-    wireplumber.configPackages = [
-      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/99-audient-id14.conf" ''
-        monitor.alsa.rules = [
-          {
-            matches = [{ node.name = "alsa_output.usb-Audient_Audient_iD14-00.*" }]
-            actions = {
-              update-props = {
-                audio.allowed-rates = [44100, 48000, 88200, 96000, 176400, 192000]
-              }
-            }
-          }
-        ]
-      '')
-    ];
-  };
-
   services = {
     safeeyes.enable = true;
     ratbagd.enable = true;
     tailscale.enable = true;
     syncthing.enable = true;
+
+    xserver.xkb.layout = "eu";
+
+    udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c547", ATTR{power/wakeup}="disabled", ATTR{driver/1-1/power/wakeup}="disabled"
+    '';
+
+    pipewire = {
+      extraConfig = {
+        pipewire."92-low-latency" = {
+          "context.properties" = {
+            "default.clock.rate" = 48000;
+            "default.clock.quantum" = 64;
+            "default.clock.min-quantum" = 64;
+            "default.clock.max-quantum" = 64;
+          };
+        };
+
+        pipewire-pulse."92-low-latency" = {
+          "context.properties" = [
+            {
+              name = "libpipewire-module-protocol-pulse";
+              args = { };
+            }
+          ];
+          "pulse.properties" = {
+            "pulse.min.req" = "64/48000";
+            "pulse.default.req" = "64/48000";
+            "pulse.max.req" = "64/48000";
+            "pulse.min.quantum" = "64/48000";
+            "pulse.max.quantum" = "64/48000";
+          };
+          "stream.properties" = {
+            "node.latency" = "64/48000";
+            "resample.quality" = 1;
+          };
+        };
+      };
+
+      wireplumber.configPackages = [
+        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/99-audient-id14.conf" ''
+          monitor.alsa.rules = [
+            {
+              matches = [{ node.name = "alsa_output.usb-Audient_Audient_iD14-00.*" }]
+              actions = {
+                update-props = {
+                  audio.allowed-rates = [44100, 48000, 88200, 96000, 176400, 192000]
+                }
+              }
+            }
+          ]
+        '')
+      ];
+    };
+
   };
 
   powerManagement.cpuFreqGovernor = "performance";
