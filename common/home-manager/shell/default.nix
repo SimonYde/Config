@@ -29,9 +29,11 @@ in
       rsync
 
       isd # Interactive systemd utility
+      systemctl-tui # Alternative to `isd`
     ];
 
     shellAliases = {
+      st = "systemctl-tui";
       ll = "ls -l";
       lla = "ls -la";
       la = "ls -a";
