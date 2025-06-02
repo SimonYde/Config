@@ -4,16 +4,18 @@ local action = wezterm.action
 ---@class Wezterm
 local config = wezterm.config_builder()
 
-config.color_scheme = "stylix"
+local ok, colorscheme = pcall(require, "stylix")
+if ok then
+	for key, value in pairs(colorscheme) do
+		config[key] = value
+	end
+end
 
 config.max_fps = 120
 
-config.font_size = 11.5
-config.command_palette_font_size = 13
 config.underline_position = -4
 config.adjust_window_size_when_changing_font_size = false
 
--- config.window_background_opacity = 0.9
 config.window_decorations = "NONE"
 config.window_padding = {
 	left = 0,
