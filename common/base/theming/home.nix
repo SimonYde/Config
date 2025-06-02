@@ -18,8 +18,6 @@
 let
   inherit (lib)
     mkForce
-    mkIf
-    mkMerge
     mkOrder
     toHexString
     toLower
@@ -31,6 +29,9 @@ let
   mkRgba =
     opacity: color:
     "rgba(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"},${hexOpacity opacity})";
+  mkRgb = 
+    color:
+    "rgb(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"})";
 in
 {
   stylix = {
@@ -81,14 +82,59 @@ in
   };
 
   programs = {
-    neovim.plugins = [
-      pkgs.vimPlugins.catppuccin-nvim
-      (pkgs.vimUtils.buildVimPlugin {
-        version = "nightly";
-        pname = "colorscheme.nvim";
-        src = ./catppuccin-colorscheme;
-      })
-    ];
+    anyrun.extraCss = # css
+      ''
+        * {
+          all: unset;
+          font-size: ${toString fonts.sizes.popups}pt;
+        }
+
+        #window,
+        #match,
+        #entry,
+        #plugin,
+        #main {
+          background: transparent;
+        }
+
+        #match.activatable {
+          border-radius: 8px;
+          margin: 4px 0;
+          padding: 4px;
+          /* transition: 100ms ease-out; */
+        }
+        #match.activatable:first-child {
+          margin-top: 12px;
+        }
+        #match.activatable:last-child {
+          margin-bottom: 0;
+        }
+
+        #match:hover {
+          background: rgba(255, 255, 255, 0.05);
+        }
+        #match:selected {
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        #entry {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          padding: 4px 8px;
+        }
+
+        box#main {
+          background: ${mkRgba opacity.popups "base00"};
+          box-shadow:
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+            0 30px 30px 15px rgba(0, 0, 0, 0.5);
+          border-radius: 20px;
+          padding: 12px;
+        }
+
+      '';
+
     fzf.colors.bg = mkForce "";
 
     git = {
@@ -119,6 +165,15 @@ in
       "font.name.sans-serif.x-western" = fonts.sansSerif.name;
       "font.name.serif.x-western" = fonts.serif.name;
     };
+
+    neovim.plugins = [
+      pkgs.vimPlugins.catppuccin-nvim
+      (pkgs.vimUtils.buildVimPlugin {
+        version = "nightly";
+        pname = "colorscheme.nvim";
+        src = ./catppuccin-colorscheme;
+      })
+    ];
 
     nushell.extraConfig =
       with colors.withHashtag;
@@ -339,58 +394,10 @@ in
 
       '';
 
-    anyrun.extraCss = # css
-      ''
-        * {
-          all: unset;
-          font-size: ${toString fonts.sizes.popups}pt;
-        }
 
-        #window,
-        #match,
-        #entry,
-        #plugin,
-        #main {
-          background: transparent;
-        }
-
-        #match.activatable {
-          border-radius: 8px;
-          margin: 4px 0;
-          padding: 4px;
-          /* transition: 100ms ease-out; */
-        }
-        #match.activatable:first-child {
-          margin-top: 12px;
-        }
-        #match.activatable:last-child {
-          margin-bottom: 0;
-        }
-
-        #match:hover {
-          background: rgba(255, 255, 255, 0.05);
-        }
-        #match:selected {
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        #entry {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          padding: 4px 8px;
-        }
-
-        box#main {
-          background: ${mkRgba opacity.popups "base00"};
-          box-shadow:
-            inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-            0 30px 30px 15px rgba(0, 0, 0, 0.5);
-          border-radius: 20px;
-          padding: 12px;
-        }
-
-      '';
+    zathura.options = {
+      statusbar-fg = mkForce (mkRgb "base05");
+    };
   };
 
   wayland.windowManager.hyprland.settings = with colors; {
@@ -401,4 +408,59 @@ in
 
     group.groupbar.text_color = mkForce "rgb(${base00})";
   };
+
+  xdg.configFile."wezterm/stylix.lua".text =
+    with colors.withHashtag; # lua
+    ''
+        return {
+          color_scheme = "stylix",
+          font_size = ${toString fonts.sizes.terminal},
+          window_background_opacity = ${toString opacity.terminal},
+          window_frame = {
+              active_titlebar_bg = "${base03}",
+              active_titlebar_fg = "${base05}",
+              active_titlebar_border_bottom = "${base03}",
+              border_left_color = "${base01}",
+              border_right_color = "${base01}",
+              border_bottom_color = "${base01}",
+              border_top_color = "${base01}",
+              button_bg = "${base01}",
+              button_fg = "${base05}",
+              button_hover_bg = "${base05}",
+              button_hover_fg = "${base03}",
+              inactive_titlebar_bg = "${base01}",
+              inactive_titlebar_fg = "${base05}",
+              inactive_titlebar_border_bottom = "${base03}",
+          },
+          colors = {
+            tab_bar = {
+              background = "${base00}",
+              inactive_tab_edge = "${base01}",
+              active_tab = {
+                bg_color = "${base00}",
+                fg_color = "${base05}",
+              },
+              inactive_tab = {
+                bg_color = "${base03}",
+                fg_color = "${base05}",
+              },
+              inactive_tab_hover = {
+                bg_color = "${base05}",
+                fg_color = "${base00}",
+              },
+              new_tab = {
+                bg_color = "${base03}",
+                fg_color = "${base05}",
+              },
+              new_tab_hover = {
+                bg_color = "${base05}",
+                fg_color = "${base00}",
+              },
+            },
+          },
+          command_palette_bg_color = "${base01}",
+          command_palette_fg_color = "${base05}",
+          command_palette_font_size = ${toString fonts.sizes.popups},
+      }
+    '';
 }
