@@ -28,6 +28,14 @@ config.hide_tab_bar_if_only_one_tab = true
 config.enable_kitty_keyboard = true
 config.term = "wezterm"
 
+config.ssh_domains = {
+	{
+		name = "perdix",
+		remote_address = "perdix",
+		username = "syde",
+	},
+}
+
 config.unix_domains = {
 	{ name = "unix" },
 }

@@ -30,9 +30,19 @@ in
     ./homepage.nix
   ];
 
-  boot.kernelPackages = latestKernelPackage;
+  # Personal configurations
+  syde = {
+    hardware = {
+      nvidia.enable = false;
+      amd = {
+        cpu.enable = true;
+      };
+    };
+  };
 
   boot = {
+    kernelPackages = latestKernelPackage;
+
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
@@ -58,15 +68,9 @@ in
     packages = [ pkgs.terminus_font ];
   };
 
-  # Personal configurations
-  syde = {
-    hardware = {
-      nvidia.enable = false;
-      amd = {
-        cpu.enable = true;
-      };
-    };
-  };
+  environment.systemPackages = [
+    pkgs.wezterm
+  ];
 
   hardware = {
     enableAllHardware = true;
@@ -88,6 +92,7 @@ in
   };
 
   services = {
+    xserver.xkb.layout = "us(colemak_dh)";
     logind.lidSwitch = "ignore";
 
     tailscale.enable = true;
