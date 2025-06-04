@@ -123,8 +123,8 @@
         {
           timeout = 60;
           # NOTE: name of device is specific for this device
-          on-timeout = "${brightnessctl} -sd platform::kbd_backlight set 0";
-          on-resume = "${brightnessctl} -rd platform::kbd_backlight";
+          on-timeout = "${brightnessctl} -sd framework_laptop::kbd_backlight set 0";
+          on-resume = "${brightnessctl} -rd framework_laptop::kbd_backlight";
         }
       ];
   };
