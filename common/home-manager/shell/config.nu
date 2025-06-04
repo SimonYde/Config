@@ -64,6 +64,7 @@ $env.config = {
 alias fg = job unfreeze
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
+$env.NH_NO_CHECKS = 1
 
 let prompt = {||
     if $env.LAST_EXIT_CODE != 0 {
