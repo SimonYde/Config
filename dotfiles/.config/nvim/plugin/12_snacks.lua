@@ -14,7 +14,7 @@ Load.now(function()
         picker = {},
         quickfile = {},
         toggle = {},
-        zen = {},
+        zen = { toggles = { dim = false } },
 
         indent = {
             indent = { char = '▏', enabled = true },

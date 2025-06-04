@@ -49,7 +49,7 @@
         ];
       };
 
-      manager = {
+      mgr = {
         show_hidden = true;
       };
     };
@@ -57,7 +57,7 @@
     plugins = { inherit (pkgs.yaziPlugins) sudo ouch; };
 
     keymap = {
-      manager.prepend_keymap = [
+      mgr.prepend_keymap = [
         # Navigation (colemak-dh)
         {
           on = [ "m" ];

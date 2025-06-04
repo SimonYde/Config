@@ -31,7 +31,7 @@
   specialisation."light-theme".configuration = {
     environment.etc."specialisation".text = "light-theme";
     stylix = {
-      base16Scheme = lib.mkForce "${inputs.tinted-schemes}/base16/gruvbox-light-hard.yaml";
+      base16Scheme = lib.mkForce "${inputs.tinted-schemes}/base24/catppuccin-latte.yaml";
       override = lib.mkForce { };
     };
     home-manager.users.${username} = {
