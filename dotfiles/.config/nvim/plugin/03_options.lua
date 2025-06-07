@@ -7,7 +7,7 @@ vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa 
 -- UI =========================================================================
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.o.wrap = false
 vim.o.signcolumn = 'yes'
 vim.o.ruler = false
