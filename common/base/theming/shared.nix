@@ -42,7 +42,7 @@
       };
 
       sizes = {
-        terminal = 11.0;
+        terminal = 11;
         popups = 13;
       };
     };

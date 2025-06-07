@@ -145,7 +145,6 @@ in
             "icarus-wsl"
             "talos"
             "daedelus"
-            "theseus"
           ];
         };
 
