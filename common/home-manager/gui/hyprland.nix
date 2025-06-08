@@ -136,6 +136,8 @@ in
     temperature.day = 6000;
     temperature.night = 1800;
     tray = true;
+    duskTime = "19:35-21:15";
+    dawnTime = "6:00-7:45";
     latitude = 56.0;
     longitude = 10.0;
   };
