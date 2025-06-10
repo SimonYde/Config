@@ -99,6 +99,7 @@ in
             "talos"
             "daedelus"
             "theseus"
+            "perdix"
           ];
           versioning = {
             type = "trashcan";
