@@ -255,7 +255,7 @@ Load.later(function()
         workspaces = {
             {
                 name = 'Apollo',
-                path = '~/Obsidian/Apollo',
+                path = '~/Documents/Apollo',
             },
         },
         --- @diagnostic disable-next-line: missing-fields
