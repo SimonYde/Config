@@ -106,6 +106,7 @@ _:
       "**/.ruff_cache"
       "**/.stfolder"
       "**/.stignore"
+      "**/.stversions"
       "**/.*stignore"
       ".vscode"
     ];

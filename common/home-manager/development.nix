@@ -129,7 +129,7 @@ in
             ui = {
               default-command = "log-recent";
               pager = lib.getExe pkgs.delta;
-              diff.format = "git";
+              diff-formatter = ":git";
             };
 
             aliases = {
