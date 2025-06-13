@@ -42,7 +42,6 @@
   services = {
     safeeyes.enable = true;
     ratbagd.enable = true;
-    tailscale.enable = true;
     syncthing.enable = true;
 
     xserver.xkb.layout = "eu";

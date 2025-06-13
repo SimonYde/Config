@@ -14,8 +14,6 @@ in
     cosmic-term
   ];
 
-  users.extraGroups.adm.members = [ username ];
-
   services = {
     desktopManager.cosmic.enable = true;
     displayManager.cosmic-greeter.enable = true;
