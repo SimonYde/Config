@@ -23,6 +23,7 @@ in
     ../base/nix-settings.nix
 
     ./syncthing.nix
+    ./tailscale.nix
 
     ./amd.nix
     ./nvidia.nix
@@ -85,7 +86,6 @@ in
     };
   };
 
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
   networking.wg-quick.interfaces = mkIf config.networking.wireguard.enable {
     proton = {
       autostart = false;
@@ -110,6 +110,10 @@ in
   };
 
   services = {
+    dbus.implementation = "broker";
+
+    journald.extraConfig = "SystemMaxUse=100M";
+
     openssh = {
       enable = true;
 
@@ -119,21 +123,7 @@ in
       };
     };
 
-    dbus.implementation = "broker";
-
-    journald.extraConfig = "SystemMaxUse=100M";
-
-    tailscale = {
-      openFirewall = true;
-      useRoutingFeatures = "both";
-
-      extraUpFlags = [
-        "--ssh"
-        "--operator=${username}"
-      ];
-
-      extraDaemonFlags = [ "--no-logs-no-support" ];
-    };
+    tailscale.enable = true;
   };
 
   environment.shells = [ pkgs.nushell-wrapped ];
@@ -188,7 +178,6 @@ in
     secrets = {
       wireguard.file = ../../secrets/wireguard.age;
       pc-password.file = ../../secrets/pc-password.age;
-      tailscale.file = ../../secrets/tailscale.age;
     };
   };
 

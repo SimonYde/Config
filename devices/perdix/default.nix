@@ -95,8 +95,6 @@ in
     xserver.xkb.layout = "us(colemak_dh)";
     logind.lidSwitch = "ignore";
 
-    tailscale.enable = true;
-
     syncthing.enable = true;
 
     zfs.autoScrub.enable = true;
