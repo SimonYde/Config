@@ -6,10 +6,6 @@
 }:
 let
   inherit (lib) mkForce;
-  fontPackages = with pkgs; [
-    wineWow64Packages.fonts
-    source-han-sans
-  ];
 in
 {
   home-manager.users.${username}.imports = [ ../home-manager/gaming.nix ];
@@ -40,7 +36,11 @@ in
 
       # with Glorious Eggroll Proton
       extraCompatPackages = with pkgs; [ proton-ge-bin ];
-      inherit fontPackages;
+
+      fontPackages = with pkgs; [
+        wineWow64Packages.fonts
+        source-han-sans
+      ];
     };
   };
 

@@ -14,6 +14,7 @@ inputs: [
     in
     {
       stable = import inputs.stable { inherit (prev) system config; };
+
       nushell-wrapped = final.writeTextFile {
         name = "nushell-wrapped";
 

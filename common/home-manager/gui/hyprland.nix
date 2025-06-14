@@ -27,14 +27,16 @@ let
             keyword general:border_size 1;\
             keyword decoration:rounding 0"
 
-        systemctl --user stop waybar.service hyprland-autoname-workspaces.service
+        systemctl --user stop waybar.service hyprland-autoname-workspaces.service swww.service
     else
         hyprctl reload
-        systemctl --user start waybar.service hyprland-autoname-workspaces.service
+        systemctl --user start waybar.service hyprland-autoname-workspaces.service swww.service
     fi
   '';
 in
 {
+  wayland.systemd.target = "hyprland-session.target";
+
   home.packages = with pkgs; [
     # My scripts
     hyprland-gamemode
@@ -121,7 +123,7 @@ in
 
     label = {
       monitor = "";
-      text = ''cmd[update:1000] echo "<b><big>$TIME</big></b>"'';
+      text = ''cmd[update:4000] echo "<b><big>$TIME</big></b>"'';
       text_align = "center";
       font_size = 110;
       rotate = 0;

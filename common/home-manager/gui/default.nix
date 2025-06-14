@@ -29,9 +29,9 @@ in
     {
       programs = {
         # Terminals
-        ghostty.enable = true;
-        kitty.enable = true;
-        alacritty.enable = true;
+        ghostty.enable = false;
+        kitty.enable = false;
+        alacritty.enable = false;
         wezterm.enable = true;
 
         # Browsers
@@ -295,7 +295,6 @@ in
 
         widgets = [
           "label"
-          "buttons-grid"
           "mpris"
           "title"
           "dnd"
@@ -322,30 +321,6 @@ in
           volume = {
             label = "󰕾";
             show-per-app = true;
-          };
-          buttons-grid = {
-            actions = [
-              {
-                label = "";
-                command = "swayosd-client --output-volume mute-toggle --max-volume 200";
-              }
-              {
-                label = "";
-                command = "swayosd-client --input-volume mute-toggle";
-              }
-              {
-                label = "";
-                command = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
-              }
-              {
-                label = "";
-                command = "blueman-manager";
-              }
-              {
-                label = "";
-                command = "random-wallpaper";
-              }
-            ];
           };
         };
       };
