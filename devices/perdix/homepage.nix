@@ -1,5 +1,5 @@
 { config, lib, ... }:
-let 
+let
   cfg = config.services.homepage-dashboard;
 in
 {
@@ -80,20 +80,19 @@ in
             "Services"
             "Smart Home"
           ];
-          hl = {};
-          homepageServices = x: {};
-            # x:
-            # (lib.attrsets.filterAttrs (
-            #   name: value: value ? homepage && value.homepage.category == x
-            # ) homelab.services);
+          hl = { };
+          homepageServices = x: { };
+          # x:
+          # (lib.attrsets.filterAttrs (
+          #   name: value: value ? homepage && value.homepage.category == x
+          # ) homelab.services);
         in
         lib.lists.forEach homepageCategories (cat: {
           "${cat}" =
             lib.lists.forEach (lib.attrsets.mapAttrsToList (name: value: name) (homepageServices "${cat}"))
               (x: {
                 "${hl.${x}.homepage.name}" = {
-                  icon = hl.${x}.homepage.icon;
-                  description = hl.${x}.homepage.description;
+                  inherit (hl.${x}.homepage) icon description;
                   href = "https://${hl.${x}.url}";
                   siteMonitor = "https://${hl.${x}.url}";
                 };
@@ -162,5 +161,5 @@ in
       };
     };
   };
-  
+
 }

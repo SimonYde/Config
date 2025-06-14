@@ -39,7 +39,7 @@
   programs.virt-manager.enable = true;
 
   services = {
-    languagetool.enable = true;
+    ratbagd.enable = true;
 
     syncthing.enable = true;
 
@@ -77,6 +77,7 @@
         extraDefCfg = "process-unmapped-keys yes";
         devices = [
           "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
+          "/dev/input/by-id/usb-CHICONY_HP_Basic_USB_Keyboard-event-kbd"
         ];
       };
     };
@@ -84,7 +85,7 @@
     xserver.xkb = {
       layout = "us,dk";
       variant = "colemak_dh,";
-      options = "caps:escape";
+      options = "caps:escape,grp:rctrl_toggle";
     };
   };
 
@@ -106,6 +107,16 @@
   };
 
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+
+  systemd.services.framework-power = {
+    description = "set framework battery limit";
+    after = [ "multi-user.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${lib.getExe pkgs.framework-tool} --charge-limit 80";
+    };
+  };
 
   home-manager.users.${username} = {
     programs.hyprlock.settings.auth.fingerprint.enabled = true;
