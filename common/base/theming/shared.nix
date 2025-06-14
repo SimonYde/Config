@@ -15,8 +15,8 @@
     };
 
     cursor = {
-      name = "volantes_cursors";
-      package = pkgs.volantes-cursors;
+      name = "catppuccin-mocha-dark-cursors";
+      package = pkgs.catppuccin-cursors.mochaDark;
       size = 24;
     };
 

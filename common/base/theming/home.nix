@@ -71,6 +71,8 @@ in
   ];
 
   home.sessionVariables = {
+    HYPRCURSOR_THEME = config.stylix.cursor.name;
+    HYPRCURSOR_SIZE = config.stylix.cursor.size;
     GTK_THEME = config.gtk.theme.name;
     WALLPAPER_DIR = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
   };
