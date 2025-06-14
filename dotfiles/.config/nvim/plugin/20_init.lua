@@ -291,6 +291,14 @@ Load.later(function()
 end)
 
 Load.later(function()
+    Load.packadd('indent-blankline.nvim')
+    require('ibl').setup({
+        indent = { char = '▏' },
+        scope = { enabled = false },
+    })
+end)
+
+Load.later(function()
     Load.packadd('todo-comments.nvim')
     require('todo-comments').setup({
         search = { pattern = [[\b(KEYWORDS)\b]] },

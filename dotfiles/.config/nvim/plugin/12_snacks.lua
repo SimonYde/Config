@@ -16,11 +16,6 @@ Load.now(function()
         toggle = {},
         zen = { toggles = { dim = false } },
 
-        indent = {
-            indent = { char = '▏', enabled = true },
-            scope = { char = '▏', enabled = false },
-        },
-
         dashboard = {
             preset = {
                 keys = {

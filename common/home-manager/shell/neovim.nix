@@ -50,6 +50,7 @@
         yazi-nvim
 
         # ----- UI -----
+        indent-blankline-nvim
         lspsaga-nvim
         render-markdown-nvim
         nvim-treesitter-textobjects
