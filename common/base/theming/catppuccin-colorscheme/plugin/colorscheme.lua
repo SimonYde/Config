@@ -57,7 +57,13 @@ vim.schedule(function()
 
 			snacks = {
 				enabled = true,
-				indent_scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+				indent_scope_color = "",
+			},
+
+			indent_blankline = {
+				enabled = true,
+				scope_color = "",
+				colored_indent_levels = false,
 			},
 
 			native_lsp = {
