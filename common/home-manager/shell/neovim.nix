@@ -26,7 +26,6 @@
         obsidian-nvim
 
         # ----- UI -----
-        which-key-nvim
         nvim-treesitter
         tip-vim
       ]
@@ -52,10 +51,11 @@
         # ----- UI -----
         indent-blankline-nvim
         lspsaga-nvim
-        render-markdown-nvim
-        nvim-treesitter-textobjects
         nvim-treesitter-context
+        nvim-treesitter-textobjects
         rainbow-delimiters-nvim
+        render-markdown-nvim
+        which-key-nvim
       ];
 
     extraPackages = with pkgs; [
