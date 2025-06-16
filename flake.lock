@@ -27,6 +27,31 @@
         "type": "github"
       }
     },
+    "ashell": {
+      "inputs": {
+        "crane": "crane",
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1749899705,
+        "narHash": "sha256-Yftawo2teKxE65zpSyk0q5iKgD924IKiuoSyPjHG75U=",
+        "owner": "MalpenZibo",
+        "repo": "ashell",
+        "rev": "4bf89dc97a5200c96b88034ec6ff92aa45b285a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MalpenZibo",
+        "repo": "ashell",
+        "type": "github"
+      }
+    },
     "audiobook-dl": {
       "inputs": {
         "flake-utils": [
@@ -133,6 +158,21 @@
         "type": "github"
       }
     },
+    "crane": {
+      "locked": {
+        "lastModified": 1748047550,
+        "narHash": "sha256-t0qLLqb4C1rdtiY8IFRH5KIapTY/n3Lqt57AmxEv9mk=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "b718a78696060df6280196a6f992d04c87a16aef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -164,7 +204,7 @@
           "nixpkgs"
         ],
         "pre-commit-hooks": "pre-commit-hooks",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay_2"
       },
       "locked": {
         "lastModified": 1745793122,
@@ -942,6 +982,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "ashell": "ashell",
         "audiobook-dl": "audiobook-dl",
         "betterfox": "betterfox",
         "etilbudsavis-cli": "etilbudsavis-cli",
@@ -971,6 +1012,27 @@
       }
     },
     "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "ashell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748140821,
+        "narHash": "sha256-GZcjWLQtDifSYMd1ueLDmuVTcQQdD5mONIBTqABooOk=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "476b2ba7dc99ddbf70b1f45357dbbdbdbdfb4422",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
           "etilbudsavis-cli",

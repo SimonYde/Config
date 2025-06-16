@@ -4,17 +4,6 @@
   lib,
   ...
 }:
-
-/*
-  This module serves to handle stylix and other theming options through home-manager.
-
-  This module assumes stylix has been imported somewhere but is not dependent
-  on running NixOS directly.
-
-  I use home-manager on NixOS using the auto-import feature, meaning every
-  profile gets the same configuration.
-*/
-
 let
   inherit (lib)
     mkForce
@@ -29,9 +18,8 @@ let
   mkRgba =
     opacity: color:
     "rgba(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"},${hexOpacity opacity})";
-  mkRgb = 
-    color:
-    "rgb(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"})";
+  mkRgb =
+    color: "rgb(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"})";
 in
 {
   stylix = {
@@ -84,12 +72,43 @@ in
     gtk4.extraConfig.gtk-application-prefer-dark-theme = colors.variant == "dark";
   };
 
+  programs.ashell.settings.appearance = with colors.withHashtag; {
+    font_name = fonts.sansSerif.name;
+    opacity = opacity.popups;
+    background_color = base00;
+    primary_color = base0D;
+    secondary_color = base01;
+    # used for success message or happy state
+    success_color = base0B;
+    # used for danger message or danger state (the weak version is used for the warning state
+    danger_color = base08;
+    # base default text color
+    text_color = base05;
+    # this is a list of color that will be used in the workspace module (one color for each monitor)
+    workspace_colors = [
+      base0D
+      base0E
+    ];
+    # this is a list of color that will be used in the workspace module
+    # for the special workspace (one color for each monitor)
+    # optional, default None
+    # without a value the workspaceColors list will be used
+    special_workspace_colors = [
+      base0B
+      base08
+    ];
+
+    menu.opacity = opacity.popups;
+  };
+
   programs = {
-    anyrun.extraCss = # css
+    anyrun.extraCss =
+      # css
       ''
         * {
           all: unset;
           font-size: ${toString fonts.sizes.popups}pt;
+          background: ${mkRgba opacity.popups "base00"};
         }
 
         #window,
@@ -135,7 +154,6 @@ in
           border-radius: 20px;
           padding: 12px;
         }
-
       '';
 
     fzf.colors.bg = mkForce "";
@@ -396,7 +414,6 @@ in
         }
 
       '';
-
 
     zathura.options = {
       statusbar-fg = mkForce (mkRgb "base05");

@@ -143,6 +143,79 @@ in
         config.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/rclone";
 
       programs = {
+        ashell = {
+          systemd.enable = true;
+          settings = {
+            modules = {
+              left = [
+                "Workspaces"
+              ];
+              center = [
+                "WindowTitle"
+              ];
+              right = [
+                "SystemInfo"
+                [
+                  "Clock"
+                  "Privacy"
+                  "Settings"
+                ]
+                "Tray"
+                "CustomNotifications"
+              ];
+            };
+
+            settings = {
+              # command used for lock the system
+              # without a value the related button will not appear
+              # optional, default None
+              lock_cmd = "loginctl lock-session";
+              # command used to open the sinks audio settings
+              # without a value the related button will not appear
+              # optional default None
+              audio_sinks_more_cmd = getExe pkgs.pwvucontrol;
+              # command used to open the sources audio settings
+              # without a value the related button will not appear
+              # optional, default None
+              audio_sources_more_cmd = getExe pkgs.pwvucontrol;
+              # command used to open the network settings
+              # without a value the related button will not appear
+              # optional, default None
+              wifi_more_cmd = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+              # command used to open the VPN settings
+              # without a value the related button will not appear
+              # optional, default None
+              vpn_more_cmd = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+              # command used to open the Bluetooth settings
+              # without a value the related button will not appear
+              # optional, default None
+              bluetooth_more_cmd = "${pkgs.blueman}/bin/blueman-manager";
+            };
+
+            workspaces.visibilityMode = "MonitorSpecific";
+
+            CustomModule = [
+              {
+                # The name will link the module in your left/center/right definition
+                name = "CustomNotifications";
+                # The default icon for this custom module
+                icon = "";
+                # The command that will be executed on click
+                command = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+                # You can optionally configure your custom module to update the UI using another command
+                # The output right now follows the waybar json-style output, using the `alt` and `text` field
+                # E.g. `{"text": "3", "alt": "notification"}`
+                listen_cmd = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
+                # You can define behavior for the `text` and `alt` fields
+                # Any number of regex can be used to change the icon based on the alt field
+                "icons.'dnd.*'" = "";
+                # Another regex can optionally show a red "alert" dot on the icon
+                alert = ".*notification";
+              }
+            ];
+          };
+        };
+
         anyrun.config = {
           showResultsImmediately = false;
 
