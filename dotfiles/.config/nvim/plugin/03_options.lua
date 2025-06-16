@@ -3,6 +3,7 @@ vim.g.mapleader = ' '
 vim.o.mousescroll = 'ver:5,hor:6'
 vim.o.swapfile = false
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa file
+vim.o.undofile = true
 
 -- UI =========================================================================
 vim.o.number = true

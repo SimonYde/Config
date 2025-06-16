@@ -1,4 +1,8 @@
 {
+    "code block": {
+        "prefix": "code",
+        "body": ["```${1|rust,java,nix,bash,nushell|}\n$0\n```"]
+    },
     "summation from i=1 to n": {
         "prefix": "sum",
         "body": ["sum_(${1|i = 1,j = 1|})^(${2|n,m|}) $0"]

@@ -138,6 +138,7 @@ Load.later(function()
 end)
 
 Load.later(function()
+    Load.packadd('which-key.nvim')
     require('which-key').setup({
         preset = 'modern',
         disable = { buftypes = { 'nofile', 'prompt', 'quickfix', 'terminal' } },
