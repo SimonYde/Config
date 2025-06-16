@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  config,
   lib,
   username,
   ...
@@ -25,21 +24,23 @@
   syde.hardware.amd.cpu.enable = true;
   syde.hardware.amd.gpu.enable = true;
 
+  environment.sessionVariables.NIXOS_OZONE_WL = 1;
+
   # Personal configurations
   programs = {
     wireshark.enable = true;
     partition-manager.enable = true;
   };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = 1;
+  hardware.framework.laptop13.audioEnhancement.enable = true;
 
   users.users.${username}.extraGroups = [ "libvirtd" ];
   virtualisation.libvirtd.enable = true;
-
   programs.virt-manager.enable = true;
 
   services = {
     ratbagd.enable = true;
+    upower.enable = true;
 
     syncthing.enable = true;
 
