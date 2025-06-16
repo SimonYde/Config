@@ -14,8 +14,7 @@ let
       ''
         const WALLPAPER_DIR = "${config.home.sessionVariables.WALLPAPER_DIR}"
 
-        let image = swww query | lines | parse --regex "image: (<image>.*$)"
-        let current = if ($image | is-empty) { "" } else { $image | first | get image }
+        let current = swww query | parse --regex "image: (?<image>.*$)" | default --empty [{ image: "" }] | first | get image
 
         cd $WALLPAPER_DIR
         let new = glob **/*.{png,jpeg,jpg} | where $it != $current | shuffle | first

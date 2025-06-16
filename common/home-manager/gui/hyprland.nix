@@ -27,10 +27,10 @@ let
             keyword general:border_size 1;\
             keyword decoration:rounding 0"
 
-        systemctl --user stop waybar.service hyprland-autoname-workspaces.service swww.service
+        systemctl --user stop waybar.service hyprland-autoname-workspaces.service swww.service trayscale.service
     else
         hyprctl reload
-        systemctl --user start waybar.service hyprland-autoname-workspaces.service swww.service
+        systemctl --user start waybar.service hyprland-autoname-workspaces.service swww.service trayscale.service
     fi
   '';
 in
@@ -48,7 +48,7 @@ in
     wl-clipboard # clipboard manager
     hyprpicker # color picker
 
-    nwg-displays # Monitor settings
+    nwg-displays # Display settings
   ];
 
   programs = {
