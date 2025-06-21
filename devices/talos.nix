@@ -78,7 +78,7 @@
         extraDefCfg = "process-unmapped-keys yes";
         devices = [
           "/dev/input/by-path/platform-i8042-serio-0-event-kbd"
-          "/dev/input/by-id/usb-CHICONY_HP_Basic_USB_Keyboard-event-kbd"
+          "/dev/input/by-id/usb-Logitech_G512_Carbon_Linear_0A81375E3333-event-kbd"
         ];
       };
     };
