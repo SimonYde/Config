@@ -127,6 +127,7 @@ in
   };
 
   environment.shells = [ pkgs.nushell-wrapped ];
+  environment.localBinInPath = true;
 
   users = {
     mutableUsers = true;
