@@ -21,10 +21,10 @@ in
 
       packages = [ cfg.package ];
 
-      sessionVariables.TOPIARY_LANGUAGE_DIR = cfg.language_dir;
+      sessionVariables.TOPIARY_LANGUAGE_DIR = cfg.languageDir;
 
       file = {
-        "${cfg.language_dir}/nu.scm".source = inputs.topiary-nushell + "/languages/nu.scm";
+        "${cfg.languageDir}/nu.scm".source = inputs.topiary-nushell + "/languages/nu.scm";
       };
     };
   };
@@ -34,7 +34,7 @@ in
 
     package = mkPackageOption pkgs "topiary" { };
 
-    language_dir = mkOption {
+    languageDir = mkOption {
       type = types.str;
       default = "${config.xdg.configHome}/topiary/languages";
     };
