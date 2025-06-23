@@ -10,7 +10,7 @@
     inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
     ../common/desktop.nix
     ../common/nixos/laptop.nix
-    ../common/nixos/hyprland.nix
+    ../common/nixos/cosmic.nix
   ];
 
   specialisation."gaming".configuration = {

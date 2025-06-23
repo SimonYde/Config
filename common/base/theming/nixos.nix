@@ -15,6 +15,7 @@
   stylix.targets = {
     nixos-icons.enable = true;
     gnome-text-editor.enable = false;
+    gnome.enable = false;
   };
 
   fonts.packages = with pkgs; [
