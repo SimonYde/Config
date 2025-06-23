@@ -11,7 +11,6 @@ in
 {
   environment.cosmic.excludePackages = with pkgs; [
     cosmic-edit
-    cosmic-term
   ];
 
   services = {
@@ -32,7 +31,7 @@ in
     ];
 
     syde.gui.file-manager = {
-      mime = mkDefault "com.system76.CosmicFiles";
+      name = mkDefault "com.system76.CosmicFiles";
       package = mkDefault pkgs.cosmic-files;
     };
   };

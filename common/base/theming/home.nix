@@ -31,6 +31,7 @@ in
     };
     targets = {
       firefox.enable = false;
+      gnome.enable = false;
       neovim.enable = false;
       nushell.enable = false;
       neovide.enable = false;
