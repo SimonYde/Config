@@ -82,6 +82,10 @@
       url = "github:gonstoll/wezterm-types";
       flake = false;
     };
+    vim-alloy = {
+      url = "github:grafana/vim-alloy";
+      flake = false;
+    };
 
     topiary-nushell = {
       url = "github:blindFS/topiary-nushell";
@@ -166,9 +170,10 @@
         inherit (inputs.self.checks.x86_64-linux.pre-commit-check) shellHook;
         buildInputs = inputs.self.checks.x86_64-linux.pre-commit-check.enabledPackages;
         packages = with pkgs; [
+          agenix
+          grafana-alloy
           just
           stow
-          agenix
         ];
       };
 

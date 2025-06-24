@@ -1007,6 +1007,7 @@
         "tinted-schemes": "tinted-schemes",
         "tip-vim": "tip-vim",
         "topiary-nushell": "topiary-nushell",
+        "vim-alloy": "vim-alloy",
         "wezterm-types": "wezterm-types",
         "zen-browser": "zen-browser"
       }
@@ -1308,6 +1309,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "vim-alloy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715447447,
+        "narHash": "sha256-lUOVfbdmEBuuIyxTFkWy7R3Sem6DnC6pjmu8XJWJYM8=",
+        "owner": "grafana",
+        "repo": "vim-alloy",
+        "rev": "0273f88f7199189f9a0f32213a34ab778e226f86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "grafana",
+        "repo": "vim-alloy",
         "type": "github"
       }
     },
