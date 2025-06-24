@@ -22,12 +22,14 @@ in
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
+
     ./acme.nix
-    ./vaultwarden.nix
+    ./homepage.nix
     ./jellyfin.nix
     ./media.nix
     ./nginx.nix
-    ./homepage.nix
+    ./postgresql.nix
+    ./vaultwarden.nix
   ];
 
   # Personal configurations

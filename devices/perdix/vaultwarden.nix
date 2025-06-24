@@ -9,17 +9,31 @@
     vaultwarden = {
       enable = true;
 
+      dbBackend = "postgresql";
+
       environmentFile = "/run/agenix/vaultwarden";
 
       config = {
         rocketAddress = "127.0.0.1";
         rocketPort = 8881;
 
+        databaseUrl = "postgresql://vaultwarden@/vaultwarden";
+
         domain = "https://bitwarden.simonyde.com";
-        signupsAllowed = false;
+        signupsAllowed = true;
 
         pushEnabled = true;
       };
+    };
+
+    postgresql = {
+      ensureDatabases = [ "vaultwarden" ];
+      ensureUsers = [
+        {
+          name = "vaultwarden";
+          ensureDBOwnership = true;
+        }
+      ];
     };
 
     nginx = {
@@ -30,4 +44,7 @@
       };
     };
   };
+
+  # make sure we don't crash because postgres isn't ready
+  systemd.services.vaultwarden.after = [ "postgresql.service" ];
 }
