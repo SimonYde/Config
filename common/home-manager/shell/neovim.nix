@@ -28,6 +28,7 @@
         # ----- UI -----
         nvim-treesitter
         tip-vim
+        vim-alloy
       ]
       ++ config.lib.meta.lazyNeovimPlugins [
         # ----- Completion -----

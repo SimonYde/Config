@@ -91,6 +91,18 @@ inputs: [
             ];
           };
 
+          tip-vim = prev.vimUtils.buildVimPlugin {
+            version = mkDate inputs.tip-vim;
+            pname = "tip.vim";
+            src = inputs.tip-vim;
+          };
+
+          vim-alloy = prev.vimUtils.buildVimPlugin {
+            version = mkDate inputs.vim-alloy;
+            pname = "vim-alloy";
+            src = inputs.vim-alloy;
+          };
+
           wezterm-types =
             (prev.vimUtils.buildVimPlugin {
               version = mkDate inputs.wezterm-types;
@@ -103,12 +115,6 @@ inputs: [
                 ];
 
               };
-
-          tip-vim = prev.vimUtils.buildVimPlugin {
-            version = mkDate inputs.tip-vim;
-            pname = "tip.vim";
-            src = inputs.tip-vim;
-          };
         }
       );
     }
