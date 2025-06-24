@@ -1,8 +1,6 @@
 local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 
-Load.now(function ()
-    require('mini.sessions').setup()
-end)
+Load.now(function() require('mini.sessions').setup() end)
 
 Load.later(function()
     require('mini.align').setup()

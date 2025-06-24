@@ -61,8 +61,10 @@ in
   nixpkgs.flake.setNixPath = true;
 
   nix = {
-    package = pkgs.lix;
+    package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
+
     channel.enable = false;
+
     settings.trusted-users = [ username ];
   };
 
@@ -188,7 +190,11 @@ in
       enableRootSlice = true;
     };
 
+    # Just in case, reserve memory for sshd
     services.sshd.serviceConfig.MemoryMin = "100M";
+
+    # Clean up /var/tmp/nix way more often
+    tmpfiles.rules = [ "d /var/tmp/nix 1777 root root 1d" ];
   };
 
   system = {
