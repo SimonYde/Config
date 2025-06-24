@@ -75,7 +75,7 @@ Load.later(function()
             nmap('<leader>lP', function()
                 local file = vim.api.nvim_buf_get_name(bufnr)
                 local pdf = file:gsub('%.typ$', '.pdf')
-                vim.system({'polylux2pdfpc', file }):wait()
+                vim.system({ 'polylux2pdfpc', file }):wait()
                 vim.system({ 'pdfpc', pdf })
             end, 'Present')
 

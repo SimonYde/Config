@@ -74,7 +74,7 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
 
-    # plugins = with pkgs.hyprlandPlugins; [ ];
+    plugins = with pkgs.hyprlandPlugins; [ ];
 
     settings = {
       "$browser" = browser;

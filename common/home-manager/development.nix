@@ -57,7 +57,7 @@ in
         gnumake
         just
 
-        devcontainer
+        # devcontainer # use development docker images
 
         dua
         lls
