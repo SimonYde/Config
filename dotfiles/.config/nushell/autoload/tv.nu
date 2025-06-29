@@ -19,7 +19,7 @@ module television {
     def "nu-complete television channels" [] {
         ^tv list-channels
         | lines
-        | filter { $in | str starts-with (char tab) }
+        | where {|it| $it | str starts-with (char tab) }
         | str trim
     }
 }
