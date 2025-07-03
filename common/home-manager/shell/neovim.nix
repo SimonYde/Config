@@ -23,11 +23,9 @@
         vim-sleuth
         undotree
         friendly-snippets
-        obsidian-nvim
 
         # ----- UI -----
         nvim-treesitter
-        tip-vim
         vim-alloy
       ]
       ++ config.lib.meta.lazyNeovimPlugins [
@@ -43,9 +41,6 @@
         neogit
         todo-comments-nvim
         img-clip-nvim
-
-        nvim-dap
-        nvim-dap-ui
 
         yazi-nvim
 
