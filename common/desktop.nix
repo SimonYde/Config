@@ -12,8 +12,7 @@ in
 
   imports = [
     ./base/theming/nixos.nix
-    ./nixos
-    ./nixos/development.nix
+    ./.
   ];
 
   home-manager.users.${username}.imports = [ ./home-manager/gui ];

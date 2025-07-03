@@ -23,6 +23,7 @@
         vim-sleuth
         undotree
         friendly-snippets
+        catppuccin-nvim
 
         # ----- UI -----
         nvim-treesitter

@@ -7,14 +7,14 @@
 {
   imports = [
     ../common/desktop.nix
-    ../common/nixos/hyprland.nix
-    ../common/nixos/gaming.nix
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
   # Personal configurations
   syde = {
+    development.enable = true;
+    gaming.enable = true;
     hardware = {
       nvidia = {
         enable = true;
@@ -35,6 +35,7 @@
   };
 
   programs = {
+    hyprland.enable = true;
     partition-manager.enable = true;
     wireshark.enable = true;
   };

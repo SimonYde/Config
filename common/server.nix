@@ -21,7 +21,7 @@ let
   );
 in
 {
-  imports = [ ./nixos ];
+  imports = [ ./. ];
 
   boot.kernelPackages = mkDefault latestZfsKernelPackage;
   boot.supportedFilesystems.zfs = mkDefault true;

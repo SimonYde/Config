@@ -199,7 +199,7 @@ in
             obsidian-nvim
             tip-vim
           ]
-          ++ lib.meta.lazyNeovimPlugins [
+          ++ config.lib.meta.lazyNeovimPlugins [
             nvim-dap
             nvim-dap-ui
           ];
