@@ -193,6 +193,17 @@ in
 
         man.enable = true;
 
+        neovim.plugins =
+          with pkgs.vimPlugins;
+          [
+            obsidian-nvim
+            tip-vim
+          ]
+          ++ lib.meta.lazyNeovimPlugins [
+            nvim-dap
+            nvim-dap-ui
+          ];
+
         topiary.enable = true;
       };
 

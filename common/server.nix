@@ -24,6 +24,7 @@ in
   imports = [ ./nixos ];
 
   boot.kernelPackages = mkDefault latestZfsKernelPackage;
+  boot.supportedFilesystems.zfs = mkDefault true;
 
   # Save some space on servers
   environment.defaultPackages = [ ];
