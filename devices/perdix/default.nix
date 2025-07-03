@@ -1,23 +1,8 @@
 {
   pkgs,
   inputs,
-  config,
-  lib,
   ...
 }:
-let
-  zfsCompatibleKernelPackages = lib.filterAttrs (
-    name: kernelPackages:
-    (builtins.match "linux_[0-9]+_[0-9]+" name) != null
-    && (builtins.tryEval kernelPackages).success
-    && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
-  ) pkgs.linuxKernel.packages;
-  latestKernelPackage = lib.last (
-    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
-      builtins.attrValues zfsCompatibleKernelPackages
-    )
-  );
-in
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
@@ -43,8 +28,6 @@ in
   };
 
   boot = {
-    kernelPackages = latestKernelPackage;
-
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"
@@ -81,8 +64,6 @@ in
   };
 
   networking = {
-    useDHCP = lib.mkDefault true;
-
     firewall.enable = true;
 
     networkmanager = {

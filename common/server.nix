@@ -1,15 +1,36 @@
-{ ... }:
-
 {
-  imports = [
-    ./nixos
-  ];
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+let
+  inherit (lib) mkDefault;
+
+  zfsCompatibleKernelPackages = lib.filterAttrs (
+    name: kernelPackages:
+    (builtins.match "linux_[0-9]+_[0-9]+" name) != null
+    && (builtins.tryEval kernelPackages).success
+    && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
+  ) pkgs.linuxKernel.packages;
+
+  latestZfsKernelPackage = lib.last (
+    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
+      builtins.attrValues zfsCompatibleKernelPackages
+    )
+  );
+in
+{
+  imports = [ ./nixos ];
+
+  boot.kernelPackages = mkDefault latestZfsKernelPackage;
 
   # Save some space on servers
   environment.defaultPackages = [ ];
   documentation.enable = false;
 
   networking.firewall.logRefusedConnections = false;
+  networking.useDHCP = mkDefault true;
 
   # optimized network settings
   boot.kernel.sysctl = {
