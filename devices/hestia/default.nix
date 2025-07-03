@@ -1,14 +1,19 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ../../common/server.nix
+    ./acme.nix
   ];
 
   system.stateVersion = "25.11";
 
-  syde.hardware.amd = {
-    cpu.enable = true;
-    gpu.enable = true;
+  syde = {
+    server.baseDomain = "tmcs.dk";
+
+    hardware.amd = {
+      cpu.enable = true;
+      gpu.enable = true;
+    };
   };
 
   networking.hostId = "ef847b13";
@@ -35,9 +40,18 @@
     enableRedistributableFirmware = true;
   };
 
-  networking.firewall.enable = true;
+  services = {
+    zfs.autoScrub.enable = true;
 
-  services.zfs.autoScrub.enable = true;
+    nginx = {
+      enable = true;
+
+      virtualHosts."edgeos.ts.${config.syde.server.baseDomain}".locations."/" = {
+        proxyPass = "https://192.168.2.1:8443";
+        proxyWebsockets = true;
+      };
+    };
+  };
 
   fileSystems = {
     "/" = {

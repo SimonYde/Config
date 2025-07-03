@@ -7,18 +7,13 @@
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
-
     ./acme.nix
-    ./homepage.nix
-    ./jellyfin.nix
-    ./media.nix
-    ./nginx.nix
-    ./postgresql.nix
-    ./vaultwarden.nix
   ];
 
   # Personal configurations
   syde = {
+    server.baseDomain = "simonyde.com";
+
     hardware = {
       nvidia.enable = false;
       amd = {
@@ -64,8 +59,6 @@
   };
 
   networking = {
-    firewall.enable = true;
-
     networkmanager = {
       enable = true;
       wifi.powersave = false;
@@ -73,13 +66,20 @@
 
     wireguard.enable = true;
   };
-
   services = {
-    xserver.xkb.layout = "us(colemak_dh)";
     logind.lidSwitch = "ignore";
 
-    syncthing.enable = true;
+    nginx = {
+      enable = true;
 
+      virtualHosts."edgeos.ts.simonyde.com".locations."/" = {
+        proxyPass = "https://192.168.1.1:8443";
+        proxyWebsockets = true;
+      };
+    };
+
+    syncthing.enable = true;
+    xserver.xkb.layout = "us(colemak_dh)";
     zfs.autoScrub.enable = true;
   };
 

@@ -36,7 +36,7 @@ in
   config = mkIf cfg.enable {
     users.users.${username}.extraGroups = [ "syncthing" ];
 
-    networking.firewall.allowedTCPPorts = [ 8384 ];
+    # networking.firewall.allowedTCPPorts = [ 8384 ];
 
     services.syncthing = {
       user = username;
