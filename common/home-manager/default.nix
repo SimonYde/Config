@@ -38,7 +38,7 @@ in
   };
 
   home = {
-    stateVersion = "25.05";
+    stateVersion = mkDefault "25.05";
     preferXdgDirectories = true;
 
     # FIXME: hack to reload dbus activated things

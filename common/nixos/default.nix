@@ -29,7 +29,7 @@ in
     ./nvidia.nix
   ];
 
-  system.stateVersion = "25.05";
+  system.stateVersion = mkDefault "25.05";
 
   i18n.defaultLocale = "en_GB.UTF-8";
 
@@ -132,7 +132,7 @@ in
   environment.localBinInPath = true;
 
   users = {
-    mutableUsers = true;
+    mutableUsers = mkDefault false;
 
     users = {
       root = {
