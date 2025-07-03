@@ -188,15 +188,6 @@ in
       "font.name.serif.x-western" = fonts.serif.name;
     };
 
-    neovim.plugins = [
-      pkgs.vimPlugins.catppuccin-nvim
-      (pkgs.vimUtils.buildVimPlugin {
-        version = "nightly";
-        pname = "colorscheme.nvim";
-        src = ./catppuccin-colorscheme;
-      })
-    ];
-
     nushell.extraConfig =
       with colors.withHashtag;
       mkOrder 1000 # nu

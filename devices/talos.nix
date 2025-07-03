@@ -9,13 +9,10 @@
   imports = [
     inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
     ../common/desktop.nix
-    ../common/nixos/laptop.nix
-    # ../common/nixos/cosmic.nix
-    ../common/nixos/hyprland.nix
   ];
 
   specialisation."gaming".configuration = {
-    imports = [ ../common/nixos/gaming.nix ];
+    syde.gaming.enable = true;
     environment.etc."specialisation".text = "gaming";
   };
 
@@ -26,14 +23,21 @@
     kernelParams = [ "amdgpu.dcdebugmask=0x10" ];
   };
 
-  syde.hardware.amd = {
-    cpu.enable = true;
-    gpu.enable = true;
+  syde = {
+    development.enable = true;
+    hardware = {
+      laptop.enable = true;
+      amd = {
+        cpu.enable = true;
+        gpu.enable = true;
+      };
+    };
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = 1;
 
   programs = {
+    hyprland.enable = true;
     partition-manager.enable = true;
     virt-manager.enable = true;
     wireshark.enable = true;

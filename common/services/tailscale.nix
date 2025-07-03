@@ -7,7 +7,6 @@
 let
   cfg = config.services.tailscale;
 in
-
 {
   config = lib.mkIf cfg.enable {
     services.tailscale = {

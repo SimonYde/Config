@@ -8,9 +8,10 @@
 {
   imports = [
     inputs.nixos-wsl.nixosModules.default
-    ./nixos
-    ./nixos/development.nix
+    ./.
   ];
+
+  syde.development.enable = true;
 
   boot.bootspec.enable = false;
 

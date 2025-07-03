@@ -14,19 +14,17 @@ let
     mkIf
     mapAttrs
     ;
-  keys = import ../../keys.nix;
+  keys = import ../keys.nix;
 in
 {
   imports = [
     inputs.agenix.nixosModules.default
     inputs.home-manager.nixosModules.default
-    ../base/nix-settings.nix
+    ./base/nix-settings.nix
 
-    ./syncthing.nix
-    ./tailscale.nix
-
-    ./amd.nix
-    ./nvidia.nix
+    ./services
+    ./hardware
+    ./applications
   ];
 
   system.stateVersion = mkDefault "25.05";
@@ -85,23 +83,6 @@ in
         extraArgs = "--keep 2 --nogcroots";
         dates = "daily";
       };
-    };
-  };
-
-  networking.wg-quick.interfaces = mkIf config.networking.wireguard.enable {
-    proton = {
-      autostart = false;
-      address = [ "10.2.0.2/32" ];
-      dns = [ "10.2.0.1" ];
-      privateKeyFile = config.age.secrets.wireguard.path;
-
-      peers = [
-        {
-          publicKey = "XPVCz7LndzqWe7y3+WSo51hvNOX8nX5CTwVTWhzg8g8=";
-          allowedIPs = [ "0.0.0.0/0" ];
-          endpoint = "149.88.27.234:51820";
-        }
-      ];
     };
   };
 
@@ -167,8 +148,8 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
 
-    users.${username}.imports = [ ../home-manager ];
-    users.root.imports = [ ../home-manager ];
+    users.${username}.imports = [ ./home-manager ];
+    users.root.imports = [ ./home-manager ];
   };
 
   age = {
@@ -179,8 +160,8 @@ in
     ageBin = getExe pkgs.rage;
 
     secrets = {
-      wireguard.file = ../../secrets/wireguard.age;
-      pc-password.file = ../../secrets/pc-password.age;
+      wireguard.file = ../secrets/wireguard.age;
+      pc-password.file = ../secrets/pc-password.age;
     };
   };
 
