@@ -178,8 +178,9 @@
       };
 
       nixosConfigurations = {
-        icarus-wsl = mkWslSystem { hostname = "icarus"; };
+        hestia = mkSystem { hostname = "hestia"; };
         icarus = mkSystem { hostname = "icarus"; };
+        icarus-wsl = mkWslSystem { hostname = "icarus"; };
         iso = mkSystem { hostname = "iso"; };
         perdix = mkSystem { hostname = "perdix"; };
         talos = mkSystem { hostname = "talos"; };
