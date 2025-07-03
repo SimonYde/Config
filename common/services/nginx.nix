@@ -1,14 +1,18 @@
-{ lib, ... }:
+{ lib, config, ... }:
+let
+  inherit (lib) mkOption types mkIf mkForce;
+  cfg = config.services.nginx;
+in 
 {
   options.services.nginx = {
-    upstreams = lib.mkOption {
-      type = lib.types.attrsOf (
-        lib.types.submodule { config.extraConfig = lib.mkOverride 99 "keepalive 8;"; }
+    upstreams = mkOption {
+      type = types.attrsOf (
+        types.submodule { config.extraConfig = lib.mkOverride 99 "keepalive 8;"; }
       );
     };
-    virtualHosts = lib.mkOption {
-      type = lib.types.attrsOf (
-        lib.types.submodule {
+    virtualHosts = mkOption {
+      type = types.attrsOf (
+        types.submodule {
           # Priority slightly above normal explicit values, so it wins against service modules,
           # but still loses to mkForce
           config = lib.mkOverride 99 {
@@ -19,9 +23,9 @@
             http3 = true;
           };
 
-          options.locations = lib.mkOption {
-            type = lib.types.attrsOf (
-              lib.types.submodule {
+          options.locations = mkOption {
+            type = types.attrsOf (
+              types.submodule {
                 config.extraConfig = ''
                   add_header Alt-Svc 'h3=":$server_port"; ma=86400';
                 '';
@@ -33,11 +37,9 @@
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     services = {
       nginx = {
-        enable = true;
-
         recommendedOptimisation = true;
         recommendedTlsSettings = true;
         recommendedGzipSettings = true;
@@ -67,14 +69,10 @@
         # Required for QUIC with workers
         virtualHosts.localhost = {
           reuseport = true;
-          enableACME = lib.mkForce false;
-          forceSSL = lib.mkForce false;
+          enableACME = mkForce false;
+          forceSSL = mkForce false;
         };
 
-        virtualHosts."edgeos.ts.simonyde.com".locations."/" = {
-          proxyPass = "https://192.168.1.1:8443";
-          proxyWebsockets = true;
-        };
       };
 
       logrotate.enable = false;
