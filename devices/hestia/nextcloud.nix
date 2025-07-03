@@ -29,7 +29,6 @@ in
       };
 
       postgresql = {
-        enable = true;
         ensureDatabases = [ "nextcloud" ];
         ensureUsers = [
           {

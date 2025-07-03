@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   age.secrets.vaultwarden = {
     file = ../../secrets/vaultwarden.age;
@@ -38,7 +38,7 @@
 
     nginx = {
       upstreams.vaultwarden.servers."127.0.0.1:8881" = { };
-      virtualHosts."bitwarden.simonyde.com".locations."/" = {
+      virtualHosts."password.${config.syde.server.baseDomain}".locations."/" = {
         proxyPass = "http://vaultwarden";
         proxyWebsockets = true;
       };
