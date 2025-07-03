@@ -29,12 +29,22 @@
     ];
   };
 
+  hardware = {
+    enableAllHardware = true;
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+  };
+
+  networking.firewall.enable = true;
+
+  services.zfs.autoScrub.enable = true;
+
   fileSystems = {
     "/" = {
+      neededForBoot = true;
       device = "os-pool/root";
       fsType = "zfs";
       options = [ "zfsutil" ];
-
     };
 
     "/var" = {
