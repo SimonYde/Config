@@ -1,8 +1,14 @@
-{ config, ... }:
+{ inputs, ... }:
+
 {
   imports = [
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+
     ../../common/server.nix
     ./acme.nix
+    ./postgresql.nix
+    ./vaultwarden.nix
+    ./nextcloud.nix
   ];
 
   system.stateVersion = "25.11";
@@ -43,27 +49,8 @@
   services = {
     zfs.autoScrub.enable = true;
 
-    nginx = {
-      enable = true;
-
-      virtualHosts."edgeos.ts.${config.syde.server.baseDomain}".locations."/" = {
-        proxyPass = "https://192.168.2.1:8443";
-        proxyWebsockets = true;
-      };
-
-      virtualHosts = {
-        "acmechallenge.tmcs.dk" = {
-          # Catchall vhost, will redirect users to HTTPS for all vhosts
-          serverAliases = [ "*.tmcs.dk" ];
-          locations."/.well-known/acme-challenge" = {
-            root = "/var/lib/acme/.challenges";
-          };
-          locations."/" = {
-            return = "301 https://$host$request_uri";
-          };
-        };
-      };
-    };
+    nginx.enable = true;
+    nextcloud.enable = true;
   };
 
   fileSystems = {
@@ -88,6 +75,12 @@
 
     "/home" = {
       device = "os-pool/home";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/mnt/tank/nextcloud" = {
+      device = "tank/nextcloud";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };

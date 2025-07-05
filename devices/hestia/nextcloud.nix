@@ -18,14 +18,7 @@ in
 
     services = {
       nginx = {
-        virtualHosts."${cfg.hostName}" = {
-          listen = [
-            {
-              addr = "127.0.0.1";
-              port = 8083;
-            }
-          ];
-        };
+        virtualHosts."${cfg.hostName}" = { };
       };
 
       postgresql = {
@@ -40,12 +33,18 @@ in
 
       nextcloud = {
         package = pkgs.nextcloud31;
-        hostName = "nextcloud";
-        configureRedis = true;
+        hostName = "cloud.${server.baseDomain}";
+        datadir = "/mnt/tank/nextcloud";
 
+        configureRedis = true;
         caching.redis = true;
 
         maxUploadSize = "50G";
+
+        extraApps = {
+          inherit (cfg.package.packages.apps) contacts calendar;
+        };
+        extraAppsEnable = true;
 
         settings = {
           trusted_proxies = [ "127.0.0.1" ];

@@ -1,4 +1,7 @@
 { config, ... }:
+let
+  inherit (config.syde) server;
+in
 {
   age.secrets.vaultwarden = {
     file = ../../secrets/vaultwarden.age;
@@ -19,7 +22,7 @@
 
         databaseUrl = "postgresql://vaultwarden@/vaultwarden";
 
-        domain = "https://bitwarden.simonyde.com";
+        domain = "https://password.${server.baseDomain}";
         signupsAllowed = true;
 
         pushEnabled = true;
@@ -38,9 +41,12 @@
 
     nginx = {
       upstreams.vaultwarden.servers."127.0.0.1:8881" = { };
-      virtualHosts."password.${config.syde.server.baseDomain}".locations."/" = {
+      virtualHosts."password.${server.baseDomain}".locations."/" = {
         proxyPass = "http://vaultwarden";
         proxyWebsockets = true;
+        extraConfig = ''
+          add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+        '';
       };
     };
   };
