@@ -1,14 +1,17 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkOption types mkIf mkForce;
+  inherit (lib)
+    mkOption
+    types
+    mkIf
+    mkForce
+    ;
   cfg = config.services.nginx;
-in 
+in
 {
   options.services.nginx = {
     upstreams = mkOption {
-      type = types.attrsOf (
-        types.submodule { config.extraConfig = lib.mkOverride 99 "keepalive 8;"; }
-      );
+      type = types.attrsOf (types.submodule { config.extraConfig = lib.mkOverride 99 "keepalive 8;"; });
     };
     virtualHosts = mkOption {
       type = types.attrsOf (
@@ -21,16 +24,6 @@ in
             acmeRoot = null;
             kTLS = true;
             http3 = true;
-          };
-
-          options.locations = mkOption {
-            type = types.attrsOf (
-              types.submodule {
-                config.extraConfig = ''
-                  add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-                '';
-              }
-            );
           };
         }
       );

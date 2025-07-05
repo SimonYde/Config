@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 {
   services = {
     jellyfin = {
@@ -14,6 +14,9 @@
       virtualHosts."jellyfin.${config.syde.server.baseDomain}".locations."/" = {
         proxyPass = "http://jellyfin";
         proxyWebsockets = true;
+        extraConfig = ''
+          add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+        '';
       };
     };
   };
