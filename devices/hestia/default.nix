@@ -1,5 +1,4 @@
 { inputs, config, username, ... }:
-
 {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -18,7 +17,7 @@
       enable = true;
       fromAddress = "s@tmcs.dk";
       toAddress = "s@tmcs.dk";
-      smtpServer = "send@one.com";
+      smtpServer = "send.one.com";
       smtpUsername = "s@tmcs.dk";
       smtpPasswordPath = config.age.secrets.emailPassword.path;
     };
