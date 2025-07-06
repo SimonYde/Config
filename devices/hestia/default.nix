@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 
 {
   imports = [
@@ -14,15 +14,26 @@
   system.stateVersion = "25.11";
 
   syde = {
-    server.baseDomain = "tmcs.dk";
+    email = {
+      enable = true;
+      fromAddress = "s@tmcs.dk";
+      toAddress = "s@tmcs.dk";
+      smtpServer = "send@one.com";
+      smtpUsername = "s@tmcs.dk";
+      smtpPasswordPath = config.age.secrets.emailPassword.path;
+    };
 
     hardware.amd = {
       cpu.enable = true;
       gpu.enable = true;
     };
+
+    server.baseDomain = "tmcs.dk";
   };
 
   networking.hostId = "ef847b13";
+
+  age.secrets.emailPassword.file = ../../secrets/oneEmailPassword.age;
 
   boot = {
     loader = {
