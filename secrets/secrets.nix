@@ -11,6 +11,7 @@ in
   "rclone.age".publicKeys = users;
   "dns.age".publicKeys = users;
   "nextcloudAdminPassword.age".publicKeys = users;
+  "nextcloudSecretFile.age".publicKeys = users;
   "oneEmailPassword.age".publicKeys = users;
   "vaultwarden.age".publicKeys = users;
 }
