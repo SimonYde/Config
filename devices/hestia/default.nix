@@ -1,4 +1,4 @@
-{ inputs, config, ... }:
+{ inputs, config, username, ... }:
 
 {
   imports = [
@@ -33,7 +33,12 @@
 
   networking.hostId = "ef847b13";
 
-  age.secrets.emailPassword.file = ../../secrets/oneEmailPassword.age;
+  age.secrets.emailPassword = {
+    file = ../../secrets/oneEmailPassword.age;
+    owner = username;
+    group = "users";
+    mode = "0440";
+  };
 
   boot = {
     loader = {
