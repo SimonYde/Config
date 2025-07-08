@@ -24,6 +24,8 @@ in
       };
     };
 
+    users.users.nextcloud.extraGroups = [ server.group ];
+
     services = {
       nginx = {
         virtualHosts."${cfg.hostName}" = {

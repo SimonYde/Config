@@ -87,8 +87,11 @@ in
     };
 
     users = {
-      groups.${cfg.group} = { };
+      groups.${cfg.group} = {
+        gid = 992;
+      };
       users.${cfg.user} = {
+        uid = 994;
         isSystemUser = true;
         group = cfg.group;
       };

@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  inherit (config.syde) server;
+  inherit (config.syde) server email;
 in
 {
   age.secrets.vaultwarden = {
@@ -19,6 +19,10 @@ in
       config = {
         rocketAddress = "127.0.0.1";
         rocketPort = 8881;
+
+        smtpFrom = email.fromAddress;
+        smtpUsername = email.smtpUsername;
+        smtpHost = email.smtpServer;
 
         databaseUrl = "postgresql://vaultwarden@/vaultwarden";
 

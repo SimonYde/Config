@@ -4,10 +4,12 @@
     inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
 
     ../../common/server.nix
+
     ./acme.nix
+    ./jellyfin.nix
+    ./nextcloud.nix
     ./postgresql.nix
     ./vaultwarden.nix
-    ./nextcloud.nix
   ];
 
   system.stateVersion = "25.11";
@@ -64,6 +66,11 @@
   services = {
     zfs.autoScrub.enable = true;
 
+    jellyfin = {
+      enable = true;
+      mediaDir = "/mnt/tank/jellyfin";
+    };
+
     nginx.enable = true;
     nextcloud.enable = true;
   };
@@ -90,6 +97,12 @@
 
     "/home" = {
       device = "os-pool/home";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/mnt/tank/jellyfin" = {
+      device = "tank/jellyfin";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
