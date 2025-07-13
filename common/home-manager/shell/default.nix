@@ -10,7 +10,7 @@ let
 in
 {
   imports = [
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
 
     ./git.nix
     ./neovim.nix

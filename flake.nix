@@ -109,7 +109,6 @@
       url = "github:danth/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
         tinted-schemes.follows = "tinted-schemes";
       };
     };
