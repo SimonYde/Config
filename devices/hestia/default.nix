@@ -1,7 +1,7 @@
-{ inputs, config, username, ... }:
+{ pkgs, inputs, config, username, ... }:
 {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
 
     ../../common/server.nix
 
@@ -73,6 +73,22 @@
 
     nginx.enable = true;
     nextcloud.enable = true;
+  };
+
+  systemd.services.disable-c6 = {
+    description = "Ryzen Disable C6";
+    wantedBy = [ "basic.target" "suspend.target" "hibernate.target" ];
+    after = [ "sysinit.target" "local-fs.target" "suspend.target" "hibernate.target" ];
+    before = [ "basic.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.zenstates}/bin/zenstates --c6-disable";
+    };
+
+    unitConfig = {
+      DefaultDependencies = "no";
+    };
   };
 
   fileSystems = {
