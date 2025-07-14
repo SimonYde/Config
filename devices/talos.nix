@@ -123,8 +123,10 @@
 
   systemd.services.framework-power = {
     description = "set framework battery limit";
-    after = [ "multi-user.target" ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = [ "basic.target" "suspend.target" "hibernate.target" ];
+    after = [ "sysinit.target" "local-fs.target" "suspend.target" "hibernate.target" ];
+    before = [ "basic.target" ];
+
     serviceConfig = {
       Type = "simple";
       ExecStart = "${lib.getExe pkgs.framework-tool} --charge-limit 80";
