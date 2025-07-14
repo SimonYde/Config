@@ -56,6 +56,7 @@ in
     hyprlock.enable = true;
     imv.enable = true;
     waybar.enable = true;
+    walker.enable = true;
     wlogout.enable = true;
   };
 

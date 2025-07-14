@@ -23,6 +23,7 @@ in
     ./audio-production.nix
     ./waybar.nix
     ./swww.nix
+    ./walker.nix
   ];
 
   config = mkMerge [
