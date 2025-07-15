@@ -64,19 +64,12 @@ $env.config = {
 alias fg = job unfreeze
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
-$env.NH_NO_CHECKS = 1
+# $env.NH_NO_CHECKS = 1
 
-let prompt = {||
-    if $env.LAST_EXIT_CODE != 0 {
-        $"(ansi red)⟩ (ansi reset)"
-    } else {
-        $"(ansi white)⟩ (ansi reset)"
-    }
-}
-$env.PROMPT_INDICATOR = $prompt
-$env.PROMPT_INDICATOR_VI_INSERT = $prompt
-$env.PROMPT_INDICATOR_VI_NORMAL = ": ";
-$env.PROMPT_MULTILINE_INDICATOR = "::: ";
+$env.PROMPT_INDICATOR = ""
+$env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)󰫶 (ansi reset)"
+$env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)󰫻 (ansi reset)";
+$env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)󰫺 (ansi reset)";
 
 let fish_completer = {|spans: list<string>|
     fish --command $'complete "--do-complete=($spans | str join " ")"'

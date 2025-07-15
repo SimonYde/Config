@@ -149,7 +149,10 @@ in
     useUserPackages = true;
 
     users.${username}.imports = [ ./home-manager ];
-    users.root.imports = [ ./home-manager ];
+    users.root.imports = [
+      ./home-manager
+      ./home-manager/root.nix
+    ];
   };
 
   age = {

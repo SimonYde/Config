@@ -32,10 +32,11 @@ in
 
     # Modules
     character = {
-      # success_symbol = "[⟩](normal white)";
-      # error_symbol = "[⟩](bold red)";
-      success_symbol = "";
-      error_symbol = "";
+      format = "$symbol";
+      success_symbol = "[⟩](normal white)";
+      error_symbol = "[⟩](bold red)";
+      # success_symbol = "";
+      # error_symbol = "";
     };
 
     direnv = {
