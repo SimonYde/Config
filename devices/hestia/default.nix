@@ -72,6 +72,11 @@
   services = {
     zfs.autoScrub.enable = true;
 
+    immich = {
+      enable = true;
+      mediaDir = "/mnt/tank/immich";
+    };
+
     jellyfin = {
       enable = true;
       mediaDir = "/mnt/tank/jellyfin";
@@ -128,6 +133,12 @@
 
     "/home" = {
       device = "os-pool/home";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/mnt/tank/immich" = {
+      device = "tank/immich";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
