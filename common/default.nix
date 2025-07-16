@@ -163,8 +163,8 @@ in
     ageBin = getExe pkgs.rage;
 
     secrets = {
-      wireguard.file = ../secrets/wireguard.age;
-      pc-password.file = ../secrets/pc-password.age;
+      wireguard.file = "${inputs.secrets}/wireguard.age";
+      pc-password.file = "${inputs.secrets}/pc-password.age";
     };
   };
 

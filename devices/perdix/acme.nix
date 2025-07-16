@@ -1,7 +1,8 @@
+{ inputs, ... }:
 {
   users.groups.acme = { };
 
-  age.secrets.dns.file = ../../secrets/dns.age;
+  age.secrets.dns.file = "${inputs.secrets}/dns.age";
 
   security.acme = {
     defaults = {

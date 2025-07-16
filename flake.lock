@@ -937,6 +937,7 @@
         "nvim-lspconfig": "nvim-lspconfig",
         "pre-commit-hooks": "pre-commit-hooks_2",
         "rainbow-delimiters-nvim": "rainbow-delimiters-nvim",
+        "secrets": "secrets",
         "stable": "stable",
         "stylix": "stylix",
         "systems": "systems_3",
@@ -988,6 +989,22 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752660230,
+        "narHash": "sha256-Ckw5vPe28TVf7UOWaEzixuwHgIU/EVdCsmVfN8n9+Aw=",
+        "ref": "refs/heads/master",
+        "rev": "d6fe46537bd8b2021501b7e93f117c2b53750c32",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.com/SimonYde/secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/SimonYde/secrets.git"
       }
     },
     "stable": {

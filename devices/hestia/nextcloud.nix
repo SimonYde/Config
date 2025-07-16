@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  username,
+  username, inputs,
   ...
 }:
 let
@@ -15,10 +15,10 @@ in
   config = lib.mkIf cfg.enable {
     age.secrets = {
       nextcloudAdminPassword = {
-        file = ../../secrets/nextcloudAdminPassword.age;
+        file = "${inputs.secrets}/nextcloudAdminPassword.age";
       };
       nextcloudSecretFile = {
-        file = ../../secrets/nextcloudSecretFile.age;
+        file = "${inputs.secrets}/nextcloudSecretFile.age";
         owner = "nextcloud";
         group = "nextcloud";
       };

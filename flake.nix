@@ -44,6 +44,11 @@
       };
     };
 
+    secrets = {
+      url = "git+ssh://git@github.com/SimonYde/secrets.git";
+      flake = false;
+    };
+
     # home-manager modules
     home-manager = {
       url = "github:nix-community/home-manager/master";

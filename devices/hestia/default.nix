@@ -1,4 +1,10 @@
-{ pkgs, inputs, config, username, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  username,
+  ...
+}:
 {
   imports = [
     # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -35,7 +41,7 @@
   networking.hostId = "ef847b13";
 
   age.secrets.emailPassword = {
-    file = ../../secrets/oneEmailPassword.age;
+    file = "${inputs.secrets}/oneEmailPassword.age";
     owner = username;
     group = "users";
     mode = "0440";
@@ -77,8 +83,17 @@
 
   systemd.services.disable-c6 = {
     description = "Ryzen Disable C6";
-    wantedBy = [ "basic.target" "suspend.target" "hibernate.target" ];
-    after = [ "sysinit.target" "local-fs.target" "suspend.target" "hibernate.target" ];
+    wantedBy = [
+      "basic.target"
+      "suspend.target"
+      "hibernate.target"
+    ];
+    after = [
+      "sysinit.target"
+      "local-fs.target"
+      "suspend.target"
+      "hibernate.target"
+    ];
     before = [ "basic.target" ];
 
     serviceConfig = {

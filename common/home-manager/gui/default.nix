@@ -137,7 +137,7 @@ in
         shellAliases.ex = getExe file-manager.package;
       };
 
-      age.secrets."rclone".file = ../../../secrets/rclone.age;
+      age.secrets."rclone".file = "${inputs.secrets}/rclone.age";
 
       # FIXME: 2025-03-06 Simon Yde, would be nice if it could be determined at build time
       xdg.configFile."rclone/rclone.conf".source =

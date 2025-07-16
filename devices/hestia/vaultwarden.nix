@@ -1,10 +1,10 @@
-{ config, ... }:
+{ config, inputs, ... }:
 let
   inherit (config.syde) server email;
 in
 {
   age.secrets.vaultwarden = {
-    file = ../../secrets/vaultwarden.age;
+    file = "${inputs.secrets}/vaultwarden.age";
     owner = "vaultwarden";
   };
 
