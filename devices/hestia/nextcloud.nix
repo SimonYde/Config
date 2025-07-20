@@ -156,6 +156,8 @@ in
           mail_from_address = "s";
           mail_domain = server.baseDomain;
 
+          default_phone_region = "DK";
+
           user_oidc = {
             allow_multiple_user_backends = 0;
           };

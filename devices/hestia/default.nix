@@ -12,6 +12,7 @@
     ../../common/server.nix
 
     ./acme.nix
+    ./immich.nix
     ./jellyfin.nix
     ./nextcloud.nix
     ./postgresql.nix
@@ -61,6 +62,8 @@
       "usbhid"
       "sd_mod"
     ];
+
+    kernelModules = [ "msr" ];
   };
 
   hardware = {
@@ -73,7 +76,7 @@
     zfs.autoScrub.enable = true;
 
     immich = {
-      enable = true;
+      enable = false;
       mediaDir = "/mnt/tank/immich";
     };
 
