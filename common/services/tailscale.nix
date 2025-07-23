@@ -21,6 +21,9 @@ in
       extraDaemonFlags = [ "--no-logs-no-support" ];
     };
 
-    networking.firewall.trustedInterfaces = [ cfg.interfaceName ];
+    networking.firewall = {
+      trustedInterfaces = [ cfg.interfaceName ];
+      allowedUDPPorts = [ cfg.port ];
+    };
   };
 }

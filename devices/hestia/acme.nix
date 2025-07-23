@@ -1,9 +1,9 @@
-{ config, lib, ... }:
+{ inputs, config, lib, ... }:
 
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkForce mkOption types;
 in
-{
+  {
   options.services.nginx = {
     virtualHosts = mkOption {
       type = types.attrsOf (
@@ -19,20 +19,45 @@ in
   };
 
   config = {
-    services.nginx.virtualHosts."www.tmcs.dk" = {
-      default = true;
-      locations."/" = {
-        extraConfig = ''
-          return 418;
-        '';
+    services.nginx.virtualHosts = {
+      "www.tmcs.dk" = {
+        default = true;
+
+        locations."/" = {
+          extraConfig = ''
+              return 418;
+          '';
+        };
+      };
+
+      "tranumparken.ts.simonyde.com" = {
+        acmeRoot = mkForce null;
+        enableACME = mkForce false;
+        useACMEHost = "ts.simonyde.com";
+
+        locations."/" = {
+          proxyPass = "https://192.168.2.1:8443";
+          proxyWebsockets = true;
+        };
       };
     };
 
     users.groups.acme = { };
 
+    age.secrets.dns.file = "${inputs.secrets}/dns.age";
+
     security.acme = {
       acceptTerms = true;
+
       defaults.email = "s@tmcs.dk";
+
+      certs."ts.simonyde.com" = {
+        email = "acme@simonyde.com";
+        domain = "*.ts.simonyde.com";
+        dnsProvider = "cloudflare";
+        dnsResolver = "1.1.1.1:53";
+        environmentFile = "/run/agenix/dns";
+      };
     };
   };
 }
