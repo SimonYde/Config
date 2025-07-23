@@ -14,4 +14,13 @@
 
     acceptTerms = true;
   };
+
+  services.nginx.virtualHosts."www.simonyde.com" = {
+    default = true;
+    locations."/" = {
+      extraConfig = ''
+        return 418;
+      '';
+    };
+  };
 }
