@@ -37,7 +37,6 @@ in
         recommendedTlsSettings = true;
         recommendedGzipSettings = true;
         recommendedBrotliSettings = true;
-        recommendedZstdSettings = true;
         recommendedProxySettings = true;
 
         resolver.addresses = [ "127.0.0.53" ];
