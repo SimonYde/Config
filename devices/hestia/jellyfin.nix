@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   mediaDir = cfg.mediaDir;
   server = config.syde.server;
@@ -27,7 +32,7 @@ in
           proxyPass = "http://jellyfin";
           proxyWebsockets = true;
           extraConfig = ''
-          add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+            add_header Alt-Svc 'h3=":$server_port"; ma=86400';
           '';
         };
       };

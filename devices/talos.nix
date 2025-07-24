@@ -48,6 +48,7 @@
   networking.wireguard.enable = true;
 
   services = {
+    hardware.openrgb.enable = true;
     ratbagd.enable = true;
     upower.enable = true;
 
@@ -123,8 +124,17 @@
 
   systemd.services.framework-power = {
     description = "set framework battery limit";
-    wantedBy = [ "basic.target" "suspend.target" "hibernate.target" ];
-    after = [ "sysinit.target" "local-fs.target" "suspend.target" "hibernate.target" ];
+    wantedBy = [
+      "basic.target"
+      "suspend.target"
+      "hibernate.target"
+    ];
+    after = [
+      "sysinit.target"
+      "local-fs.target"
+      "suspend.target"
+      "hibernate.target"
+    ];
     before = [ "basic.target" ];
 
     serviceConfig = {

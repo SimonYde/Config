@@ -130,6 +130,7 @@ in
           id = "dcpihecpambacapedldabdbpakmachpb";
           updateUrl = "https://raw.githubusercontent.com/iamadamdev/bypass-paywalls-chrome/master/updates.xml";
         }
+        { id = "bkkmolkhemgaeaeggcmfbghljjjoofoh"; } # Catppuccin theme
         { id = "jjhefcfhmnkfeepcpnilbbkaadhngkbi"; } # Readwise Highlighter
         { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium
         { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # Stylus

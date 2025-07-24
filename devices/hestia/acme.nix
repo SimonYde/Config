@@ -1,9 +1,14 @@
-{ inputs, config, lib, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkForce mkOption types;
 in
-  {
+{
   options.services.nginx = {
     virtualHosts = mkOption {
       type = types.attrsOf (
@@ -25,7 +30,7 @@ in
 
         locations."/" = {
           extraConfig = ''
-              return 418;
+            return 418;
           '';
         };
       };
