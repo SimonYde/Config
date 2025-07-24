@@ -28,7 +28,6 @@ in
       trippy # network diagnostics
       rsync
 
-      isd # Interactive systemd utility
       systemctl-tui # Alternative to `isd`
     ];
 
