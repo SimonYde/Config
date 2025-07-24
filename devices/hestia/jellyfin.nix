@@ -5,8 +5,10 @@
   ...
 }:
 let
+  inherit (config.syde) server;
+
   mediaDir = cfg.mediaDir;
-  server = config.syde.server;
+
   cfg = config.services.jellyfin;
 in
 {
@@ -18,9 +20,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    users.users.${server.user}.extraGroups = [ "nextcloud" ];
+
     services = {
       jellyfin = {
-        inherit (config.syde.server) user group;
+        inherit (server) user;
+        group = "nextcloud";
+
         # Jellyfin can't advertise a reverse proxy on DLNA. Ew.
         openFirewall = false;
       };
@@ -44,7 +51,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = "root";
-        ExecStart = "${pkgs.coreutils}/bin/chown -R ${server.user}:${server.group} ${mediaDir}";
+        ExecStart = "${pkgs.coreutils}/bin/chown -R nextcloud:nextcloud ${mediaDir}";
       };
     };
 
@@ -70,7 +77,7 @@ in
       };
       script = ''
         ${pkgs.coreutils}/bin/mkdir -p ${mediaDir}
-        ${pkgs.coreutils}/bin/chown -R ${server.user}:${server.group} ${mediaDir}
+        ${pkgs.coreutils}/bin/chown -R nextcloud:nextcloud ${mediaDir}
       '';
     };
   };

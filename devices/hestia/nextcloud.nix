@@ -7,8 +7,7 @@
   ...
 }:
 let
-  server = config.syde.server;
-  email = config.syde.email;
+  inherit (config.syde) server email;
 
   cfg = config.services.nextcloud;
 in
