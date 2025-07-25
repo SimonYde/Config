@@ -29,6 +29,9 @@ in
         domain = "https://password.${server.baseDomain}";
         signupsAllowed = true;
 
+        extendedLogging = true;
+        logLevel = "warn";
+
         pushEnabled = true;
       };
     };
@@ -52,6 +55,18 @@ in
           add_header Alt-Svc 'h3=":$server_port"; ma=86400';
         '';
       };
+    };
+  };
+
+  syde.services.fail2ban.jails = {
+    vaultwarden-login = {
+      serviceName = "vaultwarden";
+      failRegex = "^.*?Username or password is incorrect. Try again. IP: <ADDR>. Username:.*$";
+    };
+
+    vaultwarden-admin = {
+      serviceName = "vaultwarden";
+      failRegex = "^.*Invalid admin token. IP: <ADDR>.*$";
     };
   };
 

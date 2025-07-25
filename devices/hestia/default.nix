@@ -12,6 +12,7 @@
     ../../common/server.nix
 
     ./acme.nix
+    ./fail2ban.nix
     ./immich.nix
     ./jellyfin.nix
     ./nextcloud.nix
@@ -35,6 +36,8 @@
       cpu.enable = true;
       gpu.enable = true;
     };
+
+    services.fail2ban.enable = true;
 
     server.baseDomain = "tmcs.dk";
   };

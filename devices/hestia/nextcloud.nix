@@ -188,5 +188,10 @@ in
         };
       };
     };
+
+    syde.services.fail2ban.jails.nextcloud = {
+      serviceName = "phpfpm-nextcloud";
+                failRegex = "^.*Login failed:.*(Remote IP: <HOST>).*$";
+    };
   };
 }
