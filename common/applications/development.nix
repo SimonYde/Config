@@ -37,6 +37,7 @@ in
     users.users.${username}.extraGroups = [
       "adbuser"
       "podman"
-    ] ++ lib.optional config.virtualisation.libvirtd.enable "libvirtd";
+    ]
+    ++ lib.optional config.virtualisation.libvirtd.enable "libvirtd";
   };
 }

@@ -41,23 +41,21 @@ $env.config = {
     }
 
     hooks: {
-        command_not_found: [
-            {|cmd|
+        command_not_found: {|cmd|
+            try {
                 if (which nix-locate | is-empty) {
                     return null
                 }
 
-                let pkgs = (nix-locate $"/bin/($cmd)" --whole-name --at-root --top-level --minimal)
+                let pkgs = (nix-locate $"/bin/($cmd)" --whole-name --at-root --minimal)
+
                 if ($pkgs | is-empty) {
                     return null
                 }
 
-                return (
-                    $"(ansi $env.config.color_config.shape_external)($cmd)(ansi reset) " +
-                    $"may be found in the following packages:\n($pkgs)"
-                )
+                $"(ansi red)($cmd)(ansi reset) may be found in the following packages:\n($pkgs)"
             }
-        ]
+        }
     }
 }
 

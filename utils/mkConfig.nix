@@ -38,21 +38,20 @@ let
       specialArgs = specialArgs // {
         inherit username;
       };
-      modules =
-        [
-          {
-            nixpkgs = {
-              inherit overlays;
-              hostPlatform = system;
+      modules = [
+        {
+          nixpkgs = {
+            inherit overlays;
+            hostPlatform = system;
 
-              config.allowUnfree = true;
-            };
+            config.allowUnfree = true;
+          };
 
-            networking.hostName = hostname;
-          }
-        ]
-        ++ deviceSpecificModules
-        ++ extraModules;
+          networking.hostName = hostname;
+        }
+      ]
+      ++ deviceSpecificModules
+      ++ extraModules;
     };
 
   mkWslSystem =
@@ -80,7 +79,8 @@ let
         {
           home = { inherit username homeDirectory; };
         }
-      ] ++ extraModules;
+      ]
+      ++ extraModules;
       extraSpecialArgs = specialArgs;
     };
 in
