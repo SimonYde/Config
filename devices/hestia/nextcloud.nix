@@ -7,12 +7,13 @@
   ...
 }:
 let
+  inherit (lib) mkIf getExe;
   inherit (config.syde) server email;
 
   cfg = config.services.nextcloud;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     age.secrets = {
       nextcloudAdminPassword = {
         file = "${inputs.secrets}/nextcloudAdminPassword.age";
@@ -24,7 +25,13 @@ in
       };
     };
 
-    users.users.nextcloud.extraGroups = [ server.group ];
+    users.users.nextcloud.extraGroups = [
+      "render"
+      "video"
+      server.group
+    ];
+
+    environment.systemPackages = [ pkgs.perl ];
 
     services = {
       nginx = {
@@ -138,6 +145,7 @@ in
             music
             notes
             notify_push
+            previewgenerator
             recognize
             richdocuments
             tasks
@@ -179,6 +187,11 @@ in
             "OC\\Preview\\XBitmap"
             "OC\\Preview\\HEIC"
           ];
+
+          "memories.exiftool" = "${getExe pkgs.exiftool}";
+          "memories.vod.ffmpeg" = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
+          "memories.vod.ffprobe" = "${pkgs.ffmpeg-headless}/bin/ffprobe";
+          preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
         };
 
         config = {
@@ -191,7 +204,11 @@ in
 
     syde.services.fail2ban.jails.nextcloud = {
       serviceName = "phpfpm-nextcloud";
-                failRegex = "^.*Login failed:.*(Remote IP: <HOST>).*$";
+      failRegex = "^.*Login failed:.*(Remote IP: <HOST>).*$";
+    };
+
+    systemd.services.nextcloud-cron = {
+      path = [pkgs.perl];
     };
   };
 }
