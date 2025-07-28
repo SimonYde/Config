@@ -12,6 +12,7 @@
     ../../common/server.nix
 
     ./acme.nix
+    ./backup.nix
     ./fail2ban.nix
     ./immich.nix
     ./jellyfin.nix
