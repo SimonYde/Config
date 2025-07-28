@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf getExe;
+  inherit (lib) mkIf getExe head splitString;
   inherit (config.syde) server email;
 
   cfg = config.services.nextcloud;
@@ -161,7 +161,7 @@ in
           mail_smtphost = email.smtpServer;
           mail_smtpauth = true;
           mail_smtpport = 587;
-          mail_from_address = "s";
+          mail_from_address = head (splitString "@" email.fromAddress);
           mail_domain = server.baseDomain;
 
           default_phone_region = "DK";

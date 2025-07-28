@@ -26,10 +26,10 @@
   syde = {
     email = {
       enable = true;
-      fromAddress = "s@tmcs.dk";
-      toAddress = "s@tmcs.dk";
+      fromAddress = "services@tmcs.dk";
+      toAddress = "services@tmcs.dk";
       smtpServer = "send.one.com";
-      smtpUsername = "s@tmcs.dk";
+      smtpUsername = "services@tmcs.dk";
       smtpPasswordPath = config.age.secrets.emailPassword.path;
     };
 
