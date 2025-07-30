@@ -31,6 +31,7 @@ in
     };
     targets = {
       firefox.enable = false;
+      zen-browser.profileNames = [ config.home.username ];
       gnome.enable = false;
       neovim.enable = false;
       nushell.enable = false;
