@@ -29,8 +29,7 @@ module zellij {
                 null => {
                     sessions
                     | get value
-                    | str join (char newline)
-                    | fzf
+                    | input list --fuzzy "Attach to zellij session: "
                 }
                 _ => $session
             }

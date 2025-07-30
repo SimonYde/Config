@@ -120,7 +120,7 @@ support_kitty_keyboard_protocol true
 
 keybinds clear-defaults=true {
   locked {
-    bind "Ctrl l" { SwitchToMode "normal"; }
+    bind "Ctrl ." { SwitchToMode "normal"; }
   }
   pane {
     bind "left" { MoveFocus "left"; }

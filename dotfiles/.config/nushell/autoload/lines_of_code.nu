@@ -3,7 +3,10 @@ export def "loc" [
     language?: string # return lines-of-code by file matching `language`.
 ] {
     if (which tokei | is-empty) {
-        error make {msg: "`tokei` is not installed"}
+        error make {
+            msg: "`tokei` is not installed"
+            help: "nix shell nixpkgs#tokei"
+        }
     }
 
     let report = tokei --hidden -o json

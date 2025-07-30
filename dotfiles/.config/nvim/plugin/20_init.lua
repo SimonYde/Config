@@ -245,6 +245,8 @@ end)
 Load.later(function()
     require('obsidian').setup({
         disable_frontmatter = true,
+        legacy_commands = false,
+
         new_notes_location = 'current_dir',
 
         follow_url_func = function(url) vim.ui.open(url) end,
@@ -284,11 +286,10 @@ Load.later(function()
         },
     })
 
-    nmap('<leader>oo', vim.cmd.ObsidianOpen, 'Open current file in Obsidian')
-    nmap('<leader>od', vim.cmd.ObsidianDailies, 'Open daily note search')
-    nmap('<leader>on', vim.cmd.ObsidianTemplate, 'Insert Obsidian template')
-    nmap('<leader>ot', vim.cmd.ObsidianTags, 'Open tag list')
-    nmap('<leader>op', vim.cmd.ObsidianPasteImg, 'Paste image')
+    nmap('<leader>oo', function() vim.cmd.Obsidian('open') end, 'Open current file in Obsidian')
+    nmap('<leader>od', function() vim.cmd.Obsidian('dailies') end, 'Open daily note search')
+    nmap('<leader>on', function() vim.cmd.Obsidian('new_from_template') end, 'Insert Obsidian template')
+    nmap('<leader>ot', function() vim.cmd.Obsidian('tags') end, 'Open tags list')
 end)
 
 Load.later(function()
