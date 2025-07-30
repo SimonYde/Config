@@ -7,9 +7,7 @@
 let
   inherit (lib)
     any
-    filter
     filterAttrs
-    mapAttrs
     mkIf
     ;
 
@@ -19,27 +17,13 @@ let
 
   home = "/home/${username}";
 
-  removeThisDevice = filterAttrs (name: _: name != hostName);
-
   onlyForThisDevice = filterAttrs (_: v: any (name: name == hostName) v.devices);
-
-  # TODO: 2025-03-17 Simon Yde, figure out if this is actually necessary still
-  removeThisDeviceFromFolders = mapAttrs (
-    _: attrs:
-    attrs
-    // {
-      devices = filter (name: hostName != name) attrs.devices;
-    }
-  );
 in
 {
   config = mkIf cfg.enable {
-    users.users.${username}.extraGroups = [ "syncthing" ];
-
-    # networking.firewall.allowedTCPPorts = [ 8384 ];
-
     services.syncthing = {
       user = username;
+      group = "users";
       openDefaultPorts = true;
 
       configDir = "${home}/.config/syncthing";
@@ -57,7 +41,7 @@ in
           theme = "black";
         };
 
-        devices = removeThisDevice {
+        devices = {
           icarus = {
             name = "Icarus";
             id = "ZLF4ATX-FLQ3SOR-XIQ7PUJ-S3PMN7G-IHY6GLG-3LWAVNM-NK6DQOJ-BKT4IAH";
@@ -95,7 +79,7 @@ in
           };
         };
 
-        folders = removeThisDeviceFromFolders (onlyForThisDevice {
+        folders = onlyForThisDevice {
           "Apollo" = {
             path = "${home}/Documents/Apollo";
             devices = [
@@ -124,11 +108,11 @@ in
           "Config" = {
             path = "${home}/Config";
             devices = [
+              "daedelus"
               "icarus"
               "icarus-wsl"
               "perdix"
               "talos"
-              "daedelus"
               "theseus"
             ];
           };
@@ -136,9 +120,9 @@ in
           "Pictures" = {
             path = "${home}/Pictures";
             devices = [
+              "daedelus"
               "icarus"
               "talos"
-              "daedelus"
               "theseus"
             ];
           };
@@ -146,10 +130,11 @@ in
           "Projects" = {
             path = "${home}/Projects";
             devices = [
+              "daedelus"
               "icarus"
               "icarus-wsl"
+              "perdix"
               "talos"
-              "daedelus"
             ];
           };
 
@@ -174,9 +159,8 @@ in
               "theseus"
             ];
           };
-        });
+        };
       };
     };
-
   };
 }
