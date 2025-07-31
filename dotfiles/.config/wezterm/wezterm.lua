@@ -35,6 +35,11 @@ config.ssh_domains = {
 		remote_address = "perdix",
 		username = "syde",
 	},
+	{
+		name = "hestia",
+		remote_address = "hestia",
+		username = "syde",
+	},
 }
 
 config.unix_domains = {

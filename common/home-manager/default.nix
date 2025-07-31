@@ -21,6 +21,7 @@ in
   # Save a bit of space on servers.
   manual.manpages.enable = false;
   programs.man.enable = mkDefault false;
+  programs.wezterm.enable = true;
 
   lib.meta = {
     configPath = "/home/syde/Config"; # Should be the location of the config repo.
