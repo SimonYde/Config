@@ -27,9 +27,6 @@ in
       jellyfin = {
         inherit (server) user;
         group = "nextcloud";
-
-        # Jellyfin can't advertise a reverse proxy on DLNA. Ew.
-        openFirewall = false;
       };
 
       nginx = {
@@ -43,6 +40,12 @@ in
           '';
         };
       };
+    };
+
+    # NOTE: 2025-08-01 Simon Yde, remember to set `known proxy` option in jellyfin admin console under `Networking`.
+    syde.services.fail2ban.jails.jellyfin = {
+      serviceName = "jellyfin";
+      failRegex = "^.*Authentication request for .* has been denied \\(IP: <HOST>\\)\\..*$";
     };
 
     # Define the systemd service unit
@@ -63,23 +66,5 @@ in
       };
       wantedBy = [ "multi-user.target" ];
     };
-
-    # Optional: If you want to ensure the directory exists and has initial ownership
-    systemd.services.jellyfin-chown-initial = {
-      description = "Initial ownership setup for ${mediaDir}";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "jellyfin-chown.path" ];
-
-      serviceConfig = {
-        Type = "oneshot";
-        User = "root";
-        RemainAfterExit = true;
-      };
-      script = ''
-        ${pkgs.coreutils}/bin/mkdir -p ${mediaDir}
-        ${pkgs.coreutils}/bin/chown -R nextcloud:nextcloud ${mediaDir}
-      '';
-    };
   };
-
 }
