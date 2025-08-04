@@ -16,13 +16,6 @@
     environment.etc."specialisation".text = "gaming";
   };
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
-
-    # TODO: 2025-06-24 Simon Yde, remove this once https://gitlab.freedesktop.org/drm/amd/-/issues/2950 is fixed.
-    kernelParams = [ "amdgpu.dcdebugmask=0x10" ];
-  };
-
   syde = {
     development.enable = true;
     hardware = {
@@ -48,9 +41,16 @@
   networking.wireguard.enable = true;
 
   services = {
+    fwupd.enable = true;
     hardware.openrgb.enable = true;
     ratbagd.enable = true;
     upower.enable = true;
+
+    openvpn.servers = {
+      cyberbridge = {
+        config = ''config /root/nixos/openvpn/cyberbridge.conf '';
+      };
+    };
 
     syncthing.enable = true;
 
