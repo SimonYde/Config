@@ -54,6 +54,9 @@ in
     services.fail2ban = {
       enable = true;
 
+      # Do not consider tailnet traffic.
+      ignoreIP = [ "100.64.0.0/10" ];
+
       jails = mapAttrs (name: value: {
         settings = {
           bantime = "30d";
