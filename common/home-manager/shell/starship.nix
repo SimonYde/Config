@@ -61,6 +61,7 @@ in
     };
 
     hostname = {
+      ssh_only = false;
       ssh_symbol = "🌐";
     };
 

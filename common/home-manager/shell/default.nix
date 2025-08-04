@@ -122,6 +122,8 @@ in
   programs.helix.package = pkgs.evil-helix;
 
   programs.nushell = {
+    environmentVariables.CARAPACE_BRIDGES = "fish,bash";
+
     configFile.text = # nu
       ''
         $env.NU_LIB_DIRS ++= [ '${pkgs.nu_scripts}/share/nu_scripts' ]

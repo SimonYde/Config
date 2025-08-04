@@ -62,57 +62,26 @@ $env.config = {
 alias fg = job unfreeze
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
-# $env.NH_NO_CHECKS = 1
 
 $env.PROMPT_INDICATOR = ""
 $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)󰫶 (ansi reset)"
 $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)󰫻 (ansi reset)";
 $env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)󰫺 (ansi reset)";
 
-let fish_completer = {|spans: list<string>|
-    fish --command $'complete "--do-complete=($spans | str join " ")"'
-    | from tsv --flexible --noheaders --no-infer
-    | rename value description
-}
+use std-rfc/tables [ aggregate ]
+use std-rfc/clip
 
-let carapace_completer = {|spans: list<string>|
-    carapace $spans.0 nushell ...$spans
-    | from json
-    | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
-}
+try {
+  if ("~/.config/rbw/config.json" | path exists) {
+    rbw unlock
 
-let zoxide_completer = {|spans: list<string>|
-    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD }
-}
-
-# This completer will use carapace by default
-let external_completer = {|spans: list<string>|
-    let expanded_alias = scope aliases
-    | where name == $spans.0
-    | get -i 0.expansion
-
-    let spans = if $expanded_alias != null {
-        $spans
-        | skip 1
-        | prepend ($expanded_alias | split row ' ' | take 1)
-    } else {
-        $spans
+    if not (try { ssh-add -l | str contains "stdin" } catch { false }) {
+      rbw get 'SSH key' | str replace --all '\n' (char newline) | ssh-add -
     }
 
-    match $spans.0 {
-        # use zoxide completions for zoxide commands
-        __zoxide_z|__zoxide_zi => $zoxide_completer
-        z|zi => $zoxide_completer
-        hyprctl => $fish_completer
-        ncspot => $fish_completer
-        tailscale => $fish_completer
-        topiary => $fish_completer
-        trash => $fish_completer
-        typst => $fish_completer
-        _ => $carapace_completer
-    } | do $in $spans
+    # $env.CACHIX_AUTH_TOKEN = (rbw get Cachix)
+    # $env.GITLAB_TOKEN = (rbw get "Gitlab token")
+    # $env.GITHUB_TOKEN = (rbw get "Github token")
+    # $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
+  }
 }
-
-$env.config.completions.external.completer = $external_completer
-
-use std-rfc/tables [ aggregate ]

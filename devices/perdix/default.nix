@@ -48,10 +48,6 @@
     packages = [ pkgs.terminus_font ];
   };
 
-  environment.systemPackages = [
-    pkgs.wezterm
-  ];
-
   hardware = {
     enableAllHardware = true;
     enableAllFirmware = true;

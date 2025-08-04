@@ -112,11 +112,6 @@ in
           };
         };
 
-        gpg = {
-          enable = true;
-          homedir = "${config.xdg.configHome}/gpg";
-        };
-
         jujutsu = {
           enable = true;
 
@@ -205,25 +200,78 @@ in
           ];
 
         topiary.enable = true;
+
+        rbw = {
+          enable = true;
+          settings = {
+            email = "bitwarden@simonyde.com";
+            base_url = "https://password.tmcs.dk/";
+            lock_timeout = 60 * 60 * 24;
+            pinentry = pkgs.pinentry-tty;
+          };
+        };
+        ssh = {
+          enable = true;
+          matchBlocks = {
+            "icarus" = {
+              hostname = "icarus";
+              user = "root";
+              forwardAgent = true;
+            };
+
+            "perdix" = {
+              hostname = "perdix";
+              user = "root";
+              forwardAgent = true;
+            };
+
+            "hestia" = {
+              hostname = "hestia";
+              user = "root";
+              forwardAgent = true;
+            };
+          };
+        };
+
+        nushell.environmentVariables = rec {
+          # always use rootless podman
+          CONTAINER_HOST = "unix:///run/user/1000/podman/podman.sock";
+          DOCKER_HOST = CONTAINER_HOST;
+        };
       };
 
       services = {
-        gpg-agent = {
-          enable = true;
-          enableSshSupport = true;
-          enableNushellIntegration = true;
-          pinentry.package = pkgs.pinentry-tty;
-          extraConfig = ''
-            allow-loopback-pinentry
-          '';
-        };
-
         tldr-update = {
           enable = true;
           package = pkgs.tlrc;
         };
       };
 
+      systemd.user.services = {
+        rbw-agent = {
+          Unit.Description = "rbw agent";
+
+          Service = {
+            Type = "simple";
+            RuntimeDirectory = "rbw";
+            ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %h/.local/share/rbw/";
+            ExecStart = "${pkgs.rbw}/bin/rbw-agent --no-daemonize";
+          };
+
+          Install.WantedBy = [ "default.target" ];
+        };
+
+        adb-server = {
+          Unit.Description = "adb server daemon";
+
+          Service = {
+            Type = "simple";
+            ExecStart = "${pkgs.android-tools}/bin/adb -a nodaemon server start";
+          };
+
+          Install.WantedBy = [ "default.target" ];
+        };
+      };
     }
 
     (mkIf cfg.bash.enable {
@@ -327,7 +375,7 @@ in
         nix-output-monitor
         nix-tree
         nix-update
-        nixfmt-rfc-style
+        nixfmt
         nixpkgs-review
       ];
     })

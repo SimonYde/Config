@@ -122,6 +122,7 @@ in
         openssh.authorizedKeys.keys = [
           keys.icarus
           keys.perdix
+          keys.syde
         ];
       };
 
@@ -135,6 +136,7 @@ in
         openssh.authorizedKeys.keys = [
           keys.icarus
           keys.perdix
+          keys.syde
         ];
       };
     };
