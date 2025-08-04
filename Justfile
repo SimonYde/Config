@@ -1,4 +1,4 @@
-default: update os
+default: os
 
 stow:
 	./stow.nu
@@ -8,6 +8,7 @@ news:
 
 update:
 	@nix flake update --commit-lock-file
+	@nh os switch . --ask
 
 os:
 	@nh os switch . --ask

@@ -414,6 +414,8 @@ in
   };
 
   wayland.windowManager.hyprland.settings = with colors; {
+    "$opacity_popups" = opacity.popups;
+    "$opacity_apps" = opacity.applications;
     general = {
       "col.active_border" = mkForce "rgb(${base0D}) rgb(${base0E}) 45deg";
       "col.inactive_border" = mkForce "rgba(00000000)";

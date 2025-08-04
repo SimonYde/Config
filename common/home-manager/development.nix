@@ -21,36 +21,21 @@ in
     {
       syde.development = {
         bash.enable = true;
-
         cpp.enable = false;
-
         clojure.enable = false;
-
         gleam.enable = false;
-
         go.enable = false;
-
-        java.enable = true;
-
+        java.enable = false;
         latex.enable = false;
-
         lua.enable = true;
-
         nix.enable = true;
-
         ocaml.enable = false;
-
-        odin.enable = true;
-
+        odin.enable = false;
         python.enable = true;
-
         rust.enable = true;
-
         scala.enable = false;
-
         typst.enable = true;
-
-        zig.enable = true;
+        zig.enable = false;
       };
 
       home.packages = with pkgs; [

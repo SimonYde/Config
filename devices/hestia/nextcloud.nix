@@ -126,7 +126,7 @@ in
           bendDomainToLocalhost = true;
         };
 
-        maxUploadSize = "50G";
+        maxUploadSize = "24G";
 
         appstoreEnable = true;
         autoUpdateApps.enable = true;

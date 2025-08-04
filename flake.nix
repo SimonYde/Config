@@ -174,7 +174,7 @@
         inherit (inputs.self.checks.x86_64-linux.pre-commit-check) shellHook;
         buildInputs = inputs.self.checks.x86_64-linux.pre-commit-check.enabledPackages;
         packages = with pkgs; [
-          agenix
+          ragenix
           grafana-alloy
           just
           stow

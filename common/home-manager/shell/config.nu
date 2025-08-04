@@ -47,13 +47,13 @@ $env.config = {
                     return null
                 }
 
-                let pkgs = (nix-locate $"/bin/($cmd)" --whole-name --at-root --minimal)
+                let pkgs = nix-locate $"/bin/($cmd)" --whole-name --at-root --minimal
 
                 if ($pkgs | is-empty) {
                     return null
                 }
 
-                $"(ansi red)($cmd)(ansi reset) may be found in the following packages:\n($pkgs)"
+                return $"(ansi red)($cmd)(ansi reset) may be found in the following packages:\n($pkgs)"
             }
         }
     }
@@ -76,7 +76,7 @@ try {
     rbw unlock
 
     if not (try { ssh-add -l | str contains "stdin" } catch { false }) {
-      rbw get 'SSH key' | str replace --all '\n' (char newline) | ssh-add -
+      rbw get 'SSH key' | ssh-add -
     }
 
     # $env.CACHIX_AUTH_TOKEN = (rbw get Cachix)
