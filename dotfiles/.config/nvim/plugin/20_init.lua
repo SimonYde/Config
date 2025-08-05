@@ -289,6 +289,7 @@ Load.later(function()
     nmap('<leader>oo', function() vim.cmd.Obsidian('open') end, 'Open current file in Obsidian')
     nmap('<leader>od', function() vim.cmd.Obsidian('dailies') end, 'Open daily note search')
     nmap('<leader>on', function() vim.cmd.Obsidian('new_from_template') end, 'Insert Obsidian template')
+    nmap('<leader>oq', function() vim.cmd.Obsidian('quick_switch') end, 'Quick switch')
     nmap('<leader>ot', function() vim.cmd.Obsidian('tags') end, 'Open tags list')
 end)
 
