@@ -44,7 +44,6 @@
     server.baseDomain = "tmcs.dk";
   };
 
-  networking.hostId = "ef847b13";
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
@@ -71,11 +70,7 @@
     kernelModules = [ "msr" ];
   };
 
-  hardware = {
-    enableAllHardware = true;
-    enableAllFirmware = true;
-    enableRedistributableFirmware = true;
-  };
+  hardware.enableRedistributableFirmware = true;
 
   services = {
     zfs.autoScrub.enable = true;
@@ -92,6 +87,30 @@
 
     nginx.enable = true;
     nextcloud.enable = true;
+  };
+
+  networking = {
+    hostId = "ef847b13";
+
+    useDHCP = false;
+    firewall.allowedUDPPorts = [ 5353 ]; # mDNS
+    nameservers = [
+      "193.110.81.0"
+      "185.253.5.0"
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
+  };
+
+  systemd.network = {
+    enable = true;
+
+    networks.wired = {
+      name = "en*";
+      DHCP = "yes";
+      domains = [ "home" ];
+      networkConfig.MulticastDNS = true;
+    };
   };
 
   systemd.services.disable-c6 = {

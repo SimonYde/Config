@@ -34,6 +34,7 @@
     partition-manager.enable = true;
     virt-manager.enable = true;
     wireshark.enable = true;
+    sniffnet.enable = true;
   };
 
   hardware.framework.laptop13.audioEnhancement.enable = true;

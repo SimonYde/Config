@@ -74,7 +74,7 @@ in
   networking = {
     useDHCP = mkDefault true;
 
-    firewall.enable = true;
+    firewall.enable = false;
 
     networkmanager = {
       enable = true;
@@ -92,9 +92,6 @@ in
     steam-hardware.enable = true;
     uinput.enable = true;
 
-    enableAllHardware = true;
-
-    enableAllFirmware = true;
     enableRedistributableFirmware = true;
   };
 

@@ -50,11 +50,7 @@ in
     kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
   };
 
-  zramSwap = {
-    enable = true;
-    swapDevices = 1;
-    algorithm = "zstd";
-  };
+  zramSwap.enable = true;
 
   nixpkgs.flake.setNixPath = true;
 
@@ -86,6 +82,8 @@ in
     };
   };
 
+  networking.nftables.enable = true;
+
   # Use Rust implementation of `sudo`
   security = {
     sudo.enable = false;
@@ -93,6 +91,9 @@ in
   };
 
   services = {
+    orca.enable = false;
+    speechd.enable = false;
+
     dbus.implementation = "broker";
 
     journald.extraConfig = "SystemMaxUse=100M";
@@ -120,8 +121,6 @@ in
         shell = pkgs.nushell-wrapped;
 
         openssh.authorizedKeys.keys = [
-          keys.icarus
-          keys.perdix
           keys.syde
         ];
       };
@@ -134,8 +133,6 @@ in
         extraGroups = [ "wheel" ];
 
         openssh.authorizedKeys.keys = [
-          keys.icarus
-          keys.perdix
           keys.syde
         ];
       };

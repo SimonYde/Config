@@ -1,6 +1,6 @@
 {
   pkgs,
-  inputs,
+  inputs, lib,
   ...
 }:
 {
@@ -13,6 +13,8 @@
     ./grafana
   ];
 
+  system.stateVersion = "25.05";
+
   # Personal configurations
   syde = {
     server.baseDomain = "simonyde.com";
@@ -20,10 +22,8 @@
     development.enable = true;
 
     hardware = {
+      amd.cpu.enable = true;
       nvidia.enable = false;
-      amd = {
-        cpu.enable = true;
-      };
     };
   };
 
@@ -46,27 +46,8 @@
     };
   };
 
-  console = {
-    earlySetup = true;
-    useXkbConfig = true;
-    font = "ter-i24n";
-    packages = [ pkgs.terminus_font ];
-  };
+  hardware.enableRedistributableFirmware = true;
 
-  hardware = {
-    enableAllHardware = true;
-    enableAllFirmware = true;
-    enableRedistributableFirmware = true;
-  };
-
-  networking = {
-    networkmanager = {
-      enable = true;
-      wifi.powersave = false;
-    };
-
-    wireguard.enable = true;
-  };
   services = {
     logind.lidSwitch = "ignore";
 
@@ -80,44 +61,81 @@
     };
 
     syncthing.enable = true;
-    xserver.xkb.layout = "us(colemak_dh)";
     zfs.autoScrub.enable = true;
+
+    networkd-dispatcher = {
+      enable = true;
+      rules.tailscale-perf = {
+        onState = [ "routable" ];
+        script = ''
+          #!${pkgs.runtimeShell}
+          ${lib.getExe pkgs.ethtool} -K eno1 rx-udp-gro-forwarding on rx-gro-list off
+        '';
+      };
+    };
   };
 
-  # $ head -c 4 /dev/urandom | xxd -p
-  networking.hostId = "d10ef1c6";
+  networking = {
+    # $ head -c 4 /dev/urandom | xxd -p
+    hostId = "d10ef1c6";
 
-  fileSystems."/" = {
-    neededForBoot = true;
-    device = "zpool/root";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
+    useDHCP = false;
+    firewall.allowedUDPPorts = [ 5353 ]; # mDNS
 
-  fileSystems."/nix" = {
-    device = "zpool/nix";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
-
-  fileSystems."/var" = {
-    device = "zpool/var";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
-
-  fileSystems."/home" = {
-    device = "zpool/home";
-    fsType = "zfs";
-    options = [ "zfsutil" ];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/49B2-C8B0";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
+    nameservers = [
+      # dns0.eu
+      "193.110.81.0"
+      "185.253.5.0"
+      # cloudflare
+      "1.1.1.1"
+      "1.0.0.1"
     ];
+  };
+
+  systemd.network = {
+    enable = true;
+
+    networks.wired = {
+      name = "en*";
+      DHCP = "yes";
+      domains = [ "home" ];
+      networkConfig.MulticastDNS = true;
+    };
+  };
+
+  fileSystems = {
+    "/" = {
+      neededForBoot = true;
+      device = "zpool/root";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/nix" = {
+      device = "zpool/nix";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/var" = {
+      device = "zpool/var";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/home" = {
+      device = "zpool/home";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/49B2-C8B0";
+      fsType = "vfat";
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
+    };
   };
 }
