@@ -1,6 +1,9 @@
 {
   pkgs,
-  inputs, lib,
+  inputs,
+  lib,
+  config,
+  username,
   ...
 }:
 {
@@ -20,12 +23,29 @@
   syde = {
     server.baseDomain = "simonyde.com";
 
+    email = {
+      enable = true;
+      fromAddress = "services@tmcs.dk";
+      toAddress = "services@tmcs.dk";
+      smtpServer = "send.one.com";
+      smtpUsername = "services@tmcs.dk";
+      smtpPasswordPath = config.age.secrets.emailPassword.path;
+    };
+
     development.enable = true;
+    monitoring.enable = true;
 
     hardware = {
       amd.cpu.enable = true;
       nvidia.enable = false;
     };
+  };
+
+  age.secrets.emailPassword = {
+    file = "${inputs.secrets}/oneEmailPassword.age";
+    owner = username;
+    group = "users";
+    mode = "0440";
   };
 
   boot = {
@@ -62,7 +82,9 @@
     };
 
     syncthing.enable = true;
+
     zfs.autoScrub.enable = true;
+    fstrim.enable = true;
 
     networkd-dispatcher = {
       enable = true;

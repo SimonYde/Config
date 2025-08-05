@@ -74,6 +74,7 @@
 
   services = {
     zfs.autoScrub.enable = true;
+    fstrim.enable = true;
 
     immich = {
       enable = false;
@@ -94,6 +95,7 @@
 
     useDHCP = false;
     firewall.allowedUDPPorts = [ 5353 ]; # mDNS
+
     nameservers = [
       "193.110.81.0"
       "185.253.5.0"

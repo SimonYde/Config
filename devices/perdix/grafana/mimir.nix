@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  inherit (config.syde) server;
+  inherit (config.syde) server email;
   alerts =
     pkgs.runCommand "mimir-alerts-checked"
       {
@@ -56,20 +56,22 @@ in
           fallback_config_file = pkgs.writers.writeYAML "alertmanager.yaml" {
             route = {
               group_by = [ "alertname" ];
-              # receiver = "telegram";
+              receiver = "email";
             };
             receivers = [
-              # {
-              #   name = "telegram";
-              #   telegram_configs = [
-              #     {
-              #       bot_token_file = "/run/credentials/mimir.service/bot-token";
-              #       chat_id = 200667964;
-              #       message = "{{ range $i, $a := .Alerts }}<b>{{ $a.Labels.alertname | html }}</b>: {{ $a.Status | html }} - {{ $a.Annotations.summary | html }}\n{{ end }}";
-              #       parse_mode = "HTML";
-              #     }
-              #   ];
-              # }
+              {
+                name = "email";
+                email_configs = [
+                  {
+                    to = email.toAddress;
+                    from = email.fromAddress;
+                    smarthost = "${email.smtpServer}:${toString email.smtpPort}";
+                    auth_username = email.smtpUsername;
+                    auth_password_file = email.smtpPasswordPath;
+                    require_tls = true;
+                  }
+                ];
+              }
             ];
           };
         };

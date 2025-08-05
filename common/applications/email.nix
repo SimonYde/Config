@@ -41,6 +41,11 @@ in
       description = "Path to the secret containing SMTP password";
       type = types.path;
     };
+    smtpPort = mkOption {
+      description = "Port to be used for TLS";
+      type = types.port;
+      default = 587;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -49,7 +54,7 @@ in
       defaults = {
         aliases = "/etc/aliases";
         tls = true;
-        port = 587;
+        port = cfg.smtpPort;
       };
 
       accounts.default = {

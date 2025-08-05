@@ -39,14 +39,10 @@ in
       wants = [ "network-online.target" ];
     };
 
-    environment.etc = mkIf config.services.alloy.enable (mergeAttrsList [
+    environment.etc = mergeAttrsList [
       (mapAttrs' (
-        name: value:
-        (nameValuePair ("alloy/${name}.alloy") ({
-          source = value;
-        }))
-      ) cfg.configs)
-    ]);
-
+        name: value: (nameValuePair ("alloy/${name}.alloy") ({ source = value; }))
+      ) config.services.alloy.configs)
+    ];
   };
 }
