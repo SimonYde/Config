@@ -69,7 +69,7 @@ $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)󰫻 (ansi reset)";
 $env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)󰫺 (ansi reset)";
 
 use std-rfc/tables [ aggregate ]
-use std-rfc/clip
+use std/clip
 
 try {
   if ("~/.config/rbw/config.json" | path exists) {

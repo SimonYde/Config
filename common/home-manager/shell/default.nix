@@ -87,6 +87,7 @@ in
       "rmdir *"
       "mkdir *"
       "touch *"
+      "cd *"
     ];
   };
 
