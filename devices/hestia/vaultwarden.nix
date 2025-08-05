@@ -37,6 +37,7 @@ in
     };
 
     postgresql = {
+      enable = true;
       ensureDatabases = [ "vaultwarden" ];
       ensureUsers = [
         {

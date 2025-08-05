@@ -200,6 +200,8 @@ in
           adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
         };
       };
+
+      postgresql.enable = true;
     };
 
     syde.services.fail2ban.jails.nextcloud = {

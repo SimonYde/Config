@@ -8,11 +8,16 @@
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
     ./acme.nix
+
+    ./kanidm.nix
+    ./grafana
   ];
 
   # Personal configurations
   syde = {
     server.baseDomain = "simonyde.com";
+
+    development.enable = true;
 
     hardware = {
       nvidia.enable = false;

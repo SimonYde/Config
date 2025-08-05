@@ -286,7 +286,7 @@ in
             leading_trailing_space_bg: { attr: 'n' }
             row_index: { fg: '${base0B}' attr: 'b' }
             search_result: { fg: '${base08}' bg: '${base05}' }
-            separator: '${base03}'
+            separator: '${base04}'
           }
         '';
 

@@ -17,7 +17,6 @@
     ./immich.nix
     ./jellyfin.nix
     ./nextcloud.nix
-    ./postgresql.nix
     ./vaultwarden.nix
   ];
 
@@ -37,6 +36,8 @@
       cpu.enable = true;
       gpu.enable = true;
     };
+
+    monitoring.enable = true;
 
     services.fail2ban.enable = true;
 

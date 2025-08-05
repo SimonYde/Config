@@ -1,0 +1,7 @@
+groups:
+- name: Meta
+  rules:
+  - alert: AlloyComponentUnhealthy
+    expr: alloy_component_controller_running_components{health_type!="healthy"} > 0
+    annotations:
+      summary: "{{ $labels.controller_id }} on {{ $labels.hostname }}"

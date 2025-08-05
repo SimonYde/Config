@@ -1,0 +1,8 @@
+groups:
+- name: Home
+  rules:
+  - alert: NetworkDown
+    expr: probe_success{instance="google.com"} < 1
+    for: 30s
+    annotations:
+      summary: Home network is down
