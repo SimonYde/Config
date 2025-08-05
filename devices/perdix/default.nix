@@ -8,6 +8,7 @@
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
     ./acme.nix
+    ./atuin.nix
 
     ./kanidm.nix
     ./grafana

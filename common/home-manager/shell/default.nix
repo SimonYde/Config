@@ -71,7 +71,14 @@ in
   };
 
   programs.atuin.settings = {
-    auto_sync = false;
+    auto_sync = true;
+    sync_frequency = "5m";
+    sync_address = "https://atuin.ts.simonyde.com";
+
+    style = "compact";
+    enter_accept = true;
+    filter_mode_shell_up_key_binding = "session";
+
     history_filter = [
       "fg *"
       "pkill *"
@@ -81,9 +88,6 @@ in
       "mkdir *"
       "touch *"
     ];
-    style = "compact";
-    enter_accept = true;
-    filter_mode_shell_up_key_binding = "session";
   };
 
   programs.carapace = {
