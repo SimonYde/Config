@@ -112,4 +112,7 @@ in
   };
 
   security.rtkit.enable = true;
+  security.polkit.enable = true;
+
+  services.resolved.enable = true;
 }
