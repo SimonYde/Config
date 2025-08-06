@@ -78,9 +78,6 @@ in
       sync_frequency = "5m";
       sync_address = "https://atuin.ts.simonyde.com";
 
-      # FIXME: Needs to be set for SSH session use
-      socket_path = "${config.xdg.dataHome}/atuin/atuin.sock";
-
       style = "compact";
       enter_accept = true;
       filter_mode_shell_up_key_binding = "session";
@@ -155,7 +152,4 @@ in
     "--smart-case"
     "--pretty"
   ];
-
-  # FIXME: fix not working on non-lingering systems or desktops
-  systemd.user.sockets.atuin-daemon.Socket.ListenStream = lib.mkForce "%D/atuin/atuin.sock";
 }
