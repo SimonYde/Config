@@ -7,8 +7,6 @@
 }:
 {
   imports = [
-    # inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-
     ../../common/server.nix
 
     ./acme.nix
@@ -17,6 +15,7 @@
     ./immich.nix
     ./jellyfin.nix
     ./nextcloud.nix
+    ./smartd.nix
     ./vaultwarden.nix
   ];
 
