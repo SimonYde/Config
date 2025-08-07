@@ -994,11 +994,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1754384283,
-        "narHash": "sha256-XFWQC3qq0D/ZJdK8eIhKjmvGpqgCtlL13wxoIOstUQo=",
+        "lastModified": 1754601541,
+        "narHash": "sha256-IhBMBSmCdrHu5kFRLWZS05fRM9Ovd36mQSM4/MxAK14=",
         "ref": "refs/heads/master",
-        "rev": "27f7614740208a6138bf68b6b4cc244bcbfaac6a",
-        "revCount": 8,
+        "rev": "7ef3292e4bd57e91a19b4cf49a054e701e60dbd4",
+        "revCount": 9,
         "type": "git",
         "url": "ssh://git@github.com/SimonYde/secrets.git"
       },
