@@ -14,8 +14,6 @@ let
       '';
 in
 {
-  # age.secrets.mimir-bot-token.file = ../../../secrets/mimir-bot-token.age;
-
   services = {
     mimir = {
       enable = true;
@@ -95,10 +93,6 @@ in
     mimir = {
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
-
-      # serviceConfig = {
-      #   LoadCredential = [ "bot-token:/run/agenix/mimir-bot-token" ];
-      # };
     };
 
     alloy.after = [

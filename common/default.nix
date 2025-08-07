@@ -104,6 +104,7 @@ in
       settings = {
         KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
+        AllowAgentForwarding = true;
       };
     };
 

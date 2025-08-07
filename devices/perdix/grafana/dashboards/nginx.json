@@ -257,7 +257,7 @@
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} accepted",
+          "legendFormat": "{{hostname}} accepted",
           "refId": "A"
         },
         {
@@ -269,7 +269,7 @@
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} handled",
+          "legendFormat": "{{hostname}} handled",
           "refId": "B"
         }
       ],
@@ -367,7 +367,7 @@
           "expr": "nginx_connections_active{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} active",
+          "legendFormat": "{{hostname}} active",
           "refId": "A"
         },
         {
@@ -378,7 +378,7 @@
           "expr": "nginx_connections_reading{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} reading",
+          "legendFormat": "{{hostname}} reading",
           "refId": "B"
         },
         {
@@ -389,7 +389,7 @@
           "expr": "nginx_connections_waiting{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} waiting",
+          "legendFormat": "{{hostname}} waiting",
           "refId": "C"
         },
         {
@@ -400,7 +400,7 @@
           "expr": "nginx_connections_writing{instance=~\"$instance\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} writing",
+          "legendFormat": "{{hostname}} writing",
           "refId": "D"
         }
       ],
@@ -497,7 +497,7 @@
           "expr": "irate(nginx_http_requests_total{instance=~\"$instance\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}} total requests",
+          "legendFormat": "{{hostname}} total requests",
           "refId": "A"
         }
       ],
