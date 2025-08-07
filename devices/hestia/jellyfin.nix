@@ -27,6 +27,7 @@ in
       jellyfin = {
         inherit (server) user;
         group = "nextcloud";
+        openFirewall = true;
       };
 
       nginx = {
