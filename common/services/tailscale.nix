@@ -26,11 +26,8 @@ in
       allowedUDPPorts = [ cfg.port ];
     };
 
-    environment.etc."alloy/tailscale.alloy".text = ''
-      scrape_url "tailscale" {
-        name = "tailscale"
-        url  = "100.100.100.100"
-      }
-    '';
+    services.alloy.scrape.tailscale = {
+      url = "100.100.100.100";
+    };
   };
 }

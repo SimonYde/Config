@@ -39,6 +39,8 @@
       amd.cpu.enable = true;
       nvidia.enable = false;
     };
+
+    zfs.enable = true;
   };
 
   age.secrets.emailPassword = {
@@ -82,8 +84,6 @@
     };
 
     syncthing.enable = true;
-
-    zfs.autoScrub.enable = true;
     fstrim.enable = true;
 
     networkd-dispatcher = {

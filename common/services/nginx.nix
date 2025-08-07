@@ -72,18 +72,15 @@ in
       resolved.enable = true;
 
       prometheus.exporters.nginx = {
-        enable = true;
+        inherit (config.syde.monitoring) enable;
         port = 9004;
         sslVerify = false;
       };
     };
 
-    environment.etc."alloy/nginx.alloy".text = ''
-      scrape_url "nginx" {
-        name = "nginx"
-        url  = "localhost:9004"
-      }
-    '';
+    services.alloy.scrape.nginx = {
+      inherit (config.services.prometheus.exporters.nginx) port;
+    };
 
     networking.firewall = {
       allowedTCPPorts = [

@@ -4,6 +4,7 @@ let
     mkEnableOption
     mkIf
     mkOption
+    mkMerge
     mapAttrs'
     mergeAttrsList
     types
@@ -19,8 +20,24 @@ in
     };
 
     services.alloy = {
-      configs = mkOption {
-        type = types.attrsOf types.path;
+      scrape = mkOption {
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              port = mkOption {
+                type = types.nullOr types.port;
+                example = 9000;
+                default = null;
+              };
+
+              url = mkOption {
+                type = types.nullOr types.str;
+                example = "www.example.com";
+                default = null;
+              };
+            };
+          }
+        );
       };
     };
   };
@@ -28,7 +45,6 @@ in
   config = mkIf cfg.enable {
     services.alloy = {
       enable = true;
-      configs."config" = ./common.alloy;
     };
 
     systemd.services.alloy = {
@@ -39,10 +55,31 @@ in
       wants = [ "network-online.target" ];
     };
 
-    environment.etc = mergeAttrsList [
-      (mapAttrs' (
-        name: value: (nameValuePair ("alloy/${name}.alloy") ({ source = value; }))
-      ) config.services.alloy.configs)
+    environment.etc = mkMerge [
+      {
+        "alloy/config.alloy".source = ./common.alloy;
+      }
+
+      (mergeAttrsList [
+        (mapAttrs' (
+          name: value:
+          (nameValuePair ("alloy/${name}.alloy") ({
+            text = ''
+              scrape_url "${name}" {
+                name = "${name}"
+                url  = "${
+                  if value.url != null then
+                    value.url
+                  else if value.port != null then
+                    "localhost:${toString value.port}"
+                  else
+                    throw "For scraping a url, either a URL or port must be specified"
+                }"
+              }
+            '';
+          }))
+        ) config.services.alloy.scrape)
+      ])
     ];
   };
 }

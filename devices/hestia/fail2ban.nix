@@ -42,7 +42,7 @@ in
 
             action = mkOption {
               type = types.str;
-              default = ''iptables[type=allports, name=HTTP, port="http,https"]'';
+              default = ''nftables[type=allports, name=HTTP, port="http,https"]'';
             };
           };
         }

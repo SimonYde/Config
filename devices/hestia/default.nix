@@ -41,6 +41,8 @@
     services.fail2ban.enable = true;
 
     server.baseDomain = "tmcs.dk";
+
+    zfs.enable = true;
   };
 
 
@@ -72,7 +74,6 @@
   hardware.enableRedistributableFirmware = true;
 
   services = {
-    zfs.autoScrub.enable = true;
     fstrim.enable = true;
 
     immich = {

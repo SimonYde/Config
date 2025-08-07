@@ -10,5 +10,6 @@
     ./monitoring.nix
     ./postgresql.nix
     ./wireguard.nix
+    ./zfs.nix
   ];
 }

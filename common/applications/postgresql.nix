@@ -39,7 +39,10 @@ in
         };
       };
 
-      alloy.configs."postgres" = ./postgresql.alloy;
+      alloy.scrape = {
+        pgscv.port = 9890;
+        postgres.port = config.services.prometheus.exporters.postgres.port;
+      };
     };
   };
 }
