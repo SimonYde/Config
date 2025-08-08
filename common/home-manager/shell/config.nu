@@ -2,7 +2,7 @@
 #   config nu --doc | nu-highlight | bat
 
 export def banner [] {
-    fastfetch
+    fastfetch --logo nixos_small
 }
 
 $env.config = {
