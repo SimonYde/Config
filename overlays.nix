@@ -59,6 +59,7 @@ inputs: [
 
       vimPlugins = prev.vimPlugins.extend (
         _: _: {
+          inherit (inputs.rustaceanvim.packages.${prev.system}) rustaceanvim;
           mini-nvim = prev.vimUtils.buildVimPlugin {
             version = mkDate inputs.mini-nvim;
             pname = "mini.nvim";

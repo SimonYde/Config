@@ -91,6 +91,10 @@
       url = "github:grafana/vim-alloy";
       flake = false;
     };
+    rustaceanvim = {
+      url = "github:mrcjkb/rustaceanvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     topiary-nushell = {
       url = "github:blindFS/topiary-nushell";
