@@ -2,6 +2,7 @@
   pkgs,
   username,
   inputs,
+  lib,
   ...
 }:
 {
@@ -9,6 +10,7 @@
     ../common/desktop.nix
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
   # Personal configurations
@@ -28,11 +30,22 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
 
-    loader.systemd-boot.windows."11-home" = {
-      title = "Windows 11 Home";
-      efiDeviceHandle = "HD0b";
+    loader.systemd-boot.enable = lib.mkForce false;
+
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
     };
+
+    # loader.systemd-boot.windows."11-home" = {
+    #   title = "Windows 11 Home";
+    #   efiDeviceHandle = "HD0b";
+    # };
   };
+
+  environment.systemPackages = with pkgs; [
+    sbctl
+  ];
 
   programs = {
     hyprland.enable = true;

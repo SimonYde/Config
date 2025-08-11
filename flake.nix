@@ -49,6 +49,15 @@
       flake = false;
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
     # home-manager modules
     home-manager = {
       url = "github:nix-community/home-manager/master";
