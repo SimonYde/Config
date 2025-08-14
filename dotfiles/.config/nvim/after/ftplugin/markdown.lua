@@ -23,6 +23,7 @@ Load.now(function()
                     return { left = '[', right = '](' .. link .. ')' }
                 end,
             },
+            W = { input = { '%[%[().-()%]%]' }, output = { left = '[[', right = ']]' } },
         },
     }
 end)

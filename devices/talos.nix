@@ -8,6 +8,7 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.framework-amd-ai-300-series
+    inputs.lanzaboote.nixosModules.lanzaboote
     ../common/desktop.nix
   ];
 
@@ -27,7 +28,19 @@
     };
   };
 
+  boot = {
+    loader.systemd-boot.enable = lib.mkForce false;
+
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+    };
+  };
+
   environment.sessionVariables.NIXOS_OZONE_WL = 1;
+  environment.systemPackages = with pkgs; [
+    sbctl
+  ];
 
   programs = {
     hyprland.enable = true;

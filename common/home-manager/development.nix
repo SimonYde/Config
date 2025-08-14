@@ -44,6 +44,8 @@ in
 
         # devcontainer # use development docker images
 
+        jq
+
         dua
         lls
         ouch # archive tool

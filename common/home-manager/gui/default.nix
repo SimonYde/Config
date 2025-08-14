@@ -30,7 +30,7 @@ in
     {
       programs = {
         # Terminals
-        ghostty.enable = false;
+        ghostty.enable = true;
         kitty.enable = false;
         alacritty.enable = false;
         wezterm.enable = true;

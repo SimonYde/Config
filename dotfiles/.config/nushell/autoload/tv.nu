@@ -6,7 +6,9 @@ module television {
         --tick-rate (-t) # The application's tick rate.
         --keybindings (-k): string # Keybindings to override the default keybindings.
         --input (-i): string # Input text to pass to the channel to prefill the prompt.
+        --custom-header: string # Input fields header title.
         --autocomplete-prompt: string # Try to guess the channel from the provided input prompt.
+        --exact # Use substring mattching instead of fuzzy matching.
         --select-1 # Automatically select and output the first entry if there is only one entry.
         --no-remote # Disable the remote control.
         --no-help # Disable the help panel.
@@ -19,7 +21,7 @@ module television {
     def "nu-complete television channels" [] {
         ^tv list-channels
         | lines
-        | where {|it| $it | str starts-with (char tab) }
+        | where ($it | str starts-with (char tab))
         | str trim
     }
 }
