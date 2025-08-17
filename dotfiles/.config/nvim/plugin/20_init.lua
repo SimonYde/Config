@@ -39,6 +39,7 @@ Load.later(function()
                     -- Make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
                 },
+                lsp = { fallbacks = {} },
             },
         },
     })

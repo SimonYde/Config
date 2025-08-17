@@ -24,6 +24,7 @@
         undotree
         friendly-snippets
         catppuccin-nvim
+        lazydev-nvim
 
         # ----- UI -----
         nvim-treesitter

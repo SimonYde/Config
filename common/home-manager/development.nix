@@ -347,8 +347,6 @@ in
         stylua
         lua-language-server
       ];
-
-      programs.neovim.plugins = with pkgs.vimPlugins; [ lazydev-nvim ];
     })
 
     (mkIf cfg.nix.enable {
