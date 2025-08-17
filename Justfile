@@ -13,6 +13,9 @@ update:
 os:
 	@nh os switch . --ask
 
+host HOST:
+	@nh os switch --ask --hostname {{HOST}} --target-host {{HOST}}
+
 boot:
 	@nh os boot .
 
