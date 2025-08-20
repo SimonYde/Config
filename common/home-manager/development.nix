@@ -217,6 +217,12 @@ in
               user = "root";
               forwardAgent = true;
             };
+
+            "talos" = {
+              hostname = "talos";
+              user = "root";
+              forwardAgent = true;
+            };
           };
         };
 

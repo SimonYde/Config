@@ -124,6 +124,24 @@ in
     };
 
   programs = {
+    brave = {
+      extensions = [
+        {
+          id = "dcpihecpambacapedldabdbpakmachpb";
+          updateUrl = "https://raw.githubusercontent.com/iamadamdev/bypass-paywalls-chrome/master/updates.xml";
+        }
+        { id = "bkkmolkhemgaeaeggcmfbghljjjoofoh"; } # Catppuccin theme
+        { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
+        { id = "jjhefcfhmnkfeepcpnilbbkaadhngkbi"; } # Readwise Highlighter
+        { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium
+        { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # Stylus
+        { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
+        { id = "oocalimimngaihdkbihfgmpkcpnmlaoa"; } # Teleparty
+        { id = "cdglnehniifkbagbbombnjghhcihifij"; } # Kagi Search
+        { id = "mendokngpagmkejfpmeellpppjgbpdaj"; } # Kagi Privacy Pass
+      ];
+    };
+
     firefox.profiles.${username} = firefox-profile;
 
     zen-browser.profiles.${username} = {

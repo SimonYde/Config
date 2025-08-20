@@ -29,6 +29,9 @@
     source-sans-pro
   ];
 
+  # Don't mess with brave settings
+  programs.chromium.enable = lib.mkForce false;
+
   specialisation."light-theme".configuration = {
     environment.etc."specialisation".text = "light-theme";
     stylix = {
