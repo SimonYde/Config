@@ -48,9 +48,9 @@ in
             introducer = false;
           };
 
-          icarus-wsl = {
-            name = "Icarus-WSL";
-            id = "LNP56LK-BGLHOBR-AQ6YJ4Y-AAWO6D3-NWQ6SEH-IJFBX4J-NROPJYV-GYZEWAN";
+          icarus-windows = {
+            name = "Icarus-Windows";
+            id = "OAL3UXY-ZQBHPCJ-NNARFU4-RUCG7YU-SVGAF3Q-H22ZDUB-4DYDVBY-QTZUNQM";
             introducer = false;
           };
 
@@ -84,6 +84,7 @@ in
             path = "${home}/Documents/Apollo";
             devices = [
               "icarus"
+              "icarus-windows"
               "talos"
               "daedelus"
               "theseus"
@@ -110,7 +111,6 @@ in
             devices = [
               "daedelus"
               "icarus"
-              "icarus-wsl"
               "perdix"
               "talos"
               "theseus"
@@ -132,7 +132,6 @@ in
             devices = [
               "daedelus"
               "icarus"
-              "icarus-wsl"
               "perdix"
               "talos"
             ];
@@ -142,7 +141,6 @@ in
             path = "${home}/.secrets";
             devices = [
               "icarus"
-              "icarus-wsl"
               "perdix"
               "talos"
               "daedelus"
