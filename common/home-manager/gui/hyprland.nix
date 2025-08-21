@@ -64,8 +64,8 @@ in
     blueman-applet.enable = true; # Bluetooth applet
     network-manager-applet.enable = true;
 
-    gammastep.enable = true;
     hypridle.enable = true;
+    hyprsunset.enable = true;
 
     swaync.enable = true;
     swayosd.enable = true;
@@ -135,14 +135,40 @@ in
     };
   };
 
-  services.gammastep = {
-    temperature.day = 6000;
-    temperature.night = 1800;
-    tray = true;
-    duskTime = "19:35-21:15";
-    dawnTime = "6:00-7:45";
-    latitude = 56.0;
-    longitude = 10.0;
+  services.hyprsunset.settings = {
+    max-gamma = 150;
+
+    profile = [
+      {
+        time = "7:00";
+        identity = true;
+      }
+      {
+        time = "20:00";
+        temperature = 5000;
+        gamma = 0.9;
+      }
+      {
+        time = "21:00";
+        temperature = 4000;
+        gamma = 0.8;
+      }
+      {
+        time = "21:30";
+        temperature = 3500;
+        gamma = 0.8;
+      }
+      {
+        time = "22:00";
+        temperature = 2500;
+        gamma = 0.8;
+      }
+      {
+        time = "22:30";
+        temperature = 1900;
+        gamma = 0.8;
+      }
+    ];
   };
 
   services.hypridle.settings = {
