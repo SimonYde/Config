@@ -114,6 +114,12 @@ in
               diff-formatter = ":git";
             };
 
+            signing = {
+              behavior = "own";
+              backend = "ssh";
+              key = (import ../../keys.nix).syde;
+            };
+
             aliases = {
               c = [ "commit" ];
               ci = [
