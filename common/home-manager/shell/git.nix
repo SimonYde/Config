@@ -66,8 +66,8 @@ _:
 
       # Signing commits
       gpg.format = "ssh";
+      gpg.ssh.defaultKeyCommand = "ssh-add -L";
       commit.gpgsign = true;
-      user.signingkey = "~/.ssh/id_ed25519.pub";
 
       fetch = {
         prune = true;
