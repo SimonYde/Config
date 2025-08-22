@@ -55,6 +55,7 @@ in
         ast-grep
 
         lazyjj
+        jjui
         glab
 
         kattis-cli

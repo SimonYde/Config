@@ -14,6 +14,7 @@ Load.now(function()
         picker = {},
         quickfile = {},
         toggle = {},
+        terminal = {},
         zen = { toggles = { dim = false } },
 
         dashboard = {
@@ -172,4 +173,5 @@ Load.later(function()
     -- stylua: ignore end
 
     nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')
+    nmap('<leader>gj', function() Snacks.terminal.get("lazyjj") end, 'Open jazyjj')
 end)
