@@ -45,8 +45,8 @@
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
-    owner = username;
-    group = "users";
+    owner = config.syde.server.user;
+    group = config.syde.server.group;
     mode = "0440";
   };
 

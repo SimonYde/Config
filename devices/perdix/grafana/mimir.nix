@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   inherit (config.syde) server email;
   alerts =
@@ -14,6 +14,18 @@ let
       '';
 in
 {
+  users = {
+    users.mimir = {
+      isSystemUser = true;
+      home = "/var/lib/mimir";
+      createHome = true;
+      group = "mimir";
+      extraGroups = [ server.group ];
+    };
+
+    groups.mimir = { };
+  };
+
   services = {
     mimir = {
       enable = true;
@@ -93,6 +105,10 @@ in
     mimir = {
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
+      serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "mimir";
+      };
     };
 
     alloy.after = [
