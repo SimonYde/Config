@@ -161,12 +161,12 @@ in
       {
         time = "22:00";
         temperature = 2500;
-        gamma = 0.8;
+        gamma = 0.75;
       }
       {
         time = "22:30";
         temperature = 1900;
-        gamma = 0.8;
+        gamma = 0.7;
       }
     ];
   };

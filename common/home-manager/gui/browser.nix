@@ -57,8 +57,7 @@ let
       "browser.bookmarks.addedImportButton" = true;
       "browser.bookmarks.restore_default_bookmarks" = false;
       "browser.ml.chat.enabled" = true;
-      "browser.ml.chat.provider" = "https://kagi.com/assistant?profile=gemini-2-5-flash";
-      "browser.tabs.groups.enabled" = true;
+      "browser.ml.chat.provider" = "https://kagi.com/assistant";
 
       "browser.newtabpage.pinned" = "[]";
       "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
