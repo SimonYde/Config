@@ -102,6 +102,7 @@ in
         settings = {
           net.post_allow.host = [
             "cloud.${server.baseDomain}"
+            "192\\.168\\.[0-9]{1,3}\\.[0-9]{1,3}"
           ];
           ssl = {
             enable = false;
@@ -129,7 +130,7 @@ in
         maxUploadSize = "24G";
 
         appstoreEnable = true;
-        autoUpdateApps.enable = true;
+        autoUpdateApps.enable = false;
         extraAppsEnable = true;
         extraApps = {
           inherit (cfg.package.packages.apps)
