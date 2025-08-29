@@ -76,7 +76,7 @@ try {
     rbw unlock
 
     if not (try { ssh-add -l | str contains "stdin" } catch { false }) {
-      rbw get 'SSH key' | ssh-add -
+      rbw get 'SSH syde' | ssh-add -
     }
 
     # $env.CACHIX_AUTH_TOKEN = (rbw get Cachix)

@@ -82,8 +82,8 @@ in
         yt-dlp
         trashy
 
-        grawlix
-        audiobook-dl
+        # grawlix
+        # audiobook-dl
         etilbudsavis-cli
       ];
 

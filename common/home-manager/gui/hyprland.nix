@@ -52,7 +52,7 @@ in
   ];
 
   programs = {
-    anyrun.enable = true;
+    anyrun.enable = false;
     hyprlock.enable = true;
     imv.enable = true;
     waybar.enable = true;
