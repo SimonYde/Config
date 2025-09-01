@@ -206,6 +206,8 @@ in
         };
         ssh = {
           enable = true;
+          enableDefaultConfig = false;
+
           matchBlocks = {
             "icarus" = {
               hostname = "icarus";
@@ -229,6 +231,12 @@ in
               hostname = "talos";
               user = "root";
               forwardAgent = true;
+            };
+
+            "backup" = {
+              port = 20001;
+              hostname = "tmcs.davvol.dk";
+              user = "tmcs";
             };
           };
         };
