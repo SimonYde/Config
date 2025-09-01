@@ -11,6 +11,7 @@
 
     ./acme.nix
     ./backup.nix
+    ./collabora-online.nix
     ./fail2ban.nix
     ./immich.nix
     ./jellyfin.nix

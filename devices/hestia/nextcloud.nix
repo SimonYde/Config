@@ -7,7 +7,12 @@
   ...
 }:
 let
-  inherit (lib) mkIf getExe head splitString;
+  inherit (lib)
+    mkIf
+    getExe
+    head
+    splitString
+    ;
   inherit (config.syde) server email;
 
   cfg = config.services.nextcloud;
@@ -34,83 +39,6 @@ in
     environment.systemPackages = [ pkgs.perl ];
 
     services = {
-      nginx = {
-        virtualHosts."${cfg.hostName}" = {
-          locations."^~ /push/".extraConfig = ''
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          '';
-        };
-
-        upstreams.collabora.servers."127.0.0.1:${toString config.services.collabora-online.port}" = { };
-
-        virtualHosts."docs.${server.baseDomain}" = {
-          locations = {
-            "^~ /browser" = {
-              proxyPass = "http://collabora";
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-              '';
-            };
-
-            "^~ /hosting/discovery" = {
-              proxyPass = "http://collabora";
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-              '';
-            };
-
-            "^~ /hosting/capabilities" = {
-              proxyPass = "http://collabora";
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-              '';
-            };
-
-            "~ ^/cool/(.*)/ws$" = {
-              proxyPass = "http://collabora";
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-              '';
-            };
-
-            "~ ^/(c|l)ool" = {
-              proxyPass = "http://collabora";
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-              '';
-            };
-
-            "^~ /cool/adminws" = {
-              proxyPass = "http://collabora";
-              proxyWebsockets = true;
-              extraConfig = ''
-                add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-              '';
-            };
-          };
-        };
-      };
-
-      collabora-online = {
-        enable = true;
-        settings = {
-          net.post_allow.host = [
-            "cloud.${server.baseDomain}"
-            "192\\.168\\.[0-9]{1,3}\\.[0-9]{1,3}"
-          ];
-          ssl = {
-            enable = false;
-            termination = true;
-          };
-        };
-      };
-
       nextcloud = {
         package = pkgs.nextcloud31;
         hostName = "cloud.${server.baseDomain}";
@@ -193,6 +121,10 @@ in
           "memories.vod.ffmpeg" = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
           "memories.vod.ffprobe" = "${pkgs.ffmpeg-headless}/bin/ffprobe";
           preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
+
+          richdocuments = {
+            wopi_url = "https://docs.${server.baseDomain}:443";
+          };
         };
 
         config = {
@@ -200,6 +132,13 @@ in
           adminuser = username;
           adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
         };
+      };
+
+      nginx.virtualHosts."${cfg.hostName}" = {
+        locations."^~ /push/".extraConfig = ''
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        '';
       };
 
       postgresql.enable = true;
@@ -211,7 +150,7 @@ in
     };
 
     systemd.services.nextcloud-cron = {
-      path = [pkgs.perl];
+      path = [ pkgs.perl ];
     };
   };
 }
