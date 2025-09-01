@@ -232,12 +232,6 @@ in
               user = "root";
               forwardAgent = true;
             };
-
-            "backup" = {
-              port = 20001;
-              hostname = "tmcs.davvol.dk";
-              user = "tmcs";
-            };
           };
         };
 

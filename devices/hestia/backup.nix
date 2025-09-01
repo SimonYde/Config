@@ -10,7 +10,6 @@
     age.secrets = {
       resticPassword = {
         file = "${inputs.secrets}/resticPassword.age";
-        owner = "restic";
       };
     };
 
@@ -25,7 +24,7 @@
           OnCalendar = "Sun *-*-* 05:00:00";
           Persistent = true;
         };
-        repository = "sftp:tmcs@tmcs.davvol.dk:20001:/home/tmcs/restic";
+        repository = "sftp:backup:/home/tmcs/restic";
         passwordFile = config.age.secrets.resticPassword.path;
         pruneOpts = [
           "--keep-last 3"
@@ -37,6 +36,24 @@
           "/var/lib/vaultwarden"
           "/mnt/tank/nextcloud"
         ];
+      };
+    };
+
+    home-manager.users.root = {
+      programs.ssh = {
+        enable = true;
+        enableDefaultConfig = false;
+
+        matchBlocks = {
+          "backup" = {
+            port = 20001;
+            hostname = "tmcs.davvol.dk";
+            user = "tmcs";
+            identityFile = "/etc/ssh/ssh_host_ed25519_key";
+            serverAliveInterval = 60;
+            serverAliveCountMax = 240;
+          };
+        };
       };
     };
   };
