@@ -93,4 +93,10 @@ config.keys = {
 	},
 }
 
+wezterm.on('format-tab-title', function(tab)
+    local pane = tab.active_pane
+	local domain = pane.domain_name and '(' .. pane.domain_name .. ') ' or ''
+    return domain .. pane.title
+end)
+
 return config
