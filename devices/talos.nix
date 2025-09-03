@@ -50,7 +50,10 @@
     sniffnet.enable = true;
   };
 
-  hardware.framework.laptop13.audioEnhancement.enable = true;
+  hardware.framework.laptop13.audioEnhancement = {
+    enable = true;
+    rawDeviceName = "alsa_output.pci-0000_c1_00.6.HiFi__Speaker__sink";
+  };
 
   networking.wireguard.enable = true;
 
@@ -59,12 +62,6 @@
     hardware.openrgb.enable = true;
     ratbagd.enable = true;
     upower.enable = true;
-
-    openvpn.servers = {
-      cyberbridge = {
-        config = ''config /root/nixos/openvpn/cyberbridge.conf '';
-      };
-    };
 
     syncthing.enable = true;
 
