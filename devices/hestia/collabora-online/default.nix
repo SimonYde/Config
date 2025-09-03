@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   inherit (config.syde) server;
@@ -70,6 +70,9 @@ in
 
     collabora-online = {
       enable = true;
+
+      package = pkgs.callPackage ./package.nix { };
+
       settings = {
         net.post_allow.host = [
           "cloud.${server.baseDomain}"
