@@ -130,7 +130,6 @@ in
           "Projects" = {
             path = "${home}/Projects";
             devices = [
-              "daedelus"
               "icarus"
               "perdix"
               "talos"
