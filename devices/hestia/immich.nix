@@ -28,6 +28,12 @@ in
     services = {
       immich = {
         inherit (server) group;
+
+        database = {
+          enableVectors = false;
+          enableVectorChord = true;
+        };
+
         port = 2283;
         mediaLocation = "${cfg.mediaDir}";
       };
