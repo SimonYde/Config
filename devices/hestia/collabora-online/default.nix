@@ -85,4 +85,18 @@ in
       };
     };
   };
+
+  systemd.services.coolwsd = {
+    serviceConfig = {
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      PrivateTmp = true;
+      CapabilityBoundingSet = [
+        "CAP_FOWNER"
+        "CAP_CHOWN"
+        "CAP_SYS_CHROOT"
+        "CAP_SYS_ADMIN"
+      ];
+    };
+  };
 }
