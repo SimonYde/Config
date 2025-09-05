@@ -78,9 +78,13 @@ in
 
     networkmanager = {
       enable = true;
+      plugins = lib.mkOverride 99 [ ];
+      wifi.backend = "iwd";
       wifi.macAddress = "random";
-      wifi.powersave = false;
+      connectionConfig."connection.mdns" = 2; # enabled
     };
+
+    wireless.iwd.settings.General.Country = "DK";
   };
 
   hardware = {
