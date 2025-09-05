@@ -39,7 +39,7 @@ in
 
   config = mkIf cfg.enable {
     boot = {
-      kernelPackages = mkDefault latestZfsKernelPackage;
+      kernelPackages = lib.mkOverride 99 latestZfsKernelPackage;
       supportedFilesystems.zfs = true;
     };
 
