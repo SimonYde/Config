@@ -15,7 +15,7 @@ inputs: [
     {
       stable = import inputs.stable { inherit (prev) system config; };
 
-      inherit (final.stable) anki nwg-displays;
+      inherit (final.stable) anki lazyjj;
 
       nushell-wrapped = final.writeTextFile {
         name = "nushell-wrapped";
