@@ -84,7 +84,21 @@ in
       connectionConfig."connection.mdns" = 2; # enabled
     };
 
-    wireless.iwd.settings.General.Country = "DK";
+    wireless.iwd.settings = {
+      General = {
+        Country = "DK";
+        AddressRandomization = "network";
+      };
+
+      Network = {
+        EnableIPv6 = true;
+      };
+
+      Settings = {
+        AutoConnect = true;
+        AlwaysRandomizeAddress = true;
+      };
+    };
   };
 
   hardware = {
