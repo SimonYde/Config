@@ -81,6 +81,13 @@ in
             ;
         };
 
+        phpOptions = {
+          "opcache.interned_strings_buffer" = "16";
+          "opcache.revalidate_freq" = "5";
+          "opcache.jit" = "1255";
+          "opcache.jit_buffer_size" = "128M";
+        };
+
         settings = {
           overwriteprotocol = "https";
           overwritehost = "cloud.${server.baseDomain}";
