@@ -171,22 +171,28 @@ in
     ];
   };
 
-  services.hypridle.settings = {
-    general = {
-      lock_cmd = "pidof hyprlock || hyprlock";
-      after_sleep_cmd = "hyprctl dispatch dpms on";
-      before_sleep_cmd = "loginctl lock-session";
-      ignore_dbus_inhibit = false;
-    };
+  services.hypridle.settings =
+    let
+      restartHyprsunset = "systemctl --user restart hyprsunset.service";
+      stopSafeeyes = "systemctl --user stop safeeyes.service";
+      startSafeeyes = "systemctl --user start safeeyes.service";
+    in
+    {
+      general = {
+        lock_cmd = "pidof hyprlock || hyprlock";
+        after_sleep_cmd = "hyprctl dispatch dpms on && ${restartHyprsunset} && ${startSafeeyes}";
+        before_sleep_cmd = "loginctl lock-session";
+        ignore_dbus_inhibit = false;
+      };
 
-    listener = [
-      {
-        timeout = 360;
-        on-timeout = "hyprctl dispatch dpms off";
-        on-resume = "hyprctl dispatch dpms on";
-      }
-    ];
-  };
+      listener = [
+        {
+          timeout = 360;
+          on-timeout = "hyprctl dispatch dpms off && ${stopSafeeyes}";
+          on-resume = "hyprctl dispatch dpms on && ${restartHyprsunset} && ${startSafeeyes}";
+        }
+      ];
+    };
 
   services.hyprpaper.settings.ipc = "on";
 
