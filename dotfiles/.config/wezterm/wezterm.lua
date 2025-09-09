@@ -13,7 +13,7 @@ end
 
 config.max_fps = 120
 
-config.underline_position = -4
+config.underline_position = "-0.2cell"
 config.use_fancy_tab_bar = true
 config.adjust_window_size_when_changing_font_size = false
 
@@ -45,8 +45,6 @@ config.ssh_domains = {
 config.unix_domains = {
 	{ name = "unix" },
 }
-
--- config.default_gui_startup_args = { "connect", "unix" }
 
 config.leader = { key = "l", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
