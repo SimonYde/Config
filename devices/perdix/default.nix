@@ -72,7 +72,7 @@
   hardware.enableRedistributableFirmware = true;
 
   services = {
-    logind.lidSwitch = "ignore";
+    logind.settings.Login.HandleLidSwitch = "ignore";
 
     nginx = {
       enable = true;
