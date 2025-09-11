@@ -52,9 +52,6 @@ in
       virtualHosts."password.${server.baseDomain}".locations."/" = {
         proxyPass = "http://vaultwarden";
         proxyWebsockets = true;
-        extraConfig = ''
-          add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-        '';
       };
     };
   };

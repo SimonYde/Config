@@ -20,49 +20,31 @@ in
           "^~ /browser" = {
             proxyPass = "http://collabora";
             proxyWebsockets = true;
-            extraConfig = ''
-              add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-            '';
           };
 
           "^~ /hosting/discovery" = {
             proxyPass = "http://collabora";
             proxyWebsockets = true;
-            extraConfig = ''
-              add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-            '';
           };
 
           "^~ /hosting/capabilities" = {
             proxyPass = "http://collabora";
             proxyWebsockets = true;
-            extraConfig = ''
-              add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-            '';
           };
 
           "~ ^/cool/(.*)/ws$" = {
             proxyPass = "http://collabora";
             proxyWebsockets = true;
-            extraConfig = ''
-              add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-            '';
           };
 
           "~ ^/(c|l)ool" = {
             proxyPass = "http://collabora";
             proxyWebsockets = true;
-            extraConfig = ''
-              add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-            '';
           };
 
           "^~ /cool/adminws" = {
             proxyPass = "http://collabora";
             proxyWebsockets = true;
-            extraConfig = ''
-              add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-            '';
           };
         };
       };

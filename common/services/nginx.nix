@@ -28,8 +28,6 @@ in
             enableACME = true;
             acmeRoot = null;
             kTLS = true;
-            http3 = true;
-            quic = true;
           };
         }
       );
@@ -39,7 +37,6 @@ in
   config = mkIf cfg.enable {
     services = {
       nginx = {
-        package = pkgs.nginxQuic;
         recommendedOptimisation = true;
         recommendedTlsSettings = true;
         recommendedGzipSettings = true;

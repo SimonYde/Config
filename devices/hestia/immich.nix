@@ -49,7 +49,6 @@ in
             proxy_read_timeout   600s;
             proxy_send_timeout   600s;
             send_timeout         600s;
-            add_header Alt-Svc 'h3=":$server_port"; ma=86400';
           '';
         };
       };

@@ -18,9 +18,6 @@ in
     virtualHosts."atuin.ts.${server.baseDomain}".locations."/" = {
       proxyPass = "http://atuin";
       proxyWebsockets = true;
-      extraConfig = ''
-        add_header Alt-Svc 'h3=":$server_port"; ma=86400';
-      '';
     };
   };
 }
