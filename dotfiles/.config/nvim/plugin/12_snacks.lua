@@ -150,6 +150,7 @@ Load.later(function()
 
     -- stylua: ignore start
     nmap('<leader>sn', function() Snacks.notifier.show_history() end,             'Show notifier history')
+    nmap('<leader>st', function() Snacks.terminal.toggle() end,                   'Toggle terminal')
     nmap('<leader>bd', function() Snacks.bufdelete.delete() end,                  'Delete current buffer')
 
     nmap('<leader>gb', function() Snacks.git.blame_line() end,                    'Show blame line')
@@ -173,5 +174,5 @@ Load.later(function()
     -- stylua: ignore end
 
     nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')
-    nmap('<leader>gj', function() Snacks.terminal.get("lazyjj") end, 'Open jazyjj')
+    nmap('<leader>gj', function() Snacks.terminal.get('lazyjj') end, 'Open jazyjj')
 end)
