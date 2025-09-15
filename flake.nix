@@ -96,6 +96,10 @@
       url = "github:gonstoll/wezterm-types";
       flake = false;
     };
+    trouble-nvim = {
+      url = "github:folke/trouble.nvim";
+      flake = false;
+    };
     vim-alloy = {
       url = "github:grafana/vim-alloy";
       flake = false;

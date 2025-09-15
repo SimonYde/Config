@@ -31,12 +31,13 @@ Load.later(function()
     vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
     vim.keymap.del('n', 'gri')
+    vim.keymap.del('n', 'grt')
     vim.keymap.del('n', 'grr')
     vim.keymap.del({ 'n', 'x' }, 'gra')
     vim.keymap.del('n', 'grn')
 
     nmap('U', '<C-r>', 'Redo')
-    tmap('<C-\\>', [[<C-\><C-n>]], 'Exit terminal mode')
+    tmap('<C-,>', [[<C-\><C-n>]], 'Exit terminal mode')
 
     nmap('<C-d>', '<C-d>zz', 'Move down half page')
     nmap('<C-u>', '<C-u>zz', 'Move up half page')

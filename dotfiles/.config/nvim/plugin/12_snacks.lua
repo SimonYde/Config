@@ -77,7 +77,7 @@ Load.now(function()
 end)
 
 Load.later(function()
-    local nmap = Keymap.nmap
+    local nmap, tmap = Keymap.nmap, Keymap.tmap
 
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
     local progress = vim.defaulttable()
@@ -151,6 +151,7 @@ Load.later(function()
     -- stylua: ignore start
     nmap('<leader>sn', function() Snacks.notifier.show_history() end,             'Show notifier history')
     nmap('<leader>st', function() Snacks.terminal.toggle() end,                   'Toggle terminal')
+    tmap('<C-.>', [[<C-\><C-n><CMD>lua Snacks.terminal.toggle()<CR>]],            'Toggle terminal')
     nmap('<leader>bd', function() Snacks.bufdelete.delete() end,                  'Delete current buffer')
 
     nmap('<leader>gb', function() Snacks.git.blame_line() end,                    'Show blame line')

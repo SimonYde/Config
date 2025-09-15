@@ -1406,6 +1406,7 @@
         "tinted-schemes": "tinted-schemes",
         "tip-vim": "tip-vim",
         "topiary-nushell": "topiary-nushell",
+        "trouble-nvim": "trouble-nvim",
         "vim-alloy": "vim-alloy",
         "wezterm-types": "wezterm-types",
         "zen-browser": "zen-browser"
@@ -1766,6 +1767,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "trouble-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757933745,
+        "narHash": "sha256-W6iO5f+q4busBuP0psE7sikn87wwc1BkztsMnVkjnW0=",
+        "owner": "folke",
+        "repo": "trouble.nvim",
+        "rev": "3fb3bd737be8866e5f3a170abc70b4da8b5dd45a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "trouble.nvim",
         "type": "github"
       }
     },

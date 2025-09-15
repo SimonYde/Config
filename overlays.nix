@@ -101,6 +101,14 @@ inputs: [
             src = inputs.tip-vim;
           };
 
+          trouble-nvim = prev.vimPlugins.trouble-nvim.overrideAttrs {
+            src = inputs.trouble-nvim;
+            version = mkDate inputs.trouble-nvim;
+            nvimSkipModule = [
+              "trouble.docs"
+            ];
+          };
+
           vim-alloy = prev.vimUtils.buildVimPlugin {
             version = mkDate inputs.vim-alloy;
             pname = "vim-alloy";
