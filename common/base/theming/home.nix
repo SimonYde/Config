@@ -104,60 +104,6 @@ in
   };
 
   programs = {
-    anyrun.extraCss =
-      # css
-      ''
-        * {
-          all: unset;
-          font-size: ${toString fonts.sizes.popups}pt;
-          background: ${mkRgba opacity.popups "base00"};
-        }
-
-        #window,
-        #match,
-        #entry,
-        #plugin,
-        #main {
-          background: transparent;
-        }
-
-        #match.activatable {
-          border-radius: 8px;
-          margin: 4px 0;
-          padding: 4px;
-          /* transition: 100ms ease-out; */
-        }
-        #match.activatable:first-child {
-          margin-top: 12px;
-        }
-        #match.activatable:last-child {
-          margin-bottom: 0;
-        }
-
-        #match:hover {
-          background: rgba(255, 255, 255, 0.05);
-        }
-        #match:selected {
-          background: rgba(255, 255, 255, 0.1);
-        }
-
-        #entry {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          padding: 4px 8px;
-        }
-
-        box#main {
-          background: ${mkRgba opacity.popups "base00"};
-          box-shadow:
-            inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-            0 30px 30px 15px rgba(0, 0, 0, 0.5);
-          border-radius: 20px;
-          padding: 12px;
-        }
-      '';
-
     fzf.colors.bg = mkForce "";
 
     git = {

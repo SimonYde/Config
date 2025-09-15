@@ -52,15 +52,14 @@ in
   ];
 
   programs = {
-    anyrun.enable = false;
     hyprlock.enable = true;
     imv.enable = true;
     waybar.enable = true;
-    walker.enable = true;
     wlogout.enable = true;
   };
 
   services = {
+    walker.enable = true;
     blueman-applet.enable = true; # Bluetooth applet
     network-manager-applet.enable = true;
 
@@ -195,6 +194,8 @@ in
     };
 
   services.hyprpaper.settings.ipc = "on";
+
+  services.walker.systemd.enable = true;
 
   systemd.user = {
     services = {

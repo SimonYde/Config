@@ -23,7 +23,6 @@ in
     ./audio-production.nix
     ./waybar.nix
     ./swww.nix
-    ./walker.nix
   ];
 
   config = mkMerge [
@@ -218,21 +217,6 @@ in
               }
             ];
           };
-        };
-
-        anyrun.config = {
-          showResultsImmediately = false;
-
-          x.fraction = 0.5;
-          y.fraction = 0.3;
-          height.absolute = 200;
-
-          plugins = [
-            "libapplications.so"
-            "librink.so"
-            "libshell.so"
-            "libsymbols.so"
-          ];
         };
 
         ghostty.settings = {
