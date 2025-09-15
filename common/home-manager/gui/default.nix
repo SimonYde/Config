@@ -41,6 +41,7 @@ in
         zen-browser.enable = true;
 
         # other GUI programs
+        vivid.enable = true;
         rclone.enable = true;
         mpv.enable = true;
         ncspot.enable = true;

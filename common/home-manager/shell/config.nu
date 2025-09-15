@@ -6,7 +6,7 @@ export def banner [] {
 }
 
 $env.config = {
-    show_banner: true
+    show_banner: false
     edit_mode: vi
     footer_mode: auto
     use_kitty_protocol: true

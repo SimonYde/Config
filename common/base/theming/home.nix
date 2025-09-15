@@ -288,6 +288,10 @@ in
             search_result: { fg: '${base08}' bg: '${base05}' }
             separator: '${base04}'
           }
+
+          try {
+            $env.LS_COLORS = (vivid generate ${colors.slug})
+          }
         '';
 
     waybar.style = builtins.readFile ./waybar.css;
