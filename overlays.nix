@@ -31,8 +31,6 @@ inputs: [
           '';
       };
 
-      ashell = inputs.ashell.defaultPackage.${prev.system};
-
       grawlix = inputs.grawlix.packages.${prev.system}.default;
       agenix = inputs.agenix.packages.${prev.system}.default.override {
         ageBin = prev.lib.getExe final.rage;

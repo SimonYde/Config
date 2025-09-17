@@ -135,14 +135,6 @@
       };
     };
 
-    ashell = {
-      url = "github:MalpenZibo/ashell";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     # My flakes
     etilbudsavis-cli = {
       url = "github:SimonYde/etilbudsavis-cli";
