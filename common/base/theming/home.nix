@@ -374,6 +374,18 @@ in
     group.groupbar.text_color = mkForce "rgb(${base00})";
   };
 
+  xdg.configFile."walker/stylix.css".text =
+    with colors.withHashtag;
+    # css
+    ''
+      @define-color selected-text ${base0D};
+      @define-color text ${base05};
+      @define-color base ${base00};
+      @define-color border ${base03};
+      @define-color foreground ${base05};
+      @define-color background ${base00};
+    '';
+
   xdg.configFile."wezterm/stylix.lua".text =
     with colors.withHashtag; # lua
     ''
