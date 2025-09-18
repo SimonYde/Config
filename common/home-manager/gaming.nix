@@ -42,10 +42,9 @@
     settings = {
       background_alpha = lib.mkForce 0.75;
       vram = true;
-    };
-
-    settingsPerApplication = {
-      mpv.no_display = true;
+      ram = true;
+      cpu_temp = true;
+      gpu_temp = true;
     };
   };
 }

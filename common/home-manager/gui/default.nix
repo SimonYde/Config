@@ -73,7 +73,6 @@ in
         legcord
 
         rclone-browser
-        rclone # Remote files
 
         imagemagick
         kdePackages.ark

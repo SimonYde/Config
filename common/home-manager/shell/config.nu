@@ -64,9 +64,9 @@ alias fg = job unfreeze
 $env.NIXPKGS_ALLOW_UNFREE = 1
 
 $env.PROMPT_INDICATOR = ""
-$env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)󰫶 (ansi reset)"
-$env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)󰫻 (ansi reset)";
-$env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)󰫺 (ansi reset)";
+$env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)I (ansi reset)"
+$env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)N (ansi reset)";
+$env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)M (ansi reset)";
 
 use std-rfc/tables [ aggregate ]
 use std/clip
