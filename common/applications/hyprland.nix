@@ -24,7 +24,7 @@ in
         enable = true;
 
         settings.initial_session = {
-          command = "uwsm start hyprland";
+          command = "uwsm start hyprland-uwsm.desktop";
           user = username;
         };
       };
