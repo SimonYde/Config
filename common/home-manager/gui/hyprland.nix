@@ -35,8 +35,6 @@ let
   '';
 in
 {
-  wayland.systemd.target = "hyprland-session.target";
-
   home.packages = with pkgs; [
     # My scripts
     hyprland-gamemode
@@ -65,6 +63,7 @@ in
 
     hypridle.enable = true;
     hyprsunset.enable = true;
+    hyprpolkitagent.enable = true;
 
     swaync.enable = true;
     swayosd.enable = true;
@@ -73,6 +72,7 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = false;
 
     plugins = with pkgs.hyprlandPlugins; [ ];
 
@@ -144,17 +144,17 @@ in
       }
       {
         time = "20:00";
-        temperature = 5000;
+        temperature = 4000;
         gamma = 0.9;
       }
       {
         time = "21:00";
-        temperature = 4000;
+        temperature = 3500;
         gamma = 0.8;
       }
       {
         time = "21:30";
-        temperature = 3500;
+        temperature = 3000;
         gamma = 0.8;
       }
       {

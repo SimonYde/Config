@@ -7,7 +7,6 @@
 }:
 let
   inherit (lib) mkIf getExe;
-  command = "${getExe config.programs.hyprland.package} &> /dev/null";
   cfg = config.programs.hyprland;
 in
 {
@@ -25,13 +24,14 @@ in
         enable = true;
 
         settings.initial_session = {
-          inherit command;
+          command = "uwsm start hyprland";
           user = username;
         };
       };
     };
 
     programs.regreet.enable = true;
+    programs.hyprland.withUWSM = true;
 
     security.pam.services.hyprlock = { };
 
@@ -41,20 +41,6 @@ in
       QT_AUTO_SCREEN_SCALE_FACTOR = 1;
       XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
       XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
-    };
-
-    systemd.user.services.hyprpolkitagent = mkIf config.security.polkit.enable {
-      description = "hyprpolkitagent";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
     };
   };
 }

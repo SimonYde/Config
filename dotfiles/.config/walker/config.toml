@@ -65,6 +65,7 @@ placeholder = "Hyprland Keybinds"
 switcher_only = true
 
 [builtins.applications]
+launch_prefix = "uwsm app -- "
 weight = 5
 name = "applications"
 placeholder = "Applications"
