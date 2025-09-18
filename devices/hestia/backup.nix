@@ -36,6 +36,12 @@
           "/var/lib/vaultwarden"
           "/mnt/tank/nextcloud"
         ];
+        exclude = [
+          "/mnt/tank/nextcloud/**/files_versions/**/*.mp4.v*"
+          "/mnt/tank/nextcloud/**/files_versions/**/*.mkv.v*"
+          "/mnt/tank/nextcloud/**/files_trashbin/**/*.mp4*"
+          "/mnt/tank/nextcloud/**/files_trashbin/**/*.mkv*"
+        ];
       };
     };
 
