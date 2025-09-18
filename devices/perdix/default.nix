@@ -3,7 +3,6 @@
   inputs,
   lib,
   config,
-  username,
   ...
 }:
 {
@@ -32,12 +31,12 @@
       smtpPasswordPath = config.age.secrets.emailPassword.path;
     };
 
-    development.enable = true;
+    development.enable = false;
     monitoring.enable = true;
 
     hardware = {
       amd.cpu.enable = true;
-      nvidia.enable = false;
+      nvidia.enable = true;
     };
 
     zfs.enable = true;

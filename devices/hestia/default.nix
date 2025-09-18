@@ -3,6 +3,7 @@
   inputs,
   config,
   username,
+  lib,
   ...
 }:
 {
@@ -46,7 +47,6 @@
     zfs.enable = true;
   };
 
-
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
     owner = username;
@@ -89,6 +89,17 @@
 
     nginx.enable = true;
     nextcloud.enable = true;
+
+    networkd-dispatcher = {
+      enable = true;
+      rules.tailscale-perf = {
+        onState = [ "routable" ];
+        script = ''
+          #!${pkgs.runtimeShell}
+          ${lib.getExe pkgs.ethtool} -K eno1 rx-udp-gro-forwarding on rx-gro-list off
+        '';
+      };
+    };
   };
 
   networking = {
