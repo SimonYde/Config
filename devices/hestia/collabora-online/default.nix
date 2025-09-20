@@ -56,10 +56,13 @@ in
       package = pkgs.callPackage ./package.nix { };
 
       settings = {
-        net.post_allow.host = [
-          "cloud.${server.baseDomain}"
-          "192\\.168\\.[0-9]{1,3}\\.[0-9]{1,3}"
-        ];
+        storage.wopi = {
+          "@allow" = true;
+          host = [ "cloud.${server.baseDomain}" ];
+        };
+
+        server_name = "docs.${server.baseDomain}";
+
         ssl = {
           enable = false;
           termination = true;
