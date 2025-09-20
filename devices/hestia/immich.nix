@@ -39,7 +39,7 @@ in
       };
 
       nginx = {
-        upstreams.immich.servers."127.0.0.1:${toString cfg.port}" = { };
+        upstreams.immich.servers."${cfg.host}:${toString cfg.port}" = { };
 
         virtualHosts."photos.${server.baseDomain}".locations."/" = {
           proxyPass = "http://immich";
