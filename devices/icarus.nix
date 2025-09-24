@@ -36,16 +36,12 @@
       enable = true;
       pkiBundle = "/var/lib/sbctl";
     };
-
-    # loader.systemd-boot.windows."11-home" = {
-    #   title = "Windows 11 Home";
-    #   efiDeviceHandle = "HD0b";
-    # };
   };
 
   environment.systemPackages = with pkgs; [
-    stable.sageWithDoc
     sbctl
+
+    idasen # ikea table
   ];
 
   programs = {
