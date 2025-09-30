@@ -91,10 +91,12 @@ config.keys = {
 	},
 }
 
-wezterm.on('format-tab-title', function(tab)
-    local pane = tab.active_pane
-	local domain = pane.domain_name and '(' .. pane.domain_name .. ') ' or ''
-    return domain .. pane.title
+wezterm.on('format-tab-title', function(tab, tabs)
+	local pane = tab.active_pane
+	if pane.domain_name then
+		return ("(%s) %s"):format(pane.domain_name, pane.title)
+	end
+	return nil
 end)
 
 return config
