@@ -14,6 +14,7 @@
 
     ./kanidm.nix
     ./grafana
+    ./languagetool.nix
   ];
 
   system.stateVersion = "25.05";
@@ -81,6 +82,8 @@
         proxyWebsockets = true;
       };
     };
+
+    languagetool.enable = true;
 
     syncthing.enable = true;
     fstrim.enable = true;
