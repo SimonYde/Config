@@ -136,17 +136,6 @@ in
             ];
           };
 
-          ".secrets" = {
-            path = "${home}/.secrets";
-            devices = [
-              "icarus"
-              "perdix"
-              "talos"
-              "daedelus"
-              "theseus"
-            ];
-          };
-
           "Ebooks" = {
             path = "${home}/Ebooks";
             devices = [
