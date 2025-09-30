@@ -52,12 +52,11 @@ in
 
   zramSwap.enable = true;
 
-  nixpkgs.flake.setNixPath = true;
-
   nix = {
     package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
 
     channel.enable = false;
+    nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
     settings.trusted-users = [ username ];
   };

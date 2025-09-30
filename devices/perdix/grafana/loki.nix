@@ -1,7 +1,7 @@
 { config, ... }:
 let
   inherit (config.syde) server;
-in 
+in
 {
   services = {
     loki = {

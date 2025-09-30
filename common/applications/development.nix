@@ -53,7 +53,10 @@ in
       SSH_AUTH_SOCK = "/tmp/ssh-agent.socket";
     };
 
-    programs.adb.enable = true;
+    programs = {
+      adb.enable = true;
+      nix-ld.enable = true;
+    };
 
     users.users.${username}.extraGroups = [
       "adbusers"

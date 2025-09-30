@@ -204,6 +204,7 @@ in
             pinentry = pkgs.pinentry-tty;
           };
         };
+
         ssh = {
           enable = true;
           enableDefaultConfig = false;
@@ -447,6 +448,8 @@ in
         lldb
         gcc
       ];
+
+      programs.bacon.enable = true;
 
       programs.neovim.plugins = with pkgs.vimPlugins; [
         rustaceanvim # Extra rust support

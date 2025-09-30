@@ -15,6 +15,7 @@ Load.later(function()
     })
 
     vim.lsp.config('harper_ls', {
+        filetypes = { 'typst', 'markdown', 'latex' },
         settings = {
             ['harper-ls'] = {
                 dialect = 'British',
@@ -96,12 +97,9 @@ Load.later(function()
             default_settings = {
                 -- rust-analyzer language server configuration
                 ['rust-analyzer'] = {
-                    cargo = {
-                        features = 'all',
-                    },
                     imports = {
                         group = {
-                            enable = false,
+                            enable = true,
                         },
                     },
                 },
