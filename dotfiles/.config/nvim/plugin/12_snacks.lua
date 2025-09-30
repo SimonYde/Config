@@ -11,6 +11,7 @@ Load.now(function()
             math = { enabled = false },
         },
         notifier = {},
+        input = {},
         picker = {},
         quickfile = {},
         toggle = {},
@@ -39,13 +40,6 @@ Load.now(function()
                         desc = 'Recent Files',
                         action = ":lua Snacks.dashboard.pick('oldfiles')",
                     },
-                    {
-                        icon = ' ',
-                        key = 'c',
-                        desc = 'Config',
-                        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.env.NH_FLAKE, hidden = true})",
-                    },
-
                     { icon = ' ', key = 's', desc = 'Restore Session', section = 'session' },
                     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
                 },

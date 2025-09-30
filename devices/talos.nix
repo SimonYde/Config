@@ -28,6 +28,11 @@
     };
   };
 
+  users.users.syde.packages = with pkgs; [
+    vscode
+    cpeditor
+  ];
+
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
 
@@ -40,9 +45,7 @@
   environment.sessionVariables.NIXOS_OZONE_WL = 1;
 
   environment.systemPackages = with pkgs; [
-    sbctl
-
-    stable.sageWithDoc
+    sbctl # Secure boot
   ];
 
   programs = {

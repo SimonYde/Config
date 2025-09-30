@@ -104,7 +104,10 @@ in
   };
 
   programs = {
-    fzf.colors.bg = mkForce "";
+    fzf.colors = {
+      bg = mkForce "";
+      fg = mkForce colors.withHashtag.base05;
+    };
 
     git = {
       difftastic.background = colors.variant;

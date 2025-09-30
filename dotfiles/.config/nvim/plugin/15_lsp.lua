@@ -132,6 +132,7 @@ Load.later(function()
     vim.lsp.enable({
         'basedpyright',
         'bashls',
+        'clangd',
         'harper_ls',
         'lua_ls',
         'metals',

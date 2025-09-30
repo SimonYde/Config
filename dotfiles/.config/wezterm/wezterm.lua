@@ -99,4 +99,12 @@ wezterm.on('format-tab-title', function(tab, tabs)
 	return nil
 end)
 
+wezterm.on('window-config-reloaded', function(window)
+  if wezterm.gui.screens().active.name == 'eDP-1' then
+    window:set_config_overrides({
+      dpi = 384
+    })
+  end
+end)
+
 return config

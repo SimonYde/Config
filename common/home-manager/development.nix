@@ -21,7 +21,7 @@ in
     {
       syde.development = {
         bash.enable = true;
-        cpp.enable = false;
+        cpp.enable = true;
         clojure.enable = false;
         gleam.enable = false;
         go.enable = false;
@@ -57,6 +57,7 @@ in
         lazyjj
         jjui
         glab
+        mergiraf
 
         kattis-cli
         kattis-test
@@ -66,12 +67,18 @@ in
       ];
 
       programs = {
-        bat.extraPackages = with pkgs.bat-extras; [
-          batdiff
-          batman
-          batgrep
-          batwatch
-        ];
+        bat = {
+          config = {
+            style = "numbers,changes";
+            pager = "less -FR";
+          };
+          extraPackages = with pkgs.bat-extras; [
+            batdiff
+            batman
+            batgrep
+            batwatch
+          ];
+        };
 
         direnv = {
           enable = true;
@@ -110,9 +117,10 @@ in
             };
 
             ui = {
-              default-command = "log-recent";
+              default-command = "status";
               pager = lib.getExe pkgs.delta;
               diff-formatter = ":git";
+              merge-editor = "${lib.getExe pkgs.mergiraf}";
             };
 
             signing = {
@@ -285,7 +293,8 @@ in
 
     (mkIf cfg.cpp.enable {
       home.packages = with pkgs; [
-        libgcc
+        gcc
+        gdb
         clang-tools
       ];
     })
@@ -447,6 +456,7 @@ in
         rustup
         lldb
         gcc
+        lld
       ];
 
       programs.bacon.enable = true;

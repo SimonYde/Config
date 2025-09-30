@@ -223,8 +223,7 @@ in
           adjust-underline-position = 4;
 
           # Window
-          gtk-titlebar = false;
-          gtk-adwaita = true;
+          gtk-titlebar = true;
           gtk-single-instance = true;
           window-decoration = false;
           window-padding-balance = true;

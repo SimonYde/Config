@@ -51,7 +51,7 @@
   };
 
   services = {
-    safeeyes.enable = true;
+    safeeyes.enable = false;
     ratbagd.enable = true;
     syncthing.enable = true;
 
