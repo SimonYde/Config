@@ -151,3 +151,6 @@ Load.later(function()
         },
     })
 end)
+
+require('vim._extui').enable({})
+vim.o.cmdheight = 0

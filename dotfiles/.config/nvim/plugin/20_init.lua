@@ -245,7 +245,9 @@ end)
 
 Load.later(function()
     require('obsidian').setup({
-        disable_frontmatter = true,
+        frontmatter = {
+            enabled = false,
+        },
         legacy_commands = false,
 
         new_notes_location = 'current_dir',

@@ -59,7 +59,7 @@ client_fullscreen = "[{icon}]"
 "(?i)blueman-manager" = ""
 "pavucontrol|pwvucontrol" = "󱡫"
 
-[title_in_class."(?i)Kitty|(?i)Alacritty|ghostty"]
+[title_in_class."(?i)Kitty|(?i)Alacritty|ghostty|wezterm"]
 "nvim|vim|vi" = ""
 "(?i)yazi|yy" = ""
 

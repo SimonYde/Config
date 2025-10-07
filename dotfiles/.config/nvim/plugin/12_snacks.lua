@@ -7,6 +7,11 @@ Load.now(function()
     require('snacks').setup({
         bufremove = {},
         image = {
+            resolve = function(path, src)
+                if require('obsidian.api').path_is_note(path) then
+                    return require('obsidian.api').resolve_image_path(src)
+                end
+            end,
             doc = { enabled = false },
             math = { enabled = false },
         },
@@ -156,6 +161,8 @@ Load.later(function()
     nmap('<leader>bb', function() Snacks.picker.buffers() end,                    'Pick buffers')
     nmap('<leader>ff', function() Snacks.picker.files({ hidden = true }) end,     'Files')
     nmap('<leader>fh', function() Snacks.picker.help() end,                       'Help tags')
+    nmap('<leader>fd', function() Snacks.picker.diagnostics_buffer() end,         'Buffer diagnostics')
+    nmap('<leader>fD', function() Snacks.picker.diagnostics() end,                'Workspace diagnostics')
     nmap('<leader>fg', function() Snacks.picker.git_files() end,                  'Git files')
     nmap('<leader>fb', function() Snacks.picker.pickers() end,                    'Builtin pickers')
     nmap('<leader>fs', function() Snacks.picker.lsp_symbols() end,                'LSP document symbols')

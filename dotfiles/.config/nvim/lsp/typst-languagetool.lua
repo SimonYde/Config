@@ -11,9 +11,8 @@ return {
     filetypes = { 'typst' },
     init_options = {
         backend = 'server', -- "bundle" | "jar" | "server"
-        -- jar_location = "path/to/jar/location"
-        host = 'http://127.0.0.1',
-        port = '8081',
+        host = 'https://languagetool.ts.simonyde.com',
+        port = '443',
         root = root_dir,
         main = root_dir .. '/main.typ',
         languages = { de = 'de-DE', en = 'en-GB' },

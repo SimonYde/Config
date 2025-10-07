@@ -82,6 +82,16 @@ Load.later(function()
         return (n == 0) and '' or sign .. ' ' .. n
     end
 
+    local section_macro_recording = function()
+        local recording_register = vim.fn.reg_recording()
+
+        if recording_register == '' then
+            return ''
+        else
+            return ('rec @%s'):format(recording_register)
+        end
+    end
+
     MiniStatusline.setup({
         content = {
             active = function()
@@ -93,6 +103,7 @@ Load.later(function()
                 local info = diagnostic_level(vim.diagnostic.severity.INFO)
                 local hints = diagnostic_level(vim.diagnostic.severity.HINT)
                 local filename = MiniStatusline.section_filename({ trunc_width = 160 })
+                local macro = section_macro_recording()
                 local searchcount = MiniStatusline.section_searchcount({ trunc_width = 75 })
                 local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
                 local location = MiniStatusline.section_location({ trunc_width = 75 })
@@ -107,6 +118,7 @@ Load.later(function()
                     { hl = 'DiagnosticHint', strings = { hints } },
                     { hl = 'DiagnosticInfo', strings = { info } },
                     '%=', -- End left alignment
+                    { hl = 'DiagnosticError', strings = { macro } },
                     { hl = 'MiniStatuslineFilename', strings = { searchcount } },
                     { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
                     { hl = mode_hl, strings = { location } },
