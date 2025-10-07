@@ -78,7 +78,7 @@
     fstrim.enable = true;
 
     immich = {
-      enable = true;
+      enable = false;
       mediaDir = "/mnt/tank/immich";
     };
 
