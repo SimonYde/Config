@@ -120,7 +120,7 @@ in
         on-click-right = "swaync-client -d -sw";
         escape = true;
 
-        format = " {icon} {} ";
+        format = " {icon} {text} ";
         format-icons = {
           notification = "<span foreground='red'><sup></sup></span>";
           none = "";
