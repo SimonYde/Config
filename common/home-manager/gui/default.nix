@@ -71,6 +71,8 @@ in
         zotero
 
         legcord
+        discord
+        betterdiscordctl
 
         rclone-browser
 

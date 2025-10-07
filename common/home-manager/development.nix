@@ -454,9 +454,13 @@ in
     (mkIf cfg.rust.enable {
       home.packages = with pkgs; [
         rustup
-        lldb
+        cargo-binstall
+        cargo-bloat
+
+        codelldb # from rustaceanvim flake, see `../../overlays.nix`
         gcc
         lld
+        pkg-config
       ];
 
       programs.bacon.enable = true;

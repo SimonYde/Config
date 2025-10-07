@@ -57,6 +57,7 @@
       ];
 
     extraPackages = with pkgs; [
+      inotify-tools
       ghostscript # snacks.nvim PDF rendering
     ];
   };

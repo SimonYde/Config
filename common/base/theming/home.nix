@@ -110,7 +110,6 @@ in
     };
 
     git = {
-      difftastic.background = colors.variant;
       delta.options = {
         dark = if colors.variant == "dark" then "true" else "false";
         syntax-theme = "base16-stylix";

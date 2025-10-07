@@ -113,7 +113,6 @@ in
               "icarus"
               "perdix"
               "talos"
-              "theseus"
             ];
           };
 

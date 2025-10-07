@@ -15,7 +15,7 @@ inputs: [
     {
       stable = import inputs.stable { inherit (prev) system config; };
 
-      inherit (final.stable) anki lazyjj;
+      inherit (final.stable) libreoffice rclone-browser lutris;
 
       nushell-wrapped = final.writeTextFile {
         name = "nushell-wrapped";
@@ -30,6 +30,8 @@ inputs: [
             exec ${final.nushell}/bin/nu "$@"
           '';
       };
+
+      inherit (inputs.rustaceanvim.packages.${prev.system}) codelldb;
 
       grawlix = inputs.grawlix.packages.${prev.system}.default;
       agenix = inputs.agenix.packages.${prev.system}.default.override {
