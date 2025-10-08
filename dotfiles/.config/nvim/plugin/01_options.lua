@@ -6,9 +6,10 @@ vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa 
 vim.o.undofile = true
 
 -- UI =========================================================================
+require('vim._extui').enable({}) -- enable the experimental TUI for cmdline
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.cmdheight = 1
+vim.o.cmdheight = 0
 vim.o.wrap = false
 vim.o.signcolumn = 'yes'
 vim.o.ruler = false
@@ -139,7 +140,7 @@ Load.later(function()
             current_line = false,
             severity = { min = 'ERROR', max = 'ERROR' },
         },
-        float = { border = 'rounded' },
+        float = { border = vim.o.winborder },
         update_in_insert = false,
     })
 end)
@@ -152,5 +153,3 @@ Load.later(function()
     })
 end)
 
-require('vim._extui').enable({})
-vim.o.cmdheight = 0
