@@ -49,8 +49,7 @@ in
       };
 
       services = {
-        trayscale.enable = true;
-
+        tailscale-systray.enable = true;
         udiskie = {
           enable = true;
           automount = true;
