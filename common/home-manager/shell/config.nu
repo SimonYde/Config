@@ -59,6 +59,21 @@ $env.config = {
     }
 }
 
+$env.config.keybindings ++= [{
+    name: open_projects
+    modifier: CONTROL
+    keycode: Char_t
+    mode: [emacs vi_insert vi_normal]
+    event: [
+        { edit: Clear }
+        {
+          edit: InsertString,
+          value: "cd ~/Projects; interleave { ls ./UNI } { ls ./personal } { ls ./external } | get name | str join (char newline) | tv | cd $in"
+        }
+        { send: Enter }
+    ]
+}]
+
 alias fg = job unfreeze
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
@@ -68,7 +83,6 @@ $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)I (ansi reset)"
 $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)N (ansi reset)";
 $env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)M (ansi reset)";
 
-use std-rfc/tables [ aggregate ]
 use std/clip
 
 try {

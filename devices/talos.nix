@@ -75,7 +75,7 @@
       enable = true;
 
       keyboards.home-row-mods = {
-        config = # lisp
+        config = # scheme
           ''
             (defsrc
               caps a s d f j k l ;

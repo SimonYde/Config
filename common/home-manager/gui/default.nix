@@ -78,7 +78,6 @@ in
 
         imagemagick
         kdePackages.ark
-        networkmanagerapplet
 
         trashy
 
@@ -97,6 +96,14 @@ in
           enable = true;
 
           defaultApplications = {
+            "text/markdown" = "neovim.desktop";
+            "text/plain" = "neovim.desktop";
+            "text/x-csv" = "neovim.desktop";
+            "text/x-log" = "neovim.desktop";
+            "text/x-patch" = "neovim.desktop";
+            "application/xml" = "neovim.desktop";
+            "application/x-yaml" = "neovim.desktop";
+
             "inode/directory" = "${file-manager.name}.desktop";
 
             "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
@@ -105,10 +112,14 @@ in
             "application/x-bittorrent" = "org.qbittorrent.qBittorrent.desktop";
 
             "image/apng" = "${image-viewer.name}.desktop";
+            "image/avif" = "${image-viewer.name}.desktop";
+            "image/bmp" = "${image-viewer.name}.desktop";
+            "image/heif" = "${image-viewer.name}.desktop";
             "image/gif" = "${image-viewer.name}.desktop";
             "image/jpeg" = "${image-viewer.name}.desktop";
             "image/png" = "${image-viewer.name}.desktop";
             "image/webp" = "${image-viewer.name}.desktop";
+            "image/x-icns" = "${image-viewer.name}.desktop";
 
             "video/mp4" = "mpv.desktop";
             "video/mpv" = "mpv.desktop";
@@ -116,6 +127,8 @@ in
             "video/x-matroska" = "mpv.desktop";
           };
         };
+
+        configFile."mimeapps.list".force = true;
       };
     }
 

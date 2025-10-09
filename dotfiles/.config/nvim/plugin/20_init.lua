@@ -210,7 +210,7 @@ Load.later(function()
     dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
     dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
-    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'MiniIconsRed' })
+    vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = 'Error' })
 
     nmap('<leader>db', function() dap.toggle_breakpoint() end, 'toggle breakpoint')
     nmap('<leader>dc', function() dap.continue() end, 'continue')
@@ -224,11 +224,13 @@ Load.later(function()
     nmap('<leader>df', function() widgets.centered_float(widgets.frames) end, 'frames')
     nmap('<leader>ds', function() widgets.centered_float(widgets.scopes) end, 'scopes')
     nmap('<leader>du', function() dapui.toggle() end, 'toggle ui')
-    nmap(
-        '<leader>dd',
-        function() require('which-key').show({ keys = '<leader>d', loop = true }) end,
-        'Keep debugging open'
-    )
+
+    nmap('<F1>', function() dap.continue() end, 'debug: continue')
+    nmap('<F2>', function() dap.step_into() end, 'debug: step into')
+    nmap('<F3>', function() dap.step_over() end, 'debug: step over')
+    nmap('<F4>', function() dap.step_out() end, 'debug: step out')
+    nmap('<F5>', function() dap.step_back() end, 'debug: step back')
+    nmap('<F6>', function() dap.toggle_breakpoint() end, 'debug: toggle breakpoint')
 end)
 
 Load.later(function()

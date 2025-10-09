@@ -27,10 +27,10 @@ let
             keyword general:border_size 1;\
             keyword decoration:rounding 0"
 
-        systemctl --user stop waybar.service hyprland-autoname-workspaces.service swww.service trayscale.service
+        systemctl --user stop waybar.service hyprland-autoname-workspaces.service swww.service
     else
         hyprctl reload
-        systemctl --user start waybar.service hyprland-autoname-workspaces.service swww.service trayscale.service
+        systemctl --user start waybar.service hyprland-autoname-workspaces.service swww.service
     fi
   '';
 in
