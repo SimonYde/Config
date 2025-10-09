@@ -44,8 +44,6 @@ in
 
         # devcontainer # use development docker images
 
-        jq
-
         dua
         lls
         ouch # archive tool
@@ -54,10 +52,7 @@ in
 
         ast-grep
 
-        lazyjj
-        jjui
         glab
-        mergiraf
 
         kattis-cli
         kattis-test
@@ -97,14 +92,22 @@ in
           settings.git_protocol = "ssh";
         };
 
-        git.delta = {
-          enable = true;
-          options = {
-            hyperlinks = true;
-            true-color = "always";
-            features = "decorations";
-            whitespace-error-style = "22 reverse";
+        git = {
+          delta = {
+            enable = true;
+            options = {
+              hyperlinks = true;
+              true-color = "always";
+              features = "decorations";
+              whitespace-error-style = "22 reverse";
+            };
           };
+        };
+
+        jq.enable = true;
+
+        jjui = {
+          enable = true;
         };
 
         jujutsu = {
@@ -189,6 +192,7 @@ in
         lazygit.enable = true;
 
         man.enable = true;
+        mergiraf.enable = true;
 
         neovim.plugins =
           with pkgs.vimPlugins;
@@ -293,10 +297,11 @@ in
 
     (mkIf cfg.cpp.enable {
       home.packages = with pkgs; [
-        gcc
         gdb
         clang-tools
       ];
+
+      programs.gcc.enable = true;
     })
 
     (mkIf cfg.clojure.enable {
@@ -317,12 +322,17 @@ in
     (mkIf cfg.go.enable {
       home = {
         packages = with pkgs; [
-          go # CLI
           delve # Debugger
           gopls # LSP
         ];
+      };
 
-        sessionVariables.GOPATH = "${config.xdg.dataHome}/go";
+      programs.go = {
+        enable = true;
+        env.GOPATH = "${config.xdg.dataHome}/go";
+        telemetry = {
+          mode = "off";
+        };
       };
 
       programs.neovim.plugins = with pkgs.vimPlugins; [
@@ -458,12 +468,12 @@ in
         cargo-bloat
 
         codelldb # from rustaceanvim flake, see `../../overlays.nix`
-        gcc
         lld
         pkg-config
       ];
 
       programs.bacon.enable = true;
+      programs.gcc.enable = true;
 
       programs.neovim.plugins = with pkgs.vimPlugins; [
         rustaceanvim # Extra rust support
