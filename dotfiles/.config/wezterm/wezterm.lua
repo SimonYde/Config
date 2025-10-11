@@ -91,7 +91,7 @@ config.keys = {
 	},
 }
 
-wezterm.on('format-tab-title', function(tab, tabs)
+wezterm.on("format-tab-title", function(tab, tabs)
 	local pane = tab.active_pane
 	if pane.domain_name then
 		return ("(%s) %s"):format(pane.domain_name, pane.title)
@@ -99,12 +99,12 @@ wezterm.on('format-tab-title', function(tab, tabs)
 	return nil
 end)
 
-wezterm.on('window-config-reloaded', function(window)
-  if wezterm.gui.screens().active.name == 'eDP-1' then
-    window:set_config_overrides({
-      dpi = 384
-    })
-  end
+wezterm.on("window-config-reloaded", function(window)
+	if wezterm.gui.screens().active.name == "eDP-1" then
+		window:set_config_overrides({
+			dpi = 384,
+		})
+	end
 end)
 
 return config
