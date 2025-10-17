@@ -468,7 +468,6 @@ in
         cargo-bloat
 
         codelldb # from rustaceanvim flake, see `../../overlays.nix`
-        lld
         pkg-config
       ];
 

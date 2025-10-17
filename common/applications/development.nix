@@ -3,6 +3,7 @@
   username,
   config,
   pkgs,
+  options,
   ...
 }:
 let
@@ -55,7 +56,18 @@ in
 
     programs = {
       adb.enable = true;
-      nix-ld.enable = true;
+      nix-ld = {
+        enable = true;
+        libraries = options.programs.nix-ld.libraries.default ++ [
+          pkgs.fontconfig
+          pkgs.freetype
+          pkgs.libgbm
+          pkgs.libinput
+          pkgs.libxkbcommon
+          pkgs.udev
+        ];
+      };
+
     };
 
     users.users.${username}.extraGroups = [
