@@ -54,11 +54,10 @@ Load.later(function()
     nmap('<leader>tq', function() vim.cmd.Trouble('qflist toggle') end, 'Toggle quickfix')
 end)
 
-Load.later(function()
+Load.now_if_args(function()
     Load.packadd('yazi.nvim')
-    local yazi = require('yazi')
 
-    yazi.setup({
+    require('yazi').setup({
         open_for_directories = true,
         open_multiple_tabs = true,
         integrations = {
@@ -71,8 +70,11 @@ Load.later(function()
     nmap('<M-F>', function() vim.cmd.Yazi() end, 'Show current file in Yazi')
 end)
 
---- @diagnostic disable-next-line: missing-parameter
-Load.on_events({ events = 'BufRead', pattern = 'Cargo.toml' }, function() require('crates').setup() end)
+Load.on_events({ events = 'BufRead', pattern = 'Cargo.toml' }, function()
+    Load.packadd('crates.nvim')
+    --- @diagnostic disable-next-line: missing-parameter
+    require('crates').setup()
+end)
 
 Load.later(function()
     Load.packadd('conform.nvim')
@@ -210,7 +212,11 @@ Load.later(function()
     dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
     dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
-    vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = 'Error' })
+    vim.fn.sign_define('DapBreakpoint', { text = '🛑', linehl = 'DapBreakpoint' })
+    vim.fn.sign_define(
+        'DapStopped',
+        { text = '', linehl = 'DapStopped', texthl = 'DapStopped', numhl = 'DapStopped' }
+    )
 
     nmap('<leader>db', function() dap.toggle_breakpoint() end, 'toggle breakpoint')
     nmap('<leader>dc', function() dap.continue() end, 'continue')
@@ -235,6 +241,7 @@ end)
 
 Load.later(function()
     Load.packadd('render-markdown.nvim')
+
     require('render-markdown').setup({
         callout = {
             definition = { raw = '[!definition]', rendered = ' Definition', highlight = 'RenderMarkdownH6' },
@@ -246,6 +253,8 @@ Load.later(function()
 end)
 
 Load.later(function()
+    Load.packadd('obsidian.nvim')
+
     require('obsidian').setup({
         frontmatter = {
             enabled = false,

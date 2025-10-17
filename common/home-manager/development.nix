@@ -197,10 +197,10 @@ in
         neovim.plugins =
           with pkgs.vimPlugins;
           [
-            obsidian-nvim
             tip-vim
           ]
           ++ config.lib.meta.lazyNeovimPlugins [
+            obsidian-nvim
             nvim-dap
             nvim-dap-ui
           ];
@@ -335,9 +335,11 @@ in
         };
       };
 
-      programs.neovim.plugins = with pkgs.vimPlugins; [
-        nvim-dap-go # debugging support
-      ];
+      programs.neovim.plugins =
+        with pkgs.vimPlugins;
+        config.lib.meta.lazyNeovimPlugins [
+          nvim-dap-go # debugging support
+        ];
     })
 
     (mkIf cfg.java.enable {
@@ -365,7 +367,7 @@ in
           };
         };
 
-        neovim.plugins = with pkgs.vimPlugins; [ nvim-jdtls ];
+        neovim.plugins = with pkgs.vimPlugins; config.lib.meta.lazyNeovimPlugins [ nvim-jdtls ];
       };
     })
 
@@ -442,9 +444,11 @@ in
         };
       };
 
-      programs.neovim.plugins = with pkgs.vimPlugins; [
-        nvim-dap-python
-      ];
+      programs.neovim.plugins =
+        with pkgs.vimPlugins;
+        config.lib.meta.lazyNeovimPlugins [
+          nvim-dap-python
+        ];
     })
 
     (mkIf cfg.scala.enable {
@@ -474,10 +478,14 @@ in
       programs.bacon.enable = true;
       programs.gcc.enable = true;
 
-      programs.neovim.plugins = with pkgs.vimPlugins; [
-        rustaceanvim # Extra rust support
-        crates-nvim
-      ];
+      programs.neovim.plugins =
+        with pkgs.vimPlugins;
+        [
+          rustaceanvim # Extra rust support
+        ]
+        ++ config.lib.meta.lazyNeovimPlugins [
+          crates-nvim
+        ];
 
       home.sessionPath = [
         "${config.xdg.dataHome}/cargo/bin"

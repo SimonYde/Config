@@ -109,6 +109,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvim-treesitter-main = {
+      url = "github:iofq/nvim-treesitter-main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     topiary-nushell = {
       url = "github:blindFS/topiary-nushell";
       flake = false;

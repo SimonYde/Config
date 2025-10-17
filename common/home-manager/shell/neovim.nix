@@ -1,64 +1,75 @@
-{ config, pkgs, ... }:
-
 {
-  programs.neovim = {
-    package = pkgs.neovim;
-    defaultEditor = true;
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-    vimAlias = true;
-    vimdiffAlias = true;
-    viAlias = true;
+let
+  cfg = config.programs.neovim;
+in
+{
+  config = lib.mkIf cfg.enable {
+    programs.neovim = {
+      package = pkgs.neovim;
+      defaultEditor = true;
 
-    withRuby = false;
-    withNodeJs = false;
-    withPython3 = false;
+      vimAlias = true;
+      vimdiffAlias = true;
+      viAlias = true;
 
-    plugins =
-      with pkgs.vimPlugins;
-      [
-        # ----- Workflow -----
-        nvim-autopairs
-        mini-nvim
-        snacks-nvim
-        vim-sleuth
-        undotree
-        friendly-snippets
-        catppuccin-nvim
-        lazydev-nvim
+      withRuby = false;
+      withNodeJs = false;
+      withPython3 = false;
 
-        # ----- UI -----
-        nvim-treesitter
-        vim-alloy
-      ]
-      ++ config.lib.meta.lazyNeovimPlugins [
-        # ----- Completion -----
-        blink-cmp
-        wezterm-types
-        nvim-lspconfig
+      plugins =
+        with pkgs.vimPlugins;
+        [
+          # ----- Workflow -----
+          nvim-autopairs
+          mini-nvim
+          snacks-nvim
+          vim-sleuth
+          undotree
+          friendly-snippets
+          catppuccin-nvim
+          lazydev-nvim
 
-        # ----- Workflow -----
-        conform-nvim
-        trouble-nvim
-        diffview-nvim
-        neogit
-        todo-comments-nvim
-        img-clip-nvim
+          # ----- UI -----
+          vim-alloy
+        ]
+        ++ config.lib.meta.lazyNeovimPlugins [
+          # ----- Completion -----
+          blink-cmp
+          wezterm-types
+          nvim-lspconfig
 
-        yazi-nvim
+          # ----- Workflow -----
+          conform-nvim
+          trouble-nvim
+          diffview-nvim
+          neogit
+          todo-comments-nvim
+          img-clip-nvim
 
-        # ----- UI -----
-        indent-blankline-nvim
-        lspsaga-nvim
-        nvim-treesitter-context
-        nvim-treesitter-textobjects
-        rainbow-delimiters-nvim
-        render-markdown-nvim
-        which-key-nvim
+          yazi-nvim
+
+          # ----- UI -----
+          indent-blankline-nvim
+          lspsaga-nvim
+          nvim-treesitter
+          nvim-treesitter-context
+          nvim-treesitter-textobjects
+          render-markdown-nvim
+          which-key-nvim
+        ];
+
+      extraPackages = with pkgs; [
+        inotify-tools
+        tree-sitter
+        ghostscript # snacks.nvim PDF rendering
       ];
+    };
 
-    extraPackages = with pkgs; [
-      inotify-tools
-      ghostscript # snacks.nvim PDF rendering
-    ];
   };
 }

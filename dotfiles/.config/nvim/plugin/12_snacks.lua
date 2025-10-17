@@ -4,6 +4,10 @@ Load.now(function()
     _G.p = function(...) require('snacks.debug').profile(...) end
     vim.print = _G.dd
 
+    vim._print = function (_, ...)
+        dd(...)
+    end
+
     require('snacks').setup({
         bufremove = {},
         image = {
@@ -30,14 +34,14 @@ Load.now(function()
                         icon = ' ',
                         key = 'f',
                         desc = 'Find File',
-                        action = ":lua Snacks.dashboard.pick('files', {hidden = true})",
+                        action = ":lua Snacks.dashboard.pick('files', { hidden = true })",
                     },
                     { icon = ' ', key = 'n', desc = 'New File', action = ':ene | startinsert' },
                     {
                         icon = ' ',
                         key = 'g',
                         desc = 'Grep files',
-                        action = ":lua Snacks.dashboard.pick('live_grep')",
+                        action = ":lua Snacks.dashboard.pick('live_grep', { hidden = true })",
                     },
                     {
                         icon = ' ',

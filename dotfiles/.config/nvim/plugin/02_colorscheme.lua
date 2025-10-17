@@ -35,7 +35,13 @@ Load.later(function()
             -- miscs = {}, -- Uncomment to turn off hard-coded styles
         },
         color_overrides = {},
-        custom_highlights = {},
+        custom_highlights = function(colors)
+            return {
+                DapStopped = { bg = colors.red, fg = '' },
+                DapBreakpoint = { bg = colors.red, fg = '' },
+            }
+        end,
+        {},
         default_integrations = false,
         integrations = {
             blink_cmp = true,

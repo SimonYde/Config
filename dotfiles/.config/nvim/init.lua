@@ -5,17 +5,18 @@ local Load = {}
 local MiniDeps = require('mini.deps')
 MiniDeps.setup({ silent = true })
 
----@param f function function that will be ensured to not emit error if failed.
-Load.now = function(f) MiniDeps.now(f) end
+Load.now = MiniDeps.now
 
 ---Lazy load function. Meant to run expensive functions (such as plugin setup) when Neovim has already loaded.
----@param f function function that will be called once Neovim has fully opened.
-Load.later = function(f) MiniDeps.later(f) end
+Load.later = MiniDeps.later
 
 ---@param package_name string package to load
 Load.packadd = function(package_name)
     Load.now(function() vim.cmd('packadd ' .. package_name) end)
 end
+
+--- Used for when a plugin should be loaded given nvim is started like `nvim -- /path/to/file`.
+Load.now_if_args = vim.fn.argc(-1) > 0 and Load.now or Load.later
 
 local defer_group = vim.api.nvim_create_augroup('DeferFunction', {})
 

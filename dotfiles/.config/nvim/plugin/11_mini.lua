@@ -2,6 +2,14 @@ local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 
 Load.now(function() require('mini.sessions').setup() end)
 
+Load.now_if_args(function()
+    require('mini.misc').setup()
+
+    MiniMisc.setup_restore_cursor()
+
+    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
+end)
+
 Load.later(function()
     require('mini.align').setup()
     require('mini.bracketed').setup({ n_lines = 500 })
@@ -12,7 +20,6 @@ Load.later(function()
     require('mini.git').setup()
     require('mini.icons').setup()
     require('mini.jump').setup()
-    require('mini.misc').setup()
 
     require('mini.splitjoin').setup()
     require('mini.surround').setup({ search_method = 'cover_or_next' })
@@ -21,7 +28,6 @@ Load.later(function()
     require('mini.visits').setup()
 
     MiniIcons.mock_nvim_web_devicons()
-    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
 
     local remap = function(mode, lhs_from, lhs_to)
         local keymap = vim.fn.maparg(lhs_from, mode, false, true)

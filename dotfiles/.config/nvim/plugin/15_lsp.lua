@@ -1,4 +1,4 @@
-Load.later(function()
+Load.now_if_args(function()
     Load.packadd('nvim-lspconfig')
 
     vim.lsp.config('basedpyright', {

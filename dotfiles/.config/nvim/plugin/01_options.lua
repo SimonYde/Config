@@ -30,8 +30,6 @@ vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50' -- Change curso
 vim.o.conceallevel = 2
 
 vim.o.foldtext = '' -- Use underlying text with its highlighting
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 vim.o.foldlevel = 100 -- Fold everything except top-most folds
 vim.o.foldlevelstart = 100
 
@@ -103,16 +101,21 @@ vim.o.shellpipe = '| complete | update stderr { ansi strip } | tee { get stderr 
 
 -- Custom autocommands ========================================================
 local augroup = vim.api.nvim_create_augroup('CustomSettings', {})
-vim.api.nvim_create_autocmd('FileType', {
-    group = augroup,
-    callback = function()
-        -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'
-        -- If don't do this on `FileType`, this keeps reappearing due to being set in
-        -- filetype plugins.
-        vim.cmd('setlocal formatoptions-=c formatoptions-=o')
-    end,
-    desc = [[Ensure proper 'formatoptions']],
-})
+
+Config.create_autocmd = function(event, pattern, callback, desc)
+    local opts = { group = augroup, pattern = pattern, callback = callback, desc = desc }
+    vim.api.nvim_create_autocmd(event, opts)
+end
+
+-- Don't auto-wrap comments and don't insert comment leader after hitting 'o'
+-- If not done on `FileType`, this keeps reappearing due to being set in
+-- filetype plugins.
+Config.create_autocmd(
+    'FileType',
+    nil,
+    function() vim.cmd('setlocal formatoptions-=c formatoptions-=o') end,
+    [[Ensure proper 'formatoptions']]
+)
 
 -- Diagnostics ================================================================
 
@@ -140,7 +143,7 @@ Load.later(function()
             current_line = false,
             severity = { min = 'ERROR', max = 'ERROR' },
         },
-        float = { border = vim.o.winborder },
+        float = { border = 'rounded' },
         update_in_insert = false,
     })
 end)
@@ -152,4 +155,3 @@ Load.later(function()
         },
     })
 end)
-

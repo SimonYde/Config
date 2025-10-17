@@ -3,6 +3,10 @@
         "prefix": "mod",
         "body": ["{ $1... }:\n$2\n{\n  $0\n}"]
     },
+    "shell.nix": {
+        "prefix": "shell",
+        "body": ["let\n  pkgs = import <nixpkgs> {};\nin\npkgs.mkShell {\n  buildInputs = with pkgs; [$1];\n}"]
+    },
     "multi-line comment": {
         "prefix": "comment",
         "body": ["/*\n$0\n*/"]
