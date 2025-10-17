@@ -48,6 +48,8 @@
     sbctl # Secure boot
   ];
 
+  fonts.fontconfig.subpixel.rgba = "rgb";
+
   programs = {
     hyprland.enable = true;
     partition-manager.enable = true;
@@ -162,5 +164,10 @@
 
   home-manager.users.${username} = {
     programs.hyprlock.settings.auth.fingerprint.enabled = true;
+
+    fonts.fontconfig = {
+      antialiasing = true;
+      subpixelRendering = "rgb";
+    };
   };
 }

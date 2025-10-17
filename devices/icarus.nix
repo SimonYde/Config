@@ -44,6 +44,8 @@
     idasen # ikea table
   ];
 
+  fonts.fontconfig.subpixel.rgba = "rgb";
+
   programs = {
     hyprland.enable = true;
     partition-manager.enable = true;
@@ -134,9 +136,11 @@
   };
 
   home-manager.users.${username} = {
-
-    services.blanket.enable = true;
-
     programs.hyprlock.settings.general.screencopy_mode = 1; # NOTE: nvidia problems
+
+    fonts.fontconfig = {
+      antialiasing = true;
+      subpixelRendering = "rgb";
+    };
   };
 }
