@@ -36,7 +36,7 @@ _:
     extraConfig = {
       init.defaultBranch = "master";
 
-      merge.conflictStyle = "zdiff3";
+      merge.conflictStyle = "diff3";
       push = {
         default = "current";
         autoSetupRemote = true;
