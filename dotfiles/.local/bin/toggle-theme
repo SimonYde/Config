@@ -1,0 +1,45 @@
+#!/usr/bin/env -S nu --no-config-file
+
+use std/log
+
+def main [state?: string] {
+    match $state {
+        "light" => {
+            light
+        }
+
+        "dark" => {
+            dark
+        }
+
+        null => {
+            try {
+                let $specialsation = open /etc/specialisation
+                if $specialsation == "light-theme" {
+                    dark
+                } else {
+                    log warning "Some other specialsation is currently selected, skipping theme switch."
+                }
+            } catch {
+                # file doesn't exist, therefore we must be in dark theme.
+                light
+            }
+        }
+    }
+}
+
+def light [] {
+    log info "Switching to light theme..."
+    sudo /nix/var/nix/profiles/system/specialisation/light-theme/bin/switch-to-configuration switch o+e>| lines | each { log debug $in }
+    log info "Restarting services..."
+    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service
+    systemctl --user start random-wallpaper.service
+}
+
+def dark [] {
+    log info "Switching to dark theme..."
+    sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch o+e>| lines | each { log debug $in }
+    log info "Restarting services..."
+    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service
+    systemctl --user start random-wallpaper.service
+}

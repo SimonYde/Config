@@ -1,6 +1,7 @@
 #!/usr/bin/env -S nu -n
 
 use std/input
+use std/log
 
 def main [] {
     let config_dir = if XDG_CONFIG_HOME in $env {
@@ -9,7 +10,7 @@ def main [] {
         input $"(ansi yellow_bold)XDG_CONFIG_HOME(ansi reset) undefined. Directory to use instead: "
     }
 
-    print $"Config directory: ($config_dir)"
+    log info $"Config directory: ($config_dir)"
 
     ls ./dotfiles/.config | where type == dir | each {
         let name = $in.name | path basename
