@@ -3,21 +3,23 @@
 use std/log
 
 def on [ ] {
-    hyprctl --batch ([
-        "keyword animations:enabled 0",
-        "keyword decoration:blur:enabled 0",
-        "keyword general:gaps_in 0",
-        "keyword general:gaps_out 0",
-        "keyword general:border_size 1",
-        "keyword decoration:rounding 0",
-    ] | str join ";")
+    try {
+        hyprctl --batch ([
+            "keyword animations:enabled 0",
+            "keyword decoration:blur:enabled 0",
+            "keyword general:gaps_in 0",
+            "keyword general:gaps_out 0",
+            "keyword general:border_size 1",
+            "keyword decoration:rounding 0",
+        ] | str join ";") | ignore
+    }
     log info "Disabled power hungry hyprland decorations"
 
     powerprofilesctl set power-saver
     log info "Set power profile to `power-saver`"
-    systemctl --user stop hyprland-autoname-workspaces.service swww.service blueman-applet.service
+    systemctl --user stop hyprland-autoname-workspaces.service swww.service blueman-applet.service adb-server.service
     log info "Stopped certain user services"
-    systemctl stop bluetooth.service
+    systemctl stop bluetooth.service syncthing.service
     log info "Disabled Bluetooth"
 }
 
@@ -31,9 +33,9 @@ def main [state?: string] {
             hyprctl reload
             powerprofilesctl set balanced
             log info "Set power profile to `balanced`"
-            systemctl --user start hyprland-autoname-workspaces.service swww.service blueman-applet.service
+            systemctl --user start hyprland-autoname-workspaces.service swww.service blueman-applet.service adb-server.service
             log info "Enabled certain user services"
-            systemctl start bluetooth.service
+            systemctl start bluetooth.service syncthing.service
             log info "Enabled Bluetooth"
         }
 
