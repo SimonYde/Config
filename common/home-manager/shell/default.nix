@@ -126,7 +126,23 @@ in
     ];
   };
 
-  programs.fzf.defaultCommand = "${getExe pkgs.fd} -H --type file";
+  programs.fzf = {
+    colors = {
+      bg = "";
+      "bg+" = "red";
+      fg = "blue";
+      "fg+" = "black";
+      header = "black";
+      "hl" = "yellow";
+      "hl+" = "yellow";
+      info = "yellow";
+      marker = "cyan";
+      pointer = "red";
+      prompt = "yellow";
+      spinner = "cyan";
+    };
+    defaultCommand = "${getExe pkgs.fd} -H --type file";
+  };
 
   programs.helix.package = pkgs.evil-helix;
 

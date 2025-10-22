@@ -104,11 +104,6 @@ in
   };
 
   programs = {
-    fzf.colors = {
-      bg = mkForce "";
-      fg = mkForce colors.withHashtag.base05;
-    };
-
     git = {
       delta.options = {
         dark = if colors.variant == "dark" then "true" else "false";
