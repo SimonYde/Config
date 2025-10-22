@@ -15,7 +15,15 @@ let
     mkPackageOption
     types
     ;
-  inherit (config.syde.gui) file-manager terminal image-viewer;
+
+  inherit (config.syde.gui)
+    browser
+    editor
+    file-manager
+    image-viewer
+    terminal
+    video-player
+    ;
 in
 {
   imports = [
@@ -29,7 +37,7 @@ in
     {
       programs = {
         # Terminals
-        ghostty.enable = true;
+        ghostty.enable = false;
         kitty.enable = false;
         alacritty.enable = false;
         wezterm.enable = true;
@@ -37,7 +45,8 @@ in
         # Browsers
         brave.enable = true;
         firefox.enable = false;
-        zen-browser.enable = true;
+        floorp.enable = false;
+        zen-browser.enable = false;
 
         # other GUI programs
         vivid.enable = true;
@@ -68,6 +77,8 @@ in
 
         qbittorrent # Linux ISOs
 
+        tor-browser
+
         zotero
 
         legcord
@@ -96,13 +107,13 @@ in
           enable = true;
 
           defaultApplications = {
-            "text/markdown" = "neovim.desktop";
-            "text/plain" = "neovim.desktop";
-            "text/x-csv" = "neovim.desktop";
-            "text/x-log" = "neovim.desktop";
-            "text/x-patch" = "neovim.desktop";
-            "application/xml" = "neovim.desktop";
-            "application/x-yaml" = "neovim.desktop";
+            "text/markdown" = "${editor.name}.desktop";
+            "text/plain" = "${editor.name}.desktop";
+            "text/x-csv" = "${editor.name}.desktop";
+            "text/x-log" = "${editor.name}.desktop";
+            "text/x-patch" = "${editor.name}.desktop";
+            "application/xml" = "${editor.name}.desktop";
+            "application/x-yaml" = "${editor.name}.desktop";
 
             "inode/directory" = "${file-manager.name}.desktop";
 
@@ -121,10 +132,22 @@ in
             "image/webp" = "${image-viewer.name}.desktop";
             "image/x-icns" = "${image-viewer.name}.desktop";
 
-            "video/mp4" = "mpv.desktop";
-            "video/mpv" = "mpv.desktop";
-            "video/mpeg" = "mpv.desktop";
-            "video/x-matroska" = "mpv.desktop";
+            "video/mp4" = "${video-player.name}.desktop";
+            "video/mpv" = "${video-player.name}.desktop";
+            "video/mpeg" = "${video-player.name}.desktop";
+            "video/x-matroska" = "${video-player.name}.desktop";
+
+            "x-scheme-handler/http" = "${browser.name}.desktop";
+            "x-scheme-handler/https" = "${browser.name}.desktop";
+            "x-scheme-handler/chrome" = "${browser.name}.desktop";
+            "text/html" = "${browser.name}.desktop";
+            "image/svg" = "${browser.name}.desktop";
+            "application/x-extension-htm" = "${browser.name}.desktop";
+            "application/x-extension-html" = "${browser.name}.desktop";
+            "application/x-extension-shtml" = "${browser.name}.desktop";
+            "application/xhtml+xml" = "${browser.name}.desktop";
+            "application/x-extension-xhtml" = "${browser.name}.desktop";
+            "application/x-extension-xht" = "${browser.name}.desktop";
           };
         };
 
@@ -144,6 +167,13 @@ in
 
           file-manager.package
           terminal.package
+          (mkIf (!config.programs ? ${editor.name} || !config.programs.${editor.name}.enable) editor.package)
+          (mkIf (
+            !config.programs ? ${video-player.name} || !config.programs.${video-player.name}.enable
+          ) video-player.package)
+          (mkIf (
+            !config.programs ? ${image-viewer.name} || !config.programs.${image-viewer.name}.enable
+          ) image-viewer.package)
         ];
 
         sessionVariables.TERMINAL = terminal.name;
@@ -355,16 +385,28 @@ in
   ];
 
   options.syde.gui = {
-    browser = mkOption {
-      type = types.enum [
-        "firefox"
-        "brave"
-        "floorp"
-        "qutebrowser"
-        "zen"
-        "zen-beta"
-      ];
-      default = "zen-beta";
+    browser = {
+      name = mkOption {
+        type = types.enum [
+          "firefox"
+          "brave-browser"
+          "floorp"
+          "qutebrowser"
+          "zen"
+          "zen-beta"
+        ];
+        default = "firefox";
+      };
+
+      package = mkPackageOption pkgs browser.name { };
+    };
+
+    editor = {
+      name = mkOption {
+        type = types.str;
+        default = "neovim";
+      };
+      package = mkPackageOption pkgs editor.name { };
     };
 
     file-manager = {
@@ -374,6 +416,17 @@ in
       };
 
       package = mkPackageOption pkgs file-manager.name { };
+    };
+
+    image-viewer = {
+      name = mkOption {
+        type = types.enum [
+          "imv"
+        ];
+        default = "imv";
+      };
+
+      package = mkPackageOption pkgs image-viewer.name { };
     };
 
     terminal = {
@@ -391,15 +444,13 @@ in
       package = mkPackageOption pkgs terminal.name { };
     };
 
-    image-viewer = {
+    video-player = {
       name = mkOption {
-        type = types.enum [
-          "imv"
-        ];
-        default = "imv";
+        type = types.str;
+        default = "mpv";
       };
 
-      package = mkPackageOption pkgs image-viewer.name { };
+      package = mkPackageOption pkgs video-player.name { };
     };
   };
 }

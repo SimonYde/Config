@@ -77,7 +77,7 @@ in
     plugins = with pkgs.hyprlandPlugins; [ ];
 
     settings = {
-      "$browser" = browser;
+      "$browser" = getExe browser.package;
       "$file-manager" = getExe file-manager.package;
       "$terminal" = getExe terminal.package;
 

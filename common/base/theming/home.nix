@@ -30,7 +30,9 @@ in
       package = pkgs.papirus-icon-theme;
     };
     targets = {
-      firefox.enable = false;
+      fzf.enable = false;
+      firefox.profileNames = [ config.home.username ];
+      floorp.profileNames = [ config.home.username ];
       zen-browser.profileNames = [ config.home.username ];
       gnome.enable = false;
       neovim.enable = false;
@@ -123,13 +125,6 @@ in
       background = base00;
       overlay_background_color = base01;
       overlay_text_color = base05;
-    };
-
-    firefox.profiles.${config.home.username}.settings = {
-      "font.default.x-western" = "sans-serif";
-      "font.name.monospace.x-western" = fonts.monospace.name;
-      "font.name.sans-serif.x-western" = fonts.sansSerif.name;
-      "font.name.serif.x-western" = fonts.serif.name;
     };
 
     nushell.extraConfig =

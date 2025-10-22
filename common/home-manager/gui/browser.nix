@@ -51,6 +51,8 @@ let
       "network.prefetch-next" = false;
 
       # Look and feel
+      "browser.compactmode.show" = true;
+      "browser.uidensity" = 1;
       "intl.accept_languages" = "en,da";
       "intl.locale.requested" = "en-GB,da,fr,en-US";
 
@@ -95,7 +97,7 @@ let
       readFile "${csshacks}/window_control_placeholder_support.css"
       + readFile "${csshacks}/hide_tabs_toolbar.css"
       + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
-      + readFile "${csshacks}/window_control_force_linux_system_style.css"
+      # + readFile "${csshacks}/window_control_force_linux_system_style.css"
       + readFile "${csshacks}/overlay_sidebar_header.css";
 
     extraConfig = readFile "${inputs.betterfox}/Fastfox.js";
@@ -104,23 +106,10 @@ in
 {
   imports = [ inputs.zen-browser.homeModules.default ];
 
-  xdg.mimeApps.defaultApplications =
-    let
-      browser-mime = { brave = "brave-browser"; }.${browser} or browser;
-    in
-    {
-      "x-scheme-handler/http" = "${browser-mime}.desktop";
-      "x-scheme-handler/https" = "${browser-mime}.desktop";
-      "x-scheme-handler/chrome" = "${browser-mime}.desktop";
-      "text/html" = "${browser-mime}.desktop";
-      "image/svg" = "${browser-mime}.desktop";
-      "application/x-extension-htm" = "${browser-mime}.desktop";
-      "application/x-extension-html" = "${browser-mime}.desktop";
-      "application/x-extension-shtml" = "${browser-mime}.desktop";
-      "application/xhtml+xml" = "${browser-mime}.desktop";
-      "application/x-extension-xhtml" = "${browser-mime}.desktop";
-      "application/x-extension-xht" = "${browser-mime}.desktop";
-    };
+  syde.gui.browser = {
+    name = "brave-browser";
+    package = config.programs.brave.package;
+  };
 
   programs = {
     brave = {
@@ -142,6 +131,10 @@ in
     };
 
     firefox.profiles.${username} = firefox-profile;
+
+    floorp.profiles.${username} = {
+      inherit (firefox-profile) search settings extraConfig;
+    };
 
     zen-browser.profiles.${username} = {
       inherit (firefox-profile) search;
