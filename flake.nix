@@ -149,6 +149,14 @@
       };
     };
 
+    typst-languagetool = {
+      url = "gitlab:SimonYde/typst-languagetool.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
     kattis-cli = {
       url = "github:SimonYde/kattis-cli.nix";
       inputs.nixpkgs.follows = "nixpkgs";

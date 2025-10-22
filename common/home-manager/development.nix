@@ -501,6 +501,7 @@ in
       home.packages = with pkgs; [
         typst # Compiler
         harper # Spellchecking
+        typst-languagetool-lsp # Spellchecking
         tinymist # LSP
         typstyle # Formatter
         polylux2pdfpc # Converting slides into `.pdfpc` file with speaker notes

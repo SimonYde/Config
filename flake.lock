@@ -1388,6 +1388,7 @@
         "tip-vim": "tip-vim",
         "topiary-nushell": "topiary-nushell",
         "trouble-nvim": "trouble-nvim",
+        "typst-languagetool": "typst-languagetool",
         "vim-alloy": "vim-alloy",
         "wezterm-types": "wezterm-types",
         "zen-browser": "zen-browser"
@@ -1743,6 +1744,46 @@
       "original": {
         "owner": "folke",
         "repo": "trouble.nvim",
+        "type": "github"
+      }
+    },
+    "typst-languagetool": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "typst-languagetool-src": "typst-languagetool-src"
+      },
+      "locked": {
+        "lastModified": 1761052669,
+        "narHash": "sha256-xcU4yLIwq9jXLCjv0axnCM+ICnL90StfDCqrlr0srA4=",
+        "owner": "SimonYde",
+        "repo": "typst-languagetool.nix",
+        "rev": "5983b10feecea550649d2fed183d6c141782a43d",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "SimonYde",
+        "repo": "typst-languagetool.nix",
+        "type": "gitlab"
+      }
+    },
+    "typst-languagetool-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1758910584,
+        "narHash": "sha256-ILaSDdicZIBP+XSzVO+G0cTiG5vyX0yUTHLeQ6bII70=",
+        "owner": "antonWetzel",
+        "repo": "typst-languagetool",
+        "rev": "6ef57b482cc113d2200d80ec493687ef02ed41e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "antonWetzel",
+        "repo": "typst-languagetool",
         "type": "github"
       }
     },
