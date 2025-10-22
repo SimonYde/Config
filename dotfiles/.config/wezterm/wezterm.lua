@@ -46,6 +46,8 @@ config.unix_domains = {
 	{ name = "unix" },
 }
 
+local _ok, sessionizer = pcall(require, 'sessionizer')
+
 config.leader = { key = "l", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	{
@@ -67,6 +69,11 @@ config.keys = {
 		key = "w",
 		mods = "LEADER",
 		action = action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+	},
+	{
+		key = "p",
+		mods = "LEADER",
+		action = wezterm.action_callback(sessionizer.open),
 	},
 	{
 		key = "d",
@@ -98,5 +105,7 @@ wezterm.on("format-tab-title", function(tab, tabs)
 	end
 	return nil
 end)
+
+
 
 return config
