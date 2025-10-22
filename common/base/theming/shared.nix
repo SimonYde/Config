@@ -12,6 +12,7 @@
     base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
     override = {
       base00 = "181825"; # mantle instead of base
+      base01 = "11111b"; # crust instead of mantle
     };
 
     cursor = {

@@ -1,6 +1,13 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  inherit (lib) getExe;
+  inherit (config.syde.gui) terminal;
+
+  audioctl = lib.getExe pkgs.pavucontrol;
 in
 {
   programs.waybar = {
@@ -17,25 +24,30 @@ in
         "hyprland/submap"
       ];
 
-      modules-center = [ ];
+      modules-center = [
+        "clock"
+      ];
 
       modules-right = [
+        "hyprland/language"
         "gamemode"
-        "pulseaudio"
         "disk"
+        "custom/separator#blank"
+        "pulseaudio#output"
+        "custom/separator#blank"
+        "pulseaudio#input"
+        "custom/separator#blank"
         "memory"
+        "custom/separator#blank"
         "cpu"
         "battery"
-        "custom/separator#blank"
         "tray"
-        "custom/separator#blank"
-        "clock"
         "idle_inhibitor"
         "custom/swaync"
       ];
 
       gamemode = {
-        format = "{glyph}";
+        format = " {glyph}";
         format-alt = "{glyph} {count}";
         glyph = "";
         hide-not-running = true;
@@ -48,7 +60,7 @@ in
       };
 
       idle_inhibitor = {
-        format = " {icon} ";
+        format = "{icon}";
         format-icons = {
           deactivated = "󰌶";
           activated = "󰛨";
@@ -57,22 +69,29 @@ in
 
       # module definitions
       disk = {
-        format = " {free} 󰋊 ";
+        format = " 󰋊{free}";
         path = "/";
+        states = {
+          critical = 0;
+          good = 12;
+        };
+        format-good = "";
       };
 
       memory = {
-        format = " {}% 󰍛 ";
+        format = "{}%";
+        on-click = "${lib.getExe terminal.package} -e btop";
       };
 
       cpu = {
-        format = " {usage}% 󰾆 ";
+        format = "󰍛{usage}%";
         tooltip = false;
+        on-click = "${lib.getExe terminal.package} -e btop";
       };
 
       clock = {
-        format = " {:%a. %d/%m, %R} ";
-        format-alt = " {:%a. %b. %d, %Y (%T)} ";
+        format = " {:%R} ";
+        format-alt = " {:%a. %d of %B, %Y} ";
         tooltip = false;
 
         actions = {
@@ -94,6 +113,14 @@ in
 
       "hyprland/submap" = {
         format = "<span style='italic'>{}</span>";
+      };
+
+      "hyprland/language" = {
+        format = "{}";
+        format-dk = " DANSK";
+        format-da = " DANSK";
+        format-en-colemak_dh = "";
+        format-eu = "";
       };
 
       "hyprland/workspaces" = {
@@ -133,15 +160,6 @@ in
         };
       };
 
-      network = {
-        format-wifi = "{essid} ({signalStrength}%) ";
-        format-ethernet = "{ipaddr}/{cidr} 󰈀";
-        tooltip-format = "{ifname} via {gwaddr} 󰈀";
-        format-linked = "{ifname} (No IP) 󰈀";
-        format-disconnected = "Disconnected ⚠";
-        format-alt = "{ifname}: {ipaddr}/{cidr}";
-      };
-
       battery = {
         states = {
           good = 80;
@@ -149,10 +167,10 @@ in
           critical = 15;
         };
 
-        format = " {capacity}% {icon} ";
-        format-charging = " {capacity}%  ";
-        format-plugged = " {capacity}%  ";
-        format-alt = " {time} {icon} ";
+        format = "{capacity}% {icon}";
+        format-charging = "{capacity}% ";
+        format-plugged = "{capacity}% ";
+        format-alt = " {time} {icon}";
         format-icons = [
           "󰂎"
           "󰁺"
@@ -174,16 +192,13 @@ in
         tooltip = false;
       };
 
-      pulseaudio = {
-        scroll-step = 10; # %, can be a float
-        format = " {volume}% {icon} {format_source} ";
-        format-muted = "  {format_source} ";
-        format-bluetooth = " {volume}% {icon} {format_source} ";
-        format-bluetooth-muted = "  {icon} {format_source} ";
-        format-source = " {volume}%  ";
-        format-source-muted = "";
-
-        format-icons = {
+      "pulseaudio#output" = {
+        "scroll-step" = 5;
+        "format" = "{volume}% {icon}";
+        "format-muted" = "󰝟";
+        "format-bluetooth" = "󰂯 {icon} {volume}%";
+        "format-bluetooth-muted" = "󰂯 󰝟 {volume}%";
+        "format-icons" = {
           headphone = "";
           hands-free = "";
           headset = "";
@@ -196,7 +211,15 @@ in
             ""
           ];
         };
-        on-click = getExe pkgs.pwvucontrol;
+        "reverse-scroll" = true; # Only applies to trackpad.
+        "on-click" = "${audioctl} -t 3";
+      };
+
+      "pulseaudio#input" = {
+        "format" = "{format_source}";
+        "format-source" = "󰍬";
+        "format-source-muted" = "󰍭";
+        "on-click" = "${audioctl} -t 4"; # -t 4 opens pavucontrol to input tab.
       };
     };
   };

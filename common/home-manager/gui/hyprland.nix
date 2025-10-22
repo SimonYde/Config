@@ -39,9 +39,6 @@ in
     # My scripts
     hyprland-gamemode
 
-    # Extra utilities
-    pwvucontrol # audio control
-
     grimblast # screenshot tool
     wl-clipboard # clipboard manager
     hyprpicker # color picker
@@ -58,7 +55,7 @@ in
 
   services = {
     walker.enable = true;
-    blueman-applet.enable = true; # Bluetooth applet
+    blueman-applet.enable = true;
     network-manager-applet.enable = true;
 
     hypridle.enable = true;

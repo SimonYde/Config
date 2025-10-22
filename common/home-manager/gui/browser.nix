@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (config.syde.gui) browser;
   inherit (lib) mkMerge readFile;
   inherit (config.home) username;
 

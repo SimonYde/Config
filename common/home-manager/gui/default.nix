@@ -59,9 +59,15 @@ in
       };
 
       services = {
-        tailscale-systray.enable = true;
-        udiskie = {
+        nextcloud-client = {
           enable = true;
+          startInBackground = true;
+        };
+
+        tailscale-systray.enable = true;
+
+        udiskie = {
+          enable = (args ? osConfig && args.osConfig.services.udisks2.enable);
           automount = true;
           notify = true;
         };
@@ -71,7 +77,6 @@ in
       home.packages = with pkgs; [
         pdfpc # PDF presentation tool
         libreoffice # Office365 replacement
-        anki # Flash cards
         obsidian # Second brain
         gimp3 # Image editor
 

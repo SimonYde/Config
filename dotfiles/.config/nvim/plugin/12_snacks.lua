@@ -180,5 +180,5 @@ Load.later(function()
     -- stylua: ignore end
 
     nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')
-    nmap('<leader>gj', function() Snacks.terminal.get('lazyjj') end, 'Open jazyjj')
+    nmap('<leader>gj', function() Snacks.terminal.get('jjui') end, 'Open jjui')
 end)

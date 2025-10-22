@@ -14,7 +14,7 @@ def main [state?: string] {
 
         null => {
             try {
-                let $specialsation = open /etc/specialisation
+                let specialsation = open /etc/specialisation
                 if $specialsation == "light-theme" {
                     dark
                 } else {
@@ -32,14 +32,22 @@ def light [] {
     log info "Switching to light theme..."
     sudo /nix/var/nix/profiles/system/specialisation/light-theme/bin/switch-to-configuration switch o+e>| lines | each { log debug $in }
     log info "Restarting services..."
-    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service
+    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service
     systemctl --user start random-wallpaper.service
+
+    try {
+        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Ause-light
+    }
 }
 
 def dark [] {
     log info "Switching to dark theme..."
     sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch o+e>| lines | each { log debug $in }
     log info "Restarting services..."
-    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service
+    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service
     systemctl --user start random-wallpaper.service
+
+    try {
+        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Ause-dark
+    }
 }
