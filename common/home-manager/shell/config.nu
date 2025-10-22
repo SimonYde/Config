@@ -85,17 +85,17 @@ $env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)M (ansi reset)";
 
 use std/clip
 
-try {
-  if ("~/.config/rbw/config.json" | path exists) {
+if ("~/.config/rbw/config.json" | path exists) {
     rbw unlock
 
     if not (try { ssh-add -l | str contains "stdin" } catch { false }) {
-      rbw get 'SSH syde' | ssh-add -
+        try {
+            rbw get 'SSH syde' | ssh-add -
+        }
     }
 
     # $env.CACHIX_AUTH_TOKEN = (rbw get Cachix)
-    # $env.GITLAB_TOKEN = (rbw get "Gitlab token")
-    # $env.GITHUB_TOKEN = (rbw get "Github token")
-    # $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
-  }
+    $env.GITLAB_TOKEN = (rbw get "Gitlab" --field "Token")
+    $env.GITHUB_TOKEN = (rbw get "Github" --field "Token")
+    $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
 }
