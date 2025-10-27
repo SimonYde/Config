@@ -109,7 +109,6 @@ in
           "Config" = {
             path = "${home}/Config";
             devices = [
-              "daedelus"
               "icarus"
               "perdix"
               "talos"
