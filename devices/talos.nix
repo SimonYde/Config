@@ -30,6 +30,7 @@
 
   users.users.syde.packages = with pkgs; [
     vscode
+    jetbrains.clion
     cpeditor
   ];
 
@@ -118,7 +119,7 @@
     xserver.xkb = {
       layout = "us,dk";
       variant = "colemak_dh,";
-      options = "caps:escape,grp:rctrl_toggle";
+      options = "caps:escape,grp:ctrls_toggle";
     };
   };
 
