@@ -18,6 +18,10 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # NixOS modules
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -55,6 +59,7 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "pre-commit-hooks";
         flake-compat.follows = "flake-compat";
+        rust-overlay.follows = "rust-overlay";
       };
     };
 

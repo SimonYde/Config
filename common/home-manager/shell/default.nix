@@ -21,7 +21,7 @@ in
   home = {
     packages = with pkgs; [
       dogdns # rust version of `dig`
-      du-dust # Histogram of file sizes
+      dust # Histogram of file sizes
       erdtree # Tree file view
 
       lurk # strace alternative
