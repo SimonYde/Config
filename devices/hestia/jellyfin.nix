@@ -40,7 +40,7 @@ in
       };
     };
 
-    # NOTE: 2025-08-01 Simon Yde, remember to set `known proxy` option in jellyfin admin console under `Networking`.
+    # NOTE(2025-08-01 Simon Yde): remember to set `known proxy` option in jellyfin admin console under `Networking`.
     syde.services.fail2ban.jails.jellyfin = {
       serviceName = "jellyfin";
       failRegex = "^.*Authentication request for .* has been denied \\(IP: <HOST>\\)\\..*$";

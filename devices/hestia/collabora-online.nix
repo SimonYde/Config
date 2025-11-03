@@ -53,8 +53,6 @@ in
     collabora-online = {
       enable = true;
 
-      package = pkgs.callPackage ./package.nix { };
-
       settings = {
         storage.wopi = {
           "@allow" = true;

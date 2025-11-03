@@ -36,11 +36,10 @@ in
     security.pam.services.hyprlock = { };
 
     environment.sessionVariables = {
-      QT_QPA_PLATFORM = "wayland";
+      GDK_BACKEND = "wayland,x11,*";
+      QT_QPA_PLATFORM = "wayland;xcb";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = 1;
       QT_AUTO_SCREEN_SCALE_FACTOR = 1;
-      XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
-      XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
     };
   };
 }
