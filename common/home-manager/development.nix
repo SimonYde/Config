@@ -91,15 +91,14 @@ in
           settings.git_protocol = "ssh";
         };
 
-        git = {
-          delta = {
-            enable = true;
-            options = {
-              hyperlinks = true;
-              true-color = "always";
-              features = "decorations";
-              whitespace-error-style = "22 reverse";
-            };
+        delta = {
+          enable = true;
+          enableGitIntegration = true;
+          options = {
+            hyperlinks = true;
+            true-color = "always";
+            features = "decorations";
+            whitespace-error-style = "22 reverse";
           };
         };
 

@@ -106,11 +106,9 @@ in
   };
 
   programs = {
-    git = {
-      delta.options = {
-        dark = if colors.variant == "dark" then "true" else "false";
-        syntax-theme = "base16-stylix";
-      };
+    delta.options = {
+      dark = if colors.variant == "dark" then "true" else "false";
+      syntax-theme = "base16-stylix";
     };
 
     # NOTE: Stylix shouldn't set settings, but generate the theme

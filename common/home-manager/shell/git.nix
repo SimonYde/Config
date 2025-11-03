@@ -2,38 +2,38 @@ _:
 
 {
   programs.git = {
-    userName = "Simon Yde";
-    userEmail = "git@simonyde.com";
+    settings = {
 
-    aliases = {
-      a = "add";
-      br = "branch";
-      sw = "switch";
+      user.name = "Simon Yde";
+      user.email = "git@simonyde.com";
 
-      cc = "commit -v";
-      ca = "commit --all -v";
+      aliases = {
+        a = "add";
+        br = "branch";
+        sw = "switch";
 
-      d = "diff";
-      st = "status -s";
+        cc = "commit -v";
+        ca = "commit --all -v";
 
-      ls = ''log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate'';
-      ll = ''log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate --numstat'';
+        d = "diff";
+        st = "status -s";
 
-      filelog = "log -u";
-      fl = "log -u";
+        ls = ''log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate'';
+        ll = ''log --pretty=format:"%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn]" --decorate --numstat'';
 
-      dl = "!git ll -1";
+        filelog = "log -u";
+        fl = "log -u";
 
-      dr = ''!f() { git diff "$1"^.."$1"; }; f'';
+        dl = "!git ll -1";
 
-      fixup = "commit --fixup HEAD";
-      fix = "rebase -i --autosquash";
+        dr = ''!f() { git diff "$1"^.."$1"; }; f'';
 
-      rhh = "reset --hard HEAD";
-      alias = "config --get-regexp ^alias\\.";
-    };
+        fixup = "commit --fixup HEAD";
+        fix = "rebase -i --autosquash";
 
-    extraConfig = {
+        rhh = "reset --hard HEAD";
+        alias = "config --get-regexp ^alias\\.";
+      };
       init.defaultBranch = "master";
 
       merge.conflictStyle = "diff3";
