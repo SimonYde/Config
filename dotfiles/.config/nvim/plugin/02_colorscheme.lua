@@ -39,6 +39,8 @@ Load.later(function()
             return {
                 DapStopped = { bg = colors.red, fg = '' },
                 DapBreakpoint = { bg = colors.red, fg = '' },
+                ['@comment'] = { fg = colors.flamingo },
+                ['@comment.documentation'] = { fg = colors.flamingo },
             }
         end,
         {},
@@ -63,17 +65,17 @@ Load.later(function()
 
             mini = {
                 enabled = true,
-                indentscope_color = '',
+                indentscope_color = 'base',
             },
 
             snacks = {
                 enabled = true,
-                indent_scope_color = '',
+                indent_scope_color = 'base',
             },
 
             indent_blankline = {
                 enabled = true,
-                scope_color = '',
+                scope_color = 'base',
                 colored_indent_levels = false,
             },
 
@@ -141,9 +143,15 @@ Load.later(function()
         },
     })
 
-    vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(palette.base04))
+    vim.cmd(('hi @comment guifg=%s'):format(palette.base09))
+    vim.cmd(('hi Number guifg=%s'):format(palette.base0B))
+    vim.cmd(('hi Identifier guifg=%s'):format(palette.base05))
+    vim.cmd('hi clear @keyword.return')
+
+    vim.cmd(('hi MiniStatuslineFilename guifg=%s'):format(palette.base05))
+
     vim.cmd(('hi MiniJump2dSpot cterm=bold gui=bold guifg=%s guibg=%s'):format(palette.base08, palette.base00))
-    vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(palette.base0B, palette.base00))
+    vim.cmd(('hi MiniJump2dSpotAhead guifg=%s guibg=%s'):format(palette.base0D, palette.base00))
     vim.cmd(('hi MiniJump2dSpotUnique guifg=%s guibg=%s'):format(palette.base0C, palette.base00))
     vim.cmd(('hi SnacksPickerDir guifg=%s'):format(palette.base04))
     vim.cmd(('hi BlinkCmpSignatureHelp guibg=%s'):format(palette.base01))

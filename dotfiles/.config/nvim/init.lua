@@ -2,6 +2,7 @@ vim.loader.enable()
 
 local Load = {}
 
+
 local MiniDeps = require('mini.deps')
 MiniDeps.setup({ silent = true })
 
@@ -49,7 +50,7 @@ vim.g.loaded_vimballPlugin = 1
 vim.g.loaded_2html_plugin = 1
 
 vim.g.loaded_matchit = 1
-vim.g.loaded_matchparen = 1
+-- vim.g.loaded_matchparen = 1
 vim.g.loaded_logiPat = 1
 vim.g.loaded_rrhelper = 1
 

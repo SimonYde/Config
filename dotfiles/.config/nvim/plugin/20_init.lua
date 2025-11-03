@@ -308,18 +308,19 @@ Load.later(function()
 end)
 
 Load.later(function()
-    Load.packadd('indent-blankline.nvim')
-    require('ibl').setup({
-        indent = { char = '▏' },
-        scope = { enabled = false },
-    })
-end)
-
-Load.later(function()
     Load.packadd('todo-comments.nvim')
     require('todo-comments').setup({
+        signs = false,
+        keywords = {
+            SAFETY = { icon = '', color = 'default' },
+        },
         search = { pattern = [[\b(KEYWORDS)\b]] },
-        highlight = { pattern = [[.*<(KEYWORDS).{-}:]] },
+        highlight = {
+            multiline = false,
+            keyword = 'bg',
+            after = '',
+            pattern = [[.*<(KEYWORDS).{-}:]],
+        },
     })
 end)
 

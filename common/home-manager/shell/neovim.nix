@@ -55,7 +55,6 @@ in
           yazi-nvim
 
           # ----- UI -----
-          indent-blankline-nvim
           lspsaga-nvim
           nvim-treesitter
           nvim-treesitter-context

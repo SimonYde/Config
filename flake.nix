@@ -78,7 +78,6 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
       };
     };
     mini-nvim = {

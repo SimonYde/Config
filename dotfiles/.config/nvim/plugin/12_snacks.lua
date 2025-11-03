@@ -2,11 +2,9 @@ Load.now(function()
     _G.dd = function(...) require('snacks.debug').inspect(...) end
     _G.bt = function() require('snacks.debug').backtrace() end
     _G.p = function(...) require('snacks.debug').profile(...) end
-    vim.print = _G.dd
+    -- vim.print = _G.dd
 
-    vim._print = function (_, ...)
-        dd(...)
-    end
+    -- vim._print = function(_, ...) dd(...) end
 
     require('snacks').setup({
         bufremove = {},
@@ -18,6 +16,15 @@ Load.now(function()
             end,
             doc = { enabled = false },
             math = { enabled = false },
+        },
+        indent = {
+            indent = {
+                char = '▏',
+            },
+            scope = {
+                char = '▏',
+                enabled = false,
+            },
         },
         notifier = {},
         input = {},
