@@ -121,6 +121,7 @@ in
               default-command = "status";
               pager = lib.getExe pkgs.delta;
               diff-formatter = ":git";
+              diff-editor = ":builtin";
               merge-editor = "${lib.getExe pkgs.mergiraf}";
             };
 
