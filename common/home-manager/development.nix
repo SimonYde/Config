@@ -144,6 +144,8 @@ in
                 "--colocate"
               ];
 
+              l = [ "log" ];
+              lr = [ "log-recent" ];
               log-recent = [
                 "log"
                 "-r"
