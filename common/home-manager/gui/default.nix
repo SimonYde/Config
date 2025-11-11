@@ -9,6 +9,7 @@
 let
   inherit (lib)
     getExe
+    mkForce
     mkIf
     mkMerge
     mkOption
@@ -31,6 +32,8 @@ in
     ./audio-production.nix
     ./waybar.nix
     ./swww.nix
+
+    inputs.spicetify-nix.homeManagerModules.default
   ];
 
   config = mkMerge [
@@ -49,11 +52,12 @@ in
         zen-browser.enable = false;
 
         # other GUI programs
-        vivid.enable = true;
-        rclone.enable = true;
-        mpv.enable = true;
-        ncspot.enable = true;
         imv.enable = true;
+        mpv.enable = true;
+        ncspot.enable = false;
+        rclone.enable = true;
+        spicetify.enable = true;
+        vivid.enable = true;
         yt-dlp.enable = true;
         zathura.enable = true;
       };
@@ -266,6 +270,23 @@ in
             };
           };
         };
+
+        spicetify =
+          let
+            spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+          in
+          {
+            enabledCustomApps = with spicePkgs.apps; [
+              ncsVisualizer
+              newReleases
+            ];
+
+            enabledExtensions = with spicePkgs.extensions; [
+              beautifulLyrics
+              goToSong
+              history
+            ];
+          };
 
         wlogout.layout = [
           {

@@ -120,9 +120,7 @@ in
       root = {
         shell = pkgs.nushell-wrapped;
 
-        openssh.authorizedKeys.keys = [
-          keys.syde
-        ];
+        openssh.authorizedKeys.keys = [ keys.syde ];
       };
 
       ${username} = {
@@ -132,9 +130,7 @@ in
         description = "Simon Yde";
         extraGroups = [ "wheel" ];
 
-        openssh.authorizedKeys.keys = [
-          keys.syde
-        ];
+        openssh.authorizedKeys.keys = [ keys.syde ];
       };
     };
   };

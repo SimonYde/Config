@@ -12,9 +12,12 @@ inputs: [
           (builtins.substring 4 2 lastModifiedDate)
           (builtins.substring 6 2 lastModifiedDate)
         ]);
+
+      config = prev.config;
+      system = prev.stdenv.hostPlatform.system;
     in
     {
-      stable = import inputs.stable { inherit (prev) system config; };
+      stable = import inputs.stable { inherit system config; };
 
       inherit (final.stable) libreoffice rclone-browser lutris;
 
@@ -32,16 +35,16 @@ inputs: [
           '';
       };
 
-      inherit (inputs.rustaceanvim.packages.${prev.system}) codelldb;
-      inherit (inputs.typst-languagetool.packages.${prev.system}) typst-languagetool-lsp;
+      inherit (inputs.rustaceanvim.packages.${system}) codelldb;
+      inherit (inputs.typst-languagetool.packages.${system}) typst-languagetool-lsp;
 
-      grawlix = inputs.grawlix.packages.${prev.system}.default;
-      agenix = inputs.agenix.packages.${prev.system}.default.override {
+      grawlix = inputs.grawlix.packages.${system}.default;
+      agenix = inputs.agenix.packages.${system}.default.override {
         ageBin = prev.lib.getExe final.rage;
       };
-      audiobook-dl = inputs.audiobook-dl.packages.${prev.system}.default;
-      zen-browser = inputs.zen-browser.packages.${prev.system}.default;
-      etilbudsavis-cli = inputs.etilbudsavis-cli.packages.${prev.system}.default;
+      audiobook-dl = inputs.audiobook-dl.packages.${system}.default;
+      zen-browser = inputs.zen-browser.packages.${system}.default;
+      etilbudsavis-cli = inputs.etilbudsavis-cli.packages.${system}.default;
 
       jellyfin-web = prev.jellyfin-web.overrideAttrs (
         finalAttrs: previousAttrs: {
@@ -59,11 +62,11 @@ inputs: [
         }
       );
 
-      inherit (inputs.kattis-cli.packages.${prev.system}) kattis-test kattis-cli;
+      inherit (inputs.kattis-cli.packages.${system}) kattis-test kattis-cli;
 
       vimPlugins = prev.vimPlugins.extend (
         _: _: {
-          inherit (inputs.rustaceanvim.packages.${prev.system}) rustaceanvim;
+          inherit (inputs.rustaceanvim.packages.${system}) rustaceanvim;
 
           mini-nvim = prev.vimUtils.buildVimPlugin {
             version = mkDate inputs.mini-nvim;
@@ -86,16 +89,16 @@ inputs: [
             ];
           };
 
-          obsidian-nvim = prev.vimPlugins.obsidian-nvim.overrideAttrs {
-            checkInputs = [ ];
-            nvimSkipModule = [
-              "obsidian.pickers._snacks"
-              "obsidian.pickers._mini"
-              "obsidian.pickers._telescope"
-              "obsidian.pickers._fzf"
-              "minimal"
-            ];
-          };
+          # obsidian-nvim = prev.vimPlugins.obsidian-nvim.overrideAttrs {
+          #   checkInputs = [ ];
+          #   nvimSkipModule = [
+          #     "obsidian.pickers._snacks"
+          #     "obsidian.pickers._mini"
+          #     "obsidian.pickers._telescope"
+          #     "obsidian.pickers._fzf"
+          #     "minimal"
+          #   ];
+          # };
 
           tip-vim = prev.vimUtils.buildVimPlugin {
             version = mkDate inputs.tip-vim;

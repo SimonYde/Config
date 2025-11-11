@@ -34,11 +34,6 @@
       };
     };
 
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -109,7 +104,7 @@
       flake = false;
     };
     rustaceanvim = {
-      url = "github:mrcjkb/rustaceanvim";
+      url = "github:mrcjkb/rustaceanvim/v6.9.7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -123,6 +118,10 @@
       flake = false;
     };
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;
@@ -141,6 +140,14 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         tinted-schemes.follows = "tinted-schemes";
+      };
+    };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
       };
     };
 
