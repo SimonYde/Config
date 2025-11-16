@@ -8,6 +8,7 @@
         grpc_listen_address = "0.0.0.0";
         grpc_listen_port = 9195;
       };
+      memberlist.bind_port = 7947;
       distributor.receivers.otlp.protocols.http.endpoint = "0.0.0.0:4318";
       storage.trace = {
         backend = "local";

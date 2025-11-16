@@ -49,6 +49,8 @@ in
           grpc_server_max_concurrent_streams = 1000;
         };
 
+        memberlist.bind_port = 7946;
+
         ingester.ring.replication_factor = 1;
 
         distributor.instance_limits.max_ingestion_rate = 0; # unlimited
