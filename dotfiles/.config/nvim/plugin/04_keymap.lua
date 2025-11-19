@@ -25,7 +25,7 @@ M.nxmap = M.map({ 'n', 'x' })
 _G.Keymap = M
 
 Load.later(function()
-    local nmap, tmap, nxmap = Keymap.nmap, Keymap.tmap, Keymap.nxmap
+    local nmap, tmap = Keymap.nmap, Keymap.tmap
 
     vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
     vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -68,64 +68,4 @@ Load.later(function()
         vim.cmd('UndotreeToggle')
         vim.cmd('UndotreeFocus')
     end, 'Toggle undo tree')
-
-    -- COLEMAK Remaps
-    local colemak_map = function(keys, cmd, opts)
-        opts = opts or {}
-        opts.noremap = true
-        opts.silent = true
-        vim.keymap.set({ 'n', 'x' }, keys, cmd, opts)
-    end
-
-    Config.colemak_toggle = function(state)
-        if state then
-            colemak_map('n', [[v:count == 0 ? 'gj' : 'j']], { expr = true })
-            colemak_map('e', [[v:count == 0 ? 'gk' : 'k']], { expr = true })
-            colemak_map('m', 'h')
-            colemak_map('i', 'l')
-            colemak_map('h', 'm')
-            colemak_map('j', 'e')
-            colemak_map('k', 'nzz')
-            colemak_map('l', 'i')
-            colemak_map('N', 'mzJ`z')
-            colemak_map('E', 'K')
-            colemak_map('H', 'M')
-            colemak_map('J', 'E')
-            colemak_map('K', 'Nzz')
-            colemak_map('L', 'I')
-            colemak_map('<C-w>m', '<C-w>h')
-            colemak_map('<C-w>n', '<C-w>j')
-            colemak_map('<C-w>e', '<C-w>k')
-            colemak_map('<C-w>i', '<C-w>l')
-            colemak_map('<C-w>M', '<C-w>H')
-            colemak_map('<C-w>N', '<C-w>J')
-            colemak_map('<C-w>E', '<C-w>K')
-            colemak_map('<C-w>I', '<C-w>L')
-
-            colemak_map('M', '^', { desc = 'Goto first non-empty cell in line' })
-            colemak_map('I', '$', { desc = 'Goto line end' })
-        else
-            colemak_map('j', [[v:count == 0 ? 'gj' : 'j']], { expr = true })
-            colemak_map('k', [[v:count == 0 ? 'gk' : 'k']], { expr = true })
-            colemak_map('h', 'h')
-            colemak_map('l', 'l')
-            colemak_map('m', 'm')
-            colemak_map('e', 'e')
-            colemak_map('n', 'nzz')
-            colemak_map('i', 'i')
-            colemak_map('J', 'mzJ`z')
-            colemak_map('K', 'K')
-            colemak_map('M', 'M')
-            colemak_map('E', 'E')
-            colemak_map('N', 'Nzz')
-            colemak_map('I', 'I')
-
-            colemak_map('H', '^', { desc = 'Goto first non-empty cell in line' })
-            colemak_map('L', '$', { desc = 'Goto line end' })
-        end
-
-        vim.g.colemak = state
-    end
-
-    Config.colemak_toggle(false)
 end)

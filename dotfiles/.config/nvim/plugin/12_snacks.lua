@@ -10,8 +10,9 @@ Load.now(function()
         bufremove = {},
         image = {
             resolve = function(path, src)
-                if require('obsidian.api').path_is_note(path) then
-                    return require('obsidian.api').resolve_image_path(src)
+                local ok, api = pcall(require, 'obsidian.api')
+                if ok and api.path_is_note(path) then
+                    return api.resolve_image_path(src)
                 end
             end,
             doc = { enabled = false },
@@ -91,43 +92,40 @@ Load.later(function()
 
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
     local progress = vim.defaulttable()
-    vim.api.nvim_create_autocmd('LspProgress', {
-        ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-        callback = function(ev)
-            local client = vim.lsp.get_client_by_id(ev.data.client_id)
-            local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
-            if not client or type(value) ~= 'table' then return end
-            local p = progress[client.id]
+    Config.create_autocmd('LspProgress', nil, function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+        if not client or type(value) ~= 'table' then return end
+        local p = progress[client.id]
 
-            for i = 1, #p + 1 do
-                if i == #p + 1 or p[i].token == ev.data.params.token then
-                    p[i] = {
-                        token = ev.data.params.token,
-                        msg = ('[%3d%%] %s%s'):format(
-                            value.kind == 'end' and 100 or value.percentage or 100,
-                            value.title or '',
-                            value.message and (' **%s**'):format(value.message) or ''
-                        ),
-                        done = value.kind == 'end',
-                    }
-                    break
-                end
+        for i = 1, #p + 1 do
+            if i == #p + 1 or p[i].token == ev.data.params.token then
+                p[i] = {
+                    token = ev.data.params.token,
+                    msg = ('[%3d%%] %s%s'):format(
+                        value.kind == 'end' and 100 or value.percentage or 100,
+                        value.title or '',
+                        value.message and (' **%s**'):format(value.message) or ''
+                    ),
+                    done = value.kind == 'end',
+                }
+                break
             end
+        end
 
-            local msg = {} ---@type string[]
-            progress[client.id] = vim.tbl_filter(function(v) return table.insert(msg, v.msg) or not v.done end, p)
+        local msg = {} ---@type string[]
+        progress[client.id] = vim.tbl_filter(function(v) return table.insert(msg, v.msg) or not v.done end, p)
 
-            local spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
-            vim.notify(table.concat(msg, '\n'), 'info', {
-                id = 'lsp_progress',
-                title = client.name,
-                opts = function(notif)
-                    notif.icon = #progress[client.id] == 0 and ''
-                        or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-                end,
-            })
-        end,
-    })
+        local spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+        vim.notify(table.concat(msg, '\n'), 'info', {
+            id = 'lsp_progress',
+            title = client.name,
+            opts = function(notif)
+                notif.icon = #progress[client.id] == 0 and ''
+                    or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+            end,
+        })
+    end, 'Snacks Lsp Progress')
 
     Snacks.toggle
         .new({
@@ -136,14 +134,6 @@ Load.later(function()
             set = function(_) vim.cmd('let v:hlsearch = 1 - v:hlsearch') end,
         })
         :map('<leader><leader>h')
-
-    Snacks.toggle
-        .new({
-            name = 'Colemak Keymap',
-            get = function() return vim.g.colemak end,
-            set = function(state) Config.colemak_toggle(state) end,
-        })
-        :map('<leader><leader>k')
 
     Snacks.toggle.diagnostics():map('<leader><leader>d')
     Snacks.toggle.dim():map('<leader><leader>D')
@@ -184,6 +174,7 @@ Load.later(function()
     nmap('gr',         function() Snacks.picker.lsp_references() end,             'Goto references')
     nmap('gi',         function() Snacks.picker.lsp_implementations() end,        'Goto implementations')
     nmap('gd',         function() Snacks.picker.lsp_definitions() end,            'Goto definitions')
+    nmap('gD',         function() Snacks.picker.lsp_declarations() end,           'Goto declarations')
     -- stylua: ignore end
 
     nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')

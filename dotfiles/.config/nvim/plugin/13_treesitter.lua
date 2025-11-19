@@ -63,6 +63,20 @@ Load.now_if_args(function()
     end
 
     Config.create_autocmd('FileType', Config.treesitter.filetypes, autoinstall, 'Autoinstall tree-sitter parser')
+
+    vim.api.nvim_create_user_command('TSReinstall', function()
+        local installed = require('nvim-treesitter').get_installed()
+
+        for _, value in ipairs(installed) do
+            require('nvim-treesitter').uninstall(value):wait(500000)
+        end
+
+        for _, value in ipairs(installed) do
+            require('nvim-treesitter').install(value):wait(500000)
+        end
+
+        vim.api.nvim_echo({{"Successfully reinstalled treesitter parsers"}}, true, {})
+    end, {})
 end)
 
 Load.later(function()

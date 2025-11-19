@@ -36,7 +36,7 @@ def light [] {
     systemctl --user start random-wallpaper.service
 
     try {
-        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Ause-light
+        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Atoggle-light-dark
     }
 }
 
@@ -48,6 +48,6 @@ def dark [] {
     systemctl --user start random-wallpaper.service
 
     try {
-        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Ause-dark
+        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Atoggle-light-dark
     }
 }
