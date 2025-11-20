@@ -7,7 +7,7 @@
 }:
 
 let
-  inherit (lib) mkDefault mkIf;
+  inherit (lib) mkDefault mkForce mkIf;
 
   cfg = config.services.desktopManager.cosmic;
 in
@@ -18,13 +18,15 @@ in
       cosmic-term
     ];
 
+    programs.regreet.enable = mkForce false;
+
     services = {
       displayManager.cosmic-greeter.enable = true;
 
       greetd.settings = {
         initial_session = {
           user = username;
-          command = "start-cosmic --in-login-shell";
+          command = mkForce "start-cosmic --in-login-shell";
         };
       };
     };

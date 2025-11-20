@@ -13,8 +13,6 @@
 
   syde.development.enable = true;
 
-  boot.bootspec.enable = false;
-
   wsl = {
     enable = true;
     defaultUser = username;
@@ -30,7 +28,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git
     wl-clipboard
     xdg-utils
     wget
@@ -41,4 +38,11 @@
 
   # very shitty OOM killer, to make up for WSL not having PSI
   systemd.services.nix-daemon.serviceConfig.MemoryMax = "95%";
+
+  home-manager.users.${username} = {
+    home.shellAliases = {
+      ex = "explorer.exe";
+      poweroff = "wsl.exe --shutdown NixOS";
+    };
+  };
 }

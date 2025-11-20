@@ -107,7 +107,7 @@ in
 
   syde.gui.browser = {
     name = "brave-browser";
-    package = config.programs.brave.package;
+    inherit (config.programs.brave) package;
   };
 
   programs = {

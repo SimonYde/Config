@@ -63,7 +63,7 @@ in
       (mergeAttrsList [
         (mapAttrs' (
           name: value:
-          (nameValuePair ("alloy/${name}.alloy") ({
+          (nameValuePair "alloy/${name}.alloy" {
             text = ''
               scrape_url "${name}" {
                 name = "${name}"
@@ -77,7 +77,7 @@ in
                 }"
               }
             '';
-          }))
+          })
         ) config.services.alloy.scrape)
       ])
     ];

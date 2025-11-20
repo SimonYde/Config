@@ -13,8 +13,8 @@ inputs: [
           (builtins.substring 6 2 lastModifiedDate)
         ]);
 
-      config = prev.config;
-      system = prev.stdenv.hostPlatform.system;
+      inherit (prev) config;
+      inherit (prev.stdenv.hostPlatform) system;
     in
     {
       stable = import inputs.stable { inherit system config; };

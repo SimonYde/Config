@@ -467,34 +467,38 @@ in
     })
 
     (mkIf cfg.rust.enable {
-      home.packages = with pkgs; [
-        rustup
-        cargo-binstall
-        cargo-bloat
+      home = {
+        packages = with pkgs; [
+          rustup
+          cargo-binstall
+          cargo-bloat
 
-        codelldb # from rustaceanvim flake, see `../../overlays.nix`
-        pkg-config
-      ];
-
-      programs.bacon.enable = true;
-      programs.gcc.enable = true;
-
-      programs.neovim.plugins =
-        with pkgs.vimPlugins;
-        [
-          rustaceanvim # Extra rust support
-        ]
-        ++ config.lib.meta.lazyNeovimPlugins [
-          crates-nvim
+          codelldb # from rustaceanvim flake, see `../../overlays.nix`
+          pkg-config
         ];
 
-      home.sessionPath = [
-        "${config.xdg.dataHome}/cargo/bin"
-      ];
+        sessionPath = [
+          "${config.xdg.dataHome}/cargo/bin"
+        ];
 
-      home.sessionVariables = {
-        CARGO_HOME = "${config.xdg.dataHome}/cargo";
-        RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+        sessionVariables = {
+          CARGO_HOME = "${config.xdg.dataHome}/cargo";
+          RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+        };
+      };
+
+      programs = {
+        bacon.enable = true;
+        gcc.enable = true;
+
+        neovim.plugins =
+          with pkgs.vimPlugins;
+          [
+            rustaceanvim # Extra rust support
+          ]
+          ++ config.lib.meta.lazyNeovimPlugins [
+            crates-nvim
+          ];
       };
     })
 

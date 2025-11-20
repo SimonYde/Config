@@ -11,7 +11,6 @@ let
   inherit (lib)
     getExe
     mkDefault
-    mkIf
     mapAttrs
     ;
   keys = import ../keys.nix;

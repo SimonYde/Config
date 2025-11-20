@@ -7,7 +7,7 @@
 let
   inherit (config.syde) server;
 
-  mediaDir = cfg.mediaDir;
+  inherit (cfg) mediaDir;
 
   cfg = config.services.jellyfin;
 in

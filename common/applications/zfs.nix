@@ -51,7 +51,7 @@ in
       };
 
       alloy.scrape.zfs = {
-        port = config.services.prometheus.exporters.zfs.port;
+        inherit (config.services.prometheus.exporters.zfs) port;
       };
     };
   };

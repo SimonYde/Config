@@ -67,7 +67,7 @@ in
           port = "http,https";
           filter = "${name}";
           maxretry = value.maxRetry;
-          action = value.action;
+          inherit (value) action;
         };
       }) cfg.jails;
     };
@@ -75,13 +75,13 @@ in
     environment.etc = mergeAttrsList [
       (mapAttrs' (
         name: value:
-        (nameValuePair ("fail2ban/filter.d/${name}.conf") ({
+        (nameValuePair "fail2ban/filter.d/${name}.conf" {
           text = ''
             [Definition]
             failregex = ${value.failRegex}
             ignoreregex = ${value.ignoreRegex}
           '';
-        }))
+        })
       ) cfg.jails)
     ];
   };

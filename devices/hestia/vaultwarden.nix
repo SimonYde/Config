@@ -21,7 +21,7 @@ in
         rocketPort = 8881;
 
         smtpFrom = email.fromAddress;
-        smtpUsername = email.smtpUsername;
+        inherit (email) smtpUsername;
         smtpHost = email.smtpServer;
 
         databaseUrl = "postgresql://vaultwarden@/vaultwarden";

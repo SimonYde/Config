@@ -5,7 +5,7 @@
   ...
 }:
 let
-  server = config.syde.server;
+  inherit (config.syde) server;
   cfg = config.services.immich;
 in
 {

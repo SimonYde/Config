@@ -49,7 +49,7 @@ in
         brave.enable = true;
         firefox.enable = false;
         floorp.enable = false;
-        zen-browser.enable = false;
+        zen-browser.enable = true;
 
         # other GUI programs
         imv.enable = true;
@@ -71,7 +71,7 @@ in
         tailscale-systray.enable = true;
 
         udiskie = {
-          enable = (args ? osConfig && args.osConfig.services.udisks2.enable);
+          enable = args ? osConfig && args.osConfig.services.udisks2.enable;
           automount = true;
           notify = true;
         };
@@ -87,8 +87,6 @@ in
         qbittorrent # Linux ISOs
 
         tor-browser
-
-        zotero
 
         legcord
         discord

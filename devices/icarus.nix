@@ -40,6 +40,9 @@
 
   environment.systemPackages = with pkgs; [
     sbctl
+    vscode
+    distrobox
+    distrobox-tui
 
     idasen # ikea table
   ];
@@ -49,7 +52,7 @@
   programs = {
     hyprland.enable = true;
     partition-manager.enable = true;
-    wireshark.enable = true;
+    wireshark.enable = false;
   };
 
   services = {

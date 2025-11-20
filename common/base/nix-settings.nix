@@ -8,15 +8,17 @@
     };
 
     settings = {
+      auto-optimise-store = true;
+      keep-going = true;
+      show-trace = true;
+      warn-dirty = false;
+      builders-use-substitutes = true;
+      log-lines = 9999;
+
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-
-      warn-dirty = false;
-      auto-optimise-store = true;
-      show-trace = true;
-      keep-going = true;
 
       substituters = [
         "https://cache.nixos.org"
@@ -27,6 +29,10 @@
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+
+      connect-timeout = 5;
+
+      build-dir = "/var/tmp/nix";
     };
   };
 }

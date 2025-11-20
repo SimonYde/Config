@@ -29,7 +29,6 @@
   };
 
   users.users.syde.packages = with pkgs; [
-    vscode
     jetbrains.clion
   ];
 
