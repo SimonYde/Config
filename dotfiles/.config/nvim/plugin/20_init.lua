@@ -328,3 +328,5 @@ Load.later(function()
     Load.packadd('img-clip.nvim')
     require('img-clip').setup({ default = { dir_path = 'attachments' } })
 end)
+
+Load.now(function() require('hunk').setup() end)

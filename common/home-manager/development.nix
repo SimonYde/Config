@@ -121,8 +121,12 @@ in
               default-command = "status";
               pager = lib.getExe pkgs.delta;
               diff-formatter = ":git";
-              diff-editor = ":builtin";
-              merge-editor = "${lib.getExe pkgs.mergiraf}";
+              diff-editor = [
+                "nvim"
+                "-c"
+                "DiffEditor $left $right $output"
+              ];
+              merge-editor = "mergiraf";
             };
 
             signing = {
@@ -199,6 +203,7 @@ in
           with pkgs.vimPlugins;
           [
             tip-vim
+            hunk-nvim
           ]
           ++ config.lib.meta.lazyNeovimPlugins [
             obsidian-nvim
