@@ -72,7 +72,7 @@ in
             music
             notes
             previewgenerator
-            recognize
+            # recognize
             richdocuments
             ;
         };
