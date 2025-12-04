@@ -10,7 +10,7 @@ in
     kanidm = {
       enableServer = true;
 
-      package = pkgs.kanidm_1_7;
+      package = pkgs.kanidm_1_8;
 
       serverSettings = {
         bindaddress = "0.0.0.0:8443";
