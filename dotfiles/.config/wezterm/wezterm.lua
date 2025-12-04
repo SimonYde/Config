@@ -31,6 +31,16 @@ config.term = "wezterm"
 
 config.ssh_domains = {
 	{
+		name = "icarus",
+		remote_address = "icarus",
+		username = "syde",
+	},
+	{
+		name = "talos",
+		remote_address = "talos",
+		username = "syde",
+	},
+	{
 		name = "perdix",
 		remote_address = "perdix",
 		username = "syde",

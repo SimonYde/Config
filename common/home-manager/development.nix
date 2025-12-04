@@ -304,6 +304,8 @@ in
     (mkIf cfg.cpp.enable {
       home.packages = with pkgs; [
         gdb
+        gcc
+        libgcc
         clang-tools
       ];
 

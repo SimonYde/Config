@@ -34,10 +34,6 @@ def light [] {
     log info "Restarting services..."
     systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service
     systemctl --user start random-wallpaper.service
-
-    try {
-        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Atoggle-light-dark
-    }
 }
 
 def dark [] {
@@ -46,8 +42,4 @@ def dark [] {
     log info "Restarting services..."
     systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service
     systemctl --user start random-wallpaper.service
-
-    try {
-        start obsidian://adv-uri?vault=Apollo&commandid=theme%3Atoggle-light-dark
-    }
 }
