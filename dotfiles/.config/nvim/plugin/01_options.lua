@@ -50,7 +50,6 @@ vim.o.updatetime = 50
 vim.o.timeoutlen = 300
 
 vim.o.completeopt = 'menuone,noselect,fuzzy'
-vim.o.completefuzzycollect = 'keyword,files,whole_line' -- Use fuzzy matching when collecting candidates
 
 vim.o.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
 
@@ -128,30 +127,31 @@ Load.later(function()
 end)
 
 Load.later(function()
+    local sev = vim.diagnostic.severity
     vim.diagnostic.config({
         signs = {
             priority = 9999,
             text = {
-                [vim.diagnostic.severity.ERROR] = '',
-                [vim.diagnostic.severity.WARN] = '',
-                [vim.diagnostic.severity.HINT] = '',
-                [vim.diagnostic.severity.INFO] = '',
+                [sev.ERROR] = '',
+                [sev.WARN] = '',
+                [sev.HINT] = '',
+                [sev.INFO] = '',
             },
         },
         -- virtual_lines = { current_line = true },
         virtual_text = {
             current_line = false,
-            severity = { min = 'ERROR', max = 'ERROR' },
+            severity = { min = sev.ERROR, max = sev.ERROR },
         },
         float = { border = 'rounded' },
         update_in_insert = false,
     })
 end)
 
-Load.later(function()
-    vim.filetype.add({
-        extension = {
-            trp = 'sml',
-        },
-    })
-end)
+-- Load.later(function()
+--     vim.filetype.add({
+--         extension = {
+--             trp = 'sml',
+--         },
+--     })
+-- end)

@@ -7,7 +7,7 @@ _:
       user.name = "Simon Yde";
       user.email = "git@simonyde.com";
 
-      aliases = {
+      alias = {
         a = "add";
         br = "branch";
         sw = "switch";
