@@ -21,8 +21,8 @@ anchor_right = true
 
 [keybinds]
 close = ["Escape"]
-next = ["Down"]
-previous = ["Up"]
+next = ["ctrl n"]
+previous = ["ctrl p"]
 toggle_exact = ["ctrl e"]
 resume_last_query = ["ctrl r"]
 quick_activate = ["F1", "F2", "F3", "F4"]
@@ -32,13 +32,10 @@ page_up = ["Page_Up"]
 [providers]
 default = [
   "desktopapplications",
-  "calc",
-  "runner",
   "websearch",
 ] # providers to be queried by default
-empty = ["desktopapplications"] # providers to be queried when query is empty
-ignore_preview = [] # providers that should not show previews
-max_results = 50 # global max results
+# empty = ["desktopapplications"] # providers to be queried when query is empty
+max_results = 256 # global max results
 
 [providers.argument_delimiter] # define the argument delimiter per provider
 runner = " "

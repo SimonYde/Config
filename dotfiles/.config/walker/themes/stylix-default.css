@@ -1,3 +1,5 @@
+@import url("file://~/.config/walker/stylix.css");
+
 /* Reset all elements */
 #window,
 #box,
@@ -165,5 +167,3 @@ scrollbar {
 .barentry {
   opacity: 0;
 }
-
-@import url("file://~/.config/walker/stylix.css");

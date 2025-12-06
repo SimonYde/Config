@@ -76,35 +76,6 @@ in
     gtk4.extraConfig.gtk-application-prefer-dark-theme = colors.variant == "dark";
   };
 
-  programs.ashell.settings.appearance = with colors.withHashtag; {
-    font_name = fonts.sansSerif.name;
-    opacity = opacity.popups;
-    background_color = base00;
-    primary_color = base0D;
-    secondary_color = base01;
-    # used for success message or happy state
-    success_color = base0B;
-    # used for danger message or danger state (the weak version is used for the warning state
-    danger_color = base08;
-    # base default text color
-    text_color = base05;
-    # this is a list of color that will be used in the workspace module (one color for each monitor)
-    workspace_colors = [
-      base0D
-      base0E
-    ];
-    # this is a list of color that will be used in the workspace module
-    # for the special workspace (one color for each monitor)
-    # optional, default None
-    # without a value the workspaceColors list will be used
-    special_workspace_colors = [
-      base0B
-      base08
-    ];
-
-    menu.opacity = opacity.popups;
-  };
-
   programs = {
     delta.options = {
       dark = if colors.variant == "dark" then "true" else "false";
