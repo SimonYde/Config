@@ -117,6 +117,8 @@ in
               email = "git@simonyde.com";
             };
 
+            remotes.origin.auto-track-bookmarks = "glob:*";
+
             ui = {
               default-command = "status";
               pager = lib.getExe pkgs.delta;
@@ -168,7 +170,6 @@ in
               push = [
                 "git"
                 "push"
-                "--allow-new"
               ];
               r = [ "rebase" ];
               s = [ "squash" ];
