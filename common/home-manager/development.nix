@@ -76,13 +76,12 @@ in
 
         direnv = {
           enable = true;
-          enableNushellIntegration = false;
+          enableNushellIntegration = true;
           nix-direnv.enable = true;
+          silent = true;
 
           config.global = {
             warn_timeout = "1m";
-            log_format = "-";
-            log_filter = "^$";
           };
         };
 
