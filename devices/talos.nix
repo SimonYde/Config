@@ -119,6 +119,16 @@
       variant = "colemak_dh,";
       options = "caps:escape,grp:ctrls_toggle";
     };
+
+    pipewire = {
+      wireplumber.configPackages = [
+        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/alsa-config.conf" ''
+          monitor.alsa.properties = {
+            alsa.use-ucm = false
+          }
+        '')
+      ];
+    };
   };
 
   # Filesystems
