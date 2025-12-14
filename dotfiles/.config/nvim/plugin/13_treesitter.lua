@@ -23,6 +23,7 @@ Load.now_if_args(function()
         'c',
         'nu',
         'query',
+        'regex',
         'vim',
         'vimdoc',
     }
@@ -72,7 +73,7 @@ Load.now_if_args(function()
         end
 
         for _, value in ipairs(installed) do
-            require('nvim-treesitter').install(value):wait(500000)
+            require('nvim-treesitter').install(value)
         end
 
         vim.api.nvim_echo({{"Successfully reinstalled treesitter parsers"}}, true, {})
