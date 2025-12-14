@@ -52,14 +52,14 @@ in
 
   # Extra fonts
   home.packages = with pkgs; [
-    font-awesome_6
+    font-awesome
     gentium
     atkinson-hyperlegible-next
     atkinson-monolegible
     libertinus
-    junicode
     newcomputermodern
     roboto
+    source-sans
     source-sans-pro
   ];
 

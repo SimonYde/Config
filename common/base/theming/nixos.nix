@@ -19,7 +19,7 @@
   };
 
   fonts.packages = with pkgs; [
-    font-awesome_6
+    font-awesome
     gentium
     atkinson-hyperlegible-next
     atkinson-monolegible
