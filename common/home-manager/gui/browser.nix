@@ -2,6 +2,7 @@
   config,
   inputs,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -10,6 +11,18 @@ let
 
   csshacks = inputs.firefox-csshacks + "/chrome";
   firefox-profile = {
+    extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+      bitwarden
+      darkreader
+      ublock-origin
+      readwise-highlighter
+      sidebery
+      istilldontcareaboutcookies
+      multi-account-containers
+
+      danish-dictionary
+      danish-language-pack
+    ];
     settings = {
       "extensions.pocket.enabled" = false;
       "extensions.update.autoUpdateDefault" = true;
@@ -93,10 +106,10 @@ let
     };
 
     userChrome =
-      readFile "${csshacks}/window_control_placeholder_support.css"
-      + readFile "${csshacks}/hide_tabs_toolbar.css"
-      + readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
+      # readFile "${csshacks}/hide_tabs_toolbar.css"
       # + readFile "${csshacks}/window_control_force_linux_system_style.css"
+      # + readFile "${csshacks}/window_control_placeholder_support.css"
+      readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
       + readFile "${csshacks}/overlay_sidebar_header.css";
 
     extraConfig = readFile "${inputs.betterfox}/Fastfox.js";
@@ -130,7 +143,12 @@ in
     firefox.profiles.${username} = firefox-profile;
 
     floorp.profiles.${username} = {
-      inherit (firefox-profile) search settings extraConfig;
+      inherit (firefox-profile)
+        search
+        settings
+        extraConfig
+        extensions
+        ;
     };
 
     zen-browser.profiles.${username} = {
