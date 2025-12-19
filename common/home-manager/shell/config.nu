@@ -39,27 +39,10 @@ $env.config = {
         file_format: "plaintext"
         isolation: false
     }
-
-    hooks: {
-        command_not_found: {|cmd|
-            try {
-                if (which nix-locate | is-empty) {
-                    return null
-                }
-
-                let pkgs = nix-locate $"/bin/($cmd)" --whole-name --at-root --minimal
-
-                if ($pkgs | is-empty) {
-                    return null
-                }
-
-                return $"(ansi red)($cmd)(ansi reset) may be found in the following packages:\n($pkgs)"
-            }
-        }
-    }
 }
 
 alias fg = job unfreeze
+alias cat = bat
 
 $env.NIXPKGS_ALLOW_UNFREE = 1
 
