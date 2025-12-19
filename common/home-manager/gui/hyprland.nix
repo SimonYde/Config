@@ -39,7 +39,6 @@ in
     # My scripts
     hyprland-gamemode
 
-    grimblast # screenshot tool
     wl-clipboard # clipboard manager
     hyprpicker # color picker
 
@@ -47,6 +46,7 @@ in
   ];
 
   programs = {
+    hyprshot.enable = true;
     hyprlock.enable = true;
     imv.enable = true;
     waybar.enable = true;

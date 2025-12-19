@@ -10,6 +10,7 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
+    flake-parts.url = "github:hercules-ci/flake-parts";
     flake-compat.url = "github:edolstra/flake-compat";
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -25,7 +26,10 @@
 
     nur = {
       url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
     };
 
     # NixOS modules
@@ -59,6 +63,7 @@
         nixpkgs.follows = "nixpkgs";
         pre-commit-hooks-nix.follows = "pre-commit-hooks";
         flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
         rust-overlay.follows = "rust-overlay";
       };
     };
@@ -78,6 +83,7 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
       };
     };
     mini-nvim = {
@@ -109,8 +115,12 @@
       flake = false;
     };
     rustaceanvim = {
-      url = "github:mrcjkb/rustaceanvim/v6.9.7";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:mrcjkb/rustaceanvim/v7.0.6";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        neovim-nightly-overlay.follows = "neovim-nightly";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     nvim-treesitter-main = {
@@ -125,7 +135,10 @@
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";
@@ -143,7 +156,10 @@
     stylix = {
       url = "github:danth/stylix";
       inputs = {
+        flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
+        systems.follows = "systems";
         tinted-schemes.follows = "tinted-schemes";
       };
     };

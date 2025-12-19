@@ -19,7 +19,7 @@ in
     hardware = {
       bluetooth = {
         enable = mkDefault true;
-        powerOnBoot = mkDefault false;
+        powerOnBoot = mkDefault true;
       };
 
       nvidia = {

@@ -15,9 +15,7 @@ let
   inherit (config.stylix) opacity fonts;
 
   hexOpacity = opacity: toLower (toHexString (builtins.ceil (255.0 * opacity)));
-  mkRgba =
-    opacity: color:
-    "rgba(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"},${hexOpacity opacity})";
+  mkHyprRgba = opacity: color: "rgba(${color}${hexOpacity opacity})";
   mkRgb =
     color: "rgb(${colors."${color}-rgb-r"},${colors."${color}-rgb-g"},${colors."${color}-rgb-b"})";
 in
@@ -32,6 +30,7 @@ in
     targets = {
       fzf.enable = false;
       firefox.profileNames = [ config.home.username ];
+      firefox.colorTheme.enable = true;
       floorp.profileNames = [ config.home.username ];
       zen-browser.profileNames = [ config.home.username ];
       gnome.enable = false;
@@ -63,9 +62,13 @@ in
     source-sans-pro
   ];
 
+  home.pointerCursor = {
+    hyprcursor.enable = config.wayland.windowManager.hyprland.enable;
+    gtk.enable = mkForce false;
+    x11.enable = mkForce false;
+  };
+
   home.sessionVariables = {
-    HYPRCURSOR_THEME = config.stylix.cursor.name;
-    HYPRCURSOR_SIZE = config.stylix.cursor.size;
     GTK_THEME = config.gtk.theme.name;
     WALLPAPER_DIR = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
   };
@@ -346,6 +349,24 @@ in
       @define-color foreground ${base05};
       @define-color background ${base00};
     '';
+
+  xdg.configFile."hypr/hyprtoolkit.conf".text =
+    with colors;
+    let
+      alpha = opacity.applications;
+      rgb = mkHyprRgba alpha;
+    in
+    config.lib.generators.toHyprconf {
+      attrs = {
+        background = rgb base00;
+        base = rgb base01;
+        text = rgb base05;
+        alternate_base = rgb base02;
+        bright_text = rgb base07;
+        accent = rgb base0D;
+        accent_secondary = rgb base0E;
+      };
+    };
 
   xdg.configFile."wezterm/stylix.lua".text =
     with colors.withHashtag; # lua

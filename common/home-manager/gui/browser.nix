@@ -14,15 +14,18 @@ let
     extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
       bitwarden
       darkreader
-      ublock-origin
+      floccus
+      multi-account-containers
       readwise-highlighter
       sidebery
-      istilldontcareaboutcookies
-      multi-account-containers
+      ublock-origin
+      vimium-c
+      kagi-privacy-pass
 
       danish-dictionary
       danish-language-pack
     ];
+    extensions.force = true;
     settings = {
       "extensions.pocket.enabled" = false;
       "extensions.update.autoUpdateDefault" = true;
@@ -106,11 +109,8 @@ let
     };
 
     userChrome =
-      # readFile "${csshacks}/hide_tabs_toolbar.css"
-      # + readFile "${csshacks}/window_control_force_linux_system_style.css"
-      # + readFile "${csshacks}/window_control_placeholder_support.css"
-      readFile "${csshacks}/privatemode_indicator_as_menu_button.css"
-      + readFile "${csshacks}/overlay_sidebar_header.css";
+      readFile "${csshacks}/hide_tabs_toolbar_v2.css"
+      + readFile "${csshacks}/privatemode_indicator_as_menu_button.css";
 
     extraConfig = readFile "${inputs.betterfox}/Fastfox.js";
   };

@@ -40,7 +40,6 @@
 
   environment.systemPackages = with pkgs; [
     sbctl
-    vscode
     distrobox
     distrobox-tui
 

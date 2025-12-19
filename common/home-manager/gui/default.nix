@@ -47,7 +47,7 @@ in
 
         # Browsers
         brave.enable = true;
-        firefox.enable = false;
+        firefox.enable = true;
         floorp.enable = false;
         zen-browser.enable = true;
 
