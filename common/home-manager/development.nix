@@ -202,7 +202,6 @@ in
         neovim.plugins =
           with pkgs.vimPlugins;
           [
-            tip-vim
             hunk-nvim
           ]
           ++ config.lib.meta.lazyNeovimPlugins [
@@ -451,6 +450,8 @@ in
           line-length = 100;
         };
       };
+
+      programs.ty.enable = true;
 
       programs.neovim.plugins =
         with pkgs.vimPlugins;
