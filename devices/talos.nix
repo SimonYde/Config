@@ -59,7 +59,7 @@
 
   hardware.framework.laptop13.audioEnhancement = {
     enable = true;
-    rawDeviceName = "alsa_output.pci-0000_c1_00.6.HiFi__Speaker__sink";
+    rawDeviceName = "alsa_output.pci-0000_c1_00.6.analog-stereo";
   };
 
   networking.wireguard.enable = true;
