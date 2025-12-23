@@ -170,13 +170,11 @@ in
   services.hypridle.settings =
     let
       restartHyprsunset = "systemctl --user restart hyprsunset.service";
-      stopSafeeyes = "systemctl --user stop safeeyes.service";
-      startSafeeyes = "systemctl --user start safeeyes.service";
     in
     {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";
-        after_sleep_cmd = "hyprctl dispatch dpms on && ${restartHyprsunset} && ${startSafeeyes}";
+        after_sleep_cmd = "hyprctl dispatch dpms on && ${restartHyprsunset}";
         before_sleep_cmd = "loginctl lock-session";
         ignore_dbus_inhibit = false;
       };
@@ -184,8 +182,8 @@ in
       listener = [
         {
           timeout = 360;
-          on-timeout = "hyprctl dispatch dpms off && ${stopSafeeyes}";
-          on-resume = "hyprctl dispatch dpms on && ${restartHyprsunset} && ${startSafeeyes}";
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on && ${restartHyprsunset}";
         }
       ];
     };
@@ -195,23 +193,21 @@ in
   services.walker.systemd.enable = true;
 
   systemd.user = {
-    services = {
-      hyprland-autoname-workspaces = {
-        Unit = {
-          Description = "hyprland-autoname-workspaces";
-          After = [ config.wayland.systemd.target ];
-          Requires = [ "waybar.service" ];
-          PartOf = [ config.wayland.systemd.target ];
-        };
-
-        Service = {
-          ExecStart = getExe pkgs.hyprland-autoname-workspaces;
-          Restart = "always";
-          RestartSec = "2";
-        };
-
-        Install.WantedBy = [ config.wayland.systemd.target ];
+    services.hyprland-autoname-workspaces = {
+      Unit = {
+        Description = "hyprland-autoname-workspaces";
+        After = [ config.wayland.systemd.target ];
+        Requires = [ "waybar.service" ];
+        PartOf = [ config.wayland.systemd.target ];
       };
+
+      Service = {
+        ExecStart = getExe pkgs.hyprland-autoname-workspaces;
+        Restart = "always";
+        RestartSec = "2";
+      };
+
+      Install.WantedBy = [ config.wayland.systemd.target ];
     };
   };
 }
