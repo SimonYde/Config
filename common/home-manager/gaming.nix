@@ -40,6 +40,7 @@
     enable = true;
 
     settings = {
+      fps_limit = 160;
       background_alpha = lib.mkForce 0.75;
       vram = true;
       ram = true;
