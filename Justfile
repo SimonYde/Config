@@ -25,16 +25,16 @@ news:
 
 update:
 	@nix flake update --commit-lock-file
-	@nh os switch . --ask
+	@nh os switch . --ask --cores ${NIX_BUILD_CORES}
 
 os:
-	@nh os switch . --ask
+	@nh os switch . --ask --cores ${NIX_BUILD_CORES}
 
 host HOST:
 	@nh os switch --ask --hostname {{HOST}} --target-host {{HOST}}
 
 boot:
-	@nh os boot .
+	@nh os switch . --ask --cores ${NIX_BUILD_CORES}
 
 light:
 	@nh os switch -s light-theme

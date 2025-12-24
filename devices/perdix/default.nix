@@ -87,6 +87,7 @@
 
     syncthing.enable = true;
     fstrim.enable = true;
+    postgresql.package = lib.mkForce pkgs.postgresql_18;
 
     networkd-dispatcher = {
       enable = true;
