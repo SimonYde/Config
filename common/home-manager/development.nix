@@ -15,8 +15,6 @@ let
   cfg = config.syde.development;
 in
 {
-  imports = [ ./topiary.nix ];
-
   config = mkMerge [
     {
       syde.development = {
@@ -209,8 +207,6 @@ in
             nvim-dap
             nvim-dap-ui
           ];
-
-        topiary.enable = true;
 
         rbw = {
           enable = true;

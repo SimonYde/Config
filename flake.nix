@@ -128,11 +128,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    topiary-nushell = {
-      url = "github:blindFS/topiary-nushell";
-      flake = false;
-    };
-
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;

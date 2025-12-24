@@ -82,30 +82,11 @@ Load.later(function()
 
     conform.setup({
         formatters_by_ft = {
-            nu = { 'topiary_nu' },
-            bash = { 'topiary_bash' },
             clojure = { 'cljfmt' },
             lua = { 'stylua' },
             nix = { 'nixfmt' },
             python = { 'ruff_format' },
             typst = { 'typstyle' },
-        },
-
-        formatters = {
-            topiary_bash = {
-                command = 'topiary',
-                args = { 'format', '--language', 'bash' },
-                env = {
-                    TOPIARY_LANGUAGE_DIR = vim.env.TOPIARY_LANGUAGE_DIR,
-                },
-            },
-            topiary_nu = {
-                command = 'topiary',
-                args = { 'format', '--language', 'nu' },
-                env = {
-                    TOPIARY_LANGUAGE_DIR = vim.env.TOPIARY_LANGUAGE_DIR,
-                },
-            },
         },
     })
 
