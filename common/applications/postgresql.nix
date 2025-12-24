@@ -12,7 +12,7 @@ in
     services = {
       postgresql = {
         enableJIT = true;
-        package = pkgs.postgresql_17;
+        package = pkgs.postgresql_18;
         settings.shared_preload_libraries = "pg_stat_statements";
       };
 
