@@ -69,7 +69,9 @@
       "sd_mod"
     ];
 
-    kernelModules = [ "msr" ];
+    kernelModules = [
+      "msr" # c6-disable
+    ];
   };
 
   hardware.enableRedistributableFirmware = true;

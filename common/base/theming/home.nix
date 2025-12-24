@@ -32,7 +32,7 @@ in
       firefox.profileNames = [ config.home.username ];
       firefox.colorTheme.enable = true;
       floorp.profileNames = [ config.home.username ];
-      zen-browser.profileNames = [ config.home.username ];
+      floorp.colorTheme.enable = true;
       gnome.enable = false;
       neovim.enable = false;
       nushell.enable = false;

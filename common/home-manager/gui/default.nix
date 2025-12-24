@@ -47,9 +47,8 @@ in
 
         # Browsers
         brave.enable = true;
-        firefox.enable = true;
-        floorp.enable = false;
-        zen-browser.enable = true;
+        firefox.enable = false;
+        floorp.enable = true;
 
         # other GUI programs
         imv.enable = true;
@@ -416,8 +415,6 @@ in
           "brave-browser"
           "floorp"
           "qutebrowser"
-          "zen"
-          "zen-beta"
         ];
         default = "firefox";
       };

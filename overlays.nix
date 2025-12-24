@@ -44,7 +44,6 @@ inputs: [
         ageBin = prev.lib.getExe final.rage;
       };
       audiobook-dl = inputs.audiobook-dl.packages.${system}.default;
-      zen-browser = inputs.zen-browser.packages.${system}.default;
       etilbudsavis-cli = inputs.etilbudsavis-cli.packages.${system}.default;
 
       jellyfin-web = prev.jellyfin-web.overrideAttrs (

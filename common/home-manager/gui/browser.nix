@@ -116,8 +116,6 @@ let
   };
 in
 {
-  imports = [ inputs.zen-browser.homeModules.default ];
-
   syde.gui.browser = {
     name = "brave-browser";
     inherit (config.programs.brave) package;
@@ -142,26 +140,6 @@ in
 
     firefox.profiles.${username} = firefox-profile;
 
-    floorp.profiles.${username} = {
-      inherit (firefox-profile)
-        search
-        settings
-        extraConfig
-        extensions
-        ;
-    };
-
-    zen-browser.profiles.${username} = {
-      inherit (firefox-profile) search;
-      settings = mkMerge [
-        firefox-profile.settings
-
-        {
-          "zen.view.compact.animate-sidebar" = false;
-          "zen.view.experimental-no-window-controls" = true;
-          "zen.view.experimental-rounded-view" = false;
-        }
-      ];
-    };
+    floorp.profiles.${username} = firefox-profile;
   };
 }

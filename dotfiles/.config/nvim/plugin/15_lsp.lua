@@ -142,6 +142,7 @@ Load.now_if_args(function()
         'ols',
         'ruff',
         'tinymist',
+        'ty',
         'typst-languagetool',
     })
 end)
