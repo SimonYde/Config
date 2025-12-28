@@ -179,7 +179,7 @@ Load.later(function()
     })
 end)
 
-Load.later(function()
+Load.now_if_args(function()
     Load.packadd('nvim-dap')
     Load.packadd('nvim-dap-ui')
 
