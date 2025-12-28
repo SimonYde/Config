@@ -27,6 +27,10 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # NixOS modules
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -54,12 +58,11 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v1.0.0";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks";
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
+        pre-commit.follows = "pre-commit-hooks";
+        rust-overlay.follows = "rust-overlay";
       };
     };
 
@@ -87,14 +90,6 @@
     };
     nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";
-      flake = false;
-    };
-    rainbow-delimiters-nvim = {
-      url = "gitlab:HiPhish/rainbow-delimiters.nvim";
-      flake = false;
-    };
-    tip-vim = {
-      url = "github:SimonYde/tip.vim";
       flake = false;
     };
     wezterm-types = {

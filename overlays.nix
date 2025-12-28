@@ -80,32 +80,6 @@ inputs: [
             src = inputs.nvim-lspconfig;
           };
 
-          rainbow-delimiters-nvim = prev.vimPlugins.rainbow-delimiters-nvim.overrideAttrs {
-            src = inputs.rainbow-delimiters-nvim;
-            version = mkDate inputs.rainbow-delimiters-nvim;
-            nvimSkipModule = [
-              "rainbow-delimiters._test.highlight"
-              "rainbow-delimiters.types"
-            ];
-          };
-
-          # obsidian-nvim = prev.vimPlugins.obsidian-nvim.overrideAttrs {
-          #   checkInputs = [ ];
-          #   nvimSkipModule = [
-          #     "obsidian.pickers._snacks"
-          #     "obsidian.pickers._mini"
-          #     "obsidian.pickers._telescope"
-          #     "obsidian.pickers._fzf"
-          #     "minimal"
-          #   ];
-          # };
-
-          tip-vim = prev.vimUtils.buildVimPlugin {
-            version = mkDate inputs.tip-vim;
-            pname = "tip.vim";
-            src = inputs.tip-vim;
-          };
-
           trouble-nvim = prev.vimPlugins.trouble-nvim.overrideAttrs {
             src = inputs.trouble-nvim;
             version = mkDate inputs.trouble-nvim;

@@ -583,31 +583,27 @@
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "flake-parts": [
-          "flake-parts"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
-        "pre-commit-hooks-nix": [
+        "pre-commit": [
           "pre-commit-hooks"
         ],
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": [
+          "rust-overlay"
+        ]
       },
       "locked": {
-        "lastModified": 1737639419,
-        "narHash": "sha256-AEEDktApTEZ5PZXNDkry2YV2k6t0dTgLPEmAZbnigXU=",
+        "lastModified": 1765382359,
+        "narHash": "sha256-RJmgVDzjRI18BWVogG6wpsl1UCuV6ui8qr4DJ1LfWZ8=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "a65905a09e2c43ff63be8c0e86a93712361f871e",
+        "rev": "e8c096ade12ec9130ff931b0f0e25d2f1bc63607",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "v0.4.2",
+        "ref": "v1.0.0",
         "repo": "lanzaboote",
         "type": "github"
       }
@@ -892,22 +888,6 @@
         "type": "github"
       }
     },
-    "rainbow-delimiters-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1762558351,
-        "narHash": "sha256-nBpXrSPN+jOM10b5TvHjI0j3rpsD2gqOBXt2+qUoWDY=",
-        "owner": "HiPhish",
-        "repo": "rainbow-delimiters.nvim",
-        "rev": "8aafe2cbd89cd4090f573a98cab6b20366576fde",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "HiPhish",
-        "repo": "rainbow-delimiters.nvim",
-        "type": "gitlab"
-      }
-    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -932,7 +912,7 @@
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-treesitter-main": "nvim-treesitter-main",
         "pre-commit-hooks": "pre-commit-hooks",
-        "rainbow-delimiters-nvim": "rainbow-delimiters-nvim",
+        "rust-overlay": "rust-overlay",
         "rustaceanvim": "rustaceanvim",
         "secrets": "secrets",
         "spicetify-nix": "spicetify-nix",
@@ -940,7 +920,6 @@
         "stylix": "stylix",
         "systems": "systems_2",
         "tinted-schemes": "tinted-schemes",
-        "tip-vim": "tip-vim",
         "trouble-nvim": "trouble-nvim",
         "typst-languagetool": "typst-languagetool",
         "vim-alloy": "vim-alloy",
@@ -967,16 +946,15 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "lanzaboote",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1731897198,
-        "narHash": "sha256-Ou7vLETSKwmE/HRQz4cImXXJBr/k9gp4J4z/PF8LzTE=",
+        "lastModified": 1766890375,
+        "narHash": "sha256-0Zi7ChAtjq/efwQYmp7kOJPcSt6ya9ynSUe6ppgZhsQ=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "0be641045af6d8666c11c2c40e45ffc9667839b5",
+        "rev": "91e1f7a0017065360f447622d11b7ce6ed04772f",
         "type": "github"
       },
       "original": {
@@ -1220,22 +1198,6 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
-        "type": "github"
-      }
-    },
-    "tip-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1740414941,
-        "narHash": "sha256-v1CMeCX46vFTX+scGEH290kUi6Y9z3VyTBghWieqmiM=",
-        "owner": "SimonYde",
-        "repo": "tip.vim",
-        "rev": "cd9bf7115428e9ff4508807e5a8719dc648b51cb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "SimonYde",
-        "repo": "tip.vim",
         "type": "github"
       }
     },
