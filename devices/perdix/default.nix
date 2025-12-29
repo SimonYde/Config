@@ -109,12 +109,8 @@
     firewall.allowedUDPPorts = [ 5353 ]; # mDNS
 
     nameservers = [
-      # dns0.eu
-      "193.110.81.0"
-      "185.253.5.0"
-      # cloudflare
-      "1.1.1.1"
-      "1.0.0.1"
+      "194.242.2.4" # Mullvad base
+      "86.54.11.13" # DNS4EU
     ];
   };
 
