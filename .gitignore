@@ -2,6 +2,5 @@
 .stfolder
 .pre-commit-config.yaml
 .direnv
-# **/nvim/init.lua
 **/hypr/hyprland.conf
 **/BetterDiscord/

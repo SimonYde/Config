@@ -327,6 +327,8 @@ in
     };
   };
 
+  programs.walker.config.theme = "stylix";
+
   wayland.windowManager.hyprland.settings = with colors; {
     "$opacity_popups" = opacity.popups;
     "$opacity_apps" = opacity.applications;
@@ -342,12 +344,12 @@ in
     with colors.withHashtag;
     # css
     ''
-      @define-color selected-text ${base0D};
-      @define-color text ${base05};
-      @define-color base ${base00};
-      @define-color border ${base03};
-      @define-color foreground ${base05};
-      @define-color background ${base00};
+      @define-color accent_bg_color ${base02};
+      @define-color accent_color ${base0D};
+      @define-color theme_fg_color ${base05};
+      @define-color window_bg_color ${base00};
+      @define-color error_bg_color ${base08};
+      @define-color error_fg_color ${base01};
     '';
 
   xdg.configFile."hypr/hyprtoolkit.conf".text =

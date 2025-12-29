@@ -50,11 +50,11 @@ in
     hyprlock.enable = true;
     imv.enable = true;
     waybar.enable = true;
+    walker.enable = true;
     wlogout.enable = true;
   };
 
   services = {
-    walker.enable = true;
     blueman-applet.enable = true;
     network-manager-applet.enable = true;
 
@@ -190,7 +190,7 @@ in
 
   services.hyprpaper.settings.ipc = "on";
 
-  services.walker.systemd.enable = true;
+  programs.walker.runAsService = true;
 
   systemd.user = {
     services.hyprland-autoname-workspaces = {

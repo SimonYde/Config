@@ -149,6 +149,14 @@
       };
     };
 
+    walker = {
+      url = "github:abenz1267/walker/v2.12.2";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     # My flakes
     etilbudsavis-cli = {
       url = "github:SimonYde/etilbudsavis-cli";

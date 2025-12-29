@@ -34,6 +34,7 @@ in
     ./swww.nix
 
     inputs.spicetify-nix.homeManagerModules.default
+    inputs.walker.homeManagerModules.default
   ];
 
   config = mkMerge [

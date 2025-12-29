@@ -38,6 +38,7 @@ inputs: [
 
       inherit (inputs.rustaceanvim.packages.${system}) codelldb;
       inherit (inputs.typst-languagetool.packages.${system}) typst-languagetool-lsp;
+      inherit (inputs.walker.packages.${system}) walker;
 
       grawlix = inputs.grawlix.packages.${system}.default;
       agenix = inputs.agenix.packages.${system}.default.override {

@@ -171,6 +171,31 @@
         "type": "github"
       }
     },
+    "elephant": {
+      "inputs": {
+        "nixpkgs": [
+          "walker",
+          "nixpkgs"
+        ],
+        "systems": [
+          "walker",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762026536,
+        "narHash": "sha256-JX3s/1qBc+dQkCa1heZ2PO1Sd6EwrQsEAXxe3CqyFLs=",
+        "owner": "abenz1267",
+        "repo": "elephant",
+        "rev": "0e3b6a99d2a4c8f548435ea0466202d7c1129353",
+        "type": "github"
+      },
+      "original": {
+        "owner": "abenz1267",
+        "repo": "elephant",
+        "type": "github"
+      }
+    },
     "etilbudsavis-cli": {
       "inputs": {
         "fenix": "fenix",
@@ -923,6 +948,7 @@
         "trouble-nvim": "trouble-nvim",
         "typst-languagetool": "typst-languagetool",
         "vim-alloy": "vim-alloy",
+        "walker": "walker",
         "wezterm-types": "wezterm-types"
       }
     },
@@ -1299,6 +1325,31 @@
       "original": {
         "owner": "mrcjkb",
         "repo": "vimcats",
+        "type": "github"
+      }
+    },
+    "walker": {
+      "inputs": {
+        "elephant": "elephant",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765305269,
+        "narHash": "sha256-2OQsyZaO2Uy6EnDLcDZGBbDEa0X1WuZ4NoZ5kW52OeA=",
+        "owner": "abenz1267",
+        "repo": "walker",
+        "rev": "132004947c5c877f510177d8c68f754e37169ecc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "abenz1267",
+        "ref": "v2.12.2",
+        "repo": "walker",
         "type": "github"
       }
     },
