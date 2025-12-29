@@ -21,6 +21,29 @@ def on [ ] {
     log info "Stopped certain user services"
     systemctl stop bluetooth.service syncthing.service
     log info "Disabled Bluetooth"
+    set-refresh 60
+    log info "Set screen refresh rate to 60"
+}
+
+def set-refresh [refresh: int] {
+    let monitors = hyprctl monitors -j | from json
+    $monitors | each {
+        if $in.name =~ eDP {
+            hyprctl keyword monitor $"($in.name),($in.width)x($in.height)@($refresh),($in.x)x($in.y),($in.scale)"
+        }
+    }
+}
+
+def off [ ] {
+    hyprctl reload
+    powerprofilesctl set balanced
+    log info "Set power profile to `balanced`"
+    systemctl --user start hyprland-autoname-workspaces.service swww.service blueman-applet.service adb-server.service
+    log info "Enabled certain user services"
+    systemctl start bluetooth.service syncthing.service
+    log info "Enabled Bluetooth"
+    set-refresh 120
+    log info "Set screen refresh rate to 120"
 }
 
 def main [state?: string] {
@@ -30,13 +53,7 @@ def main [state?: string] {
         }
 
         "off" => {
-            hyprctl reload
-            powerprofilesctl set balanced
-            log info "Set power profile to `balanced`"
-            systemctl --user start hyprland-autoname-workspaces.service swww.service blueman-applet.service adb-server.service
-            log info "Enabled certain user services"
-            systemctl start bluetooth.service syncthing.service
-            log info "Enabled Bluetooth"
+            off
         }
 
         null => {
