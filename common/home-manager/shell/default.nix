@@ -147,6 +147,7 @@ in
   programs.helix.package = pkgs.evil-helix;
 
   programs.nix-index.enableNushellIntegration = false; # broken
+  programs.nix-your-shell.enableNushellIntegration = false;
 
   programs.nushell = {
     environmentVariables.CARAPACE_BRIDGES = "fish,bash";

@@ -1,7 +1,7 @@
 # For available options run:
 #   config nu --doc | nu-highlight | bat
 
-export def banner [] {
+def banner [] {
     fastfetch --logo nixos_small
 }
 
@@ -44,6 +44,18 @@ $env.config = {
 alias fg = job unfreeze
 alias cat = bat
 
+@complete external
+def --wrapped nix-shell [...args] {
+    let use_nom = if (which nom | is-not-empty) { ["--nom"] } else { [ ] }
+    nix-your-shell ...$use_nom nu nix-shell -- ...$args
+}
+
+@complete external
+def --wrapped nix [...args] {
+    let use_nom = if (which nom | is-not-empty) { ["--nom"] } else { [ ] }
+    nix-your-shell ...$use_nom nu nix -- ...$args
+}
+
 $env.NIXPKGS_ALLOW_UNFREE = 1
 
 $env.PROMPT_INDICATOR = ""
@@ -53,17 +65,17 @@ $env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)M (ansi reset)";
 
 use std/clip
 
-if ("~/.config/rbw/config.json" | path exists) {
-    rbw unlock
+try {
+    if ("~/.config/rbw/config.json" | path exists) {
+        rbw unlock
 
-    if not (try { ssh-add -l | str contains "stdin" } catch { false }) {
-        try {
+        if not (try { ssh-add -l | str contains "stdin" } catch { false }) {
             rbw get 'SSH syde' | ssh-add -
         }
-    }
 
-    # $env.CACHIX_AUTH_TOKEN = (rbw get Cachix)
-    $env.GITLAB_TOKEN = (rbw get "Gitlab" --field "Token")
-    $env.GITHUB_TOKEN = (rbw get "Github" --field "Token")
-    $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
+        # $env.CACHIX_AUTH_TOKEN = (rbw get Cachix)
+        $env.GITLAB_TOKEN = (rbw get "Gitlab" --field "Token")
+        $env.GITHUB_TOKEN = (rbw get "Github" --field "Token")
+        $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
+    }
 }
