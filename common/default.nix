@@ -57,6 +57,8 @@ in
     channel.enable = false;
     nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
+    distributedBuilds = true;
+    daemonCPUSchedPolicy = "batch";
     settings.trusted-users = [ username ];
   };
 
