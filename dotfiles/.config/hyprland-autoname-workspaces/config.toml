@@ -69,8 +69,8 @@ REAPER = "󰎇"
 [initial_title_in_initial_class_active]
 
 [exclude]
-"" = "^$"
 "(?i)fcitx" = ".*"
+"" = "Picture-in-picture|^$"
 aProgram = "^$"
 "(?i)TestApp" = ""
 "[Ss]team" = "^(Friends List.*)?$"
