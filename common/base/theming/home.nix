@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  options,
   ...
 }:
 let
@@ -327,7 +328,7 @@ in
     };
   };
 
-  programs.walker.config.theme = "stylix";
+  programs.walker.config.theme = mkForce "stylix";
 
   wayland.windowManager.hyprland.settings = with colors; {
     "$opacity_popups" = opacity.popups;

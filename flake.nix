@@ -149,9 +149,17 @@
       };
     };
 
-    walker = {
-      url = "github:abenz1267/walker/v2.12.2";
+    elephant = {
+      url = "github:abenz1267/elephant/v2.17.2";
       inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs = {
+        elephant.follows = "elephant";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };

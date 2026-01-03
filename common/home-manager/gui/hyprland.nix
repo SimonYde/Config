@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  options,
   ...
 }:
 let
@@ -191,6 +192,7 @@ in
   services.hyprpaper.settings.ipc = "on";
 
   programs.walker.runAsService = true;
+  programs.walker.config = options.programs.walker.config.default;
 
   systemd.user = {
     services.hyprland-autoname-workspaces = {
