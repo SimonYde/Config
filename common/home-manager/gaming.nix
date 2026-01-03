@@ -4,7 +4,7 @@
     # Applications
     heroic # Epic / Gog
     prismlauncher # Minecraft
-    limo # mod manager
+    # limo # mod manager
     # nexusmods-app-unfree # WIP official Nexusmods mod manager
 
     # ---Wine and Wine Dependencies---

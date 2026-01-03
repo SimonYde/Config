@@ -139,4 +139,6 @@ in
   security.polkit.enable = true;
 
   services.resolved.enable = true;
+
+  systemd.user.services.gcr-ssh-agent.enable = lib.mkForce false;
 }

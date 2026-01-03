@@ -1005,16 +1005,16 @@
         "vimcats": "vimcats"
       },
       "locked": {
-        "lastModified": 1764542305,
-        "narHash": "sha256-t7xAQ9sczLyA1zODmD+nEuWuLnhrfSOoPu/4G/YTGdU=",
+        "lastModified": 1767086881,
+        "narHash": "sha256-UrJ44QPcPOIQF6lMXuW2E6LlQ5LBK3lzwv6uwr2K0o4=",
         "owner": "mrcjkb",
         "repo": "rustaceanvim",
-        "rev": "6c3785d6a230bec63f70c98bf8e2842bed924245",
+        "rev": "f074f389e16720aa574b59c33b0c0392ce44449a",
         "type": "github"
       },
       "original": {
         "owner": "mrcjkb",
-        "ref": "v7.0.6",
+        "ref": "v7.0.7",
         "repo": "rustaceanvim",
         "type": "github"
       }

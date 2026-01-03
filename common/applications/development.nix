@@ -70,10 +70,9 @@ in
 
     };
 
-    users.users.${username}.extraGroups = [
-      "adbusers"
-      "podman"
-    ]
-    ++ lib.optional config.virtualisation.libvirtd.enable "libvirtd";
+    users.users.${username}.extraGroups =
+      lib.optional config.programs.adb.enable "adbusers"
+      ++ lib.optional config.virtualisation.podman.enable "podman"
+      ++ lib.optional config.virtualisation.libvirtd.enable "libvirtd";
   };
 }

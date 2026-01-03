@@ -33,7 +33,7 @@
       };
 
       serif = {
-        name = "Gentium Plus";
+        name = "Gentium";
         package = pkgs.gentium;
       };
 

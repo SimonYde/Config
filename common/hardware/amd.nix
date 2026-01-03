@@ -10,7 +10,7 @@ in
 {
   config = mkMerge [
     (mkIf cfg.gpu.enable {
-      # services.xserver.videoDrivers = [ "amdgpu" ];
+      services.xserver.videoDrivers = [ "amdgpu" ];
       hardware.amdgpu = {
         opencl.enable = true;
         initrd.enable = false;
