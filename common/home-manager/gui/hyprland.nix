@@ -101,7 +101,7 @@ in
 
     background = mkForce {
       monitor = "";
-      path = "/run/user/1000/current-wallpaper";
+      path = "$XDG_RUNTIME_DIR/current-wallpaper";
       blur_passes = 2;
       blur_size = 8;
     };
