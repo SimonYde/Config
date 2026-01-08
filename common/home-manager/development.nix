@@ -18,6 +18,7 @@ in
   config = mkMerge [
     {
       syde.development = {
+        android.enable = false;
         bash.enable = true;
         cpp.enable = true;
         clojure.enable = false;
@@ -83,11 +84,6 @@ in
           };
         };
 
-        gh = {
-          enable = true;
-          settings.git_protocol = "ssh";
-        };
-
         delta = {
           enable = true;
           enableGitIntegration = true;
@@ -97,6 +93,13 @@ in
             features = "decorations";
             whitespace-error-style = "22 reverse";
           };
+        };
+
+        fish.enable = true;
+
+        gh = {
+          enable = true;
+          settings.git_protocol = "ssh";
         };
 
         jq.enable = true;
@@ -250,6 +253,7 @@ in
         };
 
         nushell.environmentVariables = rec {
+          CARAPACE_BRIDGES = "fish,bash";
           # always use rootless podman
           CONTAINER_HOST = "unix:///run/user/1000/podman/podman.sock";
           DOCKER_HOST = CONTAINER_HOST;
@@ -276,19 +280,25 @@ in
 
           Install.WantedBy = [ "default.target" ];
         };
-
-        adb-server = {
-          Unit.Description = "adb server daemon";
-
-          Service = {
-            Type = "simple";
-            ExecStart = "${pkgs.android-tools}/bin/adb -a nodaemon server start";
-          };
-
-          Install.WantedBy = [ "default.target" ];
-        };
       };
     }
+
+    (mkIf cfg.android.enable {
+      home.packages = with pkgs; [
+        android-tools
+      ];
+
+      systemd.user.services.adb-server = {
+        Unit.Description = "adb server daemon";
+
+        Service = {
+          Type = "simple";
+          ExecStart = "${pkgs.android-tools}/bin/adb -a nodaemon server start";
+        };
+
+        Install.WantedBy = [ "default.target" ];
+      };
+    })
 
     (mkIf cfg.bash.enable {
       home.packages = with pkgs; [
@@ -526,6 +536,8 @@ in
   ];
 
   options.syde.development = {
+    android.enable = mkEnableOption "Android tools";
+
     bash.enable = mkEnableOption "Bash tools";
 
     cpp.enable = mkEnableOption "C++ tools";

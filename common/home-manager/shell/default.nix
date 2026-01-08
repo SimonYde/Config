@@ -20,7 +20,7 @@ in
 
   home = {
     packages = with pkgs; [
-      dogdns # rust version of `dig`
+      doggo # go version of `dig`
       dust # Histogram of file sizes
       erdtree # Tree file view
 
@@ -42,7 +42,6 @@ in
   programs = {
     # Shells
     bash.enable = true;
-    fish.enable = true;
     nushell.enable = true;
 
     # Editor
@@ -150,8 +149,6 @@ in
   programs.nix-your-shell.enableNushellIntegration = false;
 
   programs.nushell = {
-    environmentVariables.CARAPACE_BRIDGES = "fish,bash";
-
     configFile.text = # nu
       ''
         $env.NU_LIB_DIRS ++= [ '${pkgs.nu_scripts}/share/nu_scripts' ]

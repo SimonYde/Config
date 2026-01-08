@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkForce mkIf;
+  inherit (lib) mkForce mkIf getExe';
 
   cfg = config.syde.gaming;
 in
@@ -31,8 +31,8 @@ in
           };
 
           custom = {
-            start = "${pkgs.libnotify}/bin/notify-send --app-name 'GameMode' 'GameMode started'";
-            end = "${pkgs.libnotify}/bin/notify-send --app-name 'GameMode' 'GameMode ended'";
+            start = "${getExe' pkgs.libnotify "notify-send"} --app-name 'GameMode' 'GameMode started'";
+            end = "${getExe' pkgs.libnotify "notify-send"} --app-name 'GameMode' 'GameMode ended'";
           };
         };
       };

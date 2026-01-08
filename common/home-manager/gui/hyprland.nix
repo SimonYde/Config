@@ -7,7 +7,6 @@
 }:
 let
   inherit (lib)
-    concatStringsSep
     getExe
     mkOrder
     mkForce
@@ -82,7 +81,7 @@ in
       input = {
         kb_layout = config.home.keyboard.layout;
         kb_variant = config.home.keyboard.variant;
-        kb_options = concatStringsSep "," config.home.keyboard.options;
+        kb_options = builtins.concatStringsSep "," config.home.keyboard.options;
       };
     };
 

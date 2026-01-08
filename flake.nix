@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur = {
       url = "github:nix-community/NUR";
       inputs = {
@@ -209,7 +209,7 @@
         pre-commit-check = inputs.pre-commit-hooks.lib.x86_64-linux.run {
           src = ./.;
           hooks = {
-            nixfmt-rfc-style.enable = true;
+            nixfmt.enable = true;
             stylua.enable = true;
             deadnix.enable = true;
             statix.enable = true;

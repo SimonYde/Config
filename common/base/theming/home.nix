@@ -22,7 +22,7 @@ let
 in
 {
   stylix = {
-    iconTheme = {
+    icons = {
       enable = true;
       dark = "Papirus-Dark";
       light = "Papirus";
