@@ -13,6 +13,7 @@
       show-trace = true;
       warn-dirty = false;
       builders-use-substitutes = true;
+      use-xdg-base-directories = true;
       log-lines = 9999;
 
       experimental-features = [

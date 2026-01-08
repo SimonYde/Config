@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./audio-production.nix
     ./cosmic.nix
     ./development.nix
     ./email.nix

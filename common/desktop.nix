@@ -14,6 +14,11 @@ in
     ./base/theming/nixos.nix
     ./.
   ];
+  
+  nix.settings = {
+    substituters = [ "https://attic.xuyh0120.win/lantian" ];
+    trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+  };
 
   home-manager.users.${username}.imports = [ ./home-manager/gui ];
 
@@ -43,17 +48,9 @@ in
     packages = [ pkgs.terminus_font ];
   };
 
-  environment.sessionVariables = {
-    XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
-    XKB_DEFAULT_VARIANT = config.services.xserver.xkb.variant;
-  };
-
   environment.systemPackages =
     with pkgs;
-    [
-      git
-      helvum
-    ]
+    [ ]
     ++ lib.optionals config.services.ratbagd.enable [
       piper
     ];

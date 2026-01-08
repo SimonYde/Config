@@ -15,6 +15,7 @@
 
   # Personal configurations
   syde = {
+    audio-production.enable = true;
     development.enable = true;
     gaming.enable = true;
     hardware = {
@@ -28,7 +29,7 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = lib.mkOverride 99 pkgs.cachyosKernels.linuxPackages-cachyos-rt-bore-lto;
 
     loader.systemd-boot.enable = lib.mkForce false;
 
@@ -61,9 +62,10 @@
 
     xserver.xkb.layout = "eu";
 
-    udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c547", ATTR{power/wakeup}="disabled", ATTR{driver/1-1/power/wakeup}="disabled"
-    '';
+    udev.extraRules = # udev
+      ''
+        ACTION=="add", SUBSYSTEM=="usb", DRIVERS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c547", ATTR{power/wakeup}="disabled", ATTR{driver/1-1/power/wakeup}="disabled"
+      '';
 
     pipewire = {
       extraConfig = {
