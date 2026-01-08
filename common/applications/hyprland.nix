@@ -11,7 +11,11 @@ let
 in
 {
   config = mkIf cfg.enable {
-    home-manager.users.${username}.imports = [ ../home-manager/gui/hyprland.nix ];
+    home-manager.users.${username} = {
+      imports = [ ../home-manager/gui/hyprland.nix ];
+
+      programs.hyprlock.settings.auth.fingerprint.enabled = config.services.fprintd.enable;
+    };
 
     environment.systemPackages = with pkgs; [
       hyprland-qtutils

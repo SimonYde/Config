@@ -71,7 +71,6 @@ in
 
   home.sessionVariables = {
     GTK_THEME = config.gtk.theme.name;
-    WALLPAPER_DIR = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
   };
 
   gtk = {
@@ -330,6 +329,8 @@ in
 
   programs.walker.config.theme = mkForce "stylix";
 
+  services.swww.wallpaperDir = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
+
   wayland.windowManager.hyprland.settings = with colors; {
     "$opacity_popups" = opacity.popups;
     "$opacity_apps" = opacity.applications;
@@ -340,18 +341,6 @@ in
 
     group.groupbar.text_color = mkForce "rgb(${base00})";
   };
-
-  xdg.configFile."walker/stylix.css".text =
-    with colors.withHashtag;
-    # css
-    ''
-      @define-color accent_bg_color ${base02};
-      @define-color accent_color ${base0D};
-      @define-color theme_fg_color ${base05};
-      @define-color window_bg_color ${base00};
-      @define-color error_bg_color ${base08};
-      @define-color error_fg_color ${base01};
-    '';
 
   xdg.configFile."hypr/hyprtoolkit.conf".text =
     with colors;

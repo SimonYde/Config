@@ -29,7 +29,6 @@ in
 {
   imports = [
     ./browser.nix
-    ./audio-production.nix
     ./waybar.nix
     ./swww.nix
 
@@ -193,6 +192,11 @@ in
         "rcloneOnedrivePassword".file = "${inputs.secrets}/rcloneOnedrivePassword.age";
         "rcloneOnedrivePassword2".file = "${inputs.secrets}/rcloneOnedrivePassword2.age";
         "rcloneOnedriveID".file = "${inputs.secrets}/rcloneOnedriveID.age";
+      };
+
+      fonts.fontconfig = {
+        antialiasing = true;
+        subpixelRendering = "rgb";
       };
 
       programs = {

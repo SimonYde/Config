@@ -139,12 +139,7 @@
     fsType = "ext4";
   };
 
-  home-manager.users.${username} = {
-    programs.hyprlock.settings.general.screencopy_mode = 1; # NOTE: nvidia problems
 
-    fonts.fontconfig = {
-      antialiasing = true;
-      subpixelRendering = "rgb";
     };
   };
 }

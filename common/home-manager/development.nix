@@ -288,6 +288,8 @@ in
         android-tools
       ];
 
+      home.sessionVariables.ANDROID_SDK_HOME = "${config.xdg.configHome}/android";
+
       systemd.user.services.adb-server = {
         Unit.Description = "adb server daemon";
 

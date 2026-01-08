@@ -54,6 +54,12 @@ REAPER = "󰎇"
 "nvim|vim|vi" = ""
 "(?i)yazi|yy" = ""
 
+[title_in_class."brave.*"]
+"WhatsApp.*" = "󰖣"
+
+[title_in_class.""]
+"Picture-in-picture" = "󰹙"
+
 [title_in_class_active]
 
 [title_in_initial_class]
@@ -70,7 +76,7 @@ REAPER = "󰎇"
 
 [exclude]
 "(?i)fcitx" = ".*"
-"" = "Picture-in-picture|^$"
+"" = "^$"
 aProgram = "^$"
 "(?i)TestApp" = ""
 "[Ss]team" = "^(Friends List.*)?$"

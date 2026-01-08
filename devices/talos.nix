@@ -169,13 +169,4 @@
       ExecStart = "${lib.getExe pkgs.framework-tool} --charge-limit 80";
     };
   };
-
-  home-manager.users.${username} = {
-    programs.hyprlock.settings.auth.fingerprint.enabled = true;
-
-    fonts.fontconfig = {
-      antialiasing = true;
-      subpixelRendering = "rgb";
-    };
-  };
 }

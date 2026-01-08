@@ -94,17 +94,15 @@ in
 
   programs.hyprlock.settings = {
     general = {
-      disable_loading_bar = false;
-      ignore_empty_input = true;
-      grace = 2;
       hide_cursor = true;
-      no_fade_in = false;
+      ignore_empty_input = true;
+      immediate_render = true;
     };
 
     background = mkForce {
       monitor = "";
-      path = "screenshot";
-      blur_passes = 3;
+      path = "/run/user/1000/current-wallpaper";
+      blur_passes = 2;
       blur_size = 8;
     };
 
@@ -188,8 +186,6 @@ in
         }
       ];
     };
-
-  services.hyprpaper.settings.ipc = "on";
 
   programs.walker.runAsService = true;
   programs.walker.config = options.programs.walker.config.default;
