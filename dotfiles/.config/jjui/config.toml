@@ -1,2 +1,12 @@
 [ui.colors]
 "dimmed" = { fg = "white" }
+
+[custom_commands]
+"delta" = { args = [
+    "util",
+    "exec",
+    "--",
+    "bash",
+    "-c",
+    """jj show -r $change_id --summary --git --color=always | delta --pager 'less -R'"""
+], show = "interactive" }
