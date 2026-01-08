@@ -28,18 +28,20 @@ def main [state?: string] {
     }
 }
 
+def restart-user-services [ ] {
+    log info "Restarting services..."
+    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service network-manager-applet.service blueman-applet.service
+    systemctl --user start random-wallpaper.service
+}
+
 def light [] {
     log info "Switching to light theme..."
-    sudo /nix/var/nix/profiles/system/specialisation/light-theme/bin/switch-to-configuration switch o+e>| lines | each { log debug $in }
-    log info "Restarting services..."
-    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service
-    systemctl --user start random-wallpaper.service
+    sudo /nix/var/nix/profiles/system/specialisation/light-theme/bin/switch-to-configuration switch o+e>| log debug $in
+    restart-user-services
 }
 
 def dark [] {
     log info "Switching to dark theme..."
-    sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch o+e>| lines | each { log debug $in }
-    log info "Restarting services..."
-    systemctl --user restart swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service
-    systemctl --user start random-wallpaper.service
+    sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch o+e>| log debug $in
+    restart-user-services
 }
