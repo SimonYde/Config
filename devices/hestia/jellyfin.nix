@@ -38,6 +38,8 @@ in
           proxyWebsockets = true;
         };
       };
+
+      alloy.scrape.jellyfin.port = 8096;
     };
 
     # NOTE(2025-08-01 Simon Yde): remember to set `known proxy` option in jellyfin admin console under `Networking`.

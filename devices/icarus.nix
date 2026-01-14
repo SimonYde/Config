@@ -139,7 +139,21 @@
     fsType = "ext4";
   };
 
+  home-manager.users.root = {
+    programs.ssh = {
+      enable = true;
+      enableDefaultConfig = false;
 
+      matchBlocks = {
+        "backup" = {
+          port = 20001;
+          hostname = "tmcs.davvol.dk";
+          user = "tmcs";
+          identityFile = "/etc/ssh/ssh_hestia_ed25519_key";
+          serverAliveInterval = 60;
+          serverAliveCountMax = 240;
+        };
+      };
     };
   };
 }

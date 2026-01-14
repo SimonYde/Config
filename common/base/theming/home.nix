@@ -44,6 +44,7 @@ in
         addCss = false;
       };
       wezterm.enable = false;
+      jjui.enable = false;
       rofi.enable = false;
       zellij.enable = true;
       gnome-text-editor.enable = false;

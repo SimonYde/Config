@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkDefault mkIf;
+  inherit (lib) mkDefault mkIf mkOrder;
 in
 {
 
@@ -14,10 +14,15 @@ in
     ./base/theming/nixos.nix
     ./.
   ];
-  
+
   nix.settings = {
-    substituters = [ "https://attic.xuyh0120.win/lantian" ];
-    trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+    substituters = [
+      "https://attic.xuyh0120.win/lantian"
+    ];
+
+    trusted-public-keys = [
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+    ];
   };
 
   home-manager.users.${username}.imports = [ ./home-manager/gui ];
