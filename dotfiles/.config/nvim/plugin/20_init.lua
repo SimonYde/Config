@@ -244,10 +244,7 @@ Load.later(function()
 
         new_notes_location = 'current_dir',
 
-        follow_url_func = function(url) vim.ui.open(url) end,
-        follow_img_func = function(img) vim.ui.open(img) end,
-
-        attachments = { img_folder = 'attachments' },
+        attachments = { folder = '/attachments' },
         picker = { name = 'snacks.pick' },
 
         workspaces = {

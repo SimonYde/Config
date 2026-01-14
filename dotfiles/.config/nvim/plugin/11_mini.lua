@@ -7,7 +7,7 @@ Load.now_if_args(function()
 
     MiniMisc.setup_restore_cursor()
 
-    MiniMisc.setup_auto_root({ '.git', 'flake.nix', 'Makefile', 'Justfile' })
+    MiniMisc.setup_auto_root({ '.git', '.jj', 'flake.nix', 'Makefile', 'Justfile' })
 end)
 
 Load.later(function()
@@ -22,7 +22,7 @@ Load.later(function()
     require('mini.jump').setup()
 
     require('mini.splitjoin').setup()
-    require('mini.surround').setup({ search_method = 'cover_or_next' })
+    require('mini.surround').setup()
     require('mini.tabline').setup()
     require('mini.trailspace').setup()
     require('mini.visits').setup()
