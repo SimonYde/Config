@@ -155,33 +155,40 @@
   fileSystems = {
     "/" = {
       neededForBoot = true;
-      device = "os-pool/root";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-    "/var" = {
-      device = "os-pool/var";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-    "/nix" = {
-      device = "os-pool/nix";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
+      device = "/dev/disk/by-uuid/5d3bb363-6dc9-49e6-890e-7e0131382acc";
+      fsType = "btrfs";
+      options = [
+        "subvol=root"
+        "compress=zstd"
+      ];
     };
 
     "/home" = {
-      device = "os-pool/home";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
+      device = "/dev/disk/by-uuid/5d3bb363-6dc9-49e6-890e-7e0131382acc";
+      fsType = "btrfs";
+      options = [
+        "subvol=home"
+        "compress=zstd"
+      ];
     };
 
-    "/mnt/tank/immich" = {
-      device = "tank/immich";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
+    "/nix" = {
+      device = "/dev/disk/by-uuid/5d3bb363-6dc9-49e6-890e-7e0131382acc";
+      fsType = "btrfs";
+      options = [
+        "subvol=nix"
+        "compress=zstd"
+        "noatime"
+      ];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/7A05-D173";
+      fsType = "vfat";
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
 
     "/mnt/tank/jellyfin" = {
@@ -194,15 +201,6 @@
       device = "tank/nextcloud";
       fsType = "zfs";
       options = [ "zfsutil" ];
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-uuid/4611-5C65";
-      fsType = "vfat";
-      options = [
-        "fmask=0022"
-        "dmask=0022"
-      ];
     };
   };
 }
