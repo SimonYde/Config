@@ -1,10 +1,10 @@
 {
   config,
   lib,
-  username,
   ...
 }:
 let
+  inherit (lib) mkForce;
   inherit (config.syde) server;
   cfg = config.services.immich;
 in
@@ -13,7 +13,6 @@ in
   options.services.immich = {
     mediaDir = lib.mkOption {
       type = lib.types.path;
-      default = "/home/${username}/Immich";
     };
   };
 
@@ -41,15 +40,22 @@ in
       nginx = {
         upstreams.immich.servers."${cfg.host}:${toString cfg.port}" = { };
 
-        virtualHosts."photos.${server.baseDomain}".locations."/" = {
-          proxyPass = "http://immich";
-          proxyWebsockets = true;
-          extraConfig = ''
-            client_max_body_size 50000M;
-            proxy_read_timeout   600s;
-            proxy_send_timeout   600s;
-            send_timeout         600s;
-          '';
+        # virtualHosts."photos.${server.baseDomain}" = {
+        virtualHosts."photos.ts.simonyde.com" = {
+          acmeRoot = mkForce null;
+          enableACME = mkForce false;
+          useACMEHost = "ts.simonyde.com";
+
+          locations."/" = {
+            proxyPass = "http://immich";
+            proxyWebsockets = true;
+            extraConfig = ''
+              client_max_body_size 50000M;
+              proxy_read_timeout   600s;
+              proxy_send_timeout   600s;
+              send_timeout         600s;
+            '';
+          };
         };
       };
     };

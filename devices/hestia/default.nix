@@ -207,6 +207,12 @@
       fsType = "zfs";
       options = [ "zfsutil" ];
     };
+
+    "/mnt/tank/immich" = {
+      device = "tank/immich";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
   };
 
   swapDevices = [ { device = "/dev/disk/by-partuuid/670576a9-57c7-45b6-a40c-ca43401fbba9"; } ];
