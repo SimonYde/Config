@@ -1121,6 +1121,7 @@
         "stylix": "stylix",
         "systems": "systems_2",
         "tinted-schemes": "tinted-schemes",
+        "trackerlist": "trackerlist",
         "trouble-nvim": "trouble-nvim",
         "typst-languagetool": "typst-languagetool",
         "vim-alloy": "vim-alloy",
@@ -1199,11 +1200,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1769581705,
-        "narHash": "sha256-GsWNnBu7Hz7eniEntQks6h10B4AM+agwV2ufhCbFrM8=",
+        "lastModified": 1770236339,
+        "narHash": "sha256-FAZMEuTQriReNAE6jWDhheLnB5W9lxrdcQnLPl6EmjY=",
         "ref": "refs/heads/master",
-        "rev": "30ab72c7bcbc126b1964b31fe62f978a46d02420",
-        "revCount": 19,
+        "rev": "11b6a8f6ec10a55f64dd985dfbeacff0a16ffafa",
+        "revCount": 23,
         "type": "git",
         "url": "ssh://git@github.com/SimonYde/secrets.git"
       },
@@ -1416,6 +1417,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "trackerlist": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770160120,
+        "narHash": "sha256-q2bvZt47IeJjNe5FM/wiaDJkDE4zaXwR6YeA71fDcZk=",
+        "owner": "ngosang",
+        "repo": "trackerslist",
+        "rev": "a1d7d363cc84e2e543e05244474b6fe7b47592a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ngosang",
+        "repo": "trackerslist",
         "type": "github"
       }
     },

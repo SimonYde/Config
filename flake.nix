@@ -64,6 +64,11 @@
       flake = false;
     };
 
+    trackerlist = {
+      url = "github:ngosang/trackerslist";
+      flake = false;
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs = {

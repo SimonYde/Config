@@ -12,12 +12,13 @@ in
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
+
     ./acme.nix
     ./atuin.nix
-
-    ./kanidm.nix
     ./grafana
+    ./kanidm.nix
     ./languagetool.nix
+    ./qbittorrent.nix
   ];
 
   system.stateVersion = "25.05";
@@ -51,6 +52,10 @@ in
     owner = server.user;
     group = server.group;
     mode = "0440";
+  };
+
+  age.secrets.wireguardCredentials = {
+    file = "${inputs.secrets}/wireguardCredentials.age";
   };
 
   boot = {
@@ -102,6 +107,18 @@ in
         '';
       };
     };
+
+    qbittorrent.enable = true;
+    wireguard-netns =
+      let
+        wg_extern = import "${inputs.secrets}/wireguard-network.nix";
+      in
+      {
+        enable = true;
+        namespace = "wg_extern";
+        configFile = config.age.secrets.wireguardCredentials.path;
+        inherit (wg_extern) privateIP dnsIP;
+      };
   };
 
   networking = {
@@ -150,6 +167,12 @@ in
 
     "/home" = {
       device = "zpool/home";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/media" = {
+      device = "zpool/media";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };

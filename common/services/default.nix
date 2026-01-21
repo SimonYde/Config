@@ -2,8 +2,9 @@
 
 {
   imports = [
+    ./nginx.nix
     ./syncthing.nix
     ./tailscale.nix
-    ./nginx.nix
+    ./wireguard-netns.nix
   ];
 }
