@@ -5,6 +5,9 @@
   lib,
   ...
 }:
+let
+  inherit (lib) getExe mkForce;
+in
 {
   imports = [
     ../common/desktop.nix
@@ -12,13 +15,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
-
-  home-manager.users.${username} = {
-    services.hypridle.settings = {
-      general.after_sleep_cmd = lib.mkForce "systemctl --user restart hyprsunset.service";
-      listener = lib.mkForce [];
-    };
-  };
 
   # Personal configurations
   syde = {
@@ -36,7 +32,7 @@
   };
 
   boot = {
-    loader.systemd-boot.enable = lib.mkForce false;
+    loader.systemd-boot.enable = mkForce false;
 
     lanzaboote = {
       enable = true;
@@ -48,8 +44,6 @@
     sbctl
     distrobox
     distrobox-tui
-
-    idasen # ikea table
   ];
 
   fonts.fontconfig.subpixel.rgba = "rgb";
@@ -143,6 +137,60 @@
     device = "/dev/disk/by-uuid/e37c4644-2a85-4cfd-adaf-87961ad57a72";
     fsType = "ext4";
   };
+
+  home-manager.users.${username} =
+    let
+      idasen = getExe pkgs.idasen;
+      adjust-table =
+        pkgs.writers.writeNuBin "adjust-table" # nu
+          ''
+            use std/log
+            let config = open ~/.config/idasen/idasen.yaml
+            log info "open config"
+            let height = ${idasen} height | parse "{height} meters" | first | get height | into float
+            log info $"got desk height: ($height)"
+
+            if $height == $config.positions.sit {
+              log info $"moving desk to standing position"
+              ${idasen} stand
+            } else {
+              log info $"moving desk to sitting position"
+              ${idasen} sit
+            }
+          '';
+    in
+    {
+      home.packages = [
+        pkgs.idasen
+        adjust-table
+      ];
+
+      services.hypridle.settings = {
+        general.after_sleep_cmd = mkForce "systemctl --user restart hyprsunset.service";
+        listener = mkForce [ ];
+      };
+
+      systemd.user = {
+        timers.autoadjust-table = {
+
+          Unit.Description = "Cycle table height";
+
+          Timer.OnUnitActiveSec = "20min";
+
+          Install.WantedBy = [ "timers.target" ];
+        };
+
+        services.autoadjust-table = {
+          Unit.Description = "Cycle table height";
+
+          Service = {
+            Type = "oneshot";
+            ExecStart = getExe adjust-table;
+          };
+        };
+      };
+    };
+
 
   home-manager.users.root = {
     programs.ssh = {
