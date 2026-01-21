@@ -19,32 +19,8 @@
         prepend_previewers = [
           # Archive previewer
           {
-            mime = "application/*zip";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-tar";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-bzip2";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-7z-compressed";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-rar";
-            run = "ouch";
-          }
-          {
-            mime = "application/x-xz";
-            run = "ouch";
-          }
-          {
-            mime = "application/xz";
-            run = "ouch";
+            mime = "application/{*zip,tar,bzip2,7z*,rar,xz,zstd,java-archive}";
+            run = "ouch --archive-icon='🗄️ ' --show-file-icons";
           }
         ];
       };

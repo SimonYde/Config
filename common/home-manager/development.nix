@@ -195,7 +195,18 @@ in
           };
         };
 
-        lazygit.enable = true;
+        lazygit = {
+          enable = true;
+          settings = {
+            git.pagers = [
+              {
+                pager = ''
+                  delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+                '';
+              }
+            ];
+          };
+        };
 
         man.enable = true;
         mergiraf.enable = true;

@@ -1,18 +1,20 @@
 #!/usr/bin/env -S nu --no-config-file
 
-def handle_event [event_data: string] {
-    let parsed = $event_data | parse "{event}>>{data}" | first
+use std/log
+
+def handle_event [] {
+    let parsed = $in | parse "{event}>>{data}" | first
 
     match $parsed.event {
         monitorremoved => {
             if $parsed.data !~ eDP {
-                print "External monitor removed, enabling builtin display..."
+                log info "External monitor removed, enabling builtin display..."
                 hyprctl keyword monitor "eDP-1,2880x1920@120,0x0,1.5"
             }
         },
         monitoradded => {
             if $parsed.data !~ eDP {
-                print "External monitor added, disabling builtin display..."
+                log info "External monitor added, disabling builtin display..."
                 hyprctl keyword monitor "eDP-1,disable"
             }
         },
@@ -32,7 +34,7 @@ def main [state?: string] {
         "auto" => {
             let socket = $"($env.XDG_RUNTIME_DIR)/hypr/($env.HYPRLAND_INSTANCE_SIGNATURE)/.socket2.sock"
 
-            nc -U $socket | lines | each {|event| handle_event $event | ignore }
+            nc -U $socket | lines | each {|event| $event | handle_event }
         }
 
         null => {

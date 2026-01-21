@@ -2,14 +2,17 @@ vim.loader.enable()
 
 local Load = {}
 
+local ok, MiniDeps = pcall(require, 'mini.deps')
 
-local MiniDeps = require('mini.deps')
-MiniDeps.setup({ silent = true })
+if ok then
+    Load.now = MiniDeps.now
 
-Load.now = MiniDeps.now
-
----Lazy load function. Meant to run expensive functions (such as plugin setup) when Neovim has already loaded.
-Load.later = MiniDeps.later
+    ---Lazy load function. Meant to run expensive functions (such as plugin setup) when Neovim has already loaded.
+    Load.later = MiniDeps.later
+else
+    Load.now = pcall
+    Load.later = pcall
+end
 
 ---@param package_name string package to load
 Load.packadd = function(package_name)
