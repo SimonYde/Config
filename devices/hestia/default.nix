@@ -81,6 +81,7 @@ in
   hardware.enableRedistributableFirmware = true;
 
   services = {
+    fwupd.enable = true;
     fstrim.enable = true;
 
     immich = {
@@ -209,6 +210,12 @@ in
 
     "/mnt/tank/nextcloud" = {
       device = "tank/nextcloud";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/mnt/tank/opencloud" = {
+      device = "tank/opencloud";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };

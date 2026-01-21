@@ -126,10 +126,6 @@ in
           "memories.vod.ffmpeg" = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
           "memories.vod.ffprobe" = "${pkgs.ffmpeg-headless}/bin/ffprobe";
           preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
-
-          richdocuments = {
-            wopi_url = "https://docs.${server.baseDomain}:443";
-          };
         };
 
         config = {
@@ -137,13 +133,6 @@ in
           adminuser = username;
           adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
         };
-      };
-
-      nginx.virtualHosts."${cfg.hostName}" = {
-        locations."^~ /push/".extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        '';
       };
 
       postgresql.enable = true;
