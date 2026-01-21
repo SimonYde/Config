@@ -21,7 +21,7 @@
     services.restic = {
       backups.davvol = {
         timerConfig = {
-          OnCalendar = "Sun *-*-* 05:00:00";
+          OnCalendar = "Thu,Sun *-*-* 04:00:00";
           Persistent = true;
         };
         repository = "sftp:backup:/home/tmcs/restic";
@@ -37,10 +37,8 @@
           "/mnt/tank/nextcloud"
         ];
         exclude = [
-          "/mnt/tank/nextcloud/**/files_versions/**/*.mp4.v*"
-          "/mnt/tank/nextcloud/**/files_versions/**/*.mkv.v*"
-          "/mnt/tank/nextcloud/**/files_trashbin/**/*.mp4*"
-          "/mnt/tank/nextcloud/**/files_trashbin/**/*.mkv*"
+          "/mnt/tank/nextcloud/**/files_versions/Jellyfin/**"
+          "/mnt/tank/nextcloud/**/files_versions/Jellyfin/**"
         ];
       };
     };
