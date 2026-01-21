@@ -437,8 +437,17 @@ in
 
     file-manager = {
       name = mkOption {
-        type = types.str;
-        default = "pcmanfm";
+        description = ''
+          Name of the file manager for use with MIME default application mapping.
+        '';
+        type = types.enum [
+          "thunar"
+          "pcmanfm"
+          "nautilus"
+          "dolphin"
+          "com.system76.CosmicFiles"
+        ];
+        default = "thunar";
       };
 
       package = mkPackageOption pkgs file-manager.name { };
@@ -446,6 +455,9 @@ in
 
     image-viewer = {
       name = mkOption {
+        description = ''
+          Name of the image viewer for use with MIME default application mapping.
+        '';
         type = types.enum [
           "imv"
         ];
