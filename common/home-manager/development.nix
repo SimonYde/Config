@@ -23,7 +23,7 @@ in
         cpp.enable = true;
         clojure.enable = false;
         gleam.enable = false;
-        go.enable = false;
+        go.enable = true;
         java.enable = false;
         latex.enable = false;
         lua.enable = true;

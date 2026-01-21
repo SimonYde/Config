@@ -134,6 +134,7 @@ Load.now_if_args(function()
         'bashls',
         'clangd',
         'harper_ls',
+        'gopls',
         'lua_ls',
         'metals',
         'nil_ls',
