@@ -172,6 +172,10 @@
       };
     };
 
+    voxtype = {
+      url = "github:peteonrails/voxtype/v0.5.5";
+    };
+
     # My flakes
     etilbudsavis-cli = {
       url = "github:SimonYde/etilbudsavis-cli";

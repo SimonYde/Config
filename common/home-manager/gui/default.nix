@@ -31,9 +31,11 @@ in
     ./browser.nix
     ./waybar.nix
     ./swww.nix
+    ./voxtype.nix
 
     inputs.spicetify-nix.homeManagerModules.default
     inputs.walker.homeManagerModules.default
+    inputs.voxtype.homeManagerModules.default
   ];
 
   config = mkMerge [
@@ -57,6 +59,7 @@ in
         rclone.enable = true;
         spicetify.enable = true;
         vivid.enable = true;
+        voxtype.enable = true;
         yt-dlp.enable = true;
         zathura.enable = true;
       };
