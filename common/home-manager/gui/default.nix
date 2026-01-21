@@ -284,7 +284,6 @@ in
             ];
 
             enabledExtensions = with spicePkgs.extensions; [
-              beautifulLyrics
               goToSong
               history
             ];
