@@ -71,6 +71,7 @@ in
             memories
             music
             notes
+            tasks
             previewgenerator
             # recognize
             richdocuments
