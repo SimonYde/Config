@@ -13,6 +13,13 @@
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
+  home-manager.users.${username} = {
+    services.hypridle.settings = {
+      general.after_sleep_cmd = lib.mkForce "systemctl --user restart hyprsunset.service";
+      listener = lib.mkForce [];
+    };
+  };
+
   # Personal configurations
   syde = {
     audio-production.enable = true;
