@@ -48,6 +48,8 @@ in
       failRegex = "^.*Authentication request for .* has been denied \\(IP: <HOST>\\)\\..*$";
     };
 
+    systemd.services.jellyfin.environment.MALLOC_TRIM_THRESHOLD_ = "131072";
+
     # Define the systemd service unit
     systemd.services.jellyfin-chown = {
       description = "Ensure correct ownership for ${mediaDir}";
