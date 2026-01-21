@@ -2,7 +2,7 @@ local root_files = { 'main.typ' }
 local paths = vim.fs.find(root_files, { stop = vim.env.HOME })
 local root_dir = vim.fs.dirname(paths[1])
 
-if not root_dir then return nil end
+if not root_dir then return {} end
 
 return {
     cmd = { 'typst-languagetool-lsp' },
