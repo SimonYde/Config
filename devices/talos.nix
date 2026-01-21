@@ -36,6 +36,11 @@
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
+      autoGenerateKeys.enable = true;
+      autoEnrollKeys = {
+        enable = true;
+        autoReboot = true;
+      };
     };
   };
 
@@ -146,7 +151,12 @@
     };
   };
 
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+  swapDevices = [
+    {
+      randomEncryption = true;
+      device = "/dev/disk/by-partuuid/79a4745c-83a5-452c-85b2-91fd7f001200";
+    }
+  ];
 
   systemd.services.framework-power = {
     description = "set framework battery limit";
