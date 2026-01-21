@@ -91,7 +91,7 @@
     };
 
     opencloud = {
-      enable = true;
+      enable = false;
       stateDir = "/mnt/tank/opencloud";
     };
     nginx.enable = true;
