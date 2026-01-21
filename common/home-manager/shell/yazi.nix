@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.yazi = {
@@ -34,6 +34,12 @@
 
     keymap = {
       mgr.prepend_keymap = [
+        {
+          on = [ "<C-n>" ];
+          run = [ "shell -- ${lib.getExe pkgs.ripdrag} %s -x 2>/dev/null &" ];
+          desc = "Drag and drop files";
+        }
+
         # Navigation (colemak-dh)
         {
           on = [ "m" ];

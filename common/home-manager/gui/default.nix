@@ -440,13 +440,14 @@ in
           Name of the file manager for use with MIME default application mapping.
         '';
         type = types.enum [
+          "yazi"
           "thunar"
           "pcmanfm"
           "nautilus"
           "dolphin"
           "com.system76.CosmicFiles"
         ];
-        default = "thunar";
+        default = "yazi";
       };
 
       package = mkPackageOption pkgs file-manager.name { };
