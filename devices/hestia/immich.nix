@@ -75,6 +75,11 @@ in
               };
             };
           };
+          storageTemplate = {
+            enabled = true;
+            hashVerificationEnabled = true;
+            template = "{{y}}/{{yy}}{{mm}}{{dd}} - {{#if album}}{{album}}{{else}}andet{{/if}}/{{filename}}";
+          };
         };
       };
 
