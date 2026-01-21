@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   users.groups.acme = { };
 
@@ -15,12 +15,11 @@
     acceptTerms = true;
   };
 
-  services.nginx.virtualHosts."www.simonyde.com" = {
+  services.nginx.virtualHosts.default = {
     default = true;
-    locations."/" = {
-      extraConfig = ''
-        return 418;
-      '';
-    };
+    rejectSSL = true;
+    enableACME = lib.mkForce false;
+    forceSSL = lib.mkForce false;
+    locations."/".return = "404";
   };
 }

@@ -25,14 +25,12 @@ in
 
   config = {
     services.nginx.virtualHosts = {
-      "www.tmcs.dk" = {
+      default = {
         default = true;
-
-        locations."/" = {
-          extraConfig = ''
-            return 418;
-          '';
-        };
+        rejectSSL = true;
+        enableACME = mkForce false;
+        forceSSL = mkForce false;
+        locations."/".return = "404";
       };
 
       "tranumparken.ts.simonyde.com" = {
