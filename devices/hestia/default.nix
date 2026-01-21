@@ -16,6 +16,7 @@
     ./fail2ban.nix
     ./immich.nix
     ./jellyfin.nix
+    ./opencloud.nix
     ./nextcloud.nix
     ./smartd.nix
     ./vaultwarden.nix
@@ -89,6 +90,10 @@
       mediaDir = "/mnt/tank/jellyfin";
     };
 
+    opencloud = {
+      enable = true;
+      stateDir = "/mnt/tank/opencloud";
+    };
     nginx.enable = true;
     nextcloud.enable = true;
 
