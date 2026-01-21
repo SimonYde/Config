@@ -64,6 +64,21 @@ in
     source-sans-pro
   ];
 
+  fonts.fontconfig.defaultFonts = {
+    monospace = mkForce [
+      fonts.monospace.name
+      fonts.emoji.name
+    ];
+    serif = mkForce [
+      fonts.serif.name
+      fonts.emoji.name
+    ];
+    sansSerif = mkForce [
+      fonts.sansSerif.name
+      fonts.emoji.name
+    ];
+  };
+
   home.pointerCursor = {
     hyprcursor.enable = config.wayland.windowManager.hyprland.enable;
     gtk.enable = mkForce false;
