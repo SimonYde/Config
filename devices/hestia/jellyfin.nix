@@ -25,8 +25,7 @@ in
 
     services = {
       jellyfin = {
-        inherit (server) user;
-        group = "nextcloud";
+        inherit (server) user group;
         openFirewall = true;
       };
 

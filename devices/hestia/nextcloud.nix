@@ -74,6 +74,7 @@ in
             previewgenerator
             # recognize
             richdocuments
+            user_oidc
             ;
         };
 
