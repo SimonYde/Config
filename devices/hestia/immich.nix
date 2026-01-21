@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   ...
 }:
 let
@@ -17,6 +18,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    age.secrets.immichClientSecret = {
+      file = "${inputs.secrets}/immichClientSecret.age";
+      owner = "grafana";
+    };
     systemd.tmpfiles.rules = [ "d ${cfg.mediaDir} 0775 immich ${server.group} - -" ];
 
     users.users.immich.extraGroups = [
@@ -35,6 +40,16 @@ in
 
         port = 2283;
         mediaLocation = "${cfg.mediaDir}";
+
+        settings = {
+          oauth = {
+            enabled = true;
+            clientId = "immich";
+            buttonText = "Login with Kanidm";
+            issuerUrl = "https://auth.simonyde.com/oauth2/openid/immich";
+            clientSecret._secret = config.age.immichClientSecret.path;
+          };
+        };
       };
 
       nginx = {
