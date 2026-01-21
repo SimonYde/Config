@@ -1,10 +1,13 @@
-{ config, lib, ... }:
+{ config, lib, inputs, ... }:
 let
   cfg = config.services.tailscale;
 in
 {
   config = lib.mkIf cfg.enable {
+    age.secrets.tailscaleAuthKey.file = "${inputs.secrets}/tailscaleAuthKey.age";
+
     services.tailscale = {
+      authKeyFile = config.age.secrets.tailscaleAuthKey.path;
       useRoutingFeatures = "both";
 
       extraDaemonFlags = [ "--no-logs-no-support" ];
