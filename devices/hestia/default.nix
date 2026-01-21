@@ -94,9 +94,10 @@ in
     };
 
     opencloud = {
-      enable = false;
+      enable = true;
       stateDir = "/mnt/tank/opencloud";
     };
+
     nginx.enable = true;
     nextcloud.enable = true;
 
