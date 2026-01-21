@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  username,
-  ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.services.tailscale;
 in
@@ -26,8 +21,13 @@ in
       allowedUDPPorts = [ cfg.port ];
     };
 
-    services.alloy.scrape.tailscale = {
-      url = "100.100.100.100";
-    };
+    environment.etc."alloy/tailscale.alloy".text = ''
+      scrape "tailscale" {
+        name = "tailscale"
+        targets = [
+          {"__address__" = "100.100.100.100", "instance" = constants.hostname},
+        ]
+      }
+    '';
   };
 }

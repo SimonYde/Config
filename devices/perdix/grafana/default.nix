@@ -7,6 +7,7 @@ in
     ./loki.nix
     ./mimir.nix
     ./tempo.nix
+    ./blackbox_exporter.nix
   ];
 
   age.secrets.grafanaClientSecret = {

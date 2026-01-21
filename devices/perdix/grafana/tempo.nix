@@ -35,5 +35,18 @@
     };
   };
 
+  systemd.services.alloy.after = [
+    "tempo.service"
+    "nginx.service"
+  ];
+
+  systemd.services.tempo = {
+    wants = [ "network-online.target" ];
+    after = [
+      "network-online.target"
+      "mimir.service"
+    ];
+  };
+
   networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 4318 ];
 }
