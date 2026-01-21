@@ -17,10 +17,6 @@ in
       programs.hyprlock.settings.auth.fingerprint.enabled = config.services.fprintd.enable;
     };
 
-    environment.systemPackages = with pkgs; [
-      hyprland-qtutils
-    ];
-
     services = {
       blueman.enable = config.hardware.bluetooth.enable;
 
