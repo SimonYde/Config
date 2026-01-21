@@ -27,9 +27,6 @@
     };
   };
 
-  users.users.syde.packages = with pkgs; [
-  ];
-
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
 
@@ -74,6 +71,8 @@
     upower.enable = true;
 
     syncthing.enable = true;
+
+    tailscale.authKeyFile = lib.mkForce null;
 
     kanata = {
       enable = true;
