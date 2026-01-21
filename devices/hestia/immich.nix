@@ -20,7 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     age.secrets.immichClientSecret = {
       file = "${inputs.secrets}/immichClientSecret.age";
-      owner = "grafana";
+      owner = "immich";
     };
     systemd.tmpfiles.rules = [ "d ${cfg.mediaDir} 0775 immich ${server.group} - -" ];
 
@@ -32,6 +32,12 @@ in
     services = {
       immich = {
         inherit (server) group;
+
+        # Use available acceleration devices, added to group above
+        accelerationDevices = [
+          "/dev/dri/card0"
+          "/dev/dri/renderD128"
+        ];
 
         database = {
           enableVectors = false;
