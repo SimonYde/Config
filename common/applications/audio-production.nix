@@ -25,8 +25,7 @@ in
 
     musnix = {
       enable = true;
-      kernel.realtime = true;
-      kernel.packages = pkgs.cachyosKernels.linuxPackages-cachyos-rt-bore-lto;
+      kernel.realtime = false;
     };
 
     users.users.${username}.extraGroups = [ "audio" ];

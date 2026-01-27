@@ -29,8 +29,6 @@
   };
 
   boot = {
-    kernelPackages = lib.mkOverride 99 pkgs.cachyosKernels.linuxPackages-cachyos-rt-bore-lto;
-
     loader.systemd-boot.enable = lib.mkForce false;
 
     lanzaboote = {
