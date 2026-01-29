@@ -6,6 +6,9 @@
   lib,
   ...
 }:
+let 
+  inherit (config.syde) server;
+in
 {
   imports = [
     ../../common/server.nix
@@ -50,8 +53,8 @@
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
-    owner = username;
-    group = "users";
+    owner = server.user;
+    group = server.group;
     mode = "0440";
   };
 
@@ -81,7 +84,7 @@
     fstrim.enable = true;
 
     immich = {
-      enable = false;
+      enable = true;
       mediaDir = "/mnt/tank/immich";
     };
 

@@ -5,6 +5,9 @@
   config,
   ...
 }:
+let
+  inherit (config.syde) server;
+in
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
@@ -45,8 +48,8 @@
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
-    owner = config.syde.server.user;
-    inherit (config.syde.server) group;
+    owner = server.user;
+    group = server.group;
     mode = "0440";
   };
 

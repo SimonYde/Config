@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkForce;
-  inherit (config.syde) server;
+  inherit (config.syde) server email;
   cfg = config.services.immich;
 in
 {
@@ -50,10 +50,30 @@ in
         settings = {
           oauth = {
             enabled = true;
+            autoLaunch = true;
+            autoRegister = true;
             clientId = "immich";
+            roleClaim = "immich_role";
+            scope = "openid email profile immich_role";
             buttonText = "Login with Kanidm";
             issuerUrl = "https://auth.simonyde.com/oauth2/openid/immich";
-            clientSecret._secret = config.age.immichClientSecret.path;
+            signingAlgorithm = "ES256";
+            clientSecret._secret = config.age.secrets.immichClientSecret.path;
+          };
+          passwordLogin.enabled = false;
+          notifications = {
+            smtp = {
+              enabled = email.enable;
+              from = email.fromAddress;
+              transport = {
+                host = email.smtpServer;
+                ignoreCert = false;
+                password._secret = email.smtpPasswordPath;
+                port = email.smtpPort;
+                secure = true;
+                username = email.smtpUsername;
+              };
+            };
           };
         };
       };
