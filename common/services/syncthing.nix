@@ -54,6 +54,12 @@ in
             introducer = false;
           };
 
+          hestia = {
+            name = "Hestia";
+            id = "7FAIHDN-J5LQ4ZG-WGF42L2-65KBFLS-3AHO67H-LJ7IKSS-NPFH2PM-KRITLAA";
+            introducer = false;
+          };
+
           perdix = {
             name = "Perdix";
             id = "IVWDHBF-LKMNFOG-3XALMVI-HKF2PFC-PP3IPMB-7MQM6VW-7O3OKLI-L5JQEQZ";
@@ -112,6 +118,7 @@ in
               "icarus"
               "perdix"
               "talos"
+              "hestia"
             ];
           };
 

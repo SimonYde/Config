@@ -100,6 +100,7 @@ in
 
     nginx.enable = true;
     nextcloud.enable = true;
+    syncthing.enable = true;
 
     networkd-dispatcher = {
       enable = true;
