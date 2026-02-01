@@ -35,6 +35,8 @@
           "/var/lib/jellyfin"
           "/var/lib/vaultwarden"
           "/mnt/tank/nextcloud"
+          "/mnt/tank/immich"
+          "/mnt/tank/opencloud"
         ];
         exclude = [
           "/mnt/tank/nextcloud/**/files_versions/Jellyfin/**"
