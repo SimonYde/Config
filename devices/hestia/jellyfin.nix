@@ -55,7 +55,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = "root";
-        ExecStart = "${pkgs.coreutils}/bin/chown -R share:share ${mediaDir}";
+        ExecStart = "${pkgs.coreutils}/bin/chown -R nextcloud:nextcloud ${mediaDir}";
       };
     };
 
