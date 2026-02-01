@@ -78,7 +78,7 @@ in
           storageTemplate = {
             enabled = true;
             hashVerificationEnabled = true;
-            template = "{{y}}/{{yy}}{{mm}}{{dd}} - {{#if album}}{{album}}{{else}}andet{{/if}}/{{filename}}";
+            template = "{{y}}/{{#if album}}{{album}}{{else}}{{yy}}{{MM}}{{dd}} - andet{{/if}}/{{filename}}";
           };
         };
       };
@@ -86,12 +86,7 @@ in
       nginx = {
         upstreams.immich.servers."${cfg.host}:${toString cfg.port}" = { };
 
-        # virtualHosts."photos.${server.baseDomain}" = {
-        virtualHosts."photos.ts.simonyde.com" = {
-          acmeRoot = mkForce null;
-          enableACME = mkForce false;
-          useACMEHost = "ts.simonyde.com";
-
+        virtualHosts."foto.${server.baseDomain}" = {
           locations."/" = {
             proxyPass = "http://immich";
             proxyWebsockets = true;
