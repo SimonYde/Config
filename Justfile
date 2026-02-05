@@ -31,7 +31,7 @@ os:
 	@nh os switch . --ask --cores ${NIX_BUILD_CORES}
 
 host HOST:
-	@nh os switch --ask --hostname {{HOST}} --target-host {{HOST}}
+	@nh os switch --ask --cores ${NIX_BUILD_CORES} --hostname {{HOST}} --target-host {{HOST}}
 
 boot:
 	@nh os switch . --ask --cores ${NIX_BUILD_CORES}

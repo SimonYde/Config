@@ -21,6 +21,12 @@
     #   size = 24;
     # };
 
+    cursor = {
+      package = pkgs.kdePackages.breeze;
+      name = "Breeze_Light";
+      size = 32;
+    };
+
     fonts = {
       monospace = {
         name = "JetBrainsMono Nerd Font";
