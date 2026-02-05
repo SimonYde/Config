@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -9,41 +10,48 @@ let
   cfg = config.services.collabora-online;
 in
 {
+  networking.hosts = {
+    "127.0.0.1" = [
+      "docs.${server.baseDomain}"
+    ];
+    "::1" = [
+      "docs.${server.baseDomain}"
+    ];
+  };
+
   services = {
     collabora-online = {
       enable = true;
       port = 9980;
-      extraArgs = [
-        "--o:net.lok_allow.host[14]=opencloud.ts.simonyde.com"
-      ];
+      package = pkgs.collabora-online.overrideAttrs (old: {
+        postInstall = old.postInstall + ''
+          ${lib.getExe' pkgs.openssh "ssh-keygen"} -t rsa -N "" -m PEM -f $out/etc/coolwsd/proof_key
+        '';
+      });
 
       aliasGroups = [
         {
           host = "cloud.${server.baseDomain}";
-        }
-        {
-          host = "wopi.ts.simonyde.com";
+          aliases = [
+            "opencloud.ts.simonyde.com"
+            "wopi.ts.simonyde.com"
+          ];
         }
       ];
 
       settings = {
+        user_interface.mode = "tabbed";
+
         storage.wopi = {
           "@allow" = true;
 
           alias_groups = {
             "@mode" = "groups";
           };
-
-          host = ["cloud.${server.baseDomain}"];
+          host = [ "cloud.${server.baseDomain}" ];
         };
 
-        # Listen on loopback interface only
-        net = {
-          post_allow.host = [
-            ''127\.0\.0\.1''
-          ];
-          content_security_policy = "frame-ancestors 'self' docs.tmcs.dk opencloud.ts.simonyde.com";
-        };
+        net.content_security_policy = "frame-ancestors 'self' ${config.services.opencloud.url}";
 
         server_name = "docs.${server.baseDomain}";
 

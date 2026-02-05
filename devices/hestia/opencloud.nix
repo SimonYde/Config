@@ -9,9 +9,9 @@ in
     services = {
       opencloud = {
         stateDir = mkDefault (throw "Please specify opencloud stateDir");
+        url = "https://opencloud.ts.simonyde.com";
 
         environment = {
-          OC_URL = "https://opencloud.ts.simonyde.com";
           OC_LOG_LEVEL = "warn";
           OC_OIDC_ISSUER = "https://auth.simonyde.com/oauth2/openid/opencloud";
           OC_OIDC_CLIENT_ID = "opencloud";
@@ -112,9 +112,9 @@ in
             app = {
               name = "Collabora";
               product = "Collabora";
-              icon = "https://docs.tmcs.dk/favicon.ico";
-              addr = "https://docs.tmcs.dk";
-              insecure = true;
+              icon = "https://docs.${server.baseDomain}/favicon.ico";
+              addr = "https://docs.${server.baseDomain}";
+              insecure = false;
               proofkeys = {
                 disable = false;
                 duration = "12h";
