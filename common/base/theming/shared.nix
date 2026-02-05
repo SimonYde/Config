@@ -15,11 +15,11 @@
       base01 = "11111b"; # crust instead of mantle
     };
 
-    cursor = {
-      name = "catppuccin-mocha-dark-cursors";
-      package = pkgs.catppuccin-cursors.mochaDark;
-      size = 24;
-    };
+    # cursor = {
+    #   name = "catppuccin-mocha-dark-cursors";
+    #   package = pkgs.catppuccin-cursors.mochaDark;
+    #   size = 24;
+    # };
 
     fonts = {
       monospace = {

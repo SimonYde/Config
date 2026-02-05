@@ -79,11 +79,11 @@ in
     ];
   };
 
-  home.pointerCursor = {
-    hyprcursor.enable = config.wayland.windowManager.hyprland.enable;
-    gtk.enable = mkForce false;
-    x11.enable = mkForce false;
-  };
+  # home.pointerCursor = {
+  #   hyprcursor.enable = config.wayland.windowManager.hyprland.enable;
+  #   gtk.enable = mkForce (!config.wayland.windowManager.hyprland.enable);
+  #   x11.enable = mkForce (!config.wayland.windowManager.hyprland.enable);
+  # };
 
   home.sessionVariables = {
     GTK_THEME = config.gtk.theme.name;
