@@ -53,15 +53,15 @@ in
 
   # Extra fonts
   home.packages = with pkgs; [
-    font-awesome
-    gentium
     atkinson-hyperlegible-next
     atkinson-monolegible
+    corefonts
+    gentium
     libertinus
     newcomputermodern
+    noto-fonts
     roboto
     source-sans
-    source-sans-pro
   ];
 
   fonts.fontconfig.defaultFonts = {
@@ -75,6 +75,9 @@ in
     ];
     sansSerif = mkForce [
       fonts.sansSerif.name
+      fonts.emoji.name
+    ];
+    emoji = mkForce [
       fonts.emoji.name
     ];
   };

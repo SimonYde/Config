@@ -19,14 +19,15 @@
   };
 
   fonts.packages = with pkgs; [
-    font-awesome
-    gentium
     atkinson-hyperlegible-next
     atkinson-monolegible
+    corefonts
+    font-awesome
+    gentium
     libertinus
     newcomputermodern
     roboto
-    source-sans-pro
+    source-sans
   ];
 
   # Don't mess with brave settings

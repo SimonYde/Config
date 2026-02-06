@@ -99,6 +99,7 @@ in
       stateDir = "/mnt/tank/opencloud";
     };
 
+    collabora-online.enable = true;
     nginx.enable = true;
     nextcloud.enable = true;
     syncthing.enable = true;
