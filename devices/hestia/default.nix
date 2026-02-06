@@ -21,6 +21,8 @@ in
     ./jellyfin.nix
     ./opencloud.nix
     ./nextcloud.nix
+    ./opencloud.nix
+    ./paperless.nix
     ./smartd.nix
     ./vaultwarden.nix
   ];
@@ -97,6 +99,11 @@ in
     opencloud = {
       enable = true;
       stateDir = "/mnt/tank/opencloud";
+    };
+
+    paperless = {
+      enable = true;
+      mediaDir = "/mnt/tank/paperless";
     };
 
     collabora-online.enable = true;
@@ -217,6 +224,12 @@ in
 
     "/mnt/tank/opencloud" = {
       device = "tank/opencloud";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
+    "/mnt/tank/paperless" = {
+      device = "tank/paperless";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };

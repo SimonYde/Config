@@ -37,6 +37,7 @@
           "/mnt/tank/nextcloud"
           "/mnt/tank/immich"
           "/mnt/tank/opencloud"
+          "/mnt/tank/paperless"
         ];
         exclude = [
           "/mnt/tank/nextcloud/**/files_versions/Jellyfin/**"
