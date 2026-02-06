@@ -31,10 +31,18 @@ in
 
       nginx = {
         upstreams.jellyfin.servers."127.0.0.1:8096" = { };
+        virtualHosts."film.${config.syde.server.baseDomain}".locations = {
+          "/metrics" = {
+            extraConfig = ''
+              # Block all external access via the reverse proxy
+              deny all;
+            '';
+          };
 
-        virtualHosts."film.${config.syde.server.baseDomain}".locations."/" = {
-          proxyPass = "http://jellyfin";
-          proxyWebsockets = true;
+          "/" = {
+            proxyPass = "http://jellyfin";
+            proxyWebsockets = true;
+          };
         };
       };
 
