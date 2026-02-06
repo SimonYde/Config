@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkForce;
+  inherit (lib) mkIf;
   inherit (config.syde) server;
   cfg = config.services.paperless;
 in
@@ -18,8 +18,10 @@ in
 
     services = {
       paperless = {
+        domain = "paperless.${server.baseDomain}";
+
+        configureTika = true;
         database.createLocally = true;
-        domain = "paperless.ts.simonyde.com";
         environmentFile = config.age.secrets.paperlessAuthConfig.path;
 
         settings = {
@@ -41,10 +43,6 @@ in
         upstreams.paperless.servers."127.0.0.1:28981" = { };
 
         virtualHosts.${cfg.domain} = {
-          acmeRoot = mkForce null;
-          enableACME = mkForce false;
-          useACMEHost = "ts.simonyde.com";
-
           locations."/" = {
             proxyPass = "http://paperless";
             proxyWebsockets = true;
