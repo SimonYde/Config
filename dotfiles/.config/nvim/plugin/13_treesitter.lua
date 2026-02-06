@@ -1,7 +1,7 @@
 Load.now_if_args(function()
     Load.packadd('nvim-treesitter')
-    local parser_install_dir = vim.fn.stdpath('state') .. '/treesitter'
-    vim.opt.runtimepath:prepend(parser_install_dir)
+    -- local parser_install_dir = vim.fn.stdpath('state') .. '/treesitter'
+    -- vim.opt.runtimepath:prepend(parser_install_dir)
 
     Config.treesitter = {}
     Config.treesitter.filetypes = {}
@@ -27,7 +27,7 @@ Load.now_if_args(function()
 
     require('nvim-treesitter').setup({
         -- Directory to install parsers and queries to
-        install_dir = parser_install_dir,
+        -- install_dir = parser_install_dir,
     })
 
     require('nvim-treesitter').install(ensure_languages)

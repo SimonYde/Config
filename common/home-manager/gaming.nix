@@ -3,7 +3,6 @@
   home.packages = with pkgs; [
     # Applications
     heroic # Epic / Gog
-    prismlauncher # Minecraft
     # limo # mod manager
     # nexusmods-app-unfree # WIP official Nexusmods mod manager
 
@@ -34,6 +33,11 @@
       wineWow64Packages.fonts
       wineWow64Packages.staging
     ];
+  };
+
+  # Minecraft
+  programs.prismlauncher = {
+    enable = true;
   };
 
   programs.mangohud = {

@@ -30,6 +30,7 @@ let
       "extensions.pocket.enabled" = false;
       "extensions.update.autoUpdateDefault" = true;
       "extensions.update.enabled" = true;
+      "extensions.autoDisableScopes" = 0;
 
       # Privacy
       "browser.contentblocking.category" = "custom";

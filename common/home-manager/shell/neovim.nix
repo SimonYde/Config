@@ -10,6 +10,10 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      tree-sitter
+      gcc
+    ];
     programs.neovim = {
       package = pkgs.neovim;
       defaultEditor = true;
@@ -69,6 +73,5 @@ in
         ghostscript # snacks.nvim PDF rendering
       ];
     };
-
   };
 }

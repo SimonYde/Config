@@ -86,8 +86,6 @@ in
         obsidian # Second brain
         gimp3 # Image editor
 
-        qbittorrent # Linux ISOs
-
         tor-browser
 
         legcord
@@ -463,6 +461,7 @@ in
         '';
         type = types.enum [
           "imv"
+          "pqiv"
         ];
         default = "imv";
       };

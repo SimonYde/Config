@@ -49,7 +49,6 @@ in
   programs = {
     hyprshot.enable = true;
     hyprlock.enable = true;
-    imv.enable = true;
     waybar.enable = true;
     walker.enable = true;
     wlogout.enable = true;
@@ -166,29 +165,39 @@ in
     ];
   };
 
-  services.hypridle.settings =
-    let
-      restartHyprsunset = "systemctl --user restart hyprsunset.service";
-    in
-    {
-      general = {
-        lock_cmd = "pidof hyprlock || hyprlock";
-        after_sleep_cmd = "hyprctl dispatch dpms on && ${restartHyprsunset}";
-        before_sleep_cmd = "loginctl lock-session";
-        ignore_dbus_inhibit = false;
-      };
-
-      listener = [
-        {
-          timeout = 360;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on && ${restartHyprsunset}";
-        }
-      ];
+  services.hypridle.settings = {
+    general = {
+      lock_cmd = "pidof hyprlock || hyprlock";
+      after_sleep_cmd = "hyprctl dispatch dpms on";
+      before_sleep_cmd = "loginctl lock-session";
+      ignore_dbus_inhibit = false;
     };
+
+    listener = [
+      {
+        timeout = 360;
+        on-timeout = "hyprctl dispatch dpms off";
+        on-resume = "hyprctl dispatch dpms on";
+      }
+    ];
+  };
 
   programs.walker.runAsService = true;
   programs.walker.config = options.programs.walker.config.default;
+  programs.elephant.provider = {
+    websearch = {
+      settings = {
+        entries = [
+          {
+            name = "Kagi";
+            url = "https://kagi.com/search?q=%TERM%";
+            default = true;
+          }
+        ];
+      };
+
+    };
+  };
 
   systemd.user = {
     services.hyprland-autoname-workspaces = {
