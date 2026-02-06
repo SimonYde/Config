@@ -17,8 +17,17 @@ in
     ./atuin.nix
     ./grafana
     ./kanidm.nix
+    ./oauth2-proxy.nix
     ./languagetool.nix
+
     ./qbittorrent.nix
+    ./bitmagnet.nix
+    ./lidarr.nix
+    ./bazarr.nix
+    ./prowlarr.nix
+    ./jellyseerr.nix
+    ./radarr.nix
+    ./sonarr.nix
   ];
 
   system.stateVersion = "25.05";
