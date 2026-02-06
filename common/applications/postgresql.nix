@@ -30,6 +30,7 @@ in
 
       pgscv = {
         enable = true;
+        logLevel = "debug";
         settings = {
           services.postgres = {
             service_type = "postgres";
