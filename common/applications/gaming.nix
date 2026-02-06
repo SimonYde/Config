@@ -47,6 +47,7 @@ in
 
         fontPackages = with pkgs; [
           wineWow64Packages.fonts
+          corefonts
           source-han-sans
         ];
       };
