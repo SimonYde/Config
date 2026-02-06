@@ -83,6 +83,16 @@ in
             proxyPass = "http://collabora";
             proxyWebsockets = true;
           };
+
+          locations."~ ^/browser/.*/admin" = {
+            extraConfig = ''
+                allow 127.0.0.1;
+                allow 192.168.0.0/16;
+                allow ::1;
+                allow 100.0.0.0/8; # Tailscale
+                deny all;
+            '';
+          };
         };
       };
     };

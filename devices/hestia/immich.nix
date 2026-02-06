@@ -29,6 +29,15 @@ in
       "render"
     ];
 
+    networking.hosts = {
+      "127.0.0.1" = [
+        "foto.${server.baseDomain}"
+      ];
+      "::1" = [
+        "foto.${server.baseDomain}"
+      ];
+    };
+
     services = {
       immich = {
         inherit (server) group;
