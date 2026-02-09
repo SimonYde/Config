@@ -73,7 +73,7 @@ in
           notifications = {
             smtp = {
               enabled = email.enable;
-              from = email.fromAddress;
+              from = "Immich <${email.fromAddress}>";
               transport = {
                 host = email.smtpServer;
                 ignoreCert = false;
