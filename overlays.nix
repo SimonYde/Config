@@ -48,22 +48,6 @@ inputs: [
       audiobook-dl = inputs.audiobook-dl.packages.${system}.default;
       etilbudsavis-cli = inputs.etilbudsavis-cli.packages.${system}.default;
 
-      jellyfin-web = prev.jellyfin-web.overrideAttrs (
-        finalAttrs: previousAttrs: {
-          installPhase = ''
-            runHook preInstall
-
-            # this is the important line
-            sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
-
-            mkdir -p $out/share
-            cp -a dist $out/share/jellyfin-web
-
-            runHook postInstall
-          '';
-        }
-      );
-
       inherit (inputs.kattis-cli.packages.${system}) kattis-test kattis-cli;
 
       vimPlugins = prev.vimPlugins.extend (
