@@ -23,10 +23,13 @@ in
       nextcloudAdminPassword = {
         file = "${inputs.secrets}/nextcloudAdminPassword.age";
       };
+      nextcloudClientSecret = {
+        file = "${inputs.secrets}/nextcloudClientSecret.age";
+        owner = "nextcloud";
+      };
       nextcloudSecretFile = {
         file = "${inputs.secrets}/nextcloudSecretFile.age";
         owner = "nextcloud";
-        group = "nextcloud";
       };
     };
 
@@ -73,7 +76,6 @@ in
             notes
             tasks
             previewgenerator
-            # recognize
             richdocuments
             user_oidc
             ;
@@ -99,10 +101,6 @@ in
           mail_domain = server.baseDomain;
 
           default_phone_region = "DK";
-
-          user_oidc = {
-            allow_multiple_user_backends = 0;
-          };
 
           forwarded_for_headers = [
             "HTTP_X_FORWARDED_FOR"
@@ -143,8 +141,36 @@ in
       failRegex = "^.*Login failed:.*(Remote IP: <HOST>).*$";
     };
 
-    systemd.services.nextcloud-cron = {
-      path = [ pkgs.perl ];
-    };
+    systemd.services.nextcloud-cron.path = [ pkgs.perl ];
+
+    systemd.services.nextcloud-config-oauth2 =
+      let
+        occ = lib.getExe' config.services.nextcloud.occ "nextcloud-occ";
+      in
+      {
+        wantedBy = [ "multi-user.target" ];
+        after = [
+          "nextcloud-setup.service"
+        ];
+        script = ''
+          ${occ} user_oidc:provider Kanidm \
+              --clientid="nextcloud" \
+              --clientsecret="$CLIENT_SECRET" \
+              --discoveryuri="https://auth.simonyde.com/oauth2/openid/nextcloud/.well-known/openid-configuration" \
+              --scope="openid groups email profile" \
+              --unique-uid=0 \
+              --group-provisioning=1 \
+              --extra-claims="account_role" \
+              --mapping-groups="account_role" \
+              --mapping-uid="preferred_username" \
+              --no-interaction
+          # ${occ} config:app:set user_oidc allow_multiple_user_backends --value=0 # Disables other login methods
+        '';
+
+        serviceConfig = {
+          EnvironmentFile = config.age.secrets.nextcloudClientSecret.path;
+          Type = "oneshot";
+        };
+      };
   };
 }
