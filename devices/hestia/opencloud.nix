@@ -2,13 +2,12 @@
 let
   cfg = config.services.opencloud;
   inherit (config.syde) server;
-  inherit (lib) mkIf mkDefault mkForce;
+  inherit (lib) mkIf mkForce;
 in
 {
   config = mkIf cfg.enable {
     services = {
       opencloud = {
-        stateDir = mkDefault (throw "Please specify opencloud stateDir");
         url = "https://opencloud.ts.simonyde.com";
 
         environment = {
@@ -121,35 +120,83 @@ in
               };
               licensecheckenable = false;
             };
-            wopi.wopisrc = "https://wopi.ts.simonyde.com";
+            wopi.wopisrc = "http://127.0.0.1:9300";
+          };
+        };
+      };
+
+      radicale = {
+        enable = true;
+        settings = {
+          server = {
+            hosts = [ "127.0.0.1:5232" ];
+            ssl = false; # disable SSL, only use when behind reverse proxy
+          };
+          auth = {
+            type = "http_x_remote_user"; # disable authentication, and use the username that OpenCloud provides is
+          };
+          web = {
+            type = "none";
+          };
+          storage = {
+            filesystem_folder = "/var/lib/radicale/collections";
+          };
+          logging = {
+            level = "debug"; # optional, enable debug logging
+            bad_put_request_content = true; # only if level=debug
+            request_header_on_debug = true; # only if level=debug
+            request_content_on_debug = true; # only if level=debug
+            response_content_on_debug = true; # only if level=debug
           };
         };
       };
 
       nginx = {
-        upstreams.opencloud.servers."127.0.0.1:9200" = { };
+        upstreams = {
+          opencloud.servers."127.0.0.1:9200" = { };
+          radicale.servers."127.0.0.1:5232" = { };
+        };
 
         virtualHosts."opencloud.ts.simonyde.com" = {
           acmeRoot = mkForce null;
           enableACME = mkForce false;
           useACMEHost = "ts.simonyde.com";
 
-          locations."/" = {
-            proxyPass = "http://opencloud";
-            proxyWebsockets = true;
-          };
-        };
+          locations = {
+            "/" = {
+              proxyPass = "http://opencloud";
+              proxyWebsockets = true;
+            };
 
-        upstreams.wopi.servers."127.0.0.1:9300" = { };
-
-        virtualHosts."wopi.ts.simonyde.com" = {
-          acmeRoot = mkForce null;
-          enableACME = mkForce false;
-          useACMEHost = "ts.simonyde.com";
-
-          locations."/" = {
-            proxyPass = "http://wopi";
-            proxyWebsockets = true;
+            # Radicale endpoints for CalDAV and CardDAV
+            "/caldav/" = {
+              proxyPass = "http://radicale";
+              extraConfig = ''
+                proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
+                proxy_set_header X-Script-Name /caldav;
+              '';
+            };
+            "/.well-known/caldav" = {
+              proxyPass = "http://radicale";
+              extraConfig = ''
+                proxy_set_header X-Remote-User $remote_user; # provide username to CalDAV
+                proxy_set_header X-Script-Name /caldav;
+              '';
+            };
+            "/carddav/" = {
+              proxyPass = "http://radicale";
+              extraConfig = ''
+                proxy_set_header X-Remote-User $remote_user; # provide username to CardDAV
+                proxy_set_header X-Script-Name /carddav;
+              '';
+            };
+            "/.well-known/carddav/" = {
+              proxyPass = "http://radicale";
+              extraConfig = ''
+                proxy_set_header X-Remote-User $remote_user; # provide username to CardDAV
+                proxy_set_header X-Script-Name /carddav;
+              '';
+            };
           };
         };
       };

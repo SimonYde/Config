@@ -19,7 +19,6 @@ in
     ./fail2ban.nix
     ./immich.nix
     ./jellyfin.nix
-    ./opencloud.nix
     ./nextcloud.nix
     ./opencloud.nix
     ./paperless.nix
@@ -97,7 +96,7 @@ in
     };
 
     opencloud = {
-      enable = true;
+      enable = false;
       stateDir = "/mnt/tank/opencloud";
     };
 

@@ -44,9 +44,14 @@ in
         aliasGroups = [
           {
             host = "cloud.${server.baseDomain}";
+          }
+          {
+            host = "opencloud.ts.simonyde.com";
             aliases = [
-              "opencloud.ts.simonyde.com"
-              "wopi.ts.simonyde.com"
+              "127.0.0.1:9300"
+              "127.0.0.1"
+              ''127\.0\.0\.1:9300''
+              ''127\.0\.0\.1''
             ];
           }
         ];
@@ -60,11 +65,16 @@ in
             alias_groups = {
               "@mode" = "groups";
             };
-
-            host = [ "cloud.${server.baseDomain}" ];
           };
 
-          net.content_security_policy = "frame-ancestors 'self' ${config.services.opencloud.url}";
+          net.content_security_policy = lib.concatStringsSep " " (
+            [
+              "frame-ancestors"
+              "'self'"
+            ]
+            ++ lib.optional config.services.nextcloud.enable "https://${config.services.nextcloud.hostName}"
+            ++ lib.optional config.services.opencloud.enable "${config.services.opencloud.url}"
+          );
 
           server_name = "docs.${server.baseDomain}";
 
@@ -86,18 +96,18 @@ in
 
           locations."~ ^/browser/.*/admin" = {
             extraConfig = ''
-                allow 127.0.0.1;
-                allow 192.168.0.0/16;
-                allow ::1;
-                allow 100.0.0.0/8; # Tailscale
-                deny all;
+              allow 127.0.0.1;
+              allow 192.168.0.0/16;
+              allow ::1;
+              allow 100.64.0.0/10; # Tailscale
+              deny all;
             '';
           };
         };
       };
     };
 
-    systemd.services.nextcloud-config-collabora =
+    systemd.services.nextcloud-config-collabora = lib.mkIf config.services.nextcloud.enable (
       let
         inherit (config.services.nextcloud) occ;
 
@@ -124,7 +134,8 @@ in
         serviceConfig = {
           Type = "oneshot";
         };
-      };
+      }
+    );
 
     systemd.services.coolwsd = {
       serviceConfig = {
