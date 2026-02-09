@@ -8,23 +8,27 @@ in
 {
   services = {
     kanidm = {
-      enableServer = true;
-
       package = pkgs.kanidm_1_8;
 
-      serverSettings = {
-        bindaddress = "0.0.0.0:8443";
-        ldapbindaddress = "0.0.0.0:636";
+      server = {
+        enable = true;
 
-        domain = "auth.${baseDomain}";
-        origin = "https://auth.${baseDomain}";
+        settings = {
+          bindaddress = "0.0.0.0:8443";
+          ldapbindaddress = "0.0.0.0:636";
 
-        tls_chain = "${certsDirectory}/fullchain.pem";
-        tls_key = "${certsDirectory}/key.pem";
+          domain = "auth.${baseDomain}";
+          origin = "https://auth.${baseDomain}";
+
+          tls_chain = "${certsDirectory}/fullchain.pem";
+          tls_key = "${certsDirectory}/key.pem";
+        };
       };
 
-      enableClient = true;
-      clientSettings.uri = "https://auth.${baseDomain}";
+      client = {
+        enable = true;
+        settings.uri = "https://auth.${baseDomain}";
+      };
     };
 
     nginx = {
