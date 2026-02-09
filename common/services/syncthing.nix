@@ -102,16 +102,6 @@ in
             };
           };
 
-          "Audiobooks" = {
-            path = "${home}/Audiobooks";
-            devices = [
-              "icarus"
-              "talos"
-              "daedelus"
-              "theseus"
-            ];
-          };
-
           "Config" = {
             path = "${home}/Config";
             devices = [
@@ -119,6 +109,17 @@ in
               "perdix"
               "talos"
               "hestia"
+            ];
+          };
+
+          "Downloads" = {
+            path = "${home}/Downloads";
+            devices = [
+              "daedelus"
+              "icarus-windows"
+              "perdix"
+              "icarus"
+              "talos"
             ];
           };
 
@@ -138,16 +139,6 @@ in
               "icarus"
               "perdix"
               "talos"
-            ];
-          };
-
-          "Ebooks" = {
-            path = "${home}/Ebooks";
-            devices = [
-              "icarus"
-              "talos"
-              "daedelus"
-              "theseus"
             ];
           };
         };
