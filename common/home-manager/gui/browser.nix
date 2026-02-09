@@ -118,17 +118,13 @@ let
 in
 {
   syde.gui.browser = {
-    name = "brave-browser";
-    inherit (config.programs.brave) package;
+    name = "floorp";
+    inherit (config.programs.floorp) package;
   };
 
   programs = {
     brave = {
       extensions = [
-        {
-          id = "dcpihecpambacapedldabdbpakmachpb";
-          updateUrl = "https://raw.githubusercontent.com/iamadamdev/bypass-paywalls-chrome/master/updates.xml";
-        }
         { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
         { id = "jjhefcfhmnkfeepcpnilbbkaadhngkbi"; } # Readwise Highlighter
         { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium

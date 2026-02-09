@@ -91,6 +91,7 @@ in
         legcord
         discord
         betterdiscordctl
+        ferdium
 
         rclone-browser
 
@@ -421,7 +422,7 @@ in
           "floorp"
           "qutebrowser"
         ];
-        default = "firefox";
+        default = "floorp";
       };
 
       package = mkPackageOption pkgs browser.name { };

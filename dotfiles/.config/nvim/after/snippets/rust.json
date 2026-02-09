@@ -1,0 +1,10 @@
+{
+    "shell.nix": {
+        "prefix": "safety",
+        "body": ["// SAFETY: $0"]
+    },
+    "multi-line comment": {
+        "prefix": "comment",
+        "body": ["/*\n$0\n*/"]
+    }
+}
