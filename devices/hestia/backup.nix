@@ -31,12 +31,18 @@
         ];
         paths = [
           "/var/backup"
-          "/var/lib/nextcloud"
           "/var/lib/jellyfin"
           "/var/lib/vaultwarden"
+
+          "/var/lib/nextcloud"
           "/mnt/tank/nextcloud"
+
+          "/var/lib/immich"
           "/mnt/tank/immich"
+
           "/mnt/tank/opencloud"
+
+          "/var/lib/paperless"
           "/mnt/tank/paperless"
         ];
         exclude = [
