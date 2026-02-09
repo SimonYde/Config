@@ -47,7 +47,14 @@ in
         dockerSocket.enable = true;
       };
 
-      libvirtd.enable = lib.mkDefault config.programs.virt-manager.enable;
+      libvirtd = {
+        enable = lib.mkDefault config.programs.virt-manager.enable;
+        qemu = {
+          runAsRoot = false;
+        };
+        onBoot = "ignore";
+        onShutdown = "shutdown";
+      };
     };
 
     environment.variables = {
