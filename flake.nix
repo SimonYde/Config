@@ -124,10 +124,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    nvim-treesitter-main = {
-      url = "github:iofq/nvim-treesitter-main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     firefox-csshacks = {
       url = "github:MrOtherGuy/firefox-csshacks";

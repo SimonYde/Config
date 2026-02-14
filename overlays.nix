@@ -1,6 +1,5 @@
 inputs: [
   inputs.neovim-nightly.overlays.default
-  inputs.nvim-treesitter-main.overlays.default
   inputs.nur.overlays.default
   inputs.nix-cachyos-kernel.overlays.pinned
 

@@ -5,8 +5,8 @@
 {
   home.packages = with pkgs; [
     jamesdsp
-    yabridge
-    yabridgectl
+    # yabridge
+    # yabridgectl
 
     reaper
     reaper-reapack-extension
