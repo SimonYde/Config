@@ -3,8 +3,6 @@ local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 Load.now(function() require('mini.sessions').setup() end)
 
 Load.now_if_args(function()
-    require('mini.misc').setup()
-
     MiniMisc.setup_restore_cursor()
 
     MiniMisc.setup_auto_root({ '.git', '.jj', 'flake.nix', 'Makefile', 'Justfile' })

@@ -2,16 +2,25 @@ vim.loader.enable()
 
 local Load = {}
 
-local ok, MiniDeps = pcall(require, 'mini.deps')
+local ok, MiniMisc = pcall(require, 'mini.misc')
 
 if ok then
-    Load.now = MiniDeps.now
+    Load.now = function(func) MiniMisc.safely('now', func) end
 
     ---Lazy load function. Meant to run expensive functions (such as plugin setup) when Neovim has already loaded.
-    Load.later = MiniDeps.later
+    Load.later = function(func) MiniMisc.safely('later', func) end
+
+    MiniMisc.setup()
+
+    Load.on_events = function(event, f)
+        MiniMisc.safely(event, f)
+    end
 else
     Load.now = pcall
     Load.later = pcall
+    Load.on_events = function(event, f)
+        vim.print("didn't successfully run on event")
+    end
 end
 
 ---@param package_name string package to load
@@ -21,20 +30,6 @@ end
 
 --- Used for when a plugin should be loaded given nvim is started like `nvim -- /path/to/file`.
 Load.now_if_args = vim.fn.argc(-1) > 0 and Load.now or Load.later
-
-local defer_group = vim.api.nvim_create_augroup('DeferFunction', {})
-
----@param callback function function that will be called once event fires
----@param params { pattern: string?, events: string[] | string } table of event types, with an optional pattern
-Load.on_events = function(params, callback)
-    local opts = {
-        group = defer_group,
-        once = true,
-        callback = function(_) Load.now(callback) end,
-    }
-    if params.pattern then opts.pattern = params.pattern end
-    vim.api.nvim_create_autocmd(params.events, opts)
-end
 
 _G.Load = Load -- export module
 _G.Config = {}

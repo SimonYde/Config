@@ -70,7 +70,7 @@ Load.now_if_args(function()
     nmap('<M-F>', function() vim.cmd.Yazi() end, 'Show current file in Yazi')
 end)
 
-Load.on_events({ events = 'BufRead', pattern = 'Cargo.toml' }, function()
+Load.on_events('event:BufRead~Cargo.toml', function()
     Load.packadd('crates.nvim')
     --- @diagnostic disable-next-line: missing-parameter
     require('crates').setup()
@@ -93,7 +93,7 @@ Load.later(function()
     nmap('<leader>=', function() conform.format({ stop_after_first = true, lsp_fallback = true }) end, 'Format code')
 end)
 
-Load.on_events({ events = 'InsertEnter' }, function() require('nvim-autopairs').setup() end)
+Load.on_events('event:InsertEnter', function() require('nvim-autopairs').setup() end)
 
 Load.later(function()
     Load.packadd('diffview.nvim')
@@ -148,13 +148,14 @@ Load.later(function()
     })
 end)
 
-Load.on_events({ events = 'FileType', pattern = 'lua' }, function()
+Load.later(function()
     local lazydev = require('lazydev')
     --- @diagnostic disable-next-line: missing-fields
     lazydev.setup({
         integrations = {
-            lspconfig = false,
+            lspconfig = true,
             cmp = false,
+            coq = false,
         },
 
         library = {
