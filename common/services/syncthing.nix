@@ -115,7 +115,6 @@ in
           "Downloads" = {
             path = "${home}/Downloads";
             devices = [
-              "daedelus"
               "icarus-windows"
               "perdix"
               "icarus"
