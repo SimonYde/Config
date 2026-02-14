@@ -126,12 +126,13 @@ in
     brave = {
       extensions = [
         { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
-        { id = "jjhefcfhmnkfeepcpnilbbkaadhngkbi"; } # Readwise Highlighter
-        { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium
-        { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # Stylus
         { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
-        { id = "cdglnehniifkbagbbombnjghhcihifij"; } # Kagi Search
+        { id = "fnaicdffflnofjppbagibeoednhnbjhg"; } # Floccus bookmarks
         { id = "mendokngpagmkejfpmeellpppjgbpdaj"; } # Kagi Privacy Pass
+        { id = "cdglnehniifkbagbbombnjghhcihifij"; } # Kagi Search
+        { id = "jjhefcfhmnkfeepcpnilbbkaadhngkbi"; } # Readwise Highlighter
+        { id = "clngdbkpkpeebahjckkjfobafhncgmne"; } # Stylus
+        { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium
       ];
     };
 
