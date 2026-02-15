@@ -60,6 +60,7 @@ in
         spicetify.enable = true;
         vivid.enable = true;
         voxtype.enable = true;
+        wayprompt.enable = true;
         yt-dlp.enable = true;
         zathura.enable = true;
       };
