@@ -29,7 +29,7 @@ in
       };
 
       pgscv = {
-        enable = true;
+        enable = false;
         logLevel = "debug";
         settings = {
           services.postgres = {
@@ -40,7 +40,7 @@ in
       };
 
       alloy.scrape = {
-        pgscv.port = 9890;
+        # pgscv.port = 9890;
         postgres.port = config.services.prometheus.exporters.postgres.port;
       };
     };
