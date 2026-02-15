@@ -36,6 +36,9 @@ host HOST:
 boot:
 	@nh os boot . --ask --cores ${NIX_BUILD_CORES}
 
+iso:
+	nix build .#nixosConfigurations.iso.config.system.build.isoImage
+
 light:
 	@nh os switch -s light-theme
 

@@ -18,6 +18,7 @@ let
       builtins.attrValues zfsCompatibleKernelPackages
     )
   );
+  keys = import ../keys.nix;
 in
 {
   imports = [
@@ -29,5 +30,25 @@ in
   boot = {
     kernelPackages = latestKernelPackage;
     supportedFilesystems.zfs = lib.mkForce true;
+    supportedFilesystems.bcachefs = true;
+  };
+
+  services.openssh = {
+    enable = true;
+
+    settings = {
+      KbdInteractiveAuthentication = false;
+      PasswordAuthentication = false;
+      AllowAgentForwarding = true;
+    };
+  };
+
+  users.users.root = {
+    shell = pkgs.nushell-wrapped;
+    openssh.authorizedKeys.keys = [ keys.syde ];
+  };
+  users.users.nixos = {
+    shell = pkgs.nushell-wrapped;
+    openssh.authorizedKeys.keys = [ keys.syde ];
   };
 }
