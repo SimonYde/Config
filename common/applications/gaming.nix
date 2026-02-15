@@ -6,18 +6,26 @@
   ...
 }:
 let
-  inherit (lib) mkForce mkIf getExe';
+  inherit (lib)
+    mkForce
+    mkIf
+    getExe'
+    mkEnableOption
+    versionAtLeast
+    ;
+  kver = config.boot.kernelPackages.kernel.version;
 
   cfg = config.syde.gaming;
 in
 {
   options.syde.gaming = {
-    enable = lib.mkEnableOption "gaming configuration";
+    enable = mkEnableOption "gaming configuration";
   };
 
   config = mkIf cfg.enable {
     home-manager.users.${username}.imports = [ ../home-manager/gaming.nix ];
 
+    boot.kernelModules = mkIf (versionAtLeast kver "6.14") [ "ntsync" ];
     powerManagement.cpuFreqGovernor = mkForce "performance";
 
     programs = {
