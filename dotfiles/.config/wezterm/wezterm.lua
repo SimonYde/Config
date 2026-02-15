@@ -111,11 +111,13 @@ config.keys = {
 wezterm.on("format-tab-title", function(tab, tabs)
 	local pane = tab.active_pane
 	if pane.domain_name then
-		return ("(%s) %s"):format(pane.domain_name, pane.title)
+		return (tab.tab_index + 1) .. " (" .. pane.domain_name .. ") " .. pane.title
 	end
 	return nil
 end)
 
-
+wezterm.on('update-right-status', function(window, pane)
+  window:set_right_status(window:active_workspace())
+end)
 
 return config
