@@ -61,6 +61,7 @@ Load.later(function()
             rainbow_delimiters = true,
 
             markdown = true,
+            ufo = true,
             render_markdown = true,
 
             mini = {

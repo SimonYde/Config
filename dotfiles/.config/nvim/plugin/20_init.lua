@@ -45,6 +45,17 @@ Load.later(function()
     })
 end)
 
+Load.now_if_args(function()
+    Load.packadd('nvim-ufo')
+    require('ufo').setup({
+        provider_selector = function(bufnr, filetype, buftype) return { 'treesitter', 'indent' } end,
+        close_fold_kinds_for_ft = {
+            rust = { 'array_expression', 'imports', 'use_declaration' },
+        },
+        override_foldtext = true,
+    })
+end)
+
 Load.later(function()
     Load.packadd('trouble.nvim')
     require('trouble').setup()

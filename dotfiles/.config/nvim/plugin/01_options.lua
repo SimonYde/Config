@@ -6,7 +6,7 @@ vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa 
 vim.o.undofile = true
 
 -- UI =========================================================================
-require('vim._core.ui2').enable({ enable = true, msg = { target = 'cmd' } }) -- enable the experimental TUI for cmdline
+Load.now(function() require('vim._core.ui2').enable({ enable = true, msg = { target = 'cmd' } }) end) -- enable the experimental TUI for cmdline
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cmdheight = 0
@@ -25,7 +25,7 @@ vim.o.breakindentopt = 'list:-1' -- Add padding for lists when 'wrap' is on
 vim.o.list = true
 vim.o.listchars = 'tab:▸ ,nbsp:␣,extends:❯,precedes:❮'
 
-vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50' -- Change cursor shape in certain models
+vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50' -- Change cursor shape in certain modes
 
 vim.o.conceallevel = 2
 
@@ -98,14 +98,6 @@ vim.o.shellquote = ''
 -- NOTE: `ansi strip` removes all ansi coloring from nushell errors
 vim.o.shellpipe = '| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record'
 
--- Custom autocommands ========================================================
-local augroup = vim.api.nvim_create_augroup('CustomSettings', {})
-
-Config.create_autocmd = function(event, pattern, callback, desc)
-    local opts = { group = augroup, pattern = pattern, callback = callback, desc = desc }
-    vim.api.nvim_create_autocmd(event, opts)
-end
-
 -- Don't auto-wrap comments and don't insert comment leader after hitting 'o'
 -- If not done on `FileType`, this keeps reappearing due to being set in
 -- filetype plugins.
@@ -147,11 +139,3 @@ Load.later(function()
         update_in_insert = false,
     })
 end)
-
--- Load.later(function()
---     vim.filetype.add({
---         extension = {
---             trp = 'sml',
---         },
---     })
--- end)

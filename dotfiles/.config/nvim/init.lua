@@ -1,6 +1,15 @@
 vim.loader.enable()
 
-local Load = {}
+_G.Load = {}
+_G.Config = {}
+
+-- Custom autocommands ========================================================
+local augroup = vim.api.nvim_create_augroup('CustomSettings', {})
+
+Config.create_autocmd = function(event, pattern, callback, desc)
+    local opts = { group = augroup, pattern = pattern, callback = callback, desc = desc }
+    vim.api.nvim_create_autocmd(event, opts)
+end
 
 local ok, MiniMisc = pcall(require, 'mini.misc')
 
@@ -28,11 +37,9 @@ Load.packadd = function(package_name)
     Load.now(function() vim.cmd('packadd ' .. package_name) end)
 end
 
+
 --- Used for when a plugin should be loaded given nvim is started like `nvim -- /path/to/file`.
 Load.now_if_args = vim.fn.argc(-1) > 0 and Load.now or Load.later
-
-_G.Load = Load -- export module
-_G.Config = {}
 
 -- Disable unused built-in plugins ============================================
 vim.g.loaded_gzip = 1

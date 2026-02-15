@@ -60,6 +60,7 @@ in
 
           # ----- UI -----
           lspsaga-nvim
+          nvim-ufo
           nvim-treesitter
           nvim-treesitter-context
           nvim-treesitter-textobjects
