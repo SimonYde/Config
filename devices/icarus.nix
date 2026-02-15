@@ -12,6 +12,7 @@ in
   imports = [
     ../common/desktop.nix
     inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
@@ -33,6 +34,7 @@ in
 
   boot = {
     loader.systemd-boot.enable = mkForce false;
+    kernelPackages = pkgs.linuxPackages_zen;
 
     lanzaboote = {
       enable = true;
@@ -118,8 +120,6 @@ in
 
   powerManagement.cpuFreqGovernor = "performance";
 
-  networking.wireguard.enable = true;
-
   # Filesystems
   boot.initrd.luks.devices."luks-1d0e845e-dd09-4c75-b92c-9ea67a00757b".device =
     "/dev/disk/by-uuid/1d0e845e-dd09-4c75-b92c-9ea67a00757b";
@@ -139,6 +139,7 @@ in
   };
 
   home-manager.users.${username} =
+    { config, ... }:
     let
       idasen = getExe pkgs.idasen;
       adjust-table =
@@ -147,10 +148,10 @@ in
             use std/log
             let config = open ~/.config/idasen/idasen.yaml
             log info "open config"
-            let height = ${idasen} height | parse "{height} meters" | first | get height | into float
+            let height = ${idasen} height | parse "{height} meters" | first | get height | into float | $in * 1000 | math round
             log info $"got desk height: ($height)"
 
-            if $height == $config.positions.sit {
+            if $height == ($config.positions.sit * 1000 | math round) {
               log info $"moving desk to standing position"
               ${idasen} stand
             } else {
@@ -165,9 +166,15 @@ in
         adjust-table
       ];
 
+      programs.hyprlock.enable = lib.mkForce false;
+      programs.swaylock.enable = true;
+      programs.swaylock.settings.image = "$XDG_RUNTIME_DIR/current-wallpaper";
+
       services.hypridle.settings = {
-        general.after_sleep_cmd = mkForce "systemctl --user restart hyprsunset.service";
-        listener = mkForce [ ];
+        general = {
+          lock_cmd = mkForce "${getExe config.programs.swaylock.package}";
+          before_sleep_cmd = mkForce "${getExe config.programs.swaylock.package}";
+        };
       };
 
       systemd.user = {
@@ -190,7 +197,6 @@ in
         };
       };
     };
-
 
   home-manager.users.root = {
     programs.ssh = {

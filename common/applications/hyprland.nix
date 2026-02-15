@@ -34,6 +34,7 @@ in
     programs.hyprland.withUWSM = true;
 
     security.pam.services.hyprlock = { };
+    security.pam.services.swaylock = { };
 
     environment.sessionVariables = {
       GDK_BACKEND = "wayland,x11,*";
