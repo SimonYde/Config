@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  options,
   ...
 }:
 let
@@ -39,6 +38,7 @@ in
       nushell.enable = false;
       neovide.enable = false;
       ncspot.enable = false;
+      vivid.enable = false;
       waybar = {
         font = "sansSerif";
         addCss = false;
@@ -216,11 +216,11 @@ in
             search_result: { fg: '${base08}' bg: '${base05}' }
             separator: '${base04}'
           }
-
-          try {
-            $env.LS_COLORS = (vivid generate ${colors.slug})
-          }
         '';
+
+    vivid.activeTheme = colors.slug;
+
+    walker.config.theme = mkForce "stylix";
 
     waybar.style = builtins.readFile ./waybar.css;
 
@@ -344,8 +344,6 @@ in
       statusbar-fg = mkForce (mkRgb "base05");
     };
   };
-
-  programs.walker.config.theme = mkForce "stylix";
 
   services.swww.wallpaperDir = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
 
