@@ -6,6 +6,10 @@ in
 {
   config = lib.mkIf cfg.enable {
     networking.wg-quick.interfaces = {
+      campfire = {
+        autostart = false;
+        configFile = "/var/lib/wireguard/campfire.conf";
+      };
       proton = {
         autostart = false;
         address = [ "10.2.0.2/32" ];
