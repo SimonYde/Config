@@ -17,7 +17,7 @@ def on [ ] {
 
     powerprofilesctl set power-saver
     log info "Set power profile to `power-saver`"
-    systemctl --user stop hyprland-autoname-workspaces.service swww.service blueman-applet.service adb-server.service
+    systemctl --user stop hyprland-autoname-workspaces.service swww.service blueman-applet.service
     log info "Stopped certain user services"
     systemctl stop bluetooth.service syncthing.service
     log info "Disabled Bluetooth"
@@ -38,7 +38,7 @@ def off [ ] {
     hyprctl reload
     powerprofilesctl set balanced
     log info "Set power profile to `balanced`"
-    systemctl --user start hyprland-autoname-workspaces.service swww.service blueman-applet.service adb-server.service
+    systemctl --user start hyprland-autoname-workspaces.service swww.service blueman-applet.service
     log info "Enabled certain user services"
     systemctl start bluetooth.service syncthing.service
     log info "Enabled Bluetooth"

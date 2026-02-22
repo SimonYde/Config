@@ -41,6 +41,7 @@ Load.later(function()
                 DapBreakpoint = { bg = colors.red, fg = '' },
                 ['@comment'] = { fg = colors.flamingo },
                 ['@comment.documentation'] = { fg = colors.flamingo },
+                Pmenu = { bg = colors.base, fg = colors.overlay2 },
             }
         end,
         {},
@@ -58,7 +59,7 @@ Load.later(function()
 
             treesitter = true,
             treesitter_context = true,
-            rainbow_delimiters = true,
+            rainbow_delimiters = false,
 
             markdown = true,
             ufo = true,
@@ -72,12 +73,6 @@ Load.later(function()
             snacks = {
                 enabled = true,
                 indent_scope_color = 'base',
-            },
-
-            indent_blankline = {
-                enabled = true,
-                scope_color = 'base',
-                colored_indent_levels = false,
             },
 
             native_lsp = {

@@ -47,10 +47,17 @@ end)
 
 Load.now_if_args(function()
     Load.packadd('nvim-ufo')
+
+    vim.o.foldlevel = 99
+    vim.o.foldlevelstart = 99
+    vim.o.foldenable = true
+
     require('ufo').setup({
-        provider_selector = function(bufnr, filetype, buftype) return { 'treesitter', 'indent' } end,
+        provider_selector = function(bufnr, filetype, buftype)
+            return filetype == 'bigfile' and '' or { 'treesitter', 'indent' }
+        end,
         close_fold_kinds_for_ft = {
-            rust = { 'array_expression', 'imports', 'use_declaration' },
+            rust = { 'array_expression', 'imports', 'use_declaration', 'function_item' },
         },
         override_foldtext = true,
     })

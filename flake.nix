@@ -117,7 +117,7 @@
       flake = false;
     };
     rustaceanvim = {
-      url = "github:mrcjkb/rustaceanvim/v7.1.9";
+      url = "github:mrcjkb/rustaceanvim/v8.0.1";
       inputs = {
         flake-parts.follows = "flake-parts";
         neovim-nightly-overlay.follows = "neovim-nightly";

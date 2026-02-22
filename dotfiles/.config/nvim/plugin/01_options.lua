@@ -6,7 +6,7 @@ vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa 
 vim.o.undofile = true
 
 -- UI =========================================================================
-Load.now(function() require('vim._core.ui2').enable({ enable = true, msg = { target = 'cmd' } }) end) -- enable the experimental TUI for cmdline
+Load.now(function() require('vim._core.ui2').enable({ enable = true, msg = { target = 'msg' } }) end) -- enable the experimental TUI for cmdline
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cmdheight = 0
