@@ -57,7 +57,7 @@ Load.now_if_args(function()
             return filetype == 'bigfile' and '' or { 'treesitter', 'indent' }
         end,
         close_fold_kinds_for_ft = {
-            rust = { 'array_expression', 'imports', 'use_declaration', 'function_item' },
+            rust = { 'array_expression', 'imports', 'use_declaration', 'function_item', 'macro_definition' },
         },
         override_foldtext = true,
     })

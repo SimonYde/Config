@@ -97,6 +97,9 @@ Load.now_if_args(function()
             default_settings = {
                 -- rust-analyzer language server configuration
                 ['rust-analyzer'] = {
+                    cargo = {
+                        allFeatures = true,
+                    },
                     imports = {
                         group = {
                             enable = true,

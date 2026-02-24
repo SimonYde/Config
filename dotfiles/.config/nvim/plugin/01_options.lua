@@ -130,7 +130,7 @@ Load.later(function()
                 [sev.INFO] = '',
             },
         },
-        -- virtual_lines = { current_line = true },
+        virtual_lines = { current_line = true },
         virtual_text = {
             current_line = false,
             severity = { min = sev.ERROR, max = sev.ERROR },

@@ -2,8 +2,6 @@ local root_files = { 'main.typ' }
 local paths = vim.fs.find(root_files, { stop = vim.env.HOME })
 local root_dir = vim.fs.dirname(paths[1])
 
-if not root_dir then return {} end
-
 return {
     cmd = { 'typst-languagetool-lsp' },
     root_markers = { '.git' },
@@ -14,7 +12,7 @@ return {
         host = 'https://languagetool.ts.simonyde.com',
         port = '443',
         root = root_dir,
-        main = root_dir .. '/main.typ',
+        main = root_dir and root_dir .. '/main.typ' or '',
         languages = { de = 'de-DE', en = 'en-GB' },
     },
 }
