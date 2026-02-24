@@ -174,7 +174,7 @@
     };
 
     voxtype = {
-      url = "github:peteonrails/voxtype/v0.5.5";
+      url = "github:peteonrails/voxtype/v0.6.2";
     };
 
     # My flakes

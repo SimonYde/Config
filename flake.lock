@@ -1143,11 +1143,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1770677590,
-        "narHash": "sha256-oJK7VQi6WLyqsXRG2t8H8+HiXPr6JsGo4Xei525ViNc=",
+        "lastModified": 1771929973,
+        "narHash": "sha256-PuJCTDtu3GTBBhEyvgbkXoWTzAVajCf7ZyRO59OjN8s=",
         "ref": "refs/heads/master",
-        "rev": "700b785882589c8a776fc972ad361cb96edc699d",
-        "revCount": 32,
+        "rev": "cc6758e85f109961130e82db5d85bf321ae295a1",
+        "revCount": 33,
         "type": "git",
         "url": "ssh://git@github.com/SimonYde/secrets.git"
       },
@@ -1486,16 +1486,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1769797803,
-        "narHash": "sha256-w2d65BKXgC2M7EKDJ43beOQ2JXECsPSR9Z45sOT1Hi8=",
+        "lastModified": 1771435747,
+        "narHash": "sha256-B9/Aiffb0ukt4I1y2qlkrulukfMiao4JwkQF63l7ouU=",
         "owner": "peteonrails",
         "repo": "voxtype",
-        "rev": "c15290a49fc3454f5cda6a46af49014e20e29e2e",
+        "rev": "1f24502959afeda5a07920cb0011d3d340b47dba",
         "type": "github"
       },
       "original": {
         "owner": "peteonrails",
-        "ref": "v0.5.5",
+        "ref": "v0.6.2",
         "repo": "voxtype",
         "type": "github"
       }
