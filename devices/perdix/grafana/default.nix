@@ -14,6 +14,10 @@ in
     file = "${inputs.secrets}/grafanaClientSecret.age";
     owner = "grafana";
   };
+  age.secrets.grafanaSecuritySecret = {
+    file = "${inputs.secrets}/grafanaSecuritySecret.age";
+    owner = "grafana";
+  };
 
   services = {
     grafana = {
@@ -38,7 +42,7 @@ in
 
           name = "Kanidm";
           client_id = "grafana";
-          client_secret = "$__file{/run/agenix/grafanaClientSecret}";
+          client_secret = "$__file{${config.age.secrets.grafanaClientSecret.path}}";
 
           auth_url = "https://auth.simonyde.com/ui/oauth2";
           token_url = "https://auth.simonyde.com/oauth2/token";
@@ -64,7 +68,10 @@ in
         dashboards.default_home_dashboard_path = "${./dashboards/home.json}";
 
         feature_toggles.enable = "autoMigrateOldPanels newVizTooltips";
-        security.angular_support_enabled = false;
+        security = {
+          secret_key = "$__file{${config.age.secrets.grafanaSecuritySecret.path}}";
+          angular_support_enabled = false;
+        };
       };
 
       provision = {
