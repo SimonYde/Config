@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  lib,
+  lib, inputs,
   ...
 }:
 let
@@ -30,6 +30,8 @@ in
 
     groups.mimir = { };
   };
+
+  age.secrets."mimir/alertmanager-config".file = "${inputs.secrets}/mimirAlertManagerConfig.age";
 
   services = {
     mimir = {
@@ -70,27 +72,7 @@ in
         alertmanager = {
           # FIXME: WHAT https://github.com/grafana/mimir/issues/2910
           sharding_ring.replication_factor = 2;
-          fallback_config_file = pkgs.writers.writeYAML "alertmanager.yaml" {
-            route = {
-              group_by = [ "alertname" ];
-              receiver = "email";
-            };
-            receivers = [
-              {
-                name = "email";
-                email_configs = [
-                  {
-                    to = email.toAddress;
-                    from = email.fromAddress;
-                    smarthost = "${email.smtpServer}:${toString email.smtpPort}";
-                    auth_username = email.smtpUsername;
-                    auth_password_file = email.smtpPasswordPath;
-                    require_tls = true;
-                  }
-                ];
-              }
-            ];
-          };
+          fallback_config_file = "/run/credentials/mimir.service/alertmanager-config";
         };
         alertmanager_storage.backend = "filesystem";
 
@@ -115,6 +97,7 @@ in
       serviceConfig = {
         DynamicUser = lib.mkForce false;
         User = "mimir";
+        LoadCredential = [ "alertmanager-config:/run/agenix/mimir/alertmanager-config" ];
       };
     };
 

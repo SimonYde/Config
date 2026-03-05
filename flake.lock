@@ -1143,11 +1143,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1772195561,
-        "narHash": "sha256-Lj+GtbiTXwo+d32FpWX6jINwkk1VxuFASlBfYNxz6kc=",
+        "lastModified": 1772743794,
+        "narHash": "sha256-UneSPloesNHzvMOgXkbVJ0OeJtZoJkByiuNuXQzvG6c=",
         "ref": "refs/heads/master",
-        "rev": "786de6f4358ddc36219fb50abe8bef8fe22a25e6",
-        "revCount": 34,
+        "rev": "31a18f685292d92a4e2f06f274bc9d32c360282e",
+        "revCount": 35,
         "type": "git",
         "url": "ssh://git@github.com/SimonYde/secrets.git"
       },

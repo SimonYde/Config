@@ -2,7 +2,7 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur = {
       url = "github:nix-community/NUR";
@@ -225,7 +225,15 @@
             stylua.enable = true;
             deadnix.enable = true;
             statix.enable = true;
+            pretty-format-json = {
+              enable = true;
+              args = [
+                "--autofix"
+                "--no-ensure-ascii"
+              ];
+            };
           };
+          package = pkgs.prek;
         };
       };
 
