@@ -32,6 +32,8 @@ in
     };
   };
 
+  system.stateVersion = "25.05";
+
   boot = {
     loader.systemd-boot.enable = mkForce false;
     kernelPackages = pkgs.linuxPackages_zen;
@@ -165,6 +167,8 @@ in
         pkgs.idasen
         adjust-table
       ];
+
+      syde.cft.enable = true;
 
       programs.hyprlock.enable = lib.mkForce false;
       programs.swaylock.enable = true;

@@ -26,7 +26,7 @@ in
     ./applications
   ];
 
-  system.stateVersion = mkDefault "25.05";
+  system.stateVersion = mkDefault (throw "stateVersion should be defined.");
 
   i18n.defaultLocale = "en_GB.UTF-8";
 
@@ -143,10 +143,7 @@ in
     useUserPackages = true;
 
     users.${username}.imports = [ ./home-manager ];
-    users.root.imports = [
-      ./home-manager
-      ./home-manager/root.nix
-    ];
+    users.root.imports = [ ./home-manager ];
   };
 
   age = {
@@ -172,6 +169,7 @@ in
   };
 
   system = {
+    # Better version tracking
     nixos =
       let
         meta = inputs.nixpkgs;

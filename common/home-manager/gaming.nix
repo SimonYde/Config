@@ -3,8 +3,7 @@
   home.packages = with pkgs; [
     # Applications
     heroic # Epic / Gog
-    # limo # mod manager
-    # nexusmods-app-unfree # WIP official Nexusmods mod manager
+    limo # mod manager
 
     winetricks
     protontricks

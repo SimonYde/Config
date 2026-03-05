@@ -87,6 +87,7 @@ in
   };
 
   hardware.enableRedistributableFirmware = true;
+  hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.stable;
 
   services = {
     logind.settings.Login.HandleLidSwitch = "ignore";

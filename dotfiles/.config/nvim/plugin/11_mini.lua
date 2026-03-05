@@ -83,17 +83,12 @@ Load.later(function()
     local diagnostic_level = function(level)
         local n = #vim.diagnostic.get(0, { severity = level })
         local sign = vim.diagnostic.config().signs.text[level]
-        return (n == 0) and '' or sign .. ' ' .. n
+        return n == 0 and '' or sign .. ' ' .. n
     end
 
     local section_macro_recording = function()
         local recording_register = vim.fn.reg_recording()
-
-        if recording_register == '' then
-            return ''
-        else
-            return ('rec @%s'):format(recording_register)
-        end
+        return recording_register == '' and '' or 'rec @' .. recording_register
     end
 
     MiniStatusline.setup({

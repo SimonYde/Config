@@ -11,6 +11,8 @@
     ../common/desktop.nix
   ];
 
+  system.stateVersion = "25.11";
+
   specialisation."gaming".configuration = {
     syde.gaming.enable = true;
     environment.etc."specialisation".text = "gaming";
