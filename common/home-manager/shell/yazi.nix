@@ -5,7 +5,7 @@
     enableBashIntegration = true;
     enableNushellIntegration = true;
 
-    shellWrapperName = "yy";
+    shellWrapperName = "y";
 
     settings = {
       opener.extract = [

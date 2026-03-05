@@ -4,7 +4,7 @@
   lib,
   inputs,
   ...
-}:
+}@args:
 let
   inherit (lib) mkDefault removePrefix;
 in
@@ -12,16 +12,19 @@ in
   imports = [
     inputs.agenix.homeManagerModules.default
     ./shell
+    ./ctf.nix
   ];
 
   xdg.enable = true;
+
+  # Used for wezterm SSH sessions
+  programs.wezterm.enable = true;
 
   age.package = pkgs.rage;
 
   # Save a bit of space on servers.
   manual.manpages.enable = false;
   programs.man.enable = mkDefault false;
-  programs.wezterm.enable = true;
 
   lib.meta = {
     configPath = "/home/syde/Config"; # Should be the location of the config repo.
@@ -39,7 +42,7 @@ in
   };
 
   home = {
-    stateVersion = mkDefault "25.05";
+    stateVersion = mkDefault (if args ? osConfig then args.osConfig.system.stateVersion else "25.05");
     preferXdgDirectories = true;
 
     # FIXME: hack to reload dbus activated things

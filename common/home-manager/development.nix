@@ -52,6 +52,7 @@ in
         ast-grep
 
         glab
+        codeberg-cli
 
         kattis-cli
         kattis-test

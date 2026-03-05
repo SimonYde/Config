@@ -94,6 +94,8 @@ in
     };
   };
 
+  programs.btop.settings.color_theme = lib.mkDefault "TTY";
+
   programs.carapace = {
     enableBashIntegration = true;
     enableNushellIntegration = true;
@@ -105,7 +107,7 @@ in
       "host"
       "kernel"
       "uptime"
-      "packages"
+      # "packages"
       "shell"
       "cpu"
       "gpu"
