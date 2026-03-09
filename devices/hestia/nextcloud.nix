@@ -69,7 +69,6 @@ in
             calendar
             collectives
             contacts
-            cookbook
             groupfolders
             memories
             music

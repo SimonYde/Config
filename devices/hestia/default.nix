@@ -19,6 +19,7 @@ in
     ./fail2ban.nix
     ./immich.nix
     ./jellyfin.nix
+    ./mealie.nix
     ./nextcloud.nix
     ./opencloud.nix
     ./paperless.nix
@@ -94,6 +95,8 @@ in
       enable = true;
       mediaDir = "/mnt/tank/jellyfin";
     };
+
+    mealie.enable = true;
 
     opencloud = {
       enable = false;
