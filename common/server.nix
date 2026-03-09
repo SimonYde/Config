@@ -15,8 +15,18 @@ in
       type = types.str;
       default = "";
       description = ''
-        Base domain name to be used to access the homelab services via Caddy reverse proxy
+        Base domain name to be used to access the homelab services via reverse proxy
       '';
+      example = "example.com";
+    };
+
+    authDomain = mkOption {
+      type = types.str;
+      default = "auth.${cfg.baseDomain}";
+      description = ''
+        domain name to be used for authentication flows such as OAuth2
+      '';
+      example = "auth.example.com";
     };
 
     user = lib.mkOption {

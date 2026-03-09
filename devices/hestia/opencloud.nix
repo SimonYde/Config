@@ -12,7 +12,7 @@ in
 
         environment = {
           OC_LOG_LEVEL = "warn";
-          OC_OIDC_ISSUER = "https://auth.simonyde.com/oauth2/openid/opencloud";
+          OC_OIDC_ISSUER = "https://${server.authDomain}/oauth2/openid/opencloud";
           OC_OIDC_CLIENT_ID = "opencloud";
           OC_EXCLUDE_RUN_SERVICES = "idp";
           OC_ADD_RUN_SERVICES = "collaboration";
@@ -31,15 +31,15 @@ in
                 role_mapping = [
                   {
                     role_name = "admin";
-                    claim_value = "oc_admins@auth.simonyde.com";
+                    claim_value = "oc_admins@${server.authDomain}";
                   }
                   {
                     role_name = "user";
-                    claim_value = "oc_users@auth.simonyde.com";
+                    claim_value = "oc_users@${server.authDomain}";
                   }
                   {
                     role_name = "guest";
-                    claim_value = "oc_guests@auth.simonyde.com";
+                    claim_value = "oc_guests@${server.authDomain}";
                   }
                 ];
               };
@@ -54,7 +54,7 @@ in
               connect-src = [
                 "'self'"
                 "blob:"
-                "https://auth.simonyde.com/"
+                "https://${server.authDomain}/"
                 "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
               ];
               default-src = [

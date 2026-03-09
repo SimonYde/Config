@@ -49,6 +49,7 @@ in
     services.fail2ban.enable = true;
 
     server.baseDomain = "tmcs.dk";
+    server.authDomain = "auth.simonyde.com";
 
     zfs.enable = true;
   };

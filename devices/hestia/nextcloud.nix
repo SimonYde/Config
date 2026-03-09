@@ -155,7 +155,7 @@ in
           ${occ} user_oidc:provider Kanidm \
               --clientid="nextcloud" \
               --clientsecret="$CLIENT_SECRET" \
-              --discoveryuri="https://auth.simonyde.com/oauth2/openid/nextcloud/.well-known/openid-configuration" \
+              --discoveryuri="https://${server.authDomain}/oauth2/openid/nextcloud/.well-known/openid-configuration" \
               --scope="openid groups email profile" \
               --unique-uid=0 \
               --group-provisioning=1 \

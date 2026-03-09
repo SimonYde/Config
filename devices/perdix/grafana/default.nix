@@ -44,9 +44,9 @@ in
           client_id = "grafana";
           client_secret = "$__file{${config.age.secrets.grafanaClientSecret.path}}";
 
-          auth_url = "https://auth.simonyde.com/ui/oauth2";
-          token_url = "https://auth.simonyde.com/oauth2/token";
-          api_url = "https://auth.simonyde.com/oauth2/openid/grafana/userinfo";
+          auth_url = "https://${server.authDomain}/ui/oauth2";
+          token_url = "https://${server.authDomain}/oauth2/token";
+          api_url = "https://${server.authDomain}/oauth2/openid/grafana/userinfo";
 
           login_attribute_path = "preferred_username";
           scopes = [
@@ -62,7 +62,7 @@ in
           auto_login = true;
           allow_assign_grafana_admin = true;
 
-          role_attribute_path = "contains(groups[*], 'grafana_admins@auth.simonyde.com') && 'GrafanaAdmin' || 'Viewer'";
+          role_attribute_path = "contains(groups[*], 'grafana_admins@${server.authDomain}') && 'GrafanaAdmin' || 'Viewer'";
         };
 
         dashboards.default_home_dashboard_path = "${./dashboards/home.json}";

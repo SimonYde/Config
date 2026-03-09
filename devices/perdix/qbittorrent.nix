@@ -55,7 +55,7 @@ in
           port = 7476;
           metricsEnabled = true;
           oidcEnabled = true;
-          oidcIssuer = "https://auth.simonyde.com/oauth2/openid/qui";
+          oidcIssuer = "https://${server.authDomain}/oauth2/openid/qui";
           oidcClientId = "qui";
           oidcRedirectUrl = "https://qui.ts.simonyde.com/api/auth/oidc/callback";
           oidcDisableBuiltInLogin = true;

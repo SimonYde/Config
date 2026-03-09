@@ -65,7 +65,7 @@ in
             roleClaim = "immich_role";
             scope = "openid email profile immich_role";
             buttonText = "Login with Kanidm";
-            issuerUrl = "https://auth.simonyde.com/oauth2/openid/immich";
+            issuerUrl = "https://${server.authDomain}/oauth2/openid/immich";
             signingAlgorithm = "ES256";
             clientSecret._secret = config.age.secrets.immichClientSecret.path;
           };
