@@ -7,11 +7,13 @@ module agenix {
         rbw get "SSH syde" | save -f $file
         log info $"Wrote private key to `($file)`"
 
-        agenix --rekey -i $file
-        log info $"Rekeyed secrets"
-
-        rm -rf $file
-        log info $"Deleted private key file: `($file)`"
+        try {
+            agenix --rekey -i $file
+            log info $"Rekeyed secrets"
+        } finally {
+            rm -rf $file
+            log info $"Deleted private key file: `($file)`"
+        }
     }
 
     export def "agenix edit" [input: path] {
@@ -21,11 +23,13 @@ module agenix {
         rbw get "SSH syde" | save -f $file
         log info $"Wrote private key to `($file)`"
 
-        agenix -i $file -e $input
-        log info $"Finished editing `($input)`"
-
-        rm -rf $file
-        log info $"Deleted private key file: `($file)`"
+        try {
+            agenix -i $file -e $input
+            log info $"Finished editing `($input)`"
+        } finally {
+            rm -rf $file
+            log info $"Deleted private key file: `($file)`"
+        }
     }
 }
 
