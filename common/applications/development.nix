@@ -61,21 +61,16 @@ in
       SSH_AUTH_SOCK = "/tmp/ssh-agent.socket";
     };
 
-    programs = {
-      fish.enable = true; # NOTE: for system completions.
-
-      nix-ld = {
-        enable = true;
-        libraries = options.programs.nix-ld.libraries.default ++ [
-          pkgs.fontconfig
-          pkgs.freetype
-          pkgs.libgbm
-          pkgs.libinput
-          pkgs.libxkbcommon
-          pkgs.udev
-        ];
-      };
-
+    programs.nix-ld = {
+      enable = true;
+      libraries = options.programs.nix-ld.libraries.default ++ [
+        pkgs.fontconfig
+        pkgs.freetype
+        pkgs.libgbm
+        pkgs.libinput
+        pkgs.libxkbcommon
+        pkgs.udev
+      ];
     };
 
     users.users.${username}.extraGroups = [

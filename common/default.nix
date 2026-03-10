@@ -65,6 +65,9 @@ in
   programs = {
     command-not-found.enable = false;
 
+
+    fish.enable = true; # TODO(2026-03-10 Simon Yde): for system completions.
+
     ssh.knownHosts = mapAttrs (_: key: { publicKey = key; }) keys;
 
     nh = {

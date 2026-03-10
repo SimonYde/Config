@@ -96,8 +96,6 @@ in
           };
         };
 
-        fish.enable = true;
-
         gh = {
           enable = true;
           settings.git_protocol = "ssh";
@@ -265,7 +263,6 @@ in
         };
 
         nushell.environmentVariables = rec {
-          CARAPACE_BRIDGES = "fish,bash";
           # always use rootless podman
           CONTAINER_HOST = "unix:///run/user/1000/podman/podman.sock";
           DOCKER_HOST = CONTAINER_HOST;

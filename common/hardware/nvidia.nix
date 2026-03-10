@@ -29,7 +29,7 @@ in
         modesetting.enable = true;
         nvidiaSettings = mkDefault false;
         open = mkDefault true;
-        package = config.boot.kernelPackages.nvidiaPackages.latest;
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
       };
 
       nvidia-container-toolkit.enable =

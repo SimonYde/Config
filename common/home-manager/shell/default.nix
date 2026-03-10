@@ -43,6 +43,7 @@ in
     # Shells
     bash.enable = true;
     nushell.enable = true;
+    fish.enable = true;
 
     # Editor
     neovim.enable = true;
@@ -164,6 +165,10 @@ in
       polars
       # skim
     ];
+
+    environmentVariables = {
+      CARAPACE_BRIDGES = "fish,bash";
+    };
   };
 
   programs.ripgrep.arguments = [

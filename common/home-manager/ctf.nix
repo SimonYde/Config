@@ -12,8 +12,8 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      (cutter.withPlugins (plugins: [
-        plugins.rz-ghidra
+      (cutter.withPlugins (plugins: with plugins; [
+        rz-ghidra
       ]))
     ];
   };
