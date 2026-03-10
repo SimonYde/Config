@@ -1,6 +1,11 @@
 local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 
-Load.now(function() require('mini.sessions').setup() end)
+Load.now(function()
+    require('mini.sessions').setup()
+    require('mini.starter').setup({
+        evaluate_single = true,
+    })
+end)
 
 Load.now_if_args(function()
     MiniMisc.setup_restore_cursor()
