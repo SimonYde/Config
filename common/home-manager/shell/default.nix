@@ -33,6 +33,7 @@ in
 
     shellAliases = {
       st = "systemctl-tui";
+      sst = "sudo systemctl-tui";
       ll = "ls -l";
       lla = "ls -la";
       la = "ls -a";
@@ -64,7 +65,7 @@ in
     pandoc.enable = true;
     ripgrep.enable = true;
     starship.enable = true;
-    television.enable = true;
+    television.enable = false;
     yazi.enable = true;
     zellij.enable = true;
     zoxide.enable = true;
@@ -131,12 +132,12 @@ in
   programs.fzf = {
     colors = {
       bg = "";
-      "bg+" = "red";
+      "bg+" = "black";
       fg = "blue";
-      "fg+" = "black";
+      "fg+" = "green";
       header = "black";
-      "hl" = "yellow";
-      "hl+" = "yellow";
+      "hl" = "red";
+      "hl+" = "red";
       info = "yellow";
       marker = "cyan";
       pointer = "red";

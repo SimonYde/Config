@@ -1,7 +1,7 @@
 module agenix {
     use std/log
     export def "agenix rekey" [ ] {
-        let file = mktemp -t
+        let file = mktemp
         log info $"Created `($file)` to store key"
 
         rbw get "SSH syde" | save -f $file
@@ -11,13 +11,13 @@ module agenix {
             agenix --rekey -i $file
             log info $"Rekeyed secrets"
         } finally {
-            rm -rf $file
+            rm -fp $file
             log info $"Deleted private key file: `($file)`"
         }
     }
 
     export def "agenix edit" [input: path] {
-        let file = mktemp -t
+        let file = mktemp
         log info $"Created `($file)` to store key"
 
         rbw get "SSH syde" | save -f $file
@@ -27,7 +27,7 @@ module agenix {
             agenix -i $file -e $input
             log info $"Finished editing `($input)`"
         } finally {
-            rm -rf $file
+            rm -fp $file
             log info $"Deleted private key file: `($file)`"
         }
     }

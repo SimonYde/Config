@@ -71,7 +71,6 @@ in
             contacts
             groupfolders
             memories
-            music
             notes
             tasks
             previewgenerator

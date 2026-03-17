@@ -15,7 +15,10 @@ in
       (cutter.withPlugins (plugins: with plugins; [
         rz-ghidra
       ]))
+
     ];
+
+    programs.rizin.enable = true;
   };
 
   options.syde.cft = {

@@ -20,7 +20,7 @@ inputs: [
     {
       stable = import inputs.stable { inherit system config; };
 
-      # inherit (final.stable) libreoffice rclone-browser lutris;
+      # inherit (final.stable) heroic;
 
       nushell-wrapped = final.writeTextFile {
         name = "nushell-wrapped";

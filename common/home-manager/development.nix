@@ -127,7 +127,6 @@ in
                 "-c"
                 "DiffEditor $left $right $output"
               ];
-              merge-editor = "mergiraf";
             };
 
             signing = {
@@ -208,7 +207,11 @@ in
         };
 
         man.enable = true;
-        mergiraf.enable = true;
+        mergiraf = {
+          enable = true;
+          enableJujutsuIntegration = true;
+          enableGitIntegration = true;
+        };
 
         neovim.plugins =
           with pkgs.vimPlugins;

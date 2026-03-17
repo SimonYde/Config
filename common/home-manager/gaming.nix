@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     # Applications
-    heroic # Epic / Gog
+    # heroic # Epic / Gog
     limo # mod manager
 
     winetricks

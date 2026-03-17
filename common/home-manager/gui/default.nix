@@ -3,6 +3,7 @@
   pkgs,
   config,
   inputs,
+  username,
   ...
 }@args:
 
@@ -61,6 +62,7 @@ in
         vivid.enable = true;
         voxtype.enable = true;
         wayprompt.enable = true;
+        thunderbird.enable = false;
         yt-dlp.enable = true;
         zathura.enable = true;
       };
@@ -127,9 +129,6 @@ in
             "inode/directory" = "${file-manager.name}.desktop";
 
             "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
-
-            "x-scheme-handler/magnet" = "org.qbittorrent.qBittorrent.desktop";
-            "application/x-bittorrent" = "org.qbittorrent.qBittorrent.desktop";
 
             "image/apng" = "${image-viewer.name}.desktop";
             "image/avif" = "${image-viewer.name}.desktop";
@@ -291,6 +290,10 @@ in
               history
             ];
           };
+
+        thunderbird.profiles.${config.home.username} = {
+          isDefault = true;
+        };
 
         wlogout.layout = [
           {
