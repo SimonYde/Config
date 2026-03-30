@@ -25,7 +25,7 @@ in
     ./lidarr.nix
     ./bazarr.nix
     ./prowlarr.nix
-    ./jellyseerr.nix
+    ./seerr.nix
     ./radarr.nix
     ./sonarr.nix
   ];

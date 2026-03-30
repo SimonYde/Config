@@ -22,7 +22,7 @@ in
         "lidarr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
         "bazarr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
         "bitmagnet.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-        "jellyseerr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
+        "seerr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
       };
     };
   };
