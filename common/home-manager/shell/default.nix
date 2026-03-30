@@ -38,6 +38,10 @@ in
       lla = "ls -la";
       la = "ls -a";
     };
+
+    sessionVariables = {
+      NU_EXPERIMENTAL_OPTIONS = "native-clip";
+    };
   };
 
   programs = {
