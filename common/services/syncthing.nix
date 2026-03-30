@@ -34,6 +34,8 @@ in
 
       settings = {
         options = {
+          # FIXME(2026-03-28 Simon Yde): https://github.com/syncthing/syncthing/issues/10611
+          listenAddresses = [ "tcp://:22000" ];
           urAccepted = -1;
         };
 
