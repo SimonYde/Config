@@ -48,11 +48,6 @@ in
           "/dev/dri/renderD128"
         ];
 
-        database = {
-          enableVectors = false;
-          enableVectorChord = true;
-        };
-
         port = 2283;
         mediaLocation = "${cfg.mediaDir}";
 

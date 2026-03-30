@@ -43,7 +43,7 @@ in
 
     services = {
       nextcloud = {
-        package = pkgs.nextcloud32;
+        package = pkgs.nextcloud33;
         hostName = "cloud.${server.baseDomain}";
         datadir = "/mnt/tank/nextcloud";
         database.createLocally = true;
@@ -70,7 +70,7 @@ in
             collectives
             contacts
             groupfolders
-            memories
+            # memories
             notes
             tasks
             previewgenerator
