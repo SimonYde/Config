@@ -27,10 +27,10 @@ let
             keyword general:border_size 1;\
             keyword decoration:rounding 0"
 
-        systemctl --user stop waybar.service hyprland-autoname-workspaces.service swww.service
+        systemctl --user stop waybar.service hyprland-autoname-workspaces.service awww.service
     else
         hyprctl reload
-        systemctl --user start waybar.service hyprland-autoname-workspaces.service swww.service
+        systemctl --user start waybar.service hyprland-autoname-workspaces.service awww.service
     fi
   '';
 in
@@ -64,7 +64,7 @@ in
 
     swaync.enable = true;
     swayosd.enable = true;
-    swww.enable = true;
+    awww.enable = true;
   };
 
   wayland.windowManager.hyprland = {

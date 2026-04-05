@@ -345,7 +345,7 @@ in
     };
   };
 
-  services.swww.wallpaperDir = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
+  services.awww.wallpaperDir = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
 
   wayland.windowManager.hyprland.settings = with colors; {
     "$opacity_popups" = opacity.popups;

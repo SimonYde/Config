@@ -3,14 +3,12 @@
   pkgs,
   config,
   inputs,
-  username,
   ...
 }@args:
 
 let
   inherit (lib)
     getExe
-    mkForce
     mkIf
     mkMerge
     mkOption
@@ -31,7 +29,7 @@ in
   imports = [
     ./browser.nix
     ./waybar.nix
-    ./swww.nix
+    ./awww.nix
     ./voxtype.nix
 
     inputs.spicetify-nix.homeManagerModules.default
@@ -57,7 +55,7 @@ in
         imv.enable = true;
         mpv.enable = true;
         ncspot.enable = false;
-        rclone.enable = true;
+        rclone.enable = false;
         spicetify.enable = true;
         vivid.enable = true;
         voxtype.enable = true;
@@ -95,8 +93,6 @@ in
         discord
         betterdiscordctl
         ferdium
-
-        rclone-browser
 
         imagemagick
         kdePackages.ark

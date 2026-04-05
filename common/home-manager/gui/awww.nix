@@ -12,17 +12,17 @@ let
     types
     ;
 
-  cfg = config.services.swww;
+  cfg = config.services.awww;
 
   random-wallpaper =
     pkgs.writers.writeNuBin "random-wallpaper" # nu
       ''
         const WALLPAPER_DIR = "${cfg.wallpaperDir}"
-        let current = swww query | parse --regex "image: (?<image>.*$)" | default --empty [{ image: "" }] | first | get image
+        let current = awww query | parse --regex "image: (?<image>.*$)" | default --empty [{ image: "" }] | first | get image
 
         cd $WALLPAPER_DIR
         let new = glob **/*.{png,jpeg,jpg} | where $it != $current | shuffle | first
-        swww img $new
+        awww img $new
 
         if "XDG_RUNTIME_DIR" in $env {
           ln --symbolic --force $"($new)" $"($env.XDG_RUNTIME_DIR)/current-wallpaper"
@@ -30,7 +30,7 @@ let
       '';
 in
 {
-  options.services.swww = {
+  options.services.awww = {
     wallpaperDir = mkOption {
       type = types.str;
     };
@@ -51,8 +51,8 @@ in
       services.random-wallpaper = {
         Unit = {
           Description = "Cycle hyprpaper to new wallpaper at random";
-          After = [ "swww.service" ];
-          Requires = [ "swww.service" ];
+          After = [ "awww.service" ];
+          Requires = [ "awww.service" ];
         };
 
         Service = {
@@ -63,7 +63,7 @@ in
           RestartSec = "10";
         };
 
-        Install.WantedBy = [ "swww.service" ];
+        Install.WantedBy = [ "awww.service" ];
       };
     };
   };
