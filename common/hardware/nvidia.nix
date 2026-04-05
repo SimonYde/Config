@@ -32,8 +32,8 @@ in
         package = config.boot.kernelPackages.nvidiaPackages.stable;
       };
 
-      nvidia-container-toolkit.enable =
-        config.virtualisation.docker.enable || config.virtualisation.podman.enable;
+      nvidia-container-toolkit.enable = false;
+        # config.virtualisation.docker.enable || config.virtualisation.podman.enable;
 
       graphics = {
         enable = true;

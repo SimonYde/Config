@@ -63,14 +63,16 @@ in
 
     programs.nix-ld = {
       enable = true;
-      libraries = options.programs.nix-ld.libraries.default ++ [
-        pkgs.fontconfig
-        pkgs.freetype
-        pkgs.libgbm
-        pkgs.libinput
-        pkgs.libxkbcommon
-        pkgs.udev
-      ];
+      libraries =
+        options.programs.nix-ld.libraries.default
+        ++ (with pkgs; [
+          fontconfig
+          freetype
+          libgbm
+          libinput
+          libxkbcommon
+          udev
+        ]);
     };
 
     users.users.${username}.extraGroups = [

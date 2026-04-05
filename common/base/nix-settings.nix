@@ -15,6 +15,7 @@
       builders-use-substitutes = true;
       use-xdg-base-directories = true;
       log-lines = 9999;
+      log-format = "multiline-with-logs";
 
       experimental-features = [
         "nix-command"

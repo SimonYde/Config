@@ -117,7 +117,7 @@ wezterm.on("format-tab-title", function(tab, tabs)
 end)
 
 wezterm.on('update-right-status', function(window, pane)
-  window:set_right_status(window:active_workspace())
+	window:set_right_status(' ' .. window:active_workspace() .. ' ')
 end)
 
 return config

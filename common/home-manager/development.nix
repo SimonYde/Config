@@ -122,11 +122,8 @@ in
               default-command = "status";
               pager = lib.getExe pkgs.delta;
               diff-formatter = ":git";
-              diff-editor = [
-                "nvim"
-                "-c"
-                "DiffEditor $left $right $output"
-              ];
+              diff-editor = ":builtin";
+              # diff-editor = [ "nvim" "-c" "DiffEditor $left $right $output" ];
             };
 
             signing = {
@@ -500,6 +497,7 @@ in
           rustup
           cargo-binstall
           cargo-bloat
+          cargo-wizard
 
           codelldb # from rustaceanvim flake, see `../../overlays.nix`
           pkg-config
