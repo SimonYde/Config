@@ -21,7 +21,7 @@ in
     ./languagetool.nix
 
     ./qbittorrent.nix
-    ./bitmagnet.nix
+    # ./bitmagnet.nix
     ./lidarr.nix
     ./bazarr.nix
     ./prowlarr.nix

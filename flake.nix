@@ -157,24 +157,16 @@
       };
     };
 
-    elephant = {
-      url = "github:abenz1267/elephant/v2.17.2";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
     walker = {
       url = "github:abenz1267/walker";
       inputs = {
-        elephant.follows = "elephant";
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
     };
 
     voxtype = {
-      url = "github:peteonrails/voxtype/v0.6.2";
+      url = "github:peteonrails/voxtype/v0.6.5";
     };
 
     # My flakes

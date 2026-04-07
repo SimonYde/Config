@@ -38,7 +38,6 @@ inputs: [
 
       inherit (inputs.rustaceanvim.packages.${system}) codelldb;
       inherit (inputs.typst-languagetool.packages.${system}) typst-languagetool-lsp;
-      inherit (inputs.walker.packages.${system}) walker;
 
       grawlix = inputs.grawlix.packages.${system}.default;
       agenix = inputs.agenix.packages.${system}.default.override {
@@ -77,6 +76,13 @@ inputs: [
             version = mkDate inputs.vim-alloy;
             pname = "vim-alloy";
             src = inputs.vim-alloy;
+          };
+
+          catppuccin-nvim = prev.vimPlugins.catppuccin-nvim.overrideAttrs {
+            nvimSkipModule = [
+              "catppuccin.lib.detect_integrations"
+              "catppuccin.groups.integrations.noice"
+            ];
           };
 
           wezterm-types =

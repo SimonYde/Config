@@ -37,7 +37,8 @@
   networking.firewall.enable = false;
 
   # very shitty OOM killer, to make up for WSL not having PSI
-  systemd.services.nix-daemon.serviceConfig.MemoryMax = "95%";
+  systemd.services."nix-daemon@".serviceConfig.MemoryMax = "95%";
+  systemd.services."nix-daemon".serviceConfig.MemoryMax = "95%";
 
   home-manager.users.${username} = {
     home.shellAliases = {

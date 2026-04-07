@@ -31,7 +31,7 @@ in
           };
         };
 
-        nix-daemon.environment = {
+        "nix-daemon@".environment = {
           inherit (config.environment.variables) SSH_AUTH_SOCK;
           # avoid random magic connection resets
           NIX_SSHOPTS = "-oServerAliveInterval=30";

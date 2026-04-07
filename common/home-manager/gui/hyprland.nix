@@ -188,6 +188,7 @@ in
 
   programs.walker.runAsService = true;
   programs.walker.config = options.programs.walker.config.default;
+  programs.elephant.package = pkgs.elephant;
   programs.elephant.provider = {
     websearch = {
       settings = {
