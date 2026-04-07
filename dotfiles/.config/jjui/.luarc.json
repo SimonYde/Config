@@ -1,0 +1,8 @@
+{
+    "diagnostics.globals": [
+        "context",
+        "copy_to_clipboard",
+        "flash",
+        "exec_shell"
+    ]
+}
