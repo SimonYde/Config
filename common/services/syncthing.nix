@@ -50,6 +50,12 @@ in
             introducer = false;
           };
 
+          icarus-wsl = {
+            name = "Icarus-WSL";
+            id = "J7QIHVW-NE5SJW5-BKBH3U2-FMPOSCV-G7S5FKI-SXYIBFR-AEDBYW6-T663AAT";
+            introducer = false;
+          };
+
           icarus-windows = {
             name = "Icarus-Windows";
             id = "OAL3UXY-ZQBHPCJ-NNARFU4-RUCG7YU-SVGAF3Q-H22ZDUB-4DYDVBY-QTZUNQM";
@@ -108,6 +114,7 @@ in
             path = "${home}/Config";
             devices = [
               "icarus"
+              "icarus-wsl"
               "perdix"
               "talos"
               "hestia"
@@ -138,6 +145,7 @@ in
             path = "${home}/Projects";
             devices = [
               "icarus"
+              "icarus-wsl"
               "perdix"
               "talos"
             ];
