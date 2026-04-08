@@ -241,6 +241,7 @@ Load.later(function()
         MiniTrailspace.trim_last_lines()
     end, 'Clean trailing whitespace')
     nxmap('<leader>gg', MiniGit.show_at_cursor, 'Show git info at cursor')
+    nxmap('<leader>gd', MiniDiff.toggle_overlay, 'Show git diff')
 
     local visit_map = function(lhs, select_global, recency_weight, desc)
         nmap(lhs, function()

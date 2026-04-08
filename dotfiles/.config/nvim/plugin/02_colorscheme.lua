@@ -54,7 +54,6 @@ Load.later(function()
             lsp_trouble = true,
             which_key = true,
 
-            diffview = true,
             neogit = true,
 
             treesitter = true,

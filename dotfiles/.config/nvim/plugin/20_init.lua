@@ -114,21 +114,10 @@ end)
 Load.on_events('event:InsertEnter', function() require('nvim-autopairs').setup() end)
 
 Load.later(function()
-    Load.packadd('diffview.nvim')
-    require('diffview').setup()
-
-    nmap('<leader>gd', function()
-        local call = vim.g.diffview_is_open and vim.cmd.DiffviewClose or vim.cmd.DiffviewOpen
-        vim.g.diffview_is_open = not vim.g.diffview_is_open
-        call()
-    end, 'Toggle git diffview')
-end)
-
-Load.later(function()
     Load.packadd('neogit')
     require('neogit').setup({
         integrations = {
-            diffview = true,
+            diffview = false,
             telescope = false,
             mini_pick = false,
         },

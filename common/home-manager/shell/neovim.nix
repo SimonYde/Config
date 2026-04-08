@@ -52,7 +52,6 @@ in
           # ----- Workflow -----
           conform-nvim
           trouble-nvim
-          diffview-nvim
           neogit
           todo-comments-nvim
           img-clip-nvim
