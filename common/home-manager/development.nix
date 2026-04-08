@@ -51,6 +51,8 @@ in
 
         ast-grep
 
+        gdbgui
+
         glab
         codeberg-cli
 
@@ -320,6 +322,7 @@ in
     (mkIf cfg.cpp.enable {
       home.packages = with pkgs; [
         gdb
+        gef
         gcc
         libgcc
         clang-tools
@@ -498,6 +501,8 @@ in
           cargo-binstall
           cargo-bloat
           cargo-wizard
+
+          gef
 
           codelldb # from rustaceanvim flake, see `../../overlays.nix`
           pkg-config
