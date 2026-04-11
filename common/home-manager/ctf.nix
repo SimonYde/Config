@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.syde.cft;
+  cfg = config.syde.ctf;
 in
 
 {
-  options.syde.cft = { };
+  options.syde.ctf = { };
 
   config = {
     home.packages = with pkgs; [

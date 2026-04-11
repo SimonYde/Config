@@ -63,6 +63,31 @@ $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)I (ansi reset)"
 $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)N (ansi reset)";
 $env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)M (ansi reset)";
 
+$env.ENV_CONVERSIONS = {
+  "PATH": {
+    from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+    to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+  }
+  "WSLPATH": {
+    from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+    to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+  }
+}
+
+def --wrapped win [ cmd, ...rest ] {
+  let input = $in
+  if "WSLPATH" in $env {
+    $env.PATH = ($env.PATH | append $env.WSLPATH)
+  }
+  $input | run-external $cmd ...$rest
+}
+
+def --env tokens [] {
+    $env.GITLAB_TOKEN = (rbw get "Gitlab Token")
+    $env.GITHUB_TOKEN = (rbw get "Github Token")
+    $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
+}
+
 try {
     if ("~/.config/rbw/config.json" | path exists) {
         rbw unlock
@@ -70,10 +95,5 @@ try {
         if not (try { ssh-add -l | str contains "stdin" } catch { false }) {
             rbw get 'SSH syde' | ssh-add -
         }
-
-        # $env.CACHIX_AUTH_TOKEN = (rbw get Cachix)
-        $env.GITLAB_TOKEN = (rbw get "Gitlab" --field "Token")
-        $env.GITHUB_TOKEN = (rbw get "Github" --field "Token")
-        $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
     }
 }

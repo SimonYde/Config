@@ -18,10 +18,13 @@ let
     pkgs.writers.writeNuBin "random-wallpaper" # nu
       ''
         const WALLPAPER_DIR = "${cfg.wallpaperDir}"
+
         let current = awww query | parse --regex "image: (?<image>.*$)" | default --empty [{ image: "" }] | first | get image
 
         cd $WALLPAPER_DIR
+
         let new = glob **/*.{png,jpeg,jpg} | where $it != $current | shuffle | first
+
         awww img $new
 
         if "XDG_RUNTIME_DIR" in $env {

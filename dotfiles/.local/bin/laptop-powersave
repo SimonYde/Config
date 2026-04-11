@@ -2,6 +2,14 @@
 
 use std/log
 
+const USER_SERVICES = [
+    hyprland-autoname-workspaces.service awww.service blueman-applet.service
+]
+
+const SERVICES = [
+    bluetooth.service syncthing.service
+]
+
 def on [ ] {
     try {
         hyprctl --batch ([
@@ -17,9 +25,9 @@ def on [ ] {
 
     powerprofilesctl set power-saver
     log info "Set power profile to `power-saver`"
-    systemctl --user stop hyprland-autoname-workspaces.service awww.service blueman-applet.service
+    systemctl --user stop ...$USER_SERVICES
     log info "Stopped certain user services"
-    systemctl stop bluetooth.service syncthing.service
+    systemctl stop ...$SERVICES
     log info "Disabled Bluetooth"
     set-refresh 60
     log info "Set screen refresh rate to 60"
@@ -28,7 +36,7 @@ def on [ ] {
 def set-refresh [refresh: int] {
     let monitors = hyprctl monitors -j | from json
     $monitors | each {
-        if $in.name =~ eDP {
+        if $in.name like eDP {
             hyprctl keyword monitor $"($in.name),($in.width)x($in.height)@($refresh),($in.x)x($in.y),($in.scale)"
         }
     }
@@ -38,9 +46,9 @@ def off [ ] {
     hyprctl reload
     powerprofilesctl set balanced
     log info "Set power profile to `balanced`"
-    systemctl --user start hyprland-autoname-workspaces.service awww.service blueman-applet.service
+    systemctl --user start ...$USER_SERVICES
     log info "Enabled certain user services"
-    systemctl start bluetooth.service syncthing.service
+    systemctl start ...$SERVICES
     log info "Enabled Bluetooth"
     set-refresh 120
     log info "Set screen refresh rate to 120"

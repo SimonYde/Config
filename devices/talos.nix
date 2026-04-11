@@ -19,7 +19,9 @@
   };
 
   syde = {
+    ctf.enable = true;
     development.enable = true;
+
     hardware = {
       laptop.enable = true;
       amd = {
@@ -47,6 +49,7 @@
 
   environment.systemPackages = with pkgs; [
     sbctl # Secure boot
+    virtiofsd
   ];
 
   fonts.fontconfig.subpixel.rgba = "rgb";
@@ -55,8 +58,6 @@
     hyprland.enable = true;
     partition-manager.enable = true;
     virt-manager.enable = true;
-    wireshark.enable = true;
-    sniffnet.enable = true;
   };
 
   hardware.framework.laptop13.audioEnhancement = {

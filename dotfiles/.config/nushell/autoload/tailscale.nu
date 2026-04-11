@@ -38,9 +38,9 @@ module tailscale {
 
     def statuses [] {
         [
-            {value: "on", description: "Use suggested node" },
-            {value: "off", description: "Set exit-node to nothing"},
-            {value: "set",description: "Select a node"},
+            {value: "on", description: "Use suggested node" }
+            {value: "off", description: "Set exit-node to nothing"}
+            {value: "set",description: "Select a node"}
         ]
     }
 

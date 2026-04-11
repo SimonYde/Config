@@ -45,7 +45,7 @@ in
       };
       wezterm.enable = false;
       jjui.enable = false;
-      rofi.enable = false;
+      rofi.enable = true;
       zellij.enable = true;
       gnome-text-editor.enable = false;
     };
@@ -95,6 +95,7 @@ in
   gtk = {
     gtk3.extraConfig.gtk-application-prefer-dark-theme = colors.variant == "dark";
     gtk4.extraConfig.gtk-application-prefer-dark-theme = colors.variant == "dark";
+    gtk4.theme = config.gtk.theme;
   };
 
   programs = {

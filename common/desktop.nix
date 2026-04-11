@@ -62,12 +62,6 @@ in
       piper
     ];
 
-  programs.wireshark.package = pkgs.wireshark;
-
-  users.users.${username}.extraGroups = [
-    (mkIf config.programs.wireshark.enable "wireshark")
-  ];
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "da_DK.UTF-8";
     LC_IDENTIFICATION = "da_DK.UTF-8";

@@ -47,8 +47,6 @@ in
 
   environment.systemPackages = with pkgs; [
     sbctl
-    distrobox
-    distrobox-tui
   ];
 
   fonts.fontconfig.subpixel.rgba = "rgb";
@@ -56,7 +54,6 @@ in
   programs = {
     hyprland.enable = true;
     partition-manager.enable = true;
-    wireshark.enable = false;
   };
 
   services = {
@@ -151,7 +148,7 @@ in
             use std/log
             let config = open ~/.config/idasen/idasen.yaml
             log info "open config"
-            let height = ${idasen} height | parse "{height} meters" | first | get height | into float | $in * 1000 | math round
+            let height = ${idasen} height | parse "{height} meters" | $in.0.height | into float | $in * 1000 | math round
             log info $"got desk height: ($height)"
 
             if $height == ($config.positions.sit * 1000 | math round) {
@@ -168,8 +165,6 @@ in
         pkgs.idasen
         adjust-table
       ];
-
-      syde.cft.enable = true;
 
       programs.hyprlock.enable = lib.mkForce false;
       programs.swaylock.enable = true;

@@ -3,6 +3,7 @@
   pkgs,
   config,
   options,
+  inputs,
   ...
 }:
 let
@@ -12,33 +13,9 @@ let
     mkForce
     ;
   inherit (config.syde.gui) file-manager terminal browser;
-
-  hyprland-gamemode = pkgs.writeShellScriptBin "hyprland-gamemode" ''
-    HYPRGAMEMODE=$(hyprctl getoption animations:enabled | sed -n '1p' | awk '{print $2}')
-
-    # Hyprland performance
-    if [ $HYPRGAMEMODE = 1 ]; then
-        hyprctl --batch "\
-            keyword animations:enabled 0;\
-            keyword decoration:drop_shadow 0;\
-            keyword decoration:blur:enabled 0;\
-            keyword general:gaps_in 0;\
-            keyword general:gaps_out 0;\
-            keyword general:border_size 1;\
-            keyword decoration:rounding 0"
-
-        systemctl --user stop waybar.service hyprland-autoname-workspaces.service awww.service
-    else
-        hyprctl reload
-        systemctl --user start waybar.service hyprland-autoname-workspaces.service awww.service
-    fi
-  '';
 in
 {
   home.packages = with pkgs; [
-    # My scripts
-    hyprland-gamemode
-
     wl-clipboard # clipboard manager
     hyprpicker # color picker
     hyprpwcenter # audio graph
@@ -47,6 +24,7 @@ in
   ];
 
   programs = {
+    rofi.enable = true;
     hyprshot.enable = true;
     hyprlock.enable = true;
     waybar.enable = true;
@@ -129,6 +107,27 @@ in
     };
   };
 
+  programs.walker.runAsService = true;
+  programs.walker.config = options.programs.walker.config.default;
+  # programs.walker.package = inputs.walker.packages.${pkgs.stdenv.hostPlatform.system}.walker;
+
+  programs.elephant.package = pkgs.elephant;
+  programs.elephant.provider = {
+    websearch = {
+      settings = {
+        entries = [
+          {
+            name = "Kagi";
+            url = "https://kagi.com/search?q=%TERM%";
+            default = true;
+          }
+        ];
+      };
+
+    };
+  };
+
+
   services.hyprsunset.settings = {
     max-gamma = 150;
 
@@ -185,24 +184,6 @@ in
         }
       ];
     };
-
-  programs.walker.runAsService = true;
-  programs.walker.config = options.programs.walker.config.default;
-  programs.elephant.package = pkgs.elephant;
-  programs.elephant.provider = {
-    websearch = {
-      settings = {
-        entries = [
-          {
-            name = "Kagi";
-            url = "https://kagi.com/search?q=%TERM%";
-            default = true;
-          }
-        ];
-      };
-
-    };
-  };
 
   systemd.user = {
     services.hyprland-autoname-workspaces = {
