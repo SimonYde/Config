@@ -10,8 +10,11 @@ let
 in
 
 {
-  config = lib.mkIf cfg.enable {
+  options.syde.cft = { };
+
+  config = {
     home.packages = with pkgs; [
+
       (cutter.withPlugins (plugins: with plugins; [
         rz-ghidra
       ]))
@@ -19,9 +22,5 @@ in
     ];
 
     programs.rizin.enable = true;
-  };
-
-  options.syde.cft = {
-    enable = lib.mkEnableOption "CFT tools";
   };
 }

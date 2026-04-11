@@ -12,7 +12,6 @@ in
   imports = [
     inputs.agenix.homeManagerModules.default
     ./shell
-    ./ctf.nix
   ];
 
   xdg.enable = true;
