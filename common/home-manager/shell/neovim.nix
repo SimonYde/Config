@@ -15,8 +15,9 @@ in
       gcc
     ];
     programs.neovim = {
-      initLua = lib.mkForce "";
       package = pkgs.neovim;
+      sideloadInitLua = true;
+
       defaultEditor = true;
 
       vimAlias = true;

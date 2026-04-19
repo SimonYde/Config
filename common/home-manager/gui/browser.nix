@@ -137,7 +137,13 @@ in
     };
 
     firefox.profiles.${username} = firefox-profile;
+    floorp = {
+      languagePacks = [
+        "da"
+        "en-GB"
 
-    floorp.profiles.${username} = firefox-profile;
+      ];
+      profiles.${username} = firefox-profile;
+    };
   };
 }

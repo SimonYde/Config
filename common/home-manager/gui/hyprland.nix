@@ -24,7 +24,6 @@ in
   ];
 
   programs = {
-    rofi.enable = true;
     hyprshot.enable = true;
     hyprlock.enable = true;
     waybar.enable = true;

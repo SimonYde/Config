@@ -43,6 +43,8 @@
         autoReboot = true;
       };
     };
+
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = 1;

@@ -100,7 +100,10 @@ in
     };
   };
 
-  programs.btop.settings.color_theme = lib.mkDefault "TTY";
+  programs.btop.settings = {
+    color_theme = lib.mkDefault "TTY";
+    theme_background = false;
+  };
 
   programs.carapace = {
     enableBashIntegration = true;

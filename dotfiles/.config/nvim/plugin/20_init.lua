@@ -52,7 +52,8 @@ Load.now_if_args(function()
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
 
-    require('ufo').setup({
+    local ufo = require('ufo')
+    ufo.setup({
         provider_selector = function(bufnr, filetype, buftype)
             return filetype == 'bigfile' and '' or { 'treesitter', 'indent' }
         end,
@@ -61,6 +62,9 @@ Load.now_if_args(function()
         },
         override_foldtext = true,
     })
+
+    nmap('zM', function () ufo.closeAllFolds() end, "Close all folds (ufo)")
+    nmap('zR', function () ufo.openAllFolds() end, "Open all folds (ufo)")
 end)
 
 Load.later(function()

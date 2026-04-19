@@ -497,7 +497,6 @@ in
         ];
 
         sessionVariables = {
-          CARGO_HOME = "${config.xdg.dataHome}/cargo";
           RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
         };
       };
@@ -505,6 +504,12 @@ in
       programs = {
         bacon.enable = true;
         gcc.enable = true;
+
+        cargo = {
+          enable = true;
+          package = null; # let `rustup` manage cargo etc.
+          cargoHome = "${config.xdg.dataHome}/cargo";
+        };
 
         neovim.plugins =
           with pkgs.vimPlugins;
