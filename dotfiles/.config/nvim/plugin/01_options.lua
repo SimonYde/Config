@@ -26,6 +26,7 @@ vim.o.list = true
 vim.o.listchars = 'tab:▸ ,nbsp:␣,extends:❯,precedes:❮'
 
 vim.o.guicursor = 'n-v:block,i-c-ci-ve:ver25,r-cr:hor20,o:hor50' -- Change cursor shape in certain modes
+vim.o.modeline = false
 
 vim.o.conceallevel = 2
 

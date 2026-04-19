@@ -103,8 +103,6 @@ in
           settings.git_protocol = "ssh";
         };
 
-        jq.enable = true;
-
         jjui = {
           enable = true;
         };
@@ -192,19 +190,6 @@ in
           };
         };
 
-        lazygit = {
-          enable = true;
-          settings = {
-            git.pagers = [
-              {
-                pager = ''
-                  delta --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
-                '';
-              }
-            ];
-          };
-        };
-
         man.enable = true;
         mergiraf = {
           enable = true;
@@ -214,10 +199,7 @@ in
 
         neovim.plugins =
           with pkgs.vimPlugins;
-          [
-            hunk-nvim
-          ]
-          ++ config.lib.meta.lazyNeovimPlugins [
+          config.lib.meta.lazyNeovimPlugins [
             obsidian-nvim
             nvim-dap
             nvim-dap-ui
@@ -492,6 +474,8 @@ in
         enable = true;
         baseUserConfigPath = ".config/sbt";
       };
+
+      programs.starship.settings.scala.disabled = false;
     })
 
     (mkIf cfg.rust.enable {

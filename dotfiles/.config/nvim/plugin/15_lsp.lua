@@ -97,6 +97,9 @@ Load.now_if_args(function()
             default_settings = {
                 -- rust-analyzer language server configuration
                 ['rust-analyzer'] = {
+                    diagnostics = {
+                        disabled = { 'inactive-code' },
+                    },
                     cargo = {
                         -- allFeatures = true,
                     },

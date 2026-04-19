@@ -24,20 +24,21 @@ $env.config = {
         sort: "smart"
     }
 
+    history: {
+        max_size: 1_000_000
+        sync_on_enter: true
+        file_format: "plaintext"
+        isolation: false
+    }
+
     table: {
+        mode: "frameless"
         header_on_separator: true
 
         trim: {
             methodology: truncating
             truncating_suffix: "…"
         }
-    }
-
-    history: {
-        max_size: 1_000_000
-        sync_on_enter: true
-        file_format: "plaintext"
-        isolation: false
     }
 }
 
@@ -64,22 +65,22 @@ $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi magenta)N (ansi reset)";
 $env.PROMPT_MULTILINE_INDICATOR = $"(ansi blue)M (ansi reset)";
 
 $env.ENV_CONVERSIONS = {
-  "PATH": {
-    from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
-    to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
-  }
-  "WSLPATH": {
-    from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
-    to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
-  }
+    "PATH": {
+        from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+        to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+    }
+    "WSLPATH": {
+        from_string: { |s| $s | split row (char esep) | path expand --no-symlink }
+        to_string: { |v| $v | path expand --no-symlink | str join (char esep) }
+    }
 }
 
-def --wrapped win [ cmd, ...rest ] {
-  let input = $in
-  if "WSLPATH" in $env {
-    $env.PATH = ($env.PATH | append $env.WSLPATH)
-  }
-  $input | run-external $cmd ...$rest
+def --wrapped win [cmd, ...rest] {
+    let input = $in
+    if "WSLPATH" in $env {
+        $env.PATH = ($env.PATH | append $env.WSLPATH)
+    }
+    $input | run-external $cmd ...$rest
 }
 
 def --env tokens [] {

@@ -15,6 +15,7 @@ Load.now_if_args(function()
     local ensure_languages = {
         'diff',
         'lua',
+        'luadoc',
         'markdown',
         'markdown_inline',
         'nix',

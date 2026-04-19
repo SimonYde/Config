@@ -142,8 +142,6 @@ Load.later(function()
     nmap('gD',         function() Snacks.picker.lsp_declarations() end,           'Goto declarations')
     -- stylua: ignore end
 
-    nmap('<leader>gl', function() Snacks.lazygit.open() end, 'Open lazygit')
-
     nmap('<leader>jj', function() Snacks.terminal.get('jjui') end, 'Open jjui')
     nmap('<leader>js', function() Snacks.terminal.get('jj st') end, 'jj status')
 end)

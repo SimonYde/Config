@@ -42,6 +42,10 @@ in
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
+      settings = {
+        timeout = "menu-force";
+        default = "auto-windows";
+      };
     };
   };
 

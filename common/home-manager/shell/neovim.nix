@@ -35,7 +35,6 @@ in
           mini-nvim
           snacks-nvim
           vim-sleuth
-          undotree
           friendly-snippets
           catppuccin-nvim
           lazydev-nvim

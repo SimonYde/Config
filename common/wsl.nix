@@ -27,11 +27,6 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    xdg-utils
-    wslu
-  ];
-
   networking.firewall.enable = false;
 
   # very shitty OOM killer, to make up for WSL not having PSI

@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) concatStrings;
+  inherit (lib) concatStrings mkDefault;
 in
 {
   programs.starship.settings = {
@@ -11,6 +11,7 @@ in
       "$hostname"
       "$directory"
       "$nix_shell"
+      "$vcs"
       "$git_branch"
       "$line_break"
       "$character"
@@ -25,6 +26,7 @@ in
       "$java"
       "$scala"
       "$lua"
+      "$python"
       "$typst"
       "$direnv"
       "$gleam"
@@ -35,8 +37,6 @@ in
       format = "$symbol";
       success_symbol = "[⟩](normal white)";
       error_symbol = "[⟩](bold red)";
-      # success_symbol = "";
-      # error_symbol = "";
     };
 
     direnv = {
@@ -79,8 +79,12 @@ in
       symbol = " ";
     };
 
+    python = {
+      symbol = " ";
+    };
+
     scala = {
-      disabled = true;
+      disabled = mkDefault true;
       symbol = " ";
     };
   };

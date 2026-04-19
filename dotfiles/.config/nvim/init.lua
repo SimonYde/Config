@@ -21,22 +21,17 @@ if ok then
 
     MiniMisc.setup()
 
-    Load.on_events = function(event, f)
-        MiniMisc.safely(event, f)
-    end
+    Load.on_events = function(event, f) MiniMisc.safely(event, f) end
 else
     Load.now = pcall
     Load.later = pcall
-    Load.on_events = function(event, f)
-        vim.print("didn't successfully run on event")
-    end
+    Load.on_events = function(event, f) vim.print("didn't successfully run on event") end
 end
 
 ---@param package_name string package to load
 Load.packadd = function(package_name)
     Load.now(function() vim.cmd('packadd ' .. package_name) end)
 end
-
 
 --- Used for when a plugin should be loaded given nvim is started like `nvim -- /path/to/file`.
 Load.now_if_args = vim.fn.argc(-1) > 0 and Load.now or Load.later

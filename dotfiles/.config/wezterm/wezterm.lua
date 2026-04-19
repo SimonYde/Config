@@ -17,6 +17,8 @@ config.underline_position = "-0.2cell"
 config.use_fancy_tab_bar = true
 config.adjust_window_size_when_changing_font_size = false
 
+config.scrollback_lines = 10000
+
 config.window_decorations = "NONE"
 config.window_padding = {
 	left = 0,

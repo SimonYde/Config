@@ -95,7 +95,6 @@ in
         ferdium
 
         imagemagick
-        kdePackages.ark
 
         trashy
 
@@ -107,6 +106,7 @@ in
       xdg = {
         userDirs = {
           enable = true;
+          setSessionVariables = true;
           createDirectories = false;
         };
 

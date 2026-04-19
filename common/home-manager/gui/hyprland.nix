@@ -109,7 +109,8 @@ in
 
   programs.walker.runAsService = true;
   programs.walker.config = options.programs.walker.config.default;
-  # programs.walker.package = inputs.walker.packages.${pkgs.stdenv.hostPlatform.system}.walker;
+  programs.walker.package = pkgs.walker;
+    # inputs.walker.packages.${pkgs.stdenv.hostPlatform.system}.walker;
 
   programs.elephant.package = pkgs.elephant;
   programs.elephant.provider = {
