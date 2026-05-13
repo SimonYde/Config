@@ -11,7 +11,8 @@
 
   programs = {
     lutris = {
-      enable = true;
+      # FIXME(2026-05-03 Simon Yde): unable to build on unstable
+      enable = false;
 
       extraPackages = with pkgs; [
         mangohud

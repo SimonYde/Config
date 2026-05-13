@@ -47,8 +47,6 @@ in
         lls
         ouch # archive tool
 
-        libqalculate # Math tool
-
         ast-grep
 
         gdbgui
@@ -204,6 +202,8 @@ in
             nvim-dap
             nvim-dap-ui
           ];
+
+        qalculate.enable = true;
 
         rbw = {
           enable = true;

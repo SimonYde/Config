@@ -32,7 +32,7 @@ in
   };
 
   services = {
-    blueman-applet.enable = true;
+    blueman-applet.enable = false;
     network-manager-applet.enable = true;
 
     hypridle.enable = true;

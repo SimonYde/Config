@@ -89,9 +89,6 @@ in
 
         tor-browser
 
-        legcord
-        discord
-        betterdiscordctl
         ferdium
 
         imagemagick

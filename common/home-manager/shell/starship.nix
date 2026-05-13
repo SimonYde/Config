@@ -12,7 +12,6 @@ in
       "$directory"
       "$nix_shell"
       "$vcs"
-      "$git_branch"
       "$line_break"
       "$character"
     ];

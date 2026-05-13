@@ -19,7 +19,7 @@
   };
 
   syde = {
-    ctf.enable = true;
+    ctf.enable = false;
     development.enable = true;
 
     hardware = {
