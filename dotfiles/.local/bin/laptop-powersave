@@ -3,7 +3,7 @@
 use std/log
 
 const USER_SERVICES = [
-    hyprland-autoname-workspaces.service awww.service blueman-applet.service
+    hyprland-autoname-workspaces.service awww.service
 ]
 
 const SERVICES = [

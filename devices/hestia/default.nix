@@ -15,6 +15,7 @@ in
 
     ./acme.nix
     ./backup.nix
+    ./bitmagnet.nix
     ./collabora-online.nix
     ./fail2ban.nix
     ./immich.nix
@@ -59,6 +60,10 @@ in
     owner = server.user;
     group = server.group;
     mode = "0440";
+  };
+
+  age.secrets.wireguardHestia = {
+    file = "${inputs.secrets}/wireguardHestia.age";
   };
 
   boot = {
@@ -124,6 +129,17 @@ in
         '';
       };
     };
+
+    wireguard-netns =
+      let
+        wg_extern = import "${inputs.secrets}/wireguard-network.nix";
+      in
+      {
+        enable = true;
+        namespace = "wg_extern";
+        configFile = config.age.secrets.wireguardHestia.path;
+        inherit (wg_extern) privateIP dnsIP;
+      };
   };
 
   networking = {

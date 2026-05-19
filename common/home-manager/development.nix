@@ -52,7 +52,7 @@ in
         gdbgui
 
         glab
-        codeberg-cli
+        forgejo-cli
 
         kattis-cli
         kattis-test

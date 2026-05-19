@@ -1,5 +1,11 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
+  inherit (lib) mkForce mkIf;
   inherit (config.syde) server;
   inherit (config.services.wireguard-netns) namespace;
 in
@@ -23,17 +29,23 @@ in
 
     nginx = {
       upstreams.bitmagnet.servers."127.0.0.1:3333" = { };
+      acmeRoot = mkForce null;
+      enableACME = mkForce false;
+      useACMEHost = "ts.simonyde.com";
 
-      virtualHosts."bitmagnet.ts.${server.baseDomain}".locations."/" = {
-        proxyPass = "http://bitmagnet";
-        proxyWebsockets = true;
+      virtualHosts."bitmagnet.ts.simonyde.com" = {
+        locations."/" = {
+          proxyPass = "http://bitmagnet";
+          proxyWebsockets = true;
+        };
       };
+
     };
 
     alloy.scrape.bitmagnet.port = 3333;
   };
 
-  systemd = lib.mkIf config.services.wireguard-netns.enable {
+  systemd = mkIf config.services.wireguard-netns.enable {
     services.bitmagnet = {
       bindsTo = [ "netns@${namespace}.service" ];
       requires = [
