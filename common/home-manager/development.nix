@@ -219,7 +219,7 @@ in
           enable = true;
           enableDefaultConfig = false;
 
-          matchBlocks = {
+          settings = {
             "icarus" = {
               hostname = "icarus";
               user = "root";

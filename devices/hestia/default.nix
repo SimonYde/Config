@@ -24,6 +24,7 @@ in
     ./nextcloud.nix
     ./opencloud.nix
     ./paperless.nix
+    ./samba.nix
     ./smartd.nix
     ./vaultwarden.nix
   ];
@@ -117,6 +118,7 @@ in
     collabora-online.enable = true;
     nginx.enable = true;
     nextcloud.enable = true;
+    samba.enable = true;
     syncthing.enable = true;
 
     networkd-dispatcher = {

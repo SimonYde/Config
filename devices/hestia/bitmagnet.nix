@@ -29,11 +29,11 @@ in
 
     nginx = {
       upstreams.bitmagnet.servers."127.0.0.1:3333" = { };
-      acmeRoot = mkForce null;
-      enableACME = mkForce false;
-      useACMEHost = "ts.simonyde.com";
-
       virtualHosts."bitmagnet.ts.simonyde.com" = {
+        acmeRoot = mkForce null;
+        enableACME = mkForce false;
+        useACMEHost = "ts.simonyde.com";
+
         locations."/" = {
           proxyPass = "http://bitmagnet";
           proxyWebsockets = true;

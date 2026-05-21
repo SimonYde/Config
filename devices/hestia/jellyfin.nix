@@ -49,6 +49,12 @@ in
       alloy.scrape.jellyfin.port = 8096;
     };
 
+    syde.server.samba.shares = {
+      Musik = {
+        path = "/mnt/tank/jellyfin/Musik";
+      };
+    };
+
     # NOTE(2025-08-01 Simon Yde): remember to set `known proxy` option in jellyfin admin console under `Networking`.
     syde.services.fail2ban.jails.jellyfin = {
       serviceName = "jellyfin";
@@ -56,24 +62,25 @@ in
     };
 
     systemd.services.jellyfin.environment.MALLOC_TRIM_THRESHOLD_ = "131072";
+    systemd.tmpfiles.rules = [ "d ${mediaDir} 0775 ${server.user} ${server.group} - -" ];
 
-    # Define the systemd service unit
-    systemd.services.jellyfin-chown = {
-      description = "Ensure correct ownership for ${mediaDir}";
-      serviceConfig = {
-        Type = "oneshot";
-        User = "root";
-        ExecStart = "${pkgs.coreutils}/bin/chown -R nextcloud:nextcloud ${mediaDir}";
-      };
-    };
-
-    # Define the systemd path unit
-    systemd.paths.jellyfin-chown = {
-      description = "Monitor ${mediaDir} for ownership changes";
-      pathConfig = {
-        PathChanged = mediaDir;
-      };
-      wantedBy = [ "multi-user.target" ];
-    };
+    # # Define the systemd service unit
+    # systemd.services.jellyfin-chown = {
+    #   description = "Ensure correct ownership for ${mediaDir}";
+    #   serviceConfig = {
+    #     Type = "oneshot";
+    #     User = "root";
+    #     ExecStart = "${pkgs.coreutils}/bin/chown -R nextcloud:nextcloud ${mediaDir}";
+    #   };
+    # };
+    #
+    # # Define the systemd path unit
+    # systemd.paths.jellyfin-chown = {
+    #   description = "Monitor ${mediaDir} for ownership changes";
+    #   pathConfig = {
+    #     PathChanged = mediaDir;
+    #   };
+    #   wantedBy = [ "multi-user.target" ];
+    # };
   };
 }
