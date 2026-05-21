@@ -39,6 +39,7 @@ in
       neovide.enable = false;
       ncspot.enable = false;
       vivid.enable = false;
+      hyprland.enable = false;
       waybar = {
         font = "sansSerif";
         addCss = false;
@@ -347,16 +348,26 @@ in
   };
 
   services.awww.wallpaperDir = "${config.xdg.userDirs.pictures}/wallpapers/${colors.slug}";
-
-  wayland.windowManager.hyprland.settings = with colors; {
-    "$opacity_popups" = opacity.popups;
-    "$opacity_apps" = opacity.applications;
-    general = {
-      "col.active_border" = mkForce "rgb(${base0D}) rgb(${base0E}) 45deg";
-      "col.inactive_border" = mkForce "rgba(00000000)";
+  wayland.windowManager.hyprland = {
+    settings = with colors; {
+      config = {
+        general = {
+          "col.active_border" = mkForce {
+            colors = [
+              "rgb(${base0D})"
+              "rgb(${base0E})"
+            ];
+            angle = 45;
+          };
+          "col.inactive_border" = mkForce "rgba(00000000)";
+        };
+      };
     };
 
-    group.groupbar.text_color = mkForce "rgb(${base00})";
+    extraConfig = ''
+      _G.opacity_apps = ${toString opacity.popups}
+      _G.opacity_popups = ${toString opacity.applications}
+    '';
   };
 
   xdg.configFile."hypr/hyprtoolkit.conf".text =

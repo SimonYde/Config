@@ -14,8 +14,15 @@ in
     home-manager.users.${username} = {
       imports = [ ../home-manager/gui/hyprland.nix ];
 
+      wayland.windowManager.hyprland.extraConfig = lib.mkOrder 1000 ''
+        pcall(require, 'machines.' .. '${config.networking.hostName}')
+      '';
+
       programs.hyprlock.settings.auth.fingerprint.enabled = config.services.fprintd.enable;
     };
+
+    # Allows lua stub file to be accessed from /run/current-system/sw/share/hypr
+    environment.pathsToLink = [ "/share/hypr" ];
 
     services = {
       blueman.enable = config.hardware.bluetooth.enable;

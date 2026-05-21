@@ -44,27 +44,32 @@ in
     awww.enable = true;
   };
 
+  xdg.configFile."hypr/.luarc.json".enable = mkForce false;
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
 
     plugins = with pkgs.hyprlandPlugins; [ ];
 
-    settings = {
-      "$browser" = getExe browser.package;
-      "$file-manager" = getExe file-manager.package;
-      "$terminal" = getExe terminal.package;
+    configType = "lua";
 
-      input = {
-        kb_layout = config.home.keyboard.layout;
-        kb_variant = config.home.keyboard.variant;
-        kb_options = builtins.concatStringsSep "," config.home.keyboard.options;
+    settings = {
+      config = {
+        input = {
+          kb_layout = config.home.keyboard.layout;
+          kb_variant = config.home.keyboard.variant;
+          kb_options = builtins.concatStringsSep "," config.home.keyboard.options;
+        };
       };
     };
 
     # NOTE: Delegate other options to a normal Hyprland config.
-    extraConfig = mkOrder 1000 ''
-      source = ~/.config/hypr/my-hyprland.conf
+    extraConfig = ''
+      _G.browser = '${getExe browser.package}'
+      _G.file_manager = '${getExe file-manager.package}'
+      _G.terminal = '${getExe terminal.package}'
+      require('imports')
     '';
   };
 
@@ -109,7 +114,7 @@ in
   programs.walker.runAsService = true;
   programs.walker.config = options.programs.walker.config.default;
   programs.walker.package = pkgs.walker;
-    # inputs.walker.packages.${pkgs.stdenv.hostPlatform.system}.walker;
+  # inputs.walker.packages.${pkgs.stdenv.hostPlatform.system}.walker;
 
   programs.elephant.package = pkgs.elephant;
   programs.elephant.provider = {
@@ -126,7 +131,6 @@ in
 
     };
   };
-
 
   services.hyprsunset.settings = {
     max-gamma = 150;
@@ -171,7 +175,7 @@ in
     {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";
-        after_sleep_cmd = "hyprctl dispatch dpms on && ${restartHyprsunset}";
+        after_sleep_cmd = ''hyprctl dispatch "hl.dsp.dpms({ action = 'on' })" && ${restartHyprsunset}'';
         before_sleep_cmd = "loginctl lock-session";
         ignore_dbus_inhibit = false;
       };
@@ -179,8 +183,8 @@ in
       listener = [
         {
           timeout = 360;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on && ${restartHyprsunset}";
+          on-timeout = ''hyprctl dispatch "hl.dsp.dpms({ action = 'off' })"'';
+          on-resume = ''hyprctl dispatch "hl.dsp.dpms({ action = 'on' })" && ${restartHyprsunset}'';
         }
       ];
     };

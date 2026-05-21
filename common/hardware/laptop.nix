@@ -59,7 +59,7 @@ in
           {
             timeout = 900;
             on-timeout = "systemctl suspend";
-            on-resume = "hyprctl dispatch dpms on";
+            on-resume = ''hyprctl dispatch "hl.dsp.dpms({ action = 'off' })"'';
           }
         ];
     };

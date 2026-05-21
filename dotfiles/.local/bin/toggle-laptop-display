@@ -2,6 +2,24 @@
 
 use std/log
 
+def display-on [] {
+    hyprctl eval "
+        hl.monitor({
+            output = 'eDP-1',
+            disabled = false,
+        })
+    "
+}
+
+def display-off [] {
+    hyprctl eval "
+        hl.monitor({
+            output = 'eDP-1',
+            disabled = true,
+        })
+    "
+}
+
 def handle_event [] {
     let parsed = $in | parse "{event}>>{data}" | first
 
@@ -9,13 +27,13 @@ def handle_event [] {
         monitorremoved => {
             if $parsed.data !~ eDP {
                 log info "External monitor removed, enabling builtin display..."
-                hyprctl keyword monitor "eDP-1,2880x1920@120,0x0,1.5"
+                display-on
             }
         },
         monitoradded => {
             if $parsed.data !~ eDP {
                 log info "External monitor added, disabling builtin display..."
-                hyprctl keyword monitor "eDP-1,disable"
+                display-off
             }
         },
     }
@@ -24,11 +42,11 @@ def handle_event [] {
 def main [state?: string] {
     match $state {
         "on" => {
-            hyprctl keyword monitor "eDP-1,2880x1920@120,0x0,1.5"
+            display-on
         }
 
         "off" => {
-            hyprctl keyword monitor "eDP-1,disable"
+            display-off
         }
 
         "auto" => {
@@ -41,9 +59,9 @@ def main [state?: string] {
             let builtin = hyprctl monitors -j | from json | where name like "eDP"
 
             if ($builtin | is-empty) {
-                hyprctl keyword monitor "eDP-1,2880x1920@120,0x0,1.5"
+                display-on
             } else {
-                hyprctl keyword monitor "eDP-1,disable"
+                display-off
             }
         }
     }

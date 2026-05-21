@@ -1,0 +1,6 @@
+require('core')
+require('devices')
+require('monitors')
+require('bindings')
+require('rules')
+require('autostart')
