@@ -1,6 +1,7 @@
 require('core')
+require('bindings')
+require('animations')
 require('devices')
 require('monitors')
-require('bindings')
 require('rules')
 require('autostart')

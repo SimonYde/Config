@@ -11,7 +11,7 @@ hl.window_rule({
 hl.window_rule({
     name = 'Picture-in-Picture',
     match = {
-        class = '^(Picture-in-picture|Picture-in-Picture)$',
+        initial_title = '^(Picture-in-picture|Picture-in-Picture)$',
     },
     float = true,
     pin = true,
@@ -51,12 +51,24 @@ hl.window_rule({ match = { class = 'electron|obsidian', initial_title = 'Obsidia
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })
 hl.window_rule({ match = { class = 'ferdium|Ferdium|discord|legcord|vesktop|WhatsApp' }, workspace = '9 silent' })
 hl.window_rule({
-    name = "polkit keep focus",
+    name = 'polkit keep focus',
     match = {
-        title = "Hyprland Polkit Agent",
+        title = 'Hyprland Polkit Agent',
     },
     stay_focused = true,
+    dim_around = true,
 })
 
+---------------------
+---- LAYER RULES ----
+---------------------
+hl.layer_rule({
+    match = { namespace = '^(logout_dialog)$' },
+    blur = true,
+    ignore_alpha = 0.5,
+})
 
-hl.workspace_rule({ workspace = "special:music", on_created_empty = "uwsm-app -- spotify" })
+-------------------------
+---- WORKSPACE RULES ----
+-------------------------
+hl.workspace_rule({ workspace = 'special:music', on_created_empty = 'uwsm-app -- spotify' })

@@ -20,23 +20,23 @@ in
       type = types.attrsOf (
         types.submodule {
           options = {
-            serviceName = lib.mkOption {
+            serviceName = mkOption {
               example = "vaultwarden";
-              type = lib.types.str;
+              type = types.str;
             };
 
-            failRegex = lib.mkOption {
-              type = lib.types.str;
+            failRegex = mkOption {
+              type = types.str;
               example = "Login failed from IP: <HOST>";
             };
 
-            ignoreRegex = lib.mkOption {
-              type = lib.types.str;
+            ignoreRegex = mkOption {
+              type = types.str;
               default = "";
             };
 
-            maxRetry = lib.mkOption {
-              type = lib.types.int;
+            maxRetry = mkOption {
+              type = types.int;
               default = 4;
             };
 

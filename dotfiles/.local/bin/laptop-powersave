@@ -30,10 +30,16 @@ def on [ ] {
 
     powerprofilesctl set power-saver
     log info "Set power profile to `power-saver`"
-    systemctl --user stop ...$USER_SERVICES
-    log info "Stopped certain user services"
-    systemctl stop ...$SERVICES
-    log info "Disabled Bluetooth"
+
+    $USER_SERVICES | each {|service|
+        try { systemctl --user stop $service }
+    }
+    log info "Stopped hungry user services"
+
+    $SERVICES | each {|service|
+        try { systemctl stop $service }
+    }
+    log info "Stopped hungry system services"
     set-refresh 60
     log info "Set screen refresh rate to 60"
 }
@@ -58,10 +64,16 @@ def off [ ] {
     hyprctl reload
     powerprofilesctl set balanced
     log info "Set power profile to `balanced`"
-    systemctl --user start ...$USER_SERVICES
-    log info "Enabled certain user services"
-    systemctl start ...$SERVICES
-    log info "Enabled Bluetooth"
+
+    $USER_SERVICES | each {|service|
+        try { systemctl --user start $service }
+    }
+    log info "Stopped hungry user services"
+
+    $SERVICES | each {|service|
+        try { systemctl start $service }
+    }
+    log info "Stopped hungry system services"
     set-refresh 120
     log info "Set screen refresh rate to 120"
 }
