@@ -37,6 +37,12 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
+
+    ncro = {
+      url = "github:feel-co/ncro";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";

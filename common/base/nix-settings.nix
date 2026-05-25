@@ -1,6 +1,10 @@
 { inputs, ... }:
 
 {
+  imports = [
+    inputs.ncro.nixosModules.default
+  ];
+
   nix = {
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
@@ -23,18 +27,41 @@
       ];
 
       substituters = [
-        "https://cache.nixos.org"
-        "https://nix-community.cachix.org"
-      ];
-
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "http://localhost:10100"
       ];
 
       connect-timeout = 5;
 
       build-dir = "/var/tmp/nix";
+    };
+  };
+
+  services.ncro = {
+    enable = true;
+
+    settings = {
+      server = {
+        listen = ":10100";
+      };
+
+      upstreams = [
+        {
+          url = "https://cache.nixos.org";
+          priority = 10;
+        }
+        {
+          url = "https://nix-community.cachix.org";
+          priority = 20;
+        }
+        {
+          url = "https://cache.garnix.io";
+          priority = 30;
+        }
+        {
+          url = "https://attic.xuyh0120.win/lantian";
+          priority = 40;
+        }
+      ];
     };
   };
 }
