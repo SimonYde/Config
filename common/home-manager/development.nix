@@ -34,7 +34,7 @@ in
         rust.enable = true;
         scala.enable = false;
         typst.enable = true;
-        zig.enable = false;
+        zig.enable = true;
       };
 
       home.packages = with pkgs; [
@@ -480,17 +480,22 @@ in
 
     (mkIf cfg.rust.enable {
       home = {
-        packages = with pkgs; [
-          rustup
-          cargo-binstall
-          cargo-bloat
-          cargo-wizard
+        packages =
+          with pkgs;
+          [
+            rustup
+            cargo-binstall
+            cargo-bloat
+            cargo-wizard
 
-          gef
+            gef
 
-          codelldb # from rustaceanvim flake, see `../../overlays.nix`
-          pkg-config
-        ];
+            codelldb # from rustaceanvim flake, see `../../overlays.nix`
+            pkg-config
+          ]
+          ++ lib.optionals cfg.zig.enable [
+            cargo-zigbuild
+          ];
 
         sessionPath = [
           "${config.xdg.dataHome}/cargo/bin"

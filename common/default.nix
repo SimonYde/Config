@@ -113,6 +113,9 @@ in
 
   environment.shells = [ pkgs.nushell-wrapped ];
   environment.localBinInPath = true;
+  environment.sessionVariables = {
+    NH_SHOW_ACTIVATION_LOGS = 1;
+  };
 
   users = {
     mutableUsers = mkDefault false;

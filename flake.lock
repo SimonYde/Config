@@ -827,6 +827,26 @@
         "type": "github"
       }
     },
+    "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780579696,
+        "narHash": "sha256-5T7fvVcsjaVk3vFRq4iCh5OzkSnYoBZnwohR/hIjoA0=",
+        "owner": "nix-community",
+        "repo": "nh",
+        "rev": "7f389950d0700a7dc1e9a9f0d429886d140b7255",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nh",
+        "type": "github"
+      }
+    },
     "nix-cachyos-kernel": {
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
@@ -1067,6 +1087,7 @@
         "musnix": "musnix",
         "ncro": "ncro",
         "neovim-nightly": "neovim-nightly",
+        "nh": "nh",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
@@ -1089,6 +1110,7 @@
         "vim-alloy": "vim-alloy",
         "voxtype": "voxtype",
         "walker": "walker",
+        "waybar": "waybar",
         "wezterm-types": "wezterm-types"
       }
     },
@@ -1522,6 +1544,29 @@
       "original": {
         "owner": "abenz1267",
         "repo": "walker",
+        "type": "github"
+      }
+    },
+    "waybar": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777929458,
+        "narHash": "sha256-51R3mIt8cLNvh/X5qe9vOqeJCj0U9KRyemVE5y+OhiU=",
+        "owner": "Alexays",
+        "repo": "Waybar",
+        "rev": "05945748dccce28bf96d26d8f64a9e69a8dd49ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Alexays",
+        "repo": "Waybar",
         "type": "github"
       }
     },

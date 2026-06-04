@@ -1,7 +1,8 @@
 local uwsm = 'uwsm-app -- '
-hl.bind('SUPER + B', hl.dsp.exec_cmd(uwsm .. browser))
+hl.bind('SUPER + B', hl.dsp.exec_cmd(uwsm .. _G.browser))
 hl.bind('SUPER + T', hl.dsp.exec_cmd(uwsm .. 'wezterm connect local'))
-hl.bind('SUPER + Y', hl.dsp.exec_cmd(uwsm .. terminal .. ' -e yazi'))
+hl.bind('SUPER + Y', hl.dsp.exec_cmd(uwsm .. _G.terminal .. ' -e yazi'))
+hl.bind('SUPER + SHIFT + F', hl.dsp.exec_cmd(uwsm .. _G.terminal .. ' -e yazi'))
 hl.bind('SUPER + O', hl.dsp.exec_cmd(uwsm .. 'obsidian'))
 hl.bind('SUPER + G', hl.dsp.exec_cmd(uwsm .. 'hyprland-gamemode'))
 hl.bind('SUPER + L', hl.dsp.exec_cmd(uwsm .. 'loginctl lock-session'))

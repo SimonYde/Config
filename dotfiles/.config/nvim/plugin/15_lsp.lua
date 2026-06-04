@@ -91,27 +91,97 @@ Load.now_if_args(function()
         end,
     })
 
-    vim.g.rustaceanvim = {
-        -- LSP configuration
-        server = {
-            default_settings = {
-                -- rust-analyzer language server configuration
-                ['rust-analyzer'] = {
-                    diagnostics = {
-                        disabled = { 'inactive-code' },
-                    },
-                    cargo = {
-                        -- allFeatures = true,
-                    },
-                    imports = {
-                        group = {
-                            enable = true,
-                        },
+    vim.lsp.config('rust-analyzer', {
+        cmd = { 'rust-analyzer' },
+        filetypes = { 'rust' },
+        capabilities = {
+            experimental = {
+                commands = {
+                    commands = {
+                        'rust-analyzer.showReferences',
+                        'rust-analyzer.runSingle',
+                        'rust-analyzer.debugSingle',
                     },
                 },
             },
         },
-    }
+        settings = {
+            ['rust-analyzer'] = {
+                cargo = {
+                    allFeatures = false,
+                    loadOutDirsFromCheck = true,
+                    runBuildScripts = true,
+                },
+                check = {
+                    command = 'clippy',
+                },
+                diagnostics = {
+                    enable = true,
+                    -- experimental = {
+                    --     enable = true,
+                    -- },
+                    styleLints = {
+                        enable = true,
+                    },
+                    disabled = { 'inactive-code' },
+                },
+                hover = {
+                    actions = {
+                        enable = true,
+                        references = {
+                            enable = true,
+                        },
+                    },
+                },
+                imports = {
+                    preferPrelude = true,
+                    group = {
+                        enable = true,
+                    },
+                },
+                inlayHints = {
+                    genericParameterHints = {
+                        type = {
+                            enable = false,
+                        },
+                    },
+                },
+                lens = {
+                    enable = true,
+                    implementations = { enable = true },
+                    references = {
+                        adt = { enable = true },
+                        enumVariant = { enable = true },
+                        method = { enable = true },
+                        trait = { enable = true },
+                    },
+                    run = { enable = true },
+                },
+
+                procMacro = {
+                    enable = true,
+                },
+            },
+        },
+    })
+
+    vim.lsp.commands['rust-analyzer.runSingle'] = function(command)
+        local r = command.arguments[1]
+        local cmd = { 'cargo', unpack(r.args.cargoArgs) }
+        if r.args.executableArgs and #r.args.executableArgs > 0 then
+            vim.list_extend(cmd, { '--', unpack(r.args.executableArgs) })
+        end
+
+        local proc = vim.system(cmd, { cwd = r.args.cwd })
+
+        local result = proc:wait()
+
+        if result.code == 0 then
+            vim.notify(result.stdout, vim.log.levels.INFO)
+        else
+            vim.notify(result.stderr, vim.log.levels.ERROR)
+        end
+    end
 
     vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
@@ -148,8 +218,10 @@ Load.now_if_args(function()
         'nushell',
         'ols',
         'ruff',
+        'rust-analyzer',
         'tinymist',
         'ty',
         'typst-languagetool',
+        'zls',
     })
 end)

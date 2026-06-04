@@ -57,7 +57,7 @@
         enable = true;
         enableDefaultConfig = false;
 
-        matchBlocks = {
+        settings = {
           "backup" = {
             port = 20001;
             hostname = "tmcs.davvol.dk";

@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }:
 {
@@ -17,6 +18,14 @@
     syde.gaming.enable = true;
     environment.etc."specialisation".text = "gaming";
   };
+
+  age.secrets."eduroam" = {
+    file = "${inputs.secrets}/eduroam.age";
+  };
+
+  systemd.tmpfiles.rules = [
+    "L+ /var/lib/iwd/eduroam.8021x - - - - ${config.age.secrets.eduroam.path}"
+  ];
 
   syde = {
     ctf.enable = false;

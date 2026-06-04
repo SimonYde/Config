@@ -6,6 +6,7 @@
 }:
 let
   inherit (lib)
+    mkDefault
     mkForce
     mkOrder
     toHexString
@@ -96,7 +97,7 @@ in
   gtk = {
     gtk3.extraConfig.gtk-application-prefer-dark-theme = colors.variant == "dark";
     gtk4.extraConfig.gtk-application-prefer-dark-theme = colors.variant == "dark";
-    gtk4.theme = config.gtk.theme;
+    gtk4.theme = mkDefault config.gtk.theme;
   };
 
   programs = {

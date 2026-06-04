@@ -170,16 +170,16 @@ in
         adjust-table
       ];
 
-      programs.hyprlock.enable = lib.mkForce false;
-      programs.swaylock.enable = true;
-      programs.swaylock.settings.image = "$XDG_RUNTIME_DIR/current-wallpaper";
+      # programs.hyprlock.enable = lib.mkForce false;
+      # programs.swaylock.enable = true;
+      # programs.swaylock.settings.image = "$XDG_RUNTIME_DIR/current-wallpaper";
 
-      services.hypridle.settings = {
-        general = {
-          lock_cmd = mkForce "${getExe config.programs.swaylock.package}";
-          before_sleep_cmd = mkForce "${getExe config.programs.swaylock.package}";
-        };
-      };
+      # services.hypridle.settings = {
+      #   general = {
+      #     lock_cmd = mkForce "${getExe config.programs.swaylock.package}";
+      #     before_sleep_cmd = mkForce "${getExe config.programs.swaylock.package}";
+      #   };
+      # };
 
       systemd.user = {
         timers.autoadjust-table = {
@@ -207,7 +207,7 @@ in
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
+      settings = {
         "backup" = {
           port = 20001;
           hostname = "tmcs.davvol.dk";

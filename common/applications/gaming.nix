@@ -70,14 +70,12 @@ in
       extraPackages = with pkgs; [
         vulkan-tools
         vulkan-loader
-        mesa
         libva
       ];
 
       extraPackages32 = with pkgs.pkgsi686Linux; [
         vulkan-tools
         vulkan-loader
-        mesa
         libva
       ];
     };

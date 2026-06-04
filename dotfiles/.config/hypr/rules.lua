@@ -32,6 +32,17 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = 'games should tear class',
+    match = {
+        class = 'ck3',
+    },
+    content = 'game',
+    monitor = 'DP-1',
+    fullscreen = true,
+    immediate = true,
+})
+
+hl.window_rule({
     name = 'Nextcloud',
     match = {
         class = '^com.nextcloud.desktopclient.nextcloud$',
@@ -46,6 +57,7 @@ hl.window_rule({ match = { class = '.*blueman-manager.*' }, float = true })
 hl.window_rule({ match = { class = '^nm-connection-editor$' }, float = true })
 hl.window_rule({ match = { class = '.*File Upload.*' }, float = true })
 hl.window_rule({ match = { class = '.*Connection Details.*' }, float = true })
+hl.window_rule({ match = { class = 'Paradox Launcher' }, float = true })
 
 hl.window_rule({ match = { class = 'electron|obsidian', initial_title = 'Obsidian' }, workspace = 1 })
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })

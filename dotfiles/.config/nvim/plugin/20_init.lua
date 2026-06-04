@@ -63,8 +63,8 @@ Load.now_if_args(function()
         override_foldtext = true,
     })
 
-    nmap('zM', function () ufo.closeAllFolds() end, "Close all folds (ufo)")
-    nmap('zR', function () ufo.openAllFolds() end, "Open all folds (ufo)")
+    nmap('zM', function() ufo.closeAllFolds() end, 'Close all folds (ufo)')
+    nmap('zR', function() ufo.openAllFolds() end, 'Open all folds (ufo)')
 end)
 
 Load.later(function()
@@ -115,7 +115,8 @@ Load.later(function()
     nmap('<leader>=', function() conform.format({ stop_after_first = true, lsp_fallback = true }) end, 'Format code')
 end)
 
-Load.on_events('event:InsertEnter', function() require('nvim-autopairs').setup() end)
+-- Load.on_events('event:InsertEnter', function() require('nvim-autopairs').setup() end)
+Load.on_events('event:InsertEnter', function() require('mini.pairs').setup() end)
 
 Load.later(function()
     Load.packadd('neogit')

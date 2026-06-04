@@ -1,0 +1,16 @@
+#!/usr/bin/env -S nu --no-config-file
+
+def main [] {
+  if ("flake.lock" | path exists) { nix flake update }
+  if ("Cargo.lock" | path exists) { cargo update }
+  if ("poetry.lock" | path exists) { poetry update -vvv --lock }
+  if ("uv.lock" | path exists) { uv lock --refresh --upgrade }
+  if ("yarn.lock" | path exists) { yarn upgrade }
+  if ("package-lock.json" | path exists) { npm update --latest }
+  if (".envrc" | path exists) { direnv reload }
+  if ((".pre-commit-config.yaml" | path exists) and (".pre-commit-config.yaml" | path type) != symlink) {
+    pre-commit install
+    pre-commit autoupdate
+  }
+  if (".git" | path exists) { git commit -v -a -m "chore: bump" }
+}
