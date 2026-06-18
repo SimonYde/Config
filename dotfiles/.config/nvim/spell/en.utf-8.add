@@ -6,9 +6,12 @@ MiB
 NIST
 NixOS
 SSL
+Yde
+bijective
 ciphertext
 concretization
 cryptosystems
+cyclotomic
 formatter
 interprocedural
 orthonormal
@@ -17,3 +20,4 @@ plaintexts
 pointwise
 stdin
 stylix
+unforgeability

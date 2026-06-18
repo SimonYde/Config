@@ -18,7 +18,7 @@ Load.now_if_args(function()
         filetypes = { 'typst', 'markdown', 'latex' },
         settings = {
             ['harper-ls'] = {
-                dialect = 'British',
+                -- dialect = 'British',
                 userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
                 markdown = { ignore_link_title = true },
             },

@@ -10,7 +10,7 @@ const SERVICES = [
 
 def main [] {
     let enabled = hyprctl getoption animations.enabled
-    | parse "bool: {enabled}"
+    | parse "bool: {enabled}\n{rest}"
     | $in.0.enabled
     | into bool
 

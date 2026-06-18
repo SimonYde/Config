@@ -37,7 +37,7 @@ in
   boot = {
     loader.systemd-boot.enable = mkForce false;
     # kernelPackages = pkgs.linuxPackages_zen;
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-rt-bore-lto;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-lto-x86_64-v3;
 
     lanzaboote = {
       enable = true;

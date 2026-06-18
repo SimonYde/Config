@@ -36,7 +36,7 @@
   home-manager.users.${username} = {
     programs.nushell.shellAliases = {
       ex = "win FPilot.exe";
-      poweroff = "win wsl.exe --shutdown NixOS";
+      poweroff = "win wsl.exe --shutdown -d NixOS";
     };
   };
 }

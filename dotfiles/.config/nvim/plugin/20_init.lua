@@ -267,12 +267,6 @@ Load.later(function()
             },
         },
         --- @diagnostic disable-next-line: missing-fields
-        completion = {
-            blink = true,
-            nvim_cmp = false,
-            min_chars = 2,
-        },
-        --- @diagnostic disable-next-line: missing-fields
         templates = {
             subdir = 'templates',
             date_format = '%Y-%m-%d',

@@ -178,16 +178,15 @@ in
       {
         general = {
           lock_cmd = "pidof hyprlock || hyprlock";
-          after_sleep_cmd = ''hyprctl dispatch "hl.dsp.dpms({ action = 'on' })" && ${restartHyprsunset}'';
+          after_sleep_cmd = ''hyprctl dispatch "hl.dsp.dpms({ action = 'enable' })" && ${restartHyprsunset}'';
           before_sleep_cmd = "loginctl lock-session";
-          ignore_dbus_inhibit = false;
         };
 
         listener = [
           {
             timeout = 360;
-            on-timeout = ''hyprctl dispatch "hl.dsp.dpms({ action = 'off' })"'';
-            on-resume = ''hyprctl dispatch "hl.dsp.dpms({ action = 'on' })" && ${restartHyprsunset}'';
+            on-timeout = ''hyprctl dispatch "hl.dsp.dpms({ action = 'disable' })"'';
+            on-resume = ''hyprctl dispatch "hl.dsp.dpms({ action = 'enable' })" && ${restartHyprsunset}'';
           }
         ];
       };
