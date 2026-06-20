@@ -27,6 +27,8 @@ let
     ];
     extensions.force = true;
     settings = {
+      "general.autoScroll" = true;
+
       "extensions.pocket.enabled" = false;
       "extensions.update.autoUpdateDefault" = true;
       "extensions.update.enabled" = true;

@@ -21,6 +21,16 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = 'Bitwarden Brave',
+    match = {
+        initial_class = 'brave-nngceckbapebfimnlniiiahkandclblb-Default',
+    },
+    float = true,
+    pin = true,
+    center = true,
+})
+
+hl.window_rule({
     name = 'games should tear',
     match = {
         tag = 'game|proton-game',

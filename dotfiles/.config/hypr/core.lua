@@ -46,6 +46,7 @@ hl.config({
     },
 
     misc = {
+        middle_click_paste = false,
         disable_hyprland_logo = true,
         disable_splash_rendering = true,
     },
