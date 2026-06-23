@@ -124,6 +124,8 @@ in
               # diff-editor = [ "nvim" "-c" "DiffEditor $left $right $output" ];
             };
 
+            git.sign-on-push = true;
+
             signing = {
               behavior = "own";
               backend = "ssh";

@@ -96,7 +96,9 @@
         config = # scheme
           ''
             (defsrc
-              caps a s d f j k l ;
+              tab           q w e r t y u i o p
+              caps          a s d f g h j k l ;
+              IntlBackslash z x c v b n m
             )
 
             (defvar
@@ -107,18 +109,20 @@
 
             (defalias
               a (tap-hold $tap-time $hold-time a lmet)
-              s (tap-hold $tap-time $hold-time s lalt)
-              d (tap-hold $tap-time $hold-time d lctl)
-              f (tap-hold $shift-time $shift-time f lsft)
+              r (tap-hold $tap-time $hold-time r lalt)
+              s (tap-hold $tap-time $hold-time s lctl)
+              t (tap-hold $shift-time $shift-time t lsft)
 
-              j (tap-hold $shift-time $shift-time j rsft)
-              k (tap-hold $tap-time $hold-time k lctl)
-              l (tap-hold $tap-time $hold-time l lalt)
-              ; (tap-hold $tap-time $hold-time ; rmet)
+              n (tap-hold $shift-time $shift-time n rsft)
+              e (tap-hold $tap-time $hold-time e lctl)
+              i (tap-hold $tap-time $hold-time i lalt)
+              o (tap-hold $tap-time $hold-time o rmet)
             )
 
             (deflayer default-layer
-              esc @a @s @d @f @j @k @l @;
+                   tab q  w  f  p  b j l  u  y  ;
+                   esc @a @r @s @t g m @n @e @i @o
+                   z   x  c  d  v  IntlBackslash k h
             )
           '';
 
@@ -132,9 +136,9 @@
     };
 
     xserver.xkb = {
-      layout = "us,dk";
-      variant = "colemak_dh,";
-      options = "caps:escape,grp:ctrls_toggle";
+      layout = "eu";
+      variant = "";
+      options = "";
     };
 
     pipewire = {

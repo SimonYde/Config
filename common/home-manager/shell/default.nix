@@ -152,6 +152,7 @@ in
       spinner = "cyan";
     };
     defaultCommand = "${getExe pkgs.fd} -H --type file";
+    enableNushellIntegration = false;
   };
 
   programs.helix.package = pkgs.evil-helix;

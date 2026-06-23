@@ -17,39 +17,49 @@ hl.device({
 
 hl.device({
     name = 'kanata',
-    kb_layout = 'us,dk',
-    kb_variant = 'colemak_dh,',
-    kb_options = 'caps:escape,grp:ctrls_toggle',
+    kb_layout = 'eu',
+    kb_variant = '',
+    kb_options = '',
 })
 
 hl.device({
     name = 'at-translated-set-2-keyboard',
-    kb_layout = 'us,dk',
-    kb_variant = 'colemak_dh,',
-    kb_options = 'caps:escape,grp:ctrls_toggle',
+    kb_layout = 'eu',
+    kb_variant = '',
+    kb_options = '',
 })
 
 hl.device({
     name = 'glove80-keyboard',
     kb_layout = 'eu',
+    kb_variant = '',
+    kb_options = '',
 })
 
 hl.device({
     name = 'zsa-technology-labs-moonlander-mark-i',
     kb_layout = 'eu',
+    kb_variant = '',
+    kb_options = '',
 })
 
 hl.device({
     name = 'zsa-technology-labs-moonlander-mark-i-keyboard',
     kb_layout = 'eu',
+    kb_variant = '',
+    kb_options = '',
 })
 
 hl.device({
     name = 'zsa-technology-labs-moonlander-mark-i-consumer-control',
     kb_layout = 'eu',
+    kb_variant = '',
+    kb_options = '',
 })
 
 hl.device({
     name = 'zsa-technology-labs-moonlander-mark-i-system-control',
     kb_layout = 'eu',
+    kb_variant = '',
+    kb_options = '',
 })
