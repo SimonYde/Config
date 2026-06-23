@@ -62,7 +62,10 @@ in
 
   services = {
     safeeyes.enable = false;
+
     ratbagd.enable = true;
+    resolved.settings.Resolve.FallbackDNS = lib.mkForce null;
+
     syncthing.enable = true;
 
     xserver.xkb.layout = "eu";

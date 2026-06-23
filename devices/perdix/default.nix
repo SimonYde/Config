@@ -14,11 +14,12 @@ in
     ../../common/server.nix
 
     ./acme.nix
+    ./adguard.nix
     ./atuin.nix
     ./grafana
     ./kanidm.nix
-    ./oauth2-proxy.nix
     ./languagetool.nix
+    ./oauth2-proxy.nix
 
     ./qbittorrent.nix
     ./lidarr.nix
@@ -89,6 +90,7 @@ in
   hardware.nvidia.package = lib.mkForce config.boot.kernelPackages.nvidiaPackages.stable;
 
   services = {
+    adguardhome.enable = true;
     logind.settings.Login.HandleLidSwitch = "ignore";
 
     nginx = {
@@ -117,6 +119,8 @@ in
       };
     };
 
+    resolved.settings.Resolve.FallbackDNS = lib.mkForce null;
+
     qbittorrent.enable = true;
     wireguard-netns =
       let
@@ -136,11 +140,6 @@ in
 
     useDHCP = false;
     firewall.allowedUDPPorts = [ 5353 ]; # mDNS
-
-    nameservers = [
-      "194.242.2.4" # Mullvad base
-      "86.54.11.13" # DNS4EU
-    ];
   };
 
   systemd.network = {

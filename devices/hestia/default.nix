@@ -149,11 +149,6 @@ in
 
     useDHCP = false;
     firewall.allowedUDPPorts = [ 5353 ]; # mDNS
-
-    nameservers = [
-      "194.242.2.4" # Mullvad base
-      "86.54.11.13" # DNS4EU
-    ];
   };
 
   systemd.network = {
