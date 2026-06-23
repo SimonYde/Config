@@ -1,0 +1,18 @@
+#!/usr/bin/env -S nu --no-config-file
+
+use std/log
+
+def main [] {
+  if (which obsidian | is-empty) {
+    log error "Obsidian not installed."
+    exit 1
+  }
+
+  if (hyprctl clients -j | from json | where class like "obsidian" | is-empty) {
+    uwsm-app -- obsidian
+    sleep 4sec
+  }
+
+  hyprctl dispatch 'hl.dsp.focus({ window = "class:obsidian" })'
+  obsidian command id=quickadd:choice:def45c8a-ff75-4a93-9271-7e80703680eb
+}
