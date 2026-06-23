@@ -6,7 +6,7 @@ vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit what is stored in ShaDa 
 vim.o.undofile = true
 
 -- UI =========================================================================
-Load.now(function() require('vim._core.ui2').enable({ enable = true, msg = { target = 'msg' } }) end) -- enable the experimental TUI for cmdline
+Config.now(function() require('vim._core.ui2').enable({ enable = true, msg = { target = 'msg' } }) end) -- enable the experimental TUI for cmdline
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cmdheight = 0
@@ -111,7 +111,7 @@ Config.create_autocmd(
 
 -- Diagnostics ================================================================
 
-Load.later(function()
+Config.later(function()
     -- `mini.basics` handles most options.
     require('mini.basics').setup({
         options = { extra_ui = true },
@@ -119,7 +119,7 @@ Load.later(function()
     })
 end)
 
-Load.later(function()
+Config.later(function()
     local sev = vim.diagnostic.severity
     vim.diagnostic.config({
         signs = {

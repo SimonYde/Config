@@ -1,6 +1,5 @@
 vim.loader.enable()
 
-_G.Load = {}
 _G.Config = {}
 
 -- Custom autocommands ========================================================
@@ -13,28 +12,27 @@ end
 
 local ok, MiniMisc = pcall(require, 'mini.misc')
 
-if ok then
-    Load.now = function(func) MiniMisc.safely('now', func) end
+if not ok then
+    vim.pack.add({ 'https://github.com/nvim-mini/mini.nvim' })
+    MiniMisc = require('mini.misc')
+end
 
-    ---Lazy load function. Meant to run expensive functions (such as plugin setup) when Neovim has already loaded.
-    Load.later = function(func) MiniMisc.safely('later', func) end
+Config.now = function(func) MiniMisc.safely('now', func) end
 
-    MiniMisc.setup()
+---Lazy load function. Meant to run expensive functions (such as plugin setup) when Neovim has already loaded.
+Config.later = function(func) MiniMisc.safely('later', func) end
 
-    Load.on_events = function(event, f) MiniMisc.safely(event, f) end
-else
-    Load.now = pcall
-    Load.later = pcall
-    Load.on_events = function(event, f) vim.print("didn't successfully run on event") end
+Config.on_events = function(event, pattern, f)
+    MiniMisc.safely('event:' .. event .. (pattern and ('~' .. pattern) or ''), f)
 end
 
 ---@param package_name string package to load
-Load.packadd = function(package_name)
-    Load.now(function() vim.cmd('packadd ' .. package_name) end)
+Config.packadd = function(package_name)
+    Config.now(function() vim.cmd('packadd ' .. package_name) end)
 end
 
 --- Used for when a plugin should be loaded given nvim is started like `nvim -- /path/to/file`.
-Load.now_if_args = vim.fn.argc(-1) > 0 and Load.now or Load.later
+Config.now_if_args = vim.fn.argc(-1) > 0 and Config.now or Config.later
 
 -- Disable unused built-in plugins ============================================
 vim.g.loaded_gzip = 1

@@ -24,7 +24,7 @@ M.nxmap = M.map({ 'n', 'x' })
 -- Export module
 _G.Keymap = M
 
-Load.now_if_args(function()
+Config.now_if_args(function()
     local nmap, tmap = Keymap.nmap, Keymap.tmap
 
     vim.keymap.set({ 'n', 'v' }, 's', '<Nop>', { silent = true })
@@ -65,7 +65,7 @@ Load.now_if_args(function()
     nmap('<leader>q', toggle_quickfix, 'Toggle quickfix list')
 
     nmap('<leader>u', function()
-        Load.packadd('nvim.undotree')
+        Config.packadd('nvim.undotree')
         local undotree = require('undotree')
         undotree.open()
     end, 'Toggle undo tree')

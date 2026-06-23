@@ -1,4 +1,4 @@
-Load.now(function()
-    Load.packadd('nvim-dap-python')
+Config.now(function()
+    Config.packadd('nvim-dap-python')
     require('dap-python').setup('python')
 end)

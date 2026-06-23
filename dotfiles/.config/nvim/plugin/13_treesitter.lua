@@ -1,5 +1,5 @@
-Load.now_if_args(function()
-    Load.packadd('nvim-treesitter')
+Config.now_if_args(function()
+    Config.packadd('nvim-treesitter')
     -- local parser_install_dir = vim.fn.stdpath('state') .. '/treesitter'
     -- vim.opt.runtimepath:prepend(parser_install_dir)
 
@@ -78,8 +78,8 @@ Load.now_if_args(function()
     end, {})
 end)
 
-Load.later(function()
-    Load.packadd('nvim-treesitter-context')
+Config.later(function()
+    Config.packadd('nvim-treesitter-context')
     local context = require('treesitter-context')
     context.setup()
 

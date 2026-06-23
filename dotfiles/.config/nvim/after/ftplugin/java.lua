@@ -1,4 +1,4 @@
--- Load.now(function()
+-- Config.now(function()
 --     local config = {
 --         cmd = { 'jdtls' },
 --         root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),

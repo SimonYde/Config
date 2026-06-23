@@ -1,7 +1,7 @@
 local nmap, imap = Keymap.nmap, Keymap.imap
 
-Load.later(function()
-    Load.packadd('blink.cmp')
+Config.later(function()
+    Config.packadd('blink.cmp')
 
     require('blink.cmp').setup({
         appearance = {
@@ -45,8 +45,8 @@ Load.later(function()
     })
 end)
 
-Load.now_if_args(function()
-    Load.packadd('nvim-ufo')
+Config.now_if_args(function()
+    Config.packadd('nvim-ufo')
 
     vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
@@ -67,8 +67,8 @@ Load.now_if_args(function()
     nmap('zR', function() ufo.openAllFolds() end, 'Open all folds (ufo)')
 end)
 
-Load.later(function()
-    Load.packadd('trouble.nvim')
+Config.later(function()
+    Config.packadd('trouble.nvim')
     require('trouble').setup()
 
     nmap('<leader>td', function() vim.cmd.Trouble('diagnostics toggle') end, 'Toggle diagnostics')
@@ -76,8 +76,8 @@ Load.later(function()
     nmap('<leader>tq', function() vim.cmd.Trouble('qflist toggle') end, 'Toggle quickfix')
 end)
 
-Load.now_if_args(function()
-    Load.packadd('yazi.nvim')
+Config.now_if_args(function()
+    Config.packadd('yazi.nvim')
 
     require('yazi').setup({
         open_for_directories = true,
@@ -92,14 +92,14 @@ Load.now_if_args(function()
     nmap('<M-F>', function() vim.cmd.Yazi() end, 'Show current file in Yazi')
 end)
 
-Load.on_events('event:BufRead~Cargo.toml', function()
-    Load.packadd('crates.nvim')
+Config.on_events('BufRead', 'Cargo.toml', function()
+    Config.packadd('crates.nvim')
     --- @diagnostic disable-next-line: missing-parameter
     require('crates').setup()
 end)
 
-Load.later(function()
-    Load.packadd('conform.nvim')
+Config.later(function()
+    Config.packadd('conform.nvim')
     local conform = require('conform')
 
     conform.setup({
@@ -115,11 +115,11 @@ Load.later(function()
     nmap('<leader>=', function() conform.format({ stop_after_first = true, lsp_fallback = true }) end, 'Format code')
 end)
 
--- Load.on_events('event:InsertEnter', function() require('nvim-autopairs').setup() end)
-Load.on_events('event:InsertEnter', function() require('mini.pairs').setup() end)
+-- Config.on_events('InsertEnter', nil, function() require('nvim-autopairs').setup() end)
+Config.on_events('InsertEnter', nil, function() require('mini.pairs').setup() end)
 
-Load.later(function()
-    Load.packadd('neogit')
+Config.later(function()
+    Config.packadd('neogit')
     require('neogit').setup({
         integrations = {
             diffview = false,
@@ -133,8 +133,8 @@ Load.later(function()
     nmap('<leader>gc', function() vim.cmd.Neogit('commit') end, 'Neogit commit')
 end)
 
-Load.later(function()
-    Load.packadd('which-key.nvim')
+Config.later(function()
+    Config.packadd('which-key.nvim')
     require('which-key').setup({
         preset = 'modern',
         disable = { buftypes = { 'nofile', 'prompt', 'quickfix', 'terminal' } },
@@ -160,7 +160,7 @@ Load.later(function()
     })
 end)
 
-Load.later(function()
+Config.later(function()
     local lazydev = require('lazydev')
     --- @diagnostic disable-next-line: missing-fields
     lazydev.setup({
@@ -177,8 +177,8 @@ Load.later(function()
     })
 end)
 
-Load.later(function()
-    Load.packadd('lspsaga.nvim')
+Config.later(function()
+    Config.packadd('lspsaga.nvim')
     require('lspsaga').setup({
         symbol_in_winbar = { enable = false },
 
@@ -192,9 +192,9 @@ Load.later(function()
     })
 end)
 
-Load.now_if_args(function()
-    Load.packadd('nvim-dap')
-    Load.packadd('nvim-dap-ui')
+Config.now_if_args(function()
+    Config.packadd('nvim-dap')
+    Config.packadd('nvim-dap-ui')
 
     local dap, dapui = require('dap'), require('dapui')
     local widgets = require('dap.ui.widgets')
@@ -233,8 +233,8 @@ Load.now_if_args(function()
     nmap('<F6>', function() dap.toggle_breakpoint() end, 'debug: toggle breakpoint')
 end)
 
-Load.later(function()
-    Load.packadd('render-markdown.nvim')
+Config.later(function()
+    Config.packadd('render-markdown.nvim')
 
     require('render-markdown').setup({
         callout = {
@@ -246,8 +246,8 @@ Load.later(function()
     })
 end)
 
-Load.later(function()
-    Load.packadd('obsidian.nvim')
+Config.later(function()
+    Config.packadd('obsidian.nvim')
 
     require('obsidian').setup({
         frontmatter = {
@@ -292,8 +292,8 @@ Load.later(function()
     nmap('<leader>ot', function() vim.cmd.Obsidian('tags') end, 'Open tags list')
 end)
 
-Load.later(function()
-    Load.packadd('todo-comments.nvim')
+Config.later(function()
+    Config.packadd('todo-comments.nvim')
     require('todo-comments').setup({
         signs = false,
         keywords = {
@@ -309,7 +309,7 @@ Load.later(function()
     })
 end)
 
-Load.later(function()
-    Load.packadd('img-clip.nvim')
+Config.later(function()
+    Config.packadd('img-clip.nvim')
     require('img-clip').setup({ default = { dir_path = 'attachments' } })
 end)

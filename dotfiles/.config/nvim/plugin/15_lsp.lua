@@ -1,5 +1,5 @@
-Load.now_if_args(function()
-    Load.packadd('nvim-lspconfig')
+Config.now_if_args(function()
+    Config.packadd('nvim-lspconfig')
 
     vim.lsp.config('basedpyright', {
         settings = {

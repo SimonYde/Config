@@ -1,4 +1,4 @@
-Load.now(function()
+Config.now(function()
     _G.dd = function(...) require('snacks.debug').inspect(...) end
     _G.bt = function() require('snacks.debug').backtrace() end
     _G.p = function(...) require('snacks.debug').profile(...) end
@@ -52,7 +52,7 @@ Load.now(function()
     Snacks.dashboard.have_plugin = function(name) return package.loaded[name] ~= nil end
 end)
 
-Load.later(function()
+Config.later(function()
     local nmap, tmap = Keymap.nmap, Keymap.tmap
 
     ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>

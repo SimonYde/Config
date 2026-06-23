@@ -1,19 +1,19 @@
 local nmap, nxmap = Keymap.nmap, Keymap.nxmap
 
-Load.now(function()
+Config.now(function()
     require('mini.sessions').setup()
     require('mini.starter').setup({
         evaluate_single = true,
     })
 end)
 
-Load.now_if_args(function()
+Config.now_if_args(function()
+    local MiniMisc = require('mini.misc')
     MiniMisc.setup_restore_cursor()
-
     MiniMisc.setup_auto_root({ '.git', '.jj', 'flake.nix', 'Makefile', 'Justfile' })
 end)
 
-Load.later(function()
+Config.later(function()
     require('mini.align').setup()
     require('mini.bracketed').setup({ n_lines = 500 })
     require('mini.comment').setup()
@@ -202,7 +202,7 @@ Load.later(function()
         set_vim_settings = false,
     })
 
-    Load.packadd('nvim-treesitter-textobjects')
+    Config.packadd('nvim-treesitter-textobjects')
     local spec_treesitter = require('mini.ai').gen_spec.treesitter
     local gen_ai_spec = MiniExtra.gen_ai_spec
     require('mini.ai').setup({

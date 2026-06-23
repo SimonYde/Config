@@ -1,6 +1,6 @@
 vim.cmd('setlocal wrap spell')
 
-Load.now(function()
+Config.now(function()
     local mini_ai = require('mini.ai')
     vim.b.miniai_config = {
         custom_textobjects = {

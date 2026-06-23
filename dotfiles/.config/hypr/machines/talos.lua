@@ -19,6 +19,12 @@ hl.monitor({
     position = "auto-up",
     scale = 1,
 })
+hl.monitor({
+    output = 'desc:HP Inc. HP E273q 6CM9191YW1',
+    mode = 'preferred',
+    position = "auto-up",
+    scale = 1,
+})
 
 hl.workspace_rule({ workspace = "1", monitor = "DP-4" })
 hl.workspace_rule({ workspace = "2", monitor = "DP-4" })

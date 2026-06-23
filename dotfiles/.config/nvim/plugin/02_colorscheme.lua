@@ -1,4 +1,4 @@
-Load.later(function()
+Config.later(function()
     require('catppuccin').setup({
         flavour = 'auto', -- latte, frappe, macchiato, mocha
 
@@ -101,7 +101,7 @@ Load.later(function()
     vim.cmd.colorscheme('catppuccin')
 end)
 
-Load.later(function()
+Config.later(function()
     do
         return
     end
