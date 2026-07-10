@@ -22,7 +22,6 @@ in
     ./jellyfin.nix
     ./mealie.nix
     ./nextcloud.nix
-    ./opencloud.nix
     ./paperless.nix
     ./samba.nix
     ./smartd.nix
@@ -104,11 +103,6 @@ in
     };
 
     mealie.enable = true;
-
-    opencloud = {
-      enable = false;
-      stateDir = "/mnt/tank/opencloud";
-    };
 
     paperless = {
       enable = true;
@@ -234,12 +228,6 @@ in
 
     "/mnt/tank/nextcloud" = {
       device = "tank/nextcloud";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
-
-    "/mnt/tank/opencloud" = {
-      device = "tank/opencloud";
       fsType = "zfs";
       options = [ "zfsutil" ];
     };

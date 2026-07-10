@@ -40,8 +40,6 @@
           "/var/lib/immich"
           "/mnt/tank/immich"
 
-          "/mnt/tank/opencloud"
-
           "/var/lib/paperless"
           "/mnt/tank/paperless"
         ];

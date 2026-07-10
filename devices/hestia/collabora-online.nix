@@ -45,15 +45,6 @@ in
           {
             host = "cloud.${server.baseDomain}";
           }
-          {
-            host = "opencloud.ts.simonyde.com";
-            aliases = [
-              "127.0.0.1:9300"
-              "127.0.0.1"
-              ''127\.0\.0\.1:9300''
-              ''127\.0\.0\.1''
-            ];
-          }
         ];
 
         settings = {
@@ -73,7 +64,6 @@ in
               "'self'"
             ]
             ++ lib.optional config.services.nextcloud.enable "https://${config.services.nextcloud.hostName}"
-            ++ lib.optional config.services.opencloud.enable "${config.services.opencloud.url}"
           );
 
           server_name = "docs.${server.baseDomain}";
