@@ -19,15 +19,9 @@ in
     ./grafana
     ./kanidm.nix
     ./languagetool.nix
-    ./oauth2-proxy.nix
+    # ./oauth2-proxy.nix
 
     ./qbittorrent.nix
-    ./lidarr.nix
-    ./bazarr.nix
-    ./prowlarr.nix
-    ./seerr.nix
-    ./radarr.nix
-    ./sonarr.nix
   ];
 
   system.stateVersion = "25.05";
@@ -55,6 +49,8 @@ in
 
     zfs.enable = true;
   };
+
+  age.secrets.sambaPassword.file = "${inputs.secrets}/perdixSambaPassword.age";
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
@@ -104,6 +100,7 @@ in
 
     languagetool.enable = true;
 
+    samba.enable = true;
     syncthing.enable = true;
     fstrim.enable = true;
     postgresql.package = lib.mkForce pkgs.postgresql_18;

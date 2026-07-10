@@ -44,7 +44,7 @@ hl.window_rule({
 hl.window_rule({
     name = 'games should tear class',
     match = {
-        class = 'ck3',
+        class = 'ck3|stellaris',
     },
     content = 'game',
     monitor = 'DP-1',

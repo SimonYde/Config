@@ -2,11 +2,10 @@
   pkgs,
   inputs,
   config,
-  username,
   lib,
   ...
 }:
-let 
+let
   inherit (config.syde) server;
 in
 {
@@ -15,7 +14,6 @@ in
 
     ./acme.nix
     ./backup.nix
-    ./bitmagnet.nix
     ./collabora-online.nix
     ./fail2ban.nix
     ./immich.nix
@@ -23,9 +21,17 @@ in
     ./mealie.nix
     ./nextcloud.nix
     ./paperless.nix
-    ./samba.nix
     ./smartd.nix
     ./vaultwarden.nix
+
+    ./oauth2-proxy.nix
+    ./bitmagnet.nix
+    ./prowlarr.nix
+    ./sonarr.nix
+    ./radarr.nix
+    ./lidarr.nix
+    ./bazarr.nix
+    ./seerr.nix
   ];
 
   system.stateVersion = "25.11";
@@ -54,6 +60,9 @@ in
 
     zfs.enable = true;
   };
+
+  age.secrets.sambaPassword.file = "${inputs.secrets}/sambaPassword.age";
+  age.secrets.perdixSambaCredentials.file = "${inputs.secrets}/perdixSambaCredentials.age";
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
@@ -242,6 +251,19 @@ in
       device = "tank/immich";
       fsType = "zfs";
       options = [ "zfsutil" ];
+    };
+
+    "/media/Torrents" = {
+      device = "//100.77.198.76/Media";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+        in
+        [
+          "${automount_opts},credentials=${config.age.secrets.perdixSambaCredentials.path},uid=${toString config.users.users.${server.user}.uid},gid=${toString config.users.groups.${server.group}.gid}"
+          "nofail"
+        ];
     };
   };
 

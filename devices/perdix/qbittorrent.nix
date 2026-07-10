@@ -57,7 +57,7 @@ in
           oidcEnabled = true;
           oidcIssuer = "https://${server.authDomain}/oauth2/openid/qui";
           oidcClientId = "qui";
-          oidcRedirectUrl = "https://qui.ts.simonyde.com/api/auth/oidc/callback";
+          oidcRedirectUrl = "https://qui.ts.${server.baseDomain}/api/auth/oidc/callback";
           oidcDisableBuiltInLogin = true;
         };
 
@@ -66,10 +66,16 @@ in
       nginx = {
         upstreams.qui.servers."127.0.0.1:7476" = { };
 
-        virtualHosts."qui.ts.simonyde.com".locations."/" = {
+        virtualHosts."qui.ts.${server.baseDomain}".locations."/" = {
           proxyPass = "http://qui";
           proxyWebsockets = true;
         };
+      };
+    };
+
+    syde.server.samba.shares = {
+      Media = {
+        path = "/media/Torrents";
       };
     };
 

@@ -56,8 +56,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    age.secrets.sambaPassword.file = "${inputs.secrets}/sambaPassword.age";
-
     environment.systemPackages = [ cfg.package ];
     services = {
 
@@ -71,7 +69,7 @@ in
             "netbios name" = lib.mkDefault config.networking.hostName;
             "security" = lib.mkDefault "user";
             "invalid users" = [ "root" ];
-            "hosts allow" = lib.mkDefault "192.168.2.1/24";
+            "hosts allow" = lib.mkDefault "192.168.2.1/24 100.64.0.0/10";
             "guest account" = lib.mkDefault "nobody";
             "map to guest" = lib.mkDefault "bad user";
             "passdb backend" = lib.mkDefault "tdbsam";

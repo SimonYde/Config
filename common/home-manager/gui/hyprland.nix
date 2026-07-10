@@ -68,7 +68,7 @@ in
       };
 
       # NOTE: Delegate other options to a normal Hyprland config.
-      extraConfig = ''
+      extraConfig = lib.mkOrder 1000 ''
         _G.browser = '${getExe browser.package}'
         _G.file_manager = '${getExe file-manager.package}'
         _G.terminal = '${getExe terminal.package}'

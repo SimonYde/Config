@@ -15,15 +15,7 @@ in
 
     nginx = {
       domain = "perdix-auth.ts.${server.baseDomain}";
-      virtualHosts = {
-        "prowlarr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-        "sonarr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-        "radarr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-        "lidarr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-        "bazarr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-        "bitmagnet.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-        "seerr.ts.${server.baseDomain}".allowed_groups = [ "torrenters@auth.${server.baseDomain}" ];
-      };
+      virtualHosts = { };
     };
   };
 }

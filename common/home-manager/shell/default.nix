@@ -153,6 +153,7 @@ in
     };
     defaultCommand = "${getExe pkgs.fd} -H --type file";
     enableNushellIntegration = false;
+    historyWidget.command = "";
   };
 
   programs.helix.package = pkgs.evil-helix;

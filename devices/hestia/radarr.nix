@@ -1,0 +1,27 @@
+{ config, lib, ... }:
+let
+  inherit (config.syde) server;
+in
+{
+  services = {
+    radarr = {
+      enable = true;
+      inherit (server) user;
+    };
+
+    nginx = {
+      upstreams.radarr.servers."127.0.0.1:7878" = { };
+
+      virtualHosts."radarr.ts.simonyde.com" = {
+        acmeRoot = lib.mkForce null;
+        enableACME = lib.mkForce false;
+        useACMEHost = "ts.simonyde.com";
+
+        locations."/" = {
+          proxyPass = "http://radarr";
+          proxyWebsockets = true;
+        };
+      };
+    };
+  };
+}

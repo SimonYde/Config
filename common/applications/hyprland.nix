@@ -14,7 +14,7 @@ in
     home-manager.users.${username} = {
       imports = [ ../home-manager/gui/hyprland.nix ];
 
-      wayland.windowManager.hyprland.extraConfig = lib.mkOrder 1000 ''
+      wayland.windowManager.hyprland.extraConfig = ''
         pcall(require, 'machines.' .. '${config.networking.hostName}')
       '';
 

@@ -21,14 +21,14 @@ in
         provider = "oidc";
         keyFile = config.age.secrets.oauth2ProxySecrets.path;
 
-        cookie.domain = ".${server.baseDomain}";
+        cookie.domain = ".simonyde.com";
         email.domains = [ "*" ];
 
         extraConfig = {
           code-challenge-method = "S256";
-          whitelist-domain = "*.${server.baseDomain}";
+          whitelist-domain = "*.simonyde.com";
           reverse-proxy = true;
-          scope = "openid email profile groups";
+          scope = "openid email profile groups_name";
           session-store-type = "redis";
           redis-connection-url = "unix:/run/redis-oauth2_proxy/redis.sock";
         };

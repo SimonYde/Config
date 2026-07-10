@@ -65,3 +65,5 @@ hl.config({
 })
 
 hl.gesture({ fingers = 3, direction = 'horizontal', action = 'workspace' })
+
+hl.monitor({ output = '', mode = 'preferred', position = 'auto', scale = 1 })
