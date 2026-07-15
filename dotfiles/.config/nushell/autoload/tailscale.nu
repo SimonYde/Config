@@ -51,7 +51,7 @@ module tailscale {
         | skip 1
         | to text
         | detect columns --guess
-        | rename --block {str downcase}
+        | rename --block {str lowercase }
         | each {|node| {value: $node.hostname, description: $"($node.country) - ($node.city)"}}
     }
 

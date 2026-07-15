@@ -12,7 +12,7 @@ let
 in
 {
   programs.waybar = {
-    package = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar;
+    # package = inputs.waybar.packages.${pkgs.stdenv.hostPlatform.system}.waybar;
     systemd.enable = true;
 
     settings.mainBar = {

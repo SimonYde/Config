@@ -11,7 +11,7 @@ export def "loc" [
 
     let report = tokei --hidden -o json
     | from json
-    | rename --block { str downcase }
+    | rename --block { str lowercase }
 
     if ($language | is-empty) {
         return (

@@ -2,7 +2,6 @@ inputs: [
   inputs.neovim-nightly.overlays.default
   inputs.nur.overlays.default
   inputs.nix-cachyos-kernel.overlays.pinned
-  inputs.nh.overlays.default
 
   (
     final: prev:
