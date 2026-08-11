@@ -33,6 +33,7 @@
           "/var/backup"
           "/var/lib/jellyfin"
           "/var/lib/vaultwarden"
+          "/var/lib/mealie"
 
           "/var/lib/nextcloud"
           "/mnt/tank/nextcloud"

@@ -59,7 +59,7 @@ in
         spicetify.enable = true;
         vivid.enable = true;
         voxtype.enable = true;
-        wayprompt.enable = true;
+        wayprompt.enable = false;
         thunderbird.enable = false;
         yt-dlp.enable = true;
         zathura.enable = true;
@@ -85,7 +85,7 @@ in
         pdfpc # PDF presentation tool
         libreoffice # Office365 replacement
         obsidian # Second brain
-        gimp3 # Image editor
+        # gimp3 # Image editor
 
         tor-browser
 

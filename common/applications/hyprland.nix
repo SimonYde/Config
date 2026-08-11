@@ -37,7 +37,7 @@ in
       };
     };
 
-    programs.regreet.enable = true;
+    services.displayManager.regreet.enable = true;
     programs.hyprland.withUWSM = true;
 
     security.pam.services.hyprlock = { };

@@ -41,6 +41,7 @@ in
     boot = {
       kernelPackages = lib.mkOverride 99 latestZfsKernelPackage;
       supportedFilesystems.zfs = true;
+      zfs.forceImportRoot = false;
     };
 
     services = {

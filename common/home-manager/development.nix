@@ -224,25 +224,21 @@ in
           settings = {
             "icarus" = {
               hostname = "icarus";
-              user = "root";
               forwardAgent = true;
             };
 
             "perdix" = {
               hostname = "perdix";
-              user = "root";
               forwardAgent = true;
             };
 
             "hestia" = {
               hostname = "hestia";
-              user = "root";
               forwardAgent = true;
             };
 
             "talos" = {
               hostname = "talos";
-              user = "root";
               forwardAgent = true;
             };
           };
@@ -489,6 +485,7 @@ in
             cargo-binstall
             cargo-bloat
             cargo-wizard
+            cargo-watch
 
             gef
 

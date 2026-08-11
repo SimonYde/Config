@@ -33,6 +33,11 @@
     };
 
     # NixOS modules
+    arcana = {
+      url = "git+https://git.afnix.fr/arcana/arcana.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
@@ -79,6 +84,16 @@
     trackerlist = {
       url = "github:ngosang/trackerslist";
       flake = false;
+    };
+
+    lix = {
+      url = "git+https://gerrit.lix.systems/lix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        flake-compat.follows = "flake-compat";
+        nix_2_18.inputs.nixpkgs.follows = "nixpkgs";
+      };
     };
 
     lanzaboote = {
@@ -225,8 +240,21 @@
     };
   };
 
+  nixConfig = {
+    extra-substituters = [
+      "https://simonyde.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "simonyde.cachix.org-1:8NLbpUJlsbus5yewqulyiHTxXR6ZtWF0p0O1bRYS94w="
+    ];
+  };
+
   outputs =
-    inputs: with import ./utils/mkConfig.nix { inherit inputs; }; {
+    inputs:
+    with import ./utils/mkConfig.nix {
+      inherit inputs;
+      username = "syde";
+    }; {
       legacyPackages.x86_64-linux = pkgs;
 
       checks.x86_64-linux = {
@@ -253,22 +281,60 @@
         inherit (inputs.self.checks.x86_64-linux.pre-commit-check) shellHook;
         buildInputs = inputs.self.checks.x86_64-linux.pre-commit-check.enabledPackages;
         packages = with pkgs; [
+          (inputs.arcana.packages.x86_64-linux.arcana.override {
+            inherit (inputs.lix.packages.x86_64-linux) nix-eval-jobs;
+          })
+
+          cachix
           just
           stow
         ];
       };
 
-      nixosConfigurations = {
-        hestia = mkSystem { hostname = "hestia"; };
-        icarus = mkSystem { hostname = "icarus"; };
-        icarus-wsl = mkWslSystem { hostname = "icarus"; };
-        iso = mkSystem { hostname = "iso"; };
-        perdix = mkSystem { hostname = "perdix"; };
-        talos = mkSystem { hostname = "talos"; };
-      };
-
       homeConfigurations = {
         stub = mkHome { username = "syde"; };
+      };
+
+      nixosConfigurations = inputs.self.arcanaHive.nodes;
+
+      allMachines =
+        let
+          toLink = name: value: {
+            inherit name;
+            path = value.config.system.build.toplevel;
+          };
+          links = pkgs.lib.mapAttrsToList toLink inputs.self.nixosConfigurations;
+        in
+        pkgs.linkFarm "all-machines" links;
+
+      arcanaHive = inputs.arcana.lib.makeHive {
+        meta = hiveMeta;
+
+        hestia = mkSystem {
+          hostname = "hestia";
+        };
+
+        icarus = mkSystem {
+          hostname = "icarus";
+          allowLocalDeployment = true;
+        };
+
+        icarus-wsl = mkWslSystem {
+          hostname = "icarus";
+        };
+
+        # iso = mkSystem {
+        #   hostname = "iso";
+        # };
+
+        perdix = mkSystem {
+          hostname = "perdix";
+        };
+
+        talos = mkSystem {
+          hostname = "talos";
+          allowLocalDeployment = true;
+        };
       };
     };
 }

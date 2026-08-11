@@ -10,7 +10,7 @@ let
 in
 {
   config = mkIf cfg.enable {
-    nixpkgs.config.cudaSupport = true;
+    nixpkgs.config.cudaSupport = lib.mkForce true;
 
     services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -40,8 +40,6 @@ in
         enable32Bit = true;
       };
     };
-
-    environment.systemPackages = [ pkgs.cudaPackages.cudatoolkit ];
 
     environment.sessionVariables = mkIf cfg.dedicated {
       NVD_BACKEND = "direct";

@@ -1,4 +1,30 @@
-default: os
+ARCANA_FLAGS := "--nix-option max-jobs 4 --nix-option cores 16 --show-trace --verbose --keep-result --no-gzip"
+
+default: update deploy
+
+deploy TARGETS="perdix,hestia,icarus,talos" +ARGS="":
+    @arcana apply --on {{TARGETS}} {{ARCANA_FLAGS}} {{ARGS}}
+
+update:
+    @nix flake update --commit-lock-file
+
+diff TARGET:
+    @ssh {{TARGET}} nix profile diff-closures --profile /nix/var/nix/profiles/system
+
+wat OPTION HOST="$(hostname)":
+    @nix eval ".#nixosConfigurations.{{HOST}}.config.{{OPTION}}"
+
+build-all +ARGS="":
+    @arcana build {{ARCANA_FLAGS}} {{ARGS}}
+
+push +ARGS="": (build-all ARGS)
+    @cachix push simonyde .gcroots/* .direnv/flake-profile-*
+
+sd TARGET:
+    @nom build ".#nixosConfigurations.{{TARGET}}.config.system.build.sdImage" --verbose -j4 --show-trace -L
+
+provision:
+    sudo ln -s {{justfile_directory()}}/flake.nix /etc/nixos/flake.nix
 
 stow:
 	#!/usr/bin/env -S nu -n
@@ -22,10 +48,6 @@ stow:
 
 news:
 	nix run nixpkgs#home-manager -- news --flake .#stub
-
-update:
-	@nix flake update --commit-lock-file
-	@nh os switch . --ask --cores ${NIX_BUILD_CORES}
 
 os:
 	@nh os switch . --ask --cores ${NIX_BUILD_CORES} --no-specialisation

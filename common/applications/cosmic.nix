@@ -18,10 +18,9 @@ in
       cosmic-term
     ];
 
-    programs.regreet.enable = mkForce false;
-
     services = {
       displayManager.cosmic-greeter.enable = true;
+      displayManager.regreet.enable = mkForce false;
 
       greetd.settings = {
         initial_session = {

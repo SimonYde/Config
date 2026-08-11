@@ -127,6 +127,11 @@ in
 
         upstreams = [
           {
+            url = "https://simonyde.cachix.org";
+            priority = 5;
+            public_key = "simonyde.cachix.org-1:8NLbpUJlsbus5yewqulyiHTxXR6ZtWF0p0O1bRYS94w=";
+          }
+          {
             url = "https://cache.nixos.org";
             priority = 10;
             public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";

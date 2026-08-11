@@ -87,7 +87,7 @@ in
       # and it makes connecting from a local Mac possible.
       avahi = {
         enable = true;
-        nssmdns = true;
+        nssmdns4 = true;
         publish = {
           enable = true;
           addresses = true;

@@ -6,7 +6,7 @@ in
   services = {
     radarr = {
       enable = true;
-      inherit (server) user;
+      inherit (server) user group;
     };
 
     nginx = {

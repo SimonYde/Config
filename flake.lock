@@ -27,6 +27,27 @@
         "type": "github"
       }
     },
+    "arcana": {
+      "inputs": {
+        "dried-nix-flakes": "dried-nix-flakes",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768836646,
+        "narHash": "sha256-0jvcm98YvhGyxgiIge/k7J6UE15tWzUYkYPTo33DWyI=",
+        "ref": "refs/heads/main",
+        "rev": "ca759614d83b24bf19d59a18b9269fe73b516879",
+        "revCount": 629,
+        "type": "git",
+        "url": "https://git.afnix.fr/arcana/arcana.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.afnix.fr/arcana/arcana.git"
+      }
+    },
     "audiobook-dl": {
       "inputs": {
         "flake-utils": [
@@ -168,6 +189,21 @@
         "owner": "lnl7",
         "ref": "master",
         "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "dried-nix-flakes": {
+      "locked": {
+        "lastModified": 1756139350,
+        "narHash": "sha256-pObQv94NclXVXjJV8sTiKwFes4fGEWpkNzDsXw5DqnY=",
+        "owner": "cyberus-technology",
+        "repo": "dried-nix-flakes",
+        "rev": "1b2ba62710c6c1d9eba0e8e3adc029cc2e9291a4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cyberus-technology",
+        "repo": "dried-nix-flakes",
         "type": "github"
       }
     },
@@ -664,6 +700,51 @@
         "type": "github"
       }
     },
+    "lix": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "nix2container": "nix2container",
+        "nix_2_18": "nix_2_18",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-regression": "nixpkgs-regression",
+        "pre-commit-hooks": [
+          "pre-commit-hooks"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786443272,
+        "narHash": "sha256-XkxQ7u/0elaAjsBWTwl2WmdfszEhdCx5gDmNxFlCle8=",
+        "ref": "refs/heads/main",
+        "rev": "61b687e923347f681bc3f8f7f6a8c60978f93353",
+        "revCount": 19459,
+        "type": "git",
+        "url": "https://gerrit.lix.systems/lix"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gerrit.lix.systems/lix"
+      }
+    },
+    "lowdown-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1633514407,
+        "narHash": "sha256-Dw32tiMjdK9t3ETl5fzGrutQTzh2rufgZV4A/BbxuD4=",
+        "owner": "kristapsdz",
+        "repo": "lowdown",
+        "rev": "d2c2b44ff6c27b936ec27358a2653caaef8f73b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kristapsdz",
+        "repo": "lowdown",
+        "type": "github"
+      }
+    },
     "luvit-meta": {
       "flake": false,
       "locked": {
@@ -837,6 +918,52 @@
         "type": "github"
       }
     },
+    "nix2container": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767195068,
+        "narHash": "sha256-+OMnL79ZjqM/PCz2hoQ12MnXNoSSfBGnsYBOZnA9XbI=",
+        "owner": "nlewo",
+        "repo": "nix2container",
+        "rev": "bb6801be998ba857a62c002cb77ece66b0a57298",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nlewo",
+        "repo": "nix2container",
+        "type": "github"
+      }
+    },
+    "nix_2_18": {
+      "inputs": {
+        "flake-compat": [
+          "lix",
+          "flake-compat"
+        ],
+        "lowdown-src": "lowdown-src",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-regression": [
+          "lix",
+          "nixpkgs-regression"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730375271,
+        "narHash": "sha256-RrOFlDGmRXcVRV2p2HqHGqvzGNyWoD0Dado/BNlJ1SI=",
+        "owner": "NixOS",
+        "repo": "nix",
+        "rev": "0f665ff6779454f2117dcc32e44380cda7f45523",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "2.18.9",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
@@ -921,6 +1048,22 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixpkgs-regression": {
+      "locked": {
+        "lastModified": 1643052045,
+        "narHash": "sha256-uGJ0VXIhWKGXxkeNnq4TvV3CIOkUJ3PAoLZ3HMzNVMw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
         "type": "github"
       }
     },
@@ -1034,6 +1177,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "arcana": "arcana",
         "audiobook-dl": "audiobook-dl",
         "betterfox": "betterfox",
         "etilbudsavis-cli": "etilbudsavis-cli",
@@ -1045,6 +1189,7 @@
         "home-manager": "home-manager",
         "kattis-cli": "kattis-cli",
         "lanzaboote": "lanzaboote",
+        "lix": "lix",
         "mini-nvim": "mini-nvim",
         "musnix": "musnix",
         "ncro": "ncro",

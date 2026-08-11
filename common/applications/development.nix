@@ -4,6 +4,7 @@
   config,
   pkgs,
   options,
+  inputs,
   ...
 }:
 let
@@ -60,6 +61,8 @@ in
     environment.variables = {
       SSH_AUTH_SOCK = "/tmp/ssh-agent.socket";
     };
+
+    nix.package = inputs.lix.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     programs.nix-ld = {
       enable = true;

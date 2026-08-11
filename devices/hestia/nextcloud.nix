@@ -43,7 +43,7 @@ in
 
     services = {
       nextcloud = {
-        package = pkgs.nextcloud33;
+        package = pkgs.nextcloud34;
         hostName = "cloud.${server.baseDomain}";
         datadir = "/mnt/tank/nextcloud";
         database.createLocally = true;

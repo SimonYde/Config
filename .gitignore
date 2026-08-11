@@ -2,5 +2,6 @@
 .stfolder
 .pre-commit-config.yaml
 .direnv
+.gcroots
 **/hypr/hyprland.conf
 **/BetterDiscord/
