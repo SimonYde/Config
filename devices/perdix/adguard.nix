@@ -15,9 +15,9 @@ in
             upstream_dns = [
               "tls://dns.quad9.net"
             ];
-            fallback_dns = [
-              "9.9.9.9"
-              "149.112.112.112"
+            fallback_dns = lib.mkForce [
+              # "9.9.9.9"
+              # "149.112.112.112"
             ];
           };
           filtering = {

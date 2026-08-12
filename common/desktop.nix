@@ -18,6 +18,8 @@ in
   home-manager.users.${username}.imports = [ ./home-manager/gui ];
 
   boot = {
+    plymouth.enable = true;
+
     initrd.availableKernelModules = [
       "nvme"
       "xhci_pci"

@@ -2,7 +2,10 @@ ARCANA_FLAGS := "--nix-option max-jobs 4 --nix-option cores 16 --show-trace --ve
 
 default: update deploy
 
-deploy TARGETS="perdix,hestia,icarus,talos" +ARGS="":
+local:
+    @arcana apply-local --sudo
+
+deploy TARGETS="$(hostname),perdix,hestia,eunomia" +ARGS="":
     @arcana apply --on {{TARGETS}} {{ARCANA_FLAGS}} {{ARGS}}
 
 update:

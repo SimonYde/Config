@@ -48,6 +48,11 @@ config.ssh_domains = {
 		username = "syde",
 	},
 	{
+		name = "eunomia",
+		remote_address = "eunomia",
+		username = "syde",
+	},
+	{
 		name = "hestia",
 		remote_address = "hestia",
 		username = "syde",

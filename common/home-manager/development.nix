@@ -237,6 +237,11 @@ in
               forwardAgent = true;
             };
 
+            "eunomia" = {
+              hostname = "eunomia";
+              forwardAgent = true;
+            };
+
             "talos" = {
               hostname = "talos";
               forwardAgent = true;

@@ -62,6 +62,12 @@ in
             introducer = false;
           };
 
+          eunomia = {
+            name = "Eunomia";
+            id = "CP3GVDW-FOJXRBD-XMSYUNG-TRNCTNS-Q63XG2P-MSLRWKX-ZOGGHQ3-DDCOHQ5";
+            introducer = false;
+          };
+
           hestia = {
             name = "Hestia";
             id = "7FAIHDN-J5LQ4ZG-WGF42L2-65KBFLS-3AHO67H-LJ7IKSS-NPFH2PM-KRITLAA";
@@ -96,6 +102,7 @@ in
         folders = onlyForThisDevice {
           "Apollo" = {
             path = "${home}/Documents/Apollo";
+            ignorePatterns = [ "#include .global-stignore" ];
             devices = [
               "icarus"
               "icarus-windows"
@@ -112,10 +119,12 @@ in
 
           "Config" = {
             path = "${home}/Config";
+            ignorePatterns = [ "#include .global-stignore" ];
             devices = [
               "icarus"
               "icarus-wsl"
               "perdix"
+              "eunomia"
               "talos"
               "hestia"
             ];
@@ -143,6 +152,7 @@ in
 
           "Projects" = {
             path = "${home}/Projects";
+            ignorePatterns = [ "#include .global-stignore" ];
             devices = [
               "icarus"
               "icarus-wsl"

@@ -1,13 +1,12 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
 }:
 let
   inherit (config.syde) email server;
-  inherit (lib) mkForce mkIf;
+  inherit (lib) mkIf;
   cfg = config.services.mealie;
 in
 
@@ -26,10 +25,12 @@ in
         credentialsFile = config.age.secrets.mealieCredentials.path;
 
         settings = {
+          BASE_URL = "https://opskrifter.${server.baseDomain}";
           OIDC_AUTH_ENABLED = "true";
           OIDC_SIGNUP_ENABLED = "true";
           OIDC_CONFIGURATION_URL = "https://${server.authDomain}/oauth2/openid/mealie/.well-known/openid-configuration";
           OIDC_PROVIDER_NAME = "Kanidm";
+          OIDC_AUTO_REDIRECT = "true";
           OIDC_CLIENT_ID = "mealie";
           OIDC_USER_GROUP = "mealie_users@${server.authDomain}";
           OIDC_ADMIN_GROUP = "mealie_admins@${server.authDomain}";

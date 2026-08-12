@@ -15,6 +15,8 @@ let
   inherit (config.lib.stylix) colors;
   inherit (config.stylix) opacity fonts;
 
+  isDark = config.stylix.polarity == "dark";
+
   hexOpacity = opacity: toLower (toHexString (builtins.ceil (255.0 * opacity)));
   mkHyprRgba = opacity: color: "rgba(${color}${hexOpacity opacity})";
   mkRgb =
@@ -50,6 +52,12 @@ in
       rofi.enable = true;
       zellij.enable = true;
       gnome-text-editor.enable = false;
+    };
+  };
+
+  dconf.settings = lib.mkIf isDark {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
     };
   };
 

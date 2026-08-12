@@ -310,6 +310,10 @@
       arcanaHive = inputs.arcana.lib.makeHive {
         meta = hiveMeta;
 
+        eunomia = mkSystem {
+          hostname = "eunomia";
+        };
+
         hestia = mkSystem {
           hostname = "hestia";
         };

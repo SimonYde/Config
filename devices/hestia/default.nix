@@ -137,7 +137,8 @@ in
 
     wireguard-netns =
       let
-        wg_extern = import "${inputs.secrets}/wireguard-network.nix";
+        networks = import "${inputs.secrets}/networks.nix";
+        wg_extern = networks.wg_extern;
       in
       {
         enable = true;

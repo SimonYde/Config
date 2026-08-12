@@ -173,7 +173,6 @@ in
       query
       formats
       polars
-      # skim
     ];
 
     environmentVariables = {

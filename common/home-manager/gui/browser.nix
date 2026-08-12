@@ -120,8 +120,8 @@ let
 in
 {
   syde.gui.browser = {
-    name = "floorp";
-    inherit (config.programs.floorp) package;
+    name = "brave-browser";
+    inherit (config.programs.brave) package;
   };
 
   programs = {
