@@ -416,6 +416,7 @@ in
         type = types.enum [
           "firefox"
           "brave-browser"
+          "brave-origin"
           "floorp"
           "qutebrowser"
         ];

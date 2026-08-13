@@ -88,6 +88,7 @@ def --env tokens [] {
     $env.GITHUB_TOKEN = (rbw get "Github Token")
     $env.NIX_CONFIG = $"access-tokens = github.com=($env.GITHUB_TOKEN) gitlab.com=PAT:($env.GITLAB_TOKEN)"
     $env.CACHIX_AUTH_TOKEN = (rbw get cachix --field "auth token")
+    $env.CACHIX_SIGNING_KEY = (rbw get cachix --field "signing key")
 }
 
 try {

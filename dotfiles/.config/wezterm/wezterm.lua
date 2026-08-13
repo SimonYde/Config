@@ -68,6 +68,11 @@ local _ok, sessionizer = pcall(require, 'sessionizer')
 config.leader = { key = "l", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	{
+		key = "Enter",
+		mods = "ALT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+	{
 		key = "s",
 		mods = "LEADER",
 		action = action.SplitVertical({ domain = "CurrentPaneDomain" }),

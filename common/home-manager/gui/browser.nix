@@ -120,12 +120,13 @@ let
 in
 {
   syde.gui.browser = {
-    name = "brave-browser";
+    name = "brave-origin";
     inherit (config.programs.brave) package;
   };
 
   programs = {
     brave = {
+      package = pkgs.brave-origin;
       extensions = [
         { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
         { id = "eimadpbcbfnmbkopoojfekhnkhdbieeh"; } # Dark Reader
