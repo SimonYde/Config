@@ -327,9 +327,9 @@
           hostname = "icarus";
         };
 
-        # iso = mkSystem {
-        #   hostname = "iso";
-        # };
+        iso = mkSystem {
+          hostname = "iso";
+        };
 
         perdix = mkSystem {
           hostname = "perdix";

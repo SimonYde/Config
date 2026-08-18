@@ -17,7 +17,6 @@ in
     ./adguard.nix
     ./atuin.nix
     ./grafana
-    ./kanidm.nix
     ./languagetool.nix
     # ./oauth2-proxy.nix
 

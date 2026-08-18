@@ -10,6 +10,9 @@
   imports = [
     ./netcup.nix
 
+    ./acme.nix
+    ./kanidm.nix
+
     ../../common/server.nix
   ];
 
@@ -24,7 +27,7 @@
 
   services = {
     nginx = {
-      enable = false;
+      enable = true;
     };
 
     syncthing.enable = true;
@@ -36,7 +39,7 @@
         onState = [ "routable" ];
         script = ''
           #!${pkgs.runtimeShell}
-          ${lib.getExe pkgs.ethtool} -K eno1 rx-udp-gro-forwarding on rx-gro-list off
+          ${lib.getExe pkgs.ethtool} -K ens3 rx-udp-gro-forwarding on rx-gro-list off
         '';
       };
     };

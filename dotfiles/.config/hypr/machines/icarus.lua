@@ -7,13 +7,6 @@ hl.monitor({
     supports_hdr = 1,
     vrr = 3,
 })
-hl.monitor({
-    output = 'HDMI-A-1',
-    mode = '1920x1080@75',
-    position = '2560x360',
-    disabled = true,
-    scale = 1,
-})
 
 hl.workspace_rule({ workspace = "1", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "2", monitor = "DP-1" })

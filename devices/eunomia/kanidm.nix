@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 let
   inherit (config.syde) server;
-  inherit (server) baseDomain;
+  inherit (server) authDomain;
 
-  certsDirectory = config.security.acme.certs."auth.${baseDomain}".directory;
+  certsDirectory = config.security.acme.certs.${authDomain}.directory;
 in
 {
   services = {
@@ -17,8 +17,8 @@ in
           bindaddress = "0.0.0.0:8443";
           ldapbindaddress = "0.0.0.0:636";
 
-          domain = "auth.${baseDomain}";
-          origin = "https://auth.${baseDomain}";
+          domain = authDomain;
+          origin = "https://${authDomain}";
 
           tls_chain = "${certsDirectory}/fullchain.pem";
           tls_key = "${certsDirectory}/key.pem";
@@ -27,14 +27,14 @@ in
 
       client = {
         enable = true;
-        settings.uri = "https://auth.${baseDomain}";
+        settings.uri = "https://${authDomain}";
       };
     };
 
     nginx = {
       upstreams.kanidm.servers."127.0.0.1:8443" = { };
 
-      virtualHosts."auth.${baseDomain}".locations."/" = {
+      virtualHosts.${authDomain}.locations."/" = {
         proxyPass = "https://kanidm";
         proxyWebsockets = true;
       };
@@ -42,11 +42,11 @@ in
   };
 
   systemd.services.kanidm = {
-    after = [ "acme-auth.${baseDomain}.service" ];
+    after = [ "acme-${authDomain}.service" ];
     serviceConfig.SupplementaryGroups = [ "acme" ];
   };
 
-  security.acme.certs."auth.${baseDomain}".reloadServices = [ "kanidm.service" ];
+  security.acme.certs.${authDomain}.reloadServices = [ "kanidm.service" ];
 
   networking.firewall.allowedTCPPorts = [ 636 ];
 }

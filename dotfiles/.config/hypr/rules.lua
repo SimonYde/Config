@@ -69,7 +69,7 @@ hl.window_rule({ match = { class = '.*File Upload.*' }, float = true })
 hl.window_rule({ match = { class = '.*Connection Details.*' }, float = true })
 hl.window_rule({ match = { class = 'Paradox Launcher' }, float = true })
 
-hl.window_rule({ match = { class = 'electron|obsidian', initial_title = 'Obsidian' }, workspace = 1 })
+hl.window_rule({ match = { class = 'electron|obsidian|md.Obsidian' }, workspace = 1 })
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })
 hl.window_rule({ match = { class = 'ferdium|Ferdium|discord|legcord|vesktop|WhatsApp' }, workspace = '9 silent' })
 hl.window_rule({

@@ -19,6 +19,8 @@ in
 
   boot = {
     plymouth.enable = true;
+    consoleLogLevel = 3;
+    kernelParams = [ "quiet" ];
 
     initrd.availableKernelModules = [
       "nvme"

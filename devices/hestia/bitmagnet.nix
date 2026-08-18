@@ -56,6 +56,9 @@ in
         NetworkNamespacePath = [ "/run/netns/${namespace}" ];
         InaccessiblePaths = [
           "/run/nscd"
+          "/run/dbus/system_bus_socket"
+          "-/var/run/dbus/system_bus_socket"
+          "-/run/systemd/resolve"
         ];
 
         BindReadOnlyPaths = [

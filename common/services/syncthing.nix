@@ -104,12 +104,13 @@ in
             path = "${home}/Documents/Apollo";
             ignorePatterns = [ "#include .global-stignore" ];
             devices = [
+              "daedelus"
+              "eunomia"
               "icarus"
               "icarus-windows"
-              "talos"
-              "daedelus"
-              "theseus"
               "perdix"
+              "talos"
+              "theseus"
             ];
             versioning = {
               type = "trashcan";
@@ -121,21 +122,21 @@ in
             path = "${home}/Config";
             ignorePatterns = [ "#include .global-stignore" ];
             devices = [
+              "eunomia"
+              "hestia"
               "icarus"
               "icarus-wsl"
               "perdix"
-              "eunomia"
               "talos"
-              "hestia"
             ];
           };
 
           "Downloads" = {
             path = "${home}/Downloads";
             devices = [
+              "icarus"
               "icarus-windows"
               "perdix"
-              "icarus"
               "talos"
             ];
           };
@@ -157,6 +158,7 @@ in
               "icarus"
               "icarus-wsl"
               "perdix"
+              "hestia"
               "talos"
             ];
           };

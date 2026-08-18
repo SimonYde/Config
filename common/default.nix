@@ -28,6 +28,15 @@ in
     ./applications
   ];
 
+  age = {
+    ageBin = getExe pkgs.rage;
+
+    secrets = {
+      wireguard.file = "${inputs.secrets}/wireguard.age";
+      pc-password.file = "${inputs.secrets}/pc-password.age";
+    };
+  };
+
   system.stateVersion = mkDefault (throw "stateVersion should be defined.");
 
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -78,8 +87,6 @@ in
 
     nh = {
       enable = true;
-
-      flake = "/home/${username}/Config";
 
       clean = {
         enable = true;
@@ -191,14 +198,6 @@ in
     users.root.imports = [ ./home-manager ];
   };
 
-  age = {
-    ageBin = getExe pkgs.rage;
-
-    secrets = {
-      wireguard.file = "${inputs.secrets}/wireguard.age";
-      pc-password.file = "${inputs.secrets}/pc-password.age";
-    };
-  };
 
   systemd = {
     oomd = {

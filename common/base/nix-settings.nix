@@ -20,7 +20,7 @@
       builders-use-substitutes = true;
       use-xdg-base-directories = true;
       log-lines = 9999;
-      # log-format = "bar-with-logs";
+      log-format = "bar-with-logs";
 
       experimental-features = [
         "nix-command"

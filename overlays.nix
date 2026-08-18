@@ -79,13 +79,6 @@ inputs: [
             src = inputs.vim-alloy;
           };
 
-          catppuccin-nvim = prev.vimPlugins.catppuccin-nvim.overrideAttrs {
-            nvimSkipModule = [
-              "catppuccin.lib.detect_integrations"
-              "catppuccin.groups.integrations.noice"
-            ];
-          };
-
           wezterm-types =
             (prev.vimUtils.buildVimPlugin {
               version = mkDate inputs.wezterm-types;
