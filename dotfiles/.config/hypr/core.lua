@@ -11,7 +11,7 @@ hl.config({
     input = {
         accel_profile = 'flat',
         follow_mouse = 2,
-        repeat_delay = 300,
+        repeat_delay = 200,
         resolve_binds_by_sym = true,
         special_fallthrough = true,
 

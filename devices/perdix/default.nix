@@ -18,7 +18,7 @@ in
     ./atuin.nix
     ./grafana
     ./languagetool.nix
-    # ./oauth2-proxy.nix
+    ./opencode.nix
 
     ./qbittorrent.nix
   ];
@@ -88,6 +88,8 @@ in
     adguardhome.enable = true;
     logind.settings.Login.HandleLidSwitch = "ignore";
 
+    languagetool.enable = true;
+
     nginx = {
       enable = true;
 
@@ -97,7 +99,7 @@ in
       };
     };
 
-    languagetool.enable = true;
+    opencode.enable = true;
 
     samba.enable = true;
     syncthing.enable = true;

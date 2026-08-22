@@ -28,6 +28,7 @@ hl.window_rule({
     float = true,
     pin = true,
     center = true,
+    stay_focused = true,
 })
 
 hl.window_rule({
@@ -44,7 +45,7 @@ hl.window_rule({
 hl.window_rule({
     name = 'games should tear class',
     match = {
-        class = 'ck3|stellaris',
+        class = 'ck3|stellaris|cs2',
     },
     content = 'game',
     monitor = 'DP-1',
@@ -67,7 +68,13 @@ hl.window_rule({ match = { class = '.*blueman-manager.*' }, float = true })
 hl.window_rule({ match = { class = '^nm-connection-editor$' }, float = true })
 hl.window_rule({ match = { class = '.*File Upload.*' }, float = true })
 hl.window_rule({ match = { class = '.*Connection Details.*' }, float = true })
-hl.window_rule({ match = { class = 'Paradox Launcher' }, float = true })
+hl.window_rule({
+    match = {
+        class = 'paradox-launcher-v.*',
+    },
+    float = true,
+    center = true,
+})
 
 hl.window_rule({ match = { class = 'electron|obsidian|md.Obsidian' }, workspace = 1 })
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })

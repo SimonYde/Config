@@ -50,6 +50,7 @@ in
           nvim-lspconfig
 
           # ----- Workflow -----
+          obsidian-nvim
           conform-nvim
           trouble-nvim
           neogit
@@ -57,6 +58,8 @@ in
           img-clip-nvim
 
           yazi-nvim
+          nvim-dap
+          nvim-dap-ui
 
           # ----- UI -----
           lspsaga-nvim

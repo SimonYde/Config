@@ -197,13 +197,9 @@ in
           enableGitIntegration = true;
         };
 
-        neovim.plugins =
-          with pkgs.vimPlugins;
-          config.lib.meta.lazyNeovimPlugins [
-            obsidian-nvim
-            nvim-dap
-            nvim-dap-ui
-          ];
+        opencode = {
+          enable = true;
+        };
 
         qalculate.enable = true;
 
