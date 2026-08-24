@@ -1,4 +1,10 @@
-{ config, lib, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf;
   inherit (config.syde) server;
@@ -6,6 +12,8 @@ let
 in
 {
   config = mkIf cfg.enable {
+    age.secrets.adguardExporterEnv.file = "${inputs.secrets}/adguardExporterEnv.age";
+
     services = {
       adguardhome = {
         host = "127.0.0.1";
@@ -51,6 +59,8 @@ in
 
       resolved.settings.Resolve.DNSStubListener = false;
 
+      alloy.scrape.adguard.port = 9618;
+
       nginx = {
         upstreams.adguard.servers."127.0.0.1:9433" = { };
 
@@ -65,6 +75,44 @@ in
     networking.firewall = {
       allowedUDPPorts = [ 53 ];
       allowedTCPPorts = [ 53 ];
+    };
+
+    systemd.services.prometheus-adguard-exporter = {
+      description = "Prometheus exporter for AdGuard Home";
+      wantedBy = [ "multi-user.target" ];
+      after = [
+        "network-online.target"
+        "adguardhome.service"
+      ];
+      wants = [ "network-online.target" ];
+
+      environment.BIND_ADDR = "127.0.0.1:9618";
+
+      serviceConfig = {
+        EnvironmentFile = config.age.secrets.adguardExporterEnv.path;
+        ExecStart = lib.getExe pkgs.adguard-exporter;
+        Restart = "on-failure";
+        RestartSec = "5s";
+
+        DynamicUser = true;
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        SystemCallArchitectures = "native";
+      };
     };
   };
 }

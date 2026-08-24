@@ -47,6 +47,15 @@ inputs: [
       audiobook-dl = inputs.audiobook-dl.packages.${system}.default;
       etilbudsavis-cli = inputs.etilbudsavis-cli.packages.${system}.default;
 
+      adguard-exporter = final.buildGoModule {
+        pname = "adguard-exporter";
+        version = mkDate inputs.adguard-exporter;
+        src = inputs.adguard-exporter;
+
+        vendorHash = "sha256-fDSR0+INsVBD5XauPdSETMNJZkrIbpKwZ/6Tb2Po4fY=";
+        meta.mainProgram = "adguard-exporter";
+      };
+
       inherit (inputs.kattis-cli.packages.${system}) kattis-test kattis-cli;
 
       vimPlugins = prev.vimPlugins.extend (

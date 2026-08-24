@@ -49,6 +49,11 @@
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
+    adguard-exporter = {
+      url = "github:henrywhitaker3/adguard-exporter";
+      flake = false;
+    };
+
     ncro = {
       url = "github:feel-co/ncro";
       inputs.nixpkgs.follows = "nixpkgs";

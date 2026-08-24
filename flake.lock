@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "adguard-exporter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1757883349,
+        "narHash": "sha256-T9BtFD76hhf72x5CI1JpqpzxBoqrOqiUfyiAb2ktpFY=",
+        "owner": "henrywhitaker3",
+        "repo": "adguard-exporter",
+        "rev": "9d49a564a88d46d32a5fa5afa42b620e2ce40af7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "henrywhitaker3",
+        "repo": "adguard-exporter",
+        "type": "github"
+      }
+    },
     "agenix": {
       "inputs": {
         "darwin": "darwin",
@@ -1176,6 +1192,7 @@
     },
     "root": {
       "inputs": {
+        "adguard-exporter": "adguard-exporter",
         "agenix": "agenix",
         "arcana": "arcana",
         "audiobook-dl": "audiobook-dl",
@@ -1291,11 +1308,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1787143333,
-        "narHash": "sha256-NoRXv6F3+YHPHwpWfiXmHGHF6gAq2640kI9M9SYVYHI=",
+        "lastModified": 1787607584,
+        "narHash": "sha256-JVhbChHYu1Or9qm8JgIYLyICxPkRxFTcOYK+HrtSqAE=",
         "ref": "refs/heads/master",
-        "rev": "7a8e9a9499161625ca9698d5bde2f28e58584fec",
-        "revCount": 47,
+        "rev": "2717364a57fa34ce9c3735fb82b7543e15336f29",
+        "revCount": 48,
         "type": "git",
         "url": "ssh://git@github.com/SimonYde/secrets.git"
       },
