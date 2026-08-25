@@ -17,6 +17,8 @@ in
 
   home-manager.users.${username}.imports = [ ./home-manager/gui ];
 
+  syde.monitoring.enable = true;
+
   boot = {
     plymouth.enable = true;
     consoleLogLevel = 3;

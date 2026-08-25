@@ -75,6 +75,10 @@ prometheus.exporter.unix "default" {
 	hwmon {
 		chip_exclude = sys.env("ALLOY_HWMON_EXCLUDE")
 	}
+
+	systemd {
+		enable_restarts = true
+	}
 }
 
 scrape "unix" {
