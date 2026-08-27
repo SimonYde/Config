@@ -7,7 +7,6 @@ in
     ./loki.nix
     ./mimir.nix
     ./tempo.nix
-    # ./blackbox_exporter.nix
   ];
 
   age.secrets.grafanaClientSecret = {
@@ -64,8 +63,6 @@ in
 
           role_attribute_path = "contains(groups[*], 'grafana_admins@${server.authDomain}') && 'GrafanaAdmin' || 'Viewer'";
         };
-
-        dashboards.default_home_dashboard_path = "${./dashboards/home.json}";
 
         feature_toggles.enable = "autoMigrateOldPanels newVizTooltips";
         security = {

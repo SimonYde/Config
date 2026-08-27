@@ -61,7 +61,7 @@ in
           ingestion_rate = 1000000; # can't set to unlimited :(
           out_of_order_time_window = "12h";
           max_global_series_per_user = 0; # unlimited
-          max_label_value_length = 10000; # we have pgscv queries that are LONG
+          max_label_value_length = 20000; # we have pgscv queries that are LONG
         };
 
         ruler_storage = {
@@ -70,8 +70,7 @@ in
         };
 
         alertmanager = {
-          # FIXME: WHAT https://github.com/grafana/mimir/issues/2910
-          sharding_ring.replication_factor = 2;
+          sharding_ring.replication_factor = 1;
           fallback_config_file = "/run/credentials/mimir.service/alertmanager-config";
         };
         alertmanager_storage.backend = "filesystem";
