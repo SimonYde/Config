@@ -25,10 +25,11 @@ in
       "$java"
       "$scala"
       "$lua"
+      "$zig"
       "$python"
       "$typst"
-      "$direnv"
       "$gleam"
+      "$direnv"
     ];
 
     # Modules
@@ -70,21 +71,34 @@ in
       heuristic = false;
     };
 
-    golang = {
-      symbol = " ";
-    };
-
     elm = {
+      disabled = mkDefault true;
       symbol = " ";
     };
 
+    golang = {
+      disabled = mkDefault true;
+      symbol = " ";
+    };
+
+    java = {
+      disabled = mkDefault true;
+      symbol = " ";
+    };
+
     python = {
+      disabled = mkDefault true;
       symbol = " ";
     };
 
     scala = {
       disabled = mkDefault true;
       symbol = " ";
+    };
+
+    zig = {
+      disabled = mkDefault true;
+      symbol = " ";
     };
   };
 }

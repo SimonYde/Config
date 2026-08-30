@@ -103,19 +103,28 @@ Config.later(function()
     local conform = require('conform')
 
     conform.setup({
+        formatters = {
+            rustfmt = {
+                options = {
+                    default_edition = '2024',
+                    nightly = true,
+                },
+            },
+        },
         formatters_by_ft = {
             clojure = { 'cljfmt' },
             lua = { 'stylua' },
+            rust = { 'rustfmt' },
             nix = { 'nixfmt' },
             python = { 'ruff_format' },
             typst = { 'typstyle' },
         },
     })
+    vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
 
     nmap('<leader>=', function() conform.format({ stop_after_first = true, lsp_fallback = true }) end, 'Format code')
 end)
 
--- Config.on_events('InsertEnter', nil, function() require('nvim-autopairs').setup() end)
 Config.on_events('InsertEnter', nil, function() require('mini.pairs').setup() end)
 
 Config.later(function()
@@ -257,8 +266,8 @@ Config.later(function()
 
         new_notes_location = 'current_dir',
 
-        attachments = { folder = '/attachments' },
-        picker = { name = 'snacks.pick' },
+        attachments = { folder = 'meta/attachments' },
+        picker = { name = 'snacks.picker' },
 
         workspaces = {
             {

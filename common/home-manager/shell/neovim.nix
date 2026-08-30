@@ -32,7 +32,6 @@ in
         with pkgs.vimPlugins;
         [
           # ----- Workflow -----
-          nvim-autopairs
           mini-nvim
           snacks-nvim
           vim-sleuth

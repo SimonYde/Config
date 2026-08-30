@@ -20,7 +20,7 @@ in
       syde.development = {
         android.enable = false;
         bash.enable = true;
-        cpp.enable = true;
+        c.enable = true;
         clojure.enable = false;
         gleam.enable = false;
         go.enable = true;
@@ -49,7 +49,7 @@ in
 
         ast-grep
 
-        gdbgui
+        gf
 
         glab
         forgejo-cli
@@ -300,7 +300,7 @@ in
       ];
     })
 
-    (mkIf cfg.cpp.enable {
+    (mkIf cfg.c.enable {
       home.packages = with pkgs; [
         gdb
         gef
@@ -348,6 +348,8 @@ in
         config.lib.meta.lazyNeovimPlugins [
           nvim-dap-go # debugging support
         ];
+
+      programs.starship.settings.golang.disabled = false;
     })
 
     (mkIf cfg.java.enable {
@@ -376,6 +378,8 @@ in
         };
 
         neovim.plugins = with pkgs.vimPlugins; config.lib.meta.lazyNeovimPlugins [ nvim-jdtls ];
+
+        starship.settings.java.disabled = false;
       };
     })
 
@@ -445,20 +449,24 @@ in
         ))
       ];
 
-      programs.ruff = {
-        enable = true;
-        settings = {
-          line-length = 100;
+      programs = {
+        ruff = {
+          enable = true;
+          settings = {
+            line-length = 100;
+          };
         };
+
+        neovim.plugins =
+          with pkgs.vimPlugins;
+          config.lib.meta.lazyNeovimPlugins [
+            nvim-dap-python
+          ];
+
+        starship.settings.python.disabled = false;
+
+        ty.enable = true;
       };
-
-      programs.ty.enable = true;
-
-      programs.neovim.plugins =
-        with pkgs.vimPlugins;
-        config.lib.meta.lazyNeovimPlugins [
-          nvim-dap-python
-        ];
     })
 
     (mkIf cfg.scala.enable {
@@ -543,6 +551,8 @@ in
         zig
         zls
       ];
+
+      programs.starship.settings.zig.disabled = false;
     })
   ];
 
@@ -551,7 +561,7 @@ in
 
     bash.enable = mkEnableOption "Bash tools";
 
-    cpp.enable = mkEnableOption "C++ tools";
+    c.enable = mkEnableOption "C tools";
 
     clojure.enable = mkEnableOption "Clojure tools";
 

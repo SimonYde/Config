@@ -174,14 +174,14 @@ in
       ];
 
       systemd.user = {
-        timers.autoadjust-table = {
-
-          Unit.Description = "Cycle table height";
-
-          Timer.OnUnitActiveSec = "20min";
-
-          Install.WantedBy = [ "timers.target" ];
-        };
+        # timers.autoadjust-table = {
+        #
+        #   Unit.Description = "Cycle table height";
+        #
+        #   Timer.OnUnitActiveSec = "20min";
+        #
+        #   Install.WantedBy = [ "timers.target" ];
+        # };
 
         services.autoadjust-table = {
           Unit.Description = "Cycle table height";
