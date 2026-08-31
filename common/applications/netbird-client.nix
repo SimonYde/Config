@@ -31,4 +31,5 @@
   };
 
   networking.firewall.allowedUDPPorts = [ config.services.netbird.clients.default.port ];
+  networking.firewall.trustedInterfaces = [ "nb0" ];
 }

@@ -14,6 +14,7 @@ in
     ./netcup.nix
 
     ./acme.nix
+    ./headscale.nix
     ./kanidm.nix
 
     ./turn.nix
@@ -36,6 +37,11 @@ in
 
     monitoring.enable = true;
   };
+
+  networking.nameservers = [
+    "9.9.9.9"
+    "149.112.112.112"
+  ];
 
   services = {
     nginx = {
