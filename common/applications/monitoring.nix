@@ -50,6 +50,7 @@ in
     systemd.services.alloy = {
       after = [
         "tailscaled.service"
+        "netbird.service"
         "network-online.target"
       ];
       wants = [ "network-online.target" ];

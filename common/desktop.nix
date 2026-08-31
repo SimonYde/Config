@@ -11,6 +11,7 @@ in
 {
 
   imports = [
+    ./applications/netbird-client.nix
     ./base/theming/nixos.nix
     ./.
   ];
@@ -133,4 +134,6 @@ in
   services.resolved.enable = true;
 
   systemd.user.services.gcr-ssh-agent.enable = lib.mkForce false;
+
+  users.users.${username}.extraGroups = [ "netbird" ];
 }

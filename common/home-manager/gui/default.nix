@@ -153,6 +153,10 @@ in
         };
 
         configFile."mimeapps.list".force = true;
+        configFile."autostart/netbird.desktop".source = mkIf (
+          args ? osConfig
+        ) "${args.osConfig.services.netbird.clients.default.wrapper}/share/applications/netbird.desktop";
+
       };
     }
 

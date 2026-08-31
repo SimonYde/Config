@@ -29,6 +29,15 @@ in
       example = "auth.example.com";
     };
 
+    addrs = {
+      v4 = mkOption {
+        type = types.str;
+      };
+      v6 = mkOption {
+        type = types.str;
+      };
+    };
+
     user = lib.mkOption {
       default = "share";
       type = lib.types.str;
@@ -46,7 +55,10 @@ in
     };
   };
 
-  imports = [ ./. ];
+  imports = [
+    ./.
+    ./applications/netbird-client.nix
+  ];
 
   config = {
     # optimized network settings

@@ -1,17 +1,23 @@
 {
-  config,
   lib,
   pkgs,
   inputs,
   ...
 }:
 
+let
+  ipFromCidr = cidr: builtins.head (builtins.split "/" cidr);
+  inherit (import "${inputs.secrets}/networks.nix") netcup;
+in
 {
   imports = [
     ./netcup.nix
 
     ./acme.nix
     ./kanidm.nix
+
+    ./turn.nix
+    ./netbird
 
     ../../common/server.nix
   ];
@@ -20,7 +26,13 @@
 
   # Personal configurations
   syde = {
-    server.baseDomain = "simonyde.com";
+    server = {
+      baseDomain = "simonyde.com";
+      addrs = {
+        v4 = ipFromCidr netcup.ipv4.cidr;
+        v6 = ipFromCidr netcup.ipv6.cidr;
+      };
+    };
 
     monitoring.enable = true;
   };
@@ -46,16 +58,16 @@
   };
 
   systemd = {
-    network.networks.netcup =
-      let
-        netcup = (import "${inputs.secrets}/networks.nix").netcup;
-      in
-      {
-        address = [ netcup.ipv4.cidr ];
-        routes = [
-          { Gateway = netcup.ipv4.gateway; }
-        ];
-      };
+    network.networks.netcup = {
+      address = [
+        netcup.ipv4.cidr
+        netcup.ipv6.cidr
+      ];
+      routes = [
+        { Gateway = netcup.ipv4.gateway; }
+        { Gateway = netcup.ipv6.gateway; }
+      ];
+    };
 
     # FIXME: stupid bcachefs memory leak (?) nonsense
     services.drop-caches = {
