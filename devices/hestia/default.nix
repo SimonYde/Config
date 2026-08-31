@@ -14,6 +14,7 @@ in
 
     ./acme.nix
     ./backup.nix
+    ./blackbox_exporter.nix
     ./collabora-online.nix
     ./fail2ban.nix
     ./immich.nix
