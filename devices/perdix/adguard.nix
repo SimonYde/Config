@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkForce mkIf;
   inherit (config.syde) server;
   cfg = config.services.adguardhome;
 in
@@ -21,12 +21,10 @@ in
         settings = {
           dns = {
             upstream_dns = [
-              "tls://dns.quad9.net"
+              "tls://9.9.9.9"
+              "tls://149.112.112.112"
             ];
-            fallback_dns = lib.mkForce [
-              # "9.9.9.9"
-              # "149.112.112.112"
-            ];
+            fallback_dns = mkForce [ ];
           };
           filtering = {
             protection_enabled = true;
@@ -64,7 +62,7 @@ in
       nginx = {
         upstreams.adguard.servers."127.0.0.1:9433" = { };
 
-        virtualHosts."adguard.ts.${server.baseDomain}".locations."/" = {
+        virtualHosts."adguard.i.${server.baseDomain}".locations."/" = {
           proxyPass = "http://adguard";
           proxyWebsockets = true;
         };

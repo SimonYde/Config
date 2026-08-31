@@ -14,7 +14,7 @@ in
     clientID = "perdix";
 
     nginx = {
-      domain = "perdix-auth.ts.${server.baseDomain}";
+      domain = "perdix-auth.i.${server.baseDomain}";
       virtualHosts = { };
     };
   };

@@ -12,10 +12,10 @@ in
     nginx = {
       upstreams.bazarr.servers."127.0.0.1:6767" = { };
 
-      virtualHosts."bazarr.ts.simonyde.com" = {
+      virtualHosts."bazarr.i.simonyde.com" = {
         acmeRoot = lib.mkForce null;
         enableACME = lib.mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
 
         locations."/" = {
           proxyPass = "http://bazarr";

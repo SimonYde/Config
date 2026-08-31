@@ -82,7 +82,7 @@ in
     nginx = {
       upstreams.mimir.servers."127.0.0.1:9000" = { };
 
-      virtualHosts."mimir.ts.${server.baseDomain}".locations."/" = {
+      virtualHosts."mimir.i.${server.baseDomain}".locations."/" = {
         proxyPass = "http://mimir";
         proxyWebsockets = true;
       };

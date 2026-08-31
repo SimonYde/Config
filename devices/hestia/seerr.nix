@@ -12,10 +12,10 @@ in
     nginx = {
       upstreams.seerr.servers."127.0.0.1:5055" = { };
 
-      virtualHosts."seerr.ts.simonyde.com" = {
+      virtualHosts."seerr.i.simonyde.com" = {
         acmeRoot = lib.mkForce null;
         enableACME = lib.mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
 
         locations."/" = {
           proxyPass = "http://seerr";

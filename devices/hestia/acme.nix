@@ -32,10 +32,10 @@ in
         locations."/".return = "404";
       };
 
-      "tranumparken.ts.simonyde.com" = {
+      "tranumparken.i.simonyde.com" = {
         acmeRoot = mkForce null;
         enableACME = mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
 
         locations."/" = {
           proxyPass = "https://192.168.2.1:8443";
@@ -53,9 +53,9 @@ in
 
       defaults.email = "s@tmcs.dk";
 
-      certs."ts.simonyde.com" = {
+      certs."i.simonyde.com" = {
         email = "acme@simonyde.com";
-        domain = "*.ts.simonyde.com";
+        domain = "*.i.simonyde.com";
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         environmentFile = "/run/agenix/dns";

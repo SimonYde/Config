@@ -67,7 +67,7 @@ in
     nginx = {
       upstreams.loki.servers."127.0.0.1:9090" = { };
 
-      virtualHosts."loki.ts.${server.baseDomain}".locations."/" = {
+      virtualHosts."loki.i.${server.baseDomain}".locations."/" = {
         proxyPass = "http://loki";
         proxyWebsockets = true;
       };

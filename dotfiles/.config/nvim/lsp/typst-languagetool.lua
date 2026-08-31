@@ -9,7 +9,7 @@ return {
     filetypes = { 'typst' },
     init_options = {
         backend = 'server', -- "bundle" | "jar" | "server"
-        host = 'https://languagetool.ts.simonyde.com',
+        host = 'https://languagetool.i.simonyde.com',
         port = '443',
         root = root_dir,
         main = root_dir and root_dir .. '/main.typ' or '',

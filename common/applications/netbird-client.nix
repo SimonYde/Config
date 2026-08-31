@@ -10,6 +10,12 @@
         name = "netbird";
         interface = "nb0";
         port = 51823;
+
+        # systemd-resolved already owns port 53; keep NetBird's resolver on its fallback port and tell resolved where to send NetBird queries.
+        dns-resolver = {
+          address = "127.0.0.1";
+          port = 5053;
+        };
       };
     };
   };

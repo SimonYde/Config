@@ -9,10 +9,10 @@ in
     nginx = {
       upstreams.prowlarr.servers."127.0.0.1:9696" = { };
 
-      virtualHosts."prowlarr.ts.simonyde.com" = {
+      virtualHosts."prowlarr.i.simonyde.com" = {
         acmeRoot = lib.mkForce null;
         enableACME = lib.mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
 
         locations."/" = {
           proxyPass = "http://prowlarr";

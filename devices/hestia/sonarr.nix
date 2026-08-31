@@ -12,10 +12,10 @@ in
     nginx = {
       upstreams.sonarr.servers."127.0.0.1:8989" = { };
 
-      virtualHosts."sonarr.ts.simonyde.com" = {
+      virtualHosts."sonarr.i.simonyde.com" = {
         acmeRoot = lib.mkForce null;
         enableACME = lib.mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
 
         locations."/" = {
           proxyPass = "http://sonarr";

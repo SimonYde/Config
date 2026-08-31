@@ -12,10 +12,10 @@ in
     nginx = {
       upstreams.lidarr.servers."127.0.0.1:8686" = { };
 
-      virtualHosts."lidarr.ts.simonyde.com" = {
+      virtualHosts."lidarr.i.simonyde.com" = {
         acmeRoot = lib.mkForce null;
         enableACME = lib.mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
 
         locations."/" = {
           proxyPass = "http://lidarr";

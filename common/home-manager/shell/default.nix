@@ -82,7 +82,7 @@ in
     settings = {
       auto_sync = true;
       sync_frequency = "5m";
-      sync_address = "https://atuin.ts.simonyde.com";
+      sync_address = "https://atuin.i.simonyde.com";
 
       style = "compact";
       enter_accept = true;

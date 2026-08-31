@@ -14,24 +14,24 @@ in
     clientID = "hestia";
 
     nginx = {
-      domain = "hestia-auth.ts.simonyde.com";
+      domain = "hestia-auth.i.simonyde.com";
       virtualHosts = {
-        "prowlarr.ts.simonyde.com".allowed_groups = [ "torrenters" ];
-        "sonarr.ts.simonyde.com".allowed_groups = [ "torrenters" ];
-        "radarr.ts.simonyde.com".allowed_groups = [ "torrenters" ];
-        "lidarr.ts.simonyde.com".allowed_groups = [ "torrenters" ];
-        "bazarr.ts.simonyde.com".allowed_groups = [ "torrenters" ];
-        "bitmagnet.ts.simonyde.com".allowed_groups = [ "torrenters" ];
-        "seerr.ts.simonyde.com".allowed_groups = [ "torrenters" ];
+        "prowlarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
+        "sonarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
+        "radarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
+        "lidarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
+        "bazarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
+        "bitmagnet.i.simonyde.com".allowed_groups = [ "torrenters" ];
+        "seerr.i.simonyde.com".allowed_groups = [ "torrenters" ];
       };
     };
   };
 
     services.nginx.virtualHosts = {
-      "hestia-auth.ts.simonyde.com" = {
+      "hestia-auth.i.simonyde.com" = {
         acmeRoot = lib.mkForce null;
         enableACME = lib.mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
       };
     };
 }

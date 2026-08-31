@@ -33,7 +33,7 @@ in
             "--port"
             "${toString cfg.port}"
             "--cors"
-            "https://opencode.ts.${server.baseDomain}"
+            "https://opencode.i.${server.baseDomain}"
           ];
         };
       };
@@ -42,7 +42,7 @@ in
     services.nginx = {
       upstreams.opencode.servers."127.0.0.1:${toString cfg.port}" = { };
 
-      virtualHosts."opencode.ts.${server.baseDomain}".locations."/" = {
+      virtualHosts."opencode.i.${server.baseDomain}".locations."/" = {
         proxyPass = "http://opencode";
         proxyWebsockets = true;
       };

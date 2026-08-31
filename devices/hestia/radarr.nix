@@ -12,10 +12,10 @@ in
     nginx = {
       upstreams.radarr.servers."127.0.0.1:7878" = { };
 
-      virtualHosts."radarr.ts.simonyde.com" = {
+      virtualHosts."radarr.i.simonyde.com" = {
         acmeRoot = lib.mkForce null;
         enableACME = lib.mkForce false;
-        useACMEHost = "ts.simonyde.com";
+        useACMEHost = "i.simonyde.com";
 
         locations."/" = {
           proxyPass = "http://radarr";

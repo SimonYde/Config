@@ -14,7 +14,7 @@ declare "scrape" {
 
 	prometheus.remote_write "default" {
 		endpoint {
-			url = "https://mimir.ts.simonyde.com/api/v1/push"
+			url = "https://mimir.i.simonyde.com/api/v1/push"
 		}
 
 		external_labels = {
@@ -88,7 +88,7 @@ scrape "unix" {
 
 loki.write "default" {
 	endpoint {
-		url = "https://loki.ts.simonyde.com/loki/api/v1/push"
+		url = "https://loki.i.simonyde.com/loki/api/v1/push"
 	}
 }
 

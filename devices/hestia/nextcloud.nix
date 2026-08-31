@@ -70,7 +70,6 @@ in
             collectives
             contacts
             groupfolders
-            # memories
             notes
             tasks
             previewgenerator
