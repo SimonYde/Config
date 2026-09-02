@@ -85,9 +85,6 @@
     upower.enable = true;
 
     syncthing.enable = true;
-    protonmail-bridge.enable = true;
-
-    tailscale.authKeyFile = lib.mkForce null;
 
     kanata = {
       enable = true;
