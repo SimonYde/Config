@@ -14,12 +14,28 @@ in
   config = mkIf cfg.enable {
     age.secrets.adguardExporterEnv.file = "${inputs.secrets}/adguardExporterEnv.age";
 
+    networking.interfaces.lo.ipv4.addresses = [
+      {
+        address = "127.0.0.1";
+        prefixLength = 8;
+      } # default loopback
+      {
+        address = "127.0.0.2";
+        prefixLength = 8;
+      } # AGH's dedicated loopback
+    ];
+
     services = {
       adguardhome = {
-        host = "127.0.0.1";
+        host = "127.0.0.2";
         port = 9433;
         settings = {
           dns = {
+            port = 53;
+            bind_hosts = [
+              "127.0.0.2"
+              "192.168.1.200" # LAN IP
+            ];
             upstream_dns = [
               "tls://9.9.9.9"
               "tls://149.112.112.112"
@@ -55,12 +71,23 @@ in
         };
       };
 
-      resolved.settings.Resolve.DNSStubListener = false;
+      resolved.settings.Resolve = {
+        # Forward all queries to AdGuard Home
+        DNS = [ "127.0.0.2" ];
+        FallbackDNS = lib.mkForce [ "" ];
+
+        # Route ALL queries through this upstream (catch-all routing domain)
+        # Without ~. resolved may prefer per-link DHCP nameservers instead
+        Domains = [ "~." ];
+
+        DNSStubListener = "yes";
+        DNSSEC = false;
+      };
 
       alloy.scrape.adguard.port = 9618;
 
       nginx = {
-        upstreams.adguard.servers."127.0.0.1:9433" = { };
+        upstreams.adguard.servers."127.0.0.2:9433" = { };
 
         virtualHosts."adguard.i.${server.baseDomain}".locations."/" = {
           proxyPass = "http://adguard";

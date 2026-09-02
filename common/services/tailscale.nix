@@ -12,8 +12,6 @@ in
       tailscale = {
         useRoutingFeatures = "both";
       };
-
-      resolved.enable = true;
     };
 
     systemd = {

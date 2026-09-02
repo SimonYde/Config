@@ -117,7 +117,6 @@ in
       };
     };
 
-    resolved.settings.Resolve.FallbackDNS = lib.mkForce null;
     qbittorrent.enable = false;
     wireguard-netns =
       let

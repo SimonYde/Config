@@ -64,7 +64,8 @@ in
     safeeyes.enable = false;
 
     ratbagd.enable = true;
-    resolved.settings.Resolve.FallbackDNS = lib.mkForce null;
+
+    resolved.settings.Resolve.FallbackDNS = lib.mkForce [ "" ];
 
     syncthing.enable = true;
 
