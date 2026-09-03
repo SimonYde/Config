@@ -34,7 +34,7 @@
 
     # NixOS modules
     arcana = {
-      url = "git+https://git.afnix.fr/arcana/arcana.git";
+      url = "git+ssh://git@git.afnix.fr/arcana/arcana.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
