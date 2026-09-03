@@ -1,5 +1,10 @@
 ARCANA_FLAGS := "--nix-option max-jobs 4 --nix-option cores 16 --show-trace --verbose --keep-result --no-gzip"
 
+alias l := local
+alias b := build-all
+alias up := update
+alias dep := deploy
+
 default: update deploy
 
 local:
