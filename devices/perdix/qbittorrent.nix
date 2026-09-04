@@ -32,13 +32,23 @@ in
             MergeTrackersEnabled = true;
             Session = {
               DefaultSavePath = "/media/Torrents";
+              AddExtensionToIncompleteFiles = true;
+
               AddTrackersEnabled = true;
               AdditionalTrackers = builtins.readFile "${inputs.trackerlist}/trackers_all.txt";
               AnnounceToAllTrackers = true;
-              MaxActiveDownloads = 50;
+
+              MaxActiveDownloads = 100;
               MaxActiveUploads = 50;
               MaxActiveCheckingTorrents = 50;
-              MaxActiveTorrents = 100;
+              MaxActiveTorrents = 150;
+              IgnoreSlowTorrentsForQueueing = true;
+              GlobalUPSpeedLimit = 30720;
+
+              MultiConnectionsPerIp = true;
+              uTPMixedMode = "Proportional";
+
+              DiskIOType = "SimplePreadPwrite"; # reduce RAM usage maybe
             };
           };
           Preferences.WebUI.LocalHostAuth = false;
@@ -91,7 +101,11 @@ in
         serviceConfig.EnvironmentFile = "/run/agenix/qui/environment";
         useNetworkNamespace = true;
       };
-      services.qbittorrent.useNetworkNamespace = true;
+
+      services.qbittorrent = {
+        serviceConfig.Restart = "on-failure"; # https://github.com/qbittorrent/qBittorrent/issues/23833
+        useNetworkNamespace = true;
+      };
     };
   };
 }
