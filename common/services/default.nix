@@ -3,10 +3,10 @@
 {
   imports = [
     ./nginx.nix
+    ./oauth2-proxy.nix
+    ./opencode.nix
     ./samba.nix
     ./syncthing.nix
-    ./tailscale.nix
     ./wireguard-netns.nix
-    ./oauth2-proxy.nix
   ];
 }

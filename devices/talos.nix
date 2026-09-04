@@ -40,6 +40,13 @@
     };
   };
 
+  networking.wg-quick.interfaces = {
+      proton = {
+        autostart = false;
+        configFile = "/var/lib/wireguard/proton.conf";
+      };
+  };
+
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
 
@@ -75,8 +82,6 @@
     enable = true;
     rawDeviceName = "alsa_output.pci-0000_c1_00.6.analog-stereo";
   };
-
-  networking.wireguard.enable = true;
 
   services = {
     fwupd.enable = true;

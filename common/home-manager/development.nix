@@ -191,6 +191,7 @@ in
         };
 
         man.enable = true;
+
         mcp = {
           enable = true;
           servers = {
@@ -202,6 +203,7 @@ in
             };
           };
         };
+
         mergiraf = {
           enable = true;
           enableJujutsuIntegration = true;

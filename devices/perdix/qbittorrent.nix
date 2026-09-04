@@ -1,14 +1,12 @@
 {
   inputs,
   lib,
-  pkgs,
   config,
   ...
 }:
 let
-  inherit (lib) mkIf mkMerge mkForce;
+  inherit (lib) mkIf;
   inherit (config.syde) server;
-  inherit (config.services.wireguard-netns) namespace;
   cfg = config.services.qbittorrent;
 in
 {
@@ -71,6 +69,13 @@ in
           proxyWebsockets = true;
         };
       };
+
+      wireguard-netns = {
+        proxies.qbittorrent = {
+          port = 8082;
+          inherit (config.services.qbittorrent) user group;
+        };
+      };
     };
 
     syde.server.samba.shares = {
@@ -79,61 +84,8 @@ in
       };
     };
 
-    systemd = mkMerge [
-      {
-        services.qui.serviceConfig.EnvironmentFile = config.age.secrets.qui.path;
-      }
+    systemd.services.qui.serviceConfig.EnvironmentFile = config.age.secrets.qui.path;
 
-      (mkIf config.services.wireguard-netns.enable {
-
-        services.qbittorrent = {
-          bindsTo = [ "netns@${namespace}.service" ];
-          requires = [
-            "network-online.target"
-            "${namespace}.service"
-          ];
-          serviceConfig = {
-            NetworkNamespacePath = [ "/run/netns/${namespace}" ];
-            InaccessiblePaths = [
-              "/run/nscd"
-            ];
-
-            BindReadOnlyPaths = [
-              "/etc/netns/${namespace}/resolv.conf:/etc/resolv.conf:norbind"
-            ];
-          };
-        };
-
-        sockets."qbittorrent-proxy" = {
-          enable = true;
-          description = "Socket for Proxy to qbittorrent";
-          listenStreams = [ "8082" ];
-          wantedBy = [ "sockets.target" ];
-        };
-
-        services."qbittorrent-proxy" = {
-          enable = true;
-          description = "Proxy to qbittorrent in Network Namespace";
-          requires = [
-            "qbittorrent.service"
-            "qbittorrent-proxy.socket"
-          ];
-          after = [
-            "qbittorrent.service"
-            "qbittorrent-proxy.socket"
-          ];
-          unitConfig = {
-            JoinsNamespaceOf = "qbittorrent.service";
-          };
-          serviceConfig = {
-            ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd --exit-idle-time=5min 127.0.0.1:8082";
-            PrivateNetwork = "yes";
-            User = config.services.qbittorrent.user;
-            Group = config.services.qbittorrent.group;
-          };
-        };
-      })
-    ];
-
+    systemd.services.qbittorrent.useNetworkNamespace = true;
   };
 }

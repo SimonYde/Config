@@ -124,6 +124,8 @@ in
       mediaDir = "/mnt/tank/paperless";
     };
 
+    bitmagnet.enable = true;
+
     collabora-online.enable = true;
     nginx.enable = true;
     nextcloud.enable = true;
