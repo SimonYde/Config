@@ -4,7 +4,7 @@ let
 in
 {
   age.secrets.oauth2ProxySecrets = {
-    file = "${inputs.secrets}/hestiaOauth2ProxySecrets.age";
+    file = "${inputs.secrets}/oauth2-proxy/secrets-hestia.age";
     owner = "oauth2-proxy";
   };
 

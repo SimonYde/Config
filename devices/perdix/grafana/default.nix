@@ -10,11 +10,11 @@ in
   ];
 
   age.secrets.grafanaClientSecret = {
-    file = "${inputs.secrets}/grafanaClientSecret.age";
+    file = "${inputs.secrets}/grafana/client-secret.age";
     owner = "grafana";
   };
   age.secrets.grafanaSecuritySecret = {
-    file = "${inputs.secrets}/grafanaSecuritySecret.age";
+    file = "${inputs.secrets}/grafana/security-secret.age";
     owner = "grafana";
   };
 

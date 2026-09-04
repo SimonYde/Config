@@ -55,7 +55,6 @@ in
         imv.enable = true;
         mpv.enable = true;
         ncspot.enable = false;
-        rclone.enable = false;
         spicetify.enable = true;
         vivid.enable = true;
         voxtype.enable = true;
@@ -186,13 +185,6 @@ in
         shellAliases.ex = getExe file-manager.package;
       };
 
-      age.secrets = {
-        "rcloneOnedriveAccessToken".file = "${inputs.secrets}/rcloneOnedriveAccessToken.age";
-        "rcloneOnedrivePassword".file = "${inputs.secrets}/rcloneOnedrivePassword.age";
-        "rcloneOnedrivePassword2".file = "${inputs.secrets}/rcloneOnedrivePassword2.age";
-        "rcloneOnedriveID".file = "${inputs.secrets}/rcloneOnedriveID.age";
-      };
-
       fonts.fontconfig = {
         antialiasing = true;
         subpixelRendering = "rgb";
@@ -242,33 +234,6 @@ in
             osd-bar = "no";
             ytdl-format = "bestvideo+bestaudio";
             save-position-on-quit = true;
-          };
-        };
-
-        rclone.remotes = {
-          onedrive-unencrypted = {
-            config = {
-              type = "onedrive";
-              drive_type = "personal";
-            };
-
-            secrets = {
-              token = "/run/user/1000/agenix/rcloneOnedriveAccessToken";
-              drive_id = "/run/user/1000/agenix/rcloneOnedriveID";
-            };
-          };
-
-          onedrive = {
-            config = {
-              type = "crypt";
-              remote = "onedrive-unencrypted:crypt";
-              filename_encryption = "standard";
-            };
-
-            secrets = {
-              password = "/run/user/1000/agenix/rcloneOnedrivePassword";
-              password2 = "/run/user/1000/agenix/rcloneOnedrivePassword2";
-            };
           };
         };
 

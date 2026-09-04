@@ -11,12 +11,12 @@ let
 in
 {
   config = mkIf cfg.enable {
-    age.secrets.qui = {
-      file = "${inputs.secrets}/qui.age";
+    age.secrets."qui/environment" = {
+      file = "${inputs.secrets}/qui/environment.age";
       owner = server.user;
     };
-    age.secrets.quiSessionSecret = {
-      file = "${inputs.secrets}/quiSessionSecret.age";
+    age.secrets."qui/session-secret" = {
+      file = "${inputs.secrets}/qui/session-secret.age";
       owner = server.user;
     };
 
@@ -47,7 +47,7 @@ in
 
       qui = {
         enable = true;
-        secretFile = config.age.secrets.quiSessionSecret.path;
+        secretFile = "/run/agenix/qui/session-secret";
         inherit (server) user group;
         settings = {
           port = 7476;
@@ -84,7 +84,7 @@ in
       };
     };
 
-    systemd.services.qui.serviceConfig.EnvironmentFile = config.age.secrets.qui.path;
+    systemd.services.qui.serviceConfig.EnvironmentFile = "/run/agenix/qui/environment";
 
     systemd.services.qbittorrent.useNetworkNamespace = true;
   };
