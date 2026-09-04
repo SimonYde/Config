@@ -18,7 +18,6 @@ in
     ./atuin.nix
     ./grafana
     ./languagetool.nix
-    ./opencode.nix
 
     ./qbittorrent.nix
   ];
@@ -49,7 +48,7 @@ in
     zfs.enable = true;
   };
 
-  age.secrets.sambaPassword.file = "${inputs.secrets}/perdixSambaPassword.age";
+  age.secrets.sambaPassword.file = "${inputs.secrets}/samba/perdix-password.age";
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
@@ -59,7 +58,7 @@ in
   };
 
   age.secrets.wireguardCredentials = {
-    file = "${inputs.secrets}/wireguardCredentials.age";
+    file = "${inputs.secrets}/wireguard/perdix.age";
   };
 
   boot = {

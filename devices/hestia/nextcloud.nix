@@ -21,14 +21,14 @@ in
   config = mkIf cfg.enable {
     age.secrets = {
       nextcloudAdminPassword = {
-        file = "${inputs.secrets}/nextcloudAdminPassword.age";
+        file = "${inputs.secrets}/nextcloud/admin-password.age";
       };
       nextcloudClientSecret = {
-        file = "${inputs.secrets}/nextcloudClientSecret.age";
+        file = "${inputs.secrets}/nextcloud/client-secret.age";
         owner = "nextcloud";
       };
       nextcloudSecretFile = {
-        file = "${inputs.secrets}/nextcloudSecretFile.age";
+        file = "${inputs.secrets}/nextcloud/secret-file.age";
         owner = "nextcloud";
       };
     };

@@ -18,7 +18,6 @@ in
     };
   };
   config = {
-
     age.secrets.turnSecretFile.file = "${inputs.secrets}/turnSecretFile.age";
 
     security.acme.certs.${turn.url} = { };

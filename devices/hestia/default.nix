@@ -62,8 +62,8 @@ in
     zfs.enable = true;
   };
 
-  age.secrets.sambaPassword.file = "${inputs.secrets}/sambaPassword.age";
-  age.secrets.perdixSambaCredentials.file = "${inputs.secrets}/perdixSambaCredentials.age";
+  age.secrets.sambaPassword.file = "${inputs.secrets}/samba/hestia-password.age";
+  age.secrets.perdixSambaCredentials.file = "${inputs.secrets}/samba/perdix-credentials.age";
 
   age.secrets.emailPassword = {
     file = "${inputs.secrets}/oneEmailPassword.age";
@@ -73,7 +73,7 @@ in
   };
 
   age.secrets.wireguardHestia = {
-    file = "${inputs.secrets}/wireguardHestia.age";
+    file = "${inputs.secrets}/wireguard/hestia.age";
   };
 
   networking.nameservers = [

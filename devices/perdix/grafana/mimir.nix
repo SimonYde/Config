@@ -31,7 +31,7 @@ in
     groups.mimir = { };
   };
 
-  age.secrets."mimir/alertmanager-config".file = "${inputs.secrets}/mimirAlertManagerConfig.age";
+  age.secrets."grafana/mimir-alertmanager-config".file = "${inputs.secrets}/grafana/mimir-alertmanager-config.age";
 
   services = {
     mimir = {
@@ -96,7 +96,7 @@ in
       serviceConfig = {
         DynamicUser = lib.mkForce false;
         User = "mimir";
-        LoadCredential = [ "alertmanager-config:/run/agenix/mimir/alertmanager-config" ];
+        LoadCredential = [ "alertmanager-config:/run/agenix/grafana/mimir-alertmanager-config" ];
       };
     };
 

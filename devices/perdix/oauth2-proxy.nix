@@ -1,21 +1,30 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 let
   inherit (config.syde) server;
+
+  cfg = config.services.oauth2-proxy;
 in
 {
-  age.secrets.oauth2ProxySecrets = {
-    file = "${inputs.secrets}/perdixOauth2ProxySecrets.age";
-    owner = "oauth2-proxy";
-  };
+  config = lib.mkIf cfg.enable {
+    age.secrets.oauth2ProxySecrets = {
+      file = "${inputs.secrets}/oauth2-proxy/secrets-perdix.age";
+      owner = "oauth2-proxy";
+    };
 
-  services.oauth2-proxy = {
-    enable = true;
-    oidcIssuerUrl = "https://auth.${server.baseDomain}/oauth2/openid/perdix";
-    clientID = "perdix";
+    services.oauth2-proxy = {
+      enable = true;
+      oidcIssuerUrl = "https://auth.${server.baseDomain}/oauth2/openid/perdix";
+      clientID = "perdix";
 
-    nginx = {
-      domain = "perdix-auth.i.${server.baseDomain}";
-      virtualHosts = { };
+      nginx = {
+        domain = "perdix-auth.i.${server.baseDomain}";
+        virtualHosts = { };
+      };
     };
   };
 }
