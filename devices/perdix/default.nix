@@ -117,7 +117,7 @@ in
       };
     };
 
-    qbittorrent.enable = false;
+    qbittorrent.enable = true;
     wireguard-netns =
       let
         networks = import "${inputs.secrets}/networks.nix";

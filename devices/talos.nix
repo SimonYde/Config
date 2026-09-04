@@ -76,8 +76,6 @@
     rawDeviceName = "alsa_output.pci-0000_c1_00.6.analog-stereo";
   };
 
-  networking.wireguard.enable = true;
-
   services = {
     fwupd.enable = true;
     hardware.openrgb.enable = true;

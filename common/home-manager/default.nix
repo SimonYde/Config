@@ -16,14 +16,21 @@ in
 
   xdg.enable = true;
 
-  # Used for wezterm SSH sessions
-  programs.wezterm.enable = true;
-
   age.package = pkgs.rage;
 
   # Save a bit of space on servers.
   manual.manpages.enable = false;
-  programs.man.enable = mkDefault false;
+
+  programs = {
+    man.enable = mkDefault false;
+    opencode = {
+      skills = {
+        nushell = "${pkgs.nu_scripts}/share/nu_scripts/skills/nushell";
+      };
+    };
+    # Used for wezterm SSH sessions
+    wezterm.enable = true;
+  };
 
   lib.meta = {
     configPath = "/home/syde/Config"; # Should be the location of the config repo.

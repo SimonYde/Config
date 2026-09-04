@@ -31,10 +31,7 @@ in
   age = {
     ageBin = getExe pkgs.rage;
 
-    secrets = {
-      wireguard.file = "${inputs.secrets}/wireguard.age";
-      pc-password.file = "${inputs.secrets}/pc-password.age";
-    };
+    secrets.pc-password.file = "${inputs.secrets}/pc-password.age";
   };
 
   system.stateVersion = mkDefault (throw "stateVersion should be defined.");
@@ -197,7 +194,6 @@ in
     users.${username}.imports = [ ./home-manager ];
     users.root.imports = [ ./home-manager ];
   };
-
 
   systemd = {
     oomd = {
