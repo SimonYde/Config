@@ -13,9 +13,7 @@ in
       upstreams.seerr.servers."127.0.0.1:5055" = { };
 
       virtualHosts."seerr.i.simonyde.com" = {
-        acmeRoot = lib.mkForce null;
-        enableACME = lib.mkForce false;
-        useACMEHost = "i.simonyde.com";
+        isInternal = true;
 
         locations."/" = {
           proxyPass = "http://seerr";

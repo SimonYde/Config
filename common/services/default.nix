@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./acme.nix
     ./nginx.nix
     ./oauth2-proxy.nix
     ./opencode.nix

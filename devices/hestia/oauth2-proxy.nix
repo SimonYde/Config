@@ -29,9 +29,7 @@ in
 
     services.nginx.virtualHosts = {
       "hestia-auth.i.simonyde.com" = {
-        acmeRoot = lib.mkForce null;
-        enableACME = lib.mkForce false;
-        useACMEHost = "i.simonyde.com";
+      isInternal = true;
       };
     };
 }

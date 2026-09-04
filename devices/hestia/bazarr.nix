@@ -13,9 +13,7 @@ in
       upstreams.bazarr.servers."127.0.0.1:6767" = { };
 
       virtualHosts."bazarr.i.simonyde.com" = {
-        acmeRoot = lib.mkForce null;
-        enableACME = lib.mkForce false;
-        useACMEHost = "i.simonyde.com";
+        isInternal = true;
 
         locations."/" = {
           proxyPass = "http://bazarr";

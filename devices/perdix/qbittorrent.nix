@@ -71,9 +71,11 @@ in
       };
 
       wireguard-netns = {
-        proxies.qbittorrent = {
-          port = 8082;
-          inherit (config.services.qbittorrent) user group;
+        proxies = {
+          qui = {
+            port = 7476;
+            inherit (config.services.qui) user group;
+          };
         };
       };
     };
@@ -84,8 +86,12 @@ in
       };
     };
 
-    systemd.services.qui.serviceConfig.EnvironmentFile = "/run/agenix/qui/environment";
-
-    systemd.services.qbittorrent.useNetworkNamespace = true;
+    systemd = {
+      services.qui = {
+        serviceConfig.EnvironmentFile = "/run/agenix/qui/environment";
+        useNetworkNamespace = true;
+      };
+      services.qbittorrent.useNetworkNamespace = true;
+    };
   };
 }

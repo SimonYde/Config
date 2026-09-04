@@ -1,56 +1,56 @@
-{
-  inputs,
-  lib,
-  ...
-}:
-
+{ inputs, lib, ... }:
 let
-  inherit (lib) mkForce mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkForce
+    mkMerge
+    mkIf
+    mkOption
+    mkOverride
+    types
+    ;
 in
 {
   options.services.nginx = {
     virtualHosts = mkOption {
       type = types.attrsOf (
-        types.submodule {
-          # Priority slightly above normal explicit values, so it wins against service modules,
-          # but still loses to mkForce
-          config = lib.mkOverride 80 {
-            acmeRoot = "/var/lib/acme/.well-known/acme-challenge";
-          };
-        }
+        types.submodule (
+          { config, ... }: {
+            options.isInternal = mkEnableOption ''
+              Whether this virtualHosts is meant to run over tailnet only (hence requiring DNS ACME challenge)
+            '';
+
+            config = mkMerge [
+              {
+                # Priority slightly above normal explicit values, so it wins
+                # against service modules, but still loses to mkForce
+                acmeRoot = mkOverride 80 "/var/lib/acme/.well-known/acme-challenge";
+              }
+              (mkIf config.isInternal {
+                acmeRoot = mkForce null;
+                enableACME = mkForce false;
+                useACMEHost = "i.simonyde.com";
+              })
+            ];
+          }
+        )
       );
     };
   };
 
   config = {
-    services.nginx.virtualHosts = {
-      default = {
-        default = true;
-        rejectSSL = true;
-        enableACME = mkForce false;
-        forceSSL = mkForce false;
-        locations."/".return = "404";
-      };
+    syde.acme.enable = true;
 
-      "tranumparken.i.simonyde.com" = {
-        acmeRoot = mkForce null;
-        enableACME = mkForce false;
-        useACMEHost = "i.simonyde.com";
+    services.nginx.virtualHosts."tranumparken.i.simonyde.com" = {
+      isInternal = true;
 
-        locations."/" = {
-          proxyPass = "https://192.168.2.1:8443";
-          proxyWebsockets = true;
-        };
+      locations."/" = {
+        proxyPass = "https://192.168.2.1:8443";
+        proxyWebsockets = true;
       };
     };
 
-    users.groups.acme = { };
-
-    age.secrets.dns.file = "${inputs.secrets}/dns.age";
-
     security.acme = {
-      acceptTerms = true;
-
       defaults.email = "s@tmcs.dk";
 
       certs."i.simonyde.com" = {

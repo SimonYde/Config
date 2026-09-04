@@ -10,9 +10,7 @@ in
       upstreams.prowlarr.servers."127.0.0.1:9696" = { };
 
       virtualHosts."prowlarr.i.simonyde.com" = {
-        acmeRoot = lib.mkForce null;
-        enableACME = lib.mkForce false;
-        useACMEHost = "i.simonyde.com";
+        isInternal = true;
 
         locations."/" = {
           proxyPass = "http://prowlarr";

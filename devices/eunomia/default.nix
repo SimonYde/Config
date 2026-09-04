@@ -13,7 +13,6 @@ in
   imports = [
     ./netcup.nix
 
-    ./acme.nix
     ./headscale.nix
     ./kanidm.nix
 
@@ -34,6 +33,8 @@ in
         v6 = ipFromCidr netcup.ipv6.cidr;
       };
     };
+
+    acme.enable = true;
 
     monitoring.enable = true;
   };

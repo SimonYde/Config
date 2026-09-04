@@ -124,7 +124,8 @@ in
           options.useNetworkNamespace = mkEnableOption ''
             running ${name} inside the Wireguard network namespace
             (services.wireguard-netns), with the namespace's
-            resolv.conf/nsswitch.conf and DNS leak hardening'';
+            resolv.conf/nsswitch.conf and DNS leak hardening
+          '';
 
           config = mkIf (config.useNetworkNamespace && cfg.enable) {
             bindsTo = [ "netns@${cfg.namespace}.service" ];

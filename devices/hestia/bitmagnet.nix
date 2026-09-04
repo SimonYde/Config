@@ -31,9 +31,7 @@ in
       nginx = {
         upstreams.bitmagnet.servers."127.0.0.1:3333" = { };
         virtualHosts."bitmagnet.i.simonyde.com" = {
-          acmeRoot = mkForce null;
-          enableACME = mkForce false;
-          useACMEHost = "i.simonyde.com";
+          isInternal = true;
 
           locations."/" = {
             proxyPass = "http://bitmagnet";
