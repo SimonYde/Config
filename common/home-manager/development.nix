@@ -191,6 +191,17 @@ in
         };
 
         man.enable = true;
+        mcp = {
+          enable = true;
+          servers = {
+            nu = {
+              command = "${pkgs.nushell-wrapped}/bin/nu";
+              args = [
+                "--mcp"
+              ];
+            };
+          };
+        };
         mergiraf = {
           enable = true;
           enableJujutsuIntegration = true;
@@ -199,6 +210,7 @@ in
 
         opencode = {
           enable = true;
+          enableMcpIntegration = true;
         };
 
         qalculate.enable = true;

@@ -90,8 +90,6 @@ in
         tor-browser
 
         ferdium
-        discord
-        betterdiscord-installer
 
         imagemagick
 

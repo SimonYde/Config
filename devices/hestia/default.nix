@@ -260,18 +260,18 @@ in
       options = [ "zfsutil" ];
     };
 
-    # "/media/Torrents" = {
-    #   device = "//100.77.198.76/Media";
-    #   fsType = "cifs";
-    #   options =
-    #     let
-    #       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    #     in
-    #     [
-    #       "${automount_opts},credentials=${config.age.secrets.perdixSambaCredentials.path},uid=${toString config.users.users.${server.user}.uid},gid=${toString config.users.groups.${server.group}.gid}"
-    #       "nofail"
-    #     ];
-    # };
+    "/media/Torrents" = {
+      device = "//100.64.0.2/Media";
+      fsType = "cifs";
+      options =
+        let
+          automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+        in
+        [
+          "${automount_opts},credentials=${config.age.secrets.perdixSambaCredentials.path},uid=${toString config.users.users.${server.user}.uid},gid=${toString config.users.groups.${server.group}.gid}"
+          "nofail"
+        ];
+    };
   };
 
   swapDevices = [ { device = "/dev/disk/by-partuuid/670576a9-57c7-45b6-a40c-ca43401fbba9"; } ];

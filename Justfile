@@ -1,9 +1,9 @@
-ARCANA_FLAGS := "--nix-option max-jobs 4 --nix-option cores 16 --show-trace --verbose --keep-result --no-gzip"
+ARCANA_FLAGS := x"--nix-option max-jobs 4 --nix-option cores ${NIX_BUILD_CORES} --show-trace --verbose --keep-result --no-gzip"
 
 alias l := local
 alias b := build-all
+alias d := deploy
 alias up := update
-alias dep := deploy
 
 default: update deploy
 
