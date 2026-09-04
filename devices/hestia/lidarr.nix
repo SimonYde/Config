@@ -13,9 +13,7 @@ in
       upstreams.lidarr.servers."127.0.0.1:8686" = { };
 
       virtualHosts."lidarr.i.simonyde.com" = {
-        acmeRoot = lib.mkForce null;
-        enableACME = lib.mkForce false;
-        useACMEHost = "i.simonyde.com";
+        isInternal = true;
 
         locations."/" = {
           proxyPass = "http://lidarr";

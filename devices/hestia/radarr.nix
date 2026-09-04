@@ -13,9 +13,7 @@ in
       upstreams.radarr.servers."127.0.0.1:7878" = { };
 
       virtualHosts."radarr.i.simonyde.com" = {
-        acmeRoot = lib.mkForce null;
-        enableACME = lib.mkForce false;
-        useACMEHost = "i.simonyde.com";
+        isInternal = true;
 
         locations."/" = {
           proxyPass = "http://radarr";

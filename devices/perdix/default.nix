@@ -13,7 +13,6 @@ in
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
 
-    ./acme.nix
     ./adguard.nix
     ./atuin.nix
     ./grafana
@@ -37,6 +36,7 @@ in
       smtpPasswordPath = config.age.secrets.emailPassword.path;
     };
 
+    acme.enable = true;
     development.enable = false;
     monitoring.enable = true;
 
