@@ -107,7 +107,7 @@ in
 
     dbus.implementation = "broker";
 
-    journald.extraConfig = "SystemMaxUse=100M";
+    journald.settings.Journal.SystemMaxUse = "100M";
 
     openssh = {
       enable = true;
