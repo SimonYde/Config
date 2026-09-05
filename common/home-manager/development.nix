@@ -195,7 +195,7 @@ in
         mcp = {
           enable = true;
           servers = {
-            nu = {
+            nushell = {
               command = "${pkgs.nushell-wrapped}/bin/nu";
               args = [
                 "--mcp"

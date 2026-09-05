@@ -23,7 +23,12 @@ in
 
   programs = {
     man.enable = mkDefault false;
+
     opencode = {
+      settings = {
+        shell = "${pkgs.nushell-wrapped}/bin/nu";
+      };
+
       skills = {
         nushell = "${pkgs.nu_scripts}/share/nu_scripts/skills/nushell";
       };
