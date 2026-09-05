@@ -60,9 +60,6 @@ news:
 os:
 	@nh os switch . --ask --cores ${NIX_BUILD_CORES} --no-specialisation
 
-host HOST:
-	@nh os switch --ask --cores ${NIX_BUILD_CORES} --hostname {{HOST}} --target-host {{HOST}} --no-specialisation
-
 boot:
 	@nh os boot . --ask --cores ${NIX_BUILD_CORES} --no-specialisation
 

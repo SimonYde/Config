@@ -49,7 +49,7 @@ in
         # Browsers
         brave.enable = true;
         firefox.enable = false;
-        floorp.enable = true;
+        floorp.enable = false;
 
         # other GUI programs
         imv.enable = true;
