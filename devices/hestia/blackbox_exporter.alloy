@@ -18,6 +18,12 @@ prometheus.exporter.blackbox "default" {
 		module  = "icmp_v4"
 		address = "google.com"
 	}
+
+	target {
+		name    = "local"
+		module  = "icmp_v4"
+		address = "192.168.2.180"
+	}
 }
 
 discovery.relabel "blackbox" {
