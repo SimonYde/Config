@@ -28,7 +28,7 @@ hl.bind(
 )
 
 hl.bind('SUPER + ALT + F', hl.dsp.window.float({ action = 'toggle' }))
-hl.bind('SUPER + F', hl.dsp.window.fullscreen_state({ internal = 2, client = 0, action = 'toggle' }))
+hl.bind('SUPER + F', hl.dsp.window.fullscreen_state({ internal = 2, client = -1, action = 'toggle' }))
 
 hl.bind('SUPER + Q', hl.dsp.window.close())
 hl.bind('SUPER + P', hl.dsp.window.pin({ window = 'activewindow' }))
@@ -101,5 +101,13 @@ hl.bind('SUPER + SHIFT + code:20', hl.dsp.window.resize({ x = 0, y = -100, relat
 hl.bind('SUPER + SHIFT + code:21', hl.dsp.window.resize({ x = 0, y = 100, relative = true }), { repeating = true })
 
 -- Special workspaces
-hl.bind('SUPER + X', hl.dsp.workspace.toggle_special('music'))
-hl.bind('SUPER + SHIFT + X', hl.dsp.window.move({ workspace = 'special:music' }))
+hl.bind('SUPER + H', hl.dsp.workspace.toggle_special('music'))
+hl.bind('SUPER + SHIFT + H', hl.dsp.window.move({ workspace = 'special:music' }))
+hl.bind('SUPER + Z', hl.dsp.workspace.toggle_special('scratch1'))
+hl.bind('SUPER + SHIFT + Z', hl.dsp.window.move({ workspace = 'special:scratch1' }))
+hl.bind('SUPER + X', hl.dsp.workspace.toggle_special('scratch2'))
+hl.bind('SUPER + SHIFT + X', hl.dsp.window.move({ workspace = 'special:scratch2' }))
+hl.bind('SUPER + C', hl.dsp.workspace.toggle_special('scratch3'))
+hl.bind('SUPER + SHIFT + C', hl.dsp.window.move({ workspace = 'special:scratch3' }))
+hl.bind('SUPER + D', hl.dsp.workspace.toggle_special('scratch4'))
+hl.bind('SUPER + SHIFT + D', hl.dsp.window.move({ workspace = 'special:scratch4' }))
