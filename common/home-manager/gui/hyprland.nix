@@ -29,9 +29,13 @@ in
     programs = {
       hyprshot.enable = true;
       hyprlock.enable = true;
-      waybar.enable = true;
       walker.enable = true;
-      wlogout.enable = true;
+
+      quickshell = {
+        enable = true;
+        package = pkgs.quickshell;
+        systemd.enable = true;
+      };
     };
 
     services = {
@@ -42,8 +46,6 @@ in
       hyprsunset.enable = true;
       hyprpolkitagent.enable = true;
 
-      swaync.enable = true;
-      swayosd.enable = true;
       awww.enable = true;
     };
 
@@ -196,7 +198,7 @@ in
         Unit = {
           Description = "hyprland-autoname-workspaces";
           After = [ config.wayland.systemd.target ];
-          Requires = [ "waybar.service" ];
+          Requires = [ "quickshell.service" ];
           PartOf = [ config.wayland.systemd.target ];
         };
 

@@ -28,7 +28,6 @@ in
 {
   imports = [
     ./browser.nix
-    ./waybar.nix
     ./awww.nix
     ./voxtype.nix
 
@@ -168,6 +167,9 @@ in
 
         packages = [
           pkgs.libnotify
+          pkgs.brightnessctl
+          pkgs.playerctl
+          pkgs.pavucontrol
 
           file-manager.package
           terminal.package
@@ -255,125 +257,6 @@ in
 
         thunderbird.profiles.${config.home.username} = {
           isDefault = true;
-        };
-
-        wlogout.layout = [
-          {
-            label = "lock";
-            action = "loginctl lock-session";
-            text = "Lock";
-            keybind = "l";
-          }
-
-          {
-            label = "logout";
-            action = "hyprctl 'dispatch hl.dsp.exit()'";
-            text = "Logout";
-            keybind = "e";
-          }
-
-          {
-            label = "suspend";
-            action = "systemctl suspend";
-            text = "Suspend";
-            keybind = "s";
-          }
-
-          {
-            label = "poweroff";
-            action = "systemctl poweroff";
-            text = "Poweroff";
-            keybind = "p";
-          }
-
-          {
-            label = "hibernate";
-            action = "systemctl hibernate";
-            text = "Hibernate";
-            keybind = "h";
-          }
-
-          {
-            label = "reboot";
-            action = "systemctl reboot";
-            text = "Reboot";
-            keybind = "r";
-          }
-        ];
-      };
-
-      services.swaync.settings = {
-        positionX = "right";
-        positionY = "top";
-
-        control-center-width = 380;
-        control-center-height = 860;
-        control-center-margin-top = 2;
-        control-center-margin-bottom = 2;
-        control-center-margin-right = 0;
-        control-center-margin-left = 20;
-
-        notification-window-width = 400;
-        notification-icon-size = 48;
-        notification-body-image-height = 160;
-        notification-body-image-width = 200;
-
-        timeout = 4;
-        timeout-low = 2;
-        timeout-critical = 6;
-
-        fit-to-screen = true;
-        keyboard-shortcuts = true;
-        image-visibility = "when-available";
-        transition-time = 200;
-        hide-on-clear = true;
-        hide-on-action = false;
-        script-fail-notify = true;
-
-        scripts = {
-          example-script = {
-            exec = "echo 'Do something...'";
-            urgency = "Normal";
-          };
-        };
-
-        notification-visibility = {
-          example-name = {
-            state = "muted";
-            urgency = "Low";
-            app-name = "Spotify";
-          };
-        };
-
-        widgets = [
-          "label"
-          "mpris"
-          "title"
-          "dnd"
-          "notifications"
-        ];
-
-        widget-config = {
-          title = {
-            text = "Notifications";
-            clear-all-button = true;
-            button-text = " 󰎟 ";
-          };
-          dnd = {
-            text = "Do not disturb";
-          };
-          label = {
-            max-lines = 1;
-            text = " ";
-          };
-          mpris = {
-            image-size = 96;
-            image-radius = 12;
-          };
-          volume = {
-            label = "󰕾";
-            show-per-app = true;
-          };
         };
       };
     }

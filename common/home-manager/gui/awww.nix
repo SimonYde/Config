@@ -30,6 +30,10 @@ let
         if "XDG_RUNTIME_DIR" in $env {
           ln --symbolic --force $"($new)" $"($env.XDG_RUNTIME_DIR)/current-wallpaper"
         }
+
+        # Publish a world-readable copy for the greetd greeter (system login).
+        mkdir /var/lib/quickshell-greeter
+        cp -f $"($new)" /var/lib/quickshell-greeter/current-wallpaper
       '';
 in
 {

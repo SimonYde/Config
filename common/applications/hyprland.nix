@@ -29,15 +29,13 @@ in
 
       greetd = {
         enable = true;
-
         settings.initial_session = {
-          command = "uwsm start hyprland-uwsm.desktop";
           user = username;
+          command = "${getExe pkgs.uwsm} start hyprland-uwsm.desktop";
         };
       };
     };
 
-    services.displayManager.regreet.enable = true;
     programs.hyprland.withUWSM = true;
 
     security.pam.services.hyprlock = { };

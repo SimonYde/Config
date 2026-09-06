@@ -43,10 +43,6 @@ in
       ncspot.enable = false;
       vivid.enable = false;
       hyprland.enable = false;
-      waybar = {
-        font = "sansSerif";
-        addCss = false;
-      };
       wezterm.enable = false;
       jjui.enable = false;
       rofi.enable = true;
@@ -233,8 +229,6 @@ in
 
     walker.config.theme = mkForce "stylix";
 
-    waybar.style = builtins.readFile ./waybar.css;
-
     wezterm.colorSchemes.stylix = with colors.withHashtag; {
       ansi = [
         base00
@@ -292,65 +286,6 @@ in
       };
     };
 
-    wlogout.style =
-      with colors.withHashtag;
-      let
-        icon_path = "${pkgs.wlogout}/share/wlogout/icons";
-      in
-      # css
-      ''
-        window {
-          font-family: ${fonts.sansSerif.name} Medium;
-          background-color: transparent;
-          color: ${base05};
-        }
-
-        button {
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 20%;
-          box-shadow: 0 0 0 0;
-          background-color: transparent;
-          border-color: transparent;
-        	text-decoration-color: ${base05};
-          color: ${base05};
-          border-radius: 36px;
-        }
-
-        button:focus, button:active, button:hover {
-          background-size: 50%;
-          box-shadow: 0 0 10px 3px rgba(0,0,0,.4);
-        	background-color: ${base0D};
-          color: transparent;
-          transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;
-        }
-
-        #lock {
-            background-image: image(url("${icon_path}/lock.png"));
-        }
-
-        #logout {
-            background-image: image(url("${icon_path}/logout.png"));
-        }
-
-        #suspend {
-            background-image: image(url("${icon_path}/suspend.png"));
-        }
-
-        #hibernate {
-            background-image: image(url("${icon_path}/hibernate.png"));
-        }
-
-        #poweroff {
-            background-image: image(url("${icon_path}/shutdown.png"));
-        }
-
-        #reboot {
-            background-image: image(url("${icon_path}/reboot.png"));
-        }
-
-      '';
-
     zathura.options = {
       statusbar-fg = mkForce (mkRgb "base05");
     };
@@ -396,6 +331,24 @@ in
         accent_secondary = rgb base0E;
       };
     };
+
+  xdg.configFile."quickshell/Theme.qml".text =
+    with colors.withHashtag; # qml
+    ''
+      pragma Singleton
+      import QtQuick
+
+      QtObject {
+          readonly property color background: "${base00}"
+          readonly property color base: "${base01}"
+          readonly property color surface: "${base02}"
+          readonly property color text: "${base05}"
+          readonly property color brightText: "${base07}"
+          readonly property color muted: "${base04}"
+          readonly property color accent: "${base0D}"
+          readonly property color accentSecondary: "${base0E}"
+      }
+    '';
 
   xdg.configFile."wezterm/stylix.lua".text =
     with colors.withHashtag; # lua

@@ -13,7 +13,7 @@ hl.bind('SUPER + ALT + L', hl.dsp.exec_cmd(uwsm .. 'toggle-laptop-display'))
 
 hl.bind('SUPER + space', hl.dsp.exec_cmd('walker'))
 hl.bind('SUPER + period', hl.dsp.exec_cmd('walker -m symbols'))
-hl.bind('SUPER + escape', hl.dsp.exec_cmd(uwsm .. 'pidof wlogout || wlogout'))
+hl.bind('SUPER + escape', hl.dsp.global('quickshell:power-menu'))
 
 -- Screenshots
 hl.bind('SUPER + SHIFT + S', hl.dsp.exec_cmd(uwsm .. 'hyprshot --clipboard-only -m region'))
@@ -62,37 +62,17 @@ for i = 1, 10 do
     hl.bind('SUPER + SHIFT + ' .. key, hl.dsp.window.move({ workspace = i }))
 end
 
--- Audio control
-hl.bind('XF86AudioMicMute', hl.dsp.exec_cmd(uwsm .. 'swayosd-client --input-volume mute-toggle'))
-hl.bind(
-    'XF86AudioMute',
-    hl.dsp.exec_cmd('swayosd-client --output-volume mute-toggle --max-volume 100'),
-    { locked = true }
-)
-hl.bind(
-    'XF86AudioRaiseVolume',
-    hl.dsp.exec_cmd('swayosd-client --output-volume +10 --max-volume 100'),
-    { locked = true, repeating = true }
-)
-hl.bind(
-    'XF86AudioLowerVolume',
-    hl.dsp.exec_cmd('swayosd-client --output-volume -10 --max-volume 100'),
-    { locked = true, repeating = true }
-)
-
--- Brightness control
-hl.bind('XF86MonBrightnessUp', hl.dsp.exec_cmd('swayosd-client --brightness +10'), { locked = true, repeating = true })
-hl.bind(
-    'XF86MonBrightnessDown',
-    hl.dsp.exec_cmd('swayosd-client --brightness -10'),
-    { locked = true, repeating = true }
-)
-
--- Media control
-hl.bind('XF86AudioPlay', hl.dsp.exec_cmd('swayosd-client --playerctl play-pause'), { locked = true })
-hl.bind('XF86AudioPause', hl.dsp.exec_cmd('swayosd-client --playerctl play-pause'), { locked = true })
-hl.bind('XF86AudioNext', hl.dsp.exec_cmd('swayosd-client --playerctl next'), { locked = true })
-hl.bind('XF86AudioPrev', hl.dsp.exec_cmd('swayosd-client --playerctl prev'), { locked = true })
+-- Audio / brightness / media OSD handled by quickshell GlobalShortcuts.
+hl.bind('XF86AudioMicMute', hl.dsp.global('quickshell:mic-mute'), { locked = true })
+hl.bind('XF86AudioMute', hl.dsp.global('quickshell:volume-mute'), { locked = true })
+hl.bind('XF86AudioRaiseVolume', hl.dsp.global('quickshell:volume-up'), { locked = true, repeating = true })
+hl.bind('XF86AudioLowerVolume', hl.dsp.global('quickshell:volume-down'), { locked = true, repeating = true })
+hl.bind('XF86MonBrightnessUp', hl.dsp.global('quickshell:brightness-up'), { locked = true, repeating = true })
+hl.bind('XF86MonBrightnessDown', hl.dsp.global('quickshell:brightness-down'), { locked = true, repeating = true })
+hl.bind('XF86AudioPlay', hl.dsp.global('quickshell:media-play-pause'), { locked = true })
+hl.bind('XF86AudioPause', hl.dsp.global('quickshell:media-play-pause'), { locked = true })
+hl.bind('XF86AudioNext', hl.dsp.global('quickshell:media-next'), { locked = true })
+hl.bind('XF86AudioPrev', hl.dsp.global('quickshell:media-prev'), { locked = true })
 
 -- Resizing
 hl.bind('SUPER + code:20', hl.dsp.layout('colresize -conf'), { repeating = true })
