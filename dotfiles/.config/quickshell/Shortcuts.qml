@@ -1,6 +1,5 @@
 import Quickshell
 import Quickshell.Hyprland
-import Quickshell.Io
 import QtQuick
 
 Scope {
@@ -57,28 +56,18 @@ Scope {
     GlobalShortcut {
         appid: "quickshell"
         name: "media-play-pause"
-        onPressed: media("play-pause")
+        onPressed: Media.control("play-pause")
     }
 
     GlobalShortcut {
         appid: "quickshell"
         name: "media-next"
-        onPressed: media("next")
+        onPressed: Media.control("next")
     }
 
     GlobalShortcut {
         appid: "quickshell"
         name: "media-prev"
-        onPressed: media("prev")
-    }
-
-    Process {
-        id: mediaProc
-    }
-
-    function media(action) {
-        mediaProc.command = [ "playerctl", action ]
-        mediaProc.running = true
-        Osd.show("media")
+        onPressed: Media.control("prev")
     }
 }

@@ -93,7 +93,9 @@ Scope {
                             anchors.centerIn: parent
                             spacing: 4
                             Repeater {
-                                model: Hyprland.workspaces
+                                model: Hyprland.workspaces.values.filter(function (workspace) {
+                                    return !workspace.name.startsWith("special:")
+                                })
                                 delegate: Rectangle {
                                     width: 24
                                     height: 24
@@ -109,7 +111,7 @@ Scope {
 
                                     MouseArea {
                                         anchors.fill: parent
-                                        onClicked: Hyprland.dispatch("workspace " + modelData.id)
+                                        onClicked: modelData.activate()
                                     }
                                 }
                             }
@@ -143,14 +145,6 @@ Scope {
 
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
-                                visible: UPower.battery != null
-                                text: UPower.battery ? Math.round(UPower.battery.percentage) + "%" : ""
-                                color: Theme.text
-                                font.pixelSize: 14
-                            }
-
-                            Text {
-                                anchors.verticalCenter: parent.verticalCenter
                                 text: Audio.muted ? "󰝟" : Math.round(Audio.volume * 100) + "%"
                                 color: Theme.text
                                 font.pixelSize: 14
@@ -169,7 +163,9 @@ Scope {
                                 Repeater {
                                     model: SystemTray.items
                                     delegate: Rectangle {
+                                        id: trayItem
                                         property bool isUdiskie: modelData.id.toLowerCase() === "udiskie"
+                                        property real iconScale: /blueman|nm-applet|nextcloud/.test(modelData.id.toLowerCase()) ? 1.25 : 1
                                         width: isUdiskie && !root.removableDeviceMounted ? 0 : 24
                                         height: 24
                                         visible: !isUdiskie || root.removableDeviceMounted
@@ -178,8 +174,8 @@ Scope {
 
                                         IconImage {
                                             anchors.centerIn: parent
-                                            width: 16
-                                            height: 16
+                                            width: 16 * trayItem.iconScale
+                                            height: 16 * trayItem.iconScale
                                             source: modelData.icon ?? ""
                                         }
 
@@ -197,6 +193,19 @@ Scope {
                                         }
                                     }
                                 }
+                            }
+
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                property real batteryPercentage: UPower.displayDevice.percentage * 100
+                                property bool batteryCharging: UPower.displayDevice.state === UPowerDeviceState.Charging
+                                visible: UPower.displayDevice.ready && UPower.displayDevice.isLaptopBattery
+                                text: (batteryCharging ? "󱐋 " : "") + Math.round(batteryPercentage) + "%"
+                                color: batteryCharging ? Theme.accent
+                                    : batteryPercentage <= 10 ? "#ef4444"
+                                    : batteryPercentage <= 30 ? "#f59e0b"
+                                    : Theme.text
+                                font.pixelSize: 14
                             }
 
                             Text {

@@ -154,6 +154,8 @@
     };
   };
 
+  security.polkit.enablePkexecWrapper = true;
+
   # Filesystems
   fileSystems = {
     "/boot" = {

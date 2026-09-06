@@ -15,8 +15,10 @@ ShellRoot {
         readonly property var _controlCenter: ControlCenter
         readonly property var _powerMenu: PowerMenu
         readonly property var _notificationPopup: NotificationPopup
+        readonly property var _polkit: Polkit
         readonly property var _notifications: Notifications
         readonly property var _audio: Audio
         readonly property var _brightness: Brightness
+        readonly property var _media: Media
     }
 }

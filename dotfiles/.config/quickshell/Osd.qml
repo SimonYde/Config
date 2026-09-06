@@ -1,6 +1,7 @@
 pragma Singleton
 import Quickshell
 import QtQuick
+import QtQuick.Layouts
 
 Scope {
     id: root
@@ -28,35 +29,51 @@ Scope {
         }
         exclusionMode: ExclusionMode.Ignore
         color: "transparent"
-        implicitHeight: 72
+        implicitHeight: 88
         visible: false
 
         Rectangle {
             anchors.centerIn: parent
-            width: Math.max(200, content.implicitWidth + 48)
-            height: 48
-            radius: 24
+            width: Math.max(240, content.implicitWidth + 48)
+            height: root.type === "media" ? 68 : 48
+            radius: 14
             color: Theme.base
 
-            Row {
+            RowLayout {
                 id: content
                 anchors.centerIn: parent
                 spacing: 12
 
+                    Text {
+                        visible: root.type === "media"
+                        text: Media.status === "Playing" ? "Ⅱ" : "▶"
+                    color: Theme.accent
+                    font.pixelSize: 20
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: Media.control("play-pause")
+                    }
+                }
+
                 Text {
+                    Layout.preferredWidth: root.type === "media" ? 220 : implicitWidth
+                    Layout.maximumWidth: 260
                     text: {
                         if (root.type === "mic")
                             return Audio.micMuted ? "Mic muted" : "Mic unmuted"
                         if (root.type === "brightness")
                             return "Brightness " + Brightness.percent + "%"
                         if (root.type === "media")
-                            return "Media"
+                            return Media.trackText
                         if (Audio.muted)
                             return "Muted"
                         return "Volume " + Math.round(Audio.volume * 100) + "%"
                     }
                     color: Theme.text
-                    font.pixelSize: 18
+                    font.pixelSize: root.type === "media" ? 15 : 18
+                    elide: Text.ElideRight
+                    wrapMode: Text.NoWrap
                 }
             }
         }
@@ -66,6 +83,13 @@ Scope {
         target: Audio
         function onOsdRequested(t, v) {
             root.show(t)
+        }
+    }
+
+    Connections {
+        target: Media
+        function onOsdRequested() {
+            root.show("media")
         }
     }
 }

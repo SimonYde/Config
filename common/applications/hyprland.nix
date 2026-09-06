@@ -40,6 +40,7 @@ in
 
     security.pam.services.hyprlock = { };
     security.pam.services.swaylock = { };
+    security.pam.services.polkit-1.fprintAuth = config.services.fprintd.enable;
 
     environment.sessionVariables = {
       GDK_BACKEND = "wayland,x11,*";

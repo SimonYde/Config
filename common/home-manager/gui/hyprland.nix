@@ -44,8 +44,6 @@ in
 
       hypridle.enable = true;
       hyprsunset.enable = true;
-      hyprpolkitagent.enable = true;
-
       awww.enable = true;
     };
 

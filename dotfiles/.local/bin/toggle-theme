@@ -3,7 +3,7 @@
 use std/log
 
 const SERVICES = [
-    swaync.service swayosd.service hyprpolkitagent.service walker.service nextcloud-client.service network-manager-applet.service blueman-applet.service
+    swaync.service swayosd.service walker.service nextcloud-client.service network-manager-applet.service blueman-applet.service
 ]
 
 def main [state?: string] {
