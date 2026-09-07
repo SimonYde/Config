@@ -64,7 +64,6 @@ hl.window_rule({
     size = '(monitor_w*0.25) (monitor_h*0.80)',
 })
 
-hl.window_rule({ match = { class = '.*blueman-manager.*' }, float = true })
 hl.window_rule({ match = { class = '^nm-connection-editor$' }, float = true })
 hl.window_rule({ match = { class = '.*File Upload.*' }, float = true })
 hl.window_rule({ match = { class = '.*Connection Details.*' }, float = true })

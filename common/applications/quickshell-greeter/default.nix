@@ -33,7 +33,7 @@ in
       command = "${pkgs.dbus}/bin/dbus-run-session ${pkgs.cage}/bin/cage -s -d -- ${pkgs.quickshell}/bin/quickshell --path ${greeterConfig}";
       user = "greeter";
     };
-    security.pam.services.greetd.fprintAuth = config.services.fprintd.enable;
+    # security.pam.services.greetd.fprintAuth = config.services.fprintd.enable;
 
     environment.systemPackages = [
       pkgs.quickshell

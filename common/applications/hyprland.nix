@@ -25,8 +25,6 @@ in
     environment.pathsToLink = [ "/share/hypr" ];
 
     services = {
-      blueman.enable = config.hardware.bluetooth.enable;
-
       greetd = {
         enable = true;
         settings.initial_session = {

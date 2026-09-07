@@ -67,8 +67,8 @@ Scope {
                         if (root.type === "media")
                             return Media.trackText
                         if (Audio.muted)
-                            return "Muted"
-                        return "Volume " + Math.round(Audio.volume * 100) + "%"
+                            return "Muted - " + Audio.sinkName
+                        return "Volume " + Math.round(Audio.volume * 100) + "% - " + Audio.sinkName
                     }
                     color: Theme.text
                     font.pixelSize: root.type === "media" ? 15 : 18

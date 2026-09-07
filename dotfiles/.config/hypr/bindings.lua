@@ -17,7 +17,7 @@ hl.bind('SUPER + escape', hl.dsp.global('quickshell:power-menu'))
 
 -- Screenshots
 hl.bind('SUPER + SHIFT + S', hl.dsp.exec_cmd(uwsm .. 'hyprshot --clipboard-only -m region'))
-hl.bind('Print', hl.dsp.exec_cmd(uwsm .. 'hyprshot -m output'))
+hl.bind('Print', hl.dsp.exec_cmd(uwsm .. 'hyprshot -m output -z'))
 hl.bind('SHIFT + Print', hl.dsp.exec_cmd(uwsm .. 'hyprshot -m region'))
 
 hl.bind(

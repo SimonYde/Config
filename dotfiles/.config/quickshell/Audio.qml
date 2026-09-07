@@ -7,17 +7,31 @@ Scope {
     id: root
 
     PwObjectTracker {
-        objects: [ Pipewire.defaultAudioSink, Pipewire.defaultAudioSource ]
+        objects: [ root.sink, Pipewire.defaultAudioSource ]
     }
 
-    readonly property real volume: Pipewire.defaultAudioSink?.audio?.volume ?? 0
-    readonly property bool muted: Pipewire.defaultAudioSink?.audio?.muted ?? false
+    property var sink: Pipewire.defaultAudioSink
+    readonly property var sinks: Pipewire.nodes.values.filter(function (node) {
+        return node.isSink && !node.isStream && node.audio
+    })
+    readonly property real volume: root.sink?.audio?.volume ?? 0
+    readonly property bool muted: root.sink?.audio?.muted ?? false
     readonly property bool micMuted: Pipewire.defaultAudioSource?.audio?.muted ?? false
+    readonly property string sinkName: root.sink
+        ? (root.sink.description || root.sink.nickname || root.sink.name || "Unknown output")
+        : "No output"
 
     signal osdRequested(string type, string value)
 
+    function selectSink(sink) {
+        if (!sink)
+            return
+        root.sink = sink
+        Pipewire.preferredDefaultAudioSink = sink
+    }
+
     function adjustVolume(delta) {
-        const sink = Pipewire.defaultAudioSink?.audio
+        const sink = root.sink?.audio
         if (sink) {
             sink.volume = Math.min(1, Math.max(0, sink.volume + delta))
         }
@@ -25,7 +39,7 @@ Scope {
     }
 
     function toggleMute() {
-        const sink = Pipewire.defaultAudioSink?.audio
+        const sink = root.sink?.audio
         if (sink) {
             sink.muted = !sink.muted
         }
@@ -38,5 +52,12 @@ Scope {
             src.muted = !src.muted
         }
         osdRequested("mic", "")
+    }
+
+    Connections {
+        target: Pipewire
+        function onDefaultAudioSinkChanged() {
+            root.sink = Pipewire.defaultAudioSink
+        }
     }
 }

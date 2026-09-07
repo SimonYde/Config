@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Bluetooth
 import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Services.UPower
@@ -11,15 +12,7 @@ Scope {
     id: root
 
     readonly property int outerGap: 4
-    property string clockText: Qt.formatTime(new Date(), "HH:mm")
     property bool removableDeviceMounted: false
-
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: root.clockText = Qt.formatTime(new Date(), "HH:mm")
-    }
 
     Process {
         id: pavuProc
@@ -67,7 +60,7 @@ Scope {
                 left: root.outerGap
                 right: root.outerGap
             }
-            implicitHeight: 36
+            implicitHeight: 26
             aboveWindows: true
             exclusiveZone: implicitHeight
             color: "transparent"
@@ -83,7 +76,7 @@ Scope {
                     Rectangle {
                         id: leftModules
                         implicitWidth: workspaceRow.implicitWidth + 12
-                        implicitHeight: 32
+                        implicitHeight: 24
                         Layout.alignment: Qt.AlignBottom
                         color: Theme.background
                         radius: 8
@@ -125,7 +118,7 @@ Scope {
                     Rectangle {
                         id: rightModules
                         implicitWidth: rightContent.implicitWidth + 12
-                        implicitHeight: 32
+                        implicitHeight: 24
                         Layout.alignment: Qt.AlignBottom
                         color: Theme.background
                         radius: 8
@@ -136,14 +129,20 @@ Scope {
                             anchors.margins: 6
                             spacing: 12
 
+                            SystemClock {
+                                id: clock
+                                precision: SystemClock.Seconds
+                            }
+
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: root.clockText
+                                text: Qt.formatDateTime(clock.date, "HH:mm")
                                 color: Theme.text
                                 font.pixelSize: 14
                             }
 
                             Text {
+                                id: volumeControl
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: Audio.muted ? "󰝟" : Math.round(Audio.volume * 100) + "%"
                                 color: Theme.text
@@ -151,7 +150,254 @@ Scope {
 
                                 MouseArea {
                                     anchors.fill: parent
-                                    onClicked: root.openPavu("3")
+                                    onClicked: audioPopup.visible = !audioPopup.visible
+                                }
+                            }
+
+                            PopupWindow {
+                                id: audioPopup
+                                anchor.item: volumeControl
+                                anchor.rect.y: volumeControl.height + 6
+                                anchor.rect.x: volumeControl.width / 2 - width / 2
+                                implicitWidth: 280
+                                implicitHeight: Math.max(52,
+                                    Audio.sinks.length * 36
+                                    + Math.max(0, Audio.sinks.length - 1) * 4 + 16)
+                                visible: false
+                                grabFocus: true
+                                color: "transparent"
+
+                                Rectangle {
+                                    focus: audioPopup.visible
+                                    anchors.fill: parent
+                                    color: Theme.background
+                                    radius: 10
+
+                                    Keys.onEscapePressed: function (event) {
+                                        audioPopup.visible = false
+                                        event.accepted = true
+                                    }
+
+                                    Column {
+                                        anchors.fill: parent
+                                        anchors.margins: 8
+                                        spacing: 4
+
+                                        Repeater {
+                                            model: Audio.sinks
+
+                                            delegate: Rectangle {
+                                                required property var modelData
+                                                width: parent.width
+                                                height: 36
+                                                radius: 6
+                                                color: modelData === Audio.sink ? Theme.accent : Theme.base
+
+                                                Text {
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 10
+                                                    anchors.rightMargin: 10
+                                                    text: modelData.description || modelData.nickname || modelData.name
+                                                    color: modelData === Audio.sink ? Theme.background : Theme.text
+                                                    font.pixelSize: 13
+                                                    elide: Text.ElideRight
+                                                    verticalAlignment: Text.AlignVCenter
+                                                }
+
+                                                MouseArea {
+                                                    anchors.fill: parent
+                                                    onClicked: {
+                                                        Audio.selectSink(modelData)
+                                                        audioPopup.visible = false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            Text {
+                                id: bluetoothControl
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: Bluetooth.defaultAdapter?.enabled
+                                    ? Bluetooth.devices.values.some(function (device) { return device.connected }) ? "󰂱" : "󰂯"
+                                    : "󰂲"
+                                color: Bluetooth.defaultAdapter?.enabled ? Theme.text : Theme.muted
+                                font.pixelSize: 16
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: bluetoothPopup.visible = !bluetoothPopup.visible
+                                }
+                            }
+
+                            PopupWindow {
+                                id: bluetoothPopup
+                                anchor.item: bluetoothControl
+                                anchor.rect.y: bluetoothControl.height + 6
+                                anchor.rect.x: bluetoothControl.width / 2 - width / 2
+                                implicitWidth: 320
+                                implicitHeight: Math.max(72, 48 + Bluetooth.devices.values.length * 44)
+                                visible: false
+                                grabFocus: true
+                                color: "transparent"
+
+                                Rectangle {
+                                    focus: bluetoothPopup.visible
+                                    anchors.fill: parent
+                                    color: Theme.background
+                                    radius: 10
+
+                                    Keys.onEscapePressed: function (event) {
+                                        bluetoothPopup.visible = false
+                                        event.accepted = true
+                                    }
+
+                                    Column {
+                                        anchors.fill: parent
+                                        anchors.margins: 8
+                                        spacing: 4
+
+                                        Row {
+                                            width: parent.width
+                                            height: 32
+                                            spacing: 8
+
+                                            Text {
+                                                id: bluetoothTitle
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                text: "Bluetooth"
+                                                color: Theme.text
+                                                font.pixelSize: 14
+                                            }
+
+                                            Item {
+                                                width: parent.width - bluetoothTitle.implicitWidth - 144
+                                                height: 1
+                                            }
+
+                                            Rectangle {
+                                                width: 60
+                                                height: 28
+                                                radius: 6
+                                                color: Bluetooth.defaultAdapter?.discovering ? Theme.accent : Theme.base
+
+                                                Text {
+                                                    anchors.centerIn: parent
+                                                    text: Bluetooth.defaultAdapter?.discovering ? "Stop" : "Scan"
+                                                    color: Bluetooth.defaultAdapter?.discovering ? Theme.background : Theme.text
+                                                    font.pixelSize: 12
+                                                }
+
+                                                MouseArea {
+                                                    anchors.fill: parent
+                                                    enabled: Bluetooth.defaultAdapter !== null
+                                                    onClicked: Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering
+                                                }
+                                            }
+
+                                            Rectangle {
+                                                width: 60
+                                                height: 28
+                                                radius: 6
+                                                color: Bluetooth.defaultAdapter?.enabled ? Theme.base : Theme.accent
+
+                                                Text {
+                                                    anchors.centerIn: parent
+                                                    text: Bluetooth.defaultAdapter?.enabled ? "On" : "Off"
+                                                    color: Bluetooth.defaultAdapter?.enabled ? Theme.text : Theme.background
+                                                    font.pixelSize: 12
+                                                }
+
+                                                MouseArea {
+                                                    anchors.fill: parent
+                                                    enabled: Bluetooth.defaultAdapter !== null
+                                                    onClicked: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
+                                                }
+                                            }
+                                        }
+
+                                        Repeater {
+                                            model: Bluetooth.devices.values
+
+                                            delegate: Rectangle {
+                                                required property var modelData
+                                                width: parent.width
+                                                height: 40
+                                                radius: 6
+                                                color: modelData.connected ? Theme.accent : Theme.base
+
+                                                Column {
+                                                    anchors.left: parent.left
+                                                    anchors.leftMargin: 10
+                                                    anchors.right: deviceAction.left
+                                                    anchors.rightMargin: 8
+                                                    anchors.verticalCenter: parent.verticalCenter
+                                                    spacing: 1
+
+                                                    Text {
+                                                        width: parent.width
+                                                        text: modelData.name || modelData.deviceName || modelData.address
+                                                        color: modelData.connected ? Theme.background : Theme.text
+                                                        font.pixelSize: 13
+                                                        elide: Text.ElideRight
+                                                    }
+
+                                                    Text {
+                                                        text: modelData.pairing ? "Pairing..."
+                                                            : modelData.batteryAvailable ? "Battery " + Math.round(modelData.battery * 100) + "%"
+                                                            : modelData.paired ? "Paired" : "Not paired"
+                                                        color: modelData.connected ? Theme.background : Theme.muted
+                                                        font.pixelSize: 11
+                                                    }
+                                                }
+
+                                                Rectangle {
+                                                    id: deviceAction
+                                                    anchors.right: parent.right
+                                                    anchors.rightMargin: 6
+                                                    anchors.verticalCenter: parent.verticalCenter
+                                                    width: 72
+                                                    height: 28
+                                                    radius: 5
+                                                    color: modelData.connected ? Theme.base : Theme.accent
+
+                                                    Text {
+                                                        anchors.centerIn: parent
+                                                        text: modelData.pairing ? "Cancel"
+                                                            : modelData.connected ? "Disconnect"
+                                                            : modelData.paired ? "Connect" : "Pair"
+                                                        color: modelData.connected ? Theme.text : Theme.background
+                                                        font.pixelSize: 11
+                                                    }
+
+                                                    MouseArea {
+                                                        anchors.fill: parent
+                                                        onClicked: {
+                                                            if (modelData.pairing)
+                                                                modelData.cancelPair()
+                                                            else if (modelData.connected)
+                                                                modelData.disconnect()
+                                                            else if (modelData.paired)
+                                                                modelData.connect()
+                                                            else
+                                                                modelData.pair()
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        Text {
+                                            width: parent.width
+                                            visible: Bluetooth.devices.values.length === 0
+                                            text: "No Bluetooth devices"
+                                            color: Theme.muted
+                                            horizontalAlignment: Text.AlignHCenter
+                                            font.pixelSize: 12
+                                        }
+                                    }
                                 }
                             }
 
@@ -165,7 +411,6 @@ Scope {
                                     delegate: Rectangle {
                                         id: trayItem
                                         property bool isUdiskie: modelData.id.toLowerCase() === "udiskie"
-                                        property real iconScale: /blueman|nm-applet|nextcloud/.test(modelData.id.toLowerCase()) ? 1.25 : 1
                                         width: isUdiskie && !root.removableDeviceMounted ? 0 : 24
                                         height: 24
                                         visible: !isUdiskie || root.removableDeviceMounted
@@ -173,9 +418,8 @@ Scope {
                                         color: Theme.base
 
                                         IconImage {
+                                            implicitSize: 16
                                             anchors.centerIn: parent
-                                            width: 16 * trayItem.iconScale
-                                            height: 16 * trayItem.iconScale
                                             source: modelData.icon ?? ""
                                         }
 

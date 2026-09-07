@@ -65,7 +65,7 @@ config.unix_domains = {
 
 local _ok, sessionizer = pcall(require, 'sessionizer')
 
-config.leader = { key = "l", mods = "CTRL", timeout_milliseconds = 1000 }
+config.leader = { key = "h", mods = "CTRL", timeout_milliseconds = 1000 }
 config.keys = {
 	{
 		key = "Enter",
@@ -112,11 +112,11 @@ config.keys = {
 		mods = "LEADER|SHIFT",
 		action = action.ActivateTabRelative(-1),
 	},
-	-- Send "CTRL-l" to the terminal when pressing CTRL-l, CTRL-l
+	-- Passthrough <leader> when pressing <leader><leader>
 	{
-		key = "l",
+		key = "h",
 		mods = "LEADER|CTRL",
-		action = action.SendKey({ key = "l", mods = "CTRL" }),
+		action = action.SendKey({ key = "h", mods = "CTRL" }),
 	},
 }
 

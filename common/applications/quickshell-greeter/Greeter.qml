@@ -10,6 +10,7 @@ FloatingWindow {
 
     visible: true
     fullscreen: true
+    screen: Quickshell.screens[0]
     color: Theme.background
 
     property string username: ""
@@ -32,6 +33,10 @@ FloatingWindow {
         anchors.centerIn: parent
         width: 360
         spacing: 12
+        SystemClock {
+            id: clock
+            precision: SystemClock.Seconds
+        }
 
         Text {
             text: Qt.formatDateTime(SystemClock.date, "HH:mm")
