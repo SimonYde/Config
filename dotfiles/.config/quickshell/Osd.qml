@@ -1,5 +1,6 @@
 pragma Singleton
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 
@@ -28,6 +29,7 @@ Scope {
             right: true
         }
         exclusionMode: ExclusionMode.Ignore
+        WlrLayershell.layer: WlrLayer.Overlay
         color: "transparent"
         implicitHeight: 88
         visible: false

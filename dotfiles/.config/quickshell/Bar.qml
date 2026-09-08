@@ -93,7 +93,7 @@ Scope {
                                     width: 24
                                     height: 24
                                     radius: 6
-                                    color: modelData.focused ? Theme.accent : Theme.base
+                                    color: modelData.focused ? Theme.accent : "transparent"
 
                                     Text {
                                         anchors.centerIn: parent
@@ -127,7 +127,7 @@ Scope {
                             id: rightContent
                             anchors.fill: parent
                             anchors.margins: 6
-                            spacing: 12
+                            spacing: 10
 
                             SystemClock {
                                 id: clock
@@ -144,7 +144,7 @@ Scope {
                             Text {
                                 id: volumeControl
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: Audio.muted ? "󰝟" : Math.round(Audio.volume * 100) + "%"
+                                text: (Audio.muted ? "󰝟 " : "󰕾 ") + Math.round(Audio.volume * 100)
                                 color: Theme.text
                                 font.pixelSize: 14
 
@@ -404,21 +404,22 @@ Scope {
                             Row {
                                 id: trayItems
                                 anchors.verticalCenter: parent.verticalCenter
-                                spacing: 4
+                                spacing: 2
 
                                 Repeater {
                                     model: SystemTray.items
                                     delegate: Rectangle {
                                         id: trayItem
                                         property bool isUdiskie: modelData.id.toLowerCase() === "udiskie"
+                                        property real iconScale: /nm-applet|nextcloud/.test(modelData.id.toLowerCase()) ? 1.25 : 1
                                         width: isUdiskie && !root.removableDeviceMounted ? 0 : 24
                                         height: 24
                                         visible: !isUdiskie || root.removableDeviceMounted
                                         radius: 4
-                                        color: Theme.base
+                                        color: "transparent"
 
                                         IconImage {
-                                            implicitSize: 16
+                                            implicitSize: 16 * trayItem.iconScale
                                             anchors.centerIn: parent
                                             source: modelData.icon ?? ""
                                         }
@@ -440,16 +441,93 @@ Scope {
                             }
 
                             Text {
+                                id: batteryControl
                                 anchors.verticalCenter: parent.verticalCenter
                                 property real batteryPercentage: UPower.displayDevice.percentage * 100
                                 property bool batteryCharging: UPower.displayDevice.state === UPowerDeviceState.Charging
                                 visible: UPower.displayDevice.ready && UPower.displayDevice.isLaptopBattery
-                                text: (batteryCharging ? "󱐋 " : "") + Math.round(batteryPercentage) + "%"
+                                text: (batteryCharging ? "󰂄" : "󰁹") + " " + Math.round(batteryPercentage)
                                 color: batteryCharging ? Theme.accent
                                     : batteryPercentage <= 10 ? "#ef4444"
                                     : batteryPercentage <= 30 ? "#f59e0b"
                                     : Theme.text
                                 font.pixelSize: 14
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: powerProfilePopup.visible = !powerProfilePopup.visible
+                                }
+                            }
+
+                            PopupWindow {
+                                id: powerProfilePopup
+                                anchor.item: batteryControl
+                                anchor.rect.y: batteryControl.height + 6
+                                anchor.rect.x: batteryControl.width / 2 - width / 2
+                                implicitWidth: 240
+                                implicitHeight: 80 + (PowerProfiles.hasPerformanceProfile ? 40 : 0)
+                                visible: false
+                                grabFocus: true
+                                color: "transparent"
+
+                                Rectangle {
+                                    focus: powerProfilePopup.visible
+                                    anchors.fill: parent
+                                    color: Theme.background
+                                    radius: 10
+
+                                    Keys.onEscapePressed: function (event) {
+                                        powerProfilePopup.visible = false
+                                        event.accepted = true
+                                    }
+
+                                    Column {
+                                        anchors.fill: parent
+                                        anchors.margins: 8
+                                        spacing: 4
+
+                                        Text {
+                                            width: parent.width
+                                            height: 28
+                                            text: "Power profile: " + PowerProfile.toString(PowerProfiles.profile)
+                                            color: Theme.text
+                                            font.pixelSize: 13
+                                            verticalAlignment: Text.AlignVCenter
+                                        }
+
+                                        Repeater {
+                                            model: PowerProfiles.hasPerformanceProfile
+                                                ? [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
+                                                : [PowerProfile.PowerSaver, PowerProfile.Balanced]
+
+                                            delegate: Rectangle {
+                                                required property var modelData
+                                                width: parent.width
+                                                height: 36
+                                                radius: 6
+                                                color: PowerProfiles.profile === modelData ? Theme.accent : Theme.base
+
+                                                Text {
+                                                    anchors.fill: parent
+                                                    anchors.leftMargin: 10
+                                                    text: PowerProfile.toString(modelData)
+                                                    color: PowerProfiles.profile === modelData ? Theme.background : Theme.text
+                                                    font.pixelSize: 12
+                                                    verticalAlignment: Text.AlignVCenter
+                                                }
+
+                                                MouseArea {
+                                                    anchors.fill: parent
+                                                    enabled: PowerProfiles.profile !== modelData
+                                                    onClicked: {
+                                                        PowerProfiles.profile = modelData
+                                                        powerProfilePopup.visible = false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
 
                             Text {

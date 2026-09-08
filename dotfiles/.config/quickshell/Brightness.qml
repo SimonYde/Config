@@ -15,6 +15,7 @@ Scope {
 
     function adjust(delta) {
         const adjustment = delta > 0 ? "+" + delta + "%" : Math.abs(delta) + "%-"
+        root._percent = Math.max(0, Math.min(100, root._percent + delta))
         setProc.command = [ "brightnessctl", "set", adjustment ]
         setProc.running = true
         delay.restart()
@@ -22,7 +23,7 @@ Scope {
 
     Timer {
         id: delay
-        interval: 250
+        interval: 150
         onTriggered: root.refresh()
     }
 
