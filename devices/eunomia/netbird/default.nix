@@ -3,23 +3,17 @@
 let
   inherit (config.syde) server;
 
-  inherit (config.networking) hostName;
+  host_url = "${config.networking.hostName}.${server.baseDomain}";
 
-  host_url = "${hostName}.${server.baseDomain}";
-
-  mkStun = host: {
+  mkProto = proto: host: {
     Proto = "udp";
-    URI = "stun:${host}:3478";
+    URI = "${proto}:${host}:3478";
     Username = "netbird";
     Password._secret = "/run/agenix/netbird/turn-password";
   };
 
-  mkTurn = host: {
-    Proto = "udp";
-    URI = "turn:${host}:3478";
-    Username = "netbird";
-    Password._secret = "/run/agenix/netbird/turn-password";
-  };
+  mkStun = mkProto "stun";
+  mkTurn = mkProto "turn";
 in
 {
   imports = [ ./netbird-relay.nix ];
