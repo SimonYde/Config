@@ -60,6 +60,8 @@ in
 
         tokei
         tlrc
+
+        kdePackages.qtdeclarative
       ];
 
       # HACK(2026-09-07 Simon Yde): make rbw not spawn its own agent if the

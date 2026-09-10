@@ -75,7 +75,7 @@ hl.window_rule({
     center = true,
 })
 
-hl.window_rule({ match = { class = 'electron|obsidian|md.Obsidian' }, workspace = 1 })
+hl.window_rule({ match = { class = 'md.obsidian.Obsidian' }, workspace = 1 })
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })
 hl.window_rule({ match = { class = 'ferdium|Ferdium|discord|legcord|vesktop|WhatsApp' }, workspace = '9 silent' })
 

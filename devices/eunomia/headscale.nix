@@ -100,6 +100,11 @@ in
         listen_addr = "127.0.0.1:8085";
         metrics_listen_addr = "0.0.0.0:9092";
 
+        trusted_proxies = [
+          "127.0.0.1/32"
+          "::1/128"
+        ];
+
         prefixes = {
           v6 = "fd7a:115c:a1e0::/48";
           v4 = "100.64.0.0/10";

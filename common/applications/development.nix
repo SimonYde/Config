@@ -17,6 +17,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    age.secrets.grafanaAccountToken = {
+      file = "${inputs.secrets}/grafana/service-account-token.age";
+      owner = username;
+    };
+
     home-manager.users.${username}.imports = [ ../home-manager/development.nix ];
 
     systemd = {

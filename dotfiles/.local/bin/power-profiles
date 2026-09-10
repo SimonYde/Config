@@ -1,0 +1,31 @@
+#!/usr/bin/env -S nu --no-config-file
+
+def main [
+    --json(-j) # Output in json format
+    state?: string
+] {
+    if (which powerprofilesctl | is-empty) {
+        error make {
+            msg: "powerprofilesctl isn't installed"
+        }
+    }
+
+    let profiles = powerprofilesctl list
+    | split row "\n\n"
+    | each { lines | first }
+    | parse --regex '(?<active>\s|\**)(?<name>.*):'
+    | update active { str trim | is-not-empty }
+    | update name { str trim }
+
+    match $state {
+        active => {
+            $profiles | where active | first | get name
+        }
+        inactive => {
+            $profiles | where not active | get name | if $json { to json } else { $in }
+        }
+        null => {
+            $profiles | if $json { to json } else { $in }
+        }
+    }
+}

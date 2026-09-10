@@ -33,7 +33,6 @@ in
     };
 
     programs.hyprland.withUWSM = true;
-
     security.pam.services = {
       greetd.oo7.enable = true;
       greetd.fprintAuth = lib.mkForce false;
