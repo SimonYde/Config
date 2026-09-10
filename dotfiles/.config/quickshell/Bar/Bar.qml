@@ -97,6 +97,7 @@ Scope {
                             spacing: 10
 
                             ClockWidget { theme: root.theme }
+                            HyprsunsetWidget { theme: root.theme }
                             AudioWidget { audio: root.audio; theme: root.theme }
                             BluetoothWidget { theme: root.theme }
                             TrayWidget {
