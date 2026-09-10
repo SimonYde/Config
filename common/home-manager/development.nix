@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 
@@ -204,6 +205,13 @@ in
               args = [
                 "--mcp"
               ];
+            };
+            grafana = {
+              command = lib.getExe pkgs.mcp-grafana;
+              env = {
+                GRAFANA_URL = "https://grafana.i.simonyde.com";
+                GRAFANA_SERVICE_ACCOUNT_TOKEN.file = "/run/agenix/grafanaAccountToken";
+              };
             };
           };
         };
