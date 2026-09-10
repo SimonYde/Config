@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import qs.Common
 
 Text {
     id: root
@@ -27,11 +28,10 @@ Text {
         grabFocus: true
         color: "transparent"
 
-        Rectangle {
+        PopupSurface {
+            theme: root.theme
             focus: audioPopup.visible
             anchors.fill: parent
-            color: root.theme.background
-            radius: 10
 
             Keys.onEscapePressed: function (event) {
                 audioPopup.visible = false
@@ -93,30 +93,16 @@ Text {
                 Repeater {
                     model: root.audio.sinks
 
-                    delegate: Rectangle {
+                    delegate: SelectorButton {
                         required property var modelData
                         width: parent.width
                         height: 36
-                        radius: 6
-                        color: modelData === root.audio.sink ? root.theme.accent : root.theme.base
-
-                        Text {
-                            anchors.fill: parent
-                            anchors.leftMargin: 10
-                            anchors.rightMargin: 10
-                            text: modelData.description || modelData.nickname || modelData.name
-                            color: modelData === root.audio.sink ? root.theme.background : root.theme.text
-                            font.pixelSize: 13
-                            elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                root.audio.selectSink(modelData)
-                                audioPopup.visible = false
-                            }
+                        theme: root.theme
+                        active: modelData === root.audio.sink
+                        text: modelData.description || modelData.nickname || modelData.name
+                        onClicked: {
+                            root.audio.selectSink(modelData)
+                            audioPopup.visible = false
                         }
                     }
                 }

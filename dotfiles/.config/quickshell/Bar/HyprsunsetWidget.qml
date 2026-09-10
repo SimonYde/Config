@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import qs.Common
 
 Text {
     id: root
@@ -8,6 +9,7 @@ Text {
     required property var theme
     property int temperature: 4000
     property int gamma: 100
+    property var pendingCommand: null
 
     anchors.verticalCenter: parent.verticalCenter
     text: "󰖔"
@@ -15,8 +17,18 @@ Text {
     font.pixelSize: 16
 
     function run(command) {
+        pendingCommand = command
+        if (!commandDispatchTimer.running)
+            commandDispatchTimer.start()
+    }
+
+    function dispatchPendingCommand() {
+        if (commandProc.running || pendingCommand === null)
+            return
+
+        const command = pendingCommand
+        pendingCommand = null
         commandProc.command = ["hyprctl"].concat(command)
-        commandProc.running = false
         commandProc.running = true
     }
 
@@ -36,6 +48,18 @@ Text {
 
     Process {
         id: commandProc
+
+        onExited: {
+            if (root.pendingCommand !== null && !commandDispatchTimer.running)
+                commandDispatchTimer.start()
+        }
+    }
+
+    Timer {
+        id: commandDispatchTimer
+        interval: 25
+        repeat: false
+        onTriggered: root.dispatchPendingCommand()
     }
 
     Process {
@@ -85,11 +109,10 @@ Text {
         grabFocus: true
         color: "transparent"
 
-        Rectangle {
+        PopupSurface {
+            theme: root.theme
             focus: sunsetPopup.visible
             anchors.fill: parent
-            color: root.theme.background
-            radius: 10
 
             Keys.onEscapePressed: function (event) {
                 sunsetPopup.visible = false

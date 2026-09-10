@@ -19,6 +19,7 @@ Scope {
             appIcon: notification.appIcon ?? "",
             appName: notification.appName,
             summary: notification.summary,
+            notificationBody: notification.body ?? "",
         })
         popup.visible = true
     }
@@ -53,7 +54,7 @@ Scope {
             right: 4
         }
         implicitWidth: 360
-        implicitHeight: popupModel.count * 140 + Math.max(0, popupModel.count - 1) * 8
+        implicitHeight: notificationList.contentHeight
         exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Overlay
         aboveWindows: true
@@ -61,6 +62,7 @@ Scope {
         visible: false
 
         ListView {
+            id: notificationList
             anchors.fill: parent
             spacing: 8
             interactive: false
@@ -71,9 +73,10 @@ Scope {
                 required property string appIcon
                 required property string appName
                 required property string summary
+                required property string notificationBody
 
                 width: ListView.view.width
-                height: 140
+                height: Math.max(body.implicitHeight + 24, 56)
                 color: Qt.rgba(Theme.base.r, Theme.base.g, Theme.base.b, 0.92)
                 radius: 12
 
@@ -83,35 +86,48 @@ Scope {
                     onTriggered: root.removePopup(popupId)
                 }
 
-                Row {
-                    anchors.fill: parent
-                    anchors.margins: 12
-                    spacing: 4
+                IconImage {
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.leftMargin: 12
+                    anchors.topMargin: 12
+                    width: 32
+                    height: 32
+                    source: appIcon
+                }
 
-                    IconImage {
-                        width: 32
-                        height: 32
-                        source: appIcon
+                Column {
+                    id: body
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.leftMargin: appIcon ? 56 : 12
+                    anchors.rightMargin: 12
+                    anchors.topMargin: 12
+                    spacing: 2
+
+                    Text {
+                        width: parent.width
+                        text: appName
+                        color: Theme.muted
+                        font.pixelSize: 12
+                        elide: Text.ElideRight
                     }
 
-                    Column {
-                        width: parent.width - 36
-                        spacing: 4
+                    Text {
+                        width: parent.width
+                        text: summary
+                        color: Theme.text
+                        font.pixelSize: 16
+                        font.bold: true
+                        wrapMode: Text.Wrap
+                    }
 
-                        Text {
-                            text: appName
-                            color: Theme.muted
-                            font.pixelSize: 12
-                        }
-
-                        Text {
-                            text: summary
-                            color: Theme.text
-                            font.pixelSize: 16
-                            font.bold: true
-                            wrapMode: Text.Wrap
-                            width: parent.width
-                        }
+                    Text {
+                        width: parent.width
+                        text: notificationBody
+                        color: Theme.text
+                        wrapMode: Text.Wrap
                     }
                 }
 

@@ -5,6 +5,7 @@ import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import qs.Common
 
 Scope {
     id: root
@@ -75,21 +76,22 @@ Scope {
                             }
                             onClicked: Notifications.closeAll()
                         }
-                        Button {
-                            id: muteButton
-                             text: Notifications.doNotDisturb ? "Unmute" : "Mute"
-                            focusPolicy: Qt.NoFocus
-                            background: Rectangle {
-                                color: muteButton.hovered ? Theme.accent : Theme.base
-                                radius: 4
+                        RowLayout {
+                            spacing: 6
+
+                            Text {
+                                text: Notifications.doNotDisturb ? "Muted" : "Mute"
+                                color: Theme.text
                             }
-                            contentItem: Text {
-                                text: muteButton.text
-                                color: muteButton.hovered ? Theme.background : Theme.text
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
+
+                            ToggleSwitch {
+                                checked: Notifications.doNotDisturb
+                                theme: Theme
+                                checkedColor: Theme.base08
+                                onToggled: function (value) {
+                                    Notifications.doNotDisturb = value
+                                }
                             }
-                            onClicked: Notifications.doNotDisturb = !Notifications.doNotDisturb
                         }
                     }
 

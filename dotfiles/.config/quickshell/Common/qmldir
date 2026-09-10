@@ -1,0 +1,4 @@
+module qs.Common
+SelectorButton 1.0 SelectorButton.qml
+ToggleSwitch 1.0 ToggleSwitch.qml
+PopupSurface 1.0 PopupSurface.qml

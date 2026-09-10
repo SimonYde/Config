@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Bluetooth
 import QtQuick
+import qs.Common
 
 Text {
     id: root
@@ -28,11 +29,10 @@ Text {
         grabFocus: true
         color: "transparent"
 
-        Rectangle {
+        PopupSurface {
+            theme: root.theme
             focus: bluetoothPopup.visible
             anchors.fill: parent
-            color: root.theme.background
-            radius: 10
 
             Keys.onEscapePressed: function (event) {
                 bluetoothPopup.visible = false
@@ -58,11 +58,11 @@ Text {
                     }
 
                     Item {
-                        width: parent.width - bluetoothTitle.implicitWidth - 144
+                        width: parent.width - bluetoothTitle.implicitWidth - 124
                         height: 1
                     }
 
-                    BluetoothAction {
+                    SelectorButton {
                         theme: root.theme
                         width: 60
                         text: Bluetooth.defaultAdapter?.discovering ? "Stop" : "Scan"
@@ -71,13 +71,15 @@ Text {
                         onClicked: Bluetooth.defaultAdapter.discovering = !Bluetooth.defaultAdapter.discovering
                     }
 
-                    BluetoothAction {
+                    ToggleSwitch {
+                        anchors.verticalCenter: parent.verticalCenter
+                        checked: Bluetooth.defaultAdapter?.enabled ?? false
                         theme: root.theme
-                        width: 60
-                        text: Bluetooth.defaultAdapter?.enabled ? "On" : "Off"
-                        active: !(Bluetooth.defaultAdapter?.enabled ?? false)
                         enabled: Bluetooth.defaultAdapter !== null
-                        onClicked: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
+                        onToggled: function (value) {
+                            if (Bluetooth.defaultAdapter)
+                                Bluetooth.defaultAdapter.enabled = value
+                        }
                     }
                 }
 

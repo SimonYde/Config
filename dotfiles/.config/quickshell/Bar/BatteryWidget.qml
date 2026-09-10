@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Services.UPower
 import QtQuick
+import qs.Common
 
 Text {
     id: root
@@ -32,11 +33,10 @@ Text {
         grabFocus: true
         color: "transparent"
 
-        Rectangle {
+        PopupSurface {
+            theme: root.theme
             focus: powerProfilePopup.visible
             anchors.fill: parent
-            color: root.theme.background
-            radius: 10
 
             Keys.onEscapePressed: function (event) {
                 powerProfilePopup.visible = false
@@ -62,29 +62,16 @@ Text {
                         ? [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
                         : [PowerProfile.PowerSaver, PowerProfile.Balanced]
 
-                    delegate: Rectangle {
+                    delegate: SelectorButton {
                         required property var modelData
                         width: parent.width
                         height: 36
-                        radius: 6
-                        color: PowerProfiles.profile === modelData ? root.theme.accent : root.theme.base
-
-                        Text {
-                            anchors.fill: parent
-                            anchors.leftMargin: 10
-                            text: PowerProfile.toString(modelData)
-                            color: PowerProfiles.profile === modelData ? root.theme.background : root.theme.text
-                            font.pixelSize: 12
-                            verticalAlignment: Text.AlignVCenter
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            enabled: PowerProfiles.profile !== modelData
-                            onClicked: {
-                                PowerProfiles.profile = modelData
-                                powerProfilePopup.visible = false
-                            }
+                        theme: root.theme
+                        active: PowerProfiles.profile === modelData
+                        text: PowerProfile.toString(modelData)
+                        onClicked: {
+                            PowerProfiles.profile = modelData
+                            powerProfilePopup.visible = false
                         }
                     }
                 }
