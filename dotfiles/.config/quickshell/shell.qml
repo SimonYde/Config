@@ -2,11 +2,18 @@
 
 import Quickshell
 import QtQuick
+import "Bar"
 
 ShellRoot {
     id: root
 
-    Bar {}
+    Bar {
+        theme: Theme
+        audio: Audio
+        notifications: Notifications
+        controlCenter: ControlCenter
+        powerMenu: PowerMenu
+    }
     Shortcuts {}
 
     // Force creation of the singleton shells (they own windows / servers).

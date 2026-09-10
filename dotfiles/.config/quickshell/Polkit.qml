@@ -31,7 +31,18 @@ Scope {
         focusable: agent.isActive
         visible: agent.isActive
         color: "transparent"
-        onVisibleChanged: if (visible) response.forceActiveFocus()
+        onVisibleChanged: {
+            if (visible)
+                Qt.callLater(function () {
+                    (response.visible ? response : cancelButton).forceActiveFocus()
+                })
+        }
+
+        Shortcut {
+            sequence: "Ctrl+C"
+            enabled: agent.isActive
+            onActivated: if (agent.flow) agent.flow.cancelAuthenticationRequest()
+        }
 
         Rectangle {
             anchors.centerIn: parent
@@ -77,7 +88,9 @@ Scope {
                 TextField {
                     id: response
                     Layout.fillWidth: true
+                    focusPolicy: Qt.StrongFocus
                     visible: agent.flow && agent.flow.isResponseRequired
+                    onVisibleChanged: if (visible) forceActiveFocus()
                     echoMode: agent.flow && agent.flow.responseVisible ? TextInput.Normal : TextInput.Password
                     placeholderText: agent.flow ? agent.flow.inputPrompt : ""
                     color: Theme.text
@@ -98,6 +111,16 @@ Scope {
                             clear()
                         }
                     }
+
+                    Keys.onPressed: function (event) {
+                        if (event.key !== Qt.Key_Tab)
+                            return
+                        if (event.modifiers & Qt.ShiftModifier)
+                            authenticateButton.forceActiveFocus()
+                        else
+                            cancelButton.forceActiveFocus()
+                        event.accepted = true
+                    }
                 }
 
                 RowLayout {
@@ -105,8 +128,18 @@ Scope {
 
                     Button {
                         id: cancelButton
+                        focusPolicy: Qt.StrongFocus
                         text: "Cancel"
                         onClicked: if (agent.flow) agent.flow.cancelAuthenticationRequest()
+                        Keys.onPressed: function (event) {
+                            if (event.key !== Qt.Key_Tab)
+                                return
+                            if (event.modifiers & Qt.ShiftModifier)
+                                (response.visible ? response : cancelButton).forceActiveFocus()
+                            else
+                                (response.visible ? authenticateButton : cancelButton).forceActiveFocus()
+                            event.accepted = true
+                        }
                         background: Rectangle {
                             color: cancelButton.hovered ? Theme.accent : Theme.base
                             radius: 4
@@ -121,9 +154,19 @@ Scope {
 
                     Button {
                         id: authenticateButton
+                        focusPolicy: Qt.StrongFocus
                         visible: response.visible
                         text: "Authenticate"
                         onClicked: response.submit()
+                        Keys.onPressed: function (event) {
+                            if (event.key !== Qt.Key_Tab)
+                                return
+                            if (event.modifiers & Qt.ShiftModifier)
+                                cancelButton.forceActiveFocus()
+                            else
+                                response.forceActiveFocus()
+                            event.accepted = true
+                        }
                         background: Rectangle {
                             color: authenticateButton.hovered ? Theme.accent : Theme.base
                             radius: 4
