@@ -41,7 +41,6 @@
     };
     home-manager.users.${username} = {
       xdg.dataFile."home-manager/specialisation".text = "light-theme";
-      programs.hyprlock.settings.label.shadow_passes = lib.mkForce 0;
     };
   };
 

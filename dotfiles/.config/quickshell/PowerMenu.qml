@@ -43,6 +43,26 @@ Scope {
             color: Qt.rgba(0, 0, 0, 0.22)
             focus: window.visible
             Keys.onEscapePressed: root.close()
+            Keys.onPressed: function (event) {
+                let cmd = ""
+                if (event.key === Qt.Key_L)
+                    cmd = "loginctl lock-session"
+                else if (event.key === Qt.Key_S)
+                    cmd = "systemctl suspend"
+                else if (event.key === Qt.Key_R)
+                    cmd = "systemctl reboot"
+                else if (event.key === Qt.Key_P)
+                    cmd = "systemctl poweroff"
+                else if (event.key === Qt.Key_O)
+                    cmd = "uwsm stop"
+
+                if (cmd === "")
+                    return
+
+                root.close()
+                runCmd(cmd)
+                event.accepted = true
+            }
 
             MouseArea {
                 anchors.fill: parent
@@ -55,11 +75,11 @@ Scope {
 
                 Repeater {
                     model: [
-                        { label: "Lock", cmd: "loginctl lock-session" },
-                        { label: "Logout", cmd: "uwsm stop" },
-                        { label: "Suspend", cmd: "systemctl suspend" },
-                        { label: "Reboot", cmd: "systemctl reboot" },
-                        { label: "Poweroff", cmd: "systemctl poweroff" },
+                        { label: "Lock (l)", cmd: "loginctl lock-session" },
+                        { label: "Logout (o)", cmd: "uwsm stop" },
+                        { label: "Suspend (s)", cmd: "systemctl suspend" },
+                        { label: "Reboot (r)", cmd: "systemctl reboot" },
+                        { label: "Poweroff (p)", cmd: "systemctl poweroff" },
                     ]
                     delegate: Rectangle {
                         width: 220

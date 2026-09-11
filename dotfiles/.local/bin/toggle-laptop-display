@@ -2,16 +2,62 @@
 
 use std/log
 
+def state-file [] {
+    let state_dir = ($env.XDG_STATE_HOME? | default $"($env.HOME)/.local/state")
+    $state_dir | path join "toggle-laptop-display.json"
+}
+
+def remember-display [] {
+    let display = hyprctl monitors -j | from json | where name like "eDP" | first
+    if ($display | is-empty) {
+        log warning "Could not remember laptop display: eDP monitor not found"
+        return
+    }
+
+    let file = state-file
+    let directory = $file | path dirname
+    if not ($directory | path exists) {
+        mkdir $directory
+    }
+
+    let state = {
+        mode: $"($display.width)x($display.height)@($display.refreshRate)"
+        position: $"($display.x)x($display.y)"
+        scale: $display.scale
+    }
+    log debug $"Remembering laptop display: mode=($state.mode), position=($state.position), scale=($state.scale)"
+    $state | to json | save --force $file
+}
+
 def display-on [] {
-    hyprctl eval "
-        hl.monitor({
-            output = 'eDP-1',
-            disabled = false,
-        })
-    "
+    let file = state-file
+    if ($file | path exists) {
+        let display = open $file
+        log info $"Enabling laptop display with saved configuration from ($file)"
+        log debug $"Restoring laptop display: mode=($display.mode), position=($display.position), scale=($display.scale)"
+        hyprctl eval $"
+            hl.monitor\({
+                output = 'eDP-1',
+                mode = '($display.mode)',
+                position = '($display.position)',
+                scale = ($display.scale),
+                disabled = false,
+            }\)
+        "
+    } else {
+        log info "Enabling laptop display with default configuration"
+        hyprctl eval "
+            hl.monitor({
+                output = 'eDP-1',
+                disabled = false,
+            })
+        "
+    }
 }
 
 def display-off [] {
+    remember-display
+    log info "Disabling laptop display"
     hyprctl eval "
         hl.monitor({
             output = 'eDP-1',

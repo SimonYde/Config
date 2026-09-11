@@ -65,7 +65,7 @@ Scope {
                     spacing: 12
 
                     Rectangle {
-                        implicitWidth: workspace.implicitWidth + 12
+                        implicitWidth: workspace.implicitWidth
                         implicitHeight: 24
                         Layout.alignment: Qt.AlignBottom
                         color: root.theme.background

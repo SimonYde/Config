@@ -113,11 +113,6 @@ in
     # NOTE: Stylix shouldn't set settings, but generate the theme
     helix.settings = mkForce { };
 
-    hyprlock.settings.label = {
-      color = "rgb(${colors.base05})";
-      font_family = fonts.sansSerif.name;
-    };
-
     imv.settings.options = with colors; {
       background = base00;
       overlay_background_color = base01;

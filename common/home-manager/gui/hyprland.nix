@@ -28,7 +28,6 @@ in
 
     programs = {
       hyprshot.enable = true;
-      hyprlock.enable = true;
       walker.enable = true;
 
       quickshell = {
@@ -73,44 +72,6 @@ in
         _G.terminal = '${getExe terminal.package}'
         require('imports')
       '';
-    };
-
-    programs.hyprlock.settings = {
-      general = {
-        hide_cursor = true;
-        ignore_empty_input = true;
-        immediate_render = true;
-      };
-
-      background = mkForce {
-        monitor = "";
-        path = "$XDG_RUNTIME_DIR/current-wallpaper";
-        blur_passes = 2;
-        blur_size = 8;
-      };
-
-      input-field = {
-        monitor = "";
-        size = "200, 50";
-        outline_thickness = 2;
-        dots_center = true;
-        fade_on_empty = true;
-        placeholder_text = "<i>Password...</i>";
-        position = "0, -80";
-        shadow_passes = 2;
-      };
-
-      label = {
-        monitor = "";
-        text = ''cmd[update:4000] echo "<b><big>$TIME</big></b>"'';
-        text_align = "center";
-        font_size = 110;
-        rotate = 0;
-        position = "0, 80";
-        halign = "center";
-        valign = "center";
-        shadow_passes = 2;
-      };
     };
 
     programs.walker.runAsService = true;
@@ -176,7 +137,7 @@ in
       in
       {
         general = {
-          lock_cmd = "pidof hyprlock || hyprlock";
+          lock_cmd = "${getExe config.programs.quickshell.package} -n -p ${config.xdg.configHome}/quickshell/lockscreen.qml";
           after_sleep_cmd = ''hyprctl dispatch "hl.dsp.dpms({ action = 'enable' })" && ${restartHyprsunset}'';
           before_sleep_cmd = "loginctl lock-session";
         };

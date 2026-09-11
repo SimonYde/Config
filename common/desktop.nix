@@ -110,8 +110,7 @@ in
   };
 
   services = {
-    gnome.gnome-keyring.enable = true;
-    udisks2.enable = true;
+    oo7.enable = true;
 
     pipewire = {
       enable = true;
@@ -124,14 +123,17 @@ in
         support32Bit = true;
       };
     };
+
+    udisks2.enable = true;
   };
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
 
-  services.resolved.enable = true;
+  # Keep the oo7 keyring password in sync when the account password changes.
+  security.pam.services.passwd.oo7.enable = true;
 
-  systemd.user.services.gcr-ssh-agent.enable = lib.mkForce false;
+  services.resolved.enable = true;
 
   users.users.${username}.extraGroups = [ "netbird" ];
 }

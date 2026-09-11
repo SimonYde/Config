@@ -78,14 +78,6 @@ hl.window_rule({
 hl.window_rule({ match = { class = 'electron|obsidian|md.Obsidian' }, workspace = 1 })
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })
 hl.window_rule({ match = { class = 'ferdium|Ferdium|discord|legcord|vesktop|WhatsApp' }, workspace = '9 silent' })
-hl.window_rule({
-    name = 'polkit keep focus',
-    match = {
-        title = 'Hyprland Polkit Agent',
-    },
-    stay_focused = true,
-    dim_around = true,
-})
 
 ---------------------
 ---- LAYER RULES ----

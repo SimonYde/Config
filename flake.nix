@@ -245,14 +245,14 @@
     };
   };
 
-  nixConfig = {
-    extra-substituters = [
-      "https://simonyde.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "simonyde.cachix.org-1:8NLbpUJlsbus5yewqulyiHTxXR6ZtWF0p0O1bRYS94w="
-    ];
-  };
+  # nixConfig = {
+  #   extra-substituters = [
+  #     "https://simonyde.cachix.org"
+  #   ];
+  #   extra-trusted-public-keys = [
+  #     "simonyde.cachix.org-1:8NLbpUJlsbus5yewqulyiHTxXR6ZtWF0p0O1bRYS94w="
+  #   ];
+  # };
 
   outputs =
     inputs:

@@ -17,8 +17,6 @@ in
       wayland.windowManager.hyprland.extraConfig = ''
         pcall(require, 'machines.' .. '${config.networking.hostName}')
       '';
-
-      programs.hyprlock.settings.auth.fingerprint.enabled = config.services.fprintd.enable;
     };
 
     # Allows lua stub file to be accessed from /run/current-system/sw/share/hypr
@@ -36,9 +34,12 @@ in
 
     programs.hyprland.withUWSM = true;
 
-    security.pam.services.hyprlock = { };
-    security.pam.services.swaylock = { };
-    security.pam.services.polkit-1.fprintAuth = config.services.fprintd.enable;
+    security.pam.services = {
+      greetd.oo7.enable = true;
+      greetd.fprintAuth = lib.mkForce false;
+      quickshell.fprintAuth = config.services.fprintd.enable;
+      polkit-1.fprintAuth = config.services.fprintd.enable;
+    };
 
     environment.sessionVariables = {
       GDK_BACKEND = "wayland,x11,*";
