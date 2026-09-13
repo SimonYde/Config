@@ -46,6 +46,8 @@ in
     home.packages = [ random-wallpaper ];
 
     systemd.user = {
+      services.awww.Service.Restart = lib.mkForce "on-failure";
+
       timers.random-wallpaper = {
 
         Unit.Description = "Cycle hyprpaper to new wallpaper at random";

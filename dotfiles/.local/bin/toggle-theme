@@ -3,7 +3,7 @@
 use std/log
 
 const SERVICES = [
-    swaync.service swayosd.service walker.service nextcloud-client.service network-manager-applet.service
+    walker.service nextcloud-client.service network-manager-applet.service quickshell.service
 ]
 
 def main [state?: string] {
@@ -35,7 +35,7 @@ def main [state?: string] {
 def restart-user-services [ ] {
     log info "Restarting services..."
     $SERVICES | each {|service|
-        try { systemctl restart $service }
+        try { systemctl --user restart $service }
     }
     systemctl --user start random-wallpaper.service
 }

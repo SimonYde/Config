@@ -1,0 +1,38 @@
+#!/usr/bin/env -S nu --no-config-file
+
+use std/log
+
+const PROFILE_DIR = '/nix/var/nix/profiles/system/'
+
+def specialisations [ ] {
+    if not ($PROFILE_DIR | path join 'specialisation' | path exists) {
+        return []
+    }
+
+    ls ($PROFILE_DIR | path join 'specialisation')
+    | update name { path basename }
+    | get name
+}
+
+def main [selected?: string] {
+    if ('/etc/specialisation' | path exists) {
+        let active = open /etc/specialisation
+        if $active == $selected {
+            log info "Specified specialisation already in use. Exitting..."
+            exit 0
+        }
+    }
+
+    if ($selected | is-empty) {
+        log info "No specialisation specified. Turning off active specialisation..."
+        sudo ($PROFILE_DIR | path join 'bin/switch-to-configuration') switch
+        exit 0
+    }
+
+    if ($selected not-in (specialisations)) {
+        log error $"`($selected)` is not a valid specialisation."
+        exit 1
+    }
+
+    sudo ($PROFILE_DIR | path join $"specialisation/($selected)/bin/switch-to-configuration") switch
+}
