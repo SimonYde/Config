@@ -24,6 +24,7 @@ in
     ./paperless.nix
     ./smartd.nix
     ./vaultwarden.nix
+    ./unifi.nix
 
     ./oauth2-proxy.nix
     ./bitmagnet.nix

@@ -56,6 +56,7 @@ let
     "100.64.0.1" = [
       "hestia-auth"
       "tranumparken"
+      "unifi"
 
       # Ahoy
       "bitmagnet"
