@@ -148,6 +148,10 @@
       url = "github:grafana/vim-alloy";
       flake = false;
     };
+    tip-vim = {
+      url = "github:SimonYde/tip.vim";
+      flake = false;
+    };
     rustaceanvim = {
       url = "github:mrcjkb/rustaceanvim/v8.0.1";
       inputs = {

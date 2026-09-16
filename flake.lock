@@ -1228,6 +1228,7 @@
         "stylix": "stylix",
         "systems": "systems_2",
         "tinted-schemes": "tinted-schemes",
+        "tip-vim": "tip-vim",
         "trackerlist": "trackerlist",
         "trouble-nvim": "trouble-nvim",
         "typst-languagetool": "typst-languagetool",
@@ -1507,6 +1508,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "tip-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740414941,
+        "narHash": "sha256-v1CMeCX46vFTX+scGEH290kUi6Y9z3VyTBghWieqmiM=",
+        "owner": "SimonYde",
+        "repo": "tip.vim",
+        "rev": "cd9bf7115428e9ff4508807e5a8719dc648b51cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SimonYde",
+        "repo": "tip.vim",
         "type": "github"
       }
     },

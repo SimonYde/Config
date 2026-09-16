@@ -41,6 +41,7 @@ in
 
           # ----- UI -----
           vim-alloy
+          tip-vim
         ]
         ++ config.lib.meta.lazyNeovimPlugins [
           # ----- Completion -----

@@ -74,6 +74,12 @@ inputs: [
             src = inputs.nvim-lspconfig;
           };
 
+          tip-vim = prev.vimUtils.buildVimPlugin {
+            version = mkDate inputs.tip-vim;
+            pname = "tip.vim";
+            src = inputs.tip-vim;
+          };
+
           trouble-nvim = prev.vimPlugins.trouble-nvim.overrideAttrs {
             src = inputs.trouble-nvim;
             version = mkDate inputs.trouble-nvim;
