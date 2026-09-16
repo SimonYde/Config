@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.UPower
 import QtQuick
 import qs.Common
@@ -6,6 +7,7 @@ import qs.Common
 Text {
     id: root
     required property var theme
+    property bool hasPerformanceProfile: false
     anchors.verticalCenter: parent.verticalCenter
     property real batteryPercentage: UPower.displayDevice.percentage * 100
     property bool batteryCharging: UPower.displayDevice.state === UPowerDeviceState.Charging
@@ -16,6 +18,26 @@ Text {
         : batteryPercentage <= 30 ? "#f59e0b"
         : theme.text
     font.pixelSize: 14
+
+    Process {
+        id: powerProfilesProc
+        command: ["power-profiles", "--json"]
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const profiles = JSON.parse(this.text)
+                    root.hasPerformanceProfile = profiles.some(function (profile) {
+                        return profile.name === "performance"
+                    })
+                } catch (error) {
+                    root.hasPerformanceProfile = false
+                }
+            }
+        }
+    }
+
+    Component.onCompleted: powerProfilesProc.running = true
 
     MouseArea {
         anchors.fill: parent
@@ -28,7 +50,8 @@ Text {
         anchor.rect.y: root.height + 6
         anchor.rect.x: root.width / 2 - width / 2
         implicitWidth: 240
-        implicitHeight: 80 + (PowerProfiles.hasPerformanceProfile ? 40 : 0)
+        implicitHeight: 16 + 28 + 4 * (root.hasPerformanceProfile ? 3 : 2)
+            + 36 * (root.hasPerformanceProfile ? 3 : 2)
         visible: false
         grabFocus: true
         color: "transparent"
@@ -58,7 +81,7 @@ Text {
                 }
 
                 Repeater {
-                    model: PowerProfiles.hasPerformanceProfile
+                    model: root.hasPerformanceProfile
                         ? [PowerProfile.PowerSaver, PowerProfile.Balanced, PowerProfile.Performance]
                         : [PowerProfile.PowerSaver, PowerProfile.Balanced]
 
