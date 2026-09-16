@@ -96,8 +96,9 @@ Scope {
                             anchors.margins: 6
                             spacing: 10
 
-                            GameModeWidget { theme: root.theme }
-                            ClockWidget { theme: root.theme }
+                             GameModeWidget { theme: root.theme }
+                             CaffeineWidget { theme: root.theme }
+                             ClockWidget { theme: root.theme }
                             HyprsunsetWidget { theme: root.theme }
                             AudioWidget { audio: root.audio; theme: root.theme }
                             BluetoothWidget { theme: root.theme }
