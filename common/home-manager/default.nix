@@ -30,7 +30,7 @@ in
       };
 
       skills = {
-        nushell = "${pkgs.nu_scripts}/share/nu_scripts/skills/nushell";
+        nushell = "${pkgs.nu_scripts}/share/skills/nu_scripts/nushell";
       };
     };
     # Used for wezterm SSH sessions
