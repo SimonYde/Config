@@ -1,4 +1,4 @@
-local root_files = { 'main.typ' }
+local root_files = { 'main.typ', vim.api.nvim_buf_get_name(0) }
 local paths = vim.fs.find(root_files, { stop = vim.env.HOME })
 local root_dir = vim.fs.dirname(paths[1])
 

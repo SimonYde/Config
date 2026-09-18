@@ -77,7 +77,6 @@ in
 
   programs.atuin = {
     daemon.enable = true;
-    enableNushellIntegration = false;
 
     settings = {
       auto_sync = true;

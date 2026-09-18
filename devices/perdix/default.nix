@@ -37,7 +37,7 @@ in
     };
 
     acme.enable = true;
-    development.enable = true;
+    development.enable = false;
     monitoring.enable = true;
 
     hardware = {

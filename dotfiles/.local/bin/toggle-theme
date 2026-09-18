@@ -3,7 +3,7 @@
 use std/log
 
 const SERVICES = [
-    walker.service nextcloud-client.service network-manager-applet.service quickshell.service
+    walker.service elephant.service nextcloud-client.service network-manager-applet.service quickshell.service
 ]
 
 def main [state?: string] {

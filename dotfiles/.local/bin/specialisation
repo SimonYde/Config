@@ -4,6 +4,17 @@ use std/log
 
 const PROFILE_DIR = '/nix/var/nix/profiles/system/'
 
+const SERVICES = [
+    walker.service elephant.service nextcloud-client.service network-manager-applet.service quickshell.service
+]
+
+def restart-user-services [ ] {
+    log info "Restarting services..."
+    $SERVICES | each {|service|
+        try { systemctl --user restart $service }
+    }
+}
+
 def specialisations [ ] {
     if not ($PROFILE_DIR | path join 'specialisation' | path exists) {
         return []
@@ -26,6 +37,7 @@ def main [selected?: string] {
     if ($selected | is-empty) {
         log info "No specialisation specified. Turning off active specialisation..."
         sudo ($PROFILE_DIR | path join 'bin/switch-to-configuration') switch
+        restart-user-services
         exit 0
     }
 
@@ -35,4 +47,5 @@ def main [selected?: string] {
     }
 
     sudo ($PROFILE_DIR | path join $"specialisation/($selected)/bin/switch-to-configuration") switch
+    restart-user-services
 }

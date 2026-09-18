@@ -13,6 +13,10 @@
 
   syde.development.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    wsl-open
+  ];
+
   wsl = {
     enable = true;
     defaultUser = username;
