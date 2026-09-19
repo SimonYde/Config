@@ -7,6 +7,7 @@ hl.monitor({
     supports_hdr = 1,
     vrr = 3,
 })
+hl.env("AUX_DISPLAY", "HDMI-A-1")
 
 hl.workspace_rule({ workspace = "1", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "2", monitor = "DP-1" })

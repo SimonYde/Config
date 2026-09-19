@@ -9,7 +9,7 @@ hl.bind('SUPER + L', hl.dsp.exec_cmd(uwsm .. 'loginctl lock-session'))
 hl.bind('SUPER + V', hl.dsp.exec_cmd('voxtype record toggle'))
 
 hl.bind('SUPER + ALT + B', hl.dsp.exec_cmd(uwsm .. 'random-wallpaper'))
-hl.bind('SUPER + ALT + L', hl.dsp.exec_cmd(uwsm .. 'toggle-laptop-display'))
+hl.bind('SUPER + ALT + L', hl.dsp.exec_cmd(uwsm .. 'toggle-display'))
 
 hl.bind('SUPER + space', hl.dsp.exec_cmd('walker'))
 hl.bind('SUPER + period', hl.dsp.exec_cmd('walker -m symbols'))
