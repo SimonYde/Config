@@ -108,6 +108,10 @@ in
   programs.carapace = {
     enableBashIntegration = true;
     enableNushellIntegration = true;
+    environment = {
+      CARAPACE_BRIDGES = "fish,bash";
+      CARAPACE_MATCH = true;
+    };
   };
 
   programs.fastfetch.settings = {
@@ -174,10 +178,6 @@ in
       formats
       polars
     ];
-
-    environmentVariables = {
-      CARAPACE_BRIDGES = "fish,bash";
-    };
   };
 
   programs.ripgrep.arguments = [

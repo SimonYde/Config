@@ -52,6 +52,7 @@ in
 
         # other GUI programs
         imv.enable = true;
+        libreoffice.enable = true;
         mpv.enable = true;
         ncspot.enable = false;
         spicetify.enable = true;
@@ -81,7 +82,6 @@ in
       # Extra GUI applications
       home.packages = with pkgs; [
         pdfpc # PDF presentation tool
-        libreoffice # Office365 replacement
         obsidian # Second brain
         # gimp3 # Image editor
 
