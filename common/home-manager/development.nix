@@ -421,9 +421,21 @@ in
 
     (mkIf cfg.lua.enable {
       home.packages = with pkgs; [
-        stylua
         lua-language-server
       ];
+
+      programs.stylua = {
+        enable = true;
+        settings = {
+          call_parentheses = "Always";
+          collapse_simple_statement = "Always";
+          column_width = 120;
+          indent_type = "Spaces";
+          indent_width = 4;
+          line_endings = "Unix";
+          quote_style = "AutoPreferSingle";
+        };
+      };
     })
 
     (mkIf cfg.nix.enable {
