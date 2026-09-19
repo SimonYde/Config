@@ -50,6 +50,8 @@
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
 
+    kernelPackages = pkgs.linuxPackages_latest;
+
     lanzaboote = {
       enable = true;
       pkiBundle = "/var/lib/sbctl";
