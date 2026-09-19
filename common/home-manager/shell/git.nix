@@ -89,6 +89,7 @@ _:
 
     ignores = [
       "result"
+      "profile.json.gz"
       "**/Session.vim"
       "**/.idea"
       "**/.metals"
