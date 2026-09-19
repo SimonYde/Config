@@ -37,7 +37,7 @@ def main [selected?: string] {
     if ($selected | is-empty) {
         log info "No specialisation specified. Turning off active specialisation..."
         sudo ($PROFILE_DIR | path join 'bin/switch-to-configuration') switch
-        restart-user-services
+        restart-user-services | ignore
         exit 0
     }
 
@@ -47,5 +47,5 @@ def main [selected?: string] {
     }
 
     sudo ($PROFILE_DIR | path join $"specialisation/($selected)/bin/switch-to-configuration") switch
-    restart-user-services
+    restart-user-services | ignore
 }
