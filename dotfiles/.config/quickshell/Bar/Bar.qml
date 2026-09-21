@@ -8,6 +8,7 @@ Scope {
 
     required property var theme
     required property var audio
+    required property var media
     required property var notifications
     required property var controlCenter
     required property var powerMenu
@@ -102,7 +103,6 @@ Scope {
 
                              GameModeWidget { theme: root.theme }
                              CaffeineWidget { theme: root.theme }
-                             ClockWidget { theme: root.theme }
                             HyprsunsetWidget { theme: root.theme }
                             AudioWidget { audio: root.audio; theme: root.theme }
                             BluetoothWidget { theme: root.theme }
@@ -120,6 +120,14 @@ Scope {
                             PowerButton { theme: root.theme; powerMenu: root.powerMenu }
                         }
                     }
+                }
+
+                ClockWidget {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    theme: root.theme
+                    media: root.media
+                    audio: root.audio
                 }
             }
         }

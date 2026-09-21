@@ -163,8 +163,13 @@ Text {
 
                         MouseArea {
                             anchors.fill: parent
-                            onPressed: updateTemperature(mouse.x)
-                            onPositionChanged: if (pressed) updateTemperature(mouse.x)
+                            onPressed: function (mouse) {
+                                updateTemperature(mouse.x)
+                            }
+                            onPositionChanged: function (mouse) {
+                                if (pressed)
+                                    updateTemperature(mouse.x)
+                            }
 
                             function updateTemperature(position) {
                                 root.setTemperature(1000 + (position / width) * (7000 - 1000))
@@ -205,8 +210,13 @@ Text {
 
                         MouseArea {
                             anchors.fill: parent
-                            onPressed: updateGamma(mouse.x)
-                            onPositionChanged: if (pressed) updateGamma(mouse.x)
+                            onPressed: function (mouse) {
+                                updateGamma(mouse.x)
+                            }
+                            onPositionChanged: function (mouse) {
+                                if (pressed)
+                                    updateGamma(mouse.x)
+                            }
 
                             function updateGamma(position) {
                                 root.setGamma(50 + (position / width) * (150 - 50))

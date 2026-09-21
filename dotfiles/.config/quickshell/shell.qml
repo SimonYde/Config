@@ -10,6 +10,7 @@ ShellRoot {
     Bar {
         theme: Theme
         audio: Audio
+        media: Media
         notifications: Notifications
         controlCenter: ControlCenter
         powerMenu: PowerMenu

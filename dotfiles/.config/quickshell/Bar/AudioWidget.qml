@@ -76,8 +76,10 @@ Text {
 
                         MouseArea {
                             anchors.fill: parent
-                            onPressed: updateVolume(mouse.x)
-                            onPositionChanged: {
+                            onPressed: function (mouse) {
+                                updateVolume(mouse.x)
+                            }
+                            onPositionChanged: function (mouse) {
                                 if (pressed)
                                     updateVolume(mouse.x)
                             }
