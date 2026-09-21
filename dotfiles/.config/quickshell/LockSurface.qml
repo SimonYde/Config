@@ -27,6 +27,7 @@ Rectangle {
         }
 
         ColumnLayout {
+            id: lockColumn
             anchors.centerIn: parent
             width: Math.min(parent.width - 48, 420)
             spacing: 14
@@ -84,14 +85,18 @@ Rectangle {
                     event.accepted = true
                 }
             }
+        }
 
-            Text {
-                Layout.fillWidth: true
-                text: root.authContext.authenticating ? "Authenticating..." : root.authContext.message
-                visible: text.length > 0 || root.authContext.authenticating
-                color: Theme.muted
-                horizontalAlignment: Text.AlignHCenter
-            }
+        Text {
+            anchors.top: lockColumn.bottom
+            anchors.topMargin: lockColumn.spacing
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: lockColumn.width
+            text: root.authContext.authenticating ? "Authenticating..." : root.authContext.message
+            visible: text.length > 0 || root.authContext.authenticating
+            color: Theme.muted
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
         }
     }
 

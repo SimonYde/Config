@@ -18,7 +18,7 @@ Row {
             id: trayItem
             required property var modelData
             property bool isUdiskie: modelData.id.toLowerCase() === "udiskie"
-            property real iconScale: /nm-applet|nextcloud/.test(modelData.id.toLowerCase()) ? 1.25 : 1
+            property real iconScale: /nm-applet|nextcloud|spotify/.test(modelData.id.toLowerCase()) ? 1.25 : 1
             width: isUdiskie && !root.removableDeviceMounted ? 0 : 24
             height: 24
             visible: !isUdiskie || root.removableDeviceMounted

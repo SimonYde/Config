@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Pam
 
 Scope {
@@ -14,7 +15,19 @@ Scope {
 
     onPasswordChanged: failed = false
 
-    Component.onCompleted: authenticate()
+    Process {
+        id: fprintdCheck
+        command: [ "sh", "-c", "command -v fprintd-verify" ]
+        onExited: function (code) {
+            if (code === 0)
+                root.authenticate()
+        }
+    }
+
+    // Only start authentication automatically when fprintd is available, so the
+    // fingerprint prompt can be triggered. Otherwise wait for the user to press
+    // Enter, which starts PAM with the typed password.
+    Component.onCompleted: fprintdCheck.running = true
 
     function authenticate() {
         if (authenticating)
