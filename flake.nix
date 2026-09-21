@@ -263,6 +263,11 @@
     with import ./utils/mkConfig.nix {
       inherit inputs;
       username = "syde";
+      patches =
+        p: with p; {
+          # nixpkgs = [
+          # ];
+        };
     }; {
       legacyPackages.x86_64-linux = pkgs;
 

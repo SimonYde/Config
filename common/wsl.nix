@@ -15,6 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     wsl-open
+    xdg-utils
   ];
 
   wsl = {
