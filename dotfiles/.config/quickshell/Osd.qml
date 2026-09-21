@@ -40,6 +40,8 @@ Scope {
             height: root.type === "media" ? 68 : 48
             radius: 14
             color: Theme.base
+            border.color: Theme.accent
+            border.width: 1
 
             RowLayout {
                 id: content

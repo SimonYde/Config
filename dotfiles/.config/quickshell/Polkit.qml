@@ -50,6 +50,8 @@ Scope {
             height: content.implicitHeight + 32
             radius: 12
             color: Theme.background
+            border.color: Theme.accent
+            border.width: 1
 
             ColumnLayout {
                 id: content

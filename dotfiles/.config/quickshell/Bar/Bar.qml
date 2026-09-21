@@ -70,6 +70,8 @@ Scope {
                         Layout.alignment: Qt.AlignBottom
                         color: root.theme.background
                         radius: 8
+                        border.color: root.theme.accent
+                        border.width: 1
 
                         WorkspaceWidget {
                             id: workspace
@@ -89,6 +91,8 @@ Scope {
                         Layout.alignment: Qt.AlignBottom
                         color: root.theme.background
                         radius: 8
+                        border.color: root.theme.accent
+                        border.width: 1
 
                         Row {
                             id: rightContent

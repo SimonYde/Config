@@ -38,6 +38,8 @@ Scope {
             id: content
             anchors.fill: parent
             color: Theme.background
+            border.color: Theme.accent
+            border.width: 1
 
             Item {
                 id: keyHandler

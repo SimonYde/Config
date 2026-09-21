@@ -79,6 +79,8 @@ Scope {
                 height: Math.max(body.implicitHeight + 24, 56)
                 color: Qt.rgba(Theme.base.r, Theme.base.g, Theme.base.b, 0.92)
                 radius: 12
+                border.color: Theme.accent
+                border.width: 1
 
                 Timer {
                     interval: 4000
