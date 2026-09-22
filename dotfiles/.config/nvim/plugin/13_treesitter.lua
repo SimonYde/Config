@@ -43,6 +43,12 @@ Config.now_if_args(function()
     end
 
     local ts_start = function(ev)
+        for _, winid in ipairs(vim.api.nvim_list_wins()) do
+            if vim.api.nvim_win_get_buf(winid) == ev.buf and vim.api.nvim_win_get_config(winid).relative ~= '' then
+                return -- skip floating windows, e.g. lspsaga diff preview
+            end
+        end
+
         vim.bo[ev.buf].indentexpr = [[v:lua.require('nvim-treesitter').indentexpr()]]
         vim.wo.foldmethod = 'expr'
         vim.wo.foldexpr = [[v:lua.vim.treesitter.foldexpr()]]
@@ -74,7 +80,7 @@ Config.now_if_args(function()
             require('nvim-treesitter').install(value)
         end
 
-        vim.api.nvim_echo({{"Successfully reinstalled treesitter parsers"}}, true, {})
+        vim.api.nvim_echo({ { 'Successfully reinstalled treesitter parsers' } }, true, {})
     end, {})
 end)
 
