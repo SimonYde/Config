@@ -29,6 +29,7 @@ hl.window_rule({
     pin = true,
     center = true,
     stay_focused = true,
+    size = { 480, 700 },
 })
 
 hl.window_rule({
