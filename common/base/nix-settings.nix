@@ -18,6 +18,7 @@
       log-format = "bar-with-logs";
 
       experimental-features = [
+        "pipe-operator"
         "nix-command"
         "flakes"
       ];

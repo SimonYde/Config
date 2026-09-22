@@ -8,7 +8,6 @@
 let
   inherit (config.syde) server;
   inherit (lib)
-    pipe
     attrsToList
     listToAttrs
     attrValues
@@ -32,24 +31,22 @@ let
 
   toRecords =
     x:
-    pipe x [
-      attrsToList
-      (map unfoldAttrs)
-      flatten
-      (map renderService)
-    ];
+    x
+    |> attrsToList
+    |> (map unfoldAttrs)
+    |> flatten
+    |> (map renderService);
 
   toSplitConfig =
     x:
-    pipe x [
-      attrValues
-      flatten
-      (map (x: {
-        name = "${x}.i.${server.baseDomain}";
-        value = [ "100.100.100.100" ];
-      }))
-      listToAttrs
-    ];
+    x
+    |> attrValues
+    |> flatten
+    |> (map (x: {
+      name = "${x}.i.${server.baseDomain}";
+      value = [ "100.100.100.100" ];
+    }))
+    |> listToAttrs;
 
   services = {
     # hestia
