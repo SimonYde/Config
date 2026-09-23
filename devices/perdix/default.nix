@@ -15,6 +15,7 @@ in
 
     ./adguard.nix
     ./atuin.nix
+    ./exit-node.nix
     ./grafana
     ./languagetool.nix
 
