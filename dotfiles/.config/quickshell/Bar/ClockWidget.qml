@@ -40,7 +40,7 @@ Rectangle {
         anchor.item: root
         anchor.rect.y: root.height + 6
         anchor.rect.x: root.width / 2 - width / 2
-        implicitWidth: 300
+        implicitWidth: 450
         implicitHeight: overviewContent.implicitHeight + 20
         visible: false
         grabFocus: true

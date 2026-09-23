@@ -3,11 +3,13 @@
 use std/log
 
 const USER_SERVICES = [
-    hyprland-autoname-workspaces.service awww.service
+    hyprland-autoname-workspaces.service
+    random-wallpaper.timer
+    awww.service
 ]
 
 const SERVICES = [
-    bluetooth.service syncthing.service
+    syncthing.service
 ]
 
 def on [ ] {
@@ -16,7 +18,6 @@ def on [ ] {
             general = {
                 gaps_in = 0,
                 gaps_out = 0,
-                border_size = 1,
             },
             animations = { enabled = false },
             decoration = {

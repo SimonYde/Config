@@ -5,6 +5,7 @@ const SERVICES = [
     hyprland-autoname-workspaces.service
     tailscale-systray.service
     network-manager-applet.service
+    random-wallpaper.timer
     awww.service
 ]
 
@@ -20,7 +21,6 @@ def main [] {
                 general = {
                     gaps_in = 0,
                     gaps_out = 0,
-                    border_size = 1,
                 },
                 animations = { enabled = false },
                 decoration = {
