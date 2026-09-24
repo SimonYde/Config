@@ -29,6 +29,47 @@
   "liveNow": true,
   "panels": [
     {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "alertInstanceLabelFilter": "",
+        "alertName": "",
+        "dashboardAlerts": false,
+        "datasource": {
+          "type": "alertmanager",
+          "uid": "mimir-alertmanager"
+        },
+        "datasourceMode": "datasource",
+        "groupBy": [],
+        "groupMode": "default",
+        "maxItems": 20,
+        "showInactiveAlerts": false,
+        "sortOrder": 1,
+        "stateFilter": {
+          "error": true,
+          "firing": true,
+          "noData": true,
+          "normal": true,
+          "pending": true,
+          "recovering": true
+        },
+        "viewMode": "list"
+      },
+      "pluginVersion": "12.0.0+security-01",
+      "title": "",
+      "transparent": true,
+      "type": "alertlist"
+    },
+    {
       "id": 100,
       "type": "row",
       "title": "Availability",
@@ -37,7 +78,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 3
       },
       "panels": []
     },
@@ -54,7 +95,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 1
+        "y": 4
       },
       "fieldConfig": {
         "defaults": {
@@ -115,7 +156,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 1
+        "y": 4
       },
       "fieldConfig": {
         "defaults": {
@@ -176,7 +217,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 1
+        "y": 4
       },
       "fieldConfig": {
         "defaults": {
@@ -237,7 +278,7 @@
         "h": 4,
         "w": 4,
         "x": 12,
-        "y": 1
+        "y": 4
       },
       "fieldConfig": {
         "defaults": {
@@ -292,7 +333,7 @@
         "h": 4,
         "w": 4,
         "x": 16,
-        "y": 1
+        "y": 4
       },
       "fieldConfig": {
         "defaults": {
@@ -351,7 +392,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 5
+        "y": 8
       },
       "fieldConfig": {
         "defaults": {
@@ -427,7 +468,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 5
+        "y": 8
       },
       "fieldConfig": {
         "defaults": {
@@ -475,7 +516,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 5
+        "y": 8
       },
       "fieldConfig": {
         "defaults": {
@@ -524,7 +565,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 16
       },
       "panels": []
     },
@@ -540,7 +581,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 14
+        "y": 17
       },
       "fieldConfig": {
         "defaults": {
@@ -589,7 +630,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 14
+        "y": 17
       },
       "fieldConfig": {
         "defaults": {
@@ -639,7 +680,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 14
+        "y": 17
       },
       "fieldConfig": {
         "defaults": {
@@ -693,7 +734,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 25
       },
       "panels": []
     },
@@ -710,7 +751,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 23
+        "y": 26
       },
       "fieldConfig": {
         "defaults": {
@@ -771,7 +812,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 23
+        "y": 26
       },
       "fieldConfig": {
         "defaults": {
@@ -822,7 +863,7 @@
         "h": 4,
         "w": 4,
         "x": 8,
-        "y": 23
+        "y": 26
       },
       "fieldConfig": {
         "defaults": {
@@ -881,7 +922,7 @@
         "h": 4,
         "w": 4,
         "x": 12,
-        "y": 23
+        "y": 26
       },
       "fieldConfig": {
         "defaults": {
@@ -932,7 +973,7 @@
         "h": 4,
         "w": 4,
         "x": 16,
-        "y": 23
+        "y": 26
       },
       "fieldConfig": {
         "defaults": {
@@ -983,7 +1024,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 27
+        "y": 30
       },
       "fieldConfig": {
         "defaults": {
@@ -1031,7 +1072,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 27
+        "y": 30
       },
       "fieldConfig": {
         "defaults": {
@@ -1089,7 +1130,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 27
+        "y": 30
       },
       "fieldConfig": {
         "defaults": {
@@ -1140,7 +1181,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 48
       },
       "id": 38,
       "panels": [
