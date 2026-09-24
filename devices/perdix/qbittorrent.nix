@@ -62,6 +62,7 @@ in
         settings = {
           port = 7476;
           metricsEnabled = true;
+          trackerIconsFetchEnabled = false;
           oidcEnabled = true;
           oidcIssuer = "https://${server.authDomain}/oauth2/openid/qui";
           oidcClientId = "qui";
@@ -81,11 +82,10 @@ in
       };
 
       wireguard-netns = {
-        proxies = {
-          qui = {
-            port = 7476;
-            inherit (config.services.qui) user group;
-          };
+        proxies.qbittorrent = {
+          port = 8082;
+          address = "127.0.0.1";
+          inherit (config.services.qbittorrent) user group;
         };
       };
     };
@@ -99,7 +99,6 @@ in
     systemd = {
       services.qui = {
         serviceConfig.EnvironmentFile = "/run/agenix/qui/environment";
-        useNetworkNamespace = true;
       };
 
       services.qbittorrent = {

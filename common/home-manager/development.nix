@@ -214,6 +214,7 @@ in
                 GRAFANA_URL = "https://grafana.i.simonyde.com";
                 GRAFANA_SERVICE_ACCOUNT_TOKEN.file = "/run/agenix/grafanaAccountToken";
               };
+              enabled = false;
             };
           };
         };

@@ -16,6 +16,7 @@ let
     ;
   inherit (lib.types)
     attrsOf
+    nullOr
     port
     str
     submodule
@@ -47,7 +48,9 @@ let
   proxySocketConfig = name: proxy: {
     enable = true;
     description = "Socket for Proxy to ${name}";
-    listenStreams = [ (toString proxy.port) ];
+    listenStreams = [
+      (if proxy.address != null then "${proxy.address}:${toString proxy.port}" else toString proxy.port)
+    ];
     wantedBy = [ "sockets.target" ];
   };
 in
@@ -90,6 +93,11 @@ in
               port = mkOption {
                 type = port;
                 description = "Host port to listen on and forward to the service inside the namespace";
+              };
+              address = mkOption {
+                type = nullOr str;
+                default = null;
+                description = "Host address to bind the proxy socket to. If null, listens on all interfaces.";
               };
               user = mkOption {
                 type = str;
@@ -150,7 +158,8 @@ in
               BindReadOnlyPaths = [
                 "/etc/netns/${cfg.namespace}/resolv.conf:/etc/resolv.conf:norbind"
                 "/etc/netns/${cfg.namespace}/nsswitch.conf:/etc/nsswitch.conf:norbind"
-              ] ++ lib.optionals osConfig.services.resolved.enable [
+              ]
+              ++ lib.optionals osConfig.services.resolved.enable [
                 # Workaround for systemd BindReadOnlyPaths following the resolv.conf
                 # symlink created by systemd-resolved (systemd/systemd#32366).
                 "/etc/netns/${cfg.namespace}/resolv.conf:/run/systemd/resolve/stub-resolv.conf:norbind"
