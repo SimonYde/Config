@@ -107,7 +107,7 @@ Config.later(function()
             rustfmt = {
                 options = {
                     default_edition = '2024',
-                    nightly = true,
+                    -- nightly = true,
                 },
             },
         },

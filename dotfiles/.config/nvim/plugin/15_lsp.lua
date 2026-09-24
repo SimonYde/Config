@@ -63,7 +63,7 @@ Config.now_if_args(function()
     })
 
     vim.lsp.config('tinymist', {
-        settings = { exportPdf = 'onSave' }, -- `onType`, `onSave` or `never`.
+        -- settings = { exportPdf = 'onSave' }, -- `onType`, `onSave` or `never`.
         on_attach = function(client, bufnr)
             local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = bufnr }) end
 

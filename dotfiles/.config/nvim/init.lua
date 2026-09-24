@@ -120,6 +120,8 @@ vim.o.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist
 -- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
 vim.o.diffopt = 'internal,filler,closeoff,linematch:40,iwhite,algorithm:histogram,indent-heuristic'
 
+vim.o.exrc = true
+
 -- Spelling ===================================================================
 vim.o.spelllang = 'en,da'
 vim.o.spelloptions = 'camel' -- Treat parts of camelCase words as separate words
