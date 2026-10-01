@@ -1,16 +1,22 @@
 {
   config,
+  inputs,
   lib,
   ...
 }:
 let
-  inherit (lib) mkForce mkIf;
+  inherit (lib) mkIf;
 
   cfg = config.services.bitmagnet;
 in
 {
   config = mkIf cfg.enable {
-    systemd.services.bitmagnet.useNetworkNamespace = true;
+    age.secrets.bitmagnetEnvironmentFile.file = "${inputs.secrets}/bitmagnet/environmentFile.age";
+
+    systemd.services.bitmagnet = {
+      useNetworkNamespace = true;
+      serviceConfig.EnvironmentFile = config.age.secrets.bitmagnetEnvironmentFile.path;
+    };
 
     services = {
       bitmagnet = {
