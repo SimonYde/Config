@@ -81,6 +81,8 @@ in
           ];
         };
 
+        devenv.enable = true;
+
         direnv = {
           enable = true;
           enableNushellIntegration = true;
