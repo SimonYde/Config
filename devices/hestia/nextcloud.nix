@@ -43,7 +43,7 @@ in
 
     services = {
       nextcloud = {
-        package = pkgs.nextcloud34;
+        package = pkgs.nextcloud35;
         hostName = "cloud.${server.baseDomain}";
         datadir = "/mnt/tank/nextcloud";
         database.createLocally = true;
@@ -72,7 +72,7 @@ in
             groupfolders
             notes
             tasks
-            previewgenerator
+            # previewgenerator
             richdocuments
             user_oidc
             ;

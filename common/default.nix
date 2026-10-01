@@ -61,13 +61,12 @@ in
 
   nix = {
     package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
-
     channel.enable = false;
-    nixPath = [ "nixpkgs=flake:nixpkgs" ];
 
     distributedBuilds = true;
     daemonCPUSchedPolicy = "batch";
     settings = {
+      nix-path = [ "nixpkgs=flake:nixpkgs" "self=flake:self" ];
       trusted-users = [ username ];
       substituters = lib.mkForce [
         "http://localhost${config.services.ncro.settings.server.listen}"
