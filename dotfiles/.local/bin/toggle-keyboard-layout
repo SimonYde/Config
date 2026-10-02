@@ -1,0 +1,14 @@
+#!/usr/bin/env -S nu --no-config-file
+
+use std/log
+
+def main [] {
+    try {
+        systemctl is-active kanata-home-row-mods.service
+    } catch {
+        systemctl start kanata-home-row-mods.service
+        exit 0
+    }
+
+    systemctl stop kanata-home-row-mods.service
+}
