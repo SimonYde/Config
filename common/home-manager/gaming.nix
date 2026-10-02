@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     # Applications
     heroic # Epic / Gog
-    limo # mod manager
+    # limo # mod manager
 
     winetricks
     protontricks
