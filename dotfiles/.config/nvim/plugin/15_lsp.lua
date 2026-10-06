@@ -1,6 +1,16 @@
 Config.now_if_args(function()
     Config.packadd('nvim-lspconfig')
 
+    -- Flip `semantic_tokens` global marker so `vim.lsp.semantic_tokens.is_enabled()` reports false.
+    vim.lsp.semantic_tokens.enable(false)
+
+    -- strip capability before finalizing the client so Neovim never creates a token highlighter in the first place.
+    vim.lsp.config('*', {
+        on_init = function(client)
+            client.server_capabilities.semanticTokensProvider = nil
+        end,
+    })
+
     vim.lsp.config('basedpyright', {
         settings = {
             basedpyright = {
@@ -185,10 +195,6 @@ Config.now_if_args(function()
 
     vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            -- Disable semantic token highlighting, in favour of treesitter.
-            if client then client.server_capabilities.semanticTokensProvider = nil end
-
             local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = args.buf }) end
 
             -- LSP commands
