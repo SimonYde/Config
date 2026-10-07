@@ -28,7 +28,7 @@ Config.now_if_args(function()
         filetypes = { 'typst', 'markdown', 'latex' },
         settings = {
             ['harper-ls'] = {
-                -- dialect = 'British',
+                dialect = 'British',
                 userDictPath = vim.fn.stdpath('config') .. '/spell/en.utf-8.add',
                 markdown = { ignore_link_title = true },
             },
@@ -75,12 +75,15 @@ Config.now_if_args(function()
     vim.lsp.config('tinymist', {
         -- settings = { exportPdf = 'onSave' }, -- `onType`, `onSave` or `never`.
         on_attach = function(client, bufnr)
+            local is_wsl = vim.env.WSLPATH ~= nil
+            local open_cmd = is_wsl and "wsl-open" or "xdg-open"
+
             local nmap = function(keys, cmd, desc) Keymap.nmap(keys, cmd, desc, { buffer = bufnr }) end
 
             nmap('<leader>lp', function()
                 local file = vim.api.nvim_buf_get_name(bufnr)
                 local pdf = file:gsub('%.typ$', '.pdf')
-                vim.system({ 'xdg-open', pdf })
+                vim.system({ open_cmd, pdf })
             end, 'Open PDF')
 
             nmap('<leader>lP', function()
@@ -96,7 +99,7 @@ Config.now_if_args(function()
                 client:exec_cmd({ command = 'tinymist.pinMain', arguments = { main_file } })
                 vim.notify('Pinned to ' .. main_file, vim.log.levels.INFO)
                 local pdf = main_file:gsub('%.typ$', '.pdf')
-                vim.system({ 'xdg-open', pdf })
+                vim.system({ open_cmd, pdf })
             end, 'Pin main file to current')
         end,
     })
