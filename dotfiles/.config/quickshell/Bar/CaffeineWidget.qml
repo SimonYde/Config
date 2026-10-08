@@ -1,17 +1,36 @@
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import qs.Common
 
-Text {
+Item {
     id: root
 
     required property var theme
     property bool active: false
 
-    anchors.verticalCenter: parent.verticalCenter
-    text: "󰅶"
-    color: active ? theme.base0A : theme.text
-    font.pixelSize: 16
+    implicitHeight: 28
+
+    Row {
+        anchors.centerIn: parent
+        spacing: 8
+
+        Text {
+            anchors.verticalCenter: parent.verticalCenter
+            text: "󰅶"
+            color: root.active ? root.theme.base0A : root.theme.text
+            font.pixelSize: 16
+        }
+
+        ToggleSwitch {
+            anchors.verticalCenter: parent.verticalCenter
+            theme: root.theme
+            checked: root.active
+            onToggled: function (checked) {
+                root.active = checked
+            }
+        }
+    }
 
     Process {
         id: inhibitorProc
@@ -27,10 +46,5 @@ Text {
         running: root.active
 
         onExited: root.active = false
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: root.active = !root.active
     }
 }

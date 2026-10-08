@@ -3,8 +3,41 @@
 use std/log
 
 const SERVICES = [
-    walker.service elephant.service nextcloud-client.service network-manager-applet.service quickshell.service
+    walker.service
+    elephant.service
+    nextcloud-client.service
+    network-manager-applet.service
+    xdg-desktop-portal-gtk.service
+    quickshell.service
 ]
+
+# Brave reads the GTK theme once at startup and does not follow system theme
+# changes live (unlike its built-in theme), so it has to be relaunched :(
+const BRAVE_PATTERN = 'opt/brave.com/brave-origin/brave'
+
+def brave-running [] {
+    not ((do { ^pgrep -f $BRAVE_PATTERN } | complete).stdout | str trim | is-empty)
+}
+
+def restart-brave [] {
+    if not (brave-running) {
+        return
+    }
+
+    log info "Restarting Brave to apply the theme..."
+
+    try { ^pkill -TERM -f $BRAVE_PATTERN }
+
+    for i in 1..40 {
+        if not (brave-running) {
+            break
+        }
+        sleep 250ms
+    }
+
+    # Launch via uwsm as a detached transient user service so the browser survives this script (and the quickshell restart).
+    ^uwsm-app -t service -S both -- brave-origin --restore-last-session
+}
 
 def main [state?: string] {
     match $state {
@@ -42,12 +75,14 @@ def restart-user-services [ ] {
 
 def light [] {
     log info "Switching to light theme..."
-    sudo /nix/var/nix/profiles/system/specialisation/light-theme/bin/switch-to-configuration switch o+e>| log debug $in
+    systemctl start 'theme-switch@light-theme.service' o+e>| log debug $in
+    restart-brave
     restart-user-services
 }
 
 def dark [] {
     log info "Switching to dark theme..."
-    sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch o+e>| log debug $in
+    systemctl start 'theme-switch@base.service' o+e>| log debug $in
+    restart-brave
     restart-user-services
 }

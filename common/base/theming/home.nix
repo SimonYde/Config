@@ -51,11 +51,8 @@ in
     };
   };
 
-  dconf.settings = lib.mkIf isDark {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
-  };
+  dconf.settings."org/gnome/desktop/interface".color-scheme =
+    if isDark then "prefer-dark" else "prefer-light";
 
   # Extra fonts
   home.packages = with pkgs; [
@@ -220,6 +217,9 @@ in
           }
         '';
 
+    # Stylix's opencode target hardcodes the "stylix" theme, whose light variant is miscoloured; use the builtin catppuccin theme instead.
+    opencode.tui.theme = lib.mkIf (!isDark) (lib.mkForce "catppuccin");
+
     vivid.activeTheme = colors.slug;
 
     walker.config.theme = mkForce "stylix";
@@ -335,6 +335,7 @@ in
 
       QtObject {
           // Expose Stylix's Base16 palette directly to Quickshell components.
+          readonly property bool isDark: ${lib.boolToString isDark}
           readonly property color base00: "${base00}"
           readonly property color base01: "${base01}"
           readonly property color base02: "${base02}"

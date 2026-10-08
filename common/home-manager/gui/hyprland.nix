@@ -22,6 +22,7 @@ in
       wl-clipboard # clipboard manager
       hyprpicker # color picker
       hyprpwcenter # audio graph
+      hyprshutdown
 
       nwg-displays # Display settings
     ];

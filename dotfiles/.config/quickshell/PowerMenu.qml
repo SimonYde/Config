@@ -52,7 +52,7 @@ Scope {
                 else if (event.key === Qt.Key_R)
                     cmd = "systemctl reboot"
                 else if (event.key === Qt.Key_P)
-                    cmd = "systemctl poweroff"
+                    cmd = "hyprshutdown -vt 2"
                 else if (event.key === Qt.Key_O)
                     cmd = "uwsm stop"
 
@@ -79,7 +79,7 @@ Scope {
                         { label: "Logout (o)", cmd: "uwsm stop" },
                         { label: "Suspend (s)", cmd: "systemctl suspend" },
                         { label: "Reboot (r)", cmd: "systemctl reboot" },
-                        { label: "Poweroff (p)", cmd: "systemctl poweroff" },
+                        { label: "Poweroff (p)", cmd: "hyprshutdown -vt 2" },
                     ]
                     delegate: Rectangle {
                         width: 220

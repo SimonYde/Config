@@ -77,6 +77,7 @@ hl.window_rule({
 })
 
 hl.window_rule({ match = { class = 'md.obsidian.Obsidian' }, workspace = 1 })
+hl.window_rule({ match = { class = 'brave-origin' }, workspace = '2 silent' })
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })
 hl.window_rule({ match = { class = 'ferdium|Ferdium|discord|legcord|vesktop|WhatsApp' }, workspace = '9 silent' })
 

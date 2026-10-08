@@ -102,8 +102,6 @@ Scope {
                             spacing: 10
 
                              GameModeWidget { theme: root.theme }
-                             CaffeineWidget { theme: root.theme }
-                            HyprsunsetWidget { theme: root.theme }
                             AudioWidget { audio: root.audio; theme: root.theme }
                             BluetoothWidget { theme: root.theme }
                             TrayWidget {
