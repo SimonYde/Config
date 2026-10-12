@@ -40,13 +40,6 @@
     };
   };
 
-  networking.wg-quick.interfaces = {
-      proton = {
-        autostart = false;
-        configFile = "/var/lib/wireguard/proton.conf";
-      };
-  };
-
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
 
@@ -59,6 +52,7 @@
       autoEnrollKeys = {
         enable = true;
         autoReboot = true;
+        includeFirmwareBuiltinKeys = true;
       };
     };
 
