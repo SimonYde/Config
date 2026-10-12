@@ -36,7 +36,7 @@ def main [selected?: string] {
 
     if ($selected | is-empty) {
         log info "No specialisation specified. Turning off active specialisation..."
-        systemctl start 'theme-switch@base.service'
+        systemctl start 'specialisation-switch@base.service'
         restart-user-services | ignore
         exit 0
     }
@@ -46,6 +46,6 @@ def main [selected?: string] {
         exit 1
     }
 
-    systemctl start $"theme-switch@($selected).service"
+    systemctl start $"specialisation-switch@($selected).service"
     restart-user-services | ignore
 }

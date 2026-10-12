@@ -75,14 +75,14 @@ def restart-user-services [ ] {
 
 def light [] {
     log info "Switching to light theme..."
-    systemctl start 'theme-switch@light-theme.service' o+e>| log debug $in
+    systemctl start 'specialisation-switch@light-theme.service' o+e>| log debug $in
     restart-brave
     restart-user-services
 }
 
 def dark [] {
     log info "Switching to dark theme..."
-    systemctl start 'theme-switch@base.service' o+e>| log debug $in
+    systemctl start 'specialisation-switch@base.service' o+e>| log debug $in
     restart-brave
     restart-user-services
 }

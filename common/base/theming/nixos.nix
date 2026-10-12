@@ -7,10 +7,10 @@
 }:
 
 let
-  # Runs as root via theme-switch@<name>.service. The base system is addressed
-  # with the sentinel instance name "base"; everything else is treated as a
-  # specialisation name.
-  themeSwitch = pkgs.writeShellScript "nixos-theme-switch" ''
+  # Runs as root via specialisation-switch@<name>.service. The base system is
+  # addressed with the sentinel instance name "base"; everything else is treated
+  # as a specialisation name.
+  specialisationSwitch = pkgs.writeShellScript "nixos-specialisation-switch" ''
     set -eu
     case "''${1:-}" in
       "")
@@ -32,14 +32,15 @@ in
     ./shared.nix
   ];
 
-  # Let the unprivileged user trigger a theme switch without a password prompt.
-  # The privileged work still runs as root; only this single unit/action is
-  # delegated through polkit.
-  systemd.services."theme-switch@" = {
-    description = "Switch NixOS theme specialisation (%i)";
+  # Let the unprivileged user trigger a specialisation switch without a password
+  # prompt. The privileged work still runs as root; only this single
+  # unit/action is delegated through polkit. It handles every specialisation
+  # (themes, gaming, ...), not just the theme ones.
+  systemd.services."specialisation-switch@" = {
+    description = "Switch NixOS specialisation (%i)";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${themeSwitch} %i";
+      ExecStart = "${specialisationSwitch} %i";
     };
     # Mirrors nixos-upgrade.service: a nested switch-to-configuration must not
     # restart or remove the unit that is currently running it.
@@ -53,7 +54,7 @@ in
       if (action.id == "org.freedesktop.systemd1.manage-units" &&
           subject.user == "${username}" &&
           action.lookup("verb") == "start" &&
-          unit && unit.indexOf("theme-switch@") === 0) {
+          unit && unit.indexOf("specialisation-switch@") === 0) {
         return polkit.Result.YES;
       }
     });
