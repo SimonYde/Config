@@ -25,6 +25,7 @@ in
     man.enable = mkDefault false;
 
     opencode = {
+      package = pkgs.opencode2;
       settings = {
         shell = "${pkgs.nushell-wrapped}/bin/nu";
       };

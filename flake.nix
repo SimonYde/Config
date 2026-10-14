@@ -261,8 +261,9 @@
       username = "syde";
       patches =
         p: with p; {
-          # nixpkgs = [
-          # ];
+          nixpkgs = [
+            (npr 569770 "sha256-pNul0V994XlE+PjZra8m7F64IALJMniUyoul90gBm2Y=")
+          ];
         };
     }; {
       legacyPackages.x86_64-linux = pkgs;
