@@ -8,6 +8,22 @@ Rectangle {
 
     required property LockContext authContext
 
+    focus: true
+
+    Component.onCompleted: password.forceActiveFocus()
+    onVisibleChanged: if (visible) password.forceActiveFocus()
+
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+
+        onTriggered: {
+            if (!password.activeFocus && !root.authContext.authenticating)
+                password.forceActiveFocus()
+        }
+    }
+
     Rectangle {
         anchors.fill: parent
         color: Theme.background
