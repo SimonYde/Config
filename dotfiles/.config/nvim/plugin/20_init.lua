@@ -125,7 +125,7 @@ Config.later(function()
     nmap('<leader>=', function() conform.format({ stop_after_first = true, lsp_fallback = true }) end, 'Format code')
 end)
 
-Config.on_events('InsertEnter', nil, function() require('mini.pairs').setup() end)
+Config.later(function() require('mini.pairs').setup() end)
 
 Config.later(function()
     Config.packadd('neogit')
