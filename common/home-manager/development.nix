@@ -58,6 +58,8 @@ in
         kattis-cli
         kattis-test
 
+        meld # three-way merge tool for jujutsu
+
         tokei
         tlrc
 
@@ -130,7 +132,14 @@ in
               pager = lib.getExe pkgs.delta;
               diff-formatter = ":git";
               diff-editor = ":builtin";
-              # diff-editor = [ "nvim" "-c" "DiffEditor $left $right $output" ];
+              merge-editor = "meld";
+            };
+
+            # meld resolves conflicts by default. mergiraf is configured as an
+            # opt-in alternative: `jj resolve --tool mergiraf`.
+            merge-tools = {
+              meld.program = lib.getExe pkgs.meld;
+              mergiraf.program = lib.getExe pkgs.mergiraf;
             };
 
             git.sign-on-push = true;
@@ -223,7 +232,9 @@ in
 
         mergiraf = {
           enable = true;
-          enableJujutsuIntegration = true;
+          # jj's merge tools are configured explicitly in the `jujutsu` block
+          # above so that meld is the default and mergiraf stays opt-in.
+          enableJujutsuIntegration = false;
           enableGitIntegration = true;
         };
 
