@@ -1,12 +1,8 @@
 # For available options run:
 #   config nu --doc | nu-highlight | bat
 
-def banner [] {
-    fastfetch --logo nixos_small
-}
-
 $env.config = {
-    show_banner: true
+    show_banner: false
     edit_mode: vi
     footer_mode: auto
     use_kitty_protocol: true

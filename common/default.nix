@@ -60,7 +60,7 @@ in
   zramSwap.enable = true;
 
   nix = {
-    package = lib.mkDefault pkgs.lixPackageSets.latest.lix;
+    package = lib.mkDefault inputs.lix.packages.${pkgs.stdenv.hostPlatform.system}.default;
     channel.enable = false;
 
     distributedBuilds = true;

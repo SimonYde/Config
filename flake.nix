@@ -149,7 +149,7 @@
       flake = false;
     };
     rustaceanvim = {
-      url = "github:mrcjkb/rustaceanvim/v8.0.1";
+      url = "github:mrcjkb/rustaceanvim/v9.2.1";
       inputs = {
         flake-parts.follows = "flake-parts";
         neovim-nightly-overlay.follows = "neovim-nightly";
@@ -262,7 +262,7 @@
       patches =
         p: with p; {
           nixpkgs = [
-            (npr 569770 "sha256-pNul0V994XlE+PjZra8m7F64IALJMniUyoul90gBm2Y=")
+            (npr 569770 "sha256-Nk/zmncyzKkmrpyiNVZPQruTvKG39RLkVkGNd9EIxdE=")
           ];
         };
     }; {
