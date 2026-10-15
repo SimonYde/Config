@@ -76,6 +76,16 @@ hl.window_rule({
     center = true,
 })
 
+hl.window_rule({
+    name = 'Float settings window',
+    match = {
+        class = 'md.obsidian.Obsidian',
+        initial_title = 'Settings.*',
+    },
+    float = true,
+    center = true,
+})
+
 hl.window_rule({ match = { class = 'md.obsidian.Obsidian' }, workspace = 1 })
 hl.window_rule({ match = { class = 'brave-origin' }, workspace = '2 silent' })
 hl.window_rule({ match = { class = '^steam$' }, workspace = 5 })
@@ -94,3 +104,16 @@ hl.layer_rule({
 ---- WORKSPACE RULES ----
 -------------------------
 hl.workspace_rule({ workspace = 'special:music', on_created_empty = 'uwsm-app -- spotify' })
+
+-- Launch the Kagi Assistant PWA (brave-origin) when scratch4 is first created.
+hl.workspace_rule({
+    workspace = 'special:scratch4',
+    on_created_empty = 'uwsm-app -- '
+        .. _G.browser
+        .. ' --profile-directory=Default --app-id=ljkacldhgllhakfdiahgjioaamcogcin',
+})
+
+-- Larger gaps so special (scratchpad) workspaces stand out from regular ones.
+for _, name in ipairs({ 'music', 'scratch1', 'scratch2', 'scratch3', 'scratch4' }) do
+    hl.workspace_rule({ workspace = 'special:' .. name, gaps_in = 25, gaps_out = 50 })
+end

@@ -65,7 +65,10 @@ config.unix_domains = {
 
 local _ok, sessionizer = pcall(require, 'sessionizer')
 
-config.leader = { key = "h", mods = "CTRL", timeout_milliseconds = 1000 }
+local leader = "h"
+local leader_mods = "CTRL"
+
+config.leader = { key = leader, mods = leader_mods, timeout_milliseconds = 1000 }
 config.keys = {
 	{
 		key = "Enter",
@@ -85,7 +88,7 @@ config.keys = {
 	{
 		key = "t",
 		mods = "LEADER",
-		action = action.ActivateTabRelative(1),
+		action = action.ShowLauncherArgs({ flags = "FUZZY|TABS" }),
 	},
 	{
 		key = "w",
@@ -107,16 +110,11 @@ config.keys = {
 		mods = "LEADER",
 		action = action.ShowLauncher,
 	},
-	{
-		key = "t",
-		mods = "LEADER|SHIFT",
-		action = action.ActivateTabRelative(-1),
-	},
 	-- Passthrough <leader> when pressing <leader><leader>
 	{
-		key = "h",
-		mods = "LEADER|CTRL",
-		action = action.SendKey({ key = "h", mods = "CTRL" }),
+		key = leader,
+		mods = "LEADER|" .. leader_mods,
+		action = action.SendKey({ key = leader, mods = leader_mods }),
 	},
 }
 

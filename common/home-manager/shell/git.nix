@@ -100,6 +100,7 @@ _:
       "*.log"
       "*.sync-conflict*"
       ".direnv"
+      ".devenv"
       ".env"
       ".envrc"
       "**/.mypy_cache"

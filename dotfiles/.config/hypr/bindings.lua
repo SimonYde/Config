@@ -13,6 +13,8 @@ hl.bind('SUPER + ALT + L', hl.dsp.exec_cmd(uwsm .. 'toggle-display'))
 
 hl.bind('SUPER + space', hl.dsp.exec_cmd('walker'))
 hl.bind('SUPER + period', hl.dsp.exec_cmd('walker -m symbols'))
+hl.bind('SUPER + comma', hl.dsp.exec_cmd('walker -m clipboard'))
+hl.bind('SUPER + W', hl.dsp.exec_cmd('walker -m windows'))
 hl.bind('SUPER + escape', hl.dsp.global('quickshell:power-menu'))
 
 -- Screenshots
