@@ -72,6 +72,8 @@ in
             groupfolders
             notes
             tasks
+            drawio
+            integration_paperless
             # previewgenerator
             richdocuments
             user_oidc
