@@ -3,13 +3,13 @@
     enable = true;
     settings = {
       server = {
-        http_listen_address = "0.0.0.0";
+        http_listen_address = "127.0.0.1";
         http_listen_port = 9190;
-        grpc_listen_address = "0.0.0.0";
+        grpc_listen_address = "127.0.0.1";
         grpc_listen_port = 9195;
       };
       memberlist.bind_port = 7947;
-      distributor.receivers.otlp.protocols.http.endpoint = "0.0.0.0:4318";
+      distributor.receivers.otlp.protocols.http.endpoint = "127.0.0.1:4318";
       storage.trace = {
         backend = "local";
         wal.path = "/var/lib/tempo/wal";
@@ -51,6 +51,4 @@
       ];
     };
   };
-
-  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 4318 ];
 }
