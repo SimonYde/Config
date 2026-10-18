@@ -210,25 +210,7 @@ in
 
         man.enable = true;
 
-        mcp = {
-          enable = true;
-          servers = {
-            nushell = {
-              command = "${pkgs.nushell-wrapped}/bin/nu";
-              args = [
-                "--mcp"
-              ];
-            };
-            grafana = {
-              command = lib.getExe pkgs.mcp-grafana;
-              env = {
-                GRAFANA_URL = "https://grafana.i.simonyde.com";
-                GRAFANA_SERVICE_ACCOUNT_TOKEN.file = "/run/agenix/grafanaAccountToken";
-              };
-              enabled = false;
-            };
-          };
-        };
+        mcp.enable = true;
 
         mergiraf = {
           enable = true;
@@ -240,7 +222,6 @@ in
 
         opencode = {
           enable = true;
-          enableMcpIntegration = true;
         };
 
         qalculate.enable = true;

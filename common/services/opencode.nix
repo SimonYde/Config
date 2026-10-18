@@ -2,10 +2,16 @@
   config,
   lib,
   username,
+  inputs,
   ...
 }:
 let
-  inherit (lib) mkIf mkEnableOption mkOption types;
+  inherit (lib)
+    mkIf
+    mkEnableOption
+    mkOption
+    types
+    ;
   inherit (config.syde) server;
   cfg = config.services.opencode;
 in
@@ -22,19 +28,30 @@ in
   };
 
   config = mkIf cfg.enable {
+    age.secrets.opencodeEnvironmentFile = {
+      file = "${inputs.secrets}/opencodeEnvironmentFile.age";
+      owner = username;
+    };
+
     home-manager.users.${username} = {
-      programs.opencode = {
-        enable = true;
-        web = {
+      programs = {
+        mcp.enable = true;
+
+        opencode = {
           enable = true;
-          extraArgs = [
-            "--hostname"
-            "127.0.0.1"
-            "--port"
-            "${toString cfg.port}"
-            "--cors"
-            "https://opencode.i.${server.baseDomain}"
-          ];
+          web = {
+            enable = true;
+            environmentFile = config.age.secrets.opencodeEnvironmentFile.path;
+
+            extraArgs = [
+              "--hostname"
+              "127.0.0.1"
+              "--port"
+              "${toString cfg.port}"
+              "--cors"
+              "https://opencode.i.${server.baseDomain}"
+            ];
+          };
         };
       };
     };

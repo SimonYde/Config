@@ -24,8 +24,26 @@ in
   programs = {
     man.enable = mkDefault false;
 
+    mcp = {
+      servers = {
+        nushell = {
+          command = "${pkgs.nushell-wrapped}/bin/nu";
+          args = [
+            "--mcp"
+          ];
+        };
+        grafana = {
+          command = lib.getExe pkgs.mcp-grafana;
+          env = {
+            GRAFANA_URL = "https://grafana.i.simonyde.com";
+            GRAFANA_SERVICE_ACCOUNT_TOKEN.file = "/run/agenix/grafanaAccountToken";
+          };
+          enabled = false;
+        };
+      };
+    };
     opencode = {
-      package = pkgs.opencode2;
+      enableMcpIntegration = true;
       settings = {
         shell = "${pkgs.nushell-wrapped}/bin/nu";
       };
