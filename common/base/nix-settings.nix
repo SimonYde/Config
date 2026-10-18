@@ -24,7 +24,7 @@
       use-cgroups = true;
 
       # auto-optimise-store = true;
-      # warn-dirty = false;
+      warn-dirty = false;
       # builders-use-substitutes = true;
 
       use-xdg-base-directories = true;
