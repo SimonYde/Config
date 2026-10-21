@@ -2,19 +2,22 @@
   lib,
   pkgs,
   inputs,
+  config,
   ...
 }:
 
 let
   ipFromCidr = cidr: builtins.head (builtins.split "/" cidr);
   inherit (import "${inputs.secrets}/networks.nix") netcup;
+
+  inherit (config.syde) server;
 in
 {
   imports = [
     ./netcup.nix
 
     ./headscale.nix
-    ./kanidm.nix
+    ./kanidm
 
     ./turn.nix
     ./netbird
@@ -24,8 +27,28 @@ in
 
   system.stateVersion = "26.11";
 
+  age.secrets.emailPassword = {
+    file = "${inputs.secrets}/oneEmailPassword.age";
+    owner = server.user;
+    group = server.group;
+    mode = "0440";
+  };
+
+  age.secrets.kanidmMailToken = {
+    file = "${inputs.secrets}/kanidmMailToken.age";
+  };
+
   # Personal configurations
   syde = {
+    email = {
+      enable = true;
+      fromAddress = "services@tmcs.dk";
+      toAddress = "services@tmcs.dk";
+      smtpServer = "send.one.com";
+      smtpUsername = "services@tmcs.dk";
+      smtpPasswordPath = config.age.secrets.emailPassword.path;
+    };
+
     server = {
       baseDomain = "simonyde.com";
       addrs = {
@@ -47,6 +70,14 @@ in
   services = {
     nginx = {
       enable = true;
+    };
+
+    kanidm = {
+      server.enable = true;
+      mailSender = {
+        enable = true;
+        mailTokenFile = config.age.secrets.kanidmMailToken.path;
+      };
     };
 
     syncthing.enable = true;
