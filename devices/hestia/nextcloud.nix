@@ -15,6 +15,8 @@ let
     ;
   inherit (config.syde) server email;
 
+  hostName = "cloud.${server.baseDomain}";
+
   cfg = config.services.nextcloud;
 in
 {
@@ -44,7 +46,7 @@ in
     services = {
       nextcloud = {
         package = pkgs.nextcloud35;
-        hostName = "cloud.${server.baseDomain}";
+        hostName = hostName;
         datadir = "/mnt/tank/nextcloud";
         database.createLocally = true;
         secretFile = config.age.secrets.nextcloudSecretFile.path;
@@ -89,8 +91,8 @@ in
 
         settings = {
           overwriteprotocol = "https";
-          overwritehost = "cloud.${server.baseDomain}";
-          overwrite.cli.url = "https://cloud.${server.baseDomain}";
+          overwritehost = hostName;
+          overwrite.cli.url = "https://${hostName}";
 
           mail_smtpmode = "smtp";
           mail_smtphost = email.smtpServer;
@@ -127,8 +129,8 @@ in
 
         config = {
           dbtype = "pgsql";
-          adminuser = username;
-          adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
+          # adminuser = username;
+          # adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
         };
       };
 
