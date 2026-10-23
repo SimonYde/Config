@@ -31,6 +31,7 @@ in
           args = [
             "--mcp"
           ];
+          enabled = false;
         };
         grafana = {
           command = lib.getExe pkgs.mcp-grafana;
