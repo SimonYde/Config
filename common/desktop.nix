@@ -128,10 +128,24 @@ in
   };
 
   security.rtkit.enable = true;
-  security.polkit.enable = true;
-
   # Keep the oo7 keyring password in sync when the account password changes.
   security.pam.services.passwd.oo7.enable = true;
+
+  security.polkit = {
+    enable = true;
+    extraConfig = # javascript
+      ''
+        polkit.addRule(function(action, subject) {
+          var unit = action.lookup("unit");
+          if (action.id == "org.freedesktop.systemd1.manage-units" &&
+              subject.user == "${username}" &&
+              action.lookup("verb") == "start" &&
+              unit && unit.indexOf("specialisation-switch@") === 0) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
+  };
 
   services.resolved.enable = true;
 

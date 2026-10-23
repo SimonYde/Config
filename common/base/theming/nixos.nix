@@ -48,18 +48,6 @@ in
     unitConfig.X-StopOnRemoval = false;
   };
 
-  security.polkit.extraConfig = ''
-    polkit.addRule(function(action, subject) {
-      var unit = action.lookup("unit");
-      if (action.id == "org.freedesktop.systemd1.manage-units" &&
-          subject.user == "${username}" &&
-          action.lookup("verb") == "start" &&
-          unit && unit.indexOf("specialisation-switch@") === 0) {
-        return polkit.Result.YES;
-      }
-    });
-  '';
-
   stylix.targets = {
     nixos-icons.enable = true;
     gnome-text-editor.enable = false;
