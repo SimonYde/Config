@@ -7,6 +7,7 @@
 }:
 let
   inherit (config.syde) server;
+  inherit (server) internalDomain;
 in
 {
   imports = [
@@ -93,7 +94,7 @@ in
     nginx = {
       enable = true;
 
-      virtualHosts."edgeos.i.simonyde.com".locations."/" = {
+      virtualHosts."edgeos.${internalDomain}".locations."/" = {
         proxyPass = "https://192.168.1.1:8443";
         proxyWebsockets = true;
       };

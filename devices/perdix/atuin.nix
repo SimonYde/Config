@@ -15,7 +15,7 @@ in
   services.nginx = {
     upstreams.atuin.servers."127.0.0.1:${toString cfg.port}" = { };
 
-    virtualHosts."atuin.i.${server.baseDomain}".locations."/" = {
+    virtualHosts."atuin.${server.internalDomain}".locations."/" = {
       proxyPass = "http://atuin";
       proxyWebsockets = true;
     };

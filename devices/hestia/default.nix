@@ -57,8 +57,11 @@ in
 
     services.fail2ban.enable = true;
 
-    server.baseDomain = "tmcs.dk";
-    server.authDomain = "auth.simonyde.com";
+    server = {
+      baseDomain = "tmcs.dk";
+      authDomain = "auth.simonyde.com";
+      internalDomain = "i.simonyde.com";
+    };
 
     zfs.enable = true;
   };
@@ -105,7 +108,7 @@ in
   hardware.enableRedistributableFirmware = true;
 
   services = {
-    fwupd.enable = true;
+    fwupd.enable = false;
     fstrim.enable = true;
 
     immich = {
@@ -271,7 +274,9 @@ in
           automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
         in
         [
-          "${automount_opts},credentials=${config.age.secrets.perdixSambaCredentials.path},uid=${toString config.users.users.${server.user}.uid},gid=${toString config.users.groups.${server.group}.gid}"
+          "${automount_opts},credentials=${config.age.secrets.perdixSambaCredentials.path},uid=${
+            toString config.users.users.${server.user}.uid
+          },gid=${toString config.users.groups.${server.group}.gid}"
           "nofail"
         ];
     };

@@ -24,10 +24,10 @@ in
 
       settings = {
         server = {
-          domain = "grafana.i.${server.baseDomain}";
+          domain = "grafana.${server.internalDomain}";
           http_addr = "127.0.0.1";
           http_port = 2342;
-          root_url = "https://grafana.i.${server.baseDomain}/";
+          root_url = "https://grafana.${server.internalDomain}/";
         };
 
         database = {
@@ -142,7 +142,7 @@ in
     nginx = {
       upstreams.grafana.servers."127.0.0.1:2342" = { };
 
-      virtualHosts."grafana.i.${server.baseDomain}".locations."/" = {
+      virtualHosts."grafana.${server.internalDomain}".locations."/" = {
         proxyPass = "http://grafana";
         proxyWebsockets = true;
       };

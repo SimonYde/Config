@@ -66,7 +66,7 @@ in
           oidcEnabled = true;
           oidcIssuer = "https://${server.authDomain}/oauth2/openid/qui";
           oidcClientId = "qui";
-          oidcRedirectUrl = "https://qui.i.${server.baseDomain}/api/auth/oidc/callback";
+          oidcRedirectUrl = "https://qui.${server.internalDomain}/api/auth/oidc/callback";
           oidcDisableBuiltInLogin = true;
         };
 
@@ -75,7 +75,7 @@ in
       nginx = {
         upstreams.qui.servers."127.0.0.1:7476" = { };
 
-        virtualHosts."qui.i.${server.baseDomain}".locations."/" = {
+        virtualHosts."qui.${server.internalDomain}".locations."/" = {
           proxyPass = "http://qui";
           proxyWebsockets = true;
         };

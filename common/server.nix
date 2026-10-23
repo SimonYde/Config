@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -27,6 +26,15 @@ in
         domain name to be used for authentication flows such as OAuth2
       '';
       example = "auth.example.com";
+    };
+
+    internalDomain = mkOption {
+      type = types.str;
+      default = "i.${cfg.baseDomain}";
+      description = ''
+        base domain name used for routing internal services, such as over netbird or tailscale.
+      '';
+      example = "i.example.com";
     };
 
     addrs = {

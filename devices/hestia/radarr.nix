@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   inherit (config.syde) server;
+  inherit (server) internalDomain;
 in
 {
   services = {
@@ -12,7 +13,7 @@ in
     nginx = {
       upstreams.radarr.servers."127.0.0.1:7878" = { };
 
-      virtualHosts."radarr.i.simonyde.com" = {
+      virtualHosts."radarr.${internalDomain}" = {
         isInternal = true;
 
         locations."/" = {

@@ -12,7 +12,7 @@ in
 
     services.nginx = {
       upstreams.languagetool.servers."127.0.0.1:${toString cfg.port}" = { };
-      virtualHosts."languagetool.i.${server.baseDomain}".locations."/" = {
+      virtualHosts."languagetool.${server.internalDomain}".locations."/" = {
         proxyPass = "http://languagetool";
         proxyWebsockets = true;
       };

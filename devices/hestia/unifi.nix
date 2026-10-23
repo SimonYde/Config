@@ -1,4 +1,8 @@
-{ ... }:
+{ config, ... }:
+let
+
+  inherit (config.syde.server) internalDomain;
+in
 {
   services = {
     unifi = {
@@ -9,7 +13,7 @@
     nginx = {
       upstreams.unifi.servers."127.0.0.1:8443" = { };
 
-      virtualHosts."unifi.i.simonyde.com" = {
+      virtualHosts."unifi.${internalDomain}" = {
         isInternal = true;
 
         locations."/" = {

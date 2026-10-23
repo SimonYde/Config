@@ -87,7 +87,7 @@ in
       nginx = {
         upstreams.adguard.servers."127.0.0.2:9433" = { };
 
-        virtualHosts."adguard.i.${server.baseDomain}".locations."/" = {
+        virtualHosts."adguard.${server.internalDomain}".locations."/" = {
           proxyPass = "http://adguard";
           proxyWebsockets = true;
         };

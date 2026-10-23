@@ -1,6 +1,12 @@
-{ inputs, config, lib, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 let
   inherit (config.syde) server;
+  inherit (server) internalDomain;
 in
 {
   age.secrets.oauth2ProxySecrets = {
@@ -14,22 +20,22 @@ in
     clientID = "hestia";
 
     nginx = {
-      domain = "hestia-auth.i.simonyde.com";
+      domain = "hestia-auth.${internalDomain}";
       virtualHosts = {
-        "prowlarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
-        "sonarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
-        "radarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
-        "lidarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
-        "bazarr.i.simonyde.com".allowed_groups = [ "torrenters" ];
-        "bitmagnet.i.simonyde.com".allowed_groups = [ "torrenters" ];
-        "seerr.i.simonyde.com".allowed_groups = [ "torrenters" ];
+        "prowlarr.${internalDomain}".allowed_groups = [ "torrenters" ];
+        "sonarr.${internalDomain}".allowed_groups = [ "torrenters" ];
+        "radarr.${internalDomain}".allowed_groups = [ "torrenters" ];
+        "lidarr.${internalDomain}".allowed_groups = [ "torrenters" ];
+        "bazarr.${internalDomain}".allowed_groups = [ "torrenters" ];
+        "bitmagnet.${internalDomain}".allowed_groups = [ "torrenters" ];
+        "seerr.${internalDomain}".allowed_groups = [ "torrenters" ];
       };
     };
   };
 
-    services.nginx.virtualHosts = {
-      "hestia-auth.i.simonyde.com" = {
+  services.nginx.virtualHosts = {
+    "hestia-auth.${internalDomain}" = {
       isInternal = true;
-      };
     };
+  };
 }

@@ -13,6 +13,8 @@ let
     types
     ;
   inherit (config.syde) server;
+
+  hostName = "opencode.${server.internalDomain}";
   cfg = config.services.opencode;
 in
 {
@@ -35,7 +37,7 @@ in
 
     home-manager.users.${username} = {
       programs = {
-        mcp.enable = true;
+        mcp.enable = false;
 
         opencode = {
           enable = true;
@@ -49,7 +51,7 @@ in
               "--port"
               "${toString cfg.port}"
               "--cors"
-              "https://opencode.i.${server.baseDomain}"
+              "https://${hostName}"
             ];
           };
         };
@@ -59,7 +61,7 @@ in
     services.nginx = {
       upstreams.opencode.servers."127.0.0.1:${toString cfg.port}" = { };
 
-      virtualHosts."opencode.i.${server.baseDomain}".locations."/" = {
+      virtualHosts.${hostName}.locations."/" = {
         proxyPass = "http://opencode";
         proxyWebsockets = true;
       };

@@ -5,19 +5,22 @@
   ...
 }:
 let
-  inherit (lib) mkForce;
+  inherit (lib) mkIf mkOption types;
   inherit (config.syde) server email;
+  inherit (server) baseDomain internalDomain;
+
+  hostName = "foto.${baseDomain}";
   cfg = config.services.immich;
 in
 {
 
   options.services.immich = {
-    mediaDir = lib.mkOption {
-      type = lib.types.path;
+    mediaDir = mkOption {
+      type = types.path;
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     age.secrets.immichClientSecret = {
       file = "${inputs.secrets}/immichClientSecret.age";
       owner = "immich";
@@ -30,12 +33,8 @@ in
     ];
 
     networking.hosts = {
-      "127.0.0.1" = [
-        "foto.${server.baseDomain}"
-      ];
-      "::1" = [
-        "foto.${server.baseDomain}"
-      ];
+      "127.0.0.1" = [ hostName ];
+      "::1" = [ hostName ];
     };
 
     services = {
@@ -90,16 +89,35 @@ in
       nginx = {
         upstreams.immich.servers."${cfg.host}:${toString cfg.port}" = { };
 
-        virtualHosts."foto.${server.baseDomain}" = {
-          locations."/" = {
-            proxyPass = "http://immich";
-            proxyWebsockets = true;
-            extraConfig = ''
-              client_max_body_size 50000M;
-              proxy_read_timeout   600s;
-              proxy_send_timeout   600s;
-              send_timeout         600s;
-            '';
+        virtualHosts = {
+          "foto.${internalDomain}" = {
+            isInternal = true;
+
+            locations."/" = {
+              proxyPass = "http://immich";
+              proxyWebsockets = true;
+              extraConfig = ''
+                client_max_body_size 50000M;
+                proxy_read_timeout   600s;
+                proxy_send_timeout   600s;
+                send_timeout         600s;
+              '';
+            };
+          };
+
+
+
+          ${hostName} = {
+            locations."/" = {
+              proxyPass = "http://immich";
+              proxyWebsockets = true;
+              extraConfig = ''
+                client_max_body_size 50000M;
+                proxy_read_timeout   600s;
+                proxy_send_timeout   600s;
+                send_timeout         600s;
+              '';
+            };
           };
         };
       };

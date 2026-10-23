@@ -24,7 +24,7 @@ let
   renderService =
     { name, value }:
     {
-      name = "${value}.i.${server.baseDomain}";
+      name = "${value}.${server.internalDomain}";
       type = "A";
       value = name;
     };
@@ -43,7 +43,7 @@ let
     |> attrValues
     |> flatten
     |> (map (x: {
-      name = "${x}.i.${server.baseDomain}";
+      name = "${x}.${server.internalDomain}";
       value = [ "100.100.100.100" ];
     }))
     |> listToAttrs;

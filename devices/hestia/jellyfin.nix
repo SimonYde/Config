@@ -6,6 +6,7 @@
 }:
 let
   inherit (config.syde) server;
+  inherit (server) internalDomain;
 
   inherit (cfg) mediaDir;
 
@@ -31,6 +32,7 @@ in
 
       nginx = {
         upstreams.jellyfin.servers."127.0.0.1:8096" = { };
+
         virtualHosts."film.${config.syde.server.baseDomain}".locations = {
           "/metrics" = {
             extraConfig = ''
@@ -42,6 +44,17 @@ in
           "/" = {
             proxyPass = "http://jellyfin";
             proxyWebsockets = true;
+          };
+        };
+
+        virtualHosts."film.${internalDomain}" = {
+          isInternal = true;
+
+          locations = {
+            "/" = {
+              proxyPass = "http://jellyfin";
+              proxyWebsockets = true;
+            };
           };
         };
       };

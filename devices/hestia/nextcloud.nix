@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  username,
   inputs,
   ...
 }:
@@ -14,17 +13,15 @@ let
     splitString
     ;
   inherit (config.syde) server email;
+  inherit (server) baseDomain internalDomain;
 
-  hostName = "cloud.${server.baseDomain}";
+  hostName = "cloud.${baseDomain}";
 
   cfg = config.services.nextcloud;
 in
 {
   config = mkIf cfg.enable {
     age.secrets = {
-      nextcloudAdminPassword = {
-        file = "${inputs.secrets}/nextcloud/admin-password.age";
-      };
       nextcloudClientSecret = {
         file = "${inputs.secrets}/nextcloud/client-secret.age";
         owner = "nextcloud";
@@ -127,11 +124,13 @@ in
           preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
         };
 
-        config = {
-          dbtype = "pgsql";
-          # adminuser = username;
-          # adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
-        };
+        config.dbtype = "pgsql";
+      };
+
+      nginx.virtualHosts."cloud.${internalDomain}" = {
+        isInternal = true;
+
+        locations."/".return = "301 https://${hostName}$request_uri";
       };
 
       postgresql.enable = true;

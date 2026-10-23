@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
   inherit (config.syde) server;
+  inherit (server) internalDomain;
 in
 {
   services = {
@@ -9,7 +10,7 @@ in
     nginx = {
       upstreams.prowlarr.servers."127.0.0.1:9696" = { };
 
-      virtualHosts."prowlarr.i.simonyde.com" = {
+      virtualHosts."prowlarr.${internalDomain}" = {
         isInternal = true;
 
         locations."/" = {

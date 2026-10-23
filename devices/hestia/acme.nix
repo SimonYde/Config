@@ -1,5 +1,10 @@
-{ inputs, lib, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 let
+  inherit (config.syde.server) internalDomain;
   inherit (lib)
     mkEnableOption
     mkForce
@@ -29,7 +34,7 @@ in
               (mkIf config.isInternal {
                 acmeRoot = mkForce null;
                 enableACME = mkForce false;
-                useACMEHost = "i.simonyde.com";
+                useACMEHost = "${internalDomain}";
               })
             ];
           }
@@ -41,7 +46,7 @@ in
   config = {
     syde.acme.enable = true;
 
-    services.nginx.virtualHosts."tranumparken.i.simonyde.com" = {
+    services.nginx.virtualHosts."tranumparken.${internalDomain}" = {
       isInternal = true;
 
       locations."/" = {
@@ -53,9 +58,9 @@ in
     security.acme = {
       defaults.email = "s@tmcs.dk";
 
-      certs."i.simonyde.com" = {
+      certs."${internalDomain}" = {
         email = "acme@simonyde.com";
-        domain = "*.i.simonyde.com";
+        domain = "*.${internalDomain}";
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         environmentFile = "/run/agenix/dns";

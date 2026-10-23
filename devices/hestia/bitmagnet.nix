@@ -6,6 +6,7 @@
 }:
 let
   inherit (lib) mkIf;
+  inherit (config.syde.server) internalDomain;
 
   cfg = config.services.bitmagnet;
 in
@@ -36,7 +37,7 @@ in
 
       nginx = {
         upstreams.bitmagnet.servers."127.0.0.1:3333" = { };
-        virtualHosts."bitmagnet.i.simonyde.com" = {
+        virtualHosts."bitmagnet.${internalDomain}" = {
           isInternal = true;
 
           locations."/" = {

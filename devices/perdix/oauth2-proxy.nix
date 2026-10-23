@@ -17,12 +17,11 @@ in
     };
 
     services.oauth2-proxy = {
-      enable = true;
-      oidcIssuerUrl = "https://auth.${server.baseDomain}/oauth2/openid/perdix";
+      oidcIssuerUrl = "https://${server.authDomain}/oauth2/openid/perdix";
       clientID = "perdix";
 
       nginx = {
-        domain = "perdix-auth.i.${server.baseDomain}";
+        domain = "perdix-auth.${server.internalDomain}";
         virtualHosts = { };
       };
     };
