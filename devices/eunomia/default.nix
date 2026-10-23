@@ -16,6 +16,8 @@ in
   imports = [
     ./netcup.nix
 
+    ./backup.nix
+
     ./headscale.nix
     ./kanidm
 

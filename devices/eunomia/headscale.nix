@@ -52,6 +52,7 @@ let
     # hestia
     "100.64.0.1" = [
       "hestia-auth"
+      "backup"
       "tranumparken"
       "unifi"
 

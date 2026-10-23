@@ -266,6 +266,12 @@ in
       options = [ "zfsutil" ];
     };
 
+    "/mnt/tank/backup" = {
+      device = "tank/backup";
+      fsType = "zfs";
+      options = [ "zfsutil" ];
+    };
+
     "/media/Torrents" = {
       device = "//100.64.0.2/Media";
       fsType = "cifs";
