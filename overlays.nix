@@ -20,6 +20,11 @@ inputs: [
     {
       stable = import inputs.stable { inherit system config; };
 
+      inherit (final.callPackage ./packages/immich-public-proxy { })
+        immich-public-proxy
+        immich-public-proxy-upload
+        ;
+
       # inherit (final.stable) heroic;
 
       nushell-wrapped = final.writeTextFile {
