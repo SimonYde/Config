@@ -166,6 +166,8 @@ in
   programs.nix-your-shell.enableNushellIntegration = false;
 
   programs.nushell = {
+    loadSessionVariables = true;
+
     configFile.text = # nu
       ''
         $env.NU_LIB_DIRS ++= [ '${pkgs.nu_scripts}/share/nu_scripts' ]
