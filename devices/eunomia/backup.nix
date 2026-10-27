@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }:
 let
@@ -31,6 +32,16 @@ in
         repository = "rest:https://backup.${internalDomain}/${hostName}";
         passwordFile = config.age.secrets.hestiaBackupPassword.path;
         environmentFile = config.age.secrets.resticCredentialsFile.path;
+
+        # Dex keeps its signing keys and sessions in SQLite; copy it with the
+        # online backup API instead of archiving the live file (and WAL).
+        backupPrepareCommand = ''
+          set -eu
+          mkdir -p /var/backup/dex
+          chmod 0700 /var/backup/dex
+          ${pkgs.sqlite}/bin/sqlite3 /var/lib/dex/dex.db ".backup '/var/backup/dex/dex.db'"
+          chmod 0600 /var/backup/dex/dex.db
+        '';
 
         paths = [
           "/var/backup"

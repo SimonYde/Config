@@ -35,7 +35,7 @@ in
         metricsPort = 9190;
         turnDomain = "not-real.${server.baseDomain}";
         dnsDomain = "nodes.nb.${server.baseDomain}";
-        oidcConfigEndpoint = "https://${server.authDomain}/oauth2/openid/netbird/.well-known/openid-configuration";
+        oidcConfigEndpoint = "https://dex.${server.baseDomain}/.well-known/openid-configuration";
 
         settings = {
           DataStoreEncryptionKey._secret = "/run/agenix/netbird/data-store-encryption-key";
@@ -53,11 +53,21 @@ in
             CredentialsTTL = "12h";
           };
           StoreConfig.Engine = "postgres";
-          DeviceAuthorizationFlow.ProviderConfig.Scope = "openid profile email groups_name";
+
+          # Dex is the IdP facade; Kanidm is reached through its OIDC connector.
+          # "hosted" is the generic RFC 8628 device flow implementation, not
+          # NetBird Cloud.
+          DeviceAuthorizationFlow = {
+            Provider = "hosted";
+            ProviderConfig = {
+              Scope = "openid profile email groups";
+              UseIDToken = true;
+            };
+          };
+
+          # Endpoints are filled in from Dex's discovery document.
           PKCEAuthorizationFlow.ProviderConfig = {
-            AuthorizationEndpoint = "https://${server.authDomain}/ui/oauth2";
-            TokenEndpoint = "https://${server.authDomain}/oauth2/token";
-            Scope = "openid profile email groups_name";
+            Scope = "openid profile email groups";
             UseIDToken = true;
           };
         };
@@ -66,10 +76,10 @@ in
       signal.metricsPort = 9191;
 
       dashboard.settings = {
-        AUTH_AUTHORITY = "https://${server.authDomain}/oauth2/openid/netbird/";
+        AUTH_AUTHORITY = "https://dex.${server.baseDomain}";
         AUTH_REDIRECT_URI = "/oauth2/callback";
         AUTH_SILENT_REDIRECT_URI = "/oauth2/callback/silent";
-        AUTH_SUPPORTED_SCOPES = "openid profile email groups_name";
+        AUTH_SUPPORTED_SCOPES = "openid profile email groups";
       };
     };
 

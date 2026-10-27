@@ -23,6 +23,7 @@ in
 
     ./turn.nix
     ./netbird
+    ./dex.nix
 
     ../../common/server.nix
   ];

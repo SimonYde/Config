@@ -16,6 +16,13 @@
           address = "127.0.0.1";
           port = 5053;
         };
+
+        # `netbird login` treats a "console"-only NB_LOG_FILE as "no daemon" and
+        # runs its foreground path, which ignores --management-url and falls back
+        # to the hosted NetBird management/IdP. Adding a real log file keeps the
+        # CLI talking to the daemon, where the flag is honored and persisted.
+        environment.NB_LOG_FILE =
+          "console,${config.services.netbird.clients.default.dir.state}/client.log";
       };
     };
   };
