@@ -175,10 +175,10 @@ in
       '';
 
     plugins = with pkgs.nushellPlugins; [
-      gstat
-      query
-      formats
-      polars
+      # gstat
+      # query
+      # formats
+      # polars
     ];
   };
 
