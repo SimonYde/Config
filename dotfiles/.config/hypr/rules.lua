@@ -103,15 +103,30 @@ hl.layer_rule({
 -------------------------
 ---- WORKSPACE RULES ----
 -------------------------
-hl.workspace_rule({ workspace = 'special:music', on_created_empty = 'uwsm-app -- spotify' })
+local workspace_programs = {
+    ['special:music'] = {
+        'uwsm-app -- spotify',
+        { -- rules
+        },
+    },
+    ['special:scratch4'] = {
+        'uwsm-app -- ' .. _G.browser .. ' --profile-directory=Default --app-id=ljkacldhgllhakfdiahgjioaamcogcin',
+        { -- rules
+        },
+    },
+}
+hl.on('workspace.created', function(ws)
+    if not ws.is_empty then return end
 
--- Launch the Kagi Assistant PWA (brave-origin) when scratch4 is first created.
-hl.workspace_rule({
-    workspace = 'special:scratch4',
-    on_created_empty = 'uwsm-app -- '
-        .. _G.browser
-        .. ' --profile-directory=Default --app-id=ljkacldhgllhakfdiahgjioaamcogcin',
-})
+    local program = workspace_programs[ws.name]
+    if program == nil then return end
+
+    local cmd, rules = table.unpack(program)
+
+    rules.workspace = ws.name .. ' silent'
+
+    hl.exec_cmd(cmd, rules)
+end)
 
 -- Larger gaps so special (scratchpad) workspaces stand out from regular ones.
 for _, name in ipairs({ 'music', 'scratch1', 'scratch2', 'scratch3', 'scratch4' }) do
