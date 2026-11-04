@@ -24,49 +24,46 @@ in
     ];
 
     services = {
-      adguardhome = {
-        host = "127.0.0.2";
-        port = 9433;
-        settings = {
-          dns = {
-            port = 53;
-            bind_hosts = [
-              "127.0.0.2"
-              "192.168.1.200" # LAN IP
-            ];
-            upstream_dns = [
-              "tls://9.9.9.9"
-              "tls://149.112.112.112"
-            ];
-            fallback_dns = mkForce [ ];
-          };
-          filtering = {
-            protection_enabled = true;
-            filtering_enabled = true;
-
-            parental_enabled = false; # Parental control-based DNS requests filtering.
-            safe_search = {
-              enabled = false; # Enforcing "Safe search" option for search engines, when possible.
-            };
-          };
-          filters =
-            map
-              (url: {
-                enabled = true;
-                url = url;
-              })
-              [
-                "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt" # The Big List of Hacked Malware Web Sites
-                "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt" # malicious url blocklist
-                "https://raw.githubusercontent.com/blocklistproject/Lists/master/smart-tv.txt" # smart tv telemetry
-                "https://easylist.to/easylist/easylist.txt"
-                "https://easylist.to/easylist/easyprivacy.txt"
-                "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt"
-                "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/rpz/native.apple.txt"
-                "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/rpz/native.winoffice.txt"
-                "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/rpz/native.samsung.txt"
-              ];
+      adguardhome.settings = {
+        http.address = "127.0.0.2:5553";
+        dns = {
+          port = 53;
+          bind_hosts = [
+            "127.0.0.2"
+            "192.168.1.200" # LAN IP
+          ];
+          upstream_dns = [
+            "tls://9.9.9.9"
+            "tls://149.112.112.112"
+          ];
+          fallback_dns = mkForce [ ];
         };
+        filtering = {
+          protection_enabled = true;
+          filtering_enabled = true;
+
+          parental_enabled = false; # Parental control-based DNS requests filtering.
+          safe_search = {
+            enabled = false; # Enforcing "Safe search" option for search engines, when possible.
+          };
+        };
+        filters =
+          map
+            (url: {
+              inherit url;
+              enabled = true;
+            })
+            [
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt" # The Big List of Hacked Malware Web Sites
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt" # malicious url blocklist
+              "https://raw.githubusercontent.com/blocklistproject/Lists/master/smart-tv.txt" # smart tv telemetry
+              "https://easylist.to/easylist/easylist.txt"
+              "https://easylist.to/easylist/easyprivacy.txt"
+              "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt"
+              "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/rpz/native.apple.txt"
+              "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/rpz/native.winoffice.txt"
+              "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/rpz/native.samsung.txt"
+            ];
       };
 
       resolved.settings.Resolve = {
@@ -85,7 +82,7 @@ in
       alloy.scrape.adguard.port = 9618;
 
       nginx = {
-        upstreams.adguard.servers."127.0.0.2:9433" = { };
+        upstreams.adguard.servers."127.0.0.2:5553" = { };
 
         virtualHosts."adguard.${server.internalDomain}".locations."/" = {
           proxyPass = "http://adguard";
@@ -111,7 +108,7 @@ in
 
       environment = {
         BIND_ADDR = "127.0.0.1:9618";
-        ADGUARD_SERVERS = "http://${cfg.host}:${toString cfg.port}";
+        ADGUARD_SERVERS = "http://${cfg.settings.http.address}";
         ADGUARD_USERNAMES = "metrics";
         ADGUARD_PASSWORDS = "metrics";
       };
