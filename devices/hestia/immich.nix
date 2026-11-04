@@ -45,57 +45,6 @@ in
     # that nginx forwards, producing http:// instead of https://.
     systemd.services.immich-public-proxy.environment.PUBLIC_BASE_URL = "https://${ippHostName}";
 
-    # Optional visitor-upload container. It is intentionally a separate
-    # service: IPP itself stays read-only and cannot accept files.
-    systemd.services.immich-public-proxy-upload = {
-      description = "Visitor upload service for Immich Public Proxy";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-
-      environment = {
-        IMMICH_URL = "http://127.0.0.1:2283";
-        IPP_PORT = toString ippUploadPort;
-        PUBLIC_BASE_URL = "https://${ippHostName}";
-        IPP_CONFIG = config.systemd.services.immich-public-proxy.environment.IPP_CONFIG;
-        NODE_ENV = "production";
-      };
-
-      serviceConfig = {
-        ExecStart = "${pkgs.immich-public-proxy-upload}/bin/immich-public-proxy-upload";
-        User = "ipp-upload";
-        Group = "ipp-upload";
-        DynamicUser = true;
-        Type = "simple";
-        Restart = "on-failure";
-        RestartSec = 3;
-
-        # Hardening, matching the upstream IPP service.
-        CapabilityBoundingSet = "";
-        NoNewPrivileges = true;
-        PrivateUsers = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        PrivateMounts = true;
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectSystem = "strict";
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        LockPersonality = true;
-      };
-    };
-
     services = {
       immich = {
         inherit (server) group;
@@ -157,8 +106,14 @@ in
         # public nginx vhost (which would also mean a round-trip through TLS).
         immichUrl = "http://127.0.0.1:2283";
         port = ippPort;
+        upload = {
+          enable = true;
+          port = ippUploadPort;
+        };
 
-        settings.ipp.uploadUrl = "/upload";
+        settings.ipp = {
+          allowDownload = 1;
+        };
       };
 
       nginx = {
