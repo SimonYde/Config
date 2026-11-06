@@ -85,6 +85,8 @@
     ratbagd.enable = true;
     upower.enable = true;
 
+    resolved.settings.Resolve.FallbackDNS = lib.mkForce [ "9.9.9.9" ];
+
     syncthing.enable = true;
 
     kanata = {

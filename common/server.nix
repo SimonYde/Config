@@ -117,6 +117,17 @@ in
       firewall.enable = true;
       firewall.logRefusedConnections = false;
       useDHCP = mkDefault true;
+      # FIXME: remove after kernel update
+      nftables.tables.cve_2026_98432 = {
+        name = "cve_2026_98432";
+        family = "inet";
+        content = ''
+          chain input {
+            type filter hook input priority -310; policy accept;
+            ip protocol tcp ip hdrlength > 5 counter drop;
+          }
+        '';
+      };
     };
 
     systemd.services.alloy.environment.ALLOY_NODE_KIND = "server";

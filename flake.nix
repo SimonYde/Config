@@ -206,7 +206,7 @@
     };
 
     voxtype = {
-      url = "github:peteonrails/voxtype/v0.6.5";
+      url = "github:peteonrails/voxtype/v1.1.1";
     };
 
     # My flakes
@@ -262,6 +262,8 @@
       patches =
         p: with p; {
           nixpkgs = [
+            (npr 582675 "sha256-Vv9PY1761/eXGPY62NSo/vUofAEg2OVIbvbUl4GuUJM=")
+            (npr 582302 "sha256-CT57Lme2qxdue/13OyYjdJYHRyQB2bayMTh6bzB/ug4=")
           ];
         };
     }; {
