@@ -264,6 +264,7 @@
           nixpkgs = [
             (npr 582675 "sha256-Vv9PY1761/eXGPY62NSo/vUofAEg2OVIbvbUl4GuUJM=")
             (npr 582302 "sha256-CT57Lme2qxdue/13OyYjdJYHRyQB2bayMTh6bzB/ug4=")
+            # (npr 584534 "sha256-y4Jkq6K4hdM8LwBo2J8vMnYgZrTtT4bRUJljtes0NOo=")
           ];
         };
     }; {

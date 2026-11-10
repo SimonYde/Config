@@ -96,6 +96,7 @@
         config = # scheme
           ''
             (defsrc
+              esc
               tab           q w e r t y u i o p
               caps          a s d f g h j k l ;
               IntlBackslash z x c v b n m
@@ -108,6 +109,7 @@
             )
 
             (defalias
+              capsword (caps-word 800)
               a (tap-hold $tap-time $hold-time a lmet)
               r (tap-hold $tap-time $hold-time r lalt)
               s (tap-hold $tap-time $hold-time s lctl)
@@ -120,9 +122,10 @@
             )
 
             (deflayer default-layer
-                   tab q  w  f  p  b j l  u  y  ;
-                   esc @a @r @s @t g m @n @e @i @o
-                   z   x  c  d  v  IntlBackslash k h
+               @capsword
+               tab q  w  f  p  b j l  u  y  ;
+               esc @a @r @s @t g m @n @e @i @o
+               z   x  c  d  v  IntlBackslash k h
             )
           '';
 

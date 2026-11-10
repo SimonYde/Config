@@ -16,6 +16,36 @@ FloatingWindow {
     property string username: ""
     property string password: ""
     property string message: ""
+    property var sessions: []
+    property int sessionIndex: 0
+
+    // Session desktop files are looked up in the usual session directories,
+    // with per-user profiles first so user-installed sessions take precedence.
+    // The greeter runs before login, so the target user's profile is unknown;
+    // scanning all per-user profiles is harmless because they only provide
+    // session entries.
+    readonly property string sessionScanScript: `
+for dir in \
+    /etc/profiles/per-user/*/share/wayland-sessions \
+    /etc/profiles/per-user/*/share/xsessions \
+    /run/current-system/sw/share/wayland-sessions \
+    /run/current-system/sw/share/xsessions \
+    /usr/local/share/wayland-sessions \
+    /usr/local/share/xsessions \
+    /usr/share/wayland-sessions \
+    /usr/share/xsessions \
+    "$HOME/.local/share/wayland-sessions" \
+    "$HOME/.local/share/xsessions"
+do
+    [ -d "$dir" ] || continue
+    for file in "$dir"/*.desktop
+    do
+        [ -f "$file" ] || continue
+        printf '\\n@@SESSION@@%s\\n' "$file"
+        cat "$file"
+    done
+done
+`
 
     Rectangle {
         anchors.fill: parent
@@ -94,6 +124,83 @@ FloatingWindow {
             text: root.password
             onTextChanged: root.password = text
             onAccepted: root.submit()
+        }
+
+        Text {
+            text: "Session"
+            color: Theme.muted
+            font.pixelSize: 12
+        }
+
+        ComboBox {
+            id: sessionField
+            width: parent.width
+            height: 44
+            focusPolicy: Qt.StrongFocus
+            model: root.sessions
+            textRole: "name"
+            currentIndex: root.sessionIndex
+            onActivated: function(index) {
+                root.sessionIndex = index
+            }
+            background: Rectangle {
+                color: Theme.base
+                border.color: sessionField.activeFocus ? Theme.accent : Theme.muted
+                border.width: sessionField.activeFocus ? 2 : 1
+                radius: 4
+            }
+            contentItem: Text {
+                leftPadding: 12
+                rightPadding: 32
+                text: sessionField.displayText
+                color: Theme.text
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+            }
+            indicator: Text {
+                x: sessionField.width - width - sessionField.rightPadding
+                y: sessionField.topPadding + (sessionField.availableHeight - height) / 2
+                text: "\u25be"
+                color: Theme.muted
+            }
+            delegate: ItemDelegate {
+                id: sessionDelegate
+                required property var model
+                required property int index
+                width: sessionField.width
+                height: 40
+                text: model[sessionField.textRole]
+                highlighted: sessionField.highlightedIndex === index
+                contentItem: Text {
+                    leftPadding: 12
+                    rightPadding: 12
+                    text: sessionDelegate.text
+                    color: sessionDelegate.highlighted ? Theme.background : Theme.text
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+                background: Rectangle {
+                    color: sessionDelegate.highlighted ? Theme.accent : "transparent"
+                    radius: 3
+                }
+            }
+            popup: Popup {
+                y: sessionField.height + 2
+                width: sessionField.width
+                padding: 1
+                contentItem: ListView {
+                    clip: true
+                    implicitHeight: Math.min(contentHeight, 6 * 40)
+                    model: sessionField.popup.visible ? sessionField.delegateModel : null
+                    currentIndex: sessionField.highlightedIndex
+                    ScrollIndicator.vertical: ScrollIndicator {}
+                }
+                background: Rectangle {
+                    color: Theme.base
+                    border.color: Theme.muted
+                    radius: 4
+                }
+            }
         }
 
         Button {
@@ -180,9 +287,80 @@ FloatingWindow {
         id: cmdProc
     }
 
+    Process {
+        id: sessionScan
+        command: [ "sh", "-c", root.sessionScanScript ]
+        stdout: StdioCollector {
+            onStreamFinished: root.parseSessions(this.text)
+        }
+    }
+
+    Component.onCompleted: sessionScan.running = true
+
     function runCmd(cmd) {
         cmdProc.command = [ "sh", "-c", cmd ]
         cmdProc.running = true
+    }
+
+    function parseSessions(raw) {
+        const entries = []
+        const seen = new Set()
+
+        for (const chunk of raw.split("@@SESSION@@").slice(1)) {
+            const headerEnd = chunk.indexOf("\n")
+            if (headerEnd < 0)
+                continue
+
+            const path = chunk.substring(0, headerEnd).trim()
+            const id = path.split("/").pop()
+            if (seen.has(id))
+                continue
+
+            const body = chunk.substring(headerEnd + 1)
+            let name = ""
+            let exec = ""
+            let hidden = false
+
+            for (const line of body.split("\n")) {
+                const text = line.trim()
+                if (text.startsWith("Name="))
+                    name = text.substring(5)
+                else if (text.startsWith("Exec="))
+                    exec = text.substring(5)
+                else if (text === "NoDisplay=true" || text === "Hidden=true")
+                    hidden = true
+            }
+
+            if (hidden || name === "" || exec === "")
+                continue
+
+            seen.add(id)
+            entries.push({
+                id: id,
+                name: name,
+                exec: exec
+            })
+        }
+
+        if (entries.length === 0) {
+            // Keep the previous behavior as a fallback if discovery fails.
+            entries.push({
+                id: "hyprland-uwsm.desktop",
+                name: "Hyprland (uwsm-managed)",
+                exec: "uwsm start hyprland-uwsm.desktop"
+            })
+        }
+
+        sessions = entries
+
+        let preferred = 0
+        for (let i = 0; i < entries.length; i++) {
+            if (entries[i].id === "hyprland-uwsm.desktop") {
+                preferred = i
+                break
+            }
+        }
+        sessionIndex = preferred
     }
 
     function submit() {
@@ -213,12 +391,15 @@ FloatingWindow {
         }
 
         function onReadyToLaunch() {
-            // Keep the direct argv handoff required by greetd/UWSM, while
-            // suppressing UWSM's normal startup messages.
-            Greetd.launch([
-                "env", "UWSM_SILENT_START=2", "uwsm", "start",
-                "hyprland-uwsm.desktop",
-            ])
+            if (sessions.length === 0) {
+                return
+            }
+
+            const session = sessions[Math.max(0, Math.min(sessionIndex, sessions.length - 1))]
+
+            // Run the entry's Exec line through the shell so quoted arguments
+            // and environment assignments work.
+            Greetd.launch([ "sh", "-c", session.exec ])
         }
     }
 }

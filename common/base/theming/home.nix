@@ -217,9 +217,6 @@ in
           }
         '';
 
-    # Stylix's opencode target hardcodes the "stylix" theme, whose light variant is miscoloured; use the builtin catppuccin theme instead.
-    opencode.tui.theme = lib.mkIf (!isDark) (lib.mkForce "catppuccin");
-
     vivid.activeTheme = colors.slug;
 
     walker.config.theme = mkForce "stylix";

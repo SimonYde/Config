@@ -57,7 +57,7 @@ in
         ncspot.enable = false;
         spicetify.enable = true;
         vivid.enable = true;
-        voxtype.enable = true;
+        voxtype.enable = false;
         wayprompt.enable = false;
         thunderbird.enable = false;
         yt-dlp.enable = true;
@@ -299,7 +299,7 @@ in
           "dolphin"
           "com.system76.CosmicFiles"
         ];
-        default = "yazi";
+        default = "pcmanfm";
       };
 
       package = mkPackageOption pkgs file-manager.name { };

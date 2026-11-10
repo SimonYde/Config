@@ -21,8 +21,7 @@
         # runs its foreground path, which ignores --management-url and falls back
         # to the hosted NetBird management/IdP. Adding a real log file keeps the
         # CLI talking to the daemon, where the flag is honored and persisted.
-        environment.NB_LOG_FILE =
-          "console,${config.services.netbird.clients.default.dir.state}/client.log";
+        environment.NB_LOG_FILE = "console,${config.services.netbird.clients.default.dir.state}/client.log";
       };
     };
   };
@@ -33,8 +32,12 @@
   systemd = {
     network.wait-online.ignoredInterfaces = [ "nb0" ];
 
-    # debug hanging connections maybe
-    services.netbird.environment.NB_WG_DEBUG = "true";
+    services.netbird = {
+      after = [ "tailscaled.service" ];
+
+      # debug hanging connections maybe
+      environment.NB_WG_DEBUG = "true";
+    };
   };
 
   networking.firewall.allowedUDPPorts = [ config.services.netbird.clients.default.port ];
