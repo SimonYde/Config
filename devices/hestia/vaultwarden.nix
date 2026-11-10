@@ -17,22 +17,22 @@ in
       environmentFile = "/run/agenix/vaultwarden";
 
       config = {
-        rocketAddress = "127.0.0.1";
-        rocketPort = 8881;
+        ROCKET_ADDRESS = "127.0.0.1";
+        ROCKET_PORT = 8881;
 
-        smtpFrom = email.fromAddress;
-        inherit (email) smtpUsername;
-        smtpHost = email.smtpServer;
+        SMTP_FROM = email.fromAddress;
+        SMTP_USERNAME = email.smtpUsername;
+        SMTP_HOST = email.smtpServer;
 
-        databaseUrl = "postgresql://vaultwarden@/vaultwarden";
+        DATABASE_URL = "postgresql://vaultwarden@/vaultwarden";
 
-        domain = "https://password.${server.baseDomain}";
-        signupsAllowed = true;
+        DOMAIN = "https://password.${server.baseDomain}";
+        SIGNUPS_ALLOWED = false;
 
-        extendedLogging = true;
-        logLevel = "warn";
+        PUSH_ENABLED = true;
 
-        pushEnabled = true;
+        # NOTE(2026-11-08 Simon Yde): better passkey support
+        EXPERIMENTAL_CLIENT_FEATURE_FLAGS = "fill-assist-targeting-rules,pm-30529-webauthn-related-origins";
       };
     };
 
@@ -49,9 +49,18 @@ in
 
     nginx = {
       upstreams.vaultwarden.servers."127.0.0.1:8881" = { };
-      virtualHosts."password.${server.baseDomain}".locations."/" = {
-        proxyPass = "http://vaultwarden";
-        proxyWebsockets = true;
+      virtualHosts."password.${server.baseDomain}".locations = {
+        "/" = {
+          proxyPass = "http://vaultwarden";
+          proxyWebsockets = true;
+        };
+
+        # The admin panel is only reachable from internal networks.
+        "~* ^/admin" = {
+          proxyPass = "http://vaultwarden";
+          proxyWebsockets = true;
+          internalOnly = true;
+        };
       };
     };
   };
