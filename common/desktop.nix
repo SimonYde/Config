@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkDefault mkIf mkOrder;
+  inherit (lib) mkDefault;
 in
 {
 
@@ -16,7 +16,9 @@ in
     ./.
   ];
 
-  home-manager.users.${username}.imports = [ ./home-manager/gui ];
+  home-manager.users.${username}.imports = [
+    ./home-manager/gui
+  ];
 
   boot = {
     plymouth.enable = true;

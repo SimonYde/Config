@@ -130,6 +130,8 @@ in
       };
     };
 
+    services.tailscale.enable = true;
+
     systemd.services.alloy.environment.ALLOY_NODE_KIND = "server";
   };
 }

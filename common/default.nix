@@ -117,8 +117,6 @@ in
       };
     };
 
-    tailscale.enable = true;
-
     ncro = {
       enable = true;
 

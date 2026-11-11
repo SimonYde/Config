@@ -9,6 +9,7 @@
 let
   inherit (lib)
     getExe
+    mkDefault
     mkIf
     mkMerge
     mkOption
@@ -70,7 +71,7 @@ in
           startInBackground = true;
         };
 
-        tailscale-systray.enable = true;
+        tailscale-systray.enable = mkDefault args ? osConfig && args.osConfig.services.tailscale.enable;
 
         udiskie = {
           enable = args ? osConfig && args.osConfig.services.udisks2.enable;
