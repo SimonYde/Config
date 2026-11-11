@@ -92,7 +92,7 @@
     kanata = {
       enable = true;
 
-      keyboards.home-row-mods = {
+      keyboards.colemak = {
         config = # scheme
           ''
             (defsrc
@@ -136,6 +136,47 @@
           "/dev/input/by-id/usb-Logitech_G512_Carbon_Linear_0A81375E3333-event-kbd"
         ];
       };
+
+      keyboards.home-row-mods = {
+        config = # scheme
+          ''
+            (defsrc
+              esc
+              caps a s d f j k l ;
+            )
+
+            (defvar
+              tap-time 250
+              hold-time 250
+              shift-time 180
+            )
+
+            (defalias
+              capsword (caps-word 800)
+              a (tap-hold $tap-time $hold-time a lmet)
+              s (tap-hold $tap-time $hold-time s lalt)
+              d (tap-hold $tap-time $hold-time d lctl)
+              f (tap-hold $shift-time $shift-time f lsft)
+
+              j (tap-hold $shift-time $shift-time j rsft)
+              k (tap-hold $tap-time $hold-time k lctl)
+              l (tap-hold $tap-time $hold-time l lalt)
+              ; (tap-hold $tap-time $hold-time ; rmet)
+            )
+
+            (deflayer default-layer
+               @capsword
+               esc @a @s @d @f @j @k @l @;
+            )
+          '';
+
+        extraDefCfg = "process-unmapped-keys yes";
+
+        devices = [
+          "/dev/input/by-path/platform-i8042-serio-0-event-kbd" # laptop keyboard
+          "/dev/input/by-id/usb-Logitech_G512_Carbon_Linear_0A81375E3333-event-kbd"
+        ];
+      };
     };
 
     xserver.xkb = {
@@ -156,6 +197,8 @@
   };
 
   security.polkit.enablePkexecWrapper = true;
+
+  systemd.services.kanata-home-row-mods.wantedBy = lib.mkForce [];
 
   # Filesystems
   fileSystems = {
