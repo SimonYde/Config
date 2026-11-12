@@ -127,12 +127,6 @@ in
         config.dbtype = "pgsql";
       };
 
-      nginx.virtualHosts."cloud.${internalDomain}" = {
-        isInternal = true;
-
-        locations."/".return = "301 https://${hostName}$request_uri";
-      };
-
       postgresql.enable = true;
     };
 

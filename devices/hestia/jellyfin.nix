@@ -1,13 +1,10 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
 let
   inherit (config.syde) server;
-  inherit (server) internalDomain;
-
   inherit (cfg) mediaDir;
 
   cfg = config.services.jellyfin;
@@ -35,26 +32,14 @@ in
 
         virtualHosts."film.${config.syde.server.baseDomain}".locations = {
           "/metrics" = {
-            extraConfig = ''
-              # Block all external access via the reverse proxy
-              deny all;
-            '';
+            proxyPass = "http://jellyfin";
+            proxyWebsockets = true;
+            internalOnly = true;
           };
 
           "/" = {
             proxyPass = "http://jellyfin";
             proxyWebsockets = true;
-          };
-        };
-
-        virtualHosts."film.${internalDomain}" = {
-          isInternal = true;
-
-          locations = {
-            "/" = {
-              proxyPass = "http://jellyfin";
-              proxyWebsockets = true;
-            };
           };
         };
       };

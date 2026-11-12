@@ -16,7 +16,10 @@ let
   mkTurn = mkProto "turn";
 in
 {
-  imports = [ ./netbird-relay.nix ];
+  imports = [
+    ./netbird-relay.nix
+    ./netbird-proxy.nix
+  ];
 
   age.secrets = {
     "netbird/data-store-encryption-key".file =
