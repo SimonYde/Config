@@ -262,6 +262,7 @@
       patches =
         p: with p; {
           nixpkgs = [
+            (npr 589961 "sha256-tueVaRGgMXTlPHv9JiG+v8t+Q7ce7UEX/qiviwTJDtc=")
             (npr 587638 "sha256-kRmBHogrJ01nqvb/MgpP6A15bO0QMktL+Z9HvQur4/o=")
             (npr 587589 "sha256-zqZE4ytznlLCz/qNCuBO3RN4gnthVE+19oAJjNuRcR4=")
           ];
@@ -300,6 +301,7 @@
           cachix
           just
           stow
+          kanidm_1_12
         ];
       };
 
