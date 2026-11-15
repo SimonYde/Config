@@ -19,12 +19,44 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    users.users.${server.user}.extraGroups = [ "nextcloud" ];
+    users.users.${server.user}.extraGroups = [
+      "nextcloud"
+
+      "video"
+      "render"
+    ];
 
     services = {
       jellyfin = {
         inherit (server) user group;
         openFirewall = true;
+
+        hardwareAcceleration = {
+          enable = true;
+          device = "/dev/dri/renderD128";
+          type = "vaapi";
+        };
+
+        # Jellyfin only writes encoding.xml on first start by default. Without
+        # this, the options below are ignored because encoding.xml already exists.
+        forceEncodingConfig = true;
+
+        transcoding = {
+          # This is separate from hardwareAcceleration.enable and defaults to false.
+          enableHardwareEncoding = true;
+
+          hardwareEncodingCodecs = {
+            av1 = true;
+            hevc = true;
+          };
+          hardwareDecodingCodecs = {
+            av1 = true;
+            vp9 = true;
+            h264 = true;
+            hevc = true;
+            hevc10bit = true;
+          };
+        };
       };
 
       nginx = {
