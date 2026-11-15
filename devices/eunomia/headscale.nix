@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   config,
   inputs,
@@ -7,80 +6,6 @@
 }:
 let
   inherit (config.syde) server;
-  inherit (lib)
-    attrsToList
-    listToAttrs
-    attrValues
-    flatten
-    ;
-
-  unfoldAttrs =
-    { name, value }:
-    map (v: {
-      inherit name;
-      value = v;
-    }) value;
-
-  renderService =
-    { name, value }:
-    {
-      name = "${value}.${server.internalDomain}";
-      type = "A";
-      value = name;
-    };
-
-  toRecords =
-    x:
-    x
-    |> attrsToList
-    |> (map unfoldAttrs)
-    |> flatten
-    |> (map renderService);
-
-  toSplitConfig =
-    x:
-    x
-    |> attrValues
-    |> flatten
-    |> (map (x: {
-      name = "${x}.${server.internalDomain}";
-      value = [ "100.100.100.100" ];
-    }))
-    |> listToAttrs;
-
-  services = {
-    # hestia
-    "100.64.0.1" = [
-      "hestia-auth"
-      "backup"
-      "tranumparken"
-      "unifi"
-
-      # Ahoy
-      "bitmagnet"
-      "bazarr"
-      "lidarr"
-      "prowlarr"
-      "radarr"
-      "seerr"
-      "sonarr"
-    ];
-
-    # perdix
-    "100.64.0.2" = [
-      "atuin"
-      "adguard"
-      "languagetool"
-      "opencode"
-      "edgeos"
-      "qui"
-
-      # Monitoring
-      "grafana"
-      "loki"
-      "mimir"
-    ];
-  };
 in
 {
   age.secrets.headscaleClientSecret = {
@@ -121,11 +46,6 @@ in
         dns = {
           override_local_dns = false;
           base_domain = "nodes.ts.${server.baseDomain}";
-
-          # workaround tailscale split DNS nonsense
-          nameservers.split = toSplitConfig services;
-
-          extra_records = toRecords services;
         };
 
         node.expiry = 0; # do not auto expire nodes

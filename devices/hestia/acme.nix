@@ -46,15 +46,6 @@ in
   config = {
     syde.acme.enable = true;
 
-    services.nginx.virtualHosts."tranumparken.${internalDomain}" = {
-      isInternal = true;
-
-      locations."/" = {
-        proxyPass = "https://192.168.2.1:8443";
-        proxyWebsockets = true;
-      };
-    };
-
     security.acme = {
       defaults.email = "s@tmcs.dk";
 

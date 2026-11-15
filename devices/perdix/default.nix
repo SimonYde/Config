@@ -91,14 +91,7 @@ in
 
     languagetool.enable = true;
 
-    nginx = {
-      enable = true;
-
-      virtualHosts."edgeos.${internalDomain}".locations."/" = {
-        proxyPass = "https://192.168.1.1:8443";
-        proxyWebsockets = true;
-      };
-    };
+    nginx.enable = true;
 
     opencode.enable = true;
 
