@@ -25,6 +25,9 @@ wat OPTION HOST="$(hostname)":
 build-all +ARGS="":
     @arcana build {{ARCANA_FLAGS}} {{ARGS}}
 
+build TARGETS="$(hostname),perdix,hestia,eunomia" +ARGS="":
+    @arcana build --on {{TARGETS}} {{ARCANA_FLAGS}} {{ARGS}}
+
 push +ARGS="": (build-all ARGS)
     @cachix push simonyde .gcroots/* .direnv/flake-profile-*
 

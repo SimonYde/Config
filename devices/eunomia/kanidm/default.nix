@@ -18,7 +18,7 @@ in
   config = lib.mkIf cfg.server.enable {
     services = {
       kanidm = {
-        package = pkgs.kanidm_1_11;
+        package = pkgs.kanidm_1_12;
 
         server.settings = {
           bindaddress = "0.0.0.0:8443";

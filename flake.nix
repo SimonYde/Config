@@ -262,9 +262,8 @@
       patches =
         p: with p; {
           nixpkgs = [
-            (npr 582675 "sha256-Vv9PY1761/eXGPY62NSo/vUofAEg2OVIbvbUl4GuUJM=")
-            (npr 582302 "sha256-CT57Lme2qxdue/13OyYjdJYHRyQB2bayMTh6bzB/ug4=")
-            # (npr 584534 "sha256-y4Jkq6K4hdM8LwBo2J8vMnYgZrTtT4bRUJljtes0NOo=")
+            (npr 587638 "sha256-kRmBHogrJ01nqvb/MgpP6A15bO0QMktL+Z9HvQur4/o=")
+            (npr 587589 "sha256-zqZE4ytznlLCz/qNCuBO3RN4gnthVE+19oAJjNuRcR4=")
           ];
         };
     }; {

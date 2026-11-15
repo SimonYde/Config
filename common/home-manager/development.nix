@@ -142,7 +142,7 @@ in
               mergiraf.program = lib.getExe pkgs.mergiraf;
             };
 
-            git.sign-on-push = true;
+            revsets.git-sign-on-push = "~signed() & mine()";
 
             signing = {
               behavior = "own";

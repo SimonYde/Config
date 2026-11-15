@@ -29,12 +29,27 @@ let
           src = value;
           patches = fetchedPatches.${name};
         };
+        # applyPatches copies the source into the store, dropping the flake
+        # metadata. Carry it over so version/revision reporting keeps working.
+        flakeMeta =
+          if builtins.isAttrs value then
+            builtins.mapAttrs (attr: _: value.${attr}) (
+              builtins.intersectAttrs value {
+                rev = null;
+                shortRev = null;
+                lastModified = null;
+                lastModifiedDate = null;
+                narHash = null;
+              }
+            )
+          else
+            { };
       in
       # wasFlake = (value._type or "plain") == "flake";
       # if wasFlake
       # then builtins.getFlake patchedSrc
       # else patchedSrc
-      patchedSrc
+      if builtins.isAttrs patchedSrc then patchedSrc // flakeMeta else patchedSrc
     else
       value;
 
