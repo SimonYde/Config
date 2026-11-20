@@ -26,6 +26,7 @@ in
     ./dex.nix
 
     ../../common/server.nix
+    ../../common/services/exit-node.nix
   ];
 
   system.stateVersion = "26.11";
@@ -40,6 +41,7 @@ in
   age.secrets.kanidmMailToken = {
     file = "${inputs.secrets}/kanidmMailToken.age";
   };
+  age.secrets.wireguardExitNode.file = "${inputs.secrets}/wireguard/eunomia-exit-node.age";
 
   # Personal configurations
   syde = {

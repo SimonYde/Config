@@ -7,16 +7,15 @@
 }:
 let
   inherit (config.syde) server;
-  inherit (server) internalDomain;
 in
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-ideapad-15arh05
     ../../common/server.nix
+    ../../common/services/exit-node.nix
 
     ./adguard.nix
     ./atuin.nix
-    ./exit-node.nix
     ./grafana
     ./languagetool.nix
 
@@ -62,6 +61,8 @@ in
   age.secrets.wireguardCredentials = {
     file = "${inputs.secrets}/wireguard/perdix.age";
   };
+
+  age.secrets.wireguardExitNode.file = "${inputs.secrets}/wireguard/exitnode.age";
 
   boot = {
     initrd.availableKernelModules = [

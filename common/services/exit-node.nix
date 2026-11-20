@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
@@ -76,9 +75,8 @@ let
     };
 in
 {
-  # Full wg-quick config for the remote VPN. It must contain `Table = off` so
+  # `age.secrets.wireguardExitNode` must contain a full wg-quick config for the remote VPN. It must contain `Table = off` so
   # that the default route is not installed into the main table.
-  age.secrets.wireguardExitNode.file = "${inputs.secrets}/wireguard/exitnode.age";
 
   # NetBird has no client-side "advertise exit node" flag. Configure this peer
   # as an exit node in the NetBird dashboard: add an exit node / 0.0.0.0/0 route
