@@ -41,7 +41,7 @@ in
   boot = {
     kernelPackages = latestKernelPackage;
     supportedFilesystems.zfs = lib.mkForce true;
-    supportedFilesystems.bcachefs = true;
+    supportedFilesystems.bcachefs = false;
   };
 
   users.users.nixos.enable = mkForce false;

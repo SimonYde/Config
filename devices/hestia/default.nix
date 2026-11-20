@@ -26,14 +26,7 @@ in
     ./vaultwarden.nix
     ./unifi.nix
 
-    ./oauth2-proxy.nix
     ./bitmagnet.nix
-    ./prowlarr.nix
-    ./sonarr.nix
-    ./radarr.nix
-    ./lidarr.nix
-    ./bazarr.nix
-    ./seerr.nix
   ];
 
   system.stateVersion = "25.11";
@@ -61,6 +54,7 @@ in
       baseDomain = "tmcs.dk";
       authDomain = "auth.simonyde.com";
       internalDomain = "i.simonyde.com";
+
     };
 
     zfs.enable = true;
@@ -133,6 +127,29 @@ in
     collabora-online.enable = true;
     nginx.enable = true;
     nextcloud.enable = true;
+
+    bazarr = {
+      enable = true;
+      inherit (server) user group;
+    };
+    lidarr = {
+      enable = true;
+      inherit (server) user group;
+    };
+    prowlarr.enable = true;
+    radarr = {
+      enable = true;
+      inherit (server) user group;
+    };
+    sonarr = {
+      enable = true;
+      inherit (server) user group;
+    };
+    seerr = {
+      enable = true;
+      port = 5055;
+    };
+
     samba.enable = true;
     syncthing.enable = true;
 

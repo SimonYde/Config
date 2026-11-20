@@ -23,7 +23,9 @@ in
   age.secrets."netbird/proxy-environment".file = "${inputs.secrets}/netbird/proxy-environment.age";
 
   # Wildcard certificate requested through the existing Cloudflare DNS-01
-  # setup. No public A/AAAA records or inbound ACME ports are needed.
+  # setup. This proxy is the private cluster: services stay on
+  # *.i.simonyde.com and use NetBird's private DNS. Public services are
+  # handled by the separate simonyde.com cluster in tls-passthrough.nix.
   security.acme.certs."${proxyDomain}" = {
     extraDomainNames = [ "*.${proxyDomain}" ];
   };

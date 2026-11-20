@@ -75,6 +75,7 @@ in
               "http://localhost:53000/"
               "https://nb.${server.baseDomain}/oauth2/callback"
               "https://nb.${server.baseDomain}/oauth2/callback/silent"
+              "https://nb.${server.baseDomain}/api/reverse-proxy/callback"
             ];
           }
         ];

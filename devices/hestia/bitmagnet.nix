@@ -35,19 +35,6 @@ in
         };
       };
 
-      nginx = {
-        upstreams.bitmagnet.servers."127.0.0.1:3333" = { };
-        virtualHosts."bitmagnet.${internalDomain}" = {
-          isInternal = true;
-
-          locations."/" = {
-            proxyPass = "http://bitmagnet";
-            proxyWebsockets = true;
-          };
-        };
-
-      };
-
       wireguard-netns = {
         proxies.bitmagnet = {
           port = 3333;

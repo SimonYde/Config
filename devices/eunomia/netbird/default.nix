@@ -19,6 +19,7 @@ in
   imports = [
     ./netbird-relay.nix
     ./netbird-proxy.nix
+    ./tls-passthrough.nix
   ];
 
   age.secrets = {
@@ -42,6 +43,13 @@ in
 
         settings = {
           DataStoreEncryptionKey._secret = "/run/agenix/netbird/data-store-encryption-key";
+          # Reverse-proxy SSO callback. Dex is an external IdP from
+          # management's point of view, so the callback has to be registered
+          # explicitly on both sides.
+          HttpConfig = {
+            AuthClientID = "netbird";
+            AuthCallbackURL = "https://nb.${server.baseDomain}/api/reverse-proxy/callback";
+          };
           Stuns = map mkStun [ host_url ];
           TURNConfig = {
             Secret._secret = "/run/agenix/netbird/relay-secret";

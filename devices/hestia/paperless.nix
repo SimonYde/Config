@@ -18,7 +18,8 @@ in
 
     services = {
       paperless = {
-        domain = "paperless.${server.baseDomain}";
+        domain = "paperless.${server.internalDomain}";
+        address = "0.0.0.0";
 
         configureTika = true;
         database.createLocally = true;
@@ -39,20 +40,20 @@ in
         };
       };
 
-      nginx = {
-        upstreams.paperless.servers."127.0.0.1:28981" = { };
-
-        virtualHosts.${cfg.domain} = {
-          locations."/" = {
-            proxyPass = "http://paperless";
-            proxyWebsockets = true;
-
-            extraConfig = ''
-              client_max_body_size 512m;
-            '';
-          };
-        };
-      };
+      # nginx = {
+      #   upstreams.paperless.servers."127.0.0.1:28981" = { };
+      #
+      #   virtualHosts.${cfg.domain} = {
+      #     locations."/" = {
+      #       proxyPass = "http://paperless";
+      #       proxyWebsockets = true;
+      #
+      #       extraConfig = ''
+      #         client_max_body_size 512m;
+      #       '';
+      #     };
+      #   };
+      # };
     };
 
   };

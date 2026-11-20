@@ -173,8 +173,10 @@ in
       type = bool;
       default = false;
       description = ''
-        Send a PROXY protocol v2 header to TCP and TLS backends so they can see
-        the original client address.
+        Accept a PROXY protocol header on TCP and TLS listeners from an
+        upstream Layer 4 proxy, preserving the original client address.
+        The upstream proxy must also be listed in
+        {option}`trustedProxies`.
       '';
     };
 
@@ -214,7 +216,8 @@ in
       type = listOf str;
       default = [ ];
       description = ''
-        Upstream proxy CIDR ranges whose forwarded headers are trusted.
+        Upstream proxy CIDR ranges whose PROXY protocol header and forwarded
+        client addresses are trusted.
       '';
       example = [
         "10.0.0.0/8"

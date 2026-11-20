@@ -13,7 +13,7 @@ let
     splitString
     ;
   inherit (config.syde) server email;
-  inherit (server) baseDomain internalDomain;
+  inherit (server) baseDomain;
 
   hostName = "cloud.${baseDomain}";
 
