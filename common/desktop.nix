@@ -77,25 +77,8 @@ in
     networkmanager = {
       enable = true;
       plugins = lib.mkOverride 99 [ ];
-      wifi.backend = "iwd";
       wifi.macAddress = "random";
       connectionConfig."connection.mdns" = 2; # enabled
-    };
-
-    wireless.iwd.settings = {
-      General = {
-        Country = "DK";
-        AddressRandomization = "network";
-      };
-
-      Network = {
-        EnableIPv6 = true;
-      };
-
-      Settings = {
-        AutoConnect = true;
-        AlwaysRandomizeAddress = true;
-      };
     };
   };
 

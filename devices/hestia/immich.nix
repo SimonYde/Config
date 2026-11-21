@@ -137,10 +137,6 @@ in
             };
           };
 
-          # Internal-only for now, so shares are only reachable over the
-          # tailnet. To expose shares publicly later, add a non-internal vhost
-          # (e.g. share.${baseDomain}) pointing at the same upstream and update
-          # services.immich.settings.server.externalDomain to that URL.
           "${ippHostName}" = {
             locations = {
               # Preserve the /upload prefix: the upload service serves its

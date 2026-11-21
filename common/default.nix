@@ -65,7 +65,10 @@ in
     distributedBuilds = true;
     daemonCPUSchedPolicy = "batch";
     settings = {
-      nix-path = [ "nixpkgs=flake:nixpkgs" "self=flake:self" ];
+      nix-path = [
+        "nixpkgs=flake:nixpkgs"
+        "self=flake:self"
+      ];
       trusted-users = [ username ];
       substituters = lib.mkForce [
         "http://localhost${config.services.ncro.settings.server.listen}"
