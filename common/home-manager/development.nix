@@ -232,7 +232,7 @@ in
             email = "bitwarden@simonyde.com";
             base_url = "https://password.tmcs.dk/";
             lock_timeout = 60 * 60 * 24;
-            pinentry = if config.programs.wayprompt.enable then pkgs.wayprompt else pkgs.pinentry-tty;
+            pinentry = pkgs.pinentry-tty;
           };
         };
 

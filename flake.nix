@@ -50,7 +50,7 @@
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     adguard-exporter = {
-      url = "github:henrywhitaker3/adguard-exporter";
+      url = "github:henrywhitaker3/adguard-exporter/9d49a564a88d46d32a5fa5afa42b620e2ce40af7";
       flake = false;
     };
 
@@ -262,10 +262,6 @@
       patches =
         p: with p; {
           nixpkgs = [
-            (npr 590475 "sha256-4jKYTBK0R1q152oLLkdQFx2NFA9gcQk9idFW/h6v/+0=")
-            # (npr 589961 "sha256-tueVaRGgMXTlPHv9JiG+v8t+Q7ce7UEX/qiviwTJDtc=")
-            # (npr 587638 "sha256-kRmBHogrJ01nqvb/MgpP6A15bO0QMktL+Z9HvQur4/o=")
-            # (npr 587589 "sha256-zqZE4ytznlLCz/qNCuBO3RN4gnthVE+19oAJjNuRcR4=")
           ];
         };
     }; {

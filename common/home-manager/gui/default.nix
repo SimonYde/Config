@@ -59,7 +59,6 @@ in
         spicetify.enable = true;
         vivid.enable = true;
         voxtype.enable = false;
-        wayprompt.enable = false;
         thunderbird.enable = false;
         yt-dlp.enable = true;
         zathura.enable = true;
