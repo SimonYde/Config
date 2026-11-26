@@ -2,12 +2,12 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 
 let
   inherit (lib)
+    genAttrs
     mkPackageOption
     mkEnableOption
     mkMerge
@@ -240,32 +240,19 @@ in
           enable = true;
           enableDefaultConfig = false;
 
-          settings = {
-            "icarus" = {
-              hostname = "icarus";
-              forwardAgent = true;
-            };
-
-            "perdix" = {
-              hostname = "perdix";
-              forwardAgent = true;
-            };
-
-            "hestia" = {
-              hostname = "hestia";
-              forwardAgent = true;
-            };
-
-            "eunomia" = {
-              hostname = "eunomia";
-              forwardAgent = true;
-            };
-
-            "talos" = {
-              hostname = "talos";
-              forwardAgent = true;
-            };
-          };
+          settings =
+            genAttrs
+              [
+                "eunomia"
+                "hestia"
+                "icarus"
+                "perdix"
+                "talos"
+              ]
+              (hostname: {
+                inherit hostname;
+                forwardAgent = true;
+              });
         };
 
         nushell.environmentVariables = rec {
@@ -275,11 +262,9 @@ in
         };
       };
 
-      services = {
-        tldr-update = {
-          enable = true;
-          package = pkgs.tlrc;
-        };
+      services.tldr-update = {
+        enable = true;
+        package = pkgs.tlrc;
       };
 
       systemd.user.services = {
